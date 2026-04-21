@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>屋久島village 循環型トイレシステム リサーチ</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #202020;
+  --muted: #6a6a6a;
+  --accent: #0066cc;
+  --code-bg: #f5f5f5;
+  --border: #e0e0e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1a1a1a; --text: #e4e4e4; --muted: #9a9a9a; --accent: #4a9eff; --code-bg: #2a2a2a; --border: #3a3a3a; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+  padding: 24px 18px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 12px 0 20px; line-height: 1.3; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 21px; margin: 32px 0 14px; line-height: 1.4; }
+h3 { font-size: 17px; margin: 24px 0 10px; color: var(--accent); }
+p { margin: 12px 0; }
+a { color: var(--accent); }
+blockquote { border-left: 4px solid var(--border); padding: 6px 14px; margin: 14px 0; color: var(--muted); }
+code { font-family: "SF Mono", Menlo, monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; }
+th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; }
+ul, ol { padding-left: 26px; margin: 10px 0; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.warning { background: #fff8e1; border-left: 4px solid #f59e0b; padding: 10px 14px; margin: 14px 0; border-radius: 4px; }
+@media (prefers-color-scheme: dark) { .warning { background: #2d2200; } }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 40px 0 12px; padding: 10px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) {
+  body { font-size: 15.5px; padding: 18px 14px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>屋久島village向け 循環型・オフグリッドトイレ システム</h1>
+<p class="meta">作成: 2026-04-21 | 素子 | ブレスト用リサーチ</p>
+<blockquote>前提: 年降水量4,300-10,000mm、湿度85-95%、Phase 0予算1,700-2,650万円</blockquote>
+
+<hr>
+
+<h2>1. 結論（素子の暫定提案）</h2>
+
+<p><strong>ハイブリッド構成を推奨</strong>（予算1,980万円・予算比75%）：</p>
+<ul>
+<li><strong>シンボル棟</strong>：循環水洗式1基（AQ.1 / NETIS登録 / 1,000万円）</li>
+<li><strong>コテージ棟</strong>：UDDT（Separett Villa 9215 / 13万円/基）× 2-4基</li>
+<li><strong>温泉廃熱</strong>：ゆのこのゆ源泉（20.1℃）の廃熱をヒートポンプで循環水洗に接続</li>
+<li><strong>水循環</strong>：雨水→洗浄→微生物処理→灌漑の4段階ループ（Earthship方式）</li>
+</ul>
+
+<p><strong>岩崎フレーム「オフグリッドプロトコル」との整合</strong>：</p>
+<ul>
+<li>既存インフラから完全に切り離された自律系統 ✓</li>
+<li>モジュール化（分散配置で部分障害に強い） ✓</li>
+<li>プロトコル化（水・熱・養分の循環ループが可視化できる） ✓</li>
+</ul>
+
+<hr>
+
+<h2>2. 屋久島特有の3大制約</h2>
+
+<h3>多雨・高湿度</h3>
+<ul>
+<li>焼却式は乾燥前提のため <strong>除外</strong></li>
+<li>コンポスト式は過湿リスク（6月湿度85%） → UDDT+強制換気が前提</li>
+<li>循環水洗（密閉型）が気候的に最も有利</li>
+</ul>
+
+<h3>ゆのこのゆ硫黄泉問題</h3>
+<div class="warning">
+<strong>🔴 単純硫黄泉は浄化槽の微生物を殺す</strong><br>
+温泉排水と生活排水の<strong>完全分離系統</strong>が必須。廃熱（20.1℃源泉→薪加温後の排熱）はヒートポンプ経由で利用可。
+</div>
+
+<h3>屋久島町総合自然公園の区分未確認</h3>
+<div class="warning">
+<strong>🔴 最優先で町に照会すべき事項</strong><br>
+特別地域 = 環境大臣許可（1-3ヶ月） / 普通地域 = 届出のみ<br>
+宿泊施設向け浄化槽補助は対象外（専用住宅のみ）
+</div>
+
+<hr>
+
+<h2>3. 方式別比較マトリクス</h2>
+
+<table>
+<thead><tr><th>方式</th><th>初期コスト</th><th>多湿耐性</th><th>屋久島適合</th><th>代表製品</th></tr></thead>
+<tbody>
+<tr><td>A. 撹拌コンポスト</td><td>15-400万円</td><td>◎</td><td>○</td><td>こまらん、バイオR21（富士山7合目実績）</td></tr>
+<tr style="background: #f0f7ff;"><td><strong>B. UDDT（尿糞分離）</strong></td><td><strong>3-30万円</strong></td><td><strong>◎</strong></td><td><strong>◎◎</strong></td><td><strong>Separett Villa、RELIFE、Biolan Populett</strong></td></tr>
+<tr><td>C. ヴァーミ/バイオガス</td><td>3-80万円</td><td>◎</td><td>○</td><td>HomeBiogas、Wheelie Bin DIY</td></tr>
+<tr><td>D. 焼却式</td><td>30-75万円</td><td>×</td><td>×</td><td>—</td></tr>
+<tr style="background: #f0f7ff;"><td><strong>E. 循環水洗</strong></td><td><strong>300-2,000万円</strong></td><td><strong>◎</strong></td><td><strong>◎</strong></td><td><strong>TOWAILET、AQ.1-3、サステナトイレ</strong></td></tr>
+<tr><td>F. 従来型+浄化槽</td><td>200-1,000万円</td><td>—</td><td>△</td><td>クボタ/フジクリーン</td></tr>
+<tr><td>G. 大規模コンテナ</td><td>1,500-5,000万円</td><td>◎</td><td>○</td><td>バイオマス富士20ft</td></tr>
+</tbody>
+</table>
+
+<p>→ <strong>B（UDDT）× E（循環水洗）のハイブリッドが最適解</strong></p>
+
+<hr>
+
+<h2>4. 屋久島で使える筆頭候補5製品</h2>
+
+<h3>循環水洗（シンボル棟用）</h3>
+
+<p><strong>1. AQ.1 / 日野興業（RQ）</strong> — 1,000万円+税</p>
+<ul>
+<li>NETIS登録、50回/日、洋便器1+小便器1+手洗1</li>
+<li>家庭用クオリティの循環水洗。<strong>Phase 0予算帯の主候補</strong></li>
+<li>→ <a href="https://rq-inc.jp/aq-aqua-quality/">rq-inc.jp</a></li>
+</ul>
+
+<p><strong>2. TOWAILET 2室標準 / ニシム電子工業</strong> — 1,800万円（太陽光付）</p>
+<ul>
+<li>500回/日、膜処理+微生物ハイブリッド、完全オフグリッド</li>
+<li>ゼロエミッション、汲取1,000回毎</li>
+<li>→ <a href="https://www.nishimu.co.jp/products/towailet">nishimu.co.jp</a></li>
+</ul>
+
+<h3>UDDT（分散棟用）</h3>
+
+<p><strong>3. Separett Villa 9215 AC/DC / スウェーデン</strong> — 13-17万円</p>
+<ul>
+<li>12V DCファン、4-6人常用、Nordic Ecolabel相当</li>
+<li><strong>多湿耐性◎、屋久島最適の定番</strong></li>
+<li>→ <a href="https://separett.com/">separett.com</a></li>
+</ul>
+
+<p><strong>4. Biolan Populett 200 / フィンランド</strong> — 25-40万円</p>
+<ul>
+<li>Nordic Ecolabel認証、公園・キャンプ場向け車輪移動式</li>
+<li>高稼働対応、非電動</li>
+</ul>
+
+<p><strong>5. RELIFE / NITOCRAFT（日本）</strong> — 11万円</p>
+<ul>
+<li>杉材・竹便座、DIYキット対応</li>
+<li><strong>屋久島の景観・価格・気候すべてに親和</strong></li>
+<li>→ <a href="https://offgrid.fun/product/relife-lowprice/">offgrid.fun</a></li>
+</ul>
+
+<hr>
+
+<h2>5. 世界の参考事例（高湿度・分散型の実装）</h2>
+
+<table>
+<thead><tr><th>事例</th><th>特徴</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.auroville.org/">Auroville</a>（インド）</td><td>高温多湿30年以上の実績、バイオガス+コンポスト分散</td></tr>
+<tr><td><a href="https://crystalwaters.org.au/">Crystal Waters</a>（豪州）</td><td>亜熱帯多雨、棟別UDDT分散。VLDK構造と一致</td></tr>
+<tr><td><a href="https://www.earthshipglobal.com/">Earthship Biotecture</a>（米国）</td><td>雨水4段階閉鎖循環</td></tr>
+<tr><td><a href="https://rescuex.jp/trn_project/22477">Earth Life Village</a>（屋久島南平内）</td><td>現地唯一の先行事例。<strong>要訪問</strong></td></tr>
+<tr><td>Sólheimar Eco-Village（アイスランド）</td><td>温泉統合エコサニテーション。ゆのこのゆ統合の唯一の先例</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>6. 予算配分3パターン</h2>
+
+<table>
+<thead><tr><th>パターン</th><th>構成</th><th>総額</th><th>予算比</th><th>評価</th></tr></thead>
+<tbody>
+<tr><td>A. UDDT分散型</td><td>Separett×4 + 浄化槽 + 太陽光</td><td><strong>640万円</strong></td><td>29%</td><td>堅実・象徴性薄</td></tr>
+<tr style="background: #f0f7ff;"><td><strong>B. ハイブリッド（推奨）</strong></td><td><strong>AQ.1 + Separett×2 + 温泉廃熱</strong></td><td><strong>1,980万円</strong></td><td><strong>75%</strong></td><td><strong>象徴+実用、岩崎整合</strong></td></tr>
+<tr><td>C. 循環水洗象徴型</td><td>TOWAILET + バイオマス富士</td><td>2,540万円</td><td>115%超過</td><td>環境省補助1/2併用必須</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>7. ブレスト用 問いリスト（議論トリガー10問）</h2>
+
+<ol>
+<li>シンボル性 vs 実用性：循環水洗1基で象徴を作るか、UDDT分散で堅実にいくか？</li>
+<li>分散 vs 集中：VLDK的に棟別トイレか、シンボル棟に集約か？</li>
+<li>ヒューマニュア循環：堆肥を島内農家と連携させる循環ループを作るか？</li>
+<li>温泉廃熱：ゆのこのゆの廃熱を循環水洗のヒートアップに使うか？</li>
+<li>規制確認：屋久島町への照会（自然公園区分・浄化槽補助・旅館業法）を誰が主担当か？</li>
+<li>Earth Life Village訪問：屋久島唯一の先行事例を訪問するか？</li>
+<li>Auroville/Crystal Waters問い合わせ：高湿度運用ノウハウを問い合わせるか？</li>
+<li>Earthship Biotecture視察：視察対象に入れるか？</li>
+<li>多雨資源化ストーリー：「8,000mmの雨を資源化するvillage」は訴求するか？</li>
+<li>Phase 0決定範囲：Phase 1に循環水洗追加の選択肢を残すか？</li>
+</ol>
+
+<hr>
+
+<h2>8. 次のアクション</h2>
+
+<h3>即日〜今週</h3>
+<ul>
+<li>屋久島町環境政策課：総合自然公園の区分（特別/普通地域）照会</li>
+<li>環境省九州地方環境事務所：国立公園との重複照会</li>
+<li>屋久島町保健所：旅館業法トイレ基準照会</li>
+<li>Earth Life Village訪問可否問い合わせ</li>
+<li>ゆのこのゆ泉質分析書・廃止予定・配管図面入手</li>
+</ul>
+
+<h3>2週間以内</h3>
+<ul>
+<li>TOWAILET・AQ見積依頼</li>
+<li>Separett Villa 9215 国内代理店見積</li>
+<li>屋久島内施工業者リスト作成</li>
+<li>Auroville・Crystal Waters英文問い合わせ</li>
+</ul>
+
+<h3>1ヶ月以内</h3>
+<ul>
+<li>パターンB詳細設計</li>
+<li>島内堆肥化パートナー候補リスト</li>
+<li>環境省山岳トイレ補助1/2申請可否確認</li>
+</ul>
+
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-04-24 13:22 JST</strong> に自動削除されます</div>
+</div>
+</body>
+</html>
