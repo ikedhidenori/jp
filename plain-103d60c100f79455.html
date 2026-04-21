@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>屋久島village 雨水活用リサーチ</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #202020;
+  --muted: #6a6a6a;
+  --accent: #0066cc;
+  --code-bg: #f5f5f5;
+  --border: #e0e0e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1a1a1a; --text: #e4e4e4; --muted: #9a9a9a; --accent: #4a9eff; --code-bg: #2a2a2a; --border: #3a3a3a; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+  padding: 24px 18px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 12px 0 20px; line-height: 1.3; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 21px; margin: 32px 0 14px; line-height: 1.4; }
+h3 { font-size: 17px; margin: 24px 0 10px; color: var(--accent); }
+h4 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); }
+p { margin: 12px 0; }
+a { color: var(--accent); }
+blockquote { border-left: 4px solid var(--border); padding: 6px 14px; margin: 14px 0; color: var(--muted); }
+code { font-family: "SF Mono", Menlo, monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+pre { background: var(--code-bg); padding: 14px; border-radius: 8px; overflow-x: auto; font-size: 13.5px; line-height: 1.55; }
+pre code { background: none; padding: 0; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; }
+th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; }
+ul, ol { padding-left: 26px; margin: 10px 0; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 40px 0 12px; padding: 10px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) {
+  body { font-size: 15.5px; padding: 18px 14px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>屋久島village向け 雨水活用リサーチ資料</h1>
+<p class="meta">作成: 2026-04-21 | ブレスト用素材</p>
+
+<blockquote>屋久島は年間降水量4,000〜8,000mm（山間部）。この降水量を資源として設計する。</blockquote>
+
+<hr>
+
+<h2>前提：屋久島の水環境データ</h2>
+
+<h3>降水量の地域差（立地選定に直結）</h3>
+
+<table>
+<thead><tr><th>エリア</th><th>年間降水量</th></tr></thead>
+<tbody>
+<tr><td>海岸部（永田・栗生）</td><td>約2,500mm</td></tr>
+<tr><td>南西部（尾之間）</td><td>約3,000mm</td></tr>
+<tr><td>南東部（安房）</td><td>約4,300mm</td></tr>
+<tr><td>中央部高地（小杉谷）</td><td>約5,700mm</td></tr>
+<tr><td>宮之浦岳頂上付近</td><td>約6,960mm</td></tr>
+</tbody>
+</table>
+<p>→ <strong>同じ島の中で2.8倍の差がある。立地の標高・方角で雨水自給量が劇的に変わる。</strong></p>
+
+<h3>水質特性</h3>
+<ul>
+<li><strong>超軟水（硬度10ppm程度）・弱酸性</strong></li>
+<li>関東の硬度40〜60ppmと比べて浄化コストが低い</li>
+<li>活性炭ろ過＋簡易UV殺菌で生活用水レベルに到達しやすい</li>
+<li>屋久島縄文水など市販ブランドが成立するレベルの水質</li>
+</ul>
+
+<h3>エネルギー連動（重要）</h3>
+<ul>
+<li>屋久島電工が水力発電で島内電力の<strong>99.6%</strong>を自給している先行事例あり</li>
+<li>EV急速充電を無料提供（発電過剰時の活用）</li>
+<li>「脱炭素に一番近い島」として全国から注目</li>
+</ul>
+
+<hr>
+
+<h2>1. 集水技術</h2>
+
+<p><strong>屋根集水が最も効率的な出発点。</strong><br>
+設計式: 集水量 = 降雨量 × 屋根面積（水平投影） × 流出係数（屋根: 0.9〜1.0）</p>
+
+<table>
+<thead><tr><th>構成要素</th><th>選択肢</th></tr></thead>
+<tbody>
+<tr><td>初流水除去</td><td>ファーストフラッシュダイバーター（降雨初期の汚濁物を自動排除）</td></tr>
+<tr><td>貯留タンク</td><td>ピロティ下地下埋設型 / 大型地上型（1,000L〜50m³）</td></tr>
+<tr><td>補助水源</td><td>沢水・湧水との2系統設計</td></tr>
+</tbody>
+</table>
+
+<h3>事例</h3>
+<ul>
+<li><strong>「雨とともに暮らす家」（GQハウス）</strong>: 2tの地下タンク、4人家族の1日750Lを確保。砂・活性炭多段ろ過＋UV殺菌で飲料水・生活用水を同一系統で供給。</li>
+<li><strong>沖縄「りっか！雨水利用」</strong>: 渇水地域の教訓から設計ガイドとExcelシミュレーターを無料提供。個人〜施設向けに展開。</li>
+</ul>
+
+<h3>屋久島への示唆</h3>
+<ul>
+<li>年間降水量が関東の3〜5倍 → <strong>集水効率が圧倒的に有利</strong></li>
+<li>壁面流下雨水も屋根面積に加算する設計を検討</li>
+<li>防火用水との兼用（消防水利への算入可能性）</li>
+<li>メンテナンスは民間委託可能な設計にする（島内業者 vs 本土業者のコスト比較が必要）</li>
+</ul>
+
+<hr>
+
+<h2>2. 浄化・水質管理</h2>
+
+<h3>多段ろ過の基本構成</h3>
+<pre><code>小石層 → 砂利層 → 活性炭層 → 砂層 → UV殺菌</code></pre>
+
+<table>
+<thead><tr><th>用途</th><th>必要浄化レベル</th><th>検査義務</th></tr></thead>
+<tbody>
+<tr><td>飲料水</td><td>51項目 (水道法)</td><td>厳格</td></tr>
+<tr><td>生活用水（洗面・風呂）</td><td>簡易浄化で可</td><td>自治体条例</td></tr>
+<tr><td>農業用水</td><td>基本的に規制なし</td><td>なし</td></tr>
+<tr><td>トイレ・散水（雑用水）</td><td>水道法適用外</td><td>4〜11項目程度</td></tr>
+</tbody>
+</table>
+
+<h3>屋久島の優位性</h3>
+<ul>
+<li>超軟水・弱酸性 → <strong>石灰質ろ過層が不要</strong>、浄化時間を短縮できる</li>
+<li>浄化フィルターの使用済み砂・活性炭は庭園土壌改質材として再利用可</li>
+</ul>
+
+<h3>実用的な設計提案</h3>
+<ul>
+<li><strong>2系統分離</strong>: 飲料水系（多段ろ過＋UV） + 雑用水系（簡易ろ過のみ）</li>
+<li>UV殺菌ランプ: 6〜12ヶ月交換。DIY交換できる製品選定が重要</li>
+<li>水質検査: 鹿児島県保健所または民間検査機関で月1〜3回（3,000〜8,000円/回）</li>
+<li>住民向け簡易検査キット（pH・濁度・残留塩素）を常備</li>
+</ul>
+
+<hr>
+
+<h2>3. 流域治水・グリーンインフラ</h2>
+
+<p>単に「雨水を集める」のではなく、<strong>敷地全体で雨水の流れをデザインする。</strong></p>
+
+<pre><code>屋根集水 → 雨庭 → スウェイル（等高線沿い浸透溝）→ 地下水涵養 → 湧水復帰
+               ↓
+          多段調整池（土砂沈降）→ 農業用水・雑用水</code></pre>
+
+<h3>雨庭（Rain Garden）</h3>
+<ul>
+<li>降雨後24〜48時間で完全浸透</li>
+<li>屋根面積の1/5〜1/10の面積が目安</li>
+<li>実験値で屋根雨量の約63%を削減</li>
+<li>建物から1.5〜3m離して設置（安全距離）</li>
+</ul>
+
+<h3>スウェイル（浸透溝）</h3>
+<ul>
+<li>等高線に沿って掘削。底部勾配0.5〜2%、幅1〜2m、深さ30〜60cm</li>
+<li>パーマカルチャーのコア技術</li>
+<li>屋久島の急峻地形：等高線設計が地形と完全にマッチ</li>
+</ul>
+
+<h3>山地・濁水対策（屋久島特有の課題）</h3>
+<ul>
+<li>屋久島花崗岩は保水しない急峻地形 → 降雨の急速流出が起きやすい</li>
+<li>土砂沈降池を多段設置（高標高→中標高→敷地内）</li>
+<li>台風・豪雨時: 時間雨量100mm超を設計ベースラインに設定（1/50〜1/100年確率）</li>
+</ul>
+
+<hr>
+
+<h2>4. 業法・許認可・補助金</h2>
+
+<table>
+<thead><tr><th>区分</th><th>条件</th><th>手続き</th></tr></thead>
+<tbody>
+<tr><td>雑用水</td><td>トイレ・散水・洗車用途</td><td>原則不要（自治体条例確認）</td></tr>
+<tr><td>簡易専用水道</td><td>貯水タンク10m³超</td><td>屋久島町への届出 + 年1回水質検査</td></tr>
+<tr><td>専用水道</td><td>100人以上に給水</td><td>都道府県許可 + 厳格な検査義務</td></tr>
+</tbody>
+</table>
+
+<p>→ villageがタンク10m³超を保有する場合、簡易専用水道として届出が必要。<br>
+→ 飲料水を想定しないなら「雑用水」範囲に留めれば許認可を大幅に簡略化できる。</p>
+
+<h3>屋久島固有の規制</h3>
+<ul>
+<li><strong>世界遺産エリア（10,747ha、全島面積の2割）</strong>: 自然公園法・自然環境保全法・文化財保護法が重複適用</li>
+<li><strong>ただし、世界遺産バッファゾーンは設定なし</strong> → 登録地域外は相対的に緩い</li>
+<li>国立公園特別地域に該当する場合は環境省協議が必要</li>
+</ul>
+
+<hr>
+
+<h2>5. 小水力発電との連携</h2>
+
+<ul>
+<li>屋久島電工: 昭和27年から安房川水系で水力発電。現在3カ所の発電所</li>
+<li>水力発電で島内電力の99.6%を自給</li>
+<li>落差（ヘッド）×流量で発電量が決まる</li>
+<li>導入コスト: 174〜293万円/kW（100kWで5,000万〜1億円）</li>
+</ul>
+
+<h3>設計アイデア</h3>
+<ul>
+<li>雨水タンク → 小水力 → 農業用ポンプ駆動（直流給電で効率化）</li>
+<li>水力（雨季）× 太陽光（乾季）のハイブリッド自給モデル</li>
+<li>屋久島電工との連携協定で技術・許認可ノウハウを活用</li>
+</ul>
+
+<hr>
+
+<h2>6. 農業・食料生産との連携</h2>
+
+<pre><code>雨水 → かんがい → 農業生産
+      ↓
+   アクアポニクス（魚×植物循環）
+      ↓
+   発酵・醸造（味噌・醤油・麹）</code></pre>
+
+<ul>
+<li>国内で太陽光＋雨水を活用した唐辛子×チョウザメ飼育の自立型施設が実稼働（令和3年度事例）</li>
+<li>雨水の水質管理を徹底すれば、<strong>発酵食品用水に転用可能</strong></li>
+<li>食料・水・エネルギーを同時自給する「ネクサス型設計」はvillageのコンセプトと直結</li>
+</ul>
+
+<hr>
+
+<h2>7. コミュニティ・管理体制の設計</h2>
+
+<h3>オストロムのコモンズ設計8原則</h3>
+<ol>
+<li><strong>境界の明確化</strong>：誰が水を使う権利があるか明文化</li>
+<li><strong>ルールの地域適合</strong>：屋久島の降水パターンに合わせた設計</li>
+<li><strong>集団決定への参加</strong>：住民投票・定期総会</li>
+<li><strong>遵守の監視体制</strong>：不正時の処罰を事前規定</li>
+<li><strong>紛争解決メカニズム</strong>：段階的な苦情申し立て制度</li>
+<li><strong>外部政府への適合</strong>：河川法・環境基準との整合</li>
+<li><strong>入れ子型組織</strong>：自治会→水利組合→町→県の階層</li>
+<li><strong>市場外の相互扶助</strong>：労働交換・ゆい（結い）の現代版</li>
+</ol>
+
+<hr>
+
+<h2>8. 海外先進事例</h2>
+
+<table>
+<thead><tr><th>地域</th><th>特徴</th><th>参考価値</th></tr></thead>
+<tbody>
+<tr><td>ハワイ・マウイ島</td><td>屋根集水→多段フィルタ→UV殺菌の設計を標準化・法制化</td><td>法制度整備・市民啓発モデル</td></tr>
+<tr><td>スイス・オーストリア（山岳集落）</td><td>カントン単位での補助金制度が整備</td><td>山岳地帯での法整備×住民啓発</td></tr>
+<tr><td>タイ（村落型）</td><td>伝統的陶製大型瓶（1,500L）が屋根集水の標準ツール</td><td>低コスト・低技術でも機能するシンプル設計</td></tr>
+<tr><td>オーストラリア</td><td>家庭の約20%が1,000〜10,000Lタンクを装備</td><td>少ない降水でも機能する設計思想</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>屋久島villageに刺さるポイント（総まとめ）</h2>
+
+<h3>圧倒的な優位性</h3>
+<ol>
+<li><strong>年間降水量が関東の3〜5倍</strong> → 集水量で他地域が羨む水資源</li>
+<li><strong>超軟水</strong> → 浄化コストが低い、発酵食品に最適</li>
+<li><strong>小水力発電の先行モデルが島内にある</strong>（屋久島電工）→ 技術・許認可のロールモデル</li>
+<li><strong>屋久島花崗岩の急峻地形</strong> → スウェイルとカスケード水力に適した地形</li>
+</ol>
+
+<h3>設計の優先順位</h3>
+<ol>
+<li><strong>立地選定で降水量を決める</strong>（海岸部2,500mm vs 山岳部6,000mm）</li>
+<li><strong>飲料水化するか雑用水に留めるかで許認可が変わる</strong> → 段階的に高度化する設計が現実的</li>
+<li><strong>雨水×小水力の統合が屋久島の独自性</strong>（他地域では再現不可能）</li>
+<li><strong>オストロムの8原則を設計図に組み込む</strong> → コミュニティ持続性の根拠になる</li>
+</ol>
+
+<h3>次のアクション候補</h3>
+<ul>
+<li>屋久島町役場（水道局 0997-43-5900）に補助制度・簡易専用水道の届出について問い合わせ</li>
+<li>屋久島電工との連携協定の可能性を探る</li>
+<li>立地候補の標高・降水量データを収集（気象庁アメダス）</li>
+<li>水利用のコンセプト（飲料水化 vs 雑用水）を事前に方針決定</li>
+</ul>
+
+<hr>
+
+<h2>参考資料リンク</h2>
+<ul>
+<li>GQシステム「雨とともに暮らす家」: <a href="https://gq-system.jp/rainwater/otshouse/">gq-system.jp</a></li>
+<li>くまもと雨庭パートナーシップ: <a href="https://www.kumamoto-ameniwa-partnership.com/ameniwa">kumamoto-ameniwa-partnership.com</a></li>
+<li>屋久島電工株式会社: <a href="https://www.yakuden.co.jp/hydropower.html">yakuden.co.jp</a></li>
+<li>全国小水力利用推進協議会: <a href="https://j-water.org/about/">j-water.org</a></li>
+<li>Hawaii Rainwater Catchment Systems Program: <a href="https://www.ctahr.hawaii.edu/hawaiirain/">ctahr.hawaii.edu</a></li>
+<li>ミツカン水の文化センター: <a href="https://www.mizu.gr.jp/">mizu.gr.jp</a></li>
+</ul>
+
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-04-24 13:22 JST</strong> に自動削除されます</div>
+</div>
+</body>
+</html>
