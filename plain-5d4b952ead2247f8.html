@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 INNFRA Village — 企画骨子</title>
+<style>
+:root { --bg:#fff; --text:#202020; --muted:#6a6a6a; --accent:#0066cc; --code-bg:#f5f5f5; --border:#e0e0e0; }
+@media (prefers-color-scheme: dark) { :root { --bg:#1a1a1a; --text:#e4e4e4; --muted:#9a9a9a; --accent:#4a9eff; --code-bg:#2a2a2a; --border:#3a3a3a; } }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; margin: 0; padding: 24px 18px; font-size: 16px; -webkit-text-size-adjust: 100%; }
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 24px; margin: 12px 0 8px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 20px; margin: 28px 0 12px; border-left: 4px solid var(--accent); padding-left: 10px; }
+h3 { font-size: 16px; margin: 20px 0 8px; color: var(--accent); }
+p { margin: 10px 0; }
+blockquote { border-left: 4px solid var(--accent); padding: 10px 16px; margin: 14px 0; background: var(--code-bg); border-radius: 0 6px 6px 0; font-size: 16px; font-weight: 500; }
+ul, ol { padding-left: 24px; margin: 8px 0; }
+li { margin: 5px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.meta { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+th, td { padding: 8px 10px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; width: 35%; }
+.known { color: #059669; }
+.unknown { color: #d97706; }
+.phase { background: var(--code-bg); border-radius: 6px; padding: 10px 14px; margin: 8px 0; border-left: 3px solid var(--accent); }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 40px 0 12px; padding: 10px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) { body { font-size: 15px; padding: 16px 12px; } h1 { font-size: 20px; } h2 { font-size: 17px; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>📋 INNFRA Village — 企画骨子</h1>
+<p class="meta">📝 誰の・どの課題を・どう解くかの仮説 ｜ 2026-05-15頃にv1完成、5月末に最終版<br>
+⚠️ 未完成OK: 空欄は「まだ分からない」の証。無理に埋めない</p>
+
+<hr>
+
+<h2>1. 解こうとしている問い</h2>
+
+<blockquote>「持ち家か賃貸か」の二択に疲弊し、自然・コミュニティ・自分の手触りのある暮らしを諦めている30-40代に、第三の住まい選択肢はどうしたら提供できるか？</blockquote>
+
+<hr>
+
+<h2>2. 対象ユーザー（仮説・要検証）</h2>
+
+<ul>
+<li>30-40代、都市生活に違和感を感じている層</li>
+<li>年収レンジ: 中所得帯（月3〜6万円の住居費が現実的）</li>
+<li>単身 or 2人暮らし（ファミリー層はM2以降）</li>
+<li>自然志向・セルフビルド志向・コミュニティ志向のいずれかを持つ</li>
+<li>過去に「持ち家35年ローン」「都心の高家賃」「原状回復義務」への違和感を言語化できる</li>
+</ul>
+
+<p style="color:var(--muted); font-size:14px;">→ 要検証: このペルソナが仮説通りか、ヒアリングで確認する必要あり</p>
+
+<hr>
+
+<h2>3. なぜ今、なぜ我々か</h2>
+
+<h3>なぜ今</h3>
+<ul>
+<li>コロナ以降、リモートワーク・二拠点生活・移住への関心が恒常化</li>
+<li>気候変動・エネルギーコスト上昇で「オフグリッド」が実用的選択肢に</li>
+<li>単身・二人世帯の増加で「家族のための家」モデルが崩れ始めている</li>
+</ul>
+
+<h3>なぜ我々（INNFRA）</h3>
+<p><strong>オフグリッド実践者視点 × 業界横断ポジション × 生活者翻訳力 × 体験設計力</strong> の掛け算</p>
+<ul>
+<li>川島: 完全オフグリッド住人視点からのプロダクト設計</li>
+<li>相馬: タイニーハウス実践者として「理想と現実のギャップ」の生きた証言</li>
+<li>岩崎: 業界専門用語を生活者目線に翻訳できる</li>
+<li>ジョニー: 10年のVLDK実証経験と縦割り業界を越境する設計力</li>
+</ul>
+
+<hr>
+
+<h2>4. 既知のこと / 未知のこと</h2>
+
+<h3><span class="known">✅ 既知</span></h3>
+<ul>
+<li>月3〜6万円が4人の経験から浮かぶ価格帯スイートスポット（D-003）</li>
+<li>「自分で関われる住まい」×「共有インフラ」が4人共通の理想像</li>
+<li>4人全員が既存住宅制度に違和感を持つ</li>
+<li>3.3畳が心理的快適性の境界（ジョニー VLDK Phase 1）</li>
+</ul>
+
+<h3><span class="unknown">⚠️ 未知（要解決）</span></h3>
+<ul>
+<li>家族・パートナーが加わった場合の条件変化（Q-01）</li>
+<li>コンポストトイレに代わる現実的なトイレ解（Q-08）</li>
+<li>「街に開く」「自然に開く」の両立可能性（Q-05）</li>
+<li>VLDKのインフラ統合（生物処理×移動性）の解（Q-04）</li>
+<li>屋久島固有性の言語化（Q-06）</li>
+</ul>
+
+<hr>
+
+<h2>5. 検証計画</h2>
+
+<div class="phase">📌 <strong>Phase 1（4月末まで）</strong>: 4人の経験言語化を完了させる</div>
+<div class="phase">📌 <strong>Phase 2（5月上旬）</strong>: 外部事例リサーチ（エコビレッジ・タイニーハウス・メタボリズム）</div>
+<div class="phase">📌 <strong>Phase 3（5月中旬）</strong>: ペルソナ仮説のヒアリング検証（3〜5人）</div>
+<div class="phase">📌 <strong>Phase 4（5月末）</strong>: 企画骨子v1で菊永氏・外部会議へ</div>
+
+<hr>
+
+<h2>6. 非目標（やらないこと）</h2>
+
+<ul>
+<li>高所得層向け高級別荘事業（アフォーダブル軸と乖離）</li>
+<li>都市型マンション・アパート開発（第三の選択肢軸と乖離）</li>
+<li>自治体補助金頼みの事業モデル（持続性のリスク）</li>
+<li>完全オフグリッドの技術マキシマリズム（生活者目線から乖離）</li>
+</ul>
+
+<hr>
+
+<h2>7. 成功指標（10年後）</h2>
+
+<ul>
+<li><strong>定量</strong>: 日本国内に複数拠点のVillage展開、住民満足度の定量化</li>
+<li><strong>定性</strong>: 「持ち家 vs 賃貸 vs Village」の三択が住宅選択の常識になる（D-002延長）</li>
+<li><strong>文化</strong>: オフグリッドが「特別」から「市場・文化」へ昇華（相馬ビジョン）</li>
+<li><strong>社会機能</strong>: 被災者・新興国の住まい喪失層への標準解決策の一つに（川島ビジョン）</li>
+</ul>
+
+<hr>
+
+<h2>リーン・キャンバス</h2>
+
+<table>
+<tbody>
+<tr><th>顧客セグメント</th><td>30-40代、単身or2人、中所得帯。自然・コミュニティ・セルフビルドへの志向。既存住宅制度への違和感を言語化できる層</td></tr>
+<tr><th>課題（トップ3）</th><td>①高家賃・長期ローンの経済的圧迫 ②原状回復義務による「自分の場所感」の喪失 ③都市生活の自然・コミュニティからの切断</td></tr>
+<tr><th>独自の価値提案</th><td>「持ち家でも賃貸でもない第三の選択肢」— 所有しなくても「自分の場所」と言える感覚を、オフグリッドインフラ共有と個人空間最適化で実現。<strong>5軸（コントローラブル・便利・アフォーダブル・領域横断性・生活者視点）</strong>で設計</td></tr>
+<tr><th>ソリューション</th><td>小さな個人空間（3.3畳〜）+ 豊かな共用空間 + コントローラブルなオフグリッドインフラ + コミュニティ</td></tr>
+<tr><th>チャネル</th><td>①屋久島での第1号実証拠点 ②メディア化（プロセス公開）③体験拠点での短期滞在 ④口コミ・コミュニティ経由</td></tr>
+<tr><th>収益の流れ</th><td>①月額居住費 3〜6万円 ②体験滞在フィー ③コンセプト横展開ライセンス（長期）④パートナー企業との共同展開（長期）</td></tr>
+<tr><th>コスト構造</th><td>①初期建築・インフラ整備 ②運営・コミュニティ運営 ③INNFRA Waterなど既存アセットの統合</td></tr>
+<tr><th>主要指標</th><td>第1号住人の獲得 / 住民1年継続率 / 単位あたり満足度 / 問い合わせ→住民転換率</td></tr>
+<tr><th>圧倒的な優位性</th><td>4人の掛け算（実践者×越境×翻訳×体験設計）。他社は部分的にしか持たない。INNFRAという既存アセット（Water等）</td></tr>
+</tbody>
+</table>
+
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-04-26 03:20 JST</strong> に自動削除されます</div>
+</div>
+</body>
+</html>
