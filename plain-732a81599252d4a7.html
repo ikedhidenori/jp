@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗺 INNFRA Village — 議論マップ</title>
+<style>
+:root { --bg:#fff; --text:#202020; --muted:#6a6a6a; --accent:#0066cc; --code-bg:#f5f5f5; --border:#e0e0e0; --green:#059669; --yellow:#d97706; --red:#dc2626; }
+@media (prefers-color-scheme: dark) { :root { --bg:#1a1a1a; --text:#e4e4e4; --muted:#9a9a9a; --accent:#4a9eff; --code-bg:#2a2a2a; --border:#3a3a3a; } }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; margin: 0; padding: 24px 18px; font-size: 16px; -webkit-text-size-adjust: 100%; }
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 24px; margin: 12px 0 8px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 20px; margin: 28px 0 12px; border-left: 4px solid var(--accent); padding-left: 10px; }
+h3 { font-size: 16px; margin: 20px 0 8px; color: var(--accent); }
+p { margin: 10px 0; }
+a { color: var(--accent); }
+blockquote { border-left: 4px solid var(--border); padding: 6px 14px; margin: 12px 0; color: var(--muted); background: var(--code-bg); border-radius: 0 6px 6px 0; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+th, td { padding: 7px 10px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; }
+ul, ol { padding-left: 24px; margin: 8px 0; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.meta { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+.badge-green { background: #d1fae5; color: #065f46; }
+.badge-yellow { background: #fef3c7; color: #92400e; }
+.badge-red { background: #fee2e2; color: #991b1b; }
+@media (prefers-color-scheme: dark) { .badge-green { background: #064e3b; color: #a7f3d0; } .badge-yellow { background: #451a03; color: #fcd34d; } .badge-red { background: #450a0a; color: #fca5a5; } }
+.status-box { padding: 10px 14px; border-radius: 6px; margin: 12px 0; font-size: 14.5px; }
+.status-yellow { background: #fef9c3; border-left: 4px solid #eab308; }
+@media (prefers-color-scheme: dark) { .status-yellow { background: #2d2000; } }
+s { color: var(--muted); }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 40px 0 12px; padding: 10px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) { body { font-size: 15px; padding: 16px 12px; } h1 { font-size: 20px; } h2 { font-size: 17px; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🗺 INNFRA Village — 議論マップ</h1>
+<p class="meta">📝 現在地の地図 / MTGで画面共有する ｜ 更新: 2026-04-22</p>
+
+<hr>
+
+<h2>🧭 現在地（今週の焦点）</h2>
+<p><strong>2026-04-22時点</strong>: 4人の住まい・オフグリッド経験を言語化し、事業設計への接続を試みている段階。概念から具体へ移行する入り口。</p>
+
+<hr>
+
+<h2>🎯 判断点マイルストーン</h2>
+<ul>
+<li>☐ <strong>M1</strong>: 事業コア仮説の固定（→ 生活者目線×コントローラブル×アフォーダブルを具体化した1枚絵）</li>
+<li>☐ <strong>M2</strong>: 顧客セグメント仮説の確定（→ 屋久島Villageの第1号住人像が1人描ける）</li>
+<li>☐ <strong>M3</strong>: 企画骨子v1完成（→ 2026-05-15頃 / 菊永氏への提案初稿）</li>
+<li>☐ <strong>M4</strong>: 外部会議（→ 2026-05-27 13:00-17:00 / 成果物: 骨子 + FAQ）</li>
+</ul>
+
+<hr>
+
+<h2>🏥 プロジェクト健康状態</h2>
+<div class="status-box status-yellow">
+<strong>今週: 🟡 要注意</strong> — 議論は進んでいるが、判断点マイルストーンへの紐付けが未実装。5/27まで残り約5週。
+</div>
+<ul>
+<li>進捗: 3共有軸・第三選択肢ポジション・価格帯が確定</li>
+<li>ブロッカー: なし（現時点）</li>
+<li>要エスカレ: なし</li>
+</ul>
+
+<hr>
+
+<h2>✅ 確定ゾーン（変えない前提）</h2>
+<ul>
+<li><s>D-001 3共有軸: 生活者目線 / コントローラブル / アフォーダブル（2026-04-21）</s> → <strong>D-008で撤回</strong></li>
+<li><strong>D-009</strong> 5共有軸: コントローラブル / 便利 / アフォーダブル / 領域横断性 / 生活者視点（2026-04-23）</li>
+<li><strong>D-002</strong> ポジション: 持ち家 vs 賃貸を超えた<strong>第三の選択肢</strong>（2026-04-21）</li>
+<li><strong>D-003</strong> 価格帯スイートスポット: 月3〜6万円（2026-04-22）</li>
+<li><strong>D-004</strong> アプローチ: プロダクトアウト型（課題ベースより先にセンスで動く）</li>
+<li><strong>D-005</strong> 優先順: まず内部資源（4人の経験）を言語化 → 外部事例へ</li>
+</ul>
+
+<hr>
+
+<h2>🔍 検討中ゾーン（今議論している）</h2>
+<ul>
+<li><strong>Q-01</strong>: 家族・パートナーが加わると住まいの条件はどう変わるか？</li>
+<li><strong>Q-02</strong>: セルフビルド・DIYの再現可能範囲はどこで線引きするか？</li>
+<li><strong>Q-03</strong>: 「街に開く」vs「自然に開く」は両立できるか？</li>
+<li><strong>Q-04</strong>: 消費の可視化はプロダクト機能か、暮らし方のデザインか？</li>
+<li><strong>Q-05</strong>: VLDKのインフラ統合（生物処理×移動性）をどう解くか？</li>
+</ul>
+
+<hr>
+
+<h2>💤 棚上げゾーン（今は触らない）</h2>
+<ul>
+<li>補助金・法規制の具体的スコープ → 再開条件: 企画骨子化が完了したら</li>
+<li>投資スキーム・資金調達 → 再開条件: 5月末以降</li>
+<li>INNFRA Water との統合設計 → 再開条件: Village概念固まってから</li>
+<li>5/27外部会議の詳細アジェンダ → 再開条件: 来週以降</li>
+</ul>
+
+<hr>
+
+<h2>👥 担当・分担</h2>
+<table>
+<thead><tr><th>メンバー</th><th>追っているテーマ</th><th>今週のコミット</th></tr></thead>
+<tbody>
+<tr><td>ジョニー</td><td>全体プロデュース・VLDK概念整理</td><td>研究班テーマの明文化</td></tr>
+<tr><td>相馬</td><td>タイニーハウス実践知見・体験設計</td><td>コンポストトイレ課題の具体化</td></tr>
+<tr><td>岩崎</td><td>街に開くコミュニティ・生活者翻訳</td><td>藤野「修行」計画との接続</td></tr>
+<tr><td>川島</td><td>オフグリッド工学・コントローラブル設計</td><td>「10倍優れた」具体化</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>🔬 研究班進捗</h2>
+<table>
+<thead><tr><th>班</th><th>担当</th><th>ステータス</th></tr></thead>
+<tbody>
+<tr><td>建築班</td><td>未定</td><td>⬜ 未開始</td></tr>
+<tr><td>トイレ班</td><td>相馬中心？</td><td>⬜ 未開始</td></tr>
+<tr><td>コントローラブル班</td><td>川島中心？</td><td>⬜ 未開始</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>📅 次回MTG</h2>
+<ul>
+<li><strong>日時</strong>: 未定</li>
+<li><strong>冒頭に選ぶ問い</strong>: Q-01（家族・パートナー変数）を想定</li>
+<li><strong>終了5分前</strong>: 更新タイム必須</li>
+</ul>
+
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-04-26 03:19 JST</strong> に自動削除されます</div>
+</div>
+</body>
+</html>
