@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❓ INNFRA Village — 問い銀行</title>
+<style>
+:root { --bg:#fff; --text:#202020; --muted:#6a6a6a; --accent:#0066cc; --code-bg:#f5f5f5; --border:#e0e0e0; }
+@media (prefers-color-scheme: dark) { :root { --bg:#1a1a1a; --text:#e4e4e4; --muted:#9a9a9a; --accent:#4a9eff; --code-bg:#2a2a2a; --border:#3a3a3a; } }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; margin: 0; padding: 24px 18px; font-size: 16px; -webkit-text-size-adjust: 100%; }
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 24px; margin: 12px 0 8px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 20px; margin: 28px 0 12px; border-left: 4px solid var(--accent); padding-left: 10px; }
+h3 { font-size: 15px; margin: 20px 0 6px; color: var(--accent); }
+p { margin: 8px 0; }
+ul, ol { padding-left: 24px; margin: 6px 0; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.meta { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+.q-card { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin: 14px 0; }
+.q-card.active { border-left: 4px solid #3b82f6; }
+.q-card.parked { border-left: 4px solid #9ca3af; opacity: 0.75; }
+.q-card.resolved { border-left: 4px solid #10b981; }
+.q-id { font-size: 13px; font-weight: 700; color: var(--muted); }
+.q-main { font-size: 16px; font-weight: 600; margin: 4px 0 8px; }
+.q-detail { font-size: 14px; color: var(--muted); }
+.q-detail span { font-weight: 600; color: var(--text); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; margin-left: 6px; }
+.badge-active { background: #dbeafe; color: #1e40af; }
+.badge-parked { background: #f3f4f6; color: #6b7280; }
+.badge-resolved { background: #d1fae5; color: #065f46; }
+@media (prefers-color-scheme: dark) { .badge-active { background: #1e3a5f; color: #93c5fd; } .badge-parked { background: #2d2d2d; color: #9ca3af; } .badge-resolved { background: #064e3b; color: #a7f3d0; } }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 40px 0 12px; padding: 10px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) { body { font-size: 15px; padding: 16px 12px; } h1 { font-size: 20px; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>❓ INNFRA Village — 問い銀行</h1>
+<p class="meta">📝 未解決の問いの貯蔵庫（問いを「資産」として管理する）</p>
+
+<hr>
+
+<h2>🔥 アクティブな問い（今議論中）</h2>
+
+<h3>人間・関係系</h3>
+
+<div class="q-card active">
+<div class="q-id">Q-01 <span class="badge badge-active">active</span></div>
+<div class="q-main">家族・パートナーが加わると住まいの条件はどう変わるか？</div>
+<div class="q-detail">
+<span>なぜ重要:</span> 「一人ならできる」の先に「みんなでできる」があるかがVillageの本質的問い<br>
+<span>接続する人:</span> 相馬（家族の快適性との両立）、岩崎（同棲開始という変数）、ジョニー（再婚後バンライフ→一軒家移行）<br>
+<span>Due:</span> 2026-05-01 ｜ <span>次のアクション:</span> 各自の「家族変数」の具体例を3個ずつ持ち寄る
+</div>
+</div>
+
+<div class="q-card active">
+<div class="q-id">Q-02 <span class="badge badge-active">active</span></div>
+<div class="q-main">「共に暮らす」人間の多様性（家族・友人・見知らぬ人）をどう設計するか？</div>
+<div class="q-detail">
+<span>なぜ重要:</span> コミュニティ設計の根本<br>
+<span>接続する人:</span> 岩崎（16人厳格ルール寮 vs 20人ルールなし寮の両経験）
+</div>
+</div>
+
+<h3>設計・技術系</h3>
+
+<div class="q-card active">
+<div class="q-id">Q-03 <span class="badge badge-active">active</span></div>
+<div class="q-main">セルフビルド・DIYの再現可能範囲はどこで線引きするか？</div>
+<div class="q-detail">
+<span>なぜ重要:</span> 「コントローラブル」軸の実装度を決める<br>
+<span>接続する人:</span> 岩崎（父のセルフビルド平家で育った）、川島（自分で直せる安心感）<br>
+<span>Due:</span> 2026-05-08
+</div>
+</div>
+
+<div class="q-card active">
+<div class="q-id">Q-04 <span class="badge badge-active">active</span></div>
+<div class="q-main">VLDKのインフラ統合問題（生物処理×移動性ジレンマ）をどう解くか？</div>
+<div class="q-detail">
+<span>なぜ重要:</span> INNFRAのコア技術の未解決課題。Villageで固定設置にすれば解決する可能性<br>
+<span>接続する人:</span> ジョニー（VLDK Phase 3で発見）、岩崎（アイデア出し）<br>
+<span>Owner:</span> @johnny ｜ <span>Due:</span> 2026-05-15
+</div>
+</div>
+
+<h3>場所・コミュニティ系</h3>
+
+<div class="q-card active">
+<div class="q-id">Q-05 <span class="badge badge-active">active</span></div>
+<div class="q-main">「街に開く」と「自然に開く」は両立できるか、それとも選ぶか？</div>
+<div class="q-detail">
+<span>なぜ重要:</span> どちらも「閉じた家への反発」だが向きが違う。ターゲット設定の分岐<br>
+<span>接続する人:</span> 岩崎（ぶんじ寮=街）vs ジョニー・相馬・川島（自然）<br>
+<span>Due:</span> 2026-05-08
+</div>
+</div>
+
+<div class="q-card active">
+<div class="q-id">Q-06 <span class="badge badge-active">active</span></div>
+<div class="q-main">屋久島という場所の固有性は何か？なぜ屋久島なのか？</div>
+<div class="q-detail">
+<span>なぜ重要:</span> 場所の具体性がないまま概念だけ進んでいる懸念。屋久島をINNFRA Villageのプロトタイプ実装地にする固有の意義を作ることが必要<br>
+<span>Owner:</span> @johnny ｜ <span>Due:</span> 2026-05-01
+</div>
+</div>
+
+<h3>消費・インフラ系</h3>
+
+<div class="q-card active">
+<div class="q-id">Q-07 <span class="badge badge-active">active</span></div>
+<div class="q-main">消費の可視化はプロダクトの機能か、暮らし方のデザインか？</div>
+<div class="q-detail">
+<span>なぜ重要:</span> 「コントローラブル」軸の本質がここにある<br>
+<span>接続する人:</span> 川島（太陽光100%で罪悪感が消えた経験）、相馬（タイニーハウスで消費最小化を実践）<br>
+<span>Due:</span> 2026-05-08
+</div>
+</div>
+
+<div class="q-card active">
+<div class="q-id">Q-08 <span class="badge badge-active">active</span></div>
+<div class="q-main">コンポストトイレに代わるトイレのソリューションは何か？</div>
+<div class="q-detail">
+<span>なぜ重要:</span> 相馬の実体験が「リアルな壁」を示している。トイレ班の核心<br>
+<span>接続する人:</span> 相馬（コンポストトイレが苦手で水洗化した実践者）<br>
+<span>Due:</span> 2026-05-15
+</div>
+</div>
+
+<hr>
+
+<h2>💤 休眠中の問い（今は触らない）</h2>
+
+<div class="q-card parked">
+<div class="q-id">Q-P1 <span class="badge badge-parked">parked</span></div>
+<div class="q-main">補助金・法規制の具体的スコープ</div>
+<div class="q-detail"><span>再開条件:</span> 企画骨子化が完了したら</div>
+</div>
+
+<div class="q-card parked">
+<div class="q-id">Q-P2 <span class="badge badge-parked">parked</span></div>
+<div class="q-main">投資家・出資者への説明ロジック</div>
+<div class="q-detail"><span>再開条件:</span> 5月末以降、骨子v1完成後</div>
+</div>
+
+<div class="q-card parked">
+<div class="q-id">Q-P3 <span class="badge badge-parked">parked</span></div>
+<div class="q-main">新興国・被災地展開のシナリオ（川島のビジョン）</div>
+<div class="q-detail"><span>再開条件:</span> 国内実証の目処が立ったら</div>
+</div>
+
+<div class="q-card parked">
+<div class="q-id">Q-P4 <span class="badge badge-parked">parked</span></div>
+<div class="q-main">INNFRA Waterとの統合設計</div>
+<div class="q-detail"><span>再開条件:</span> Village概念が固まってから</div>
+</div>
+
+<hr>
+
+<h2>✅ 解決済みの問い</h2>
+
+<div class="q-card resolved">
+<div class="q-id">Q-R1 <span class="badge badge-resolved">resolved</span> <span style="font-size:12px; color:var(--muted);">2026-04-21</span></div>
+<div class="q-main">INNFRAがVillageをやる理由は何か？他社ではダメな理由は？</div>
+<div class="q-detail"><span>結論:</span> 「オフグリッド実践者視点」×「業界横断ポジション」×「ユーザー共感・翻訳力」×「体験設計力」の4軸の掛け算</div>
+</div>
+
+<div class="q-card resolved">
+<div class="q-id">Q-R2 <span class="badge badge-resolved">resolved</span> <span style="font-size:12px; color:var(--muted);">2026-04-21（2026-04-23更新）</span></div>
+<div class="q-main">INNFRAのVillageを一言で言うと何か？</div>
+<div class="q-detail"><span>結論:</span> 「コントローラブル・便利・アフォーダブル・領域横断性・生活者視点」の5軸を持つ、持ち家でも賃貸でもない第三の選択肢<br>
+<span>Related decisions:</span> D-009（旧D-001はD-008で撤回）, D-002</div>
+</div>
+
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-04-26 03:19 JST</strong> に自動削除されます</div>
+</div>
+</body>
+</html>
