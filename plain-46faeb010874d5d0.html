@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ミキの家賃交渉ガイド</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #202020;
+  --muted: #6a6a6a;
+  --accent: #0066cc;
+  --code-bg: #f5f5f5;
+  --border: #e0e0e0;
+  --green: #1a7f37;
+  --green-bg: #f0fff4;
+  --red: #cf222e;
+  --red-bg: #fff0f0;
+  --yellow-bg: #fffbea;
+  --yellow-border: #d4a017;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a; --text: #e4e4e4; --muted: #9a9a9a;
+    --accent: #4a9eff; --code-bg: #2a2a2a; --border: #3a3a3a;
+    --green: #3fb950; --green-bg: #0d2818;
+    --red: #f85149; --red-bg: #2a0d0d;
+    --yellow-bg: #2a2100; --yellow-border: #9e7a00;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+  padding: 24px 18px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 12px 0 20px; line-height: 1.3; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 21px; margin: 32px 0 14px; line-height: 1.4; }
+h3 { font-size: 17px; margin: 24px 0 10px; color: var(--accent); }
+p { margin: 12px 0; }
+a { color: var(--accent); }
+blockquote {
+  border-left: 4px solid var(--border);
+  padding: 8px 14px;
+  margin: 14px 0;
+  color: var(--muted);
+  font-style: italic;
+}
+code {
+  font-family: "SF Mono", Menlo, monospace;
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+pre {
+  background: var(--code-bg);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+pre code { background: none; padding: 0; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; }
+th, td { padding: 9px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; }
+ul, ol { padding-left: 26px; margin: 10px 0; }
+li { margin: 6px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+.verdict {
+  background: var(--green-bg);
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+.verdict .label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.verdict .main {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.verdict .sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.alert {
+  background: var(--yellow-bg);
+  border-left: 4px solid var(--yellow-border);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+  font-size: 15px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 16px 0;
+}
+
+.ok { color: var(--green); font-weight: 600; }
+.ng { color: var(--red); font-weight: 600; }
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.tag-green { background: var(--green-bg); color: var(--green); }
+.tag-red { background: var(--red-bg); color: var(--red); }
+
+.step {
+  display: flex;
+  gap: 14px;
+  margin: 14px 0;
+  align-items: flex-start;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.step-body { flex: 1; }
+.step-date { font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+.step-text { font-size: 15px; }
+
+.mail-box {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  font-size: 14.5px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+
+.ttl-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin: 40px 0 12px;
+  padding: 10px;
+  border-top: 1px dashed var(--border);
+}
+
+@media (max-width: 480px) {
+  body { font-size: 15.5px; padding: 18px 14px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; }
+  table { font-size: 13px; }
+  th, td { padding: 7px 9px; }
+  .verdict .main { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>ミキの家賃交渉ガイド</h1>
+<p style="color:var(--muted);font-size:13px;">弁護士・不動産エージェント・交渉戦略家・FP — 4専門家による円卓会議 + Codexファクトチェック済み</p>
+
+<!-- ===== 結論 ===== -->
+<div class="verdict">
+  <div class="label">▍ 結論</div>
+  <div class="main">交渉してOK。落とし所は月99,000円。</div>
+  <div class="sub">「相場が不当」ではなく「7,000円の一括値上げが急すぎる」の1点に絞る。</div>
+</div>
+
+<!-- ===== 物件情報 ===== -->
+<h2>📋 物件の実態</h2>
+<table>
+  <tr><th>建物</th><td>トーシンフェニックス下目黒</td></tr>
+  <tr><th>所在地</th><td>東京都目黒区下目黒3-5-2</td></tr>
+  <tr><th>部屋</th><td>12階・最上階・南西向き</td></tr>
+  <tr><th>面積</th><td>25.08㎡（推定・アーカイブ確認）</td></tr>
+  <tr><th>状態</th><td>リフォーム済み・築24年</td></tr>
+  <tr><th>立地</th><td>山手通り沿い・大鳥神社徒歩3分<br>目黒駅9分・不動前駅9分</td></tr>
+</table>
+
+<!-- ===== 比較 ===== -->
+<h2>🔍 同建物の新規募集と比較</h2>
+<table>
+  <tr>
+    <th></th>
+    <th>ミキ（提示後）</th>
+    <th>同建物の新規募集</th>
+  </tr>
+  <tr>
+    <td>面積</td>
+    <td>25.08㎡</td>
+    <td>25.17㎡</td>
+  </tr>
+  <tr>
+    <td>向き・階</td>
+    <td><strong>南西・最上階 ✅</strong></td>
+    <td>北東・非最上階</td>
+  </tr>
+  <tr>
+    <td>リフォーム</td>
+    <td><strong>済み ✅</strong></td>
+    <td>不明</td>
+  </tr>
+  <tr>
+    <td>賃料</td>
+    <td>102,000円</td>
+    <td>102,000円</td>
+  </tr>
+  <tr>
+    <td>管理費</td>
+    <td><strong>10,000円 ✅</strong></td>
+    <td>13,000円</td>
+  </tr>
+  <tr>
+    <td><strong>月額合計</strong></td>
+    <td><strong>112,000円</strong></td>
+    <td><strong>115,000円</strong></td>
+  </tr>
+</table>
+
+<div class="alert">
+  条件（向き・階・リフォーム）も管理費も、ミキのほうが有利。<br>
+  「102,000円が相場外で不当」という主張は通らない。<br>
+  <strong>→ 交渉の軸は「値上げ幅が急すぎる」1点に絞る。</strong>
+</div>
+
+<!-- ===== 周辺相場 ===== -->
+<h2>📊 周辺相場（Codexファクトチェック）</h2>
+<table>
+  <tr><th></th><th>最低</th><th>中央値</th><th>最高</th></tr>
+  <tr><td>ワンルーム</td><td>6.9万</td><td>12.8万</td><td>17.5万</td></tr>
+  <tr><td>1K</td><td>8.5万</td><td>11.8万</td><td>20.9万</td></tr>
+  <tr><td>1DK</td><td>9.5万</td><td>14.0万</td><td>20.5万</td></tr>
+</table>
+<p style="font-size:13.5px;color:var(--muted);">管理費は別途 5,000〜10,000円が標準。不動前駅1K平均：10.1万 / 目黒駅1K平均：11.9万 / 目黒区1K平均：10.5万。</p>
+<p>ミキの現行95,000円（管理費別）は1Kで見ると<strong>下位帯</strong>。提示の102,000円も<strong>不動前駅平均並み</strong>（中央値未満）。</p>
+
+<!-- ===== 法的権利 ===== -->
+<h2>⚖️ 借主の法的権利</h2>
+<ul>
+  <li>値上げに<strong>合意する義務はない</strong>（借地借家法32条）</li>
+  <li>交渉中も<strong>現行賃料95,000円を払い続ければ保護される</strong></li>
+  <li>5月21日の回答期日は<strong>法的拘束力なし</strong>（期日を過ぎても自動更新）</li>
+  <li>交渉が長引いても<strong>即退去にはならない</strong></li>
+</ul>
+<div class="alert">⚠️ ただし現行賃料の支払いを1円でも止めると「賃料不払い」になり、立退き請求の口実を与える。<strong>振込だけは絶対止めない。</strong></div>
+
+<!-- ===== 交渉の論点 ===== -->
+<h2>🎯 交渉で使える・使えない論点</h2>
+<div class="card">
+  <p><span class="tag tag-green">✅ 使える</span></p>
+  <ul>
+    <li>7,000円の一括値上げ（7.4%）は近隣上昇率（年3〜5%）を上回る</li>
+    <li>長期入居・優良入居者として原状回復リスクが低い</li>
+    <li>管理費10,000円の据え置き（新規は13,000円）という既得権を維持したい</li>
+    <li>昨年の便座交換など誠実な対応に感謝している（良好な関係のアピール）</li>
+  </ul>
+</div>
+<div class="card">
+  <p><span class="tag tag-red">❌ 使えない</span></p>
+  <ul>
+    <li>「相場より高い」→ 同建物新規募集と同額なので通らない</li>
+    <li>「値上げ理由がない」→ 法律上、理由の記載は不要</li>
+    <li>「修繕対応が不備」→ 便座交換に対応済みなのでNG</li>
+    <li>「駅から遠い」→ 目黒9分・不動前9分は遠くない</li>
+  </ul>
+</div>
+
+<!-- ===== 行動スケジュール ===== -->
+<h2>📅 行動スケジュール</h2>
+
+<div class="step">
+  <div class="step-num">!</div>
+  <div class="step-body">
+    <div class="step-date">今すぐ</div>
+    <div class="step-text">現行賃料95,000円＋管理費10,000円を<strong>必ず払い続ける</strong>。振込メモに「協議中につき現行額にて」と記載。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-body">
+    <div class="step-date">5月7〜9日</div>
+    <div class="step-text">書面（メール）で「協議申し入れ」を送付。値上げ根拠の開示を求める。数字はまだ出さない。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-body">
+    <div class="step-date">5月10〜15日</div>
+    <div class="step-text">近隣相場（SUUMO等）を自分でも確認。データを握っておく。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-body">
+    <div class="step-date">5月17〜18日</div>
+    <div class="step-text">具体的な対案（99,000円 or 段階値上げ）を提示。「引越しも検討」という一言を必ず入れる。</div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-body">
+    <div class="step-date">5月21日（回答期日）</div>
+    <div class="step-text">法的拘束力はないが、ここまでに結論を出す。交渉不調なら調停も選択肢（簡易裁判所・申立手数料約2,000円）。</div>
+  </div>
+</div>
+
+<!-- ===== 交渉メール ===== -->
+<h2>📧 交渉メール（そのまま使える）</h2>
+<div class="mail-box">件名：賃料改定のご通知について
+
+お世話になっております。
+下目黒3-5-2にて入居中の○○と申します。
+
+このたびの更新ご通知を拝受いたしました。
+昨年のトイレ便座交換の際も迅速にご対応いただき、
+誠実なご対応に感謝しており、引き続きこちらに
+長く住み続けたいと考えております。
+
+一点ご相談なのですが、今回の改定では賃料が
+7,000円（7.4%）の一括引き上げとなっており、
+近隣の賃料上昇率（年3〜5%）と比較しても
+一度の更新としては大きな幅です。
+
+以下のいずれかでご検討いただくことは可能でしょうか。
+
+① 今回を98,000〜99,000円とし、
+　 次回更新で段階的に102,000円へ移行する
+
+② 賃料は102,000円のまま、
+　 管理費を現行10,000円に据え置く
+
+どちらも難しいようであれば、
+今後の住まいについて改めて検討する必要がございます。
+
+回答期日までに一度お話しする機会を
+いただければ幸いです。
+よろしくお願いいたします。</div>
+
+<!-- ===== 財務シミュレーション ===== -->
+<h2>💰 財務シミュレーション</h2>
+<table>
+  <tr>
+    <th>シナリオ</th>
+    <th>月額合計</th>
+    <th>2年間</th>
+    <th>備考</th>
+  </tr>
+  <tr>
+    <td>値上げそのまま受け入れ</td>
+    <td>112,000円</td>
+    <td>268.8万</td>
+    <td>+更新料102,000円</td>
+  </tr>
+  <tr style="background:var(--green-bg);">
+    <td><strong>交渉で99,000円に</strong></td>
+    <td><strong>109,000円</strong></td>
+    <td><strong>261.6万</strong></td>
+    <td>2年で7.2万の節約</td>
+  </tr>
+  <tr>
+    <td>退去・同等物件へ</td>
+    <td>110,000〜115,000円</td>
+    <td>高い</td>
+    <td>初期費用だけで60〜80万</td>
+  </tr>
+</table>
+<p><strong>退去は財務的に最悪の選択肢。</strong>初期費用だけで元が取れるまで4〜5年かかる。</p>
+
+<!-- ===== 最悪でも ===== -->
+<h2>🛟 交渉決裂しても</h2>
+<p>102,000円のまま更新になったとしても：</p>
+<ul>
+  <li>管理費10,000円（新規は13,000円）という3,000円の優遇は残る</li>
+  <li>南西・最上階・リフォーム済みの好条件は変わらない</li>
+  <li>合計112,000円は同建物新規の115,000円より安い</li>
+</ul>
+<p>次の2年間、住み続けながら<strong>次の引越しを計画する時間が買える</strong>。最悪でも悪くない。</p>
+
+<hr>
+<p style="font-size:13px;color:var(--muted);">分析：2026年4月26日 / 素子調べ（借地借家法・相場データ・Codexファクトチェック済み）<br>相場出典：SUUMO・HOME'S・athome 公開募集情報（2026年4月時点）</p>
+
+<div class="ttl-footer">このページは 2026-04-29 JST に自動削除されます</div>
+</div>
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-04-29 13:26 JST</strong> に自動削除されます</div>
+</body>
+</html>
