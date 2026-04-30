@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>パンナコッタが二層分離した原因と対策</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #202020;
+  --muted: #6a6a6a;
+  --accent: #0066cc;
+  --code-bg: #f5f5f5;
+  --border: #e0e0e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1a1a1a; --text: #e4e4e4; --muted: #9a9a9a; --accent: #4a9eff; --code-bg: #2a2a2a; --border: #3a3a3a; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+  padding: 24px 18px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 12px 0 20px; line-height: 1.3; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 21px; margin: 32px 0 14px; line-height: 1.4; }
+h3 { font-size: 17px; margin: 24px 0 10px; color: var(--accent); }
+h4 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); }
+p { margin: 12px 0; }
+a { color: var(--accent); }
+blockquote { border-left: 4px solid var(--border); padding: 6px 14px; margin: 14px 0; color: var(--muted); }
+code { font-family: "SF Mono", Menlo, monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+pre { background: var(--code-bg); padding: 14px; border-radius: 8px; overflow-x: auto; font-size: 13.5px; line-height: 1.55; }
+pre code { background: none; padding: 0; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; }
+th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; }
+ul, ol { padding-left: 26px; margin: 10px 0; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 40px 0 12px; padding: 10px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) {
+  body { font-size: 15.5px; padding: 18px 14px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>パンナコッタが二層分離した原因と対策</h1>
+<blockquote>元レシピ: クラシル『紅茶パンナコッタ／Mr. CHEESECAKE 田村浩二』（雪解け食感）<br>症状: 上層がババロアっぽく軽い／下層がパンナコッタっぽくぷるん</blockquote>
+<hr>
+<h2>なぜ上＝ババロア風／下＝パンナコッタ風になったか</h2>
+<p>ゼラチンが固まるより先に、<strong>生クリームの脂肪球が浮上</strong>してしまったから。</p>
+<p>業界用語でいう <strong>creaming（クリーミング＝脂肪上昇分離）</strong>。</p>
+<ul>
+<li><strong>上層（ババロア風＝軽い・ふわっと）</strong></li>
+</ul>
+<p>  浮いた<strong>脂肪分（クリーム濃度の高い部分）</strong>がゼラチンで固まったもの。脂肪が多いと舌でほどけて軽く感じる。</p>
+<ul>
+<li><strong>下層（パンナコッタ風＝ぷるん・しっかり）</strong></li>
+</ul>
+<p>  脂肪が抜けて<strong>水分＋ゼラチンの比率が高くなった液体</strong>が固まったもの。水分多めなのでゼラチンが効いてプリッと締まる。</p>
+<p>つまり「2種類のデザートになった」のではなく、<strong>1つのレシピが脂肪と水分に分かれて、たまたま上下それぞれが別物の食感になっただけ</strong>。</p>
+<hr>
+<h2>起きやすい条件（このレシピで特に該当しそう）</h2>
+<p>田村シェフの「雪解け食感」系パンナコッタは、構造上 <strong>ゼラチン少なめ・生クリーム多め</strong> で組まれているはず。これは creaming が最も起きやすいレシピタイプ。</p>
+<p>主犯候補:</p>
+<ol>
+<li><strong>氷水で冷やしながら混ぜる工程を飛ばした／弱かった</strong></li>
+</ol>
+<p>   プロのレシピは大抵「氷水に当ててとろみがつくまで混ぜる」が入る。これを省くと、温かいまま冷蔵庫に入って<strong>ゆっくり冷える間に脂肪がじわじわ浮く</strong>。</p>
+<ol>
+<li><strong>型に流す前の最終攪拌不足</strong></li>
+</ol>
+<p>   紅茶を漉した後、放置気味だと既に分離が始まっている。</p>
+<ol>
+<li><strong>冷蔵庫が混んでいて冷却が遅い</strong></li>
+</ol>
+<p>   緩慢冷却 = creaming の進行時間が長い。</p>
+<ol>
+<li><strong>生クリームが高脂肪（47%など）</strong></li>
+</ol>
+<p>   35〜38% より物理的に分離しやすい。</p>
+<hr>
+<h2>次回の対策（効くやつだけ）</h2>
+<table>
+<thead><tr><th>対策</th><th>効果</th></tr></thead>
+<tbody>
+<tr><td><strong>氷水ボウルに当て、ゴムベラで絶え間なく混ぜ、軽くとろみがつくまで粘度を出してから型へ</strong></td><td>最重要。脂肪が浮く前にゼラチンで粘度を持たせて固定する</td></tr>
+<tr><td>粗熱を取ってから冷蔵庫（温かいまま入れない）</td><td>緩慢冷却を防ぐ</td></tr>
+<tr><td>型に流す直前にもう一度全体を混ぜる</td><td>既に始まった分離をリセット</td></tr>
+<tr><td>冷蔵庫の冷気が直接当たる場所に置く（急冷）</td><td>浮上時間を短縮</td></tr>
+<tr><td>生クリーム 35〜38% を選ぶ</td><td>物理的に浮きにくい</td></tr>
+</tbody></table>
+<p>「<strong>氷水＋とろみ出し</strong>」をやれば9割解決。</p>
+<p>温かい液体のまま型に流して冷蔵庫直行が、いちばんやってはいけないパターン。</p>
+<hr>
+<h2>補足：3つのデザートの違い</h2>
+<table>
+<thead><tr><th></th><th>主原料</th><th>固める方法</th><th>食感</th></tr></thead>
+<tbody>
+<tr><td>パンナコッタ</td><td>生クリーム＋牛乳＋砂糖</td><td>ゼラチン</td><td>なめらかで濃厚、ぷるん</td></tr>
+<tr><td>ブラマンジェ</td><td>牛乳＋アーモンド or コーンスターチ</td><td>コーンスターチ or ゼラチン</td><td>もったり〜ぷるん</td></tr>
+<tr><td>ババロア</td><td>牛乳＋卵黄＋生クリーム（ホイップ）</td><td>ゼラチン＋泡立てた生クリーム</td><td>ふんわり、軽い</td></tr>
+</tbody></table>
+<p>今回の「上＝ババロア風／下＝パンナコッタ風」は、<strong>1つの液体が物理的に2層に分離した結果として、偶然それぞれの食感に近づいた</strong>だけで、卵黄もホイップも入っていない。</p>
+
+<div class="ttl-footer">このページは 2026-05-04 07:51 JST に自動削除されます</div>
+</div>
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-05-04 07:51 JST</strong> に自動削除されます</div>
+</body>
+</html>
