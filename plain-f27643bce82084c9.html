@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>改修 #1-#8 mermaid 可視化 (依存・Gate・タイムライン・層構造)</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  mermaid.initialize({ startOnLoad: true, theme: "default", securityLevel: "loose" });
+});
+</script>
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #202020;
+  --muted: #6a6a6a;
+  --accent: #0066cc;
+  --code-bg: #f5f5f5;
+  --border: #e0e0e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1a1a1a; --text: #e4e4e4; --muted: #9a9a9a; --accent: #4a9eff; --code-bg: #2a2a2a; --border: #3a3a3a; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+  padding: 24px 18px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 880px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 12px 0 20px; line-height: 1.3; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 21px; margin: 32px 0 14px; line-height: 1.4; }
+h3 { font-size: 17px; margin: 24px 0 10px; color: var(--accent); }
+h4 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); }
+p { margin: 12px 0; }
+a { color: var(--accent); }
+blockquote { border-left: 4px solid var(--border); padding: 6px 14px; margin: 14px 0; color: var(--muted); }
+code { font-family: "SF Mono", Menlo, monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+pre { background: var(--code-bg); padding: 14px; border-radius: 8px; overflow-x: auto; font-size: 13.5px; line-height: 1.55; }
+pre code { background: none; padding: 0; }
+pre.mermaid { background: transparent; padding: 12px; text-align: center; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; }
+th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; }
+ul, ol { padding-left: 26px; margin: 10px 0; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 40px 0 12px; padding: 10px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) {
+  body { font-size: 15.5px; padding: 18px 14px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; }
+  pre.mermaid { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 id="1-8-4">改修 #1-#8 可視化 (4 図セット)</h1>
+<blockquote>
+<p><strong>読み方</strong>: 図 1 → 図 2 → 図 3 → 図 4 の順で、それぞれ別の角度から改修 #1-#8 を捉える。<strong>「全体像を 1 ページで掴みたい」用</strong>。詳細は <code>system-overview-2026-05-09.md</code> § 6 + <code>resilient-mosaic</code> 本体を参照。</p>
+<p><strong>mermaid 表示</strong>: GitHub / Obsidian / VS Code Markdown Preview Mermaid 拡張 / publish 後の HTML で表示可。</p>
+</blockquote>
+<hr />
+<h2 id="1">図 1 — 依存関係グラフ</h2>
+<p>改修 #3 (client-isolated) が #6/#7/#8 の全前提。改修 #4 が #6/#7/#8 の実装エンジン。</p>
+<pre class="mermaid">
+graph TD
+    classDef done fill:#a8e6a3,stroke:#2d6a2a,color:#000
+    classDef inProgress fill:#ffe4a3,stroke:#a08020,color:#000
+    classDef pending fill:#d0d0d0,stroke:#606060,color:#000
+    classDef rejected fill:#ffb3b3,stroke:#a02020,color:#000
+    classDef premium fill:#a3d4ff,stroke:#205080,color:#000
+
+    R1["#1 AGENTS.md / Codex companion<br/>✅ 完了"]:::done
+    R2["#2 Codex 自動レビュー<br/>(キュー記録に降格)<br/>🟠 設計修正済"]:::inProgress
+    R3["#3 client-isolated/ サンドボックス<br/>🟢 最優先<br/>(Day 0 着手予定)"]:::premium
+    R4["#4 Bash 並列ブリーフィング<br/>🟠 却下、--input-file 代替で再設計"]:::rejected
+    R5a["#5a /recipe 画像生成<br/>🟢 採用"]:::inProgress
+    R5b["#5b /brand-sprint 画像生成<br/>🟠 PII サニタイズ後"]:::pending
+    R6["#6 Hermes Kanban<br/>🟡 限定採用<br/>G1 ✅ 完了 (本日)"]:::inProgress
+    R7["#7 Skill Graphs<br/>🟡 段階適用<br/>(arscontexta plugin 不採用)"]:::pending
+    R8["#8 自律リチュアル + Phase 2<br/>🟢 ジョニー前倒し<br/>(5/11 SPEC 起草)"]:::inProgress
+
+    R3 -.全前提.-> R6
+    R3 -.全前提.-> R7
+    R3 -.全前提.-> R8
+    R3 -.全前提.-> R5b
+
+    R4 -.実装エンジン.-> R7
+    R4 -.実装エンジン.-> R8
+    R4 -.協調.-> R6
+
+    R1 -.連動.-> R8
+    R2 -.連動.-> R1
+
+    EDEADLK["⚠️ Vault EDEADLK<br/>復旧待ち (28h+)"]:::rejected
+    KillSwitch["⚠️ kill-switch ON<br/>(~/.claude/disable-autonomy)"]:::rejected
+    EDEADLK -.復旧後着手.-> R3
+    KillSwitch -.解除後着手.-> R3
+</pre>
+<p><strong>読み解き</strong>:
+- 緑 (done): #1 ✅ + #6 G1 ✅
+- 黄 (inProgress): #2 / #5a / #8 (前倒しで進行中)
+- 灰 (pending): #5b / #7 (まだ着手前)
+- 赤 (rejected): #4 (現行案却下、別設計) / EDEADLK / kill-switch
+- 青 (premium / critical path): #3 (これが完了しないと #6/#7/#8/#5b 全部止まる)</p>
+<hr />
+<h2 id="2-cmf-gate">図 2 — CMF Gate 進捗ステータス</h2>
+<p>各改修の G1 → G2 → G3 → G5 (G4 はスキップ) の現状。</p>
+<pre class="mermaid">
+stateDiagram-v2
+    direction LR
+
+    state "改修 #1" as R1 {
+        [*] --> R1G1
+        R1G1: G1 ✅ Day 1
+        R1G1 --> R1G2: 完了
+        R1G2: G2 ✅ Day 2
+        R1G2 --> R1G3: 完了
+        R1G3: G3 ✅ Day 3
+        R1G3 --> R1G5: 完了
+        R1G5: G5 ✅ Day 4
+        R1G5 --> [*]
+    }
+
+    state "改修 #6" as R6 {
+        [*] --> R6G1
+        R6G1: G1 ✅ 本日 2026-05-09
+        R6G1 --> R6G2: 完了
+        R6G2: G2 ⏸️ Day 4+ 待ち
+        R6G2 --> R6G3
+        R6G3: G3 ⏸️ Day 4+ 待ち
+        R6G3 --> R6G5
+        R6G5: G5 ⏸️ Day 4+ 待ち
+        R6G5 --> [*]
+    }
+
+    state "改修 #8" as R8 {
+        [*] --> R8G1
+        R8G1: G1 🔄 5/11 SPEC 起草 (素子主導)
+        R8G1 --> R8G2
+        R8G2: G2 ⏸️ Day 4+ Routines + autonomy 統合
+        R8G2 --> R8G3
+        R8G3: G3 ⏸️ Day 4+ 個人 KR で 1 週間 PoC
+        R8G3 --> R8G5
+        R8G5: G5 ⏸️ INNFRA KR 拡張時
+        R8G5 --> [*]
+    }
+
+    state "改修 #2 #3 #5 #7" as Others
+    state "改修 #4 (却下)" as R4Rejected
+</pre>
+<p><strong>進捗まとめ (本日時点)</strong>:
+- ✅ 完了: #1 全 Gate / #6 G1
+- 🔄 進行中: #8 G1 (今週末 5/11 SPEC 起草予定で前倒し中)
+- ⏸️ EDEADLK 復旧待ち: #2 / #3 / #5 / #6 G2 以降 / #7 / #8 G2 以降
+- ❌ 却下: #4 (<code>--input-file</code> 代替で再設計、Adoption Backlog 起票予定)</p>
+<hr />
+<h2 id="3-gantt">図 3 — タイムライン (Gantt)</h2>
+<p>Day 0 (本日 2026-05-09) → Day 4+ (EDEADLK 復旧後) のロードマップ。</p>
+<pre class="mermaid">
+gantt
+    title 改修 #1-#8 タイムライン (2026-05-09 起点)
+    dateFormat YYYY-MM-DD
+    axisFormat %m/%d
+    section #1 AGENTS.md
+        Day 0 設計             :done, r1d0, 2026-05-08, 1d
+        Day 1 G1 実装          :done, r1d1, 2026-05-09, 1d
+    section #6 Hermes Kanban
+        Stage A ingest         :done, r6sa, 2026-05-09, 1d
+        Stage B G1 調査        :done, r6g1, 2026-05-09, 1d
+        Day 4+ Phase B G2 PoC  :crit, r6g2, after edeadlk, 7d
+        Day 4+ G3 24h 観測     :r6g3, after r6g2, 7d
+        Day 4+ G5 4 段階判定   :milestone, r6g5, after r6g3, 0d
+    section #8 Phase 2 SPEC
+        5/11 SPEC 起草 (前倒し) :crit, r8spec, 2026-05-11, 1d
+        Day 4+ Step 2 Routines  :r8s2, after edeadlk, 7d
+        Day 4+ Step 3 autonomy 統合 :r8s3, after r8s2, 7d
+        Day 4+ Step 4 個人 KR PoC :r8s4, after r8s3, 7d
+    section EDEADLK 復旧
+        graceful-shell 進行中  :crit, edeadlk, 2026-05-09, 7d
+        kill-switch 解除       :milestone, ksoff, after edeadlk, 0d
+    section 改修 #3 (全前提)
+        Day 0 deny rule 先行   :r3d0, after edeadlk, 1d
+        Day 1-3 G1-G3          :r3g, after r3d0, 7d
+    section 外部期限併走 (オペ警告)
+        住まい読本 5/8 超過対応 :crit, jusoken, 2026-05-10, 2d
+        5/15 富士急面会準備    :crit, fujikyu, 2026-05-12, 4d
+        4 月分請求書送信       :invoice, 2026-05-12, 1d
+        川島契約交渉戦略       :kawashima, 2026-05-13, 2d
+</pre>
+<p><strong>重要マイルストーン</strong>:
+- 🔴 5/11 (土): #8 SPEC 起草前倒し (素子主導ドラフト + ジョニー 2 択承認)
+- 🔴 5/15 (金): 富士急面会 (取り返しのつかない機会損失リスク)
+- 🟠 EDEADLK 復旧: 28h+ 経過、復旧時期未確定 (graceful-shell)
+- 🟢 EDEADLK 復旧後: 改修 #3 Day 0 → Day 4+ Phase B/C/D が一気に解除</p>
+<hr />
+<h2 id="4">図 4 — 層構造 (どの層を触るか)</h2>
+<p>ジョニー環境を 8 層に分解、各改修がどの層を触るか。</p>
+<pre class="mermaid">
+graph TD
+    subgraph L1["脳 1A: 指示層 (CLAUDE.md / rules/)"]
+        L1a["CLAUDE.md ≤ 100 行"]
+        L1b["rules/ 9 本"]
+        L1c["@import codex-companion.md"]:::r1
+    end
+
+    subgraph L2["脳 1B: メモリ層 (Vault / claude-memory)"]
+        L2a["~/Library/.../obsidian-vault/<br/>⚠️ EDEADLK 中"]
+        L2b["claude-memory/MEMORY.md"]
+        L2c["~/gits-system/wiki/30-wiki/<br/>(代替 SSoT)"]
+        L2d["YAML frontmatter description<br/>+ tags 階層"]:::r7
+        L2e["MOC re-organization<br/>(30-wiki/index.md)"]:::r7
+    end
+
+    subgraph L3["脳 1C: 設定層 (settings.json / agents / skills / plugins)"]
+        L3a["settings.json"]
+        L3b["agents/ 11 体"]
+        L3c["skills/ 50+"]
+        L3d["plugins/ (codex:setup / codex:rescue)"]
+        L3e["client-isolated/ deny rule"]:::r3
+        L3f["AGENTS.md / codex-companion.md"]:::r1
+        L3g["/recipe 画像生成"]:::r5
+        L3h["/brand-sprint PII サニタイズ"]:::r5
+        L3i["/hermes-board Skill ラッパ"]:::r6
+    end
+
+    subgraph L4["脳 1D: 自動化層 (hooks / LaunchAgent / Routines)"]
+        L4a["hooks 9 本"]
+        L4b["LaunchAgent 19 本"]
+        L4c["codex-review-gate.sh<br/>(pending-review.log)"]:::r2
+        L4d["morning-edition Phase 2<br/>Layer 1 (ローカル shell)"]:::r8
+        L4e["Routines GA β + MCP Connector<br/>Layer 2"]:::r8
+    end
+
+    subgraph L5["外部統合層"]
+        L5a["GitHub / Linear / Slack MCP"]
+        L5b["Discord channel plugin"]
+        L5c["Codex CLI"]
+        L5d["Codex 並列 (--input-file)"]:::r4
+        L5e["Hermes Kanban<br/>(127.0.0.1:27124)"]:::r6
+    end
+
+    L1 --> L2
+    L2 --> L3
+    L3 --> L4
+    L4 --> L5
+
+    classDef r1 fill:#a8e6a3,color:#000
+    classDef r2 fill:#ffe4a3,color:#000
+    classDef r3 fill:#a3d4ff,color:#000
+    classDef r4 fill:#ffb3b3,color:#000
+    classDef r5 fill:#e6c0ff,color:#000
+    classDef r6 fill:#ffd0a3,color:#000
+    classDef r7 fill:#c0e6ff,color:#000
+    classDef r8 fill:#a3ffe6,color:#000
+</pre>
+<p><strong>色凡例</strong>:
+- 🟢 緑: 改修 #1 (AGENTS.md / Codex companion)
+- 🟡 黄: 改修 #2 (Codex キュー記録)
+- 🔵 青: 改修 #3 (client-isolated サンドボックス、最優先)
+- 🔴 赤: 改修 #4 (Bash 並列、却下→ --input-file 代替)
+- 🟣 紫: 改修 #5 (画像生成補完 /recipe + /brand-sprint)
+- 🟠 橙: 改修 #6 (Hermes Kanban、限定採用)
+- 💧 水色: 改修 #7 (Skill Graphs 段階適用)
+- 🟢 ターコイズ: 改修 #8 (自律リチュアル + Phase 2 二層構造)</p>
+<p><strong>読み解き</strong>:
+- 改修 #1, #6, #7 はメモリ層 + 設定層に集中 (機密境界が緩い)
+- 改修 #2, #4, #8 は自動化層 + 外部統合層を触る (機密境界が硬い、CMF 厳守)
+- 改修 #3 は設定層の deny rule で <strong>層全体に防護線</strong> を引く (全改修の前提)
+- 改修 #5 は設定層の skill 拡張のみ (影響範囲狭い)</p>
+<hr />
+<h2 id="1_1">補足: 「次の 1 週間」の優先度マップ</h2>
+<p>mermaid quadrant chart で「期限緊急度」 vs 「ジョニー本人手動依存度」をプロット。</p>
+<pre class="mermaid">
+quadrantChart
+    title 5/9-5/15 の優先度マップ
+    x-axis "ジョニー本人手動 (低)" --> "ジョニー本人手動 (高)"
+    y-axis "緊急度 (低)" --> "緊急度 (高)"
+    quadrant-1 "ジョニー hyperfocus 領域 (危険)"
+    quadrant-2 "外部期限案件 (最優先)"
+    quadrant-3 "素子並走可能 (低優先)"
+    quadrant-4 "素子主導 (推奨)"
+    "5/15 富士急面会準備": [0.7, 0.95]
+    "住まい読本 5/8 超過対応": [0.6, 0.92]
+    "4 月分請求書送信": [0.5, 0.7]
+    "川島契約交渉戦略": [0.65, 0.6]
+    "改修 #8 SPEC 起草 (5/11)": [0.25, 0.4]
+    "改修 #6 G2 PoC": [0.2, 0.3]
+    "改修 #3 client-isolated Day 0": [0.15, 0.5]
+    "副業 Pillar 2 着手 (Q3)": [0.7, 0.2]
+    "Plan 41 件整理": [0.1, 0.15]
+    "EDEADLK 復旧 (graceful-shell)": [0.4, 0.85]
+</pre>
+<p><strong>示唆</strong>:
+- <strong>第 2 象限 (右上、外部期限案件)</strong> = 最優先。富士急面会 / 住まい読本 / 請求書 / 川島
+- <strong>第 4 象限 (右下、素子主導)</strong> = 改修 #6/#7/#8 + #3 = 素子並走で進められる
+- <strong>第 1 象限 (左上、危険)</strong> に滞留しないこと (改修系 hyperfocus が外部期限を圧迫する罠)</p>
+<hr />
+<h2 id="_1">関連ドキュメント</h2>
+<ul>
+<li><code>~/gits-system/wiki/30-wiki/system-overview-2026-05-09.md</code> (本書の親文書、全体俯瞰)</li>
+<li><code>~/.claude/plans/codex-obsidian-integration-improvements-resilient-mosaic.md</code> (改修 #1-#8 詳細)</li>
+<li><code>~/.claude/plans/snazzy-wobbling-pillow.md</code> (本日円卓 + ロードマップ)</li>
+<li><code>~/gits-system/wiki/30-wiki/reports/2026-05-09_hermes-kanban-bridge-g1-analysis.md</code> (#6 G1 結果)</li>
+<li><code>~/gits-system/wiki/30-wiki/reports/2026-05-09_hermes-skillgraph-integration-design.md</code> (改修 #6-#8 元設計提案、マージ済)</li>
+</ul>
+<hr />
+<p><strong>作成</strong>: 2026-05-09 20:05 JST (snazzy-wobbling-pillow ロードマップ「別の深掘り」フェーズ、ジョニー選択)
+<strong>作成者</strong>: 素子 (auto-mode)
+<strong>次回更新トリガー</strong>: 改修 #6 G2 完了時 / 改修 #8 SPEC 起草完了時 / EDEADLK 復旧時 / 改修 #1-#5 全件 G5 通過時</p>
+<div class="ttl-footer">このページは 2026-05-12 21:18 JST に自動削除されます (TTL 72h)</div>
+</div>
+</body>
+</html>
