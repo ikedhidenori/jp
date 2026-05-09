@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⭐ 文体 cheatsheet (4 局面、書く前/書きながら/書き終わり/緊急時)</title>
+<style>
+:root {
+  --bg: #fbfaf8;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2b7a78;
+  --quote-bg: #f0ebe3;
+  --border: #e8e2d8;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1c1b19; --text: #e8e4dc; --muted: #9a958c; --accent: #6ab8b4; --quote-bg: #28262a; --border: #3a3731; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Georgia", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 2;
+  margin: 0;
+  padding: 32px 20px;
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 680px; margin: 0 auto; }
+h1 { font-size: 30px; margin: 20px 0 24px; line-height: 1.4; font-weight: 700; letter-spacing: 0.02em; }
+h2 { font-size: 22px; margin: 48px 0 18px; line-height: 1.5; font-weight: 700; padding-left: 14px; border-left: 4px solid var(--accent); }
+h3 { font-size: 18px; margin: 32px 0 12px; color: var(--accent); }
+p { margin: 20px 0; text-align: justify; }
+a { color: var(--accent); text-decoration: underline; }
+blockquote { background: var(--quote-bg); padding: 18px 22px; margin: 24px 0; border-radius: 4px; font-size: 16.5px; line-height: 1.9; font-style: italic; }
+em { font-style: italic; color: var(--accent); }
+strong { font-weight: 700; background: linear-gradient(transparent 65%, rgba(43,122,120,0.18) 65%); }
+ul, ol { padding-left: 28px; margin: 16px 0; }
+li { margin: 6px 0; line-height: 1.9; }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px auto; width: 40%; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12.5px; margin: 48px 0 16px; padding: 12px; border-top: 1px dashed var(--border); font-family: -apple-system, sans-serif; }
+@media (max-width: 480px) {
+  body { font-size: 16px; padding: 24px 16px; line-height: 1.9; }
+  h1 { font-size: 24px; }
+  h2 { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>副業ライター v2 — さじ加減早見表</h1>
+<blockquote>
+<p>書く前に開く。書き終わったあとに開く。
+ジョニーは時間ない経営者なので、<strong>判断だけここで完結</strong>する。</p>
+</blockquote>
+<hr />
+<h2>STEP 0 — 書く前の 30 秒判断 (4 問)</h2>
+<h3>Q1. これは何の素材か?</h3>
+<table>
+<thead>
+<tr>
+<th>素材タイプ</th>
+<th>主 VOICE</th>
+<th>STRUCT</th>
+<th>字数</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>家族・転校・離婚を<strong>明るく</strong></td>
+<td>岸田奈美</td>
+<td>S1 起承転結+オチ</td>
+<td>2000-2500</td>
+<td>浦和ギャル男期</td>
+</tr>
+<tr>
+<td>深夜・出張・破綻を<strong>詩情で</strong></td>
+<td>燃え殻</td>
+<td>S2 螺旋</td>
+<td>2500-3500</td>
+<td>クリスマス・559 いいね</td>
+</tr>
+<tr>
+<td>自意識の<strong>違和感</strong></td>
+<td>若林正恭</td>
+<td>S5 内省サイクル</td>
+<td>2500-3000</td>
+<td>バンライフ機材・ベントラ</td>
+</tr>
+<tr>
+<td>重い話を<strong>淡々と</strong></td>
+<td>幡野広志</td>
+<td>S3 三幕</td>
+<td>2500-3500</td>
+<td>バツニ 23 日間</td>
+</tr>
+<tr>
+<td><strong>失敗 → 笑える文学</strong> に変換</td>
+<td>David Sedaris</td>
+<td>S2 螺旋</td>
+<td>3000-4000</td>
+<td>駆け落ち夜逃げ</td>
+</tr>
+<tr>
+<td><strong>物語アーク全体</strong> を見せる</td>
+<td>Cheryl Strayed</td>
+<td>S3 三幕</td>
+<td>24,000 (連載)</td>
+<td>「逃げていい」v2 全体</td>
+</tr>
+<tr>
+<td>思想・引用・体系化</td>
+<td>山口周 + Paul Graham</td>
+<td>S4 帰納</td>
+<td>3000-5000</td>
+<td>House-less, Homeful</td>
+</tr>
+<tr>
+<td>AI ノウハウ + 体験</td>
+<td>Tim Urban + 田中泰延</td>
+<td>S6 ハウツー逆引き</td>
+<td>5000-7000</td>
+<td>Claude に SNS 食わせた話</td>
+</tr>
+</tbody>
+</table>
+<h3>Q2. リード (書き出し) はどれを使う?</h3>
+<pre><code>L1 場面 1 行  ───────  「雪が降っていた。」
+L2 強い宣言  ───────  「2017 年 12 月 25 日、僕は『月 1 父ちゃん』になった。」
+L4 数字      ───────  「559 いいね、と通知が止まらなかった日のことを覚えている。」
+L7 自虐      ───────  「40 歳手前の離婚したおじさんが、1 人で車中泊…」
+L8 時系列    ───────  「12 月 8 日、ツイートで離婚を宣言した。/ 12 月 14 日、まだ何も書けなかった。」
+</code></pre>
+<p><strong>ジョニー優先順</strong>: L1 &gt; L2 &gt; L4 &gt; L7 &gt; L8 &gt; L6 &gt; L5 &gt; L3 (L3 問いかけは AI 臭出やすい)</p>
+<h3>Q3. オチ (終わり方) はどれ?</h3>
+<pre><code>E1 円環   ───  リードに戻る (雪だるま → 雪だるま)
+E2 余韻   ───  「あの日のことを、まだ時々思い出す。」← ジョニーは増やすべき
+E3 諦観+ユーモア ─ 「結局、僕はこういう人間なんだろう。」
+E4 行動宣言 ───  「明日、もう一度連絡してみようと思う。」
+E6 格言化  ───  「house-less, but homeful.」← 1 章 1 個まで
+</code></pre>
+<h3>Q4. タイトルは?</h3>
+<pre><code>T1+T7 組合せ  ──  「2017 年 12 月 25 日、僕は『月 1 父ちゃん』になった話」
+T2 数字+名詞  ──  「559 いいねの記憶」「23 日間の沈黙」
+T6 告白フレーズ ─  「『人生最後の結婚』を AI に教えてもらった夜」(強烈、PII 削れ)
+</code></pre>
+<p><strong>note でバズるルール</strong>:
+- 最初の 9 文字が命
+- 数字を入れる
+- 「○○したら、△△になった話」型</p>
+<hr />
+<h2>STEP 1 — 書きながらのチェック (5 問)</h2>
+<h3>✅ ジョニーらしさが消えていないか?</h3>
+<p>書きながら <strong>どこかに 1-2 個</strong> 入れる:
+- 「、笑」「(笑)」 ← 1 章 1 個
+- 「house-less, but homeful.」のような既存固有フレーズ ← 1 章 1 個
+- 「、ですよね?」「と書いて笑った」のようなノリの香り
+- 自分の過去の「強いフレーズ」(「持つことで失う自由がある」「世の中おかしいから自分でおもしろくする」「人生は人柱」)</p>
+<h3>❌ AI 臭を消せ</h3>
+<ul>
+<li>「いかがでしたか?」 → <strong>絶対 NG</strong></li>
+<li>「まとめると」 → <strong>NG</strong> (省略する)</li>
+<li>「以下の○つのポイント」 → <strong>NG</strong> (箇条書き禁止 / エッセイ性が消える)</li>
+<li>「私たち」「みなさん」 → <strong>NG</strong> (一人称を保つ)</li>
+<li>「〜なのです」「〜と言えるでしょう」 → <strong>削る</strong></li>
+<li>「結論から言うと」 → <strong>NG</strong> (起承転結派でいく)</li>
+</ul>
+<h3>✅ ジョニー fingerprint との整合</h3>
+<table>
+<thead>
+<tr>
+<th>削れ</th>
+<th>増やせ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「！」(投稿の 81% → 章で半分以下)</td>
+<td>「。」(句点を増やす、体言止め過剰)</td>
+</tr>
+<tr>
+<td>ハッシュタグ (本文から完全に外す)</td>
+<td>「」(他者発言の引用)</td>
+</tr>
+<tr>
+<td>「、、、、、」連続読点</td>
+<td>「…」三点リーダー (適度に間として)</td>
+</tr>
+<tr>
+<td>ww / www / 🤣 (1 章 2 個まで)</td>
+<td>場面描写 (景色・匂い・音・自分の手)</td>
+</tr>
+<tr>
+<td>絵文字</td>
+<td>数字 (年月日・回数・字数・距離)</td>
+</tr>
+</tbody>
+</table>
+<h3>✅ 段落・改行のルール</h3>
+<ul>
+<li><strong>1 段落 = 1-3 文</strong> (5 文以上は読まれない)</li>
+<li><strong>段落間に空行 1 つ</strong></li>
+<li><strong>重要な 1 文は 1 行で独立</strong></li>
+<li>ジョニーは 2017 以降 <strong>平均 2.78 行 / 投稿、行 31 字</strong> ← 既に note 向き</li>
+</ul>
+<h3>✅ 場面 / 観察 / 思想 / 結論の比率</h3>
+<table>
+<thead>
+<tr>
+<th>字数</th>
+<th>場面</th>
+<th>観察</th>
+<th>思想</th>
+<th>結</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2000-3000</td>
+<td>40%</td>
+<td>30%</td>
+<td>0%</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>3000-5000</td>
+<td>30%</td>
+<td>30%</td>
+<td>25%</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>5000-8000</td>
+<td>25%</td>
+<td>35%</td>
+<td>30%</td>
+<td>10%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>STEP 2 — 書き終わったあとの 5 分セルフレビュー</h2>
+<h3>A. PII チェック (3 秒で判断)</h3>
+<pre><code>□ 第 1 婚妻の名前 → 出ていない
+□ 子供の本名 / #弊社長 → 出ていない (本文)
+□ 第 2 婚妻の名前 / 職業 → 出ていない
+□ 川島 壮史 契約交渉の具体額 → 出ていない
+□ INNFRA 非公開クライアント名 → 出ていない
+</code></pre>
+<h3>B. 文体マーカー チェック</h3>
+<pre><code>□ ジョニー固有フレーズが 1-2 個入っている (house-less / 人生は人柱 / 持たない自由 / etc.)
+□ 「、笑」「(笑)」が 1 章 1 個まで
+□ 「！」が章 5 個以下
+□ ハッシュタグが本文に入っていない (タイトルの 1 個は OK)
+□ 「いかがでしたか」「まとめると」「結論から言うと」が無い
+□ 「私たち」「みなさん」が無い (一人称保持)
+</code></pre>
+<h3>C. 構造チェック</h3>
+<pre><code>□ リード (L1-L8) が決まっている
+□ 山場 (会話引用 / 時間止め / 数字 / メタファー) が章に 1 個ある
+□ オチ (E1-E6) が決まっている
+□ 1 段落 = 1-3 文
+□ 段落間に空行
+</code></pre>
+<h3>D. 声に出して読む (古賀史健メソッド)</h3>
+<pre><code>□ 章を声に出して 1 回読んだ
+□ つまずいた箇所に印をつけた
+□ つまずいた箇所を直した
+</code></pre>
+<hr />
+<h2>STEP 3 — 緊急時の 5 段フォールバック (書けない時)</h2>
+<h3>完璧主義凍結に入った時 (Anne Lamott)</h3>
+<blockquote>
+<p>"Perfectionism is the voice of the oppressor."</p>
+</blockquote>
+<ol>
+<li><strong>「Shitty First Draft」を AI に書かせる</strong> (ジョニーは AI ディレクション派)</li>
+<li>AI 稿を <strong>削る方向だけ</strong> で読む (足さない)</li>
+<li><strong>「、笑」「house-less」「人生は人柱」</strong>を 1-2 個だけ入れ替え</li>
+<li><strong>声に出して読む</strong> → つまずく箇所を直す</li>
+<li><strong>公開する</strong> (推敲 3 回までに止める)</li>
+</ol>
+<h3>何を書けばいいか分からない時 (田中泰延)</h3>
+<blockquote>
+<p>"物書きは調べるが 9 割 9 分 5 厘 6 毛"</p>
+</blockquote>
+<ol>
+<li><strong>wiki/personal-history/ を開く</strong> (<code>divorce-arc-complete.md</code> <code>own-publications.md</code>)</li>
+<li><strong>数字が一番大きい素材を選ぶ</strong> (FB 559 / 500 / 356 / 294 ...)</li>
+<li><strong>その素材の場面を 1 行書く</strong> (「2019 年 4 月 28 日、僕は…」)</li>
+<li>STEP 0 に戻って Q1-Q4 で素材タイプを決める</li>
+<li>書く</li>
+</ol>
+<hr />
+<h2>付録: ジョニーの「強いフレーズ」プール (引用素材)</h2>
+<h3>思想系 (使い回し可、章で 1 個)</h3>
+<ul>
+<li>「house-less, but homeful.」(EnterJam 2021)</li>
+<li>「人生は人柱」(LIFULL 2020)</li>
+<li>「世の中おかしいから、自分でおもしろくする」(LIFULL 2020)</li>
+<li>「持つことで失う自由がある」(Twitter 2018)</li>
+<li>「水もエネルギーも廃棄物も循環させる、まるで宇宙船の中にいるかのような営み」(noru journal 2021)</li>
+<li>「実のところ僕は移動するのが嫌い」(traverse 2023, 通説逆転型)</li>
+<li>「Be Outsiders」(LAC 八ヶ岳キャッチ、自身設計)</li>
+<li>「社会がバグってるなら、イチから、いやゼロからコードを書き直せばいいじゃない」(Twitter 2021)</li>
+<li>「本気の素人 vs プロが作った薄っぺらいもの」(Twitter 2022)</li>
+</ul>
+<h3>自虐系 (リード L7 で使える)</h3>
+<ul>
+<li>「40 歳手前の離婚したおじさんが、1 人で車中泊していたらさみしく見える」(カエライフ 2019)</li>
+<li>「実験をしまくった結果、家庭は崩壊しましたが…(笑)」(LIFULL 2020)</li>
+<li>「ロストジェネレーション世代として、未来は闇ばかりだなと思っていた」(OCEANS 2020)</li>
+</ul>
+<h3>物語ブロック (時間軸の柱、章タイトル候補)</h3>
+<ul>
+<li>2017-12-25 雪だるまの約束 (IG ❤122)</li>
+<li>2018-01 #ベントラ ゲット (FB ❤186)</li>
+<li>2019-04-28 #人生最後の結婚 (FB ❤559) ★最大反響</li>
+<li>2020-03-03 結婚 1 年生存報告 (FB ❤500)</li>
+<li>2020-04-08 不惑の朝 (FB ❤169)</li>
+<li>2020-12-08 バツニ宣言 (TW ❤93)</li>
+<li>2020-12-31 ご報告と今後について (FB ❤156)</li>
+<li>2023-03-02 MUJI × INNFRA インフラゼロ (FB ❤250)</li>
+<li>2025-12-22 世界遺産に住んでみたら、優勝した話 (FB ❤163)</li>
+</ul>
+<hr />
+<h2>1 ページ要約 (このページの要約)</h2>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│ 副業ライター v2 さじ加減 1 ページ要約                          │
+├─────────────────────────────────────────────────────────┤
+│ 1. 素材タイプ → VOICE → STRUCT を 30 秒で決める               │
+│   家族明るく = 岸田 / 詩情 = 燃え殻 / 自意識 = 若林            │
+│   淡々と重い = 幡野 / 笑える文学 = Sedaris                    │
+│   AI ノウハウ = Tim Urban + 田中泰延                          │
+│                                                              │
+│ 2. リード = 場面 1 行 (L1) か 数字 (L4) か 自虐 (L7)         │
+│   問いかけ (L3) は AI 臭出やすいので最後                      │
+│                                                              │
+│ 3. オチ = 余韻 (E2) か 諦観ユーモア (E3) か 円環 (E1)        │
+│   格言化 (E6) は 1 章 1 個まで                                │
+│                                                              │
+│ 4. 削れ = ！ハッシュタグ www 「いかがでしたか」「まとめると」    │
+│   増やせ = 場面描写 数字 「」引用 …三点リーダー                │
+│                                                              │
+│ 5. ジョニー固有フレーズを 1-2 個必ず入れる                     │
+│   (house-less, 人生は人柱, 持たない自由, etc.)                │
+│                                                              │
+│ 6. PII チェック: 元妻名 / 子の本名 / #弊社長 / 川島 → 全部 NG │
+│                                                              │
+│ 7. 凍ったら Lamott: Shitty First Draft を AI に書かせて削る   │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<h2>関連</h2>
+<ul>
+<li><code>voice-map.md</code> (各書き手の詳細)</li>
+<li><code>structure-patterns.md</code> (リード・構成・オチ・タイトルの詳細)</li>
+<li><code>johnny-voice-fingerprint.md</code> (実証データ)</li>
+<li><code>material-style-mapping.md</code> (素材ごとの推奨)</li>
+</ul>
+
+<div class="ttl-footer"><div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-05-13 05:19 JST</strong> に自動削除されます</div></div>
+</div>
+</body>
+</html>
