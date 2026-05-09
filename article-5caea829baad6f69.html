@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リード/構成/オチ/タイトル/字数 構造パターン集</title>
+<style>
+:root {
+  --bg: #fbfaf8;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2b7a78;
+  --quote-bg: #f0ebe3;
+  --border: #e8e2d8;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1c1b19; --text: #e8e4dc; --muted: #9a958c; --accent: #6ab8b4; --quote-bg: #28262a; --border: #3a3731; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Georgia", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 2;
+  margin: 0;
+  padding: 32px 20px;
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 680px; margin: 0 auto; }
+h1 { font-size: 30px; margin: 20px 0 24px; line-height: 1.4; font-weight: 700; letter-spacing: 0.02em; }
+h2 { font-size: 22px; margin: 48px 0 18px; line-height: 1.5; font-weight: 700; padding-left: 14px; border-left: 4px solid var(--accent); }
+h3 { font-size: 18px; margin: 32px 0 12px; color: var(--accent); }
+p { margin: 20px 0; text-align: justify; }
+a { color: var(--accent); text-decoration: underline; }
+blockquote { background: var(--quote-bg); padding: 18px 22px; margin: 24px 0; border-radius: 4px; font-size: 16.5px; line-height: 1.9; font-style: italic; }
+em { font-style: italic; color: var(--accent); }
+strong { font-weight: 700; background: linear-gradient(transparent 65%, rgba(43,122,120,0.18) 65%); }
+ul, ol { padding-left: 28px; margin: 16px 0; }
+li { margin: 6px 0; line-height: 1.9; }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px auto; width: 40%; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12.5px; margin: 48px 0 16px; padding: 12px; border-top: 1px dashed var(--border); font-family: -apple-system, sans-serif; }
+@media (max-width: 480px) {
+  body { font-size: 16px; padding: 24px 16px; line-height: 1.9; }
+  h1 { font-size: 24px; }
+  h2 { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>構造マップ — 受ける記事の骨格パターン</h1>
+<h2>1. リード (書き出し) パターン 8 種</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>パターン名</th>
+<th>例 / 使う書き手</th>
+<th>効果</th>
+<th>ジョニー素材適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td><strong>場面 1 行投入</strong></td>
+<td>「雪が降っていた。」 (燃え殻 / Sedaris)</td>
+<td>即没入、空気作る</td>
+<td>第 2 婚破綻、月 1 父ちゃんクリスマス</td>
+</tr>
+<tr>
+<td>L2</td>
+<td><strong>強い宣言・告白</strong></td>
+<td>「弟が万引きを疑われ、そして母は赤べこになった」 (岸田)</td>
+<td>続きを読まずにいられない</td>
+<td>「人生最後の結婚と書いた日」</td>
+</tr>
+<tr>
+<td>L3</td>
+<td><strong>問いかけ反語</strong></td>
+<td>「大人になれた人、いますか?」</td>
+<td>共感即起動</td>
+<td>「逃げていい」v2 全体</td>
+</tr>
+<tr>
+<td>L4</td>
+<td><strong>数字 + 名詞句</strong></td>
+<td>「559 いいねの記憶」「23 日間の沈黙」</td>
+<td>数字で具体性</td>
+<td>全章使える</td>
+</tr>
+<tr>
+<td>L5</td>
+<td><strong>過去から現在へジャンプ</strong></td>
+<td>「あの日から 8 年」 (Strayed 型)</td>
+<td>物語アーク予告</td>
+<td>8 phase 構造の各章扉</td>
+</tr>
+<tr>
+<td>L6</td>
+<td><strong>引用</strong> (他者の言葉)</td>
+<td>「『所有が人間をいっそう独立的に自由にする』とニーチェは言った」 (ジョニー既使用)</td>
+<td>知的トーン</td>
+<td>House-less Homeful、思想章</td>
+</tr>
+<tr>
+<td>L7</td>
+<td><strong>皮肉・自虐</strong></td>
+<td>「40 歳手前の離婚したおじさんが、1 人で車中泊していたらさみしく見える」 (ジョニー既発言)</td>
+<td>親しみと信頼</td>
+<td>第 1 婚直後章</td>
+</tr>
+<tr>
+<td>L8</td>
+<td><strong>時系列箇条書き</strong></td>
+<td>「2017-11、いろんなことが起こった。/ 2017-12、月 1 父ちゃんになった。/ 2018-01、一人暮らしを始めた。」</td>
+<td>不可逆性が伝わる</td>
+<td>Phase 2 急展開、Phase 5 沈黙の予兆</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ジョニー優先順</strong>: L1 &gt; L2 &gt; L4 &gt; L7 &gt; L8 &gt; L6 &gt; L5 &gt; L3
+(理由: ジョニーは既にハッシュタグ・断片・場面描写を多用 = L1/L2/L4 と相性 ◎、L3 の問いかけは AI 臭が出やすいので最後)</p>
+<hr />
+<h2>2. 章構成パターン 6 種</h2>
+<h3>S1. 起承転結 + オチ (岸田奈美型)</h3>
+<pre><code>起: 場面 (具体・固有名詞・短文)
+承: 過去への寄り道 (1 行空け改行で時間飛ばす)
+転: 想定外の展開 (他者の発言が転調を生む)
+結: オチ (笑い or 涙 or 余韻)
+</code></pre>
+<p>→ <strong>note 単発記事 1500-3000 字向け</strong>。ジョニーのクリスマス回・弁当回・トマト回など「家庭の小さな話」に最適。</p>
+<h3>S2. 螺旋構造 (David Sedaris 型)</h3>
+<pre><code>起: 些細な逸話 (Fitbit を買った)
+↓ 連想
+中: 過去の家族エピソード
+↓ 連想
+中: 死生観・人生観
+↓ 戻る
+結: 些細な逸話に戻ってきて、最初と意味が変わっている
+</code></pre>
+<p>→ <strong>3000-5000 字、文学性高い</strong>。第 1 婚破綻、両親、第 2 婚を <strong>重く書きすぎない</strong> ために有効。</p>
+<h3>S3. 物語アーク三幕 (Cheryl Strayed / 古典物語)</h3>
+<pre><code>第 1 幕: 平穏 (3 歳の息子と過ごすクリスマス前)
+第 2 幕: 喪失 (離婚、別居、月 1 父ちゃん化)
+       → さらに深く落ちる (孤独、迷走、再婚 → 駆け落ち夜逃げ)
+第 3 幕: 再生 (バンライフ → MUJI コラボ → INNFRA → 中城世界遺産)
+</code></pre>
+<p>→ <strong>「逃げていい」v2 全体 (24,000 字 / 8 章)</strong> の骨格。Phase 0-7 マッピングが既にある。</p>
+<h3>S4. 帰納型 思想エッセイ (Paul Graham / 山口周型)</h3>
+<pre><code>具体的体験 1 (小)
+具体的体験 2 (中)
+具体的体験 3 (大)
+↓
+共通項を抜き出す
+↓
+ひとつの主張に到達
+↓
+余白 (反証可能性)
+</code></pre>
+<p>→ <strong>AI 活用ノウハウ シリーズ向け</strong> (5000-8000 字)。「3 つのプロジェクトを Claude にやらせて気づいた共通点」のような構造。</p>
+<h3>S5. 内省サイクル (若林正恭型)</h3>
+<pre><code>小さな違和感 (スタバで「グランデ」が言えない)
+↓ なぜ?
+分析 (自意識の正体)
+↓ どうした?
+小さな実験 (試しに言ってみた)
+↓ で?
+諦観 (どっちでもいいと気づいた)
+</code></pre>
+<p>→ <strong>note 単発 2000-3000 字</strong>。「経営者なのに地方に逃げる自分」「親族集まりで黙る自分」「契約交渉で弱気になる自分」のような <strong>ジョニーの中年男性自意識</strong> ネタに直結。</p>
+<h3>S6. ハウツー逆引き (Tim Urban / Wait But Why 型)</h3>
+<pre><code>質問: 「Claude に SNS 18 年食わせるとどうなるか?」
+↓
+予想 (ナイーブな仮説)
+↓
+実験 (160 時間調べた)
+↓
+驚き (予想外の発見、棒人間図解)
+↓
+普遍化 (これは AI 時代の何を意味するか)
+↓
+自分の体験への着地
+</code></pre>
+<p>→ <strong>AI 活用ノウハウ シリーズ 5000-8000 字</strong>。長文だが PV 取れる典型。</p>
+<hr />
+<h2>3. オチ (終わり方) パターン 6 種</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>パターン</th>
+<th>例</th>
+<th>ジョニー適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td><strong>円環 (リードに戻る)</strong></td>
+<td>雪だるまから始まり、雪だるまで終わる</td>
+<td>クリスマス回、家族系</td>
+</tr>
+<tr>
+<td>E2</td>
+<td><strong>余韻 (結論を出さない)</strong></td>
+<td>「あの日のことを、まだ時々思い出す。」</td>
+<td>第 2 婚破綻、第 1 婚</td>
+</tr>
+<tr>
+<td>E3</td>
+<td><strong>諦観 + ユーモア</strong></td>
+<td>「結局、僕はこういう人間なんだろう。今日もコーヒーを淹れる。」</td>
+<td>自意識系、若林型</td>
+</tr>
+<tr>
+<td>E4</td>
+<td><strong>小さな行動宣言</strong></td>
+<td>「明日、もう一度連絡してみようと思う。」</td>
+<td>子供との関係、地方移住</td>
+</tr>
+<tr>
+<td>E5</td>
+<td><strong>問いかけで終える</strong></td>
+<td>「あなたには、逃げてもいい場所がありますか?」</td>
+<td>「逃げていい」v2 章末</td>
+</tr>
+<tr>
+<td>E6</td>
+<td><strong>格言化 (危険)</strong></td>
+<td>「house-less, but homeful.」</td>
+<td>思想章のみ。多用注意</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ジョニー注意</strong>: E6 (格言化) は既に多用 (「人生は人柱」「house-less, but homeful」)。<strong>1 章につき 1 個まで</strong>。E2/E3 のような「余韻 + 諦観」を増やすと文学性が出る。</p>
+<hr />
+<h2>4. タイトルパターン 7 種</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>パターン</th>
+<th>例</th>
+<th>バズ確率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td><strong>「○○したら、△△になった話」</strong></td>
+<td>「人生最後の結婚と書いたら、1 年 8 ヶ月で破綻した話」</td>
+<td>高</td>
+</tr>
+<tr>
+<td>T2</td>
+<td><strong>数字 + 名詞</strong></td>
+<td>「559 いいねの記憶」「23 日間の沈黙」「8 年で 6 媒体」</td>
+<td>高</td>
+</tr>
+<tr>
+<td>T3</td>
+<td><strong>問いかけ・反語</strong></td>
+<td>「大人になれた人、いますか?」</td>
+<td>中-高</td>
+</tr>
+<tr>
+<td>T4</td>
+<td><strong>引用・キャッチ</strong></td>
+<td>「house-less, but homeful.」</td>
+<td>中 (固有性高い)</td>
+</tr>
+<tr>
+<td>T5</td>
+<td><strong>対比</strong></td>
+<td>「家でも、車でもない。」「住まないけど、暮らす。」</td>
+<td>中</td>
+</tr>
+<tr>
+<td>T6</td>
+<td><strong>告白フレーズ</strong></td>
+<td>「妻に駆け落ちされた出張から、僕は AI を始めた」</td>
+<td>高 (危険性も高)</td>
+</tr>
+<tr>
+<td>T7</td>
+<td><strong>時系列で殴る</strong></td>
+<td>「2017 年 12 月 25 日、僕は『月 1 父ちゃん』になった」</td>
+<td>中-高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>note でバズるルール (検索結果ベース)</strong>:
+- 最初の 9 文字が命
+- 数字を入れる
+- 「◯◯したら、△△になった話」型
+- 結末を知りたくなる構成</p>
+<p><strong>ジョニー優先順</strong>: T1 + T7 を組合わせる (「2017 年 12 月 25 日、僕は『月 1 父ちゃん』になった話」)。T6 は強烈だが PII 配慮で表現を削る必要あり (「妻に駆け落ちされた」→「妻が居なくなった」)。</p>
+<hr />
+<h2>5. 字数感マップ — 何を何文字で書くか</h2>
+<table>
+<thead>
+<tr>
+<th>字数</th>
+<th>媒体</th>
+<th>中身比率</th>
+<th>ジョニー適用</th>
+<th>参照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>800-1500 字</strong></td>
+<td>note 短文 / Twitter スレ</td>
+<td>場面 70% / 結 30%</td>
+<td>クリスマス回、弁当回、エピソード単発</td>
+<td>燃え殻 / 岸田</td>
+</tr>
+<tr>
+<td><strong>2000-3000 字</strong></td>
+<td>note 標準</td>
+<td>場面 40% / 観察 30% / 結 30%</td>
+<td>「逃げていい」v2 各章、若林型自意識</td>
+<td>岸田 / 若林 / Sedaris</td>
+</tr>
+<tr>
+<td><strong>3000-5000 字</strong></td>
+<td>note ロング / Substack</td>
+<td>場面 30% / 観察 30% / 思想 25% / 結 15%</td>
+<td>「人生最後の結婚」(章 3)、INNFRA 創業章</td>
+<td>山口周 / Paul Graham</td>
+</tr>
+<tr>
+<td><strong>5000-8000 字</strong></td>
+<td>note 大作 / Substack 連載</td>
+<td>場面 25% / 調査 35% / 思想 30% / 結 10%</td>
+<td>AI 活用ノウハウ シリーズ、Vault 6 レイヤー論</td>
+<td>Tim Urban / 田中泰延</td>
+</tr>
+<tr>
+<td><strong>10,000+ 字</strong></td>
+<td>書籍化 / 連載書下し</td>
+<td>構造化</td>
+<td>「逃げていい」v2 単行本 (24,000 字 / 8 章)</td>
+<td>Strayed / Lamott</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. 段落の長さ・改行ルール</h2>
+<p><strong>note (横書き) の鉄則</strong> (岸田奈美 + バズ note 分析より):
+- <strong>1 段落 = 1-3 文</strong> (5 文以上は読まれない)
+- <strong>段落間に空行を 1 つ</strong> = 「ポンと話が飛んでも成立」
+- <strong>重要な 1 文は 1 行で独立</strong>
+- <strong>箇条書きは多用しすぎない</strong> (エッセイらしさを消す)</p>
+<p><strong>ジョニー固有の癖との接合</strong>:
+- ジョニーは既に <strong>改行多め (2017-2026 で平均 2.78 行 / 投稿、line 平均 31 字)</strong> = note 向きのリズムを持っている
+- ハッシュタグはエッセイでは外す (SNS 投稿の流用ではエッセイにならない)</p>
+<hr />
+<h2>7. ピーク (山場) の作り方</h2>
+<p><strong>S2 螺旋構造 / S3 三幕構造での山場テクニック</strong>:
+1. <strong>会話を引用する</strong> — 他者の発言の引用は最大の起伏 (例: 「『もう無理』と妻は言った。」)
+2. <strong>時間を止める</strong> — 一瞬の場面を 200-300 字で詳述する (景色、匂い、音、自分の手)
+3. <strong>数字で殴る</strong> — 「3 歳と 1 ヶ月だった」「あれから 7 年」
+4. <strong>メタファーを 1 つだけ置く</strong> — 多用しない</p>
+<p><strong>ジョニー注意</strong>: ジョニーの SNS は「ハッシュタグ + 写真 + ノリ」依存。エッセイでは <strong>ハッシュタグを外して、その代わり場面描写を入れる</strong>。これが最大の翻訳作業。</p>
+<hr />
+<h2>関連</h2>
+<ul>
+<li><code>voice-map.md</code></li>
+<li><code>johnny-voice-fingerprint.md</code></li>
+<li><code>material-style-mapping.md</code></li>
+<li><code>cheatsheet.md</code></li>
+</ul>
+<h2>ソース</h2>
+<ul>
+<li><a href="https://news.kodansha.co.jp/books/9682">岸田奈美 note 文体 (講談社)</a></li>
+<li><a href="https://note.com/kawatyanlife/n/n11562a478ec1">noteでバズるパターン集</a></li>
+<li><a href="https://note.com/ibaragiayako5/n/n5dfa3dd839ff">バズるタイトル法則 (note)</a></li>
+<li><a href="https://www.sungrove.co.jp/note-writing-guide/">note の書き方ガイド 2025</a></li>
+<li><a href="https://ji-sedai.jp/works/book/publication/bunshokougi/01/01.html">古賀史健 文章講義</a></li>
+<li><a href="https://www.1101.com/n/s/yomitaikoto">田中泰延 ほぼ日連載</a></li>
+<li><a href="https://www.gilliamwritersgroup.com/blog/david-sedaris-humor-in-autobiographical-essays">Sedaris essay technique (Gilliam)</a></li>
+<li><a href="https://review.firstround.com/wait-but-whys-tim-urban-on-parsing-and-transmitting-complex-ideas/">Tim Urban writing process (First Round)</a></li>
+<li><a href="https://paulgraham.com/useful.html">Paul Graham how to write usefully</a></li>
+</ul>
+
+<div class="ttl-footer"><div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-05-13 05:20 JST</strong> に自動削除されます</div></div>
+</div>
+</body>
+</html>
