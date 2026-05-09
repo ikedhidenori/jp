@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ジョニー voice fingerprint 実証 (54,836 投稿分析)</title>
+<style>
+:root {
+  --bg: #fbfaf8;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2b7a78;
+  --quote-bg: #f0ebe3;
+  --border: #e8e2d8;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1c1b19; --text: #e8e4dc; --muted: #9a958c; --accent: #6ab8b4; --quote-bg: #28262a; --border: #3a3731; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Georgia", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 2;
+  margin: 0;
+  padding: 32px 20px;
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 680px; margin: 0 auto; }
+h1 { font-size: 30px; margin: 20px 0 24px; line-height: 1.4; font-weight: 700; letter-spacing: 0.02em; }
+h2 { font-size: 22px; margin: 48px 0 18px; line-height: 1.5; font-weight: 700; padding-left: 14px; border-left: 4px solid var(--accent); }
+h3 { font-size: 18px; margin: 32px 0 12px; color: var(--accent); }
+p { margin: 20px 0; text-align: justify; }
+a { color: var(--accent); text-decoration: underline; }
+blockquote { background: var(--quote-bg); padding: 18px 22px; margin: 24px 0; border-radius: 4px; font-size: 16.5px; line-height: 1.9; font-style: italic; }
+em { font-style: italic; color: var(--accent); }
+strong { font-weight: 700; background: linear-gradient(transparent 65%, rgba(43,122,120,0.18) 65%); }
+ul, ol { padding-left: 28px; margin: 16px 0; }
+li { margin: 6px 0; line-height: 1.9; }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px auto; width: 40%; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12.5px; margin: 48px 0 16px; padding: 12px; border-top: 1px dashed var(--border); font-family: -apple-system, sans-serif; }
+@media (max-width: 480px) {
+  body { font-size: 16px; padding: 24px 16px; line-height: 1.9; }
+  h1 { font-size: 24px; }
+  h2 { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>ジョニーの文体 fingerprint — 客観実証</h1>
+<h2>1. メトリクス概要</h2>
+<table>
+<thead>
+<tr>
+<th>指標</th>
+<th>2008-2016 (黄金期 SNS)</th>
+<th>2017-2026 (副業ライターv2 期)</th>
+<th>解釈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>投稿数</td>
+<td>50,780</td>
+<td>4,056</td>
+<td><strong>1/12 に激減</strong> = 量から質への転換</td>
+</tr>
+<tr>
+<td>平均文字数 / 投稿</td>
+<td>55.8</td>
+<td><strong>88.2</strong></td>
+<td><strong>約 1.6 倍に増加</strong> = 一投稿で書く密度が上昇</td>
+</tr>
+<tr>
+<td>平均行数 / 投稿</td>
+<td>1.12</td>
+<td><strong>2.78</strong></td>
+<td><strong>約 2.5 倍に増加</strong> = 改行多用で「note 的」リズムに</td>
+</tr>
+<tr>
+<td>平均行字数</td>
+<td>49.8</td>
+<td><strong>31.0</strong></td>
+<td><strong>短文化</strong> = 詩・コピー的リズム</td>
+</tr>
+</tbody>
+</table>
+<p><strong>結論 (核心)</strong>: ジョニーは 2017 年以降、<strong>「短い行 × 多い改行 × 投稿あたり情報量増」</strong> に転換している。これは note エッセイの典型的構造 (岸田奈美の「1 行空け改行」) と <strong>すでに整合</strong>。エッセイ移行に向けた素地はある。</p>
+<hr />
+<h2>2. 自己呼称 (ジョニーの「僕/俺/自分」使い分け)</h2>
+<h3>2017-2026 (現在の文体)</h3>
+<table>
+<thead>
+<tr>
+<th>呼称</th>
+<th>出現数</th>
+<th>比率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>僕の</td>
+<td>63</td>
+<td></td>
+</tr>
+<tr>
+<td>僕は</td>
+<td>53</td>
+<td></td>
+</tr>
+<tr>
+<td>僕が</td>
+<td>32</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>「僕」系合計</strong></td>
+<td><strong>148</strong></td>
+<td><strong>40.5%</strong></td>
+</tr>
+<tr>
+<td>自分の</td>
+<td>30</td>
+<td></td>
+</tr>
+<tr>
+<td>自分が</td>
+<td>9</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>「自分」系合計</strong></td>
+<td><strong>39</strong></td>
+<td><strong>10.7%</strong></td>
+</tr>
+<tr>
+<td>俺</td>
+<td>28</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>「俺」系</strong></td>
+<td><strong>28</strong></td>
+<td><strong>7.7%</strong></td>
+</tr>
+<tr>
+<td>ぼく</td>
+<td>15</td>
+<td>4.1%</td>
+</tr>
+<tr>
+<td>オレ</td>
+<td>10</td>
+<td>2.7%</td>
+</tr>
+<tr>
+<td>ジョニー</td>
+<td>67</td>
+<td>18.4%</td>
+</tr>
+<tr>
+<td>渡鳥</td>
+<td>64</td>
+<td>17.5%</td>
+</tr>
+<tr>
+<td><strong>私</strong> 系</td>
+<td>1</td>
+<td>0.3%</td>
+</tr>
+</tbody>
+</table>
+<h3>2008-2016 (黄金期)</h3>
+<table>
+<thead>
+<tr>
+<th>呼称</th>
+<th>出現数</th>
+<th>比率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>「僕」系合計</strong></td>
+<td>473</td>
+<td>28.3%</td>
+</tr>
+<tr>
+<td><strong>「自分」系合計</strong></td>
+<td>341</td>
+<td>20.4%</td>
+</tr>
+<tr>
+<td><strong>「俺」系</strong></td>
+<td>386</td>
+<td>23.1% (大幅高)</td>
+</tr>
+<tr>
+<td>ぼく</td>
+<td>203</td>
+<td>12.1%</td>
+</tr>
+<tr>
+<td><strong>私</strong> 系</td>
+<td>83</td>
+<td>5.0%</td>
+</tr>
+<tr>
+<td>ジョニー</td>
+<td>327</td>
+<td>19.5%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解釈</strong>:
+- <strong>2017 年以降「俺」が激減 (23% → 7.7%)</strong>、「僕」が増加 (28% → 40%)。<strong>より柔らかい・内省的トーンへ</strong>
+- 「ジョニー」「渡鳥」自称は維持 (本人ブランドの一部)
+- <strong>「私」はほぼ使わない</strong> (硬すぎる)
+- <strong>エッセイ推奨</strong>: 「僕」を主軸、「ジョニー」は地の文・タイトルで、「俺」は内的独白の強調時のみ</p>
+<hr />
+<h2>3. 句読点・記号の癖</h2>
+<h3>2017-2026</h3>
+<table>
+<thead>
+<tr>
+<th>記号</th>
+<th>出現数</th>
+<th>投稿あたり</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>、</td>
+<td>4,985</td>
+<td>1.23 / 投稿</td>
+</tr>
+<tr>
+<td>。</td>
+<td>4,553</td>
+<td>1.12 / 投稿</td>
+</tr>
+<tr>
+<td>ー (長音符)</td>
+<td>4,383</td>
+<td>1.08 / 投稿</td>
+</tr>
+<tr>
+<td>！</td>
+<td>3,299</td>
+<td>0.81 / 投稿</td>
+</tr>
+<tr>
+<td>…</td>
+<td>831</td>
+<td>0.20 / 投稿</td>
+</tr>
+<tr>
+<td>？</td>
+<td>692</td>
+<td>0.17 / 投稿</td>
+</tr>
+</tbody>
+</table>
+<p><strong>特徴</strong>:
+- <strong>「！」が多い</strong> (3,299 件、投稿の 81%) = SNS 由来のテンション。<strong>エッセイでは半分以下に削る</strong> べき
+- <strong>「…」(三点リーダー)</strong> は 0.2/投稿 = 適度。エッセイでは <strong>間</strong> として使える
+- <strong>「ー」(長音符)</strong> が多い = 「ねー」「やー」「うまー」のような口語的カタカナ多用癖
+- <strong>「？」は意外と少ない</strong> (0.17/投稿) = 問いかけ型は使い慣れていない</p>
+<h3>体言止め proxy</h3>
+<ul>
+<li>2017-2026 で <strong>7,658 行</strong> (全 11,275 行中の 67.9%) が体言止め (句読点なしで終わる)</li>
+<li>これは <strong>写真キャプション + ハッシュタグ</strong> の影響大。エッセイでは <strong>句点を増やす</strong> 必要</li>
+</ul>
+<h3>カッコ (「」) の使い方</h3>
+<ul>
+<li>2017-2026 で 341 回 = 0.084 / 投稿。<strong>少ない</strong> = 引用・他者発言が少ない</li>
+<li><strong>エッセイ推奨</strong>: 他者の発言・自分の過去の発言を「」で引用する手数を意識的に増やす</li>
+</ul>
+<h3>ダッシュ・波線 (—、〜、ー)</h3>
+<ul>
+<li>2017-2026 で 4,840 件。<strong>多い</strong> = 既に詩的リズム要素あり</li>
+</ul>
+<h3>括弧 (脱線・補足)</h3>
+<ul>
+<li>2017-2026 で 682 件 = 0.17 / 投稿。<strong>(笑) (ただしジジイになってからは長い説) のような自己ツッコミ系</strong></li>
+</ul>
+<hr />
+<h2>4. 笑い表記の癖</h2>
+<table>
+<thead>
+<tr>
+<th>表記</th>
+<th>2017-2026</th>
+<th>2008-2016</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ww</td>
+<td>234</td>
+<td>662</td>
+</tr>
+<tr>
+<td>www</td>
+<td>221</td>
+<td>556</td>
+</tr>
+<tr>
+<td>🤣</td>
+<td>33</td>
+<td>(ほぼなし)</td>
+</tr>
+<tr>
+<td>、笑</td>
+<td>31</td>
+<td>(少)</td>
+</tr>
+<tr>
+<td>(笑)</td>
+<td>29</td>
+<td>207</td>
+</tr>
+<tr>
+<td>ｗｗ (全角)</td>
+<td>(少)</td>
+<td>297</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解釈</strong>:
+- <strong>「ww」「www」が現役</strong> = 副業ライター的にはエッセイで使うとカジュアル過ぎ。<strong>2-3 個まで / 章</strong>
+- <strong>「(笑)」は減って 🤣 絵文字に置換</strong>
+- <strong>エッセイ推奨</strong>: 笑いは「と書いて笑った」「本当にそうか?と自問する」のように <strong>言語化</strong> する方向にシフト</p>
+<hr />
+<h2>5. 絵文字・ハッシュタグ依存度</h2>
+<ul>
+<li>絵文字: 1,462 件 / 4,056 投稿 = <strong>0.36 / 投稿</strong></li>
+<li>ハッシュタグ: 5,803 件 / 4,056 投稿 = <strong>1.43 / 投稿</strong></li>
+</ul>
+<p><strong>解釈</strong>:
+- <strong>ハッシュタグが投稿あたり 1.4 個</strong> = 強い依存。エッセイでは <strong>完全に外す</strong> (タイトルに 1 個のみ可)
+- 絵文字は控えめ。エッセイでは 0 個でよい</p>
+<hr />
+<h2>6. ジョニーの Top ハッシュタグ (アイデンティティ・マーカー)</h2>
+<p>これらはジョニーの「自己定義」=エッセイ本文では避けつつ、<strong>話題のフックとしては有効</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>順位</th>
+<th>ハッシュタグ</th>
+<th>出現</th>
+<th>エッセイ可否</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>#バンLDK</td>
+<td>191</td>
+<td>タイトル可、本文ではフルスペル「Van + LDK」</td>
+</tr>
+<tr>
+<td>2</td>
+<td>#弊社長</td>
+<td>175</td>
+<td><strong>本文 NG</strong> (子供の愛称、PII)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>#ジョニイ飯</td>
+<td>107</td>
+<td>食関連エッセイのフック可</td>
+</tr>
+<tr>
+<td>4</td>
+<td>#主夫</td>
+<td>100</td>
+<td>テーマ可</td>
+</tr>
+<tr>
+<td>5</td>
+<td>#バンライフ</td>
+<td>98</td>
+<td>テーマ可</td>
+</tr>
+<tr>
+<td>6</td>
+<td>#暮らしかた冒険家</td>
+<td>88</td>
+<td>過去の屋号、回想時に有効</td>
+</tr>
+<tr>
+<td>7</td>
+<td>#2歳児あるある</td>
+<td>86</td>
+<td>第 1 婚期回想のフック</td>
+</tr>
+<tr>
+<td>8</td>
+<td>#男性育児</td>
+<td>78</td>
+<td>テーマ可</td>
+</tr>
+<tr>
+<td>9</td>
+<td>#兼業主夫</td>
+<td>67</td>
+<td>テーマ可</td>
+</tr>
+<tr>
+<td>10</td>
+<td>#ツキイチ父ちゃん</td>
+<td>47</td>
+<td><strong>章タイトル候補 (Phase 2)</strong></td>
+</tr>
+<tr>
+<td>11</td>
+<td>#都市型バンライフ</td>
+<td>34</td>
+<td>テーマ可</td>
+</tr>
+<tr>
+<td>12</td>
+<td>#INTP-A</td>
+<td>(低)</td>
+<td>自己分析章のフック</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. ジョニー固有の言語マーカー (口癖・好む言い回し)</h2>
+<h3>sample-sentences.txt から抽出した特徴フレーズ</h3>
+<p><strong>ノリ系・SNS 由来 (エッセイでは抑制)</strong>:
+- 「やっべ！」「どぅおりゃ！」「うまー！」「最高👍」「バツグン👌」
+- 「マジうまで泣けた」「ペロリ」「悶絶」
+- 「、、、、、」連続読点 → エッセイでは「。」または「…」へ</p>
+<p><strong>思想・主張系 (エッセイで活用)</strong>:
+- 「<strong>社会がバグってるなら、イチから、いやゼロからコードを書き直せばいいじゃない</strong>」 (2021)
+- 「世の中おかしいから、自分でおもしろくする」(2020 LIFULL)
+- 「人生は人柱」(座右の銘)
+- 「<strong>持つことで失う自由がある</strong>」(2018 Twitter, 詩的箴言)
+- 「house-less, but homeful.」
+- 「<strong>プロが作った薄っぺらいもの</strong>より<strong>本気の素人</strong>」(2022)
+- 「<strong>仮説検証という地道なお仕事</strong>」(2020)
+- 「<strong>水もエネルギーも廃棄物も循環させる、まるで宇宙船の中にいるかのような営み</strong>」(2021 noru journal)</p>
+<p><strong>自虐・自己観察系 (エッセイで活用)</strong>:
+- 「40 歳手前の離婚したおじさんが、1 人で車中泊していたらさみしく見える」(2019 カエライフ)
+- 「ロストジェネレーション世代として、未来は闇ばかりだなと思っていた」(OCEANS)
+- 「実のところ僕は移動するのが嫌い」(2023 traverse) ← 通説逆転型、強い</p>
+<p><strong>フック癖 ("斜線・スラッシュ" 装飾)</strong>:
+- 「＼ こんなレタスは初めてだ！ ／」「＼ 9/25水曜、シモンズ vs コアラ ／」(全角スラッシュで囲むタイトル)
+- → エッセイでは外すが、note タイトルなら一回だけ使えるかも</p>
+<p><strong>結論型 (エッセイで活用)</strong>:
+- 「<strong>いずれは持ち運び可能にする計画がある。モバイルビレッジが最終ゴールだ。</strong>」(短い断定 + ビジョン)
+- 「<strong>人生は思ったより短い。(ただしジジイになってからは長い説)</strong>」(短い結論 + 括弧自虐)</p>
+<hr />
+<h2>8. ジョニー文体の SWOT (副業ライター v2 視点)</h2>
+<h3>Strengths (強み — そのまま使える)</h3>
+<ul>
+<li><strong>思想 + 自虐 + 詩的箴言の複合</strong>ができる素地 (例: 「持つことで失う自由がある」)</li>
+<li><strong>改行と短文のリズム</strong>が note 向き</li>
+<li><strong>固有名詞・場面描写の即投入</strong>癖 (場所・食べ物・人名を惜しまず出す)</li>
+<li><strong>括弧自虐</strong>の癖 (Sedaris / 若林型と相性 ◎)</li>
+<li><strong>インタビュー発言</strong>で既に文学的フレーズを多数生成済み (引用素材として再利用可)</li>
+</ul>
+<h3>Weaknesses (弱み — エッセイ移行で意識的に削る)</h3>
+<ul>
+<li><strong>「！」過多</strong> (投稿の 81%) → 半分にする</li>
+<li><strong>ハッシュタグ依存</strong> (1.43/投稿) → 本文から完全に外す</li>
+<li><strong>「、、、、、」連続読点</strong> → 「。」または「…」へ</li>
+<li><strong>ww / www / 🤣</strong> 多用 → 1 章 2 個まで</li>
+<li><strong>体言止め過剰</strong> (67.9%) → 句点を増やす</li>
+<li><strong>「もの凄い」「ガッツリ」「ペロリ」「やっべ」</strong>などのノリ語 → 場面に応じて</li>
+</ul>
+<h3>Opportunities (機会)</h3>
+<ul>
+<li><strong>40 代男性 × バツニ × 経営者 × 移住</strong> はポジショニングが空いている (ジェーン・スーの男性版)</li>
+<li>ジョニーの <strong>インタビュー発言の文学性</strong> を引用素材として再利用すれば、AI 臭は出ない</li>
+<li><strong>18 年の SNS アーカイブ自体がコンテンツ</strong> (AI 活用ノウハウ シリーズの最強の素材)</li>
+</ul>
+<h3>Threats (脅威)</h3>
+<ul>
+<li><strong>AI に書かせると「ノリ語」が消えてジョニー臭が消える</strong> ← 今回ジョニーが指摘した問題そのもの</li>
+<li><strong>第 1 婚 PII リスク</strong> (元妻名・bouken_life など)</li>
+<li><strong>完璧主義凍結</strong> (Lamott 「Shitty First Drafts」マインドセットで対処)</li>
+</ul>
+<hr />
+<h2>9. ジョニーらしさ保持のための執筆ルール (対 AI 生成)</h2>
+<ol>
+<li><strong>AI が書いた稿を、ジョニーが「、、、、、」「やっべ」「ww」「(笑)」をどこに 1-2 個だけ入れるか</strong>を最終調整 (Sedaris 型自虐の取り戻し)</li>
+<li><strong>章末に「で、これを書きながらやっぱりこう思った」のような独白を 1 行</strong>入れる (AI が書きにくい)</li>
+<li><strong>「、笑」「（笑）」を 1 章 1 個だけ入れる</strong> (ノリの香り)</li>
+<li><strong>「house-less, but homeful.」のような既存の自分のフレーズを 1 章 1 個だけ召喚</strong> (ファン認識のフック)</li>
+<li><strong>「、ですよね？」「、笑」のような </strong>半角空き読点 + 短い終わり<strong> をリズム要員に</strong></li>
+</ol>
+<hr />
+<h2>10. 実証データ ファイル</h2>
+<ul>
+<li><code>/Users/hi/gits-system/data/style-research/corpus-recent-2017-2026.txt</code> (357,778 字、4,056 投稿)</li>
+<li><code>/Users/hi/gits-system/data/style-research/johnny-fingerprint-metrics.json</code> (本ファイルの数値の元データ)</li>
+<li><code>/Users/hi/gits-system/data/style-research/johnny-sample-sentences.txt</code> (40 投稿のランダムサンプル、文体観察用)</li>
+</ul>
+<h2>関連</h2>
+<ul>
+<li><code>voice-map.md</code> — どの書き手の文体を借りるか</li>
+<li><code>structure-patterns.md</code> — どの構造を借りるか</li>
+<li><code>material-style-mapping.md</code> — 素材 × 文体マッピング</li>
+<li><code>cheatsheet.md</code> — 早見表</li>
+</ul>
+
+<div class="ttl-footer"><div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-05-13 05:19 JST</strong> に自動削除されます</div></div>
+</div>
+</body>
+</html>
