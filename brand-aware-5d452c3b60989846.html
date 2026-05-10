@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>INNFRA — Design System v0.1 (素子 dry-run)</title>
+<link rel="stylesheet" href="/jp/design-system.css">
+</head>
+<body class="brand-innfra">
+<div class="container stack-lg">
+
+  <header class="brand-banner">
+    <h1>INNFRA</h1>
+    <p class="lead">拠点の道具を、規律で運ぶ。</p>
+    <p class="small" style="opacity:.85">Discipline turns infrastructure into instruments.</p>
+  </header>
+
+  <article class="stack-lg">
+
+    <section>
+      <h2>Brand Profile</h2>
+      <p class="lead">本業：プロデュース・コンサル / Master Tracker / Water 監視 / 業務系 UI 全般。</p>
+      <table class="table-compact">
+        <tbody>
+          <tr><th>Tone primary</th><td>T11 industrial-utilitarian</td></tr>
+          <tr><th>Tone secondary</th><td>T01 brutally-minimal</td></tr>
+          <tr><th>Font</th><td>Noto Sans JP (300/400/500/700, palt)</td></tr>
+          <tr><th>Accent</th><td><span class="mono">#1f1f1f</span> 黒モノトーン</td></tr>
+          <tr><th>Gradient</th><td class="mono small">#000 → #404040 → #737373</td></tr>
+          <tr><th>References</th><td>Linear / Vercel Geist / Shopify Polaris / Catalyst</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Colors (WCAG AA / AAA 確保)</h2>
+      <table>
+        <thead><tr><th>Token</th><th>Hex</th><th>WCAG vs bg</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td><code>accent</code></td><td><span class="mono">#1f1f1f</span></td><td>16.4:1 (AAA)</td><td>CTA / 見出し下線</td></tr>
+          <tr><td><code>accent-soft</code></td><td><span class="mono">#f4f4f5</span></td><td>—</td><td>背景塗り</td></tr>
+          <tr><td><code>fg</code></td><td><span class="mono">#1a1a1a</span></td><td>17.1:1 (AAA)</td><td>本文</td></tr>
+          <tr><td><code>muted</code></td><td><span class="mono">#6b6b6b</span></td><td>5.7:1 (AA)</td><td>サブテキスト</td></tr>
+          <tr><td><code>success</code></td><td><span class="mono">#16a34a</span></td><td>4.6:1 (AA)</td><td>OK / 完了</td></tr>
+          <tr><td><code>warn</code></td><td><span class="mono">#d97706</span></td><td>4.5:1 (AA)</td><td>注意</td></tr>
+          <tr><td><code>danger</code></td><td><span class="mono">#dc2626</span></td><td>5.4:1 (AA)</td><td>エラー</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>References — 何を借りるか</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Linear</h3>
+          <p class="small">Inter Variable weight 510 + dark-mode-native + opinionated stance + Linear Method 哲学</p>
+          <p class="small mono"><a href="https://linear.app/method">linear.app/method</a></p>
+        </div>
+        <div class="card">
+          <h3>Vercel Geist</h3>
+          <p class="small">96 CSS custom properties + 4px multiples + 10-step color scale + focus ring</p>
+          <p class="small mono"><a href="https://vercel.com/geist">vercel.com/geist</a></p>
+        </div>
+        <div class="card">
+          <h3>Shopify Polaris</h3>
+          <p class="small">semantic token (-color-bg-fill-brand) + role/element/state 3軸命名</p>
+          <p class="small mono"><a href="https://polaris.shopify.com/tokens">polaris.shopify.com</a></p>
+        </div>
+        <div class="card">
+          <h3>Catalyst (Tailwind)</h3>
+          <p class="small">production-grade Tailwind 基盤 + Headless UI v2 + dark mode built-in</p>
+          <p class="small mono"><a href="https://catalyst.tailwindui.com">catalyst.tailwindui.com</a></p>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Components — Button State Matrix</h2>
+      <p class="muted small">業務 UI で 5 状態を全部揃える。Catalyst + Linear 流儀で focus ring を強調。</p>
+      <table class="table-compact">
+        <thead><tr><th>State</th><th>bg</th><th>fg</th><th>border / ring</th></tr></thead>
+        <tbody>
+          <tr><td>primary default</td><td><code>accent-grad</code></td><td>white</td><td><code>accent</code></td></tr>
+          <tr><td>primary hover</td><td>opacity .85</td><td>white</td><td><code>accent</code></td></tr>
+          <tr><td>primary active</td><td>opacity .7</td><td>white</td><td><code>accent</code></td></tr>
+          <tr><td>primary focus</td><td><code>accent-grad</code></td><td>white</td><td>+ outline 2px <code>accent</code> offset 2px</td></tr>
+          <tr><td>primary disabled</td><td><code>muted</code></td><td><code>bg</code></td><td><code>muted</code></td></tr>
+        </tbody>
+      </table>
+      <div class="row" style="margin-top: 20px;">
+        <button class="btn btn-primary">送信</button>
+        <button class="btn">キャンセル</button>
+        <button class="btn btn-ghost">補助操作</button>
+      </div>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Do's & Don'ts</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>✅ Do</h3>
+          <ol class="small">
+            <li>モノトーンのグラデで階層を表現</li>
+            <li>すべての判断を Decisions Log に残す</li>
+            <li>数値は weight 500 + tabular-nums で揃える</li>
+            <li>WCAG AA 4.5:1 以上を全色で確保</li>
+            <li><code>.brand-innfra</code> クラスで scope を明確化</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>❌ Don't</h3>
+          <ol class="small">
+            <li>Inter / Roboto / Arial / Space Grotesk を使わない</li>
+            <li>purple gradient on white を入れない</li>
+            <li>「業界をリード」「革新的ソリューション」コピー禁止</li>
+            <li>彩度の強い accent (青/緑/赤) を主色に使わない</li>
+            <li>gamification (point / badge / streak) を業務 UI に入れない</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Decisions Log (主要 6 件、全文は <code>~/gits-system/wiki/30-wiki/design-systems/INNFRA.md</code>)</h2>
+      <table class="table-compact">
+        <thead><tr><th>項目</th><th>採用</th><th>却下</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Tone primary</td>
+            <td>T11 industrial-utilitarian</td>
+            <td>T05 luxury-refined / T01 単独</td>
+            <td>業務 UI で「規律 + 道具らしさ」優先、luxury は装飾的</td>
+          </tr>
+          <tr>
+            <td>Accent</td>
+            <td><code>#1f1f1f</code> + grad</td>
+            <td>Navy <code>#1e3a8a</code></td>
+            <td>ジョニー直接指定「黒モノトーンのグラデ」(2026-05-11 02時)</td>
+          </tr>
+          <tr>
+            <td>Primary font</td>
+            <td>Noto Sans JP</td>
+            <td>IBM Plex Sans JP / Inter</td>
+            <td>nemuiasaa 4選フォント論で業務適合、Inter は公式禁止</td>
+          </tr>
+          <tr>
+            <td>References</td>
+            <td>Linear / Vercel / Polaris / Catalyst</td>
+            <td>Stripe (weight 300 が INNFRA に合わない)</td>
+            <td>4 件で T11+T01 が立体的に再現</td>
+          </tr>
+          <tr>
+            <td>Spacing base</td>
+            <td>4px</td>
+            <td>8px Material 流儀</td>
+            <td>Vercel Geist 流儀、業務 UI で密度を稼ぐ</td>
+          </tr>
+          <tr>
+            <td>Avoid list</td>
+            <td>Inter等4種 + 紫グラデ + Sunday-morning warm + cookie-cutter SaaS + gamification</td>
+            <td>削減せず維持</td>
+            <td>公式 frontend-design 禁止 + Noctref 教訓</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>後日 ジョニー対話で深掘り</h2>
+      <ul class="small">
+        <li>Brand Essence 1 文を素子推測からジョニー本人の言葉に置換</li>
+        <li>拠点別運用差分 (沖縄 / 戸田 / 富士川 等) を反映するか統一か</li>
+        <li>Master Tracker v2.1 の 4 ステータスの色 (進行中 / 着手前 / 完了 / 保留)</li>
+        <li>Water 監視ダッシュボードの異常検知レベル別 visual treatment</li>
+        <li>拠点担当者向け報告書 (PDF / HTML artifact) の typography 細部</li>
+      </ul>
+    </section>
+
+    <div class="callout">
+      <strong>本ファイルは素子の dry-run 完成版です。</strong><br>
+      <code>/brand-sprint INNFRA</code> でジョニー対話を 60-90 分実行すると、Brand Essence と Component 細部が確定し v1.0 になります。
+      残り 3 ブランド (OUR-US / 逃げていい / 屋久島Village) も skeleton 配置済 (Decisions Log 確定済 + TBD 行で未確定明示)。
+    </div>
+
+  </article>
+
+  <div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">♾️ このページは<strong>永続公開</strong>されます</div>
+
+</div>
+</body>
+</html>
