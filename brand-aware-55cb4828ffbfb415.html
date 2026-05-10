@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>brand-aware G2 live test — INNFRA / 黒モノトーン</title>
+<link rel="stylesheet" href="/jp/design-system.css">
+</head>
+<body class="brand-innfra">
+<div class="container stack">
+
+  <header class="brand-banner">
+    <h1>brand-aware G2 live test</h1>
+    <p class="lead small">2026-05-11 / publish-skill-twostep / INNFRA トーン (黒モノトーン)</p>
+  </header>
+
+  <article class="stack">
+
+    <h2>このページの目的</h2>
+    <p><code>/publish --style=brand-aware --brand=innfra</code> の <strong>G2 live test</strong>。CSS外部化 + 4ブランド対応の動作確認。</p>
+
+    <div class="callout">
+      <strong>確認ポイント</strong>:<br>
+      ① <code>design-system.css</code> が <code>/jp/design-system.css</code> から正しく読み込まれている<br>
+      ② <code>.brand-innfra</code> クラスで Noto Sans JP + 黒モノトーングラデが効いている<br>
+      ③ TTL footer (24h) が下に表示される<br>
+      ④ モバイルレスポンシブ (iPhone SE 等) で崩れない
+    </div>
+
+    <h2>4ブランド トークン (確定済 / 2026-05-11)</h2>
+    <table>
+      <thead><tr><th>ブランド</th><th>フォント</th><th>Solid</th><th>Gradient</th></tr></thead>
+      <tbody>
+        <tr><td>INNFRA</td><td>Noto Sans JP</td><td><span class="mono">#1f1f1f</span></td><td>黒モノトーン</td></tr>
+        <tr><td>OUR-US</td><td>Zen Kaku Gothic New</td><td><span class="mono">#2dd4bf</span></td><td>(solid)</td></tr>
+        <tr><td>逃げていい</td><td>Kiwi Maru</td><td><span class="mono">#d97706</span></td><td>(solid)</td></tr>
+        <tr><td>屋久島Village</td><td>Hina Mincho</td><td><span class="mono">#0e7490</span></td><td>青→緑</td></tr>
+      </tbody>
+    </table>
+
+    <h2>セキュリティ修正 (security-auditor 経由)</h2>
+    <ul>
+      <li>cleanup.sh: 2層防御 (PROTECTED_FILES + 厳格 allow-list regex)</li>
+      <li>cleanup.sh: <code>--dry-run</code> フラグ</li>
+      <li>SKILL.md: <code>--brand=</code> allow-list 検証 (XSS injection 防止)</li>
+      <li>brand-aware.html: <code>&lt;link rel="stylesheet"&gt;</code> 外部参照で -44% トークン狙い</li>
+    </ul>
+
+    <h2>関連リンク</h2>
+    <ul>
+      <li><a href="https://x.com/trq212/status/2052811606032269638">Thariq @trq212 原典</a></li>
+      <li><a href="https://x.com/claudecode_lab/status/2053290657788391819">@claudecode_lab 日本語拡張</a></li>
+    </ul>
+
+    <div class="row">
+      <button class="btn btn-primary">送信</button>
+      <button class="btn">キャンセル</button>
+    </div>
+
+  </article>
+
+  <div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-05-12 03:24 JST</strong> に自動削除されます</div>
+
+</div>
+</body>
+</html>
