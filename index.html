@@ -1,2 +1,291 @@
 <!DOCTYPE html>
-<html><head><title>jp</title></head><body><h1>Nothing here. Move along.</h1></body></html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System v0.1 — Johnny / INNFRA / OUR-US / 逃げていい / 屋久島Village</title>
+<link rel="stylesheet" href="/jp/design-system.css">
+</head>
+<body>
+
+<div class="container stack-lg">
+
+  <header>
+    <p class="small muted mono">design-system v0.1 / 2026-05-11</p>
+    <h1>Design System v0.1 <span class="badge badge-warn">draft</span></h1>
+    <p class="lead">「内部=Markdown / 対外=HTML」運用方針 (2026-05-11確定) のための共有スタイルシートと UI コンポーネント集。<code>/publish</code> <code>/roundtable</code> <code>/discord-report</code> 等が参照する基盤。</p>
+    <p class="small muted">フォント = nemuiasaa @2026-05-09 暫定マッピング採用 / 色 = ブランド未確定のため CSS 変数で placeholder。</p>
+  </header>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <section>
+    <h2>1. 4ブランド プレビュー</h2>
+    <p>各ブランド固有の <code>.brand-*</code> クラスを <code>&lt;body&gt;</code> または任意のラッパーに付与すると、フォント・単色アクセント・グラデーションが切り替わる。グラデは <code>.brand-banner</code> <code>.btn-primary</code> 見出し下線で活用。</p>
+
+    <div class="grid grid-2">
+
+      <div class="card brand-innfra">
+        <div class="brand-banner"><h3>INNFRA</h3><p class="lead small">本業：プロデュース・コンサル<br>Master Tracker / Water 監視 / 業務系 UI</p></div>
+        <table class="table-compact">
+          <tbody>
+            <tr><th>Font</th><td>Noto Sans JP</td></tr>
+            <tr><th>Tone</th><td>信頼 / 規律 / 業務</td></tr>
+            <tr><th>Accent</th><td><span class="mono">#1f1f1f</span> <span class="badge badge-success">確定</span></td></tr>
+            <tr><th>Gradient</th><td class="mono small">#000 → #404040 → #737373<br>(モノトーン)</td></tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <button class="btn btn-primary">送信</button>
+          <button class="btn">キャンセル</button>
+        </div>
+      </div>
+
+      <div class="card brand-yakushima">
+        <div class="brand-banner"><h3>屋久島 Village</h3><p class="lead small">新規事業：地方移住 + 9棟+共有棟<br>海と森の島・物語・静謐さ</p></div>
+        <table class="table-compact">
+          <tbody>
+            <tr><th>Font</th><td>Hina Mincho</td></tr>
+            <tr><th>Tone</th><td>静謐 / 物語 / 土地</td></tr>
+            <tr><th>Accent</th><td><span class="mono">#0e7490</span> <span class="badge badge-success">確定</span></td></tr>
+            <tr><th>Gradient</th><td class="mono small">#1e40af → #0e7490 → #166534<br>(青→緑)</td></tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <button class="btn btn-primary">送信</button>
+          <button class="btn">キャンセル</button>
+        </div>
+      </div>
+
+      <div class="card brand-ourus">
+        <div class="brand-banner"><h3>OUR-US</h3><p class="lead small">新規プロダクトブランド (Project DIALOG)<br>対話・共感・医療領域 (PMDA 相談中)</p></div>
+        <table class="table-compact">
+          <tbody>
+            <tr><th>Font</th><td>Zen Kaku Gothic New</td></tr>
+            <tr><th>Tone</th><td>対話 / 共感 / バランス</td></tr>
+            <tr><th>Accent</th><td><span class="mono">#2dd4bf</span> Teal <span class="badge badge-success">確定</span></td></tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <button class="btn btn-primary">送信</button>
+          <button class="btn">キャンセル</button>
+        </div>
+      </div>
+
+      <div class="card brand-nigete">
+        <div class="brand-banner"><h3>逃げていい</h3><p class="lead small">副業ポートフォリオ / 愛着系コンテンツ<br>セラピスト紹介 / ケアの文脈</p></div>
+        <table class="table-compact">
+          <tbody>
+            <tr><th>Font</th><td>Kiwi Maru</td></tr>
+            <tr><th>Tone</th><td>ケア / 温度 / 許可性</td></tr>
+            <tr><th>Accent</th><td><span class="mono">#d97706</span> Warm Amber <span class="badge badge-success">確定</span></td></tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <button class="btn btn-primary">送信</button>
+          <button class="btn">キャンセル</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <section>
+    <h2>2. UI コンポーネント</h2>
+
+    <h3>2.1 タブ (CSS-only)</h3>
+    <div class="tabs">
+      <input type="radio" id="t1" name="demo-tabs" checked>
+      <label for="t1">概要</label>
+      <input type="radio" id="t2" name="demo-tabs">
+      <label for="t2">仕様</label>
+      <input type="radio" id="t3" name="demo-tabs">
+      <label for="t3">実測</label>
+    </div>
+    <div class="tab-content active" data-for="t1">
+      <p>JS 不要のラジオベース実装。<code>:checked + label</code> + JS で <code>.active</code> 切替も可。シンプル用途はこれで十分。</p>
+    </div>
+
+    <h3>2.2 フィルタバー</h3>
+    <div class="filter-bar" id="demo-filter">
+      <button class="btn" aria-pressed="true" data-filter="all">すべて</button>
+      <button class="btn" aria-pressed="false" data-filter="a">A 軸</button>
+      <button class="btn" aria-pressed="false" data-filter="b">B 軸</button>
+      <button class="btn" aria-pressed="false" data-filter="c">C 軸</button>
+    </div>
+    <div class="grid grid-3" id="demo-items">
+      <div class="card" data-tag="a"><h4>項目1</h4><p class="muted small">A 軸サンプル</p></div>
+      <div class="card" data-tag="b"><h4>項目2</h4><p class="muted small">B 軸サンプル</p></div>
+      <div class="card" data-tag="c"><h4>項目3</h4><p class="muted small">C 軸サンプル</p></div>
+      <div class="card" data-tag="a"><h4>項目4</h4><p class="muted small">A 軸サンプル</p></div>
+    </div>
+
+    <h3 style="margin-top: var(--s-6)">2.3 テーブル</h3>
+    <table>
+      <thead><tr><th>指標</th><th>HTML</th><th>Markdown</th><th>比</th></tr></thead>
+      <tbody>
+        <tr><td>生成時間</td><td>—</td><td>基準</td><td><strong>2.44倍</strong></td></tr>
+        <tr><td>ファイルサイズ</td><td>—</td><td>基準</td><td>3.56倍</td></tr>
+        <tr><td>出力トークン数</td><td>—</td><td>基準</td><td>1.56倍</td></tr>
+        <tr><td>Claude読込時間</td><td>—</td><td>基準</td><td>1.33倍</td></tr>
+      </tbody>
+    </table>
+
+    <h3>2.4 Callout</h3>
+    <div class="callout"><strong>Info:</strong> Thariq 論引用 / 本論との関連で重要な接続。</div>
+    <div class="callout callout-warn"><strong>Warn:</strong> CSS外部化していない場合、トークンが増える。</div>
+    <div class="callout callout-danger"><strong>Danger:</strong> 機密データを含む HTML を S3 公開しない。<code>/publish</code> の TTL 規定を厳守。</div>
+
+    <h3>2.5 バッジ</h3>
+    <div class="row">
+      <span class="badge">default</span>
+      <span class="badge badge-success">success</span>
+      <span class="badge badge-warn">warn</span>
+      <span class="badge badge-danger">danger</span>
+      <span class="badge badge-muted">muted</span>
+    </div>
+
+    <h3>2.6 コードブロック (コピー機能つき)</h3>
+    <div class="copy-block">
+      <pre><code>&lt;link rel="stylesheet" href="https://gits-system.local/_assets/design-system/design-system.css"&gt;
+&lt;body class="brand-innfra"&gt;
+  &lt;div class="container stack"&gt;...&lt;/div&gt;
+&lt;/body&gt;</code></pre>
+      <button class="btn btn-ghost btn-copy" onclick="copyParent(this)">copy</button>
+    </div>
+
+  </section>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <section>
+    <h2>3. 使い方</h2>
+
+    <h3>3.1 最小 HTML テンプレ</h3>
+    <div class="copy-block">
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;{{ title }}&lt;/title&gt;
+  &lt;link rel="stylesheet" href="../_assets/design-system/design-system.css"&gt;
+&lt;/head&gt;
+&lt;body class="brand-innfra"&gt;
+  &lt;div class="container stack"&gt;
+    &lt;h1&gt;{{ title }}&lt;/h1&gt;
+    &lt;!-- ここにコンテンツ --&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <button class="btn btn-ghost btn-copy" onclick="copyParent(this)">copy</button>
+    </div>
+
+    <h3>3.2 ブランド選択クラス</h3>
+    <table class="table-compact">
+      <thead><tr><th>クラス</th><th>用途</th><th>フォント</th></tr></thead>
+      <tbody>
+        <tr><td><code>.brand-innfra</code></td><td>INNFRA 業務 UI / Master Tracker / 拠点報告</td><td>Noto Sans JP</td></tr>
+        <tr><td><code>.brand-ourus</code></td><td>OUR-US プロダクト関連</td><td>Zen Kaku Gothic New</td></tr>
+        <tr><td><code>.brand-nigete</code></td><td>「逃げていい」/ ケア系コンテンツ</td><td>Kiwi Maru</td></tr>
+        <tr><td><code>.brand-yakushima</code></td><td>屋久島 Village / 物語・土地</td><td>Hina Mincho</td></tr>
+        <tr><td><em>(なし)</em></td><td>個人メモ / 中立な技術ドキュメント</td><td>Inter + Noto Sans JP</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3.3 トークン圧縮戦略 (Thariq 論)</h3>
+    <ul>
+      <li>Claude Code は CSS を <code>&lt;link rel="stylesheet"&gt;</code> 外部参照させると、毎回 CSS を出力しない</li>
+      <li>実測: 12,115 → 6,723 トークン (44%減)</li>
+      <li>本ファイル (design-system.css) は <strong>1度だけ</strong> 生成し、各 HTML artifact から相対パスで参照する</li>
+    </ul>
+
+    <h3>3.4 配置ルール</h3>
+    <table class="table-compact">
+      <thead><tr><th>場所</th><th>用途</th></tr></thead>
+      <tbody>
+        <tr><td><code>~/gits-system/wiki/_assets/design-system/</code></td><td>本体 (SSoT)</td></tr>
+        <tr><td><code>/publish</code> 出力 (GitHub Pages)</td><td>本ファイルを <code>copy</code> または CDN URL でリンク</td></tr>
+        <tr><td>iCloud Vault 配下</td><td>EDEADLK 解消後、symlink で参照</td></tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <section>
+    <h2>4. 確定/未確定 (jonnyレビュー対象)</h2>
+    <table>
+      <thead><tr><th style="width:30%">項目</th><th style="width:15%">状態</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>運用方針 (内部=md / 対外=HTML)</td><td><span class="badge badge-success">確定</span></td><td>2026-05-11 ジョニー明示同意</td></tr>
+        <tr><td>4ブランド フォントマッピング</td><td><span class="badge badge-success">確定</span></td><td>2026-05-11 ジョニー承認 (nemuiasaa @2026-05-09 案ベース)</td></tr>
+        <tr><td>4ブランド アクセント色 + グラデ</td><td><span class="badge badge-success">確定</span></td><td>2026-05-11 ジョニー指示直接反映 (INNFRA=黒モノトーン / 屋久島=青×緑grad / OUR-US=Teal / 逃げていい=Warm Amber)</td></tr>
+        <tr><td>ロゴ・タイポ詳細</td><td><span class="badge badge-warn">後続</span></td><td><code>/brand-sprint</code> 起動時に確定</td></tr>
+        <tr><td>ダークモード</td><td><span class="badge badge-success">対応済</span></td><td><code>prefers-color-scheme: dark</code></td></tr>
+        <tr><td>モバイルレスポンシブ</td><td><span class="badge badge-success">対応済</span></td><td>~640px breakpoint</td></tr>
+        <tr><td>印刷</td><td><span class="badge badge-success">対応済</span></td><td><code>@media print</code> でフィルタ等を非表示</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr>
+
+  <footer>
+    <p class="small muted">v0.1 / 2026-05-11 / Created by 素子 (CTO/CoS) under Johnny direction.<br>
+    Source: Thariq "The Unreasonable Effectiveness of HTML" + claudecode_lab 日本語実測 + nemuiasaa フォント論 + ジョニー明示同意 (2026-05-11)<br>
+    関連: <a href="../../30-wiki/summaries/2026-05-08_trq212-2052811606032269638.md">trq212 原典</a> / <a href="../../30-wiki/summaries/2026-05-10_claudecode_lab-2053290657788391819.md">claudecode_lab 日本語拡張</a> / <a href="../../30-wiki/summaries/2026-05-09_nemuiasaa-2053085998331121986.md">nemuiasaa フォント</a></p>
+  </footer>
+
+</div>
+
+<script>
+  // copy button (Thariq論「Claude Codeに貼り戻す」想定)
+  function copyParent(btn) {
+    const code = btn.parentElement.querySelector('code, pre');
+    if (!code) return;
+    navigator.clipboard.writeText(code.innerText).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = '✓ copied';
+      setTimeout(() => btn.textContent = orig, 1500);
+    });
+  }
+
+  // tab switching
+  document.querySelectorAll('input[type="radio"][name^="demo-tabs"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      const id = r.id;
+      const target = document.querySelector(`[data-for="${id}"]`);
+      if (target) target.classList.add('active');
+    });
+  });
+
+  // filter
+  const fbar = document.getElementById('demo-filter');
+  const items = document.getElementById('demo-items');
+  if (fbar && items) {
+    fbar.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-filter]');
+      if (!btn) return;
+      fbar.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      const tag = btn.dataset.filter;
+      items.querySelectorAll('[data-tag]').forEach(item => {
+        item.dataset.hidden = (tag === 'all' || item.dataset.tag === tag) ? 'false' : 'true';
+      });
+    });
+  }
+</script>
+
+<!-- TTL_FOOTER_SLOT -->
+</body>
+</html>
