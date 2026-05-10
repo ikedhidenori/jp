@@ -1,0 +1,314 @@
+/* =============================================================
+   Johnny / INNFRA / OUR-US / 逃げていい / 屋久島Village
+   Shared Design System v0.1 (2026-05-11)
+   ----
+   方針: 内部=Markdown / 対外=HTML 運用 (feedback_md_internal_html_external)
+   ----
+   トーン: Thariq "The Unreasonable Effectiveness of HTML" の
+   「読まれる確率を上げる」要素 (タブ/フィルタ/カード/レスポンシブ)
+   を default で持つ最小スタイルシート。
+   ----
+   フォント: nemuiasaa @2026-05-09 暫定マッピング
+   - .brand-innfra    → Noto Sans JP        (信頼/業務/標準)
+   - .brand-ourus     → Zen Kaku Gothic New (プロダクト/親しみ)
+   - .brand-nigete    → Kiwi Maru           (ケア/温度)
+   - .brand-yakushima → Hina Mincho         (静謐/物語/土地)
+   ----
+   色: ブランド色未確定 (memory EDEADLK 中)。
+   neutral palette を default にし、各ブランド .brand-* で
+   --brand-* 上書きできる CSS 変数化済。
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Kiwi+Maru:wght@300;400;500&family=Hina+Mincho&family=Inter:wght@300;400;500;700&display=swap');
+
+/* ---- root tokens ---- */
+:root {
+  /* neutral palette (default) */
+  --c-bg: #fafaf9;
+  --c-fg: #1a1a1a;
+  --c-muted: #6b6b6b;
+  --c-border: #e5e5e0;
+  --c-card: #ffffff;
+  --c-accent: #2563eb;        /* placeholder, override per brand */
+  --c-accent-soft: #dbeafe;
+  --c-accent-grad: var(--c-accent);  /* fallback to solid; override per brand */
+  --c-success: #16a34a;
+  --c-warn: #d97706;
+  --c-danger: #dc2626;
+
+  /* type */
+  --f-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --f-jp: "Noto Sans JP", system-ui, sans-serif;
+  --f-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* spacing */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
+
+  /* layout */
+  --maxw: 920px;
+  --radius: 8px;
+  --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 12px rgba(0,0,0,.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #0e0e0c;
+    --c-fg: #ededec;
+    --c-muted: #9a9a96;
+    --c-border: #2a2a27;
+    --c-card: #16161410;
+    --c-accent: #60a5fa;
+    --c-accent-soft: #1e3a8a40;
+  }
+}
+
+/* ---- brand tokens ----
+   INNFRA / 屋久島 = ジョニー確定 (2026-05-11)
+   OUR-US / 逃げていい = 暫定 (色は次の指示待ち)
+*/
+.brand-innfra {
+  --f-jp: "Noto Sans JP", system-ui, sans-serif;
+  --c-accent: #1f1f1f;
+  --c-accent-soft: #f4f4f5;
+  --c-accent-grad: linear-gradient(135deg, #000000 0%, #404040 50%, #737373 100%);
+}
+.brand-ourus {
+  --f-jp: "Zen Kaku Gothic New", system-ui, sans-serif;
+  --c-accent: #2dd4bf;        /* Teal (ジョニー確定 2026-05-11) */
+  --c-accent-soft: #ccfbf1;
+  --c-accent-grad: var(--c-accent);
+}
+.brand-nigete {
+  --f-jp: "Kiwi Maru", system-ui, sans-serif;
+  --c-accent: #d97706;        /* Warm Amber (ジョニー確定 2026-05-11、3択 c) */
+  --c-accent-soft: #fef3c7;
+  --c-accent-grad: var(--c-accent);
+}
+.brand-yakushima {
+  --f-jp: "Hina Mincho", "YuMincho", serif;
+  --c-accent: #0e7490;        /* 青と緑の中間 (cyan-700) */
+  --c-accent-soft: #cffafe;
+  --c-accent-grad: linear-gradient(135deg, #1e40af 0%, #0e7490 50%, #166534 100%);
+}
+
+/* ---- reset (light) ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font-family: var(--f-jp);
+  font-size: 16px;
+  line-height: 1.75;
+  font-feature-settings: "palt" 1;
+  text-rendering: optimizeLegibility;
+}
+img, svg, video { max-width: 100%; height: auto; display: block; }
+a { color: var(--c-accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+a:hover { opacity: .7; }
+hr { border: 0; border-top: 1px solid var(--c-border); margin: var(--s-6) 0; }
+
+/* ---- layout ---- */
+.container { max-width: var(--maxw); margin: 0 auto; padding: var(--s-6) var(--s-5); }
+.stack > * + * { margin-top: var(--s-4); }
+.stack-lg > * + * { margin-top: var(--s-6); }
+.grid { display: grid; gap: var(--s-4); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.row { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: center; }
+.spacer { flex: 1; }
+
+/* ---- type ---- */
+h1, h2, h3, h4 {
+  font-family: var(--f-jp);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: .01em;
+  margin: var(--s-7) 0 var(--s-3);
+}
+h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-top: 0; }
+h2 {
+  font-size: 1.5rem;
+  padding-bottom: var(--s-2);
+  border-bottom: 3px solid var(--c-accent);
+  border-image: var(--c-accent-grad) 1;
+}
+h3 { font-size: 1.2rem; color: var(--c-accent); }
+h4 { font-size: 1rem; }
+p { margin: 0 0 var(--s-4); }
+.lead { font-size: 1.1rem; color: var(--c-muted); }
+.muted { color: var(--c-muted); }
+.small { font-size: .875rem; }
+.mono { font-family: var(--f-mono); }
+strong, b { font-weight: 700; }
+mark { background: var(--c-accent-soft); color: inherit; padding: 0 .15em; border-radius: 2px; }
+
+/* ---- card ---- */
+.card {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--s-5);
+  box-shadow: var(--shadow);
+}
+.card h3:first-child, .card h4:first-child { margin-top: 0; }
+
+/* ---- brand banner (グラデを最大活用する見出しブロック) ---- */
+.brand-banner {
+  background: var(--c-accent-grad);
+  color: white;
+  padding: var(--s-5) var(--s-6);
+  border-radius: var(--radius);
+  margin-bottom: var(--s-5);
+  position: relative;
+}
+.brand-banner h1, .brand-banner h2, .brand-banner h3 {
+  margin: 0;
+  color: white;
+  border: 0;
+}
+.brand-banner .lead { color: rgba(255,255,255,.85); }
+
+/* ---- accent stripe (薄いグラデ帯) ---- */
+.accent-stripe {
+  height: 6px;
+  background: var(--c-accent-grad);
+  border-radius: var(--radius) var(--radius) 0 0;
+  margin: calc(var(--s-5) * -1) calc(var(--s-5) * -1) var(--s-4);
+}
+
+/* ---- table ---- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--s-4) 0;
+  font-size: .95rem;
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+thead { background: var(--c-accent-soft); }
+th, td { padding: var(--s-3) var(--s-4); text-align: left; border-bottom: 1px solid var(--c-border); }
+th { font-weight: 700; color: var(--c-fg); }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: color-mix(in srgb, var(--c-accent) 6%, transparent); }
+.table-compact th, .table-compact td { padding: var(--s-2) var(--s-3); font-size: .9rem; }
+
+/* ---- badge / tag ---- */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 500;
+  background: var(--c-accent-soft);
+  color: var(--c-accent);
+}
+.badge-success { background: color-mix(in srgb, var(--c-success) 15%, transparent); color: var(--c-success); }
+.badge-warn { background: color-mix(in srgb, var(--c-warn) 15%, transparent); color: var(--c-warn); }
+.badge-danger { background: color-mix(in srgb, var(--c-danger) 15%, transparent); color: var(--c-danger); }
+.badge-muted { background: var(--c-border); color: var(--c-muted); }
+
+/* ---- button ---- */
+.btn {
+  display: inline-block;
+  padding: var(--s-2) var(--s-4);
+  border: 1px solid var(--c-border);
+  background: var(--c-card);
+  color: var(--c-fg);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: .9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .15s;
+}
+.btn:hover { border-color: var(--c-accent); }
+.btn-primary { background: var(--c-accent-grad); color: white; border-color: var(--c-accent); }
+.btn-primary:hover { opacity: .85; }
+.btn-ghost { background: transparent; border-color: transparent; }
+
+/* ---- tabs (詳細要素ベース、JSなしで動く) ---- */
+.tabs {
+  display: flex;
+  gap: var(--s-1);
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: var(--s-4);
+  flex-wrap: wrap;
+}
+.tabs label {
+  padding: var(--s-2) var(--s-4);
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+  font-weight: 500;
+  color: var(--c-muted);
+}
+.tabs input[type="radio"] { display: none; }
+.tabs input[type="radio"]:checked + label {
+  background: var(--c-card);
+  border-color: var(--c-border);
+  color: var(--c-fg);
+  margin-bottom: -1px;
+}
+.tab-content { display: none; padding: var(--s-4) 0; }
+.tab-content.active { display: block; }
+
+/* ---- filter (data-attribute ベース) ---- */
+.filter-bar { display: flex; gap: var(--s-2); margin-bottom: var(--s-4); flex-wrap: wrap; }
+.filter-bar .btn[aria-pressed="true"] { background: var(--c-accent); color: white; border-color: var(--c-accent); }
+[data-hidden="true"] { display: none !important; }
+
+/* ---- callout ---- */
+.callout {
+  border-left: 4px solid var(--c-accent);
+  background: var(--c-accent-soft);
+  padding: var(--s-3) var(--s-4);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: var(--s-4) 0;
+}
+.callout-warn { border-left-color: var(--c-warn); background: color-mix(in srgb, var(--c-warn) 10%, transparent); }
+.callout-danger { border-left-color: var(--c-danger); background: color-mix(in srgb, var(--c-danger) 10%, transparent); }
+
+/* ---- code ---- */
+pre, code {
+  font-family: var(--f-mono);
+  font-size: .88rem;
+  background: color-mix(in srgb, var(--c-fg) 5%, transparent);
+  border-radius: 4px;
+}
+code { padding: 1px 6px; }
+pre { padding: var(--s-4); overflow-x: auto; line-height: 1.5; }
+pre code { padding: 0; background: none; }
+
+/* ---- copy button (Thariq論「Claude Codeに貼り戻す」想定) ---- */
+.copy-block { position: relative; }
+.copy-block .btn-copy {
+  position: absolute;
+  top: var(--s-2);
+  right: var(--s-2);
+  font-size: .75rem;
+  padding: 2px 8px;
+}
+
+/* ---- print ---- */
+@media print {
+  body { background: white; color: black; }
+  .no-print, .filter-bar, .btn-copy { display: none !important; }
+  .card { box-shadow: none; border-color: #ccc; }
+  a { color: black; text-decoration: underline; }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 640px) {
+  .container { padding: var(--s-4) var(--s-3); }
+  table { font-size: .85rem; }
+  th, td { padding: var(--s-2); }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; }
+}
