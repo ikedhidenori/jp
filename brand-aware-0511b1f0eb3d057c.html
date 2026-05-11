@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>戸田・彩湖BASE 2026-05-11 現地点検レポート（5/18 工事先行調査）</title>
+<link rel="stylesheet" href="/jp/design-system.css">
+</head>
+<body class="brand-innfra">
+<div class="container stack">
+
+  <header class="brand-banner">
+    <h1>戸田・彩湖BASE 2026-05-11 現地点検レポート（5/18 工事先行調査）</h1>
+  </header>
+
+  <article class="stack">
+    <h1 id="戸田彩湖base-2026-05-11-現地点検レポート">戸田・彩湖BASE
+2026-05-11 現地点検レポート</h1>
+<blockquote>
+<p><strong>目的</strong>: 5/18
+工事のスコープを今日の会議で確定するための先行調査レポート。<br />
+<strong>読者</strong>: INNFRA 戸田チーム（ジョニー / 岩崎 / 三沢 / 門屋
+/ 大機製作所 ほか）<br />
+<strong>時刻スナップショット</strong>: 2026-05-11 13:52
+JST（操作パネル時刻）</p>
+</blockquote>
+<hr />
+<h2 id="エグゼクティブサマリ3-行">エグゼクティブサマリ（3 行）</h2>
+<ol type="1">
+<li><strong>「RO 起動の瞬間に電気伝導度がスパイク → エラー →
+数分後に値は 45 に戻る」現象を、シャワー使用テストで本日
+実観察。これは以前からの仮説（フラッシング未発動）の決定的な裏付け</strong>。応急策＝判定時間
+60 秒延長で当面回避でき、5/18 工事の確定論点になる。</li>
+<li><strong>生物槽と原水槽が同じ色（濁り）になっており、流入量に処理が追いつかない別系統の問題が並走している</strong>。5/18
+工事スコープに「生物処理キャパ確認・流入抑制」を追加する必要あり。</li>
+<li><strong>発生中アラート 3 件（フィルター交換 / RO 膜交換 /
+原水交換）は「警報解除」操作で全消失</strong>＝真に発生中ではなく未復旧フラグの残留。実害は
+EC スパイク連鎖と生物槽の 2 系統に集約される。</li>
+</ol>
+<hr />
+<h2 id="今日の現地観察511-1352-時点">1. 今日の現地観察（5/11 13:52
+時点）</h2>
+<h3 id="アラート状態">1.1 アラート状態</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>区分</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>発生中警報（解除前）</td>
+<td>フィルター交換 (4/29 22:41) / RO 膜交換 (4/25 15:58) / 原水交換
+(4/25 15:58) の 3 件</td>
+</tr>
+<tr>
+<td>警報解除操作後</td>
+<td><strong>全て消失</strong></td>
+</tr>
+<tr>
+<td>解釈</td>
+<td>未復旧フラグが残留しただけで、現時点で機器が稼働阻害される異常はない</td>
+</tr>
+</tbody>
+</table>
+<h3 id="警報履歴で見えた決定的パターン">1.2
+警報履歴で見えた決定的パターン</h3>
+<p>操作パネル「警報履歴」から:</p>
+<ul>
+<li><strong>5/3 16:23 〜 19:32</strong>: 「RO 原水槽満水警報」が約 3
+時間で <strong>8 回連続発報 / 復旧</strong>（多くは 1-2 分で復旧）</li>
+<li>4/29 22:41 フィルター交換 / 4/25 15:58 RO
+膜交換（復旧時刻欄が空欄＝未復旧フラグのまま残った）</li>
+</ul>
+<p><strong>重要</strong>: 5/3 の 8
+連発は典型的な制御ハンチング兆候。判定→復帰→再判定のループが短時間で繰り返し起きており、設定値の閾値設計ミスマッチを示唆。</p>
+<h3 id="本日の決定的観察ro-起動時-ec-スパイクジョニー報告">1.3 ★
+本日の決定的観察：RO 起動時 EC スパイク（ジョニー報告）</h3>
+<blockquote>
+<p>シャワーを出しっぱなしにしたところ、塩素通り RO が稼働開始。<br />
+いきなり電気伝導度が急上昇してエラー発生。<br />
+立ち会いなしで、数分後にモニター確認したら <strong>電気伝導度は
+45（低い値）に戻っていた</strong>。<br />
+アラート解除で消えた。</p>
+</blockquote>
+<p><strong>意義</strong>: これは過去議事録の「不具合 B（再起動→EC
+警報）」を<strong>実発生条件下で再現観察した最初のケース</strong>。</p>
+<h3 id="生物処理槽の状態懸念あり">1.4 生物処理槽の状態（懸念あり）</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>観察項目</th>
+<th>状態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>泡</td>
+<td>吹きこぼれた形跡あり</td>
+</tr>
+<tr>
+<td>濁り</td>
+<td>うっすら（<strong>洗剤過多</strong> の疑い）</td>
+</tr>
+<tr>
+<td>臭気</td>
+<td>腐敗ではなく <strong>発酵系・酸っぱい臭い</strong></td>
+</tr>
+<tr>
+<td>微生物相</td>
+<td>白い糸状の菌が増えているように見える</td>
+</tr>
+<tr>
+<td>水位</td>
+<td>バッファ込みで全然減らない（<strong>経路閉塞</strong> の疑い）</td>
+</tr>
+<tr>
+<td>色</td>
+<td><strong>原水槽と同じ色</strong> ＝
+流入量が処理キャパを超え、生物処理が追いつかず素通りしている可能性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="サンプル採取と簡易測定ジョニー実施">1.5
+サンプル採取と簡易測定（ジョニー実施）</h3>
+<table>
+<thead>
+<tr>
+<th>検体</th>
+<th>状態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>処理水</td>
+<td>透明度は水道水と比較しても問題なし、多少匂いは残る</td>
+</tr>
+<tr>
+<td>残留塩素</td>
+<td>これから測定</td>
+</tr>
+<tr>
+<td>原水</td>
+<td>臭い・濁り、生物槽と同色</td>
+</tr>
+<tr>
+<td>UV 殺菌</td>
+<td>稼働中</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="既存仮説との照合">2. 既存仮説との照合</h2>
+<h3 id="戸田アラート根本原因-v32026-05-08の最有力仮説">2.1
+戸田アラート根本原因 v3（2026-05-08）の最有力仮説</h3>
+<blockquote>
+<p><strong>raw_tank 低位＋吸込不足の誤ラベル</strong><br />
+EC 上昇 → 原水排水 → LLWL 低位 → 加圧ポンプ停止 → 圧力異常フラグ発火 →
+「フィルター交換」「原水交換」「RO 膜交換」3 アラートが連鎖発火</p>
+</blockquote>
+<h3 id="ジョニー現場仮説511独立に到達">2.2
+ジョニー現場仮説（5/11、独立に到達）</h3>
+<blockquote>
+<p>EC 上昇 → 原水排水 → LLWL になる → 加圧ポンプ停止 → 圧力異常 →
+アラート</p>
+</blockquote>
+<p>→ <strong>v3
+仮説と完全一致</strong>。独立検証として仮説の蓋然性が決定的に上がった。</p>
+<h3 id="さらに本日の観察で確定したこと">2.3
+さらに本日の観察で確定したこと</h3>
+<ul>
+<li>5/3 の 8 連発（制御ハンチング） = v3 で予測されていた症状の現認</li>
+<li>RO 起動時の EC スパイク = <strong>不具合
+B「フラッシング未発動」の決定的証拠</strong></li>
+<li>数分後に EC が 45 に戻る = 起動瞬間だけのスパイク（持続的高 EC
+ではない）</li>
+</ul>
+<h3 id="v3-では破棄された-想定外だった新規論点">2.4 v3 では破棄された /
+想定外だった新規論点</h3>
+<ul>
+<li><strong>生物槽 = 原水槽 同色（流入過多）</strong>: v3
+では発見されなかった別系統の問題</li>
+<li>排水電動弁の閉まるトリガー未定義（過去議事録の不具合
+D）と関連の可能性</li>
+</ul>
+<hr />
+<h2 id="工事-候補項目事前案本日会議でブラッシュアップ">3. 5/18 工事
+候補項目（事前案、本日会議でブラッシュアップ）</h2>
+<h3 id="a.-制御ロジック修正系v3-511-観察由来">A. 制御ロジック修正系（v3
++ 5/11 観察由来）</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>項目</th>
+<th>担当</th>
+<th>5/18 当日実施可否</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A-1</td>
+<td><strong>EC 判定時間を 60 秒に延長</strong>（現在 10
+秒、応急策）</td>
+<td>大機・門屋</td>
+<td>○ 設定変更のみ</td>
+<td>RO 起動時スパイクの 60
+秒以内自動収束を本日観察。ジョニー提案と完全一致</td>
+</tr>
+<tr>
+<td>A-2</td>
+<td><strong>フラッシング起動シーケンス組込み</strong>（根本対策）</td>
+<td>大機・門屋</td>
+<td>△ ラダー図改修要、可能なら当日 / 不可なら次回</td>
+<td>起動時の濃縮塩水を排水側にバイパスする工程。3/31 まとめ「不具合
+B」根本解</td>
+</tr>
+<tr>
+<td>A-3</td>
+<td>高圧ポンプ停止 → 注入ポンプ停止の連動</td>
+<td>大機・門屋</td>
+<td>○ 結線変更 / 制御追加</td>
+<td>4/24 MTG 既出。「圧力スイッチの信号を RO
+装置に取り込まない」最簡易解</td>
+</tr>
+<tr>
+<td>A-4</td>
+<td>RO 運転要求信号 ON 中のみ EC 監視（不具合 A 根本修正）</td>
+<td>大機・門屋</td>
+<td>△ ラダー図改修要</td>
+<td>5/7 plan の最重要修正項目</td>
+</tr>
+<tr>
+<td>A-5</td>
+<td>排水電動弁の閉条件定義（EC ≤ 180μS/cm で自動 close）</td>
+<td>大機・門屋</td>
+<td>○ 設定追加</td>
+<td>不具合 D の根本解。生物槽流入過多との関連で重要度UP</td>
+</tr>
+<tr>
+<td>A-6</td>
+<td>警報の自動クリア仕様変更（EC 自然回復時）</td>
+<td>大機・門屋</td>
+<td>○ 設定変更</td>
+<td>不具合 E、手動解除前提の脱却</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b.-物理-配管系511-新発見">B. 物理 / 配管系（5/11 新発見）</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>項目</th>
+<th>担当</th>
+<th>5/18 当日実施可否</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B-1</td>
+<td><strong>生物処理槽の流入量制御</strong>（オリフィス or
+流量調整弁）</td>
+<td>岩崎 + 業者</td>
+<td>△ 部材調達次第</td>
+<td>流入過多で生物処理が追いつかない実観察</td>
+</tr>
+<tr>
+<td>B-2</td>
+<td>生物処理槽の経路閉塞調査</td>
+<td>岩崎 + 業者</td>
+<td>○ 目視・通水テスト</td>
+<td>バッファ込みで水位が減らない</td>
+</tr>
+<tr>
+<td>B-3</td>
+<td>洗剤投入量の見直し（利用者・清掃スタッフ聞き取り →
+上限ガイドライン化）</td>
+<td>INNFRA 運用</td>
+<td>○ ヒアリング</td>
+<td>洗剤過多疑い、生物処理に負荷</td>
+</tr>
+<tr>
+<td>B-4</td>
+<td>糸状菌対策（曝気強化 or SRT 調整）</td>
+<td>岩崎 + 業者</td>
+<td>△ 業者判断</td>
+<td>バルキング兆候の可能性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c.-計装-モニタリング系">C. 計装 / モニタリング系</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>項目</th>
+<th>担当</th>
+<th>5/18 当日実施可否</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-1</td>
+<td>流量計カウントアップ 0.1 → 0.01 改修の完了確認</td>
+<td>岩崎</td>
+<td>○ 操作パネル「アナログ」「運転積算」画面確認のみ</td>
+<td>v3 訪問アクション #3</td>
+</tr>
+<tr>
+<td>C-2</td>
+<td>EC 接点値 200μS/cm の妥当性検証（180 への変更検討）</td>
+<td>岩崎 + 大機</td>
+<td>△ データ後解析</td>
+<td>飽和ありきの判定からの脱却</td>
+</tr>
+<tr>
+<td>C-3</td>
+<td>RO 膜透過水導電率 列の接続（現状空欄）</td>
+<td>大機 + INNFRA</td>
+<td>△ センサ追加要</td>
+<td>スプシ既知の未接続項目</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="までに完了すべき準備-todo">4. 5/18 までに完了すべき準備
+ToDo</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>期日</th>
+<th>担当</th>
+<th>アクション</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5/11 会議後〜5/12</td>
+<td>素子（Claude）</td>
+<td>警報履歴の jsonl 化、ジョニー仮説 + v3
+仮説の数値項目突き合わせ、円卓会議（水処理ドメイン専門家）で生物処理側の仮説検討</td>
+</tr>
+<tr>
+<td>5/12〜5/14</td>
+<td>岩崎</td>
+<td>大機・門屋への質問送付（A-1 〜 A-6 の実施可否確認）</td>
+</tr>
+<tr>
+<td>5/12〜5/14</td>
+<td>岩崎</td>
+<td>業者（生物処理）への質問送付（B-1 〜 B-4）</td>
+</tr>
+<tr>
+<td>5/13〜5/15</td>
+<td>INNFRA 運用</td>
+<td>戸田の利用パターン洗い出し（同時シャワー数 / 洗剤種類 /
+投入頻度）</td>
+</tr>
+<tr>
+<td>5/15〜5/17</td>
+<td>素子 + ジョニー</td>
+<td>5/18 工事仕様書最終化 → INNFRA Master Tracker 起票</td>
+</tr>
+<tr>
+<td>5/16</td>
+<td>業者・大機</td>
+<td>部材手配・当日タイムライン共有</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="本日-1500-会議の論点リスト">5. 本日 15:00 会議の論点リスト</h2>
+<ol type="1">
+<li><strong>A-1（EC 判定時間 60 秒延長）を確定するか</strong>:
+大機・門屋にすぐ依頼するか、5/18 当日まで待つか</li>
+<li><strong>A-2（フラッシング起動シーケンス）が 5/18
+当日にラダー図改修まで含めて可能か</strong>:
+大機側の事前準備期間が必要</li>
+<li><strong>B 系（生物処理）の業者選定</strong>:
+既存業者で対応するか、別途専門業者を呼ぶか</li>
+<li><strong>5/18 当日のタイムボックス</strong>: A 系（制御）と B
+系（生物処理）を同日にやるか、分けるか</li>
+<li><strong>クライアントA への報告タイミング</strong>: 5/8 報告会で
+30→10s 変更の効果検証を約束していた件と今日の観察結果をどう伝えるか</li>
+</ol>
+<hr />
+<h2 id="参考424-mtg-文字起こしからの一次データ抜粋">6. 参考：4/24 MTG
+文字起こしからの一次データ抜粋</h2>
+<p>5/11 観察と直接対応する発言:</p>
+<ul>
+<li><code>[00:01:47] Naoki: あの間違いなく電気電動度で30秒で切れるんが確認できた</code></li>
+<li><code>[00:15:36] Naoki: 電気伝導度異常時の停止時間を10秒に設定し直して運転を試みたところ、高圧ポンプが不安定な動き（動いたり止まったり）</code></li>
+<li><code>[02:08:45] Naoki: 高圧ポンプが止まっても注入ポンプが注入し続ける問題、圧力スイッチが入った時に電磁弁を閉める制御を追加する必要</code></li>
+<li><code>[02:17:21] Naoki: 圧力スイッチの信号をRO装置に取り込まないようにすることが最も簡単な解決策</code></li>
+</ul>
+<p><strong>今日の観察は、Naoki さんが 4/24 MTG
+で語っていた仮説を実発生条件下で再現したもの</strong>。仮説の確信度が決定的に高まった。</p>
+<hr />
+<h2 id="添付写真リスト511-1352-ジョニー撮影">7. 添付写真リスト（5/11
+13:52 ジョニー撮影）</h2>
+<ol type="1">
+<li>屋外デッキ＋階段（建屋全景）</li>
+<li>機械室内：生物槽（青）＋RO 装置（青フィルタハウジング×2 + RO
+ユニット）＋制御盤＋空調機</li>
+<li>制御盤外観：三菱電機 GOT2000、ステータス LED「電源
+100V」白点灯、「一括故障」橙点灯</li>
+<li>操作パネル「発生中警報」：3 件（フィルター交換 / RO 膜交換 /
+原水交換）</li>
+<li>操作パネル「警報履歴」：5/3 RO 原水槽満水警報 8 連発 + 4/29
+フィルター交換 + 4/25 RO 膜交換</li>
+</ol>
+<p>（追加撮影分があれば Discord 連投で受領 → 本資料に追記）</p>
+<hr />
+<h2 id="付録-a警報履歴-全件転記511-1352-時点">付録 A：警報履歴
+全件転記（5/11 13:52 時点）</h2>
+<table>
+<thead>
+<tr>
+<th>発生日時</th>
+<th>コメント</th>
+<th>復旧日時</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5/3 19:32</td>
+<td>RO 原水槽満水警報</td>
+<td>5/3 19:32</td>
+</tr>
+<tr>
+<td>5/3 18:17</td>
+<td>RO 原水槽満水警報</td>
+<td>5/3 18:18</td>
+</tr>
+<tr>
+<td>5/3 17:43</td>
+<td>RO 原水槽満水警報</td>
+<td>5/3 17:43</td>
+</tr>
+<tr>
+<td>5/3 16:35</td>
+<td>RO 原水槽満水警報</td>
+<td>5/3 16:35</td>
+</tr>
+<tr>
+<td>5/3 16:34</td>
+<td>RO 原水槽満水警報</td>
+<td>5/3 16:35</td>
+</tr>
+<tr>
+<td>5/3 16:25</td>
+<td>RO 原水槽満水警報</td>
+<td>5/3 16:27</td>
+</tr>
+<tr>
+<td>5/3 16:24</td>
+<td>RO 原水槽満水警報</td>
+<td>5/3 16:25</td>
+</tr>
+<tr>
+<td>5/3 16:23</td>
+<td>RO 原水槽満水警報</td>
+<td>5/3 16:24</td>
+</tr>
+<tr>
+<td>4/29 22:41</td>
+<td>フィルター交換</td>
+<td>−</td>
+</tr>
+<tr>
+<td>4/25 15:58</td>
+<td>RO 膜交換</td>
+<td>−</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>作成: 2026-05-11 14:30 JST 頃 / 素子（Claude Opus 4.7
+1M）</em><br />
+<em>ベース資料: toda-alert-analysis-2026-05-07.md /
+project_water_root_cause_v3_20260508.md / 4/24 MTG 文字起こし</em></p>
+
+  </article>
+
+  <footer class="ttl-note" style="margin-top:3rem;padding-top:1rem;border-top:1px solid var(--color-border,#ddd);font-size:0.875rem;color:#888;">このページは 2026-05-14 14:27 JST に自動削除されます</footer>
+
+</div>
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-05-14 14:27 JST</strong> に自動削除されます</div>
+</body>
+</html>
