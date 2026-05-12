@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1分でわかる: Claude Code 2.1.139 取込み計画 (Agent View + /goal)</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #202020;
+  --muted: #6a6a6a;
+  --accent: #0066cc;
+  --code-bg: #f5f5f5;
+  --border: #e0e0e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1a1a1a; --text: #e4e4e4; --muted: #9a9a9a; --accent: #4a9eff; --code-bg: #2a2a2a; --border: #3a3a3a; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+  padding: 24px 18px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 12px 0 20px; line-height: 1.3; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+h2 { font-size: 21px; margin: 32px 0 14px; line-height: 1.4; }
+h3 { font-size: 17px; margin: 24px 0 10px; color: var(--accent); }
+h4 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); }
+p { margin: 12px 0; }
+a { color: var(--accent); }
+blockquote { border-left: 4px solid var(--border); padding: 6px 14px; margin: 14px 0; color: var(--muted); }
+code { font-family: "SF Mono", Menlo, monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+pre { background: var(--code-bg); padding: 14px; border-radius: 8px; overflow-x: auto; font-size: 13.5px; line-height: 1.55; }
+pre code { background: none; padding: 0; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; }
+th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: var(--code-bg); font-weight: 600; }
+ul, ol { padding-left: 26px; margin: 10px 0; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 40px 0 12px; padding: 10px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) {
+  body { font-size: 15.5px; padding: 18px 14px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>1 分でわかる: Claude Code 2.1.139 取込み計画</h1>
+<blockquote>2026-05-12 / trending <code>2053968519134593482</code> (Anthropic 公式) を素子環境にどう取込むか — 本丸 2 機能だけに絞った概要</blockquote>
+<h2>何が出たか</h2>
+<p>Claude Code 2.1.139 で <strong>2 つ</strong> の本丸機能が公開された:</p>
+<table>
+<thead><tr><th>機能</th><th>一言で</th></tr></thead>
+<tbody>
+<tr><td><strong>Agent View</strong> (<code>claude agents</code>)</td><td>全 Claude セッションを 1 画面で一覧管理 (実行中 / 入力待ち / 完了) + インライン返信 + バックグラウンド化</td></tr>
+<tr><td><strong><code>/goal</code> コマンド</strong></td><td>完了条件を 1 行書くだけで、Claude が複数ターン自律ループして達成まで継続</td></tr>
+</tbody></table>
+<p>両方とも <strong>新規スクリプト不要・設定 / rules 編集だけで取込可能</strong>。即実装着手できる。</p>
+<h2>取込んだら何が変わるか</h2>
+<ul><li>自前で実装予定だった <code>active-session-selector.sh</code> (マルチセッション管理 hook) が <strong>不要に</strong>。Agent View が公式提供</li><li>iPhone から <code>claude agents</code> で全セッション監視可 (Remote Control 統合)</li><li>Mac 再起動後の自律継続 (Pattern 6) で「貼るだけプロンプト」の冒頭に <code>/goal &quot;完了条件&quot;</code> を入れれば、ターミナル操作ゼロで完遂まで進む</li><li>ADHD の「マルチセッション迷子」が公式機能で構造的に解消</li></ul>
+<h2>実装は何をするか</h2>
+<ol><li><strong>Agent View</strong>: <code>claude agents</code> 動作確認 → 既存 hook archive 判断 → rules 3 ファイル更新 → 24h shadow 観測</li><li><strong><code>/goal</code></strong>: kill-switch 尊重テスト → <code>autonomy-levels.md</code> に L3 ガード追記 → Pattern 6 統合 → 軽量実運用テスト</li></ol>
+<p>合計 <strong>~115 分</strong> (Plan 起票後)。新規スクリプトなし、security-auditor 召喚不要。</p>
+<h2>リスク 3 点</h2>
+<table>
+<thead><tr><th>ID</th><th>内容</th><th>対策</th></tr></thead>
+<tbody>
+<tr><td>🟡 RA-1</td><td>Agent View は research preview = 仕様変更可能性</td><td>shadow 24h、自前 hook は archive (削除しない)</td></tr>
+<tr><td>🟡 RG-1</td><td><code>/goal</code> の completion condition が曖昧だと無限ループ → トークン爆発</td><td>「具体的かつ検証可能」を rules 強制、turns / token 上限併用</td></tr>
+<tr><td>🟡 RG-2</td><td><code>/goal</code> が kill-switch (<code>~/.claude/disable-autonomy</code>) を尊重するか未検証</td><td>実装 Step 1 で動作テスト、無視するなら明示禁止</td></tr>
+</tbody></table>
+<h2>次のステップ</h2>
+<p>本レポートはプランの文書のみ。<strong>実装着手は別 Plan ファイル起票 + ジョニー承認後</strong>。</p>
+<p>Open Questions (Plan 起票時に確定):</p>
+<ul><li>P1-P4 を 1 セッションで完結 / 分割実施</li><li><code>/goal</code> テスト案 A (read-only) / B (軽量 write) どちらか</li><li><code>claude --version</code> が 2.1.139 以上か</li></ul>
+<h2>詳細</h2>
+<p>フル版レポート: <a href="https://github.com/"><code>reports/2026-05-12_claude-code-2.1.139-adoption-analysis.md</code></a> (附録 A に PreCompact hook / Routines / Memory β / Webhooks / Managed Agents 等の他 13 機能整理あり)</p>
+
+<div class="ttl-footer">このページは 2026-05-15 16:50 JST に自動削除されます</div>
+</div>
+<div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-05-15 18:33 JST</strong> に自動削除されます</div>
+</body>
+</html>
