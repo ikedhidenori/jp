@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>水ノヒミツ放送局 第2話｜化学の目で見る ROと匂い【高校スペシャル】</title>
+<meta name="description" content="化学Ⅰ・Ⅱ レベルでROと水の匂いを深掘る教育番組。van't Hoff・Solution-Diffusion・Henderson-Hasselbalchを黒板&インタラクティブで体感する。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=RocknRoll+One&family=Zen+Maru+Gothic:wght@500;700;900&family=Caprasimo&family=DotGothic16&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#F8F1DC;
+  --paper-warm:#F2E7C9;
+  --ink:#1A1F2E;
+  --blue:#1B4F8C;
+  --blue-deep:#0D2A50;
+  --red:#E5462E;
+  --red-deep:#B7311E;
+  --yellow:#FFC93C;
+  --yellow-deep:#E5A610;
+  --lime:#8FBF3A;
+  --pink:#FF6B9D;
+  --teal:#2C9C9C;
+  --chalk:#F5F0E8;
+  --chalk-yellow:#FFE082;
+  --chalk-pink:#FFAB91;
+  --chalk-blue:#90CAF9;
+  --board:#2D4A3D;
+  --board-dark:#1F3329;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Zen Maru Gothic',sans-serif;
+  font-weight:500;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.8;
+  overflow-x:hidden;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,201,60,0.08) 0%, transparent 30%),
+    radial-gradient(circle at 90% 80%, rgba(229,70,46,0.06) 0%, transparent 30%),
+    repeating-linear-gradient(45deg, transparent 0 19px, rgba(26,31,46,0.015) 19px 20px);
+}
+
+/* ====== マーキー ====== */
+.marquee{
+  background:var(--ink);
+  color:var(--yellow);
+  font-family:'Reggae One',sans-serif;
+  padding:8px 0;
+  font-size:13px;
+  white-space:nowrap;
+  overflow:hidden;
+  letter-spacing:0.1em;
+  border-bottom:4px solid var(--red);
+}
+.marquee-inner{display:inline-block; animation:scroll 38s linear infinite;}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ====== ヘッダー ====== */
+.header{
+  padding:50px 24px 70px;
+  text-align:center;
+  position:relative;
+  background:radial-gradient(ellipse at top, rgba(27,79,140,0.12), transparent 60%), var(--paper);
+  border-bottom:3px dashed var(--ink);
+}
+.header::before{
+  content:'';
+  position:absolute;
+  top:30px; left:30px;
+  width:60px; height:60px;
+  background:var(--red);
+  border-radius:50%;
+  z-index:-1;
+  opacity:0.7;
+}
+.header::after{
+  content:'';
+  position:absolute;
+  bottom:50px; right:30px;
+  width:80px; height:80px;
+  background:var(--yellow);
+  z-index:-1;
+  opacity:0.5;
+  transform:rotate(15deg);
+}
+.station-logo{
+  display:inline-block;
+  padding:6px 18px;
+  border:3px solid var(--ink);
+  font-family:'Reggae One',sans-serif;
+  font-size:15px;
+  background:var(--paper);
+  margin-bottom:18px;
+  letter-spacing:0.08em;
+  transform:rotate(-1.5deg);
+  box-shadow:4px 4px 0 var(--ink);
+}
+.special-badge{
+  display:inline-block;
+  font-family:'Reggae One',sans-serif;
+  font-size:14px;
+  color:var(--paper);
+  background:var(--red);
+  padding:5px 14px;
+  border:3px solid var(--ink);
+  margin-left:8px;
+  transform:rotate(3deg);
+  box-shadow:3px 3px 0 var(--ink);
+  letter-spacing:0.12em;
+}
+.ep-num{
+  font-family:'Caprasimo',serif;
+  font-size:17px;
+  color:var(--red);
+  letter-spacing:0.15em;
+  margin:10px 0;
+  display:block;
+}
+.title{
+  font-family:'Reggae One',sans-serif;
+  font-size:clamp(36px, 7.5vw, 80px);
+  line-height:1.08;
+  letter-spacing:0.02em;
+  margin-bottom:20px;
+}
+.title em{
+  font-style:normal;
+  color:var(--red);
+  font-size:1.1em;
+  display:inline-block;
+  transform:rotate(-3deg);
+  background:var(--yellow);
+  padding:0 12px;
+  margin:0 6px;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--ink);
+}
+.subtitle{
+  font-family:'RocknRoll One',sans-serif;
+  font-size:17px;
+  color:var(--blue);
+  margin-top:10px;
+  letter-spacing:0.05em;
+}
+.audience-note{
+  display:inline-block;
+  font-family:'Caveat',cursive;
+  font-size:22px;
+  background:var(--chalk-yellow);
+  padding:4px 16px;
+  margin-top:18px;
+  transform:rotate(-2deg);
+  border:2px dashed var(--ink);
+  color:var(--blue-deep);
+}
+
+.opening-chars{
+  margin-top:40px;
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.character{
+  width:110px;
+  text-align:center;
+  font-family:'RocknRoll One',sans-serif;
+  font-size:13px;
+  color:var(--blue-deep);
+}
+.char-face{
+  width:90px; height:90px;
+  margin:0 auto 8px;
+  border-radius:50%;
+  border:3px solid var(--ink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  box-shadow:4px 4px 0 var(--ink);
+  animation:bob 2.2s ease-in-out infinite;
+}
+.character:nth-child(2) .char-face{animation-delay:0.3s}
+.character:nth-child(3) .char-face{animation-delay:0.6s}
+.character:nth-child(4) .char-face{animation-delay:0.9s}
+.char-face.c1{background:#6EC1E4}
+.char-face.c2{background:var(--yellow)}
+.char-face.c3{background:var(--pink)}
+.char-face.c4{background:var(--lime)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ====== ナビ ====== */
+.chapter-nav{
+  position:sticky;
+  top:0;
+  background:var(--ink);
+  z-index:50;
+  padding:12px 16px;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  border-bottom:3px solid var(--yellow);
+}
+.chapter-nav a{
+  flex-shrink:0;
+  font-family:'RocknRoll One',sans-serif;
+  font-size:13px;
+  color:var(--paper);
+  text-decoration:none;
+  padding:8px 14px;
+  background:rgba(255,255,255,0.06);
+  border:2px solid transparent;
+  border-radius:999px;
+  transition:all 0.2s;
+}
+.chapter-nav a:hover{background:var(--yellow); color:var(--ink); border-color:var(--ink)}
+
+/* ====== チャプター ====== */
+.chapter{
+  padding:70px 24px 90px;
+  max-width:880px;
+  margin:0 auto;
+  position:relative;
+}
+.chapter-tag{
+  display:inline-block;
+  font-family:'Caprasimo',serif;
+  font-size:14px;
+  letter-spacing:0.2em;
+  background:var(--ink);
+  color:var(--yellow);
+  padding:4px 14px;
+  margin-bottom:12px;
+  border-radius:999px;
+}
+.chapter-tag.advanced::after{
+  content:'★高校範囲';
+  font-family:'RocknRoll One',sans-serif;
+  background:var(--red);
+  color:var(--paper);
+  font-size:10px;
+  padding:2px 8px;
+  margin-left:8px;
+  border-radius:999px;
+}
+h2{
+  font-family:'Reggae One',sans-serif;
+  font-size:clamp(30px, 5vw, 48px);
+  line-height:1.15;
+  margin-bottom:24px;
+  letter-spacing:0.01em;
+  position:relative;
+  display:inline-block;
+}
+h2::after{
+  content:'';
+  position:absolute;
+  left:0; bottom:-6px;
+  width:60%; height:8px;
+  background:var(--yellow);
+  z-index:-1;
+}
+h3{
+  font-family:'RocknRoll One',sans-serif;
+  font-size:22px;
+  margin:30px 0 14px;
+  color:var(--blue-deep);
+}
+p{margin-bottom:14px; font-size:16.5px}
+.lead{
+  font-size:19px;
+  font-weight:700;
+  color:var(--blue-deep);
+}
+
+/* ====== テロップ ====== */
+.telop{
+  display:flex;
+  align-items:stretch;
+  margin:24px 0;
+  border:3px solid var(--ink);
+  background:var(--paper-warm);
+  box-shadow:6px 6px 0 var(--ink);
+  transform:rotate(-0.3deg);
+}
+.telop-tag{
+  background:var(--red);
+  color:var(--paper);
+  font-family:'Reggae One',sans-serif;
+  padding:14px;
+  writing-mode:vertical-rl;
+  text-orientation:upright;
+  font-size:17px;
+  letter-spacing:0.2em;
+  display:flex;
+  align-items:center;
+  border-right:3px solid var(--ink);
+}
+.telop-tag.blue{background:var(--blue)}
+.telop-tag.lime{background:var(--lime); color:var(--ink)}
+.telop-body{padding:18px 22px; font-size:16px; font-weight:700; flex:1}
+.telop-body strong{background:var(--yellow); padding:0 4px}
+
+/* ====== 黒板 ====== */
+.blackboard{
+  position:relative;
+  background:var(--board);
+  color:var(--chalk);
+  padding:38px 30px 30px;
+  margin:32px 0;
+  border:8px solid #6B4423;
+  border-radius:6px;
+  box-shadow:0 8px 0 #4A2E18, 0 14px 24px rgba(0,0,0,0.2);
+  font-family:'Caveat',cursive;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.02) 0%, transparent 40%);
+}
+.blackboard::before{
+  content:'';
+  position:absolute;
+  top:-30px; right:30px;
+  width:90px; height:18px;
+  background:linear-gradient(180deg, #FFB74D 50%, #E89A2B 50%);
+  border-radius:3px;
+  border:2px solid var(--ink);
+  transform:rotate(8deg);
+  box-shadow:3px 3px 0 rgba(0,0,0,0.3);
+}
+.blackboard::after{
+  content:'';
+  position:absolute;
+  top:-26px; right:8px;
+  width:30px; height:14px;
+  background:#FFB74D;
+  border:2px solid var(--ink);
+  border-radius:3px 12px 12px 3px;
+  transform:rotate(15deg);
+}
+.board-label{
+  position:absolute;
+  top:8px; left:14px;
+  font-family:'RocknRoll One',sans-serif;
+  font-size:11px;
+  color:var(--chalk-yellow);
+  letter-spacing:0.2em;
+  opacity:0.7;
+  font-style:italic;
+}
+.eq{
+  font-family:'Caveat',cursive;
+  font-size:32px;
+  text-align:center;
+  margin:14px 0;
+  letter-spacing:0.02em;
+  line-height:1.4;
+}
+.eq sub{font-size:0.6em}
+.eq sup{font-size:0.6em}
+.eq .red{color:var(--chalk-pink)}
+.eq .yellow{color:var(--chalk-yellow)}
+.eq .blue{color:var(--chalk-blue)}
+.eq-num{
+  display:block;
+  text-align:right;
+  font-size:18px;
+  opacity:0.5;
+  margin-top:-10px;
+  font-style:italic;
+}
+.legend{
+  font-family:'Caveat',cursive;
+  font-size:18px;
+  margin-top:14px;
+  opacity:0.85;
+  line-height:1.5;
+}
+.legend strong{color:var(--chalk-yellow)}
+
+/* 反応式 */
+.reaction{
+  font-family:'Caveat',cursive;
+  font-size:26px;
+  text-align:center;
+  margin:18px 0;
+  line-height:1.6;
+}
+.reaction .arrow{margin:0 10px; color:var(--chalk-yellow); font-weight:700}
+.reaction-note{
+  font-family:'RocknRoll One',sans-serif;
+  font-size:13px;
+  color:var(--chalk-yellow);
+  opacity:0.8;
+  margin-top:8px;
+  display:block;
+  font-style:italic;
+}
+
+/* ====== 表 ====== */
+.data-table{
+  margin:28px 0;
+  overflow-x:auto;
+  border:3px solid var(--ink);
+  background:var(--paper);
+  box-shadow:5px 5px 0 var(--ink);
+}
+.data-table table{width:100%; border-collapse:collapse; font-size:14.5px}
+.data-table thead{background:var(--ink); color:var(--paper); font-family:'RocknRoll One',sans-serif}
+.data-table th{padding:10px 12px; text-align:left; font-size:13px; letter-spacing:0.05em}
+.data-table td{padding:10px 12px; border-bottom:1px solid var(--ink); border-top:none}
+.data-table tbody tr:nth-child(even){background:var(--paper-warm)}
+.table-caption{
+  font-family:'Caveat',cursive;
+  font-size:18px;
+  color:var(--blue-deep);
+  margin-bottom:6px;
+}
+
+/* ====== クイズ ====== */
+.quiz{
+  margin:36px 0;
+  padding:28px;
+  background:var(--paper-warm);
+  border:3px solid var(--ink);
+  border-radius:24px 4px 24px 4px;
+  box-shadow:8px 8px 0 var(--blue);
+  position:relative;
+}
+.quiz::before{
+  content:'クイズ';
+  position:absolute;
+  top:-18px; left:24px;
+  background:var(--red);
+  color:var(--paper);
+  font-family:'Reggae One',sans-serif;
+  padding:4px 16px;
+  border:3px solid var(--ink);
+  font-size:16px;
+  letter-spacing:0.15em;
+  transform:rotate(-2deg);
+}
+.quiz h3{margin-top:0; color:var(--ink)}
+.quiz-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:12px;
+  margin:18px 0;
+}
+.quiz-card{
+  font-family:'RocknRoll One',sans-serif;
+  font-size:15px;
+  padding:18px 12px;
+  background:var(--paper);
+  border:3px solid var(--ink);
+  cursor:pointer;
+  transition:all 0.15s;
+  box-shadow:4px 4px 0 var(--ink);
+  text-align:center;
+  line-height:1.4;
+}
+.quiz-card .emoji{display:block; font-size:32px; margin-bottom:4px}
+.quiz-card:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); background:var(--yellow)}
+.quiz-card:active{transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ink)}
+.quiz-card.correct{background:var(--lime)}
+.quiz-card.incorrect{background:var(--pink); opacity:0.6}
+.quiz-result{
+  margin-top:14px;
+  padding:14px 18px;
+  border-radius:12px;
+  font-family:'RocknRoll One',sans-serif;
+  font-size:15px;
+  display:none;
+}
+.quiz-result.show{display:block; animation:pop 0.3s ease}
+.quiz-result.correct-msg{background:var(--lime); border:3px solid var(--ink)}
+.quiz-result.incorrect-msg{background:var(--pink); border:3px solid var(--ink)}
+@keyframes pop{0%{transform:scale(0.8); opacity:0}100%{transform:scale(1); opacity:1}}
+
+/* ====== 閾値ツール ====== */
+.threshold-tool{
+  margin:36px 0;
+  background:var(--paper-warm);
+  border:3px solid var(--ink);
+  padding:24px;
+  border-radius:16px;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.threshold-tool h3{margin-top:0}
+.thresh-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
+  gap:8px;
+  margin:14px 0;
+}
+.thresh-list button{
+  font-family:'RocknRoll One',sans-serif;
+  font-size:13px;
+  padding:10px;
+  background:var(--paper);
+  border:3px solid var(--ink);
+  cursor:pointer;
+  text-align:left;
+  transition:all 0.15s;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.thresh-list button .otc{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--red-deep);
+  margin-top:3px;
+  font-weight:700;
+}
+.thresh-list button:hover{transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); background:var(--yellow)}
+.thresh-list button.active{background:var(--ink); color:var(--paper); box-shadow:1px 1px 0 var(--ink); transform:translate(2px,2px)}
+.thresh-list button.active .otc{color:var(--yellow)}
+.thresh-readout{
+  background:var(--paper);
+  padding:18px;
+  border:3px solid var(--ink);
+  margin-top:14px;
+  font-size:15px;
+  line-height:1.7;
+}
+.thresh-readout .big{
+  font-family:'Caprasimo',serif;
+  font-size:28px;
+  color:var(--red-deep);
+  margin:0 4px;
+}
+
+/* ====== HHつまみ ====== */
+.hh-knob{
+  margin:36px 0;
+  background:var(--paper-warm);
+  border:3px solid var(--ink);
+  padding:28px;
+  border-radius:16px;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.hh-knob h3{margin-top:0}
+.knob-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin:18px 0;
+}
+@media(max-width:600px){.knob-controls{grid-template-columns:1fr}}
+.knob-input{margin-bottom:14px}
+.knob-input label{
+  display:block;
+  font-family:'RocknRoll One',sans-serif;
+  font-size:14px;
+  margin-bottom:6px;
+  color:var(--ink);
+}
+.knob-input .row{display:flex; align-items:center; gap:10px}
+.knob-input input[type=range]{
+  flex:1;
+  -webkit-appearance:none;
+  height:14px;
+  background:var(--paper);
+  border:3px solid var(--ink);
+  border-radius:999px;
+  outline:none;
+}
+.knob-input input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:24px; height:24px;
+  background:var(--yellow);
+  border:3px solid var(--ink);
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:2px 2px 0 var(--ink);
+}
+.knob-input input[type=range]::-moz-range-thumb{
+  width:24px; height:24px;
+  background:var(--yellow);
+  border:3px solid var(--ink);
+  border-radius:50%;
+  cursor:pointer;
+}
+.knob-input .val{
+  font-family:'Caprasimo',serif;
+  font-size:20px;
+  color:var(--red-deep);
+  min-width:64px;
+  text-align:center;
+  background:var(--paper);
+  border:3px solid var(--ink);
+  padding:4px 10px;
+}
+.hh-readout{
+  background:var(--paper);
+  border:3px solid var(--ink);
+  padding:18px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  line-height:2;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.hh-readout .v{color:var(--red-deep); font-weight:700; font-size:16px}
+.hh-readout hr{border:none; border-top:2px dotted var(--ink); margin:10px 0}
+.smell-tag{
+  display:inline-block;
+  margin-top:10px;
+  padding:6px 14px;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Reggae One',sans-serif;
+  border:3px solid var(--ink);
+  letter-spacing:0.1em;
+}
+
+/* ====== グラフ ====== */
+.chart-wrap{
+  margin:36px 0;
+  background:var(--paper-warm);
+  border:3px solid var(--ink);
+  padding:24px;
+  border-radius:16px;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.chart-wrap h3{margin-top:0}
+.chart-cap{
+  font-family:'Caveat',cursive;
+  font-size:17px;
+  color:var(--blue-deep);
+  margin-top:12px;
+  text-align:center;
+  line-height:1.5;
+}
+
+/* ====== 周期表 ミニ ====== */
+.pt-mini{
+  margin:36px 0;
+  background:var(--paper-warm);
+  border:3px solid var(--ink);
+  padding:24px;
+  border-radius:16px;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.pt-mini h3{margin-top:0}
+.pt-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  font-family:'RocknRoll One',sans-serif;
+  font-size:12px;
+  margin:14px 0;
+}
+.pt-legend span{
+  padding:4px 10px;
+  border:2px solid var(--ink);
+  border-radius:999px;
+}
+.pt-grid{
+  display:grid;
+  grid-template-columns:repeat(8, 1fr);
+  gap:5px;
+  max-width:540px;
+  margin:14px auto;
+}
+.pt-cell{
+  aspect-ratio:1;
+  border:3px solid var(--ink);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:'RocknRoll One',sans-serif;
+  background:var(--paper);
+  cursor:pointer;
+  transition:all 0.15s;
+  position:relative;
+  box-shadow:2px 2px 0 var(--ink);
+}
+.pt-cell:hover{transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); z-index:5}
+.pt-cell .sym{font-weight:700; font-size:16px}
+.pt-cell .anum{font-size:9px; position:absolute; top:2px; left:4px; opacity:0.6; font-family:'JetBrains Mono',monospace}
+.pt-cell.pos{background:#FFCDD2}
+.pt-cell.neg{background:#BBDEFB}
+.pt-cell.both{background:#FFE082}
+.pt-readout{
+  background:var(--paper);
+  border:3px dashed var(--ink);
+  padding:16px;
+  margin-top:14px;
+  text-align:center;
+  font-size:14px;
+  line-height:1.7;
+  min-height:54px;
+}
+
+/* ====== タブ ====== */
+.tabs{margin:36px 0}
+.tab-buttons{
+  display:flex; gap:4px; flex-wrap:wrap;
+  margin-bottom:-3px;
+  z-index:2; position:relative;
+}
+.tab-buttons button{
+  font-family:'RocknRoll One',sans-serif;
+  font-size:13px;
+  padding:11px 14px;
+  background:var(--paper-warm);
+  border:3px solid var(--ink);
+  border-bottom:none;
+  cursor:pointer;
+  border-radius:12px 12px 0 0;
+}
+.tab-buttons button.active{background:var(--yellow); top:-4px; position:relative}
+.tab-content{
+  border:3px solid var(--ink);
+  padding:22px;
+  background:var(--paper-warm);
+  border-radius:0 12px 12px 12px;
+  min-height:180px;
+}
+.tab-panel{display:none}
+.tab-panel.active{display:block; animation:fadein 0.3s}
+@keyframes fadein{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:translateY(0)}}
+.tab-panel h4{
+  font-family:'Reggae One',sans-serif;
+  font-size:20px;
+  margin-bottom:10px;
+  color:var(--red-deep);
+}
+
+/* ====== 考察問題 ====== */
+.problem{
+  margin:36px 0;
+  background:var(--paper);
+  border:3px solid var(--ink);
+  padding:24px 28px;
+  position:relative;
+  box-shadow:6px 6px 0 var(--blue);
+}
+.problem::before{
+  content:'考察問題';
+  position:absolute;
+  top:-14px; left:20px;
+  background:var(--blue);
+  color:var(--paper);
+  font-family:'Reggae One',sans-serif;
+  padding:4px 14px;
+  border:3px solid var(--ink);
+  font-size:13px;
+  letter-spacing:0.2em;
+  transform:rotate(-2deg);
+}
+.problem h4{
+  font-family:'RocknRoll One',sans-serif;
+  font-size:16px;
+  margin-bottom:10px;
+  color:var(--blue-deep);
+  margin-top:6px;
+}
+.problem-q{font-size:15px; line-height:1.85}
+.problem-toggle{
+  margin-top:14px;
+  font-family:'RocknRoll One',sans-serif;
+  background:var(--ink);
+  color:var(--paper);
+  border:3px solid var(--ink);
+  padding:8px 18px;
+  cursor:pointer;
+  font-size:13px;
+  letter-spacing:0.1em;
+  box-shadow:3px 3px 0 var(--ink);
+  transition:all 0.15s;
+}
+.problem-toggle:hover{background:var(--red); transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink)}
+.problem-answer{
+  display:none;
+  margin-top:14px;
+  padding:18px 20px;
+  background:var(--paper-warm);
+  border:2px dashed var(--ink);
+  font-size:14.5px;
+  line-height:1.85;
+}
+.problem-answer.shown{display:block; animation:fadein 0.3s}
+.problem-answer .calc{
+  font-family:'Caveat',cursive;
+  font-size:22px;
+  background:var(--board);
+  color:var(--chalk);
+  padding:10px 16px;
+  margin:8px 0;
+  display:block;
+  text-align:center;
+  border-radius:4px;
+}
+
+/* ====== カードグループ ====== */
+.three-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  gap:14px;
+  margin:26px 0;
+}
+.three-cards .card{
+  background:var(--paper-warm);
+  border:3px solid var(--ink);
+  padding:18px;
+  border-radius:14px;
+  box-shadow:5px 5px 0 var(--ink);
+}
+.three-cards .card .num{
+  font-family:'Caprasimo',serif;
+  font-size:30px;
+  color:var(--red);
+  line-height:1;
+}
+.three-cards .card h4{
+  font-family:'RocknRoll One',sans-serif;
+  font-size:16px;
+  margin:6px 0;
+}
+.three-cards .card p{font-size:14px; margin-bottom:0; line-height:1.7}
+
+.chapter.alt-bg{
+  background:linear-gradient(180deg, transparent, rgba(255,201,60,0.15), transparent);
+}
+
+.word-pop{
+  display:inline-block;
+  background:var(--yellow);
+  padding:1px 8px;
+  font-weight:700;
+  border:2px solid var(--ink);
+  margin:0 2px;
+  transform:rotate(-1deg);
+}
+.word-red{color:var(--red-deep); font-weight:900}
+
+/* ====== フッター ====== */
+footer{
+  background:var(--ink);
+  color:var(--paper);
+  padding:50px 24px 70px;
+  text-align:center;
+  margin-top:60px;
+  border-top:6px solid var(--yellow);
+}
+footer .next-ep{
+  font-family:'Caprasimo',serif;
+  color:var(--yellow);
+  letter-spacing:0.2em;
+  margin-bottom:12px;
+}
+footer h3{
+  font-family:'Reggae One',sans-serif;
+  color:var(--paper);
+  font-size:26px;
+  margin-bottom:18px;
+}
+footer .credit{
+  font-family:'DotGothic16',monospace;
+  font-size:12px;
+  margin-top:30px;
+  opacity:0.6;
+  letter-spacing:0.1em;
+  line-height:1.8;
+}
+footer a{color:var(--yellow)}
+
+@media(max-width:600px){
+  .header{padding:40px 16px 50px}
+  .chapter{padding:50px 16px 70px}
+  .telop{flex-direction:column}
+  .telop-tag{writing-mode:horizontal-tb; text-orientation:mixed; border-right:none; border-bottom:3px solid var(--ink)}
+  .eq{font-size:24px}
+  .reaction{font-size:20px}
+  .pt-grid{grid-template-columns:repeat(6, 1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="marquee">
+  <span class="marquee-inner">
+    ★ 水ノヒミツ放送局 EP.02 ★ 化学の目で見る水 ★ 高校スペシャル ★ ヘンリーの法則 / van't Hoff / Solution-Diffusion / Henderson-Hasselbalch ★ 水ノヒミツ放送局 EP.02 ★ 化学の目で見る水 ★ 高校スペシャル ★
+  </span>
+</div>
+
+<header class="header">
+  <span class="station-logo">水ノヒミツ放送局</span>
+  <span class="special-badge">高校SPECIAL</span>
+  <span class="ep-num">EP.02 — CHEMISTRY EDITION</span>
+  <h1 class="title">化学の目で見る<br><em>水</em>と<em>ニオイ</em></h1>
+  <p class="subtitle">EP.01 でわかったことを、化学Ⅰ・Ⅱ の言葉でもう一段深く</p>
+  <div class="audience-note">対象: 高校 化学Ⅰ 履修中〜化学Ⅱ レベル</div>
+
+  <div class="opening-chars">
+    <div class="character"><div class="char-face c1">💧</div><strong>みずたまちゃん</strong><br>H₂O</div>
+    <div class="character"><div class="char-face c2">🟡</div><strong>えんそ君</strong><br>Cl₂ / HClO</div>
+    <div class="character"><div class="char-face c3">⚡</div><strong>イオン博士</strong><br>Na⁺ / Cl⁻</div>
+    <div class="character"><div class="char-face c4">📐</div><strong>ヘンリー先生</strong><br>進行役・化学Ⅱ</div>
+  </div>
+</header>
+
+<nav class="chapter-nav">
+  <a href="#ch1">①嗅覚化学のキホン</a>
+  <a href="#ch2">②分子⇌イオン (酸塩基)</a>
+  <a href="#ch3">③ROの物理化学</a>
+  <a href="#ch4">④純水のパラドックス</a>
+  <a href="#ch5">⑤塩素のDBP化学</a>
+  <a href="#ch6">⑥考察問題ラボ</a>
+</nav>
+
+<!-- ============ CH1 ============ -->
+<section class="chapter" id="ch1">
+  <span class="chapter-tag advanced">CHAPTER 01</span>
+  <h2>「匂う」を化学で<br>定義する</h2>
+
+  <p class="lead">EP.01では「匂い＝空気にとびだす中性分子」とザックリ言った。今回は <span class="word-pop">何が「空気にとびだす」を決めるか</span> を式で押さえよう。</p>
+
+  <p>嗅覚を司るのは <strong>嗅覚受容体 (Olfactory Receptor; OR)</strong>。GPCR ファミリーの 7 回膜貫通タンパク質で、ヒトは約 400 種を持つ。OR は気相分子をリガンドとして認識するから、<span class="word-red">空気にまで漂ってこない分子はそもそも検知の土俵に上がれない</span>。</p>
+
+  <p>「とびだせる」分子の条件、整理するとこの 4 つ:</p>
+
+  <div class="three-cards">
+    <div class="card">
+      <span class="num">①</span><h4>分子量 30〜300 Da</h4>
+      <p>大きすぎると気体になれない。タンパク質や糖鎖は無臭。</p>
+    </div>
+    <div class="card">
+      <span class="num">②</span><h4>電気的に中性</h4>
+      <p>イオンは水和殻が厚く気化不能。電荷を持たないこと。</p>
+    </div>
+    <div class="card">
+      <span class="num">③</span><h4>logP ≳ 1.5</h4>
+      <p>受容体ポケットの脂質環境に入り込める疎水性。</p>
+    </div>
+    <div class="card">
+      <span class="num">④</span><h4>蒸気圧 &gt; 0.01 mmHg</h4>
+      <p>気液界面で気相濃度を稼げる揮発性。</p>
+    </div>
+  </div>
+
+  <h3>水中の匂いがなぜ嗅げるか — ヘンリーの法則</h3>
+
+  <div class="blackboard">
+    <span class="board-label">— Henry's Law (1803) —</span>
+    <div class="eq">
+      C<sub class="yellow">気相</sub> = K<sub class="red">H</sub> · C<sub class="blue">水中</sub>
+      <span class="eq-num">(1.1)</span>
+    </div>
+    <div class="legend">
+      <strong>K<sub>H</sub></strong>: ヘンリー定数 (物質ごとに固有)<br>
+      <strong>C<sub>水中</sub></strong>: 水中濃度 / <strong>C<sub>気相</sub></strong>: 気相平衡濃度<br>
+      → K<sub>H</sub> が大きいほど "嗅ぎ取りやすい" 物質！
+    </div>
+  </div>
+
+  <p>つまり、水中濃度が同じでも K<sub>H</sub> が大きい分子ほど匂う。逆に水溶性が極端に高い物質 (K<sub>H</sub> 小) は、水中にどれだけあっても気相に出てこない。<span class="word-pop">塩のイオンは K<sub>H</sub> ≈ 0</span> なのでまったく匂わない。</p>
+
+  <h3>嗅覚閾値 (OTC) — 桁外れの感度</h3>
+
+  <p>ヒトが匂いを検知できる水中濃度を <strong>嗅覚閾値 (OTC: Odor Threshold Concentration)</strong> と呼ぶ。これが驚くほど低い。</p>
+
+  <div class="data-table">
+    <div class="table-caption">▶ 主要匂い物質の水中嗅覚閾値</div>
+    <table>
+      <thead><tr><th>物質</th><th>分子式</th><th>M [Da]</th><th>OTC [μg/L]</th><th>匂いの感じ</th></tr></thead>
+      <tbody>
+        <tr><td>ジオスミン</td><td>C₁₂H₂₂O</td><td>182</td><td><strong>0.01</strong></td><td>湖の青臭さ</td></tr>
+        <tr><td>2-MIB</td><td>C₁₁H₂₀O</td><td>168</td><td>0.015</td><td>カビ臭</td></tr>
+        <tr><td>硫化水素</td><td>H₂S</td><td>34</td><td>0.5</td><td>卵が腐った匂い</td></tr>
+        <tr><td>クロロホルム (THM)</td><td>CHCl₃</td><td>119</td><td>~100</td><td>プールの底</td></tr>
+        <tr><td>次亜塩素酸</td><td>HClO</td><td>52</td><td>~100</td><td>カルキ刺激</td></tr>
+        <tr><td>モノクロラミン</td><td>NH₂Cl</td><td>51</td><td>~500</td><td>プール残留</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag">ココ重要</div>
+    <div class="telop-body">
+      水道法の残留塩素 ≥ 0.1 mg/L = 100 μg/L は、<strong>HClO の OTC とほぼ一致</strong>している。<br>
+      つまり「殺菌に必要な濃度」と「人間が匂いを感じる濃度」は、ほぼ同じレベルに設計されている！
+    </div>
+  </div>
+
+  <div class="threshold-tool">
+    <h3>🔬 やってみよう① 嗅覚閾値ベンチマーク</h3>
+    <p>物質をクリックすると、「ヒトが検知する最小量」を 25m プール (375 t) で例えた感覚的スケールが出る。</p>
+    <div class="thresh-list" id="thresh-list">
+      <button data-otc="0.01" data-name="ジオスミン" data-feel="25mプールに 3.8 mg = 角砂糖の 1/500 個!">ジオスミン<span class="otc">OTC = 0.01 μg/L</span></button>
+      <button data-otc="0.015" data-name="2-MIB" data-feel="25mプールに 5.6 mg = ゴマ粒 1/3 個!">2-MIB<span class="otc">OTC = 0.015 μg/L</span></button>
+      <button data-otc="0.5" data-name="硫化水素" data-feel="25mプールに 188 mg = 角砂糖の半分">硫化水素 H₂S<span class="otc">OTC = 0.5 μg/L</span></button>
+      <button data-otc="100" data-name="HClO" data-feel="25mプールに 37.5 g = 大さじ 1 杯弱">HClO (塩素)<span class="otc">OTC ≈ 100 μg/L</span></button>
+      <button data-otc="500" data-name="モノクロラミン" data-feel="25mプールに 188 g = 食パン 2 枚">モノクロラミン NH₂Cl<span class="otc">OTC ≈ 500 μg/L</span></button>
+    </div>
+    <div class="thresh-readout" id="thresh-readout">
+      ↑ 物質をえらんで「ヒトの感度のすごさ」を体感しよう。
+    </div>
+  </div>
+</section>
+
+<!-- ============ CH2 ============ -->
+<section class="chapter alt-bg" id="ch2">
+  <span class="chapter-tag advanced">CHAPTER 02</span>
+  <h2>分子⇌イオン<br>酸塩基平衡で匂いは動く</h2>
+
+  <p class="lead">EP.01 では「分子は匂う、イオンは匂わない」と教わった。化学Ⅱでは、その境界が <span class="word-pop">pH で連続的に動く</span> ことを学ぶ。これが「処理水の匂い問題」の核心。</p>
+
+  <h3>なぜイオンは気化できないか — 水和エンタルピー</h3>
+
+  <p>イオンが水中にいるとき、極性をもつ H₂O 分子がイオンの周りに整列して水和殻を作る。一個あたりの水和エンタルピー ΔH<sub>hyd</sub> はおおむね <strong>−300 〜 −500 kJ/mol</strong>。一方、中性分子 (例: NH₃) の蒸発エンタルピー ΔH<sub>vap</sub> はせいぜい 20〜40 kJ/mol。</p>
+
+  <div class="telop">
+    <div class="telop-tag blue">物理イメージ</div>
+    <div class="telop-body">
+      イオンを気化させるには、水和殻 (300 kJ/mol級) を破壊する必要がある。これは<strong>共有結合 1 本を切るのと同じレベル</strong>。室温では事実上不可能。<br>
+      → だからイオンは水の中から出られない！
+    </div>
+  </div>
+
+  <div class="pt-mini">
+    <h3>🔬 やってみよう② 「匂い当て」周期表</h3>
+    <p>セルをクリックすると、その元素が水中でどう振る舞うかが表示される。</p>
+    <div class="pt-legend">
+      <span style="background:#FFCDD2">陽イオン化しやすい (匂わない)</span>
+      <span style="background:#BBDEFB">陰イオン化しやすい (匂わない)</span>
+      <span style="background:#FFE082">中性分子で揮発 (匂う)</span>
+    </div>
+    <div class="pt-grid" id="pt-grid">
+      <div class="pt-cell pos" data-name="ナトリウム" data-info="Na — 水中で常に Na⁺ (1価)。水和殻 ΔH ≈ −406 kJ/mol で固定。食塩 NaCl の無臭の主因。"><span class="anum">11</span><span class="sym">Na</span></div>
+      <div class="pt-cell both" data-name="塩素" data-info="Cl — Cl₂ 単体は中性分子で強烈なカルキ臭。水中 (HClO ⇌ ClO⁻ + H⁺、pKa=7.53) で形が変わる。化けの達人。"><span class="anum">17</span><span class="sym">Cl</span></div>
+      <div class="pt-cell neg" data-name="フッ素" data-info="F — 水中ではほぼ F⁻ (1価陰イオン)、無臭。歯磨き粉の有効成分。フッ化水素 HF は分子で匂うが超危険。"><span class="anum">9</span><span class="sym">F</span></div>
+      <div class="pt-cell both" data-name="窒素 (アンモニア)" data-info="N — NH₃ 分子は刺激臭。水中で平衡 (NH₃ + H₂O ⇌ NH₄⁺ + OH⁻、pKa=9.25)。アルカリ側ほど匂う。"><span class="anum">7</span><span class="sym">N</span></div>
+      <div class="pt-cell both" data-name="硫黄 (硫化水素)" data-info="S — H₂S 分子は卵腐敗臭。水中で HS⁻、S²⁻ にイオン化 (pKa₁=7.0)。酸性ほど匂う。"><span class="anum">16</span><span class="sym">S</span></div>
+      <div class="pt-cell pos" data-name="カルシウム" data-info="Ca — 水中で Ca²⁺ (2価陽イオン)。ΔH<sub>hyd</sub> ≈ −1577 kJ/mol で完全固定。無臭。"><span class="anum">20</span><span class="sym">Ca</span></div>
+      <div class="pt-cell pos" data-name="鉄" data-info="Fe — Fe²⁺/Fe³⁺ 自体は無臭。ただし空気酸化で水酸化鉄や脂質酸化が起こり「鉄っぽい匂い」に感じる。"><span class="anum">26</span><span class="sym">Fe</span></div>
+      <div class="pt-cell both" data-name="炭素 (CO₂)" data-info="C — CO₂ は中性分子だが、嗅覚というより三叉神経を刺激 (炭酸感)。水中で HCO₃⁻ ⇌ CO₃²⁻ にイオン化。"><span class="anum">6</span><span class="sym">C</span></div>
+    </div>
+    <div class="pt-readout" id="pt-readout">↑ 元素を選んで、その「化け方」を見てみよう。</div>
+  </div>
+
+  <h3>本丸: 次亜塩素酸の酸塩基平衡</h3>
+
+  <p>後段塩素として水に入れる次亜塩素酸 (HClO) の解離は本特集の核心式。これが <strong>pH によって匂いが動く</strong> 理由を説明する。</p>
+
+  <div class="blackboard">
+    <span class="board-label">— HClO の解離平衡 (pKa = 7.53) —</span>
+    <div class="reaction">
+      <span class="yellow">HClO</span> <span class="arrow">⇌</span> H⁺ + <span class="blue">ClO⁻</span>
+      <span class="reaction-note">HClO = 揮発する分子 (匂う) / ClO⁻ = イオン (匂わない)</span>
+    </div>
+    <div class="eq">
+      pH = pK<sub>a</sub> + log<sub>10</sub>(<span class="blue">[ClO⁻]</span> / <span class="yellow">[HClO]</span>)
+      <span class="eq-num">(2.1) Henderson-Hasselbalch</span>
+    </div>
+    <div class="legend">
+      これを変形 → <strong>α<sub>HClO</sub> = 1 / (1 + 10<sup>pH−pKa</sup>)</strong><br>
+      pH 低 (酸性) → HClO 優勢 → <span class="red">よく匂う</span><br>
+      pH 高 (アルカリ) → ClO⁻ 優勢 → <span class="blue">ほぼ無臭</span>
+    </div>
+  </div>
+
+  <div class="hh-knob">
+    <h3>🔬 やってみよう③ Henderson-Hasselbalch ツマミ</h3>
+    <p>pH と全塩素濃度をいじってみると、HClO / ClO⁻ の比率が連動して動く。実際の浄水器の状況を再現できる。</p>
+
+    <div class="knob-controls">
+      <div>
+        <div class="knob-input">
+          <label>pH (水の酸性・アルカリ性)</label>
+          <div class="row"><input type="range" id="hh-ph" min="3" max="11" step="0.1" value="7"><span class="val" id="hh-ph-v">7.0</span></div>
+        </div>
+        <div class="knob-input">
+          <label>全塩素 [mg/L] (注入量)</label>
+          <div class="row"><input type="range" id="hh-tot" min="0.1" max="3" step="0.05" value="1"><span class="val" id="hh-tot-v">1.00</span></div>
+        </div>
+        <div class="knob-input">
+          <label>温度 [°C] (参考)</label>
+          <div class="row"><input type="range" id="hh-temp" min="5" max="40" step="1" value="25"><span class="val" id="hh-temp-v">25</span></div>
+        </div>
+      </div>
+      <div class="hh-readout">
+        α<sub>HClO</sub> = <span class="v" id="hh-alpha">50.0</span> %<br>
+        [HClO] = <span class="v" id="hh-hclo">0.500</span> mg/L<br>
+        [ClO⁻] = <span class="v" id="hh-clo">0.500</span> mg/L
+        <hr>
+        OTC<sub>HClO</sub> 倍率 = <span class="v" id="hh-otc">5.0</span> ×<br>
+        <span class="smell-tag" id="hh-label">匂いやすい</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CH3 ============ -->
+<section class="chapter" id="ch3">
+  <span class="chapter-tag advanced">CHAPTER 03</span>
+  <h2>RO のしくみを<br>本気で理解する</h2>
+
+  <p class="lead">EP.01 で見た「あなが 0.1nm のすごいフィルター」は、本当は <span class="word-pop">ザル (サイズ排除)</span> じゃない。化学Ⅱ で学ぶ <strong>浸透圧</strong> と <strong>溶解拡散モデル</strong>で動いている。</p>
+
+  <h3>① 浸透圧 — van't Hoff の式</h3>
+
+  <p>半透膜を挟んで純水と塩水を置くと、純水側から塩水側へ水が流れ込む。これを <strong>浸透 (Osmosis)</strong> という。止めるのに必要な圧力が <strong>浸透圧 Π</strong>。van't Hoff の式で記述される。</p>
+
+  <div class="blackboard">
+    <span class="board-label">— van't Hoff (1886) —</span>
+    <div class="eq">
+      <span class="yellow">Π</span> = <span class="red">i</span> · <span class="blue">C</span> · R · T
+      <span class="eq-num">(3.1)</span>
+    </div>
+    <div class="legend">
+      <strong>Π</strong>: 浸透圧 [atm] / <strong>i</strong>: ファントホッフ係数 (NaCl ≈ 1.9)<br>
+      <strong>C</strong>: モル濃度 [mol/L] / R = 0.082 L·atm/(mol·K) / T: 絶対温度 [K]
+    </div>
+  </div>
+
+  <p>これを <strong>逆向き</strong> に使うのが RO。Π を超える圧力で水を「絞り出す」。海水 (0.6 mol/L NaCl, 25°C) で Π ≈ 28 atm、実用 RO は 50〜80 atm で運転する。</p>
+
+  <h3>② 膜の透過機構 — Solution-Diffusion モデル</h3>
+
+  <p>RO 膜は単なるザルではなく、<strong class="word-red">水と溶質が膜に "溶け込んで"、"拡散して"、反対側に出る</strong> という機構で分離している。</p>
+
+  <div class="blackboard">
+    <span class="board-label">— Solution-Diffusion Model —</span>
+    <div class="eq">
+      <span class="yellow">J<sub>水</sub></span> = A · (ΔP − Δπ)
+      <span class="eq-num">(3.2a)</span>
+    </div>
+    <div class="eq">
+      <span class="red">J<sub>溶質</sub></span> = (D · K / L) · ΔC
+      <span class="eq-num">(3.2b)</span>
+    </div>
+    <div class="legend">
+      水フラックスは<strong>圧力差</strong>で動く / 溶質フラックスは<strong>濃度差</strong>で動く<br>
+      → 加圧すればするほど水ばかり通り、溶質は通らない！<br>
+      <strong>K (分配係数)</strong> = 膜への溶け込みやすさ<br>
+      <strong>D (拡散係数)</strong> = 膜内の動きやすさ
+    </div>
+  </div>
+
+  <p>イオンは K が極端に小さい (膜の電荷で反発される)。大分子は D が小さい (動けない)。一方 <span class="word-pop">水分子に近いサイズの中性小分子</span> (CO₂, NH₃, H₂S, HClO, 小さな VOC) は、水と類似の挙動で膜を通り抜けてしまう。</p>
+
+  <h3>③ 分子量 vs 阻止率 — 理論曲線</h3>
+
+  <div class="chart-wrap">
+    <h3>📊 分子量と阻止率の関係 (理論)</h3>
+    <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" style="font-family:'Zen Maru Gothic',sans-serif;">
+      <!-- 背景方眼 -->
+      <defs>
+        <pattern id="grid" width="40" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 30" fill="none" stroke="rgba(26,31,46,0.08)" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect x="60" y="40" width="600" height="310" fill="url(#grid)"/>
+      <!-- 軸 -->
+      <line x1="60" y1="350" x2="660" y2="350" stroke="#1A1F2E" stroke-width="3"/>
+      <line x1="60" y1="350" x2="60" y2="40" stroke="#1A1F2E" stroke-width="3"/>
+      <!-- y -->
+      <text x="55" y="354" text-anchor="end" font-size="12" fill="#1A1F2E">0%</text>
+      <text x="55" y="279" text-anchor="end" font-size="12" fill="#1A1F2E">25%</text>
+      <text x="55" y="204" text-anchor="end" font-size="12" fill="#1A1F2E">50%</text>
+      <text x="55" y="129" text-anchor="end" font-size="12" fill="#1A1F2E">75%</text>
+      <text x="55" y="54" text-anchor="end" font-size="12" fill="#1A1F2E">100%</text>
+      <text x="18" y="200" text-anchor="middle" font-family="RocknRoll One" font-size="14" fill="#1A1F2E" transform="rotate(-90 18 200)">阻止率 R</text>
+      <!-- x -->
+      <text x="60" y="372" text-anchor="middle" font-size="12" font-family="JetBrains Mono" fill="#1A1F2E">18</text>
+      <text x="180" y="372" text-anchor="middle" font-size="12" font-family="JetBrains Mono" fill="#1A1F2E">50</text>
+      <text x="300" y="372" text-anchor="middle" font-size="12" font-family="JetBrains Mono" fill="#1A1F2E">100</text>
+      <text x="420" y="372" text-anchor="middle" font-size="12" font-family="JetBrains Mono" fill="#1A1F2E">300</text>
+      <text x="540" y="372" text-anchor="middle" font-size="12" font-family="JetBrains Mono" fill="#1A1F2E">1000</text>
+      <text x="660" y="372" text-anchor="middle" font-size="12" font-family="JetBrains Mono" fill="#1A1F2E">5000</text>
+      <text x="360" y="392" text-anchor="middle" font-family="RocknRoll One" font-size="13" fill="#1A1F2E">分子量 [Da] (log scale)</text>
+      <!-- 中性分子曲線 -->
+      <path d="M 60 340 Q 200 320 280 240 T 480 70 L 660 50" stroke="#E5462E" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <text x="510" y="100" font-family="RocknRoll One" font-size="14" fill="#E5462E" font-weight="700">中性分子</text>
+      <!-- イオン曲線 -->
+      <path d="M 60 60 L 200 55 L 400 52 L 660 50" stroke="#1B4F8C" stroke-width="4" stroke-dasharray="8,5" fill="none"/>
+      <text x="240" y="42" font-family="RocknRoll One" font-size="14" fill="#1B4F8C" font-weight="700">イオン (Na⁺, Cl⁻)</text>
+      <!-- 物質点 -->
+      <g font-family="Zen Maru Gothic" font-size="11" fill="#1A1F2E" font-weight="700">
+        <circle cx="60" cy="340" r="6" fill="#E5462E" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="68" y="345">H₂O (18)</text>
+        <circle cx="125" cy="328" r="6" fill="#E5462E" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="80" y="318">H₂S (34)</text>
+        <circle cx="155" cy="335" r="6" fill="#E5462E" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="160" y="345">NH₃ (17)</text>
+        <circle cx="195" cy="310" r="6" fill="#E5462E" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="200" y="307">HClO (52)</text>
+        <circle cx="285" cy="220" r="6" fill="#E5462E" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="290" y="217">CHCl₃ (119)</text>
+        <circle cx="375" cy="135" r="6" fill="#E5462E" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="380" y="132">2-MIB (168)</text>
+        <circle cx="395" cy="115" r="6" fill="#E5462E" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="400" y="112">ジオスミン (182)</text>
+        <circle cx="540" cy="55" r="6" fill="#E5462E" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="490" y="48">糖類 (180-360)</text>
+        <circle cx="180" cy="58" r="6" fill="#1B4F8C" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="185" y="80">Na⁺ (23)</text>
+        <circle cx="195" cy="60" r="6" fill="#1B4F8C" stroke="#1A1F2E" stroke-width="2"/>
+        <text x="200" y="98">Cl⁻ (35)</text>
+      </g>
+    </svg>
+    <div class="chart-cap">▶ 中性分子は S 字カーブで、~150 Da 付近を境に阻止率が急変<br>イオンは電荷反発で分子量に関係なく高阻止率を維持！</div>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag lime">けっか</div>
+    <div class="telop-body">
+      <strong>「ほぼ通さない」が成立するのは分子量 500 Da 以上、または イオン</strong>。<br>
+      ジオスミン (182 Da) や 2-MIB (168 Da)、HClO (52 Da) のような <span class="word-red">嗅覚的に最重要な小分子は通ってしまう</span>。だから多くの家庭用 RO 浄水器は、後段に活性炭ポリッシャーを置く！
+    </div>
+  </div>
+</section>
+
+<!-- ============ CH4 ============ -->
+<section class="chapter alt-bg" id="ch4">
+  <span class="chapter-tag advanced">CHAPTER 04</span>
+  <h2>純水のパラドックス<br>「純粋すぎて反応的」</h2>
+
+  <p class="lead">RO 透過水はイオン総量 (TDS) が原水の 1〜5% に落ちる。一見「無垢で安全」だけど、化学的には <span class="word-red">逆に不安定</span>。これがあとの匂い問題に効いてくる。</p>
+
+  <h3>① CO₂ 吸収で pH が急変する</h3>
+
+  <p>純水は緩衝能 (buffer capacity) がほぼゼロ。空気と接触するとヘンリーの法則に従って CO₂ を吸う。</p>
+
+  <div class="blackboard">
+    <span class="board-label">— 大気平衡 CO₂ 吸収 (pH ≈ 5.6) —</span>
+    <div class="reaction">
+      CO<sub>2</sub>(g) <span class="arrow">⇌</span> CO<sub>2</sub>(aq)
+    </div>
+    <div class="reaction">
+      CO<sub>2</sub>(aq) + H<sub>2</sub>O <span class="arrow">⇌</span> H<sub>2</sub>CO<sub>3</sub> <span class="arrow">⇌</span> <span class="yellow">H⁺</span> + HCO<sub>3</sub><sup>−</sup>
+      <span class="reaction-note">→ 平衡 pH ≈ 5.5〜6.0</span>
+    </div>
+  </div>
+
+  <p>前章の Henderson-Hasselbalch で計算すると、pH 5.6 では α<sub>HClO</sub> ≈ 99%。<span class="word-red">純水に塩素を入れた瞬間、ほぼ全量が揮発性側に振れて匂いがキツくなる</span>。これが RO 水特有の「匂いやすさ」の構造的原因。</p>
+
+  <h3>② 純水は容器を侵食する</h3>
+
+  <p>純水の溶媒和力 (なんでも溶かしたがる傾向) は、容器・配管素材から微量成分を引き出してしまう。</p>
+
+  <div class="three-cards">
+    <div class="card">
+      <span class="num">PE/PP</span><h4>残留添加剤・酸化分解物</h4>
+      <p>いわゆる「ビニール臭」「プラ臭」。</p>
+    </div>
+    <div class="card">
+      <span class="num">PVC</span><h4>フタル酸エステル類</h4>
+      <p>独特の薬品様の匂い。</p>
+    </div>
+    <div class="card">
+      <span class="num">金属</span><h4>Fe²⁺ / Cu²⁺ (低pH下)</h4>
+      <p>「鉄っぽい味」(実は脂質酸化媒介)。</p>
+    </div>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag blue">ふしぎ</div>
+    <div class="telop-body">
+      半導体工場の <strong>超純水 (UPW)</strong> ラインは、ステンレスやガラスすら溶かすので PVDF や PFA を使う。<strong>「純粋であること」と「化学的に安定であること」は別物</strong>！
+    </div>
+  </div>
+
+  <h3>③ TOC が低くてもバイオフィルムは形成される</h3>
+
+  <p>TOC (Total Organic Carbon) が 1 mg/L 未満でも、Pseudomonas など貧栄養細菌は増殖できる。タンク内壁にバイオフィルムが形成されると嫌気状態が局所的に生まれ、以下の代謝産物が発生する。</p>
+
+  <div class="blackboard">
+    <span class="board-label">— 嫌気代謝による匂い物質生成 —</span>
+    <div class="reaction">
+      SO<sub>4</sub><sup>2−</sup> + 有機物 <span class="arrow">→</span> <span class="yellow">H<sub>2</sub>S</span> + ...
+      <span class="reaction-note">硫酸塩還元菌 (SRB) — 卵腐敗臭</span>
+    </div>
+    <div class="reaction">
+      アミノ酸残基 <span class="arrow">→</span> <span class="red">R-NH<sub>2</sub></span> (アミン類)
+      <span class="reaction-note">タンパク質分解 — 生臭・魚臭</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CH5 ============ -->
+<section class="chapter" id="ch5">
+  <span class="chapter-tag advanced">CHAPTER 05</span>
+  <h2>後段塩素の化学<br>DBPとクロラミン</h2>
+
+  <p class="lead">業務用 RO 浄水システムの多くは、配送・保管中の細菌再増殖を防ぐため <span class="word-pop">RO 後段で塩素を再添加</span> する。これは <strong class="word-red">設計上の選択</strong>。</p>
+
+  <div class="blackboard">
+    <span class="board-label">— 次亜塩素酸ナトリウム投入時 —</span>
+    <div class="reaction">
+      NaClO + H<sub>2</sub>O <span class="arrow">→</span> Na⁺ + <span class="blue">ClO⁻</span>
+    </div>
+    <div class="reaction">
+      <span class="blue">ClO⁻</span> + H⁺ <span class="arrow">⇌</span> <span class="yellow">HClO</span>
+      <span class="reaction-note">中性 pH では HClO/ClO⁻ が共存 (CH2 で見た平衡)</span>
+    </div>
+  </div>
+
+  <h3>DBPs — 消毒副生成物の連鎖</h3>
+
+  <p>HClO は強い酸化剤・求電子剤として、水中の有機物・アンモニアと反応する。これが <strong>DBPs (Disinfection By-Products: 消毒副生成物)</strong>。</p>
+
+  <h4>1. ハロホルム反応 → トリハロメタン (THM)</h4>
+
+  <p>フミン酸など腐植物質中のメチルケトン構造に HClO が逐次置換し、CHCl₃ などを生成する。</p>
+
+  <div class="blackboard">
+    <span class="board-label">— ハロホルム反応 (Haloform Reaction) —</span>
+    <div class="reaction">
+      R-COCH<sub>3</sub> + 3 <span class="yellow">HClO</span> <span class="arrow">→</span> R-COCCl<sub>3</sub> + 3 H<sub>2</sub>O
+    </div>
+    <div class="reaction">
+      R-COCCl<sub>3</sub> + H<sub>2</sub>O <span class="arrow">→</span> R-COOH + <span class="red">CHCl<sub>3</sub></span>
+      <span class="reaction-note">クロロホルム (THM) 生成! プールの底っぽい匂い</span>
+    </div>
+  </div>
+
+  <h4>2. クロラミン階段的生成 (Cl/N 比依存)</h4>
+
+  <p>原水中のアンモニアや有機アミンと HClO は段階的に反応する。pH と Cl/N モル比で生成物が変わる。</p>
+
+  <div class="blackboard">
+    <span class="board-label">— Chloramine 段階生成 —</span>
+    <div class="reaction">
+      NH<sub>3</sub> + <span class="yellow">HClO</span> <span class="arrow">→</span> <span class="blue">NH<sub>2</sub>Cl</span> + H<sub>2</sub>O
+      <span class="reaction-note">モノクロラミン (プールのカルキ臭の主犯)</span>
+    </div>
+    <div class="reaction">
+      <span class="blue">NH<sub>2</sub>Cl</span> + HClO <span class="arrow">→</span> <span class="red">NHCl<sub>2</sub></span> + H<sub>2</sub>O
+      <span class="reaction-note">ジクロラミン (魚生臭・刺激臭)</span>
+    </div>
+    <div class="reaction">
+      <span class="red">NHCl<sub>2</sub></span> + HClO <span class="arrow">→</span> <span class="yellow">NCl<sub>3</sub></span> + H<sub>2</sub>O
+      <span class="reaction-note">トリクロラミン (高揮発・目刺激)</span>
+    </div>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag">ふしぎ</div>
+    <div class="telop-body">
+      「プールの塩素臭」と俗に呼ばれる匂いの大半は、<strong>HClO 単独ではなくクロラミン類</strong>！<br>「塩素を入れすぎたから匂う」のではなく「<strong>不純物 (尿素・汗・皮脂) と塩素が反応した結果</strong>」というのが化学的真実。
+    </div>
+  </div>
+
+  <h3>Breakpoint Chlorination — 不連続点塩素処理</h3>
+
+  <p>Cl/N モル比を 1.5〜2 まで上げると、クロラミン類は分解して N₂ として揮発し、遊離塩素 (HClO) のみが残る。これを <strong>Breakpoint Chlorination</strong> という。上水処理ではこの操作で「匂いの少ない殺菌力」を得るが、塩素投入量は多くなる。</p>
+</section>
+
+<!-- ============ CH6 ============ -->
+<section class="chapter alt-bg" id="ch6">
+  <span class="chapter-tag advanced">CHAPTER 06</span>
+  <h2>考察問題ラボ<br>化学で水を見破る</h2>
+
+  <p class="lead">本特集の集大成。<strong>3 問の考察問題</strong> で、化学Ⅰ・Ⅱ の式と概念を使って実際の水質問題を解いてみよう。解答は黒板にチョーク書き風で出る。</p>
+
+  <div class="problem">
+    <h4>📝 PROBLEM 1 — van't Hoff の式</h4>
+    <p class="problem-q">25°C, NaCl 0.05 mol/L の食塩水の浸透圧 Π を求めよ。さらに、これを RO で淡水化するのに必要な最小圧力を考察せよ。<br>(ファントホッフ係数 i = 1.9, R = 0.082 L·atm/(mol·K))</p>
+    <button class="problem-toggle" data-target="prob1">▶ 解答を見る</button>
+    <div class="problem-answer" id="prob1">
+      <strong>解答:</strong> Π = i · C · R · T を代入する。T = 298 K だから、
+      <span class="calc">Π = 1.9 × 0.05 × 0.082 × 298 ≈ 2.32 atm</span>
+      RO で淡水化するには Π を超える圧力が必要。実際は流速確保のため Π の 2〜3 倍 (約 5〜7 atm) で運転する。<br>
+      <strong>発展:</strong> 海水 (0.6 mol/L NaCl) なら Π ≈ 28 atm、実運転は 50〜80 atm。<span class="word-pop">海水淡水化が高エネルギー消費な物理化学的根拠</span>はここ。
+    </div>
+  </div>
+
+  <div class="problem">
+    <h4>📝 PROBLEM 2 — Henderson-Hasselbalch</h4>
+    <p class="problem-q">RO 処理水の pH = 6.0、全塩素濃度 1.0 mg/L (Cl 換算) のとき、[HClO] と [ClO⁻] の濃度を求めよ。さらに、HClO の嗅覚閾値 OTC = 0.1 mg/L の何倍になるか答えよ。<br>(pKa = 7.53)</p>
+    <button class="problem-toggle" data-target="prob2">▶ 解答を見る</button>
+    <div class="problem-answer" id="prob2">
+      <strong>解答:</strong> α<sub>HClO</sub> = 1 / (1 + 10<sup>pH−pKa</sup>) より、
+      <span class="calc">α = 1 / (1 + 10<sup>−1.53</sup>) ≈ 1 / 1.0295 ≈ 0.971</span>
+      よって [HClO] = 1.0 × 0.971 ≈ <strong>0.971 mg/L</strong>、[ClO⁻] = 1.0 × 0.029 ≈ <strong>0.029 mg/L</strong>。<br>
+      OTC 倍率 = 0.971 / 0.1 ≈ <strong>9.7 倍</strong>。<br>
+      <strong>解釈:</strong> やや酸性の RO 水に法定下限 1 mg/L の塩素を入れただけで、嗅覚閾値の約 10 倍。匂いをハッキリ感じるレベル。pH 8.5 まで上げれば α ≈ 0.097 で OTC とほぼ同等になり <span class="word-pop">ほぼ無臭</span>に。
+    </div>
+  </div>
+
+  <div class="problem">
+    <h4>📝 PROBLEM 3 — 純水のパラドックス</h4>
+    <p class="problem-q">純水を空気中に放置すると CO₂ を吸って pH 5.6 まで下がる (大気平衡)。この pH における [HClO] : [ClO⁻] のモル比を求め、塩素を投入する際の匂いへの影響を化学的に説明せよ。(pKa = 7.53)</p>
+    <button class="problem-toggle" data-target="prob3">▶ 解答を見る</button>
+    <div class="problem-answer" id="prob3">
+      <strong>解答:</strong> log<sub>10</sub>([ClO⁻]/[HClO]) = pH − pKa = 5.6 − 7.53 = −1.93
+      <span class="calc">[ClO⁻] / [HClO] = 10<sup>−1.93</sup> ≈ 0.0117</span>
+      よって [HClO] : [ClO⁻] ≈ <strong>98.8 : 1.2</strong>。HClO がほぼ全量。<br>
+      <strong>解釈:</strong> 純水は大気接触だけで自然に酸性側に振れる。後段塩素を入れた瞬間に揮発性の HClO がほぼ 100% になり匂いがキツくなる。これが <span class="word-red">「RO 水なのに匂う」現象の構造的原因の 1 つ</span>。<br>
+      対策: ① 脱気済み密閉ライン / ② pH 緩衝剤を加える (重曹等) / ③ 後段活性炭でポリッシュ / ④ 使用直前に汲んで揮発させる。
+    </div>
+  </div>
+
+  <h3>切り分けの実証プロトコル</h3>
+
+  <p>家庭・教室でできる検証順序。市販の <strong>DPD 試薬</strong> (薬局・浄水器ショップで購入可) でかなり絞れる。</p>
+
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="t1">STEP 1: pH</button>
+      <button class="tab-btn" data-tab="t2">STEP 2: 残留塩素</button>
+      <button class="tab-btn" data-tab="t3">STEP 3: 揮発</button>
+      <button class="tab-btn" data-tab="t4">STEP 4: 容器比較</button>
+    </div>
+    <div class="tab-content">
+      <div class="tab-panel active" id="tab-t1">
+        <h4>STEP 1: pH 測定</h4>
+        <p>リトマス紙でも pH メーターでも可。<br>
+        <strong>pH 6 台</strong> → HClO 優勢で匂いやすい / <strong>pH 8 台</strong> → ClO⁻ 優勢で匂いにくい。<br>
+        pH 6 未満なら CO₂ 過剰吸収 or 配管酸性化を疑う。</p>
+      </div>
+      <div class="tab-panel" id="tab-t2">
+        <h4>STEP 2: DPD 試薬で遊離・結合塩素を測定</h4>
+        <p>DPD 第 1 試薬 → <strong>遊離塩素 (HClO + ClO⁻)</strong> が出る。<br>
+        DPD 第 2 試薬 → <strong>結合塩素 (≒ クロラミン類)</strong> が出る。<br>
+        遊離が高い → HClO 由来 / 結合が高い → クロラミン由来 (NH₃ 残存を疑う)。</p>
+      </div>
+      <div class="tab-panel" id="tab-t3">
+        <h4>STEP 3: 1 時間放置揮発テスト</h4>
+        <p>ガラス容器に汲んで空気にさらし、1 時間後に再度嗅ぐ。<br>
+        <strong>匂いが弱まる</strong> → 揮発性 (塩素・VOC) / <strong>残る</strong> → 非揮発成分 (溶出物・有機酸)。</p>
+      </div>
+      <div class="tab-panel" id="tab-t4">
+        <h4>STEP 4: ガラス vs プラ容器比較</h4>
+        <p>同じ水を <strong>ガラス容器</strong>と <strong>プラスチック容器</strong>に汲み比べる。<br>
+        プラ側だけ匂う → <strong>容器素材溶出</strong>由来 (ビニール臭・薬品様)。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag">まとめ</div>
+    <div class="telop-body">
+      ① 匂い = <strong>気相に出る中性分子</strong>、ヘンリー定数 K<sub>H</sub> で決まる<br>
+      ② pH によって <strong>分子⇌イオン平衡</strong> が動く (Henderson-Hasselbalch)<br>
+      ③ RO は <strong>溶解拡散モデル</strong>、イオン・大分子を分けるが小中性分子は通す<br>
+      ④ 純水は <strong>緩衝能ゼロ + 高溶媒和力</strong>で化学的に飢える<br>
+      ⑤ 後段塩素は DBPs (THM/クロラミン) を生む<br><br>
+      <span class="word-red">「ほぼ通さない RO」と「処理水の匂い」のギャップは、化学を深く見るとパラドックスではなく必然になる！</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="next-ep">NEXT EPISODE</div>
+  <h3>第3話「水道水のヒミツ<br>塩素は敵か味方か」</h3>
+  <p>※ 制作未定</p>
+  <p class="credit">
+    水ノヒミツ放送局 EP.02 高校スペシャル / 2026.05.13 制作<br>
+    対象: 高校 化学Ⅰ 履修中〜化学Ⅱ レベル<br><br>
+    関連: <a href="https://ikedhidenori.github.io/jp/interactive-0a952b392547f2b8.html" target="_blank">EP.01 中学生版</a><br>
+    出典: <a href="https://ja.wikipedia.org/wiki/逆浸透膜" target="_blank">逆浸透膜 (Wikipedia)</a> /
+    <a href="https://en.wikipedia.org/wiki/Hypochlorous_acid" target="_blank">Hypochlorous acid</a> /
+    <a href="https://www.epa.gov/dwreginfo/chloramines-drinking-water" target="_blank">EPA Chloramines</a> /
+    <a href="https://monell.org/what-makes-a-molecule-smell/" target="_blank">Monell</a>
+  </p>
+</footer>
+
+<script>
+// ====== 閾値ベンチマーク ======
+document.querySelectorAll('#thresh-list button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#thresh-list button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const otc = parseFloat(btn.dataset.otc);
+    const name = btn.dataset.name;
+    const feel = btn.dataset.feel;
+    document.getElementById('thresh-readout').innerHTML =
+      `<strong>${name}</strong> の嗅覚閾値 OTC = <span class="big">${otc}</span> μg/L<br>` +
+      `( = <span class="big">${(otc*1000).toFixed(otc<1?0:1)}</span> ng/L)<br><br>` +
+      `感覚的スケール → <em>${feel}</em>`;
+  });
+});
+
+// ====== 周期表 ======
+document.querySelectorAll('#pt-grid .pt-cell').forEach(cell => {
+  cell.addEventListener('click', () => {
+    document.querySelectorAll('#pt-grid .pt-cell').forEach(c => c.style.outline = '');
+    cell.style.outline = '4px solid var(--red)';
+    document.getElementById('pt-readout').innerHTML =
+      `<strong>${cell.dataset.name}</strong> — ${cell.dataset.info}`;
+  });
+});
+
+// ====== Henderson-Hasselbalch ======
+const phEl = document.getElementById('hh-ph');
+const totEl = document.getElementById('hh-tot');
+const tempEl = document.getElementById('hh-temp');
+const phV = document.getElementById('hh-ph-v');
+const totV = document.getElementById('hh-tot-v');
+const tempV = document.getElementById('hh-temp-v');
+const alphaV = document.getElementById('hh-alpha');
+const hcloV = document.getElementById('hh-hclo');
+const cloV = document.getElementById('hh-clo');
+const otcV = document.getElementById('hh-otc');
+const label = document.getElementById('hh-label');
+
+function updateHH() {
+  const pH = parseFloat(phEl.value);
+  const tot = parseFloat(totEl.value);
+  const T = parseFloat(tempEl.value);
+  const pKa = 7.53;
+  const alpha = 1 / (1 + Math.pow(10, pH - pKa));
+  const hclo = tot * alpha;
+  const clo = tot - hclo;
+  const otcRatio = hclo / 0.1;
+  phV.textContent = pH.toFixed(1);
+  totV.textContent = tot.toFixed(2);
+  tempV.textContent = T;
+  alphaV.textContent = (alpha * 100).toFixed(1);
+  hcloV.textContent = hclo.toFixed(3);
+  cloV.textContent = clo.toFixed(3);
+  otcV.textContent = otcRatio.toFixed(1);
+
+  let txt;
+  if (otcRatio < 1) txt = '閾値以下 ▶ ほぼ無臭';
+  else if (otcRatio < 3) txt = '▶ 弱い匂い';
+  else if (otcRatio < 10) txt = '▶ 明確な匂い';
+  else if (otcRatio < 30) txt = '▶ ハッキリ匂う';
+  else txt = '▶ 強烈 (不快域)';
+  label.textContent = txt;
+}
+[phEl, totEl, tempEl].forEach(el => el.addEventListener('input', updateHH));
+updateHH();
+
+// ====== 考察問題トグル ======
+document.querySelectorAll('.problem-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = document.getElementById(btn.dataset.target);
+    t.classList.toggle('shown');
+    btn.textContent = t.classList.contains('shown') ? '▼ 解答を閉じる' : '▶ 解答を見る';
+  });
+});
+
+// ====== タブ ======
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
