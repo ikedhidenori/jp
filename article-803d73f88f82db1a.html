@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabin Fever Escapes 事業リサーチレポート</title>
+<style>
+:root {
+  --bg: #fbfaf8;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2b7a78;
+  --quote-bg: #f0ebe3;
+  --border: #e8e2d8;
+  --code-bg: #f3efe7;
+  --table-stripe: #f6f2ea;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1c1b19; --text: #e8e4dc; --muted: #9a958c; --accent: #6ab8b4; --quote-bg: #28262a; --border: #3a3731; --code-bg: #26241f; --table-stripe: #232220; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+  padding: 28px 18px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 760px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 16px 0 20px; line-height: 1.4; font-weight: 700; letter-spacing: 0.01em; border-bottom: 2px solid var(--accent); padding-bottom: 12px; }
+h2 { font-size: 21px; margin: 40px 0 14px; line-height: 1.5; font-weight: 700; padding-left: 12px; border-left: 4px solid var(--accent); }
+h3 { font-size: 17px; margin: 26px 0 10px; color: var(--accent); font-weight: 700; }
+h4 { font-size: 15.5px; margin: 20px 0 8px; color: var(--text); font-weight: 700; }
+p { margin: 14px 0; }
+a { color: var(--accent); text-decoration: underline; word-break: break-all; }
+blockquote { background: var(--quote-bg); padding: 14px 18px; margin: 18px 0; border-radius: 4px; font-size: 15.5px; line-height: 1.8; border-left: 3px solid var(--accent); }
+em { font-style: italic; color: var(--accent); }
+strong { font-weight: 700; background: linear-gradient(transparent 65%, rgba(43,122,120,0.16) 65%); }
+ul, ol { padding-left: 24px; margin: 12px 0; }
+li { margin: 4px 0; line-height: 1.75; }
+hr { border: none; border-top: 1px solid var(--border); margin: 32px auto; width: 60%; }
+code { background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 13.5px; font-family: "SF Mono", Menlo, Consolas, monospace; }
+pre { background: var(--code-bg); padding: 14px 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.6; margin: 16px 0; }
+pre code { background: none; padding: 0; }
+.table-wrap { overflow-x: auto; margin: 16px -4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 520px; }
+th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; line-height: 1.6; }
+th { background: var(--quote-bg); font-weight: 700; }
+tbody tr:nth-child(even) { background: var(--table-stripe); }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12.5px; margin: 44px 0 16px; padding: 12px; border-top: 1px dashed var(--border); line-height: 1.7; }
+@media (max-width: 480px) {
+  body { font-size: 15.5px; padding: 22px 14px; line-height: 1.75; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; }
+  table { font-size: 13px; min-width: 0; }
+  th, td { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Cabin Fever Escapes 事業リサーチレポート</h1>
+<h2>Context</h2>
+<p>ジョニーから https://cabinfeverescapes.com/ の徹底リサーチ依頼。屋久島 village / 副業構想の参考事例として、キャビン宿泊系プラットフォームのビジネスモデルとポジショニングを把握する。本ファイルは Plan mode 規約上「唯一編集可能なファイル」として、リサーチレポート本体を格納する (実装タスクではなく調査タスク)。</p>
+<p>調査方針 = <code>never-give-up.md</code> に従い WebFetch (一次情報 = 自社サイト 3 ページ) + WebSearch (二次情報 = Instagram / Inn Style / 競合) を並列実行。深掘り済。</p>
+<hr />
+<h2>1. 事業主体 (Who)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事業名</td>
+<td><strong>Cabin Fever Escapes</strong></td>
+</tr>
+<tr>
+<td>法人形態</td>
+<td>プライベート (法人登記情報は公開なし、夫婦による small business)</td>
+</tr>
+<tr>
+<td>創業者</td>
+<td><strong>James &amp; Kirsty Hughes</strong> (夫婦、Cape Town 在住)</td>
+</tr>
+<tr>
+<td>創業経緯</td>
+<td>2019 年に Instagram <code>@cabin_fever_cpt</code> を個人発信として開始 → 2022 年に corporate job を辞めフルタイム化</td>
+</tr>
+<tr>
+<td>人数体制</td>
+<td>2 名 (Founders のみ、外部委託あり)</td>
+</tr>
+<tr>
+<td>SNS</td>
+<td>Instagram <code>@cabin_fever_cpt</code> <strong>104K followers</strong> + <code>@cabinfeverescapes</code> (booking) / TikTok / Facebook。合計リーチ <strong>280K+</strong> (自社申告)</td>
+</tr>
+<tr>
+<td>拠点</td>
+<td>South Africa, Cape Town</td>
+</tr>
+</tbody>
+</table></div>
+<h2>2. 展開国・地域 (Where)</h2>
+<ul>
+<li><strong>South Africa 単一国</strong>、特に <strong>Western Cape 州に集中</strong></li>
+<li>物件分布: Cape Town 近郊 (Rosemary / Avocado / Almond)、Stellenbosch ワインランド (Camden Park)、Garden Route 沿い (Boomhuis / George)、Overberg 海岸、内陸 Karoo</li>
+<li>例外: Valley Pod Two (Johannesburg から 1h、Gauteng 圏外縁) — 地理拡張の初期兆候</li>
+<li>「100+ キャビンを実地調査」と明示 — 国内 cabin 市場のスカウト網あり</li>
+</ul>
+<h2>3. 業態 (What)</h2>
+<p><strong>キュレーション型キャビン予約サイト + インフルエンサー・マーケティング事業 (ハイブリッド)</strong></p>
+<p>業態の core は下記 2 つの組み合わせ:</p>
+<ol>
+<li><strong>B2C 予約キュレーション</strong> — Plum Guide 型 (上位 N% を厳選してリスト化、Cabin Fever Approved スタンプ付与)</li>
+<li><strong>B2B コンテンツ・マーケティング受託</strong> — 物件オーナー向けに Instagram 280K リーチを使った写真・動画・SNS 運用代行 (Inn Style パートナー情報で <strong>R8,000/marketing package</strong> と明示)</li>
+</ol>
+<p>→ 単純な OTA / アフィリエイトではなく、<strong>メディア兼マーケットプレイス</strong>。</p>
+<h2>4. 宿のスペック (How — 物件側)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>スペック</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>掲載数</strong></td>
+<td>25+ 物件 (現在公開分)</td>
+</tr>
+<tr>
+<td><strong>収容人数</strong></td>
+<td>主に <strong>2 名 (couples)</strong>、4 名対応は少数 (Klein-Hangklip, Caracal, Porcupine, Ocean's Edge)</td>
+</tr>
+<tr>
+<td><strong>タイプ</strong></td>
+<td>スタンドアロン・キャビン / Farm stay / Mountain hut / Pod / Coastal cabin / Sauna 付き wilderness 系</td>
+</tr>
+<tr>
+<td><strong>設備</strong></td>
+<td>Hot tub / 暖炉 / 薪 braai / Kitchenette / WiFi / エアコン / Sauna (物件次第)</td>
+</tr>
+<tr>
+<td><strong>建築テイスト</strong></td>
+<td>木造小規模、自然素材、デザイナーズ寄り、Scandinavian / Cape Dutch ハイブリッド</td>
+</tr>
+<tr>
+<td><strong>立地</strong></td>
+<td>ワイナリー隣接 / 海岸 / 山岳 / 川沿い / Off-grid 半 off-grid 系</td>
+</tr>
+</tbody>
+</table></div>
+<h2>5. 価格 &amp; ターゲット (Who pays)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>価格帯</strong></td>
+<td><strong>R2,040 - R4,450 / 泊</strong> (約 ¥17,000 - ¥37,000、2026-05 レート)</td>
+</tr>
+<tr>
+<td><strong>平均価格 (推計)</strong></td>
+<td>~ R3,100 / 泊 (掲載 12 物件中央値)</td>
+</tr>
+<tr>
+<td><strong>滞在単位</strong></td>
+<td>1-3 泊の short escape 主体 (週末 getaway)</td>
+</tr>
+<tr>
+<td><strong>ターゲット</strong></td>
+<td>(a) ロマンティック旅・カップル (b) ペット連れ (c) ワーケーション (d) 都市生活疲労の Cape Town 中産層・上位中産層 (e) Instagram ネイティブな 25-45 歳</td>
+</tr>
+<tr>
+<td><strong>市場ポジション</strong></td>
+<td>Mid-to-upper mid (Airbnb 並のラグジュアリー B&amp;B より少し下、AfriCamps 等の boutique glamping と同価格帯)</td>
+</tr>
+</tbody>
+</table></div>
+<h2>6. 業績 (Performance)</h2>
+<p><strong>公開財務情報なし</strong> (プライベート事業、South Africa の non-listed)。推定指標のみ:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指標</th>
+<th>観測 / 推定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物件数成長</td>
+<td>2019 開始 → 2022 事業化 → 2026-05 時点で 25+ 物件 (緩やか)</td>
+</tr>
+<tr>
+<td>Instagram フォロワー</td>
+<td>104K (main account)、合計 280K (multi-platform) — <strong>成長率は二次情報なし</strong></td>
+</tr>
+<tr>
+<td>売上推計</td>
+<td>(a) B2B マーケパッケージ: R8,000 × 月 2-3 件 = 年 R200K-300K (b) B2C 予約コミッション (アフィリエイト想定 8-12%、平均 2 泊 R6,200 × 月 50-100 件 × 10% = 年 R372K-744K) → <strong>粗推計 年 R600K-1M (≒ ¥500-850 万)</strong> の small business 規模</td>
+</tr>
+<tr>
+<td>稼働率</td>
+<td>公開なし。物件側 (各オーナー直営) で個別管理されており、Cabin Fever は predominantly aggregator 役</td>
+</tr>
+<tr>
+<td>利益率</td>
+<td>推計困難 (人件費 = Founders 2 名のみ、固定費は web + SNS 運用 = 高利益率の lifestyle business)</td>
+</tr>
+</tbody>
+</table></div>
+<p>注: 業績数字は <strong>公式開示なし</strong>。マーケパッケージ単価 R8,000 のみが Inn Style パートナー DB から確認できた一次情報。</p>
+<h2>6.5 原価構造 (Initial / Running) — 2 視点で推計</h2>
+<p>ジョニー追加依頼 (2026-05-14)。<strong>公開情報なし</strong> のため業界ベンチマーク + 既知一次情報 (R8,000 マーケパッケージ / 25 物件規模 / Founders 2 名 / one2love agency 制作) からのボトムアップ推計。為替: R1 ≒ ¥8.5 (2026-05、概算)。</p>
+<h3>視点 A: Cabin Fever Escapes (プラットフォーム / メディア事業者) の原価</h3>
+<p>物件を所有しないキュレーション・メディア事業のため、原価は <strong>人件費 + コンテンツ制作 + IT インフラ</strong> が中心。</p>
+<h4>Initial (立ち上げ時、2019-2022 累計推計)</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>推計金額 (ZAR)</th>
+<th>推計金額 (JPY)</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>法人設立 (Pty Ltd 登記)</td>
+<td>R1,500-3,000</td>
+<td>¥13K-26K</td>
+<td>南ア CIPC 標準</td>
+</tr>
+<tr>
+<td>Web サイト制作 (one2love agency 委託)</td>
+<td>R40,000-80,000</td>
+<td>¥340K-680K</td>
+<td>南ア boutique agency 相場 (5-10 ページ + CMS + ブランディング)</td>
+</tr>
+<tr>
+<td>ロゴ・ブランドアイデンティティ</td>
+<td>R10,000-25,000</td>
+<td>¥85K-210K</td>
+<td>同上 agency 内製 or 別途</td>
+</tr>
+<tr>
+<td>写真・動画機材 (カメラ Sony α7 + 標準ズーム + ジンバル + ドローン DJI Mini)</td>
+<td>R80,000-130,000</td>
+<td>¥680K-1.1M</td>
+<td>プロ用 entry-mid</td>
+</tr>
+<tr>
+<td>編集ソフト初期 (Adobe CC 年契約 + LUTs + 音源)</td>
+<td>R8,000-15,000</td>
+<td>¥68K-128K</td>
+<td>個人プラン</td>
+</tr>
+<tr>
+<td>車両 (実地調査用、中古 SUV/Bakkie 想定)</td>
+<td>R150,000-280,000</td>
+<td>¥1.3M-2.4M</td>
+<td>100+ 物件訪問の前提 (新規 capex か既存資産流用かで大きく振れる)</td>
+</tr>
+<tr>
+<td>初期 100 物件の実地調査費 (3 年で消化、宿泊・燃料・食事)</td>
+<td>R150,000-250,000</td>
+<td>¥1.3M-2.1M</td>
+<td>100 泊 × R1,500-2,500 / 泊</td>
+</tr>
+<tr>
+<td>法務 (利用規約・契約雛形・GDPR/POPIA)</td>
+<td>R15,000-30,000</td>
+<td>¥128K-255K</td>
+<td>弁護士スポット</td>
+</tr>
+<tr>
+<td>生活費 (2022 退職後、収益立ち上がりまで 6-12 ヶ月)</td>
+<td>R200,000-400,000</td>
+<td>¥1.7M-3.4M</td>
+<td>夫婦 2 名、Cape Town 中産層水準</td>
+</tr>
+<tr>
+<td><strong>Initial 合計</strong></td>
+<td><strong>R654K-1,213K</strong></td>
+<td><strong>¥5.6M-10.3M</strong></td>
+<td>(車両を流用すれば下限)</td>
+</tr>
+</tbody>
+</table></div>
+<h4>Running (年間運用費、定常期 / 現在 = 25 物件規模)</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>年間 (ZAR)</th>
+<th>年間 (JPY)</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ドメイン + ホスティング + メール</td>
+<td>R3,000-6,000</td>
+<td>¥26K-51K</td>
+<td>WordPress hosted + Google Workspace</td>
+</tr>
+<tr>
+<td>Inn Style PMS / 予約システム</td>
+<td>R6,000-24,000</td>
+<td>¥51K-204K</td>
+<td>月額 R500-2,000 (相場、公式非公開)。Cabin Fever 自身は予約代行限定なので低位</td>
+</tr>
+<tr>
+<td>SNS 運用ツール (Later / Buffer / Canva Pro)</td>
+<td>R8,000-15,000</td>
+<td>¥68K-128K</td>
+<td>3-4 ツール契約</td>
+</tr>
+<tr>
+<td>Adobe Creative Cloud 継続</td>
+<td>R10,000-15,000</td>
+<td>¥85K-128K</td>
+<td>個人プラン × 2</td>
+</tr>
+<tr>
+<td>写真・動画機材の更新 / 修理</td>
+<td>R15,000-40,000</td>
+<td>¥128K-340K</td>
+<td>機材減価償却 (5 年で買替え前提)</td>
+</tr>
+<tr>
+<td>車両維持 (燃料・保険・整備)</td>
+<td>R40,000-70,000</td>
+<td>¥340K-595K</td>
+<td>月 R3.5-6K</td>
+</tr>
+<tr>
+<td>実地調査・出張 (年 30-50 物件訪問、新規 + 既存維持)</td>
+<td>R60,000-120,000</td>
+<td>¥510K-1.0M</td>
+<td>1 泊 R2,000 × 30-50 泊</td>
+</tr>
+<tr>
+<td>広告費 (Meta Ads / Google Ads、控えめ)</td>
+<td>R30,000-100,000</td>
+<td>¥255K-850K</td>
+<td>Instagram organic 主軸のため低位</td>
+</tr>
+<tr>
+<td>会計 / 税務 (月次仕訳 + 年次申告)</td>
+<td>R12,000-24,000</td>
+<td>¥102K-204K</td>
+<td>南ア small business 相場</td>
+</tr>
+<tr>
+<td>法務・契約管理</td>
+<td>R5,000-15,000</td>
+<td>¥42K-128K</td>
+<td>スポット</td>
+</tr>
+<tr>
+<td>保険 (PI / 業務賠償)</td>
+<td>R6,000-15,000</td>
+<td>¥51K-128K</td>
+<td>小規模事業者</td>
+</tr>
+<tr>
+<td><strong>直接原価 小計</strong></td>
+<td><strong>R195K-444K</strong></td>
+<td><strong>¥1.7M-3.8M</strong></td>
+<td>人件費除く</td>
+</tr>
+<tr>
+<td>創業者人件費 (Owner draw、夫婦 2 名分の生活費)</td>
+<td>R600K-1,200K</td>
+<td>¥5.1M-10.2M</td>
+<td>Cape Town 中産階層水準 × 2</td>
+</tr>
+<tr>
+<td><strong>Running 合計 (人件費込み)</strong></td>
+<td><strong>R795K-1,644K</strong></td>
+<td><strong>¥6.8M-14.0M</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h4>Cabin Fever 事業の損益見取図 (推計)</h4>
+<pre><code>収益 (推計): R600K-1,000K/年 (前章)
+─────────────────────────────────
+直接原価         : R195K-444K  (20-44% of 売上)
+─────────────────────────────────
+営業利益 (人件費前): R156K-805K  (= 創業者夫婦の取り分)
+─────────────────────────────────
+→ 夫婦 2 名で年 R150-800K (¥130-680 万)を取れる lifestyle 規模
+</code></pre>
+<p>→ <strong>金銭リターンよりも「好きなキャビン巡り + コンテンツ制作 = 仕事」というライフスタイル価値</strong>が事業継続の動機。スケールしないが資本効率は極めて高い (capex 軽い)。</p>
+<h3>視点 B: 物件オーナー (キャビン 1 棟運営) の原価 — 屋久島構想ベンチマーク</h3>
+<p>Cabin Fever に掲載されているような <strong>2 名収容・木造小規模キャビン 1 棟</strong> を新規開業する場合の Initial / Running を推計。ジョニー屋久島 village 構想の参照。</p>
+<h4>Initial (1 棟立ち上げ、南アフリカ Western Cape 想定)</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>推計金額 (ZAR)</th>
+<th>推計金額 (JPY)</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>土地 (5,000 sqm = 0.5ha、Western Cape 田園)</td>
+<td>R150K-1,000K</td>
+<td>¥1.3M-8.5M</td>
+<td>WC 平均 R46K/ha〜灌漑農地 R200K/ha、立地で大きく振れる</td>
+</tr>
+<tr>
+<td>キャビン本体 (40-60 sqm、木造、デザイナーズ仕上げ)</td>
+<td>R600K-1,200K</td>
+<td>¥5.1M-10.2M</td>
+<td>R15K-20K/sqm × 40-60 sqm</td>
+</tr>
+<tr>
+<td>インフラ (浄化槽 / 井戸 or 給水 / 太陽光 + 蓄電)</td>
+<td>R150K-350K</td>
+<td>¥1.3M-3.0M</td>
+<td>off-grid 想定で高位</td>
+</tr>
+<tr>
+<td>内装 (家具・寝具・キッチン・照明)</td>
+<td>R80K-200K</td>
+<td>¥680K-1.7M</td>
+<td>ブティック仕様</td>
+</tr>
+<tr>
+<td>ホットタブ / 暖炉 / Braai</td>
+<td>R40K-120K</td>
+<td>¥340K-1.0M</td>
+<td>Cabin Fever 物件の標準装備</td>
+</tr>
+<tr>
+<td>デザイン・建築設計 + 認可</td>
+<td>R50K-150K</td>
+<td>¥425K-1.3M</td>
+<td>建築費の 8-12%</td>
+</tr>
+<tr>
+<td>ランドスケープ (アプローチ・植栽)</td>
+<td>R30K-100K</td>
+<td>¥255K-850K</td>
+<td></td>
+</tr>
+<tr>
+<td>写真撮影 + 初期マーケ (Cabin Fever 系の marketing package)</td>
+<td>R10K-30K</td>
+<td>¥85K-255K</td>
+<td>R8K + 自費撮影分</td>
+</tr>
+<tr>
+<td>初期運転資金 (3-6 ヶ月分の運用費)</td>
+<td>R30K-80K</td>
+<td>¥255K-680K</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Initial 合計</strong></td>
+<td><strong>R1,140K-3,230K</strong></td>
+<td><strong>¥9.7M-27.5M</strong></td>
+<td>(中央値 ≒ ¥18M / 約 ¥1,800 万)</td>
+</tr>
+</tbody>
+</table></div>
+<h4>Running (1 棟年間、稼働率 50-60% / 平均 R3,000 / 泊想定)</h4>
+<p>想定売上: R3,000 × 365 × 0.55 = <strong>R602K / 年</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>年間 (ZAR)</th>
+<th>売上比</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>清掃 (チェックアウト毎、外注)</td>
+<td>R60K-90K</td>
+<td>10-15%</td>
+<td>業界ベンチマーク</td>
+</tr>
+<tr>
+<td>水道光熱費 (off-grid なら太陽光メンテ込)</td>
+<td>R30K-60K</td>
+<td>5-10%</td>
+<td>業界 5-10%</td>
+</tr>
+<tr>
+<td>消耗品 (アメニティ・洗剤・トイレットペーパー)</td>
+<td>R12K-25K</td>
+<td>2-4%</td>
+<td></td>
+</tr>
+<tr>
+<td>メンテナンス・修繕積立</td>
+<td>R40K-90K</td>
+<td>7-15%</td>
+<td>木造で雨季メンテ多い</td>
+</tr>
+<tr>
+<td>固定資産税 / Rates</td>
+<td>R8K-20K</td>
+<td>1-3%</td>
+<td>WC 田園地</td>
+</tr>
+<tr>
+<td>保険 (火災・賠償)</td>
+<td>R10K-25K</td>
+<td>2-4%</td>
+<td></td>
+</tr>
+<tr>
+<td>インターネット / Wi-Fi</td>
+<td>R6K-12K</td>
+<td>1-2%</td>
+<td></td>
+</tr>
+<tr>
+<td>PMS / 予約システム (Inn Style 等)</td>
+<td>R6K-24K</td>
+<td>1-4%</td>
+<td></td>
+</tr>
+<tr>
+<td>Cabin Fever 等プラットフォーム手数料</td>
+<td>R30K-60K</td>
+<td>5-10%</td>
+<td>アフィリエイト 5-10% 想定</td>
+</tr>
+<tr>
+<td>Cabin Fever マーケパッケージ (任意、年 1 回程度)</td>
+<td>R8K-16K</td>
+<td>1-3%</td>
+<td>初年度のみ高位</td>
+</tr>
+<tr>
+<td>OTA 手数料 (Airbnb 等併用時、~ 14%)</td>
+<td>R40K-80K</td>
+<td>7-13%</td>
+<td>併用時のみ</td>
+</tr>
+<tr>
+<td>会計・税務</td>
+<td>R10K-20K</td>
+<td>2-3%</td>
+<td></td>
+</tr>
+<tr>
+<td>創業者の管理時間 (時給換算、月 20h × R300)</td>
+<td>R72K</td>
+<td>12%</td>
+<td>兼業 vs 専業で変動</td>
+</tr>
+<tr>
+<td><strong>Running 合計 (推計中央値)</strong></td>
+<td><strong>R332K-590K</strong></td>
+<td><strong>55-65%</strong></td>
+<td>業界ベンチマーク (45-65%) と整合</td>
+</tr>
+</tbody>
+</table></div>
+<h4>1 棟運営の損益見取図 (推計)</h4>
+<pre><code>売上 (稼働率 55% × R3,000 × 365日): R602K/年
+─────────────────────────────────
+運用費                           : R332-590K (55-65%)
+─────────────────────────────────
+償却前営業利益 (NOI)              : R10-270K
+減価償却 (建物 30 年、設備 7 年)    : R50-80K
+─────────────────────────────────
+税前利益                          : R(40)-220K
+─────────────────────────────────
+ROI (Initial R1.5M ベース)        : -3% 〜 15%
+Cap Rate (NOI/Initial)            : 1% 〜 18% (立地と稼働率次第)
+</code></pre>
+<p>→ <strong>稼働率 55% + 価格 R3K/泊が損益分岐の境界線</strong>。70%+ 稼働 + R3,500+ なら ROI 健全。立地・写真品質・SNS 露出が稼働率を左右 → ここで Cabin Fever の "Approved スタンプ + 280K リーチ" が物件オーナーにとって死活的価値を持つ。</p>
+<h3>視点 A + B の関係</h3>
+<pre><code>                Cabin Fever (媒介)
+                    ↑ 集客
+                  R8K + 5-10% 手数料
+                    ↓
+                物件オーナー (供給)
+                Initial ¥10-27M / 1 棟
+                Running R332-590K/年
+                ROI 1-18%
+                    ↓ 宿泊
+                  R3K/泊
+                    ↓
+                ゲスト (需要)
+</code></pre>
+<p>Cabin Fever は B 側 (物件オーナー) の「集客苦」を解決する代わりに、A 側自身は capex 軽い lifestyle business を成立させる <strong>共生モデル</strong>。</p>
+<h3>日本 (屋久島スケール) への換算メモ</h3>
+<ul>
+<li>土地: 南アより安い (山林) 〜 同等 (移住先人気エリア)</li>
+<li>建築: 日本の木造小規模 (40-60 sqm) は ¥30-50 万/sqm = ¥1,200-3,000 万 / 棟 (南ア比 1.5-2x)</li>
+<li>ホットタブ・五右衛門風呂・薪ストーブ込みで Initial ¥1,500-3,500 万 / 棟</li>
+<li>稼働率は屋久島で 50-65% 想定可、客単価 ¥25-40K / 泊で Running 比率 50-60%</li>
+<li>→ <strong>1 棟あたり ROI は南アと同水準 (1-15%)、絶対額は円ベースで小さい</strong></li>
+<li>スケーラビリティは Cabin Fever のように「複数棟キュレーション + メディア」で initial を分散する方が現実的</li>
+</ul>
+<p><strong>3 層構造</strong>:</p>
+<pre><code>┌──────────────────────────────────────────────────┐
+│  L1: メディア層 — Instagram 280K+ リーチ             │ ← 集客エンジン
+│      @cabin_fever_cpt / @cabinfeverescapes        │
+├──────────────────────────────────────────────────┤
+│  L2: キュレーション層 — Web &quot;escapes&quot; listing       │
+│      Cabin Fever Approved スタンプ / 厳選 25+ 物件   │
+├──────────────────────────────────────────────────┤
+│  L3: マネタイズ層                                   │
+│      (a) 物件オーナーから marketing fee (R8K~)      │ ← B2B 主軸
+│      (b) 予約紹介手数料 / アフィリエイト             │ ← B2C 副軸
+│      (c) Brand partnership (旅行関連ブランド)        │ ← 副収入
+└──────────────────────────────────────────────────┘
+</code></pre>
+<ul>
+<li><strong>自社運営 NO</strong> (キャビンは各オーナー所有)</li>
+<li><strong>フランチャイズ NO</strong></li>
+<li><strong>マーケットプレイス + メディア + マーケ受託のハイブリッド</strong></li>
+<li>予約処理は物件オーナー側 (Inn Style PMS / 直予約)。Cabin Fever は紹介役 + メディア露出</li>
+<li>物件の独占契約有無は不明 (work-with-us ページに掲載なし)</li>
+</ul>
+<h3>Plum Guide / Airbnb との違い</h3>
+<ul>
+<li>Plum Guide: コミッション主軸の OTA (transaction fee)</li>
+<li>Airbnb: ボリューム型マーケットプレイス</li>
+<li><strong>Cabin Fever: コミッション以前に「コンテンツ・マーケ受託」で稼ぐ</strong> = メディア事業に近い</li>
+</ul>
+<h2>8. 差別化ポイント</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>軸</th>
+<th>Cabin Fever の差別化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>地理特化</strong></td>
+<td>南アフリカ Western Cape の hyper-local 専門。グローバル OTA (Airbnb / Booking) には模倣困難な土地勘</td>
+</tr>
+<tr>
+<td><strong>インフルエンサー資産</strong></td>
+<td>Instagram 280K+ という <strong>獲得済オーディエンス</strong> = 新規参入の OTA より CAC が低い</td>
+</tr>
+<tr>
+<td><strong>キュレーション基準</strong></td>
+<td>創業者夫婦が 100+ 物件を実地調査 = "tried-and-tested" の信頼性スタンプ</td>
+</tr>
+<tr>
+<td><strong>デザイン感度</strong></td>
+<td>物件ラインナップが Scandinavian / 木造モダン系に統一 = 視覚的ブランド一貫性 (Instagram と相性◎)</td>
+</tr>
+<tr>
+<td><strong>B2B 受託の二毛作</strong></td>
+<td>キャビンオーナー = 個人副業層が多く、マーケ予算は持つが時間がない → ニッチ受託で stable cashflow</td>
+</tr>
+<tr>
+<td><strong>ライフスタイル事業性</strong></td>
+<td>Founders 夫婦 2 名 = 低固定費・高利益率。スケールよりも life quality 優先</td>
+</tr>
+</tbody>
+</table></div>
+<h2>9. ポジショニングマップ</h2>
+<h3>軸: 運営形態 × キュレーション度</h3>
+<pre><code>                  高 ← キュレーション度 → 低
+                  │
+   自社運営      │
+        ↑       Postcard Cabins (旧Getaway, 200+ 自社tiny)
+        │       AfriCamps (南ア 19 boutique glamping)
+        │       │
+        │       │
+   ─────┼───────┼─────────────────────────────
+        │       │
+        │     ★ Cabin Fever Escapes              Airbnb
+        │       Plum Guide                       Vrbo
+        │                                        Booking.com
+   プラットフォーム                              Glamping Hub
+        ↓
+</code></pre>
+<h3>軸: 地理特化 × 顧客客単価</h3>
+<pre><code>        高単価 ↑
+              │
+   Bushman's │ Atzaró (luxury safari)
+   Kloof     │
+              │ Babylonstoren (ワインランド luxury)
+              │
+              │ ★ Cabin Fever Escapes (R2-4.5K)
+              │ AfriCamps
+              │
+              │ Airbnb (mid)
+              │
+   低単価 ↓ ─┴────────────────────────→
+        グローバル ← 地理特化 → 南ア local
+</code></pre>
+<p>★ Cabin Fever のスイートスポット = <strong>「南アローカル × ミッドアッパー価格 × 高キュレーション × プラットフォーム型」</strong> という、現状ほぼ無競合の象限。</p>
+<h2>10. 類似事例との比較表</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>事業</th>
+<th>国</th>
+<th>運営形態</th>
+<th>物件数</th>
+<th>価格/泊</th>
+<th>マネタイズ</th>
+<th>フォロワー / ブランド資産</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cabin Fever Escapes</strong></td>
+<td>南ア</td>
+<td>厳選プラットフォーム + メディア</td>
+<td>25+</td>
+<td>R2,040-4,450</td>
+<td>マーケ受託 + アフィリエイト</td>
+<td>IG 280K</td>
+</tr>
+<tr>
+<td>AfriCamps</td>
+<td>南ア</td>
+<td>自社運営フランチャイズ系</td>
+<td>19 拠点</td>
+<td>R1,800-3,500</td>
+<td>直予約 + 卸</td>
+<td>中規模</td>
+</tr>
+<tr>
+<td>Postcard Cabins (旧 Getaway)</td>
+<td>米</td>
+<td>自社所有・運営</td>
+<td>1,200 cabins / 90 拠点</td>
+<td>$179-300</td>
+<td>直予約のみ</td>
+<td>Series C $41.7M 調達済</td>
+</tr>
+<tr>
+<td>Plum Guide</td>
+<td>英</td>
+<td>厳選マーケットプレイス (上位 3%)</td>
+<td>数万</td>
+<td>$$-$$$$</td>
+<td>コミッション</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Cabinscape</td>
+<td>カナダ</td>
+<td>自社所有 off-grid tiny</td>
+<td>~12</td>
+<td>C$200-400</td>
+<td>直予約</td>
+<td>ニッチ</td>
+</tr>
+<tr>
+<td>Airbnb / Vrbo</td>
+<td>グローバル</td>
+<td>マーケットプレイス</td>
+<td>数百万</td>
+<td>幅広</td>
+<td>コミッション 3-15%</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Glamping Hub</td>
+<td>米 (グローバル)</td>
+<td>アグリゲーター</td>
+<td>数万</td>
+<td>幅広</td>
+<td>コミッション</td>
+<td>Global</td>
+</tr>
+</tbody>
+</table></div>
+<h2>11. インサイト・示唆</h2>
+<ol>
+<li><strong>ライフスタイル事業の典型解</strong> — 創業者夫婦 2 名で年商 R600K-1M 規模 (推計)、自社所有不要 = capex ゼロ、Instagram 資産が moat。屋久島 village 構想で参考になる「重資産を持たないキュレーション・メディア型」モデルの好例</li>
+<li><strong>資産形成は SNS 先行</strong> — 2019 IG → 2022 事業化 = <strong>3 年の信用蓄積後にマネタイズ</strong> という王道</li>
+<li><strong>二毛作モデルの強さ</strong> — B2C 予約だけだと OTA に勝てないが、B2B (オーナー向けマーケ受託) で安定収入を確保</li>
+<li><strong>地理的 moat</strong> — 南アという "微温市場" を独占。グローバル OTA はここまで土地勘を持たない</li>
+<li><strong>スケール上限</strong> — 創業者依存 (個人ブランド)。Plum Guide の 3% 仕組み化 / AfriCamps のフランチャイズ化を導入しない限り、年商 R5M 以上の壁は厚い</li>
+</ol>
+<h2>12. 確度低い / 未確認事項 (フォローアップ候補)</h2>
+<ul>
+<li>物件オーナーとの契約形態 (独占 / 非独占 / 期間)</li>
+<li>予約コミッション率 (推定 8-12% だが要確認)</li>
+<li>マーケパッケージ R8,000 が flat fee なのか月額なのか</li>
+<li>法人登記情報 (CIPC 経由で取得可能だが本リサーチでは未取得)</li>
+<li>2024-2026 の物件数推移・売上推移</li>
+</ul>
+<p>これらは Founders に直接コンタクト or LinkedIn / Instagram DM 経由でしか取れない (公開情報の限界)。</p>
+<h2>13. Sources (一次・二次)</h2>
+<h3>一次情報 (公式)</h3>
+<ul>
+<li><a href="https://cabinfeverescapes.com/">Home | Cabin Fever Escapes</a></li>
+<li><a href="https://cabinfeverescapes.com/our-story/">Our Story | Cabin Fever Escapes</a></li>
+<li><a href="https://cabinfeverescapes.com/escapes/">Escapes (掲載物件) | Cabin Fever Escapes</a></li>
+<li><a href="https://cabinfeverescapes.com/work-with-us/">Work With Us | Cabin Fever Escapes</a></li>
+<li><a href="https://www.instagram.com/cabin_fever_cpt/">Instagram @cabin_fever_cpt</a></li>
+<li><a href="https://www.instagram.com/cabinfeverescapes/">Instagram @cabinfeverescapes</a></li>
+</ul>
+<h3>二次情報 / 競合</h3>
+<ul>
+<li><a href="https://innstyle.co.za/partners/cabin-fever/">Inn Style Partners — Cabin Fever</a> ← R8,000 marketing package の出典</li>
+<li><a href="https://innstyle.co.za/inn-style-pricing/">Inn Style Pricing</a> ← PMS 価格 (非公開、問い合わせ制)</li>
+<li><a href="https://africamps.com/">AfriCamps</a></li>
+<li><a href="https://www.crunchbase.com/organization/getaway-2">Postcard Cabins Crunchbase</a></li>
+<li><a href="https://www.cabinscape.com/">Cabinscape</a></li>
+<li><a href="https://www.hostfully.com/blog/alternative-vacation-rental-models/">Plum Guide model — Hostfully blog</a></li>
+</ul>
+<h3>原価ベンチマーク (視点 A / B 推計の根拠)</h3>
+<ul>
+<li><a href="https://www.wisemove.co.za/post/cost-to-build-house-in-south-africa">Cost to build a house in South Africa 2025 — Wise Move</a> ← R6,500-20,000/sqm の出典</li>
+<li><a href="https://www.procompare.co.za/articles/building-contractors/how-much-does-it-cost-to-build-a-house-in-south-africa">How much does it cost to build a house in SA — Procompare</a> ← Cape Town R13,150/sqm</li>
+<li><a href="https://www.elsenburg.com/wp-content/uploads/2025/02/2025-Agric-land-prices-February.pdf">Western Cape Provincial Agricultural Land Prices Feb 2025 — Elsenburg</a> ← 土地価格</li>
+<li><a href="https://www.keydatadashboard.com/blog/maximizing-your-vacation-rental-profit-margin-key-strategies-revealed">Maximizing Vacation Rental Profit Margin — Key Data</a> ← 運用費 45-65% / 利益率 25-45% の出典</li>
+<li><a href="https://financialmodelslab.com/blogs/operating-costs/vacation-rental">Vacation Rental Running Costs — Financial Models Lab</a></li>
+<li><a href="https://awning.com/post/airbnb-management-fees">Airbnb Management Fees — Awning</a> ← OTA 手数料 / management fee 相場</li>
+<li><a href="https://one2love.agency/work/cabin-fever-escapes-website/">one2love Agency — Cabin Fever Escapes Website (Web 制作担当)</a></li>
+</ul>
+<hr />
+<h2>検証 (E2E)</h2>
+<p>本リサーチは Plan mode の read-only 操作内で完結している。検証は不要 (実装タスクではない)。再現性 = 上記 Sources を順番に開き直せば同等の情報が取得可能。</p>
+<p>二次調査が必要な場合のフォローアップ:<br />
+1. CIPC (South Africa Companies Commission) で法人登記情報確認<br />
+2. Founders に Instagram DM / メールで直接インタビュー<br />
+3. SimilarWeb / SemRush で trafic 規模推定</p>
+<div class="ttl-footer">⏰ このページは <strong>2026-05-17 00:35 JST</strong> に自動削除されます (TTL 72h)<br>🆔 ID: 803d73f88f82db1a</div>
+</div>
+</body>
+</html>
