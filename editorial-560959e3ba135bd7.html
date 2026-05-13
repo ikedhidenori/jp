@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>水化学誌 Vol.01｜純水のパラドックス — ROと匂いの物理化学</title>
+<meta name="description" content="化学Ⅰ・Ⅱの語彙で読み解く、RO逆浸透膜と水の匂いの正体。van't Hoff/Solution-Diffusion/Henderson-Hasselbalch を用いた高校生向けエディトリアル科学誌。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=EB+Garamond:ital,wght@1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAF6EB;
+  --paper-2:#F2EAD3;
+  --ink:#0F1729;
+  --ink-soft:#2A2F45;
+  --rule:#3D2914;
+  --vermilion:#C3392D;
+  --vermilion-deep:#8E2418;
+  --ultramarine:#2A4D8F;
+  --matcha:#5A7C49;
+  --gold:#B8860B;
+  --grey:#7A7065;
+}
+
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Serif JP',serif;
+  font-weight:400;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.95;
+  font-size:16px;
+  font-feature-settings:"palt";
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(195,57,45,0.05) 0, transparent 24%),
+    radial-gradient(circle at 92% 88%, rgba(42,77,143,0.05) 0, transparent 24%),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(15,23,41,0.025) 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, rgba(15,23,41,0.018) 39px 40px);
+}
+
+/* ====== 上部メタストリップ ====== */
+.meta-strip{
+  background:var(--ink);
+  color:var(--paper);
+  padding:10px 24px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.15em;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--vermilion);
+}
+.meta-strip .left{color:var(--vermilion);}
+.meta-strip .right{opacity:0.7;}
+
+/* ====== マストヘッド (誌名) ====== */
+.masthead{
+  padding:60px 32px 40px;
+  text-align:center;
+  border-bottom:3px double var(--ink);
+  position:relative;
+}
+.masthead .stamp{
+  position:absolute;
+  top:30px; right:30px;
+  width:90px; height:90px;
+  border:3px solid var(--vermilion);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  font-family:'Shippori Mincho B1',serif;
+  color:var(--vermilion);
+  transform:rotate(-8deg);
+  font-size:11px;
+  letter-spacing:0.1em;
+}
+.masthead .stamp strong{font-size:14px; margin-top:2px;}
+.publication-name{
+  font-family:'Shippori Mincho B1',serif;
+  font-weight:800;
+  font-size:clamp(48px, 9vw, 96px);
+  line-height:1;
+  letter-spacing:0.04em;
+  margin-bottom:8px;
+}
+.publication-name .latin{
+  display:block;
+  font-family:'Fraunces',serif;
+  font-weight:400;
+  font-size:0.22em;
+  letter-spacing:0.4em;
+  margin-top:14px;
+  color:var(--grey);
+  text-transform:uppercase;
+}
+.volume-info{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--ink-soft);
+  margin-top:12px;
+  letter-spacing:0.05em;
+}
+.volume-info span{margin:0 8px;}
+
+/* ====== 特集タイトル ====== */
+.feature-title-block{
+  text-align:center;
+  padding:60px 32px 50px;
+  background:var(--paper-2);
+  border-bottom:1px solid var(--rule);
+  position:relative;
+}
+.feature-title-block::before,
+.feature-title-block::after{
+  content:'';
+  position:absolute;
+  left:50%; transform:translateX(-50%);
+  width:80px; height:1px;
+  background:var(--ink);
+}
+.feature-title-block::before{top:30px;}
+.feature-title-block::after{bottom:30px;}
+.feature-label{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:14px;
+  letter-spacing:0.35em;
+  color:var(--vermilion);
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+.feature-title{
+  font-family:'Shippori Mincho B1',serif;
+  font-weight:800;
+  font-size:clamp(36px, 6.5vw, 64px);
+  line-height:1.25;
+  letter-spacing:0.02em;
+  color:var(--ink);
+}
+.feature-title em{
+  font-style:normal;
+  color:var(--vermilion);
+  position:relative;
+}
+.feature-title em::after{
+  content:'';
+  position:absolute;
+  left:0; right:0; bottom:-4px;
+  height:8px;
+  background:rgba(195,57,45,0.18);
+  z-index:-1;
+}
+.feature-subtitle{
+  font-family:'Fraunces',serif;
+  font-size:18px;
+  font-style:italic;
+  color:var(--ink-soft);
+  margin-top:18px;
+  max-width:640px;
+  margin-left:auto; margin-right:auto;
+}
+.byline{
+  font-family:'EB Garamond',serif;
+  font-size:13px;
+  font-style:italic;
+  color:var(--grey);
+  letter-spacing:0.1em;
+  margin-top:24px;
+}
+
+/* ====== TOC ====== */
+.toc{
+  max-width:780px;
+  margin:60px auto;
+  padding:36px 40px;
+  background:var(--paper);
+  border:1px solid var(--ink);
+  position:relative;
+}
+.toc::before{
+  content:'CONTENTS';
+  position:absolute;
+  top:-12px; left:30px;
+  background:var(--paper);
+  padding:0 16px;
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  letter-spacing:0.4em;
+  font-size:14px;
+}
+.toc ol{
+  list-style:none;
+  counter-reset:roman;
+}
+.toc li{
+  counter-increment:roman;
+  display:flex;
+  align-items:baseline;
+  padding:10px 0;
+  border-bottom:1px dotted var(--rule);
+  font-family:'Noto Serif JP',serif;
+}
+.toc li:last-child{border-bottom:none;}
+.toc li::before{
+  content:counter(roman, upper-roman) ".";
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  color:var(--vermilion);
+  font-size:18px;
+  min-width:48px;
+}
+.toc li a{
+  color:var(--ink);
+  text-decoration:none;
+  flex:1;
+  font-size:16px;
+  font-weight:500;
+}
+.toc li a:hover{color:var(--vermilion);}
+.toc li .pgnum{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  color:var(--grey);
+  font-size:13px;
+}
+
+/* ====== 章共通 ====== */
+.chapter{
+  max-width:1000px;
+  margin:0 auto;
+  padding:80px 32px 60px;
+}
+.chapter-header{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:32px;
+  align-items:start;
+  margin-bottom:40px;
+  padding-bottom:20px;
+  border-bottom:2px solid var(--ink);
+}
+.chapter-num{
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:0.3em;
+  color:var(--vermilion);
+  padding-top:10px;
+}
+.chapter-num .roman{
+  display:block;
+  font-size:56px;
+  line-height:1;
+  color:var(--ink);
+  letter-spacing:0;
+  margin-top:6px;
+  font-style:italic;
+}
+.chapter h2{
+  font-family:'Shippori Mincho B1',serif;
+  font-weight:700;
+  font-size:clamp(28px, 4vw, 42px);
+  line-height:1.3;
+  letter-spacing:0.02em;
+}
+.chapter h2 .en{
+  display:block;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:0.45em;
+  color:var(--grey);
+  font-weight:400;
+  margin-top:8px;
+  letter-spacing:0.08em;
+}
+
+/* ====== 本文の二段組 ====== */
+.two-col{
+  column-count:2;
+  column-gap:40px;
+  column-rule:1px solid rgba(15,23,41,0.1);
+}
+.two-col p{
+  margin-bottom:14px;
+  text-align:justify;
+  text-justify:inter-character;
+  font-size:15px;
+  break-inside:avoid;
+}
+.two-col p:first-of-type::first-letter{
+  font-family:'Shippori Mincho B1',serif;
+  font-weight:800;
+  font-size:4em;
+  float:left;
+  line-height:0.85;
+  padding:6px 8px 0 0;
+  color:var(--vermilion);
+}
+@media (max-width:760px){
+  .two-col{column-count:1;}
+}
+.chapter h3{
+  font-family:'Shippori Mincho B1',serif;
+  font-size:22px;
+  font-weight:700;
+  margin:48px 0 20px;
+  padding-left:14px;
+  border-left:4px solid var(--vermilion);
+  break-after:avoid;
+  break-before:column;
+  column-span:all;
+}
+.chapter h4{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:18px;
+  font-weight:700;
+  margin:24px 0 10px;
+  color:var(--ultramarine);
+}
+
+/* ====== サイドノート ====== */
+.aside{
+  background:var(--paper-2);
+  border-left:4px solid var(--ultramarine);
+  padding:16px 20px;
+  margin:24px 0;
+  font-size:13.5px;
+  line-height:1.75;
+  font-family:'Noto Serif JP',serif;
+  font-weight:500;
+  break-inside:avoid;
+}
+.aside-label{
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-style:italic;
+  letter-spacing:0.1em;
+  color:var(--ultramarine);
+  font-size:11px;
+  display:block;
+  margin-bottom:6px;
+  text-transform:uppercase;
+}
+
+/* ====== 数式 ====== */
+.eq{
+  margin:28px 0;
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;
+  letter-spacing:0.02em;
+  padding:20px 24px;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  position:relative;
+  break-inside:avoid;
+  column-span:all;
+}
+.eq .eq-num{
+  position:absolute;
+  right:14px; top:50%;
+  transform:translateY(-50%);
+  color:var(--grey);
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:14px;
+}
+.eq sub{font-size:0.7em;}
+.eq sup{font-size:0.7em;}
+.eq-vars{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:13px;
+  color:var(--grey);
+  margin-top:18px;
+  line-height:1.6;
+  text-align:left;
+}
+
+/* ====== 反応式 ====== */
+.reaction{
+  margin:28px 0;
+  padding:18px 24px;
+  background:rgba(90,124,73,0.08);
+  border-left:4px solid var(--matcha);
+  font-family:'JetBrains Mono',monospace;
+  font-size:15px;
+  line-height:2.1;
+  break-inside:avoid;
+  column-span:all;
+}
+.reaction .arrow{margin:0 8px; color:var(--vermilion); font-weight:bold;}
+.reaction .note{
+  display:block;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  color:var(--grey);
+  font-size:13px;
+  margin-top:4px;
+  margin-left:1em;
+}
+
+/* ====== 表 ====== */
+.table-wrap{
+  margin:28px 0;
+  overflow-x:auto;
+  break-inside:avoid;
+  column-span:all;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-family:'Noto Serif JP',serif;
+  font-size:14px;
+}
+thead{
+  background:var(--ink);
+  color:var(--paper);
+}
+th{
+  padding:10px 14px;
+  text-align:left;
+  font-family:'Fraunces',serif;
+  letter-spacing:0.05em;
+  font-weight:700;
+  font-size:13px;
+}
+td{
+  padding:10px 14px;
+  border-bottom:1px solid var(--rule);
+}
+tbody tr:nth-child(even){background:var(--paper-2);}
+.table-caption{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:12px;
+  color:var(--grey);
+  margin-bottom:6px;
+  letter-spacing:0.05em;
+}
+
+/* ====== 強調 ====== */
+.key{
+  background:linear-gradient(transparent 60%, rgba(255,217,102,0.5) 60%);
+  padding:0 2px;
+  font-weight:700;
+}
+strong.vermilion{color:var(--vermilion-deep);}
+
+/* ====== インタラクティブ：閾値ベンチマーク ====== */
+.threshold-tool{
+  background:var(--paper-2);
+  border:1px solid var(--ink);
+  padding:28px 32px;
+  margin:40px 0;
+  column-span:all;
+  break-inside:avoid;
+}
+.tool-label{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:13px;
+  letter-spacing:0.25em;
+  color:var(--vermilion);
+  margin-bottom:14px;
+  text-transform:uppercase;
+}
+.threshold-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+  gap:8px;
+  margin:18px 0;
+}
+.threshold-list button{
+  font-family:'Noto Serif JP',serif;
+  font-size:14px;
+  padding:10px 12px;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  cursor:pointer;
+  transition:all 0.15s;
+  text-align:left;
+}
+.threshold-list button:hover{background:var(--vermilion); color:var(--paper);}
+.threshold-list button.active{background:var(--ink); color:var(--paper);}
+.threshold-list button .mass{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--grey);
+  margin-top:3px;
+}
+.threshold-list button.active .mass{color:rgba(255,255,255,0.7);}
+.threshold-readout{
+  background:var(--paper);
+  padding:20px;
+  border:1px solid var(--ink);
+  margin-top:18px;
+  font-family:'Noto Serif JP',serif;
+  font-size:15px;
+  line-height:1.85;
+}
+.threshold-readout .big{
+  font-family:'Fraunces',serif;
+  font-size:32px;
+  font-weight:700;
+  color:var(--vermilion);
+  display:inline-block;
+  margin:0 4px;
+}
+
+/* ====== Henderson-Hasselbalch計算機 ====== */
+.hh-calc{
+  background:var(--paper-2);
+  border:1px solid var(--ink);
+  padding:32px;
+  margin:40px 0;
+  column-span:all;
+  break-inside:avoid;
+}
+.hh-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  align-items:start;
+  margin-top:20px;
+}
+@media (max-width:640px){.hh-grid{grid-template-columns:1fr;}}
+.hh-input-group{margin-bottom:20px;}
+.hh-input-group label{
+  display:block;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:13px;
+  margin-bottom:6px;
+  letter-spacing:0.05em;
+}
+.hh-input-group .vrange{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.hh-input-group input[type=range]{
+  flex:1;
+  -webkit-appearance:none;
+  height:6px;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  outline:none;
+}
+.hh-input-group input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:18px; height:18px;
+  background:var(--vermilion);
+  border:2px solid var(--ink);
+  border-radius:50%;
+  cursor:pointer;
+}
+.hh-input-group input[type=range]::-moz-range-thumb{
+  width:18px; height:18px;
+  background:var(--vermilion);
+  border:2px solid var(--ink);
+  border-radius:50%;
+  cursor:pointer;
+}
+.hh-input-group .num{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+  font-size:16px;
+  min-width:60px;
+  text-align:right;
+  color:var(--vermilion-deep);
+}
+.hh-output{
+  background:var(--paper);
+  padding:20px;
+  border:1px solid var(--ink);
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  line-height:2;
+}
+.hh-output .val{color:var(--vermilion-deep); font-weight:700;}
+.hh-output hr{
+  border:none;
+  border-top:1px dotted var(--rule);
+  margin:12px 0;
+}
+.smell-label{
+  margin-top:8px;
+  padding:8px 12px;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  text-align:center;
+  letter-spacing:0.1em;
+}
+
+/* ====== グラフ ====== */
+.chart-wrap{
+  background:var(--paper-2);
+  border:1px solid var(--ink);
+  padding:32px;
+  margin:40px 0;
+  column-span:all;
+  break-inside:avoid;
+}
+svg{display:block; max-width:100%; height:auto; margin:0 auto;}
+.chart-caption{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:12px;
+  color:var(--grey);
+  text-align:center;
+  margin-top:14px;
+  line-height:1.6;
+}
+.chart-caption strong{color:var(--ink);}
+
+/* ====== 周期表ミニ ====== */
+.periodic-mini{
+  background:var(--paper-2);
+  border:1px solid var(--ink);
+  padding:24px;
+  margin:40px 0;
+  column-span:all;
+  break-inside:avoid;
+}
+.pt-grid{
+  display:grid;
+  grid-template-columns:repeat(8, 1fr);
+  gap:4px;
+  max-width:520px;
+  margin:18px auto 0;
+}
+.pt-cell{
+  aspect-ratio:1;
+  border:1px solid var(--rule);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  background:var(--paper);
+  cursor:pointer;
+  transition:all 0.15s;
+  position:relative;
+  font-size:12px;
+}
+.pt-cell:hover{transform:scale(1.1); z-index:5; box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+.pt-cell .symbol{font-weight:700; font-size:14px;}
+.pt-cell .num{font-size:8px; color:var(--grey); position:absolute; top:2px; left:3px;}
+.pt-cell.ion-positive{background:rgba(195,57,45,0.2);}
+.pt-cell.ion-negative{background:rgba(42,77,143,0.2);}
+.pt-cell.neutral-gas{background:rgba(184,134,11,0.2);}
+.pt-readout{
+  text-align:center;
+  font-family:'Noto Serif JP',serif;
+  font-size:14px;
+  margin-top:18px;
+  min-height:48px;
+  padding:14px;
+  background:var(--paper);
+  border:1px dashed var(--rule);
+}
+
+/* ====== 考察問題 ====== */
+.problem{
+  background:var(--paper);
+  border:1px solid var(--ink);
+  padding:28px 32px;
+  margin:32px 0;
+  column-span:all;
+  break-inside:avoid;
+  position:relative;
+}
+.problem::before{
+  content:'考察問題';
+  position:absolute;
+  top:-12px; left:24px;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Shippori Mincho B1',serif;
+  padding:4px 16px;
+  font-size:12px;
+  letter-spacing:0.2em;
+}
+.problem-num{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  color:var(--vermilion);
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:0.1em;
+}
+.problem-q{
+  font-family:'Noto Serif JP',serif;
+  font-size:15px;
+  line-height:1.95;
+  margin:10px 0 16px;
+}
+.problem-toggle{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  background:none;
+  border:1px solid var(--rule);
+  padding:6px 16px;
+  cursor:pointer;
+  font-size:13px;
+  color:var(--ink);
+  letter-spacing:0.1em;
+  transition:all 0.15s;
+}
+.problem-toggle:hover{background:var(--ink); color:var(--paper);}
+.problem-answer{
+  display:none;
+  margin-top:16px;
+  padding:18px;
+  background:var(--paper-2);
+  border-left:4px solid var(--matcha);
+  font-size:14px;
+  line-height:1.85;
+}
+.problem-answer.shown{display:block;}
+.problem-answer .ans-eq{
+  font-family:'JetBrains Mono',monospace;
+  background:var(--paper);
+  padding:8px 12px;
+  margin:10px 0;
+  font-size:13px;
+}
+
+/* ====== Colophon ====== */
+.colophon{
+  margin-top:80px;
+  padding:48px 32px 60px;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Fraunces',serif;
+}
+.colophon-inner{
+  max-width:800px;
+  margin:0 auto;
+}
+.colophon h3{
+  font-family:'Shippori Mincho B1',serif;
+  font-size:22px;
+  letter-spacing:0.15em;
+  margin-bottom:18px;
+  color:var(--gold);
+  border-bottom:1px solid var(--gold);
+  padding-bottom:10px;
+}
+.colophon-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:20px;
+  font-size:13px;
+  line-height:1.85;
+}
+.colophon-grid dt{font-style:italic; color:var(--gold); margin-bottom:4px;}
+.colophon-grid dd{margin-bottom:14px;}
+.colophon-grid a{color:var(--paper); border-bottom:1px solid rgba(250,246,235,0.3);}
+.colophon .seal{
+  text-align:center;
+  margin-top:36px;
+  font-family:'Shippori Mincho B1',serif;
+  font-size:14px;
+  letter-spacing:0.4em;
+  color:var(--vermilion);
+  opacity:0.8;
+}
+
+/* ====== ナビ ====== */
+.nav-sticky{
+  position:fixed;
+  bottom:24px; right:24px;
+  background:var(--ink);
+  color:var(--paper);
+  border-radius:999px;
+  padding:8px 4px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  z-index:50;
+  font-family:'Fraunces',serif;
+  font-size:11px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.3);
+}
+.nav-sticky a{
+  color:var(--paper);
+  text-decoration:none;
+  width:36px; height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  font-weight:700;
+  font-style:italic;
+  transition:all 0.15s;
+}
+.nav-sticky a:hover{background:var(--vermilion);}
+@media (max-width:600px){.nav-sticky{display:none;}}
+
+</style>
+</head>
+<body>
+
+<div class="meta-strip">
+  <span class="left">水化学誌 / ANNALS OF WATER CHEMISTRY</span>
+  <span>VOL. 01 — ISSUE 01</span>
+  <span class="right">2026.05.13 / FOR UPPER SECONDARY READERS</span>
+</div>
+
+<header class="masthead">
+  <div class="stamp">水<strong>HIGH</strong>SCHOOL</div>
+  <h1 class="publication-name">
+    水化學誌
+    <span class="latin">Annals of Water Chemistry</span>
+  </h1>
+  <p class="volume-info">
+    <span>Vol. 01</span>·<span>Issue 01</span>·<span>May 2026</span>·<span>FOR HIGH SCHOOL READERS</span>
+  </p>
+</header>
+
+<section class="feature-title-block">
+  <div class="feature-label">— Feature Article —</div>
+  <h2 class="feature-title">純水の<em>パラドックス</em><br>RO と匂いの物理化学</h2>
+  <p class="feature-subtitle">「ほぼ全て除去する」と謳う逆浸透膜。<br>その純水が、なぜ時に匂うのか。</p>
+  <p class="byline">— 化学Ⅰ・Ⅱ の語彙で読み解く 6 章 —</p>
+</section>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#ch1">嗅覚化学の基礎 — 匂いとは何か</a><span class="pgnum">p.01</span></li>
+    <li><a href="#ch2">分子とイオンの境界 — 揮発性の物理</a><span class="pgnum">p.02</span></li>
+    <li><a href="#ch3">逆浸透の物理化学 — van't Hoff と Solution-Diffusion</a><span class="pgnum">p.03</span></li>
+    <li><a href="#ch4">純水の「化学的飢え」</a><span class="pgnum">p.04</span></li>
+    <li><a href="#ch5">後段塩素の化学 — DBP とクロラミン</a><span class="pgnum">p.05</span></li>
+    <li><a href="#ch6">統合と実証 — 検証アクション</a><span class="pgnum">p.06</span></li>
+  </ol>
+</nav>
+
+<!-- ============ CH1 ============ -->
+<article class="chapter" id="ch1">
+  <header class="chapter-header">
+    <div class="chapter-num">Chapter<span class="roman">I</span></div>
+    <h2>嗅覚化学の基礎<span class="en">What is "smell"? — A primer on olfactory chemistry</span></h2>
+  </header>
+
+  <div class="two-col">
+    <p>「匂い」という現象は、感覚としては素朴だが、化学的にはかなり <span class="key">厳しい条件を満たした分子だけが嗅覚に届く</span>。ヒトの嗅覚受容体 (OR) は GPCR ファミリーに属し、約 400 種が鼻腔上皮に発現している。受容体は気相中のリガンド分子と結合して初めて信号を出す——つまり、空気にまで漂ってこない物質は、どれだけ濃く水に溶けていても匂わない。</p>
+
+    <p>気相に漂える分子の条件は、おおむね次のとおり。</p>
+
+    <p><strong>(i) 分子量 30〜300 Da</strong>。大きすぎると拡散しない。小さすぎると種が限られる。<strong>(ii) 電気的に中性</strong>。電荷を持つイオンは水和殻が厚く気化できない。<strong>(iii) 適度な疎水性 (logP &gt; 1.5)</strong>。受容体の脂質ポケットに入る必要がある。<strong>(iv) 蒸気圧 P° &gt; 0.01 mmHg</strong>。気液界面で平衡濃度を稼げる。</p>
+
+    <p>水中に溶けた匂い分子が、口腔・鼻腔に届く濃度はヘンリーの法則で記述される。</p>
+
+    <div class="eq">
+      C<sub>air</sub> = K<sub>H</sub> · C<sub>water</sub>
+      <span class="eq-num">(1.1)</span>
+      <div class="eq-vars">K<sub>H</sub>: ヘンリー定数 [-] / C<sub>water</sub>: 水中濃度 / C<sub>air</sub>: 気相平衡濃度</div>
+    </div>
+
+    <p>K<sub>H</sub> が大きい分子ほど、わずかな水中濃度でも気相に出てきて匂う。逆に水溶性が極端に高い (= K<sub>H</sub> 小) 物質は、水中に大量にあっても気相に出ない。塩化ナトリウムの解離イオン Na<sup>+</sup>·Cl<sup>−</sup> は K<sub>H</sub> ≈ 0 で、海水を嗅いでも食塩自体は匂わない理由はここにある。</p>
+
+    <h3>代表物質の嗅覚閾値</h3>
+
+    <p>ヒトの検出限界 (OTC: Odor Threshold Concentration) は驚くほど低い。次表は水中での閾値。</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">表 1.1 — 主要匂い物質の水中嗅覚閾値</div>
+      <table>
+        <thead><tr><th>物質</th><th>分子式</th><th>M [Da]</th><th>OTC [μg/L]</th><th>匂い特徴</th></tr></thead>
+        <tbody>
+          <tr><td>ジオスミン</td><td>C₁₂H₂₂O</td><td>182</td><td>0.01</td><td>湖の青臭さ</td></tr>
+          <tr><td>2-MIB</td><td>C₁₁H₂₀O</td><td>168</td><td>0.015</td><td>カビ臭</td></tr>
+          <tr><td>硫化水素</td><td>H₂S</td><td>34</td><td>0.5</td><td>卵腐敗</td></tr>
+          <tr><td>クロロホルム (THM)</td><td>CHCl₃</td><td>119</td><td>~100</td><td>プール底/薬品</td></tr>
+          <tr><td>次亜塩素酸</td><td>HClO</td><td>52</td><td>~100</td><td>カルキ刺激</td></tr>
+          <tr><td>モノクロラミン</td><td>NH₂Cl</td><td>51</td><td>~500</td><td>プール残留</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside">
+      <span class="aside-label">SIDE NOTE — 水道法基準</span>
+      水道法における残留塩素 ≥ 0.1 mg/L = 100 μg/L は、奇しくも HClO の OTC とほぼ一致する。<span class="key">「殺菌に必要な濃度」と「ヒトが匂いとして感じる濃度」が同じレベル</span>に設計されている。
+    </div>
+
+    <p>注目すべきは、<strong class="vermilion">ジオスミンと 2-MIB の桁外れの低閾値</strong>だ。両者とも 10〜15 ng/L で人間が検知する。これは「25mプール全体に砂糖小さじ 1 杯」よりさらに小さい量。藻類由来のこの 2 物質は原水段階で含まれることが多く、RO 膜阻止率 50〜80% 程度では処理水でも閾値超えする場合がある。</p>
+
+    <div class="threshold-tool">
+      <span class="tool-label">— Interactive ① — 嗅覚閾値ベンチマーク</span>
+      <p style="font-size:14px;">物質を選ぶと、ヒトの検知に必要な水中濃度と、それを実感する例えが表示される。</p>
+      <div class="threshold-list" id="threshold-list">
+        <button data-otc="0.01" data-name="ジオスミン" data-feel="25mプール (375t) に 3.8 mg = 角砂糖の 1/500 個分">ジオスミン<span class="mass">0.01 μg/L</span></button>
+        <button data-otc="0.015" data-name="2-MIB" data-feel="25mプール (375t) に 5.6 mg = ゴマ粒 1/3 個分">2-MIB<span class="mass">0.015 μg/L</span></button>
+        <button data-otc="0.5" data-name="硫化水素" data-feel="25mプール (375t) に 188 mg = 角砂糖の半分">硫化水素<span class="mass">0.5 μg/L</span></button>
+        <button data-otc="100" data-name="HClO (塩素)" data-feel="25mプール (375t) に 37.5 g = 大さじ 1 杯弱">HClO (塩素)<span class="mass">100 μg/L</span></button>
+        <button data-otc="500" data-name="モノクロラミン" data-feel="25mプール (375t) に 188 g = 食パン 2 枚分">モノクロラミン<span class="mass">500 μg/L</span></button>
+      </div>
+      <div class="threshold-readout" id="threshold-readout">
+        ↑ 物質をクリックすると、検知濃度の感覚的スケールが表示されます。
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ============ CH2 ============ -->
+<article class="chapter" id="ch2">
+  <header class="chapter-header">
+    <div class="chapter-num">Chapter<span class="roman">II</span></div>
+    <h2>分子とイオンの境界<span class="en">The molecule-ion boundary — why ions cannot smell</span></h2>
+  </header>
+
+  <div class="two-col">
+    <p>同じ「塩素」でも、Cl<sub>2</sub> 分子と Cl<sup>−</sup> イオンでは挙動が全く異なる。前者は強烈なカルキ臭を放ち、後者は完全に無臭。この差を生むのは、水と分子の相互作用エネルギーである。</p>
+
+    <h4>水和エンタルピーの壁</h4>
+
+    <p>イオンが水中に存在するとき、極性をもつ H₂O 分子がイオンを取り囲み「水和殻」を形成する。Na<sup>+</sup> 一個あたりの水和エンタルピー ΔH<sub>hyd</sub> ≈ −406 kJ/mol、Cl<sup>−</sup> なら −363 kJ/mol。一方、中性分子 NH₃ の蒸発エンタルピー ΔH<sub>vap</sub> はわずか 23 kJ/mol。<span class="key">イオンを気化させるには共有結合 1 本に匹敵するエネルギーが必要</span>で、室温では事実上不可能だ。</p>
+
+    <p>結果、イオンは <em>水の中</em>に閉じ込められたまま動かず、嗅覚に届かない。一方、中性で水素結合の数本程度しか持たない分子は、室温で十分な蒸気圧を確保できる。</p>
+
+    <div class="periodic-mini">
+      <span class="tool-label">— Interactive ② — 「匂い当て」周期表</span>
+      <p style="font-size:14px;">セルをクリックすると、その元素がよく取る状態と「匂い」の関係が表示される。赤=陽イオン化しやすい / 青=陰イオン化しやすい / 黄=中性分子で揮発。</p>
+      <div class="pt-grid" id="pt-grid">
+        <div class="pt-cell ion-positive" data-name="ナトリウム" data-info="Na — 水中で常に Na⁺ (1価陽イオン)。水和殻で固定 → 無臭。食塩 NaCl の匂わなさの主因。"><span class="num">11</span><span class="symbol">Na</span></div>
+        <div class="pt-cell" data-name="塩素" data-info="Cl — 単体は Cl₂ ガス (中性分子、強烈なカルキ臭)。水中ではイオン化 (Cl⁻) して無臭になる。↔ 双方向に化ける典型例。"><span class="num">17</span><span class="symbol">Cl</span></div>
+        <div class="pt-cell ion-negative" data-name="フッ素 (フッ化物)" data-info="F — 水中では F⁻ (陰イオン)、無臭。歯磨き粉に入っている。"><span class="num">9</span><span class="symbol">F</span></div>
+        <div class="pt-cell neutral-gas" data-name="窒素 (アンモニア)" data-info="N — NH₃ ガスは中性分子で強い刺激臭。水溶液で NH₄⁺ にイオン化すると無臭。アルカリ性ほど匂う。"><span class="num">7</span><span class="symbol">N</span></div>
+        <div class="pt-cell neutral-gas" data-name="硫黄 (硫化水素)" data-info="S — H₂S は中性分子で卵腐敗臭。水中で HS⁻/S²⁻ にイオン化すると弱まる。pH 依存。"><span class="num">16</span><span class="symbol">S</span></div>
+        <div class="pt-cell ion-positive" data-name="カルシウム" data-info="Ca — 水中で Ca²⁺ (2価陽イオン)。完全に水和殻で覆われ無臭。"><span class="num">20</span><span class="symbol">Ca</span></div>
+        <div class="pt-cell ion-positive" data-name="鉄" data-info="Fe — Fe²⁺/Fe³⁺ イオンは無臭だが、空気酸化で水酸化鉄になり「鉄臭」に感じることがある (実は脂質酸化が主因)。"><span class="num">26</span><span class="symbol">Fe</span></div>
+        <div class="pt-cell neutral-gas" data-name="炭素 (CO₂など)" data-info="C — CO₂ は中性分子で微酸味と「炭酸感」(三叉神経受容体)。狭義の匂いではない。"><span class="num">6</span><span class="symbol">C</span></div>
+      </div>
+      <div class="pt-readout" id="pt-readout">↑ 元素を選んで、その「匂いの化け方」を確認しよう。</div>
+    </div>
+
+    <h3>酸塩基平衡が匂いを動かす</h3>
+
+    <p>分子⇌イオンの平衡は、酸塩基反応で常に動いている。次亜塩素酸 (HClO) の解離平衡は本特集の核心だ。</p>
+
+    <div class="reaction">
+      HClO <span class="arrow">⇌</span> H<sup>+</sup> + ClO<sup>−</sup>
+      <span class="note">pKa = 7.53 (25°C) — HClO は弱酸、解離は pH に強く依存</span>
+    </div>
+
+    <p>Henderson-Hasselbalch の式により、各種の分率は pH の関数として書ける。</p>
+
+    <div class="eq">
+      pH = pKa + log<sub>10</sub>([ClO<sup>−</sup>] / [HClO])
+      <span class="eq-num">(2.1)</span>
+    </div>
+
+    <p>変形すると HClO 分率 α<sub>HClO</sub> = 1 / (1 + 10<sup>pH−pKa</sup>)。<span class="key">pH が低い (酸性) ほど HClO 優勢 → 揮発し匂う。pH が高い (アルカリ) ほど ClO<sup>−</sup> 優勢 → イオン化して匂わない。</span></p>
+
+    <div class="hh-calc">
+      <span class="tool-label">— Interactive ③ — Henderson-Hasselbalch 計算機</span>
+      <div class="hh-grid">
+        <div>
+          <div class="hh-input-group">
+            <label>pH</label>
+            <div class="vrange"><input type="range" id="hh-ph" min="3" max="11" step="0.1" value="7.0"><span class="num" id="hh-ph-val">7.0</span></div>
+          </div>
+          <div class="hh-input-group">
+            <label>全塩素濃度 C<sub>total</sub> [mg/L]</label>
+            <div class="vrange"><input type="range" id="hh-total" min="0.1" max="3" step="0.05" value="1.0"><span class="num" id="hh-total-val">1.00</span></div>
+          </div>
+          <div class="hh-input-group">
+            <label>温度 [°C] (参考)</label>
+            <div class="vrange"><input type="range" id="hh-temp" min="5" max="40" step="1" value="25"><span class="num" id="hh-temp-val">25</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="hh-output">
+            α<sub>HClO</sub> = <span class="val" id="hh-alpha">50.0</span> %<br>
+            [HClO] = <span class="val" id="hh-hclo">0.500</span> mg/L<br>
+            [ClO<sup>−</sup>] = <span class="val" id="hh-clo">0.500</span> mg/L
+            <hr>
+            OTC 倍率 ([HClO]/100μg/L): <span class="val" id="hh-otc">5.0</span> ×
+            <div class="smell-label" id="hh-label">匂いやすい</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-caption" style="margin-top:14px;">温度依存性: pKa は実際には温度で動く (10°C ≈ 7.69, 25°C ≈ 7.53, 35°C ≈ 7.44)。本ツールは pKa=7.53 固定で近似。</div>
+    </div>
+  </div>
+</article>
+
+<!-- ============ CH3 ============ -->
+<article class="chapter" id="ch3">
+  <header class="chapter-header">
+    <div class="chapter-num">Chapter<span class="roman">III</span></div>
+    <h2>逆浸透の物理化学<span class="en">Reverse osmosis — van't Hoff and the Solution-Diffusion model</span></h2>
+  </header>
+
+  <div class="two-col">
+    <p>逆浸透 (Reverse Osmosis, RO) を理解するには、まず <em>順</em>浸透 (Osmosis) を思い出そう。半透膜を挟んで純水と塩水を置くと、純水側から塩水側へ水が流れ込む。これを止めるのに必要な圧力が浸透圧 Π で、van't Hoff の式で記述される。</p>
+
+    <div class="eq">
+      Π = i · C · R · T
+      <span class="eq-num">(3.1)</span>
+      <div class="eq-vars">i: ファントホッフ係数 / C: モル濃度 [mol/L] / R: 気体定数 8.314 J/(mol·K) / T: 絶対温度 [K]</div>
+    </div>
+
+    <p>海水 (NaCl 約 0.6 mol/L、25°C、i ≈ 1.9) で計算すると Π ≈ 28 atm。塩水を真水にする (= 逆浸透) には、この Π を超える圧力をかけて水を「逆向きに」絞り出す必要がある。実用 RO では 50〜80 atm の動作圧力が一般的。</p>
+
+    <h4>膜の透過機構 — Solution-Diffusion model</h4>
+
+    <p>RO 膜は単なる「ザル」(サイズ排除フィルター) ではない。水と溶質が <strong class="vermilion">膜に溶け込み、拡散して反対側に出る</strong> という溶解拡散モデルで記述される。</p>
+
+    <div class="eq">
+      J<sub>水</sub> = A · (ΔP − Δπ)<br><br>
+      J<sub>溶質</sub> = (D · K / L) · ΔC
+      <span class="eq-num">(3.2)</span>
+      <div class="eq-vars">A: 水透過係数 / D: 拡散係数 / K: 分配係数 / L: 膜厚 / ΔC: 濃度差</div>
+    </div>
+
+    <p>水フラックス J<sub>水</sub> は加圧で線形に増えるが、溶質フラックス J<sub>溶質</sub> は <strong>濃度差</strong>に依存する (圧力ではない)。だから加圧するほど水ばかり通って溶質は通らない = 阻止率が上がる。これが RO の根本原理。</p>
+
+    <p>阻止率 R は次で定義される。</p>
+
+    <div class="eq">
+      R = 1 − (C<sub>透過水</sub> / C<sub>原水</sub>)
+      <span class="eq-num">(3.3)</span>
+    </div>
+
+    <p>R が物質によって大きく違う理由は、分配係数 K と拡散係数 D の差にある。K は<strong>膜への溶け込みやすさ</strong>、D は<strong>膜内での動きやすさ</strong>。イオンは K が極端に小さく (荷電膜と反発)、大分子は D が小さい (動けない)。一方、水分子サイズに近い中性小分子 (CO<sub>2</sub>, NH<sub>3</sub>, H<sub>2</sub>S, 小さな VOC) は <span class="key">水と類似の挙動で膜を通り抜けてしまう</span>。</p>
+
+    <div class="aside">
+      <span class="aside-label">SIDE NOTE — なぜ水だけが通るのか</span>
+      水分子は強い水素結合ネットワークを介して「ジャンプ」する独特の輸送モードを持つ (proton-hop, Grotthuss 機構の類縁)。RO 膜のポリアミド層の中で水は連なって通れるが、他の分子は同じ経路を共有しにくい。これが水選択性の物理的起源。
+    </div>
+
+    <h4>分子量 vs 阻止率の理論曲線</h4>
+
+    <p>下のグラフは、代表的なポリアミド系 RO 膜での阻止率を分子量に対してプロットしたもの。<strong class="vermilion">「ほぼ通さない」が成立するのは分子量 500 Da 以上、もしくはイオン</strong>。それ以下の中性分子では阻止率が急減する。</p>
+
+    <div class="chart-wrap">
+      <svg viewBox="0 0 700 400" id="ro-chart" xmlns="http://www.w3.org/2000/svg">
+        <!-- axes -->
+        <line x1="60" y1="350" x2="660" y2="350" stroke="#0F1729" stroke-width="2"/>
+        <line x1="60" y1="350" x2="60" y2="40" stroke="#0F1729" stroke-width="2"/>
+        <!-- y labels -->
+        <text x="55" y="350" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#0F1729">0%</text>
+        <text x="55" y="275" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#0F1729">25%</text>
+        <text x="55" y="200" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#0F1729">50%</text>
+        <text x="55" y="125" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#0F1729">75%</text>
+        <text x="55" y="50" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#0F1729">100%</text>
+        <text x="20" y="200" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="#0F1729" transform="rotate(-90 20 200)">阻止率 R [%]</text>
+        <!-- x labels (log scale) -->
+        <text x="60" y="370" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0F1729">18</text>
+        <text x="180" y="370" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0F1729">50</text>
+        <text x="300" y="370" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0F1729">100</text>
+        <text x="420" y="370" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0F1729">300</text>
+        <text x="540" y="370" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0F1729">1000</text>
+        <text x="660" y="370" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#0F1729">5000</text>
+        <text x="360" y="392" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="#0F1729">分子量 [Da] (log scale)</text>
+        <!-- 中性分子曲線 (S字) -->
+        <path d="M 60 340 Q 200 320 280 240 T 480 70 L 660 50" stroke="#C3392D" stroke-width="3" fill="none"/>
+        <text x="510" y="100" font-family="Fraunces" font-style="italic" font-size="12" fill="#C3392D">中性分子</text>
+        <!-- イオン曲線 (ほぼ平坦上部) -->
+        <path d="M 60 60 L 200 55 L 400 52 L 660 50" stroke="#2A4D8F" stroke-width="3" stroke-dasharray="6,4" fill="none"/>
+        <text x="240" y="42" font-family="Fraunces" font-style="italic" font-size="12" fill="#2A4D8F">イオン (Na⁺, Cl⁻, ...)</text>
+        <!-- 物質点 -->
+        <g font-family="Noto Serif JP" font-size="11" fill="#0F1729">
+          <circle cx="60" cy="340" r="5" fill="#C3392D"/>
+          <text x="65" y="338" dx="6">H₂O (18)</text>
+          <circle cx="155" cy="335" r="5" fill="#C3392D"/>
+          <text x="160" y="332" dx="6">NH₃ (17)</text>
+          <circle cx="125" cy="328" r="5" fill="#C3392D"/>
+          <text x="80" y="318" dx="6">H₂S (34)</text>
+          <circle cx="195" cy="310" r="5" fill="#C3392D"/>
+          <text x="200" y="307" dx="6">HClO (52)</text>
+          <circle cx="285" cy="220" r="5" fill="#C3392D"/>
+          <text x="290" y="217" dx="6">CHCl₃ (119)</text>
+          <circle cx="375" cy="135" r="5" fill="#C3392D"/>
+          <text x="380" y="132" dx="6">2-MIB (168)</text>
+          <circle cx="395" cy="115" r="5" fill="#C3392D"/>
+          <text x="400" y="112" dx="6">Geosmin (182)</text>
+          <circle cx="540" cy="55" r="5" fill="#C3392D"/>
+          <text x="490" y="48" dx="6">糖類 (180-360)</text>
+          <circle cx="180" cy="58" r="5" fill="#2A4D8F"/>
+          <text x="180" y="80" dx="6">Na⁺ (23)</text>
+          <circle cx="195" cy="60" r="5" fill="#2A4D8F"/>
+          <text x="195" y="98" dx="6">Cl⁻ (35)</text>
+        </g>
+      </svg>
+      <div class="chart-caption">図 3.1 — <strong>分子量 vs 阻止率</strong> (典型ポリアミド系 RO 膜、25°C, 5 MPa)。中性分子は S 字カーブで、分子量 ~150 Da 付近を境に阻止率が急変する。イオンは電荷反発で分子量に関係なく高阻止率を維持する。</div>
+    </div>
+
+    <div class="problem">
+      <span class="problem-num">— PROBLEM 3.1 —</span>
+      <p class="problem-q">25°C, NaCl 0.05 mol/L の食塩水の浸透圧を求めよ (i = 1.9, R = 0.082 L·atm/(mol·K))。さらに、これを RO で淡水化するのに必要な最小圧力を考察せよ。</p>
+      <button class="problem-toggle" data-target="prob3-1">解答を見る</button>
+      <div class="problem-answer" id="prob3-1">
+        Π = i·C·R·T = 1.9 × 0.05 × 0.082 × 298 ≈ <strong>2.32 atm</strong>。<br>
+        <div class="ans-eq">Π = 1.9 × 0.05 mol/L × 0.082 L·atm/(mol·K) × 298 K ≈ 2.32 atm</div>
+        RO で淡水化するには Π を超える圧力が必要で、実用上は流速確保のため Π の 2〜3 倍 (約 5〜7 atm) で運転する。海水 (0.6 mol/L) なら Π ≈ 28 atm、実運転は 50〜80 atm。
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ============ CH4 ============ -->
+<article class="chapter" id="ch4">
+  <header class="chapter-header">
+    <div class="chapter-num">Chapter<span class="roman">IV</span></div>
+    <h2>純水の「化学的飢え」<span class="en">The chemistry of hunger — why pure water is reactive</span></h2>
+  </header>
+
+  <div class="two-col">
+    <p>RO 透過水は、イオン総量 (TDS) が原水の 1〜5% にまで落ちる。一見「純粋」で安全に見えるが、これは <strong class="vermilion">化学的にきわめて不安定な状態</strong>を意味する。純水は本来溶けていた成分を失い、その「飢え」を埋めるべく周囲から何かを引き出そうとする。</p>
+
+    <h4>CO₂ 吸収による pH 急変</h4>
+
+    <p>純水は緩衝能 (buffer capacity) がほぼゼロ。空気と接触すると、ヘンリーの法則に従って CO₂ を吸収する。</p>
+
+    <div class="reaction">
+      CO<sub>2</sub>(g) <span class="arrow">⇌</span> CO<sub>2</sub>(aq)<br>
+      CO<sub>2</sub>(aq) + H<sub>2</sub>O <span class="arrow">⇌</span> H<sub>2</sub>CO<sub>3</sub> <span class="arrow">⇌</span> H<sup>+</sup> + HCO<sub>3</sub><sup>−</sup>
+      <span class="note">大気平衡で水中 [CO₂(aq)] ≈ 1.3 × 10<sup>−5</sup> mol/L → pH ≈ 5.6</span>
+    </div>
+
+    <p>大気 (CO₂ 約 0.04%) と平衡した純水の pH は <strong>5.5〜6.0</strong> に下がる。CO₂ をさらに吸えば pH 5 を下回ることもある。前章の Henderson-Hasselbalch から、<span class="key">pH 5.6 における HClO 分率 α ≈ 99%</span> となり、塩素を入れた瞬間にほぼすべて揮発性側に振れる。</p>
+
+    <h4>容器素材の溶出</h4>
+
+    <p>純水の高い溶媒和力は、容器・配管素材から微量成分を引き出す。代表例:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>素材</th><th>溶出物</th><th>匂い影響</th></tr></thead>
+        <tbody>
+          <tr><td>PE / PP</td><td>残留添加剤、酸化分解物</td><td>「ビニール臭」</td></tr>
+          <tr><td>軟質 PVC</td><td>フタル酸エステル類</td><td>独特の薬品様</td></tr>
+          <tr><td>金属配管 (低 pH 下)</td><td>Fe²⁺, Cu²⁺ 等</td><td>金属臭 (脂質酸化媒介)</td></tr>
+          <tr><td>シリコンパッキン</td><td>低分子シロキサン</td><td>無臭〜微</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>バイオフィルム形成</h4>
+
+    <p>TOC (Total Organic Carbon) が 1 mg/L を切る純水でも、Pseudomonas 等の貧栄養細菌は増殖できる。タンク内壁にバイオフィルムが形成されると、嫌気状態が局所的に発生し、以下の代謝産物が発生する。</p>
+
+    <div class="reaction">
+      SO<sub>4</sub><sup>2−</sup> + 有機物 <span class="arrow">→</span> H<sub>2</sub>S + ...
+      <span class="note">硫酸塩還元菌 (SRB) による嫌気代謝 — 卵腐敗臭</span><br>
+      アミノ酸残基 <span class="arrow">→</span> R-NH<sub>2</sub> (アミン類)
+      <span class="note">タンパク質分解 — 生臭・魚臭</span>
+    </div>
+
+    <div class="aside">
+      <span class="aside-label">SIDE NOTE — 純水が侵食するパラドックス</span>
+      実験室で精製した超純水 (UPW) はステンレスやガラスすら微量溶かす。半導体製造ラインの UPW 配管は耐性に PVDF や PFA を使う理由がここにある。<span class="key">「純粋であること」と「化学的に安定であること」は別物</span>。
+    </div>
+  </div>
+</article>
+
+<!-- ============ CH5 ============ -->
+<article class="chapter" id="ch5">
+  <header class="chapter-header">
+    <div class="chapter-num">Chapter<span class="roman">V</span></div>
+    <h2>後段塩素の化学<span class="en">Post-chlorination — DBPs, chloramines, and the smell of safety</span></h2>
+  </header>
+
+  <div class="two-col">
+    <p>多くの業務用 RO 浄水システムは、配送・保管中の細菌再増殖を防ぐため <strong class="vermilion">RO 後段で塩素を再添加</strong>する。これは設計上の選択であり、本来 RO 自体は塩素を除去している。後段塩素は次の反応で水中に展開する。</p>
+
+    <div class="reaction">
+      NaClO + H<sub>2</sub>O <span class="arrow">→</span> Na<sup>+</sup> + ClO<sup>−</sup>
+      <span class="note">次亜塩素酸ナトリウム → 次亜塩素酸イオン</span><br>
+      ClO<sup>−</sup> + H<sup>+</sup> <span class="arrow">⇌</span> HClO
+      <span class="note">中性 pH では HClO/ClO⁻ が共存 (pKa = 7.53)</span>
+    </div>
+
+    <h4>DBPs — 消毒副生成物の連鎖</h4>
+
+    <p>HClO は強い酸化剤・求電子剤として、水中の有機物・アンモニアと反応する。これが <strong>Disinfection By-Products (DBPs)</strong> の正体。</p>
+
+    <h4>1. トリハロメタン (THM) 生成</h4>
+
+    <p>フミン酸など腐植物質中のメチルケトン構造に HClO が逐次置換し、最終的に CHCl<sub>3</sub> 等を生成。</p>
+
+    <div class="reaction">
+      R-COCH<sub>3</sub> + 3 HClO <span class="arrow">→</span> R-COCCl<sub>3</sub> + 3 H<sub>2</sub>O<br>
+      R-COCCl<sub>3</sub> + H<sub>2</sub>O <span class="arrow">→</span> R-COOH + CHCl<sub>3</sub>
+      <span class="note">ハロホルム反応 — クロロホルム生成</span>
+    </div>
+
+    <h4>2. クロラミン階段的生成</h4>
+
+    <p>原水中のアンモニア (or アミノ酸) と HClO の反応は、pH と Cl/N モル比に依存して段階的に進む。</p>
+
+    <div class="reaction">
+      NH<sub>3</sub> + HClO <span class="arrow">→</span> NH<sub>2</sub>Cl + H<sub>2</sub>O
+      <span class="note">モノクロラミン (プールのカルキ臭の主因)</span><br>
+      NH<sub>2</sub>Cl + HClO <span class="arrow">→</span> NHCl<sub>2</sub> + H<sub>2</sub>O
+      <span class="note">ジクロラミン (魚生臭・刺激臭)</span><br>
+      NHCl<sub>2</sub> + HClO <span class="arrow">→</span> NCl<sub>3</sub> + H<sub>2</sub>O
+      <span class="note">トリクロラミン (高揮発・目刺激)</span>
+    </div>
+
+    <p><span class="key">「プールの塩素臭」と俗に呼ばれる匂いの大半は HClO 単独ではなくクロラミン類</span>。これは「塩素入れすぎ」ではなく「不純物 (尿素・皮脂) と塩素の反応」の結果である。同じことが配送中 RO 水でも起き、わずかなアンモニア性窒素・有機アミンが残ると匂いが立つ。</p>
+
+    <div class="aside">
+      <span class="aside-label">SIDE NOTE — Breakpoint chlorination</span>
+      Cl/N モル比を 1.5〜2 に上げると、クロラミン類は分解し N<sub>2</sub> として揮発、遊離塩素のみが残る。これを「不連続点塩素処理 (Breakpoint Chlorination)」という。上水処理ではこの操作で「ニオイのない殺菌力」を得るが、Cl 投入量が多くなる。
+    </div>
+
+    <h4>3. ハロ酢酸ほか</h4>
+
+    <p>近年の研究で、ジクロロ酢酸・トリクロロ酢酸 (HAAs)、N-ニトロソジメチルアミン (NDMA) など、より毒性の高い DBPs が次々と同定されている。<span class="key">「塩素処理は完全に safe ではない」</span>という認識は世界の水道行政の共通理解で、Activated Carbon やオゾン併用などで前駆体を減らす方向に動いている。</p>
+
+    <div class="problem">
+      <span class="problem-num">— PROBLEM 5.1 —</span>
+      <p class="problem-q">pH 6.0、全塩素 1.0 mg/L (Cl 換算) のとき、[HClO] と [ClO⁻] を求めよ。Henderson-Hasselbalch (pKa = 7.53) を用いること。さらに、嗅覚閾値 OTC<sub>HClO</sub> = 100 μg/L = 0.1 mg/L の何倍になるか答えよ。</p>
+      <button class="problem-toggle" data-target="prob5-1">解答を見る</button>
+      <div class="problem-answer" id="prob5-1">
+        α<sub>HClO</sub> = 1 / (1 + 10<sup>pH−pKa</sup>) = 1 / (1 + 10<sup>−1.53</sup>) = 1 / (1 + 0.0295) ≈ 0.971
+        <div class="ans-eq">[HClO] = 1.0 × 0.971 ≈ 0.971 mg/L<br>[ClO⁻] = 1.0 × 0.029 ≈ 0.029 mg/L</div>
+        OTC 倍率 = 0.971 / 0.1 ≈ <strong>9.7 倍</strong>。<br>
+        <strong>解釈</strong>: pH 6.0 (やや酸性) の RO 水に法定下限 1 mg/L の塩素を入れると、嗅覚閾値の約 10 倍。匂いをはっきり感じる濃度。逆に pH 8.5 まで上げると α<sub>HClO</sub> ≈ 0.097 で OTC とほぼ同等になり、ほぼ無臭。
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ============ CH6 ============ -->
+<article class="chapter" id="ch6">
+  <header class="chapter-header">
+    <div class="chapter-num">Chapter<span class="roman">VI</span></div>
+    <h2>統合と実証<span class="en">Synthesis — diagnostic actions for the curious</span></h2>
+  </header>
+
+  <div class="two-col">
+    <p>これまでの 5 章を統合すると、RO + 後段塩素 構成の浄水システムで「匂いがする」場合の原因仮説は次の優先度になる。</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">表 6.1 — 匂い原因の優先度仮説と検証アクション</div>
+      <table>
+        <thead><tr><th>★</th><th>仮説</th><th>主体</th><th>診断手法</th></tr></thead>
+        <tbody>
+          <tr><td>★★★★</td><td>後段添加塩素 (HClO)</td><td>意図的設計</td><td>DPD 法で遊離残留塩素測定</td></tr>
+          <tr><td>★★★</td><td>DBPs (THM, ハロ酢酸)</td><td>塩素 × 有機物</td><td>ヘッドスペース GC-MS</td></tr>
+          <tr><td>★★</td><td>クロラミン類</td><td>塩素 × アンモニア</td><td>DPD 第 2 試薬で結合塩素</td></tr>
+          <tr><td>★</td><td>RO 透過 VOC・ジオスミン</td><td>原水残存</td><td>SPME-GC/MS</td></tr>
+          <tr><td>★</td><td>バイオフィルム代謝物</td><td>タンク・配管</td><td>嫌気指標 (H₂S 検知管)</td></tr>
+          <tr><td>★</td><td>容器素材溶出</td><td>純水侵食</td><td>ガラス容器との比較</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>家庭・教室でできる検証</h3>
+
+    <p>市販の家庭用残留塩素試験紙 (DPD 法) で <strong>遊離残留塩素</strong> と <strong>結合塩素</strong> を簡易測定できる。両者の比から「単独 HClO 由来」か「クロラミン由来」かを切り分けられる。</p>
+
+    <h4>4 ステップ検証プロトコル</h4>
+
+    <ol style="padding-left:24px; font-size:15px; line-height:2;">
+      <li><strong>pH 測定</strong> (リトマス紙でも可): pH 6 台 → HClO 優勢 / pH 8 台 → ClO⁻ 優勢</li>
+      <li><strong>DPD 試薬で遊離塩素</strong>を測る。0.1 mg/L 以上なら OTC 超え</li>
+      <li><strong>1 時間放置テスト</strong>: ガラス容器で空気にさらして匂いが弱まれば揮発性 (塩素・VOC)</li>
+      <li><strong>容器変更テスト</strong>: ガラス vs プラスチックで匂いが違えば溶出由来</li>
+    </ol>
+
+    <div class="problem">
+      <span class="problem-num">— PROBLEM 6.1 —</span>
+      <p class="problem-q">RO 透過率 60% のジオスミンが、原水で 30 ng/L 含まれている場合、処理水中のジオスミン濃度を計算し、嗅覚閾値 OTC = 10 ng/L と比較して匂いを感じるか判断せよ。</p>
+      <button class="problem-toggle" data-target="prob6-1">解答を見る</button>
+      <div class="problem-answer" id="prob6-1">
+        透過率 60% = 阻止率 R = 40% (誤読注意)。原問題は「透過率 = (1 − R)」とすると…通常用語で「透過率 60%」は <strong>60% が膜を通る</strong>意味。<br>
+        <div class="ans-eq">C<sub>透過水</sub> = C<sub>原水</sub> × 透過率 = 30 × 0.60 = 18 ng/L</div>
+        OTC = 10 ng/L に対し 18 ng/L = <strong>1.8 倍</strong>。明確に匂いを感じるレベル。<br>
+        <strong>解釈</strong>: 藻類発生期の湖沼を原水とする場合、RO だけでは閾値超えのジオスミンが残り得る。後段活性炭が必須となる理由。<span class="key">RO の限界は、人間の嗅覚の感度の前では小さい</span>。
+      </div>
+    </div>
+
+    <div class="problem">
+      <span class="problem-num">— PROBLEM 6.2 —</span>
+      <p class="problem-q">純水を空気中に放置すると CO₂ を吸って pH 5.6 まで下がる (大気平衡)。この pH における HClO/ClO<sup>−</sup> 比を求め、塩素を投入する際の匂い影響を述べよ。pKa = 7.53 を用いよ。</p>
+      <button class="problem-toggle" data-target="prob6-2">解答を見る</button>
+      <div class="problem-answer" id="prob6-2">
+        log<sub>10</sub>([ClO<sup>−</sup>]/[HClO]) = pH − pKa = 5.6 − 7.53 = −1.93
+        <div class="ans-eq">[ClO<sup>−</sup>] / [HClO] = 10<sup>−1.93</sup> ≈ 0.0117</div>
+        つまり [HClO] : [ClO<sup>−</sup>] ≈ <strong>98.8 : 1.2</strong>。HClO がほぼ全量。<br>
+        <strong>解釈</strong>: 純水は大気と接触するだけで自然に酸性側に振れ、後段塩素を入れた瞬間に揮発性の HClO がほぼ 100% になる。「RO 水なのに匂う」現象の構造的原因の一つ。対策としては<span class="key">脱気済み密閉ライン</span>または<span class="key">pH 緩衝剤を加える</span>等の工夫が必要。
+      </div>
+    </div>
+
+    <h3>結論</h3>
+
+    <p>「ほぼ通さない RO」と「実際にする匂い」のギャップは、化学を一段深く見ると <strong class="vermilion">パラドックスではなく必然</strong>として現れる。サイズだけのフィルターではなく溶解拡散モデルで動く膜は、小分子中性物質を通す。純水は化学的に飢えており、後段塩素は安全のため意図的に残される。</p>
+
+    <p>匂いは多くの場合、システムの故障ではなく <strong>設計のトレードオフ</strong>の現れだ。化学を知れば、何が trade-off になっているか、どこに改善余地があるかが見える。それが本特集の射程である。</p>
+
+    <p class="byline" style="margin-top:48px;">— 編集部 —</p>
+  </div>
+</article>
+
+<footer class="colophon">
+  <div class="colophon-inner">
+    <h3>奥付 — COLOPHON</h3>
+    <div class="colophon-grid">
+      <div>
+        <dt>編集</dt><dd>素子 (Hidenori Ikeda 専属 CTO / Anthropic Claude)</dd>
+        <dt>発行</dt><dd>水化学誌編集部 / 2026年5月13日</dd>
+        <dt>対象読者</dt><dd>高等学校 化学Ⅰ・Ⅱ 履修者および同等の知識を持つ大人</dd>
+      </div>
+      <div>
+        <dt>使用フォント</dt><dd>Shippori Mincho B1 / Noto Serif JP / Fraunces / EB Garamond / JetBrains Mono</dd>
+        <dt>底本</dt><dd>本誌の基礎解説: <a href="https://ikedhidenori.github.io/jp/interactive-0a952b392547f2b8.html">水ノヒミツ放送局 EP.01 (中学生版)</a></dd>
+      </div>
+      <div>
+        <dt>主要参考</dt>
+        <dd>
+          <a href="https://ja.wikipedia.org/wiki/逆浸透膜" target="_blank">逆浸透膜 (Wikipedia)</a><br>
+          <a href="https://en.wikipedia.org/wiki/Hypochlorous_acid" target="_blank">Hypochlorous acid (Wikipedia)</a><br>
+          <a href="https://www.epa.gov/dwreginfo/chloramines-drinking-water" target="_blank">US EPA — Chloramines</a><br>
+          <a href="https://monell.org/what-makes-a-molecule-smell/" target="_blank">Monell — What Makes a Molecule Smell?</a>
+        </dd>
+      </div>
+    </div>
+    <div class="seal">— FIN —</div>
+  </div>
+</footer>
+
+<nav class="nav-sticky">
+  <a href="#ch1">Ⅰ</a>
+  <a href="#ch2">Ⅱ</a>
+  <a href="#ch3">Ⅲ</a>
+  <a href="#ch4">Ⅳ</a>
+  <a href="#ch5">Ⅴ</a>
+  <a href="#ch6">Ⅵ</a>
+</nav>
+
+<script>
+// ============ 嗅覚閾値ベンチマーク ============
+document.querySelectorAll('#threshold-list button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#threshold-list button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const otc = parseFloat(btn.dataset.otc);
+    const name = btn.dataset.name;
+    const feel = btn.dataset.feel;
+    document.getElementById('threshold-readout').innerHTML =
+      `<strong>${name}</strong> の嗅覚閾値 (OTC):<br>` +
+      `<span class="big">${otc}</span> μg/L (= <span class="big">${otc*1000}</span> ng/L)<br><br>` +
+      `感覚的スケール → <em>${feel}</em>`;
+  });
+});
+
+// ============ 周期表 ============
+document.querySelectorAll('#pt-grid .pt-cell').forEach(cell => {
+  cell.addEventListener('click', () => {
+    document.querySelectorAll('#pt-grid .pt-cell').forEach(c => c.style.outline = '');
+    cell.style.outline = '3px solid #C3392D';
+    document.getElementById('pt-readout').innerHTML =
+      `<strong>${cell.dataset.name}</strong> — ${cell.dataset.info}`;
+  });
+});
+
+// ============ Henderson-Hasselbalch 計算機 ============
+const phEl = document.getElementById('hh-ph');
+const totalEl = document.getElementById('hh-total');
+const tempEl = document.getElementById('hh-temp');
+const phVal = document.getElementById('hh-ph-val');
+const totalVal = document.getElementById('hh-total-val');
+const tempVal = document.getElementById('hh-temp-val');
+const alphaEl = document.getElementById('hh-alpha');
+const hcloEl = document.getElementById('hh-hclo');
+const cloEl = document.getElementById('hh-clo');
+const otcEl = document.getElementById('hh-otc');
+const labelEl = document.getElementById('hh-label');
+
+function updateHH() {
+  const pH = parseFloat(phEl.value);
+  const tot = parseFloat(totalEl.value);
+  const T = parseFloat(tempEl.value);
+  const pKa = 7.53;
+  const ratio = Math.pow(10, pH - pKa);
+  const alpha = 1 / (1 + ratio);
+  const hclo = tot * alpha;
+  const clo = tot * (1 - alpha);
+  const otc_mg = 0.1;
+  const otc_ratio = hclo / otc_mg;
+
+  phVal.textContent = pH.toFixed(1);
+  totalVal.textContent = tot.toFixed(2);
+  tempVal.textContent = T;
+  alphaEl.textContent = (alpha * 100).toFixed(1);
+  hcloEl.textContent = hclo.toFixed(3);
+  cloEl.textContent = clo.toFixed(3);
+  otcEl.textContent = otc_ratio.toFixed(1);
+
+  let label;
+  if (otc_ratio < 1) label = '閾値以下 — ほぼ無臭';
+  else if (otc_ratio < 3) label = '弱い匂い';
+  else if (otc_ratio < 10) label = '明確な匂い';
+  else if (otc_ratio < 30) label = 'はっきり匂う';
+  else label = '強烈 — 不快域';
+  labelEl.textContent = label;
+}
+[phEl, totalEl, tempEl].forEach(el => el.addEventListener('input', updateHH));
+updateHH();
+
+// ============ 考察問題トグル ============
+document.querySelectorAll('.problem-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = document.getElementById(btn.dataset.target);
+    t.classList.toggle('shown');
+    btn.textContent = t.classList.contains('shown') ? '解答を閉じる' : '解答を見る';
+  });
+});
+</script>
+</body>
+</html>
