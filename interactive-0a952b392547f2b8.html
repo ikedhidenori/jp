@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>水ノヒミツ放送局 第1話｜ROってなに？ニオイの正体を追え！</title>
+<meta name="description" content="ROフィルターのしくみと、水のニオイの正体を、中学生でもわかるように解説する教育コンテンツ。クイズ・実験シミュレーション付き。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=RocknRoll+One&family=Zen+Maru+Gothic:wght@500;700;900&family=Caprasimo&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --paper: #F8F1DC;
+  --paper-warm: #F2E7C9;
+  --ink: #1A1F2E;
+  --blue: #1B4F8C;
+  --blue-deep: #0D2A50;
+  --red: #E5462E;
+  --red-deep: #B7311E;
+  --yellow: #FFC93C;
+  --yellow-deep: #E5A610;
+  --lime: #8FBF3A;
+  --pink: #FF6B9D;
+  --teal: #2C9C9C;
+  --shadow: #1A1F2E;
+}
+
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 500;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,201,60,0.08) 0%, transparent 30%),
+    radial-gradient(circle at 90% 80%, rgba(229,70,46,0.06) 0%, transparent 30%),
+    repeating-linear-gradient(45deg, transparent 0 19px, rgba(26,31,46,0.015) 19px 20px);
+}
+
+/* ====== マーキー ====== */
+.marquee {
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: 'Reggae One', sans-serif;
+  padding: 8px 0;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  letter-spacing: 0.1em;
+  border-bottom: 4px solid var(--red);
+}
+.marquee-inner {
+  display: inline-block;
+  animation: scroll 30s linear infinite;
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ====== ヘッダー ====== */
+.header {
+  padding: 60px 24px 80px;
+  text-align: center;
+  position: relative;
+  background:
+    radial-gradient(ellipse at top, rgba(27,79,140,0.12) 0%, transparent 60%),
+    var(--paper);
+  border-bottom: 3px dashed var(--ink);
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 30px; left: 30px;
+  width: 60px; height: 60px;
+  background: var(--red);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.7;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 50px; right: 30px;
+  width: 80px; height: 80px;
+  background: var(--yellow);
+  z-index: -1;
+  opacity: 0.5;
+  transform: rotate(15deg);
+}
+.station-logo {
+  display: inline-block;
+  padding: 6px 18px;
+  border: 3px solid var(--ink);
+  font-family: 'Reggae One', sans-serif;
+  font-size: 16px;
+  background: var(--paper);
+  margin-bottom: 24px;
+  letter-spacing: 0.08em;
+  transform: rotate(-1.5deg);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.ep-num {
+  font-family: 'Caprasimo', serif;
+  font-size: 18px;
+  color: var(--red);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+  display: block;
+}
+.title {
+  font-family: 'Reggae One', sans-serif;
+  font-size: clamp(40px, 8vw, 88px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+  position: relative;
+}
+.title em {
+  font-style: normal;
+  color: var(--red);
+  font-size: 1.15em;
+  display: inline-block;
+  transform: rotate(-3deg);
+  background: var(--yellow);
+  padding: 0 12px;
+  margin: 0 6px;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.subtitle {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 18px;
+  color: var(--blue);
+  margin-top: 12px;
+  letter-spacing: 0.05em;
+}
+.opening-chars {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.character {
+  width: 110px;
+  text-align: center;
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 13px;
+  color: var(--blue-deep);
+}
+.char-face {
+  width: 90px; height: 90px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  box-shadow: 4px 4px 0 var(--ink);
+  animation: bob 2s ease-in-out infinite;
+}
+.character:nth-child(2) .char-face { animation-delay: 0.3s; }
+.character:nth-child(3) .char-face { animation-delay: 0.6s; }
+.char-face.c1 { background: #6EC1E4; }
+.char-face.c2 { background: var(--yellow); }
+.char-face.c3 { background: var(--pink); }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+/* ====== ナビ ====== */
+.chapter-nav {
+  position: sticky;
+  top: 0;
+  background: var(--ink);
+  z-index: 50;
+  padding: 12px 16px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  border-bottom: 3px solid var(--yellow);
+  scrollbar-width: thin;
+}
+.chapter-nav a {
+  flex-shrink: 0;
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 13px;
+  color: var(--paper);
+  text-decoration: none;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.06);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  transition: all 0.2s;
+}
+.chapter-nav a:hover { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
+
+/* ====== チャプター共通 ====== */
+.chapter {
+  padding: 80px 24px 100px;
+  max-width: 820px;
+  margin: 0 auto;
+  position: relative;
+}
+.chapter-tag {
+  display: inline-block;
+  font-family: 'Caprasimo', serif;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  background: var(--ink);
+  color: var(--yellow);
+  padding: 4px 14px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+}
+h2 {
+  font-family: 'Reggae One', sans-serif;
+  font-size: clamp(32px, 5.5vw, 52px);
+  line-height: 1.15;
+  margin-bottom: 28px;
+  letter-spacing: 0.01em;
+  position: relative;
+  display: inline-block;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 60%; height: 8px;
+  background: var(--yellow);
+  z-index: -1;
+}
+h3 {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 22px;
+  margin: 32px 0 16px;
+  color: var(--blue-deep);
+}
+p { margin-bottom: 16px; font-size: 16.5px; }
+.lead {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--blue-deep);
+}
+
+/* ====== テロップ風 強調ボックス ====== */
+.telop {
+  display: flex;
+  align-items: stretch;
+  margin: 28px 0;
+  border: 3px solid var(--ink);
+  background: var(--paper-warm);
+  box-shadow: 6px 6px 0 var(--ink);
+  position: relative;
+  transform: rotate(-0.3deg);
+}
+.telop-tag {
+  background: var(--red);
+  color: var(--paper);
+  font-family: 'Reggae One', sans-serif;
+  padding: 14px 14px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  border-right: 3px solid var(--ink);
+}
+.telop-body {
+  padding: 18px 22px;
+  font-size: 17px;
+  font-weight: 700;
+  flex: 1;
+}
+.telop-body strong {
+  background: var(--yellow);
+  padding: 0 4px;
+}
+
+/* ====== クイズ ====== */
+.quiz {
+  margin: 40px 0;
+  padding: 28px;
+  background: var(--paper-warm);
+  border: 3px solid var(--ink);
+  border-radius: 24px 4px 24px 4px;
+  box-shadow: 8px 8px 0 var(--blue);
+  position: relative;
+}
+.quiz::before {
+  content: 'クイズ';
+  position: absolute;
+  top: -18px; left: 24px;
+  background: var(--red);
+  color: var(--paper);
+  font-family: 'Reggae One', sans-serif;
+  padding: 4px 16px;
+  border: 3px solid var(--ink);
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  transform: rotate(-2deg);
+}
+.quiz h3 { margin-top: 0; color: var(--ink); }
+.quiz-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.quiz-card {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 16px;
+  padding: 22px 12px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 4px 4px 0 var(--ink);
+  text-align: center;
+  line-height: 1.4;
+}
+.quiz-card .emoji { display: block; font-size: 40px; margin-bottom: 6px; }
+.quiz-card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); background: var(--yellow); }
+.quiz-card:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+.quiz-card.correct { background: var(--lime); }
+.quiz-card.incorrect { background: var(--pink); opacity: 0.6; }
+.quiz-result {
+  margin-top: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 16px;
+  display: none;
+}
+.quiz-result.show { display: block; animation: pop 0.3s ease; }
+.quiz-result.correct-msg { background: var(--lime); border: 3px solid var(--ink); }
+.quiz-result.incorrect-msg { background: var(--pink); border: 3px solid var(--ink); }
+@keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+/* ====== 分子 vs イオン デモ ====== */
+.mol-demo {
+  margin: 40px 0;
+  background: var(--paper-warm);
+  border: 3px solid var(--ink);
+  padding: 24px;
+  border-radius: 16px;
+}
+.mol-toggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+.mol-toggle button {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 15px;
+  padding: 12px 20px;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: all 0.15s;
+}
+.mol-toggle button.active { background: var(--yellow); transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+.mol-stage {
+  position: relative;
+  height: 280px;
+  background: linear-gradient(180deg, #B8E0FF 0%, #6EC1E4 60%, #4A9DB0 100%);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.mol-stage::before {
+  content: '空気のそら';
+  position: absolute; top: 8px; left: 12px;
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 12px;
+  color: var(--ink);
+  opacity: 0.6;
+}
+.mol-stage::after {
+  content: '水のなか';
+  position: absolute; bottom: 8px; left: 12px;
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 12px;
+  color: var(--paper);
+}
+.water-line {
+  position: absolute;
+  left: 0; right: 0; top: 30%;
+  height: 3px;
+  background: var(--ink);
+  opacity: 0.4;
+}
+.particle {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2.5px solid var(--ink);
+  font-family: 'Caprasimo', serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.mol-label {
+  text-align: center;
+  margin-top: 12px;
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 14px;
+  color: var(--blue-deep);
+  min-height: 24px;
+}
+
+/* ====== RO シミュレーション ====== */
+.ro-sim {
+  margin: 40px 0;
+  background: var(--paper-warm);
+  border: 3px solid var(--ink);
+  padding: 24px;
+  border-radius: 16px;
+}
+.ro-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+.ro-btn {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 13px;
+  padding: 10px 14px;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ro-btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+.ro-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+.ro-btn .dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--ink); }
+.ro-stage {
+  position: relative;
+  height: 360px;
+  background: linear-gradient(180deg, #C8E6F5 0%, #C8E6F5 45%, #2D2D2D 45%, #2D2D2D 55%, #E0F2D8 55%, #E0F2D8 100%);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.ro-membrane-label {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Reggae One', sans-serif;
+  font-size: 14px;
+  color: var(--yellow);
+  letter-spacing: 0.2em;
+  pointer-events: none;
+  z-index: 5;
+}
+.ro-zone-label {
+  position: absolute;
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 13px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 2px 8px;
+}
+.ro-zone-label.top { top: 10px; left: 10px; }
+.ro-zone-label.bottom { bottom: 10px; left: 10px; }
+.ro-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.ro-stat {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 8px 14px;
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 13px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.ro-stat strong { font-family: 'Caprasimo', serif; color: var(--red); font-size: 18px; display: block; }
+
+/* ====== pHスライダー ====== */
+.ph-demo {
+  margin: 40px 0;
+  background: var(--paper-warm);
+  border: 3px solid var(--ink);
+  padding: 28px;
+  border-radius: 16px;
+}
+.ph-slider-wrap {
+  position: relative;
+  margin: 30px 0 16px;
+}
+.ph-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  background: linear-gradient(90deg, #E5462E 0%, #FFC93C 25%, #8FBF3A 50%, #2C9C9C 75%, #1B4F8C 100%);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+.ph-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  cursor: pointer;
+}
+.ph-slider::-moz-range-thumb {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  cursor: pointer;
+}
+.ph-scale {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Caprasimo', serif;
+  font-size: 14px;
+  margin-top: 8px;
+  color: var(--ink);
+}
+.ph-readout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+.ph-card {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 16px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.ph-card .label {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.ph-card .value {
+  font-family: 'Caprasimo', serif;
+  font-size: 28px;
+  color: var(--blue-deep);
+}
+.smell-meter {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.smell-meter-label {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 14px;
+  min-width: 100px;
+}
+.smell-bar {
+  flex: 1;
+  height: 24px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+.smell-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--lime), var(--yellow), var(--red));
+  transition: width 0.25s;
+  width: 50%;
+}
+.smell-bar-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Caprasimo', serif;
+  font-size: 13px;
+  color: var(--ink);
+  text-shadow: 0 0 4px var(--paper);
+}
+
+/* ====== タブ ====== */
+.tabs {
+  margin: 40px 0;
+}
+.tab-buttons {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: -3px;
+  z-index: 2;
+  position: relative;
+}
+.tab-buttons button {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 14px;
+  padding: 12px 16px;
+  background: var(--paper-warm);
+  border: 3px solid var(--ink);
+  border-bottom: none;
+  cursor: pointer;
+  border-radius: 12px 12px 0 0;
+  transition: all 0.15s;
+}
+.tab-buttons button.active {
+  background: var(--yellow);
+  position: relative;
+  top: -4px;
+}
+.tab-content {
+  border: 3px solid var(--ink);
+  padding: 24px;
+  background: var(--paper-warm);
+  border-radius: 0 12px 12px 12px;
+  min-height: 180px;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadein 0.3s; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.tab-panel h4 {
+  font-family: 'Reggae One', sans-serif;
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: var(--red-deep);
+}
+
+/* ====== チャプター背景バリエーション ====== */
+.chapter.alt-bg {
+  background: linear-gradient(180deg, transparent, rgba(255,201,60,0.15), transparent);
+}
+
+/* ====== フッター ====== */
+footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 60px 24px 80px;
+  text-align: center;
+  margin-top: 80px;
+  border-top: 6px solid var(--yellow);
+}
+footer .next-ep {
+  font-family: 'Caprasimo', serif;
+  color: var(--yellow);
+  letter-spacing: 0.2em;
+  margin-bottom: 12px;
+}
+footer h3 {
+  font-family: 'Reggae One', sans-serif;
+  color: var(--paper);
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+footer .credit {
+  font-family: 'DotGothic16', monospace;
+  font-size: 12px;
+  margin-top: 32px;
+  opacity: 0.6;
+  letter-spacing: 0.1em;
+}
+footer a { color: var(--yellow); }
+
+/* ====== ワード強調 ====== */
+.word-pop {
+  display: inline-block;
+  background: var(--yellow);
+  padding: 1px 8px;
+  font-weight: 700;
+  border: 2px solid var(--ink);
+  margin: 0 2px;
+  transform: rotate(-1deg);
+}
+.word-red {
+  color: var(--red-deep);
+  font-weight: 900;
+}
+
+/* ====== カード並び ====== */
+.three-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.three-cards .card {
+  background: var(--paper-warm);
+  border: 3px solid var(--ink);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.three-cards .card .num {
+  font-family: 'Caprasimo', serif;
+  font-size: 32px;
+  color: var(--red);
+  line-height: 1;
+}
+.three-cards .card h4 {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 17px;
+  margin: 8px 0 8px;
+}
+
+/* ====== モバイル ====== */
+@media (max-width: 600px) {
+  .header { padding: 40px 16px 60px; }
+  .chapter { padding: 60px 16px 80px; }
+  .telop { flex-direction: column; }
+  .telop-tag { writing-mode: horizontal-tb; text-orientation: mixed; border-right: none; border-bottom: 3px solid var(--ink); }
+  .ph-readout { grid-template-columns: 1fr; }
+  .ro-stage { height: 300px; }
+}
+</style>
+</head>
+<body>
+
+<div class="marquee">
+  <span class="marquee-inner">
+    ★ 水ノヒミツ放送局 ★ 今夜のテーマ「ROってなに？」 ★ ナビゲーター：みずたまちゃん／えんそ君／ナトリウム博士 ★ 水ノヒミツ放送局 ★ 今夜のテーマ「ROってなに？」 ★ ナビゲーター：みずたまちゃん／えんそ君／ナトリウム博士 ★
+  </span>
+</div>
+
+<header class="header">
+  <span class="station-logo">水ノヒミツ放送局</span>
+  <span class="ep-num">EP.01 — A SCIENTIFIC DOCUMENTARY</span>
+  <h1 class="title">RO<em>って</em>なに？<br>水の<em>ニオイ</em>の正体を追え！</h1>
+  <p class="subtitle">中学1年生から見られる かがくドキュメンタリー</p>
+
+  <div class="opening-chars">
+    <div class="character">
+      <div class="char-face c1">💧</div>
+      <strong>みずたまちゃん</strong><br>水分子(H₂O)
+    </div>
+    <div class="character">
+      <div class="char-face c2">🟡</div>
+      <strong>えんそ君</strong><br>塩素ガス(Cl₂)
+    </div>
+    <div class="character">
+      <div class="char-face c3">⚡</div>
+      <strong>イオン博士</strong><br>Na⁺ / Cl⁻
+    </div>
+  </div>
+</header>
+
+<nav class="chapter-nav">
+  <a href="#ch1">① ニオイのしょうたい</a>
+  <a href="#ch2">② ぶんし vs イオン</a>
+  <a href="#ch3">③ ROのしくみ</a>
+  <a href="#ch4">④ なぜニオウのか？</a>
+  <a href="#ch5">⑤ じっけんラボ</a>
+  <a href="#ch6">⑥ かくにんテスト</a>
+</nav>
+
+<!-- ========== CH1 ========== -->
+<section class="chapter" id="ch1">
+  <span class="chapter-tag">CHAPTER 01</span>
+  <h2>そもそも「ニオイ」ってなに？</h2>
+
+  <p class="lead">あたりまえに使ってる「ニオイ」って言葉。じつは <span class="word-pop">空気にとびだしてきた小さなツブ</span> のことなんだ。</p>
+
+  <p>君の鼻のおくには、ニオイをキャッチするセンサーがある。でもセンサーはエアコンの風みたいに <strong>空気にのって運ばれてくる粒</strong> しか感じとれない。だから——</p>
+
+  <div class="telop">
+    <div class="telop-tag">ココ重要</div>
+    <div class="telop-body">
+      ニオイ＝<strong>空気の中をフワフワ飛べる小さなツブ（＝分子）</strong>。<br>
+      飛べないものは、どんなに近くにあっても匂わない！
+    </div>
+  </div>
+
+  <h3>たしかめてみよう</h3>
+  <p>キッチンにある食塩、嗅いでみて。…なんにも匂わないよね？でも、プールに行ったとき「ちょっとツンとする匂い」がしたことはない？それが塩素のニオイ。<br><br>
+  ふしぎ。<strong>食塩(NaCl)</strong> も <strong>塩素(Cl)</strong> も、おなじ「塩素なかま」なのに、片方は匂って片方は匂わない。<br>これを解くカギが、次のクイズだ。</p>
+
+  <div class="quiz">
+    <h3>クイズ① つぎのうち、ニオイがするのはどれ？</h3>
+    <p>3つのなかから1つえらんで、カードをクリックしてみて。</p>
+    <div class="quiz-cards" data-quiz="q1">
+      <button class="quiz-card" data-correct="0"><span class="emoji">🧂</span>食塩<br><small>(NaCl)</small></button>
+      <button class="quiz-card" data-correct="1"><span class="emoji">💨</span>塩素ガス<br><small>(Cl₂)</small></button>
+      <button class="quiz-card" data-correct="0"><span class="emoji">🍬</span>砂糖<br><small>(スクロース)</small></button>
+    </div>
+    <div class="quiz-result" id="q1-result"></div>
+  </div>
+</section>
+
+<!-- ========== CH2 ========== -->
+<section class="chapter alt-bg" id="ch2">
+  <span class="chapter-tag">CHAPTER 02</span>
+  <h2>分子とイオン<br>どこがちがう？</h2>
+
+  <p class="lead">同じ「塩素」でも、<span class="word-pop">分子のすがた</span>と <span class="word-pop">イオンのすがた</span>では別人。下の切替ボタンで違いを見てみよう。</p>
+
+  <div class="mol-demo">
+    <div class="mol-toggle">
+      <button class="mol-btn active" data-mode="molecule">🟡 分子モード（中性）</button>
+      <button class="mol-btn" data-mode="ion">⚡ イオンモード（電気あり）</button>
+    </div>
+    <div class="mol-stage" id="mol-stage">
+      <div class="water-line"></div>
+      <!-- particles will be JS-generated -->
+    </div>
+    <p class="mol-label" id="mol-label">分子は電気を持ってないから、フワッと空気にとびだす。→ <strong>ニオイがする</strong></p>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag">ポイント</div>
+    <div class="telop-body">
+      <strong>イオン（電気を持ったツブ）</strong> は、プラスとマイナスがガッチリくっつくから、空気にとびだせない。<br>
+      <strong>中性の分子（電気なし）</strong> は、フワフワ自由に動ける。<br>
+      この「とびだせるかどうか」が、ニオイのありなしを決める！
+    </div>
+  </div>
+
+  <h3>身近な例で確認</h3>
+  <div class="three-cards">
+    <div class="card">
+      <span class="num">①</span>
+      <h4>食塩</h4>
+      <p>水にとけるとイオン (Na⁺ + Cl⁻) になる。電気を持つから飛べない → <strong>無臭</strong></p>
+    </div>
+    <div class="card">
+      <span class="num">②</span>
+      <h4>塩素ガス</h4>
+      <p>Cl₂ は分子。電気なしで自由に飛ぶ → <strong>プールの匂い</strong></p>
+    </div>
+    <div class="card">
+      <span class="num">③</span>
+      <h4>アンモニア</h4>
+      <p>NH₃ ガスは分子で匂うが、水にとけて NH₄⁺ になるとイオン → <strong>水中では匂いにくい</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CH3 ========== -->
+<section class="chapter" id="ch3">
+  <span class="chapter-tag">CHAPTER 03</span>
+  <h2>RO ってなに？<br>水を「こす」最強フィルター</h2>
+
+  <p class="lead">RO は「<strong>Reverse Osmosis</strong>」(ぎゃくしんとう) のりゃく。<br>すっごく細かい <span class="word-pop">あなが0.0001ミリのなんと1000ぶんの1</span> という極小フィルターで水をこすしくみ。</p>
+
+  <p>でも「すごく細かい」だけじゃ説明にならない。<strong>水の分子(0.275nm)よりさらに細かいあな(0.1nm)</strong>なのに、なぜ水だけはスルッと通って、他のものは止まるの？</p>
+
+  <div class="telop">
+    <div class="telop-tag">ふしぎ</div>
+    <div class="telop-body">
+      RO は <strong>ザル</strong> じゃない。膜の中で <strong>「とけて通る」「電気で反発する」</strong> という2つのテクで分けている。それがこの章のキモ！
+    </div>
+  </div>
+
+  <h3>じっけん：何を通して、何を止める？</h3>
+  <p>下のボタンで粒子を投入してみよう。RO膜にぶつかった粒子は、種類によって <strong>止められる</strong> か <strong>通る</strong> かが決まる。</p>
+
+  <div class="ro-sim">
+    <div class="ro-controls">
+      <button class="ro-btn" data-particle="ion-na"><span class="dot" style="background:#E5462E"></span>Na⁺ イオン</button>
+      <button class="ro-btn" data-particle="ion-cl"><span class="dot" style="background:#1B4F8C"></span>Cl⁻ イオン</button>
+      <button class="ro-btn" data-particle="big"><span class="dot" style="background:#8FBF3A"></span>有機物（大）</button>
+      <button class="ro-btn" data-particle="water"><span class="dot" style="background:#B8E0FF;border-color:#1B4F8C"></span>水分子(H₂O)</button>
+      <button class="ro-btn" data-particle="voc"><span class="dot" style="background:#FFC93C"></span>VOC（小）</button>
+      <button class="ro-btn" data-particle="chlorine"><span class="dot" style="background:#FF6B9D"></span>塩素 HClO</button>
+    </div>
+    <div class="ro-stage" id="ro-stage">
+      <div class="ro-zone-label top">↑ 原水ゾーン</div>
+      <div class="ro-zone-label bottom">↓ 処理水ゾーン</div>
+      <div class="ro-membrane-label">─ RO 膜 ─</div>
+    </div>
+    <div class="ro-stats">
+      <div class="ro-stat">通った数<strong id="passed-count">0</strong></div>
+      <div class="ro-stat">止めた数<strong id="blocked-count">0</strong></div>
+      <button class="ro-btn" id="ro-reset" style="background:var(--paper);">🔄 リセット</button>
+    </div>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag">けっか</div>
+    <div class="telop-body">
+      <strong>イオン</strong> と <strong>大きな分子</strong> は止まる ◎<br>
+      <strong>水分子・小さなVOC・塩素分子</strong> は通っちゃう！<br>
+      → 「ほぼ通さない」って言葉は、<span class="word-red">イオンと大分子の話</span>だけだったんだ！
+    </div>
+  </div>
+</section>
+
+<!-- ========== CH4 ========== -->
+<section class="chapter alt-bg" id="ch4">
+  <span class="chapter-tag">CHAPTER 04</span>
+  <h2>では「水のニオイ」は<br>どこから来てる？</h2>
+
+  <p class="lead">RO で「ほぼ全部こした」はずなのに、なぜか時々ニオウ。<br>これを解くには、3 つのルートを疑う必要がある。タブを切り替えて、それぞれ見てみよう。</p>
+
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="a">A. ROを通り抜けた</button>
+      <button class="tab-btn" data-tab="b">B. 後から発生した</button>
+      <button class="tab-btn" data-tab="c">C. あとから入れた</button>
+    </div>
+    <div class="tab-content">
+      <div class="tab-panel active" id="tab-a">
+        <h4>A. RO を通り抜けた説</h4>
+        <p>CH3 で見たとおり、<strong>小さなVOC・塩素分子</strong> は RO 膜を通る。<br>
+        水道水のもとに残っていた <strong>カビ臭の物質（ジオスミン）</strong>や<strong>消毒副生成物（トリハロメタン）</strong>もこの仲間で、サイズが水分子に近いとスルッと通ってしまう。<br>
+        だから「原水で匂ってたものはそのまま処理水でも匂う」ことがある。</p>
+      </div>
+      <div class="tab-panel" id="tab-b">
+        <h4>B. 後から発生した説（タンク・容器側）</h4>
+        <p>RO 水は <strong>イオンがほぼゼロ＝とっても純粋</strong>。じつはこれが落とし穴で、純水は <span class="word-pop">なんでも溶かしたがる</span> ようになる。</p>
+        <p>① タンクの中で雑菌がうっすら増える → 嫌気性ガス（卵臭の硫化水素）<br>
+        ② プラスチック容器から微量の成分が溶け出す（ビニール臭）<br>
+        ③ 空気中の VOC を吸いやすい → 開けっぱなしで吸収<br>
+        ④ CO₂ を吸って pH が下がる → 金属配管をかじって金属臭</p>
+      </div>
+      <div class="tab-panel" id="tab-c">
+        <h4>C. あとから入れた説（後段添加）</h4>
+        <p>多くの業務用 RO 浄水システムは、配送・保管中に雑菌が増えないように <strong>RO のあとで わざと塩素を入れなおす</strong> ことがある。これが <span class="word-red">カルキ臭の最大の原因</span>。</p>
+        <p>でもこれは <strong>バグじゃなくて設計</strong>。「ニオイがする＝守られている証」ともいえる。次の章で、塩素のニオイがどんなしくみで強くなったり弱くなったりするか、自分で動かしてみよう。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CH5 ========== -->
+<section class="chapter" id="ch5">
+  <span class="chapter-tag">CHAPTER 05</span>
+  <h2>じっけんラボ<br>pH で塩素のニオイは変わる</h2>
+
+  <p class="lead">水のなかの塩素は、<strong>pH（水の酸性・アルカリ性のものさし）</strong>によって「ニオウすがた(HClO)」と「ニオワないすがた(ClO⁻)」を行ったり来たりする。<br>下のスライダーをぐりぐり動かしてみて。</p>
+
+  <div class="ph-demo">
+    <h3>pH を動かしてみよう</h3>
+    <div class="ph-slider-wrap">
+      <input type="range" min="4" max="10" step="0.1" value="7" class="ph-slider" id="ph-slider">
+      <div class="ph-scale">
+        <span>4<br>酸性</span>
+        <span>6</span>
+        <span>7<br>中性</span>
+        <span>8</span>
+        <span>10<br>アルカリ</span>
+      </div>
+    </div>
+    <div class="ph-readout">
+      <div class="ph-card">
+        <div class="label">いまの pH</div>
+        <div class="value" id="ph-val">7.0</div>
+      </div>
+      <div class="ph-card" style="background:#FFE5DD;">
+        <div class="label">🔴 HClO<br>(ニオイあり)</div>
+        <div class="value" id="hclo-val">50%</div>
+      </div>
+      <div class="ph-card" style="background:#DDEEFF;">
+        <div class="label">🔵 ClO⁻<br>(ニオイなし)</div>
+        <div class="value" id="clo-val">50%</div>
+      </div>
+    </div>
+    <div class="smell-meter">
+      <div class="smell-meter-label">ニオイの強さ</div>
+      <div class="smell-bar">
+        <div class="smell-bar-fill" id="smell-fill"></div>
+        <div class="smell-bar-text" id="smell-text">ふつう</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag">わかった</div>
+    <div class="telop-body">
+      pH が低い（酸性側）ほど、塩素は <strong>ニオウすがた(HClO)</strong> でいるから匂いがキツくなる。<br>
+      RO水はCO₂を吸って酸性ぎみになりやすいから、塩素を入れると <strong>余計にニオイやすい</strong> んだ。
+    </div>
+  </div>
+
+  <h3>家でできる対処</h3>
+  <div class="three-cards">
+    <div class="card">
+      <span class="num">①</span>
+      <h4>コップで5分待つ</h4>
+      <p>塩素は揮発性。空気にふれてれば自然に抜ける。</p>
+    </div>
+    <div class="card">
+      <span class="num">②</span>
+      <h4>沸かす</h4>
+      <p>1〜2分の煮沸でほぼ無臭になる。料理水なら自動でこうなる。</p>
+    </div>
+    <div class="card">
+      <span class="num">③</span>
+      <h4>冷やす</h4>
+      <p>温度が低いほど揮発しにくい＝感じにくい。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CH6 ========== -->
+<section class="chapter alt-bg" id="ch6">
+  <span class="chapter-tag">CHAPTER 06</span>
+  <h2>かくにんテスト</h2>
+  <p class="lead">最後に2問。番組で学んだことを思い出して答えてみよう！</p>
+
+  <div class="quiz">
+    <h3>クイズ② RO が「通してしまう」のは次のうちどれ？</h3>
+    <div class="quiz-cards" data-quiz="q2">
+      <button class="quiz-card" data-correct="0"><span class="emoji">🧂</span>ナトリウムイオン<br><small>Na⁺</small></button>
+      <button class="quiz-card" data-correct="1"><span class="emoji">💨</span>塩素ガス<br><small>(小さい中性分子)</small></button>
+      <button class="quiz-card" data-correct="0"><span class="emoji">🦠</span>細菌<br><small>(大きい)</small></button>
+    </div>
+    <div class="quiz-result" id="q2-result"></div>
+  </div>
+
+  <div class="quiz">
+    <h3>クイズ③ 「RO水なのに匂う」最大の原因は？</h3>
+    <div class="quiz-cards" data-quiz="q3">
+      <button class="quiz-card" data-correct="0"><span class="emoji">🦠</span>細菌が<br>通り抜けた</button>
+      <button class="quiz-card" data-correct="0"><span class="emoji">⚡</span>イオンが<br>通り抜けた</button>
+      <button class="quiz-card" data-correct="1"><span class="emoji">🧪</span>あとから<br>塩素を入れた</button>
+    </div>
+    <div class="quiz-result" id="q3-result"></div>
+  </div>
+
+  <div class="telop">
+    <div class="telop-tag">まとめ</div>
+    <div class="telop-body">
+      ① ニオイ＝<strong>空気にとびだす中性分子</strong>。イオンは無臭。<br>
+      ② RO は<strong>イオンと大分子は止める</strong>が、小さな中性分子（塩素・VOC）は通す。<br>
+      ③ ROなのに匂う最大の原因は <strong>あとから入れた塩素</strong>。これは安全のための設計。<br><br>
+      <span class="word-red">「匂い＝悪いもの」とはかぎらない。何のニオイか、ちゃんと見分けよう。</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="next-ep">NEXT EPISODE</div>
+  <h3>第2話「水道水のヒミツ<br>塩素は敵か味方か」</h3>
+  <p>※ 制作未定</p>
+  <p class="credit">
+    水ノヒミツ放送局 EP.01 / 2026.05.13 制作<br>
+    出典: <a href="https://ja.wikipedia.org/wiki/逆浸透膜" target="_blank">逆浸透膜 (Wikipedia)</a> /
+    <a href="https://www.epa.gov/dwreginfo/chloramines-drinking-water" target="_blank">US EPA chloramines</a> /
+    <a href="https://monell.org/what-makes-a-molecule-smell/" target="_blank">Monell: What Makes a Molecule Smell?</a><br>
+    元解説: ~/gits-system/wiki/30-wiki/water/ro-and-odor.md
+  </p>
+</footer>
+
+<script>
+// ============================================================
+// クイズ
+// ============================================================
+const quizExplanations = {
+  q1: {
+    correct: '正かい！塩素ガス(Cl₂)は電気を持たない中性分子。空気にスルスル飛び出すから「ツン」と匂う。食塩はイオンで飛べないし、砂糖は分子だけど大きすぎて飛びにくい。',
+    incorrect: 'ざんねん！正解は<strong>塩素ガス(Cl₂)</strong>。食塩(NaCl)は水にとけるとイオンになって飛べない。砂糖も大きすぎて空気に出にくい。<br>「電気を持たない、空気にとびだせる、小さな分子」だけが匂うんだ。'
+  },
+  q2: {
+    correct: '正かい！RO は <strong>イオン・大分子はバッチリ止める</strong>けど、塩素ガスみたいな小さい中性分子は通り抜けてしまう。だから市販RO浄水器の多くは、後ろに活性炭フィルターを付けている。',
+    incorrect: 'ざんねん！正解は<strong>塩素ガス</strong>。<br>Na⁺ イオンは膜の電気で反発、細菌は大きさで止まる。でも小さな中性分子は水と同じように通ってしまう。'
+  },
+  q3: {
+    correct: '正かい！プレフィルター + RO + 塩素 という設計の場合、<strong>RO のあとでわざと塩素を入れている</strong>。これは雑菌が増えないようにする安全装置。「匂い＝守られている証」とも言える。',
+    incorrect: 'ざんねん！正解は<strong>あとから塩素を入れた</strong>。<br>細菌もイオンも RO で止まる。でも雑菌防止のため、後ろから塩素を再添加する設計が多い。これが匂いの最大の原因。'
+  }
+};
+
+document.querySelectorAll('[data-quiz]').forEach(group => {
+  const quizId = group.getAttribute('data-quiz');
+  const result = document.getElementById(quizId + '-result');
+  group.querySelectorAll('.quiz-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isCorrect = btn.getAttribute('data-correct') === '1';
+      group.querySelectorAll('.quiz-card').forEach(b => {
+        if (b.getAttribute('data-correct') === '1') b.classList.add('correct');
+        else b.classList.add('incorrect');
+        b.disabled = true;
+      });
+      result.classList.add('show');
+      result.classList.add(isCorrect ? 'correct-msg' : 'incorrect-msg');
+      result.innerHTML = (isCorrect ? '🎉 ' : '😅 ') + quizExplanations[quizId][isCorrect ? 'correct' : 'incorrect'];
+    });
+  });
+});
+
+// ============================================================
+// 分子 vs イオン
+// ============================================================
+const molStage = document.getElementById('mol-stage');
+const molLabel = document.getElementById('mol-label');
+let molMode = 'molecule';
+let molParticles = [];
+
+function createMolParticles() {
+  molStage.querySelectorAll('.particle').forEach(p => p.remove());
+  molParticles = [];
+  const count = 12;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const x = 30 + Math.random() * (molStage.clientWidth - 60);
+    const y = molStage.clientHeight * 0.4 + Math.random() * molStage.clientHeight * 0.5;
+    p.style.left = x + 'px';
+    p.style.top = y + 'px';
+    if (molMode === 'molecule') {
+      p.style.background = '#FFC93C';
+      p.innerHTML = 'Cl<sub>2</sub>';
+      molParticles.push({ el: p, x, y, vx: (Math.random() - 0.5) * 1.5, vy: -Math.random() * 1.2, mode: 'molecule' });
+    } else {
+      const isPositive = i % 2 === 0;
+      p.style.background = isPositive ? '#E5462E' : '#1B4F8C';
+      p.style.color = '#fff';
+      p.innerHTML = isPositive ? 'Na+' : 'Cl-';
+      molParticles.push({ el: p, x, y, vx: (Math.random() - 0.5) * 0.4, vy: 0, mode: 'ion', charge: isPositive ? 1 : -1 });
+    }
+    molStage.appendChild(p);
+  }
+}
+
+function animateMol() {
+  const stageW = molStage.clientWidth;
+  const stageH = molStage.clientHeight;
+  const waterLineY = stageH * 0.3;
+
+  molParticles.forEach(p => {
+    if (p.mode === 'molecule') {
+      // 分子モード: 浮力で上にとびだす
+      p.vy -= 0.02;
+      p.vx *= 0.99;
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 15) { p.x = 15; p.vx = Math.abs(p.vx); }
+      if (p.x > stageW - 35) { p.x = stageW - 35; p.vx = -Math.abs(p.vx); }
+      if (p.y > stageH - 35) { p.y = stageH - 35; p.vy = -Math.abs(p.vy) * 0.5; }
+      // とびだしたら下から再登場
+      if (p.y < -20) {
+        p.y = stageH - 20;
+        p.x = 30 + Math.random() * (stageW - 60);
+        p.vy = -Math.random() * 1.2;
+        p.vx = (Math.random() - 0.5) * 1.5;
+      }
+    } else {
+      // イオンモード: 水面のラインの下にとどまる、反対電荷に引き寄せられる
+      let fx = 0, fy = 0;
+      molParticles.forEach(q => {
+        if (q === p) return;
+        const dx = q.x - p.x;
+        const dy = q.y - p.y;
+        const d2 = dx*dx + dy*dy + 100;
+        const force = (-p.charge * q.charge) / d2 * 30;
+        fx += force * dx / Math.sqrt(d2);
+        fy += force * dy / Math.sqrt(d2);
+      });
+      p.vx = (p.vx + fx * 0.02) * 0.85;
+      p.vy = (p.vy + fy * 0.02) * 0.85;
+      p.x += p.vx;
+      p.y += p.vy;
+      // 水面で跳ね返す（とびだせない）
+      if (p.y < waterLineY + 5) { p.y = waterLineY + 5; p.vy = Math.abs(p.vy) * 0.6; }
+      if (p.y > stageH - 35) { p.y = stageH - 35; p.vy = -Math.abs(p.vy) * 0.5; }
+      if (p.x < 15) { p.x = 15; p.vx = Math.abs(p.vx); }
+      if (p.x > stageW - 35) { p.x = stageW - 35; p.vx = -Math.abs(p.vx); }
+    }
+    p.el.style.left = p.x + 'px';
+    p.el.style.top = p.y + 'px';
+  });
+  requestAnimationFrame(animateMol);
+}
+
+document.querySelectorAll('.mol-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mol-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    molMode = btn.getAttribute('data-mode');
+    molLabel.innerHTML = molMode === 'molecule'
+      ? '分子は電気を持ってないから、フワッと空気にとびだす。→ <strong>ニオイがする</strong>'
+      : 'イオンはプラスとマイナスがガッチリ引き合うから、水のなかから出られない。→ <strong>ニオイがしない</strong>';
+    createMolParticles();
+  });
+});
+
+createMolParticles();
+animateMol();
+
+// ============================================================
+// RO シミュレーション
+// ============================================================
+const roStage = document.getElementById('ro-stage');
+let roParticles = [];
+let passedCount = 0, blockedCount = 0;
+const passedCountEl = document.getElementById('passed-count');
+const blockedCountEl = document.getElementById('blocked-count');
+
+const particleSpecs = {
+  'ion-na':   { color: '#E5462E', label: 'Na+', size: 24, pass: false },
+  'ion-cl':   { color: '#1B4F8C', label: 'Cl-', size: 24, pass: false, white: true },
+  'big':      { color: '#8FBF3A', label: '有機', size: 34, pass: false, fontSize: 10 },
+  'water':    { color: '#B8E0FF', label: 'H₂O', size: 20, pass: true, borderColor: '#1B4F8C', fontSize: 10 },
+  'voc':      { color: '#FFC93C', label: 'VOC', size: 22, pass: true, fontSize: 10 },
+  'chlorine': { color: '#FF6B9D', label: 'HClO', size: 22, pass: true, fontSize: 10, white: true }
+};
+
+document.querySelectorAll('[data-particle]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.getAttribute('data-particle');
+    addRoParticle(type);
+  });
+});
+
+function addRoParticle(type) {
+  const spec = particleSpecs[type];
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.width = spec.size + 'px';
+  p.style.height = spec.size + 'px';
+  p.style.background = spec.color;
+  if (spec.borderColor) p.style.borderColor = spec.borderColor;
+  if (spec.white) p.style.color = '#fff';
+  if (spec.fontSize) p.style.fontSize = spec.fontSize + 'px';
+  p.innerHTML = spec.label;
+  const stageW = roStage.clientWidth;
+  const x = 20 + Math.random() * (stageW - 60);
+  const y = 20;
+  p.style.left = x + 'px';
+  p.style.top = y + 'px';
+  roStage.appendChild(p);
+  roParticles.push({
+    el: p, x, y, vy: 1 + Math.random() * 0.5, vx: (Math.random() - 0.5) * 0.3,
+    pass: spec.pass, counted: false, size: spec.size
+  });
+}
+
+function animateRo() {
+  const stageW = roStage.clientWidth;
+  const stageH = roStage.clientHeight;
+  const membraneY = stageH * 0.45;
+  const membraneEndY = stageH * 0.55;
+
+  roParticles = roParticles.filter(p => {
+    p.y += p.vy;
+    p.x += p.vx;
+
+    if (p.x < 5) { p.x = 5; p.vx = Math.abs(p.vx); }
+    if (p.x > stageW - p.size - 5) { p.x = stageW - p.size - 5; p.vx = -Math.abs(p.vx); }
+
+    // 膜での判定
+    if (!p.counted) {
+      if (p.y >= membraneY - p.size && p.y <= membraneY) {
+        if (!p.pass) {
+          // 止まる：少し跳ね返って上の領域に戻る
+          p.vy = -Math.abs(p.vy) * 0.6;
+          p.vx = (Math.random() - 0.5) * 1.5;
+          p.counted = true;
+          blockedCount++;
+          blockedCountEl.textContent = blockedCount;
+          p.el.style.borderColor = '#E5462E';
+          p.el.style.borderWidth = '3px';
+        } else {
+          // 通る
+          p.y = membraneEndY + 2;
+          p.vy = Math.abs(p.vy);
+          p.counted = true;
+          passedCount++;
+          passedCountEl.textContent = passedCount;
+        }
+      }
+    } else {
+      // 通過後・反射後の動き
+      if (p.pass) {
+        if (p.y > stageH - p.size - 5) { p.y = stageH - p.size - 5; p.vy = -Math.abs(p.vy) * 0.4; }
+      } else {
+        // 反射した粒子は上ゾーンで漂う
+        if (p.y < 5) { p.y = 5; p.vy = Math.abs(p.vy) * 0.5; }
+        if (p.y > membraneY - p.size - 2) { p.y = membraneY - p.size - 2; p.vy = -Math.abs(p.vy) * 0.5; }
+        p.vy += 0.02;
+      }
+    }
+
+    p.el.style.left = p.x + 'px';
+    p.el.style.top = p.y + 'px';
+
+    // 10秒以上は削除
+    p.life = (p.life || 0) + 1;
+    if (p.life > 600) {
+      p.el.remove();
+      return false;
+    }
+    return true;
+  });
+
+  requestAnimationFrame(animateRo);
+}
+
+document.getElementById('ro-reset').addEventListener('click', () => {
+  roParticles.forEach(p => p.el.remove());
+  roParticles = [];
+  passedCount = 0; blockedCount = 0;
+  passedCountEl.textContent = '0';
+  blockedCountEl.textContent = '0';
+});
+
+animateRo();
+
+// ============================================================
+// pH スライダー
+// ============================================================
+const phSlider = document.getElementById('ph-slider');
+const phVal = document.getElementById('ph-val');
+const hcloVal = document.getElementById('hclo-val');
+const cloVal = document.getElementById('clo-val');
+const smellFill = document.getElementById('smell-fill');
+const smellText = document.getElementById('smell-text');
+
+function updatePh() {
+  const ph = parseFloat(phSlider.value);
+  // HClO ⇌ H+ + ClO-, pKa = 7.53
+  const pKa = 7.53;
+  const ratio = Math.pow(10, ph - pKa); // [ClO-]/[HClO]
+  const hcloPercent = 100 / (1 + ratio);
+  const cloPercent = 100 - hcloPercent;
+
+  phVal.textContent = ph.toFixed(1);
+  hcloVal.textContent = hcloPercent.toFixed(0) + '%';
+  cloVal.textContent = cloPercent.toFixed(0) + '%';
+
+  // ニオイ強度 = HClO%
+  smellFill.style.width = hcloPercent + '%';
+  let label = 'ふつう';
+  if (hcloPercent > 80) label = 'ツーン！(キツい)';
+  else if (hcloPercent > 60) label = '強い';
+  else if (hcloPercent > 40) label = 'ふつう';
+  else if (hcloPercent > 20) label = '弱い';
+  else label = 'ほぼ無臭';
+  smellText.textContent = label;
+}
+phSlider.addEventListener('input', updatePh);
+updatePh();
+
+// ============================================================
+// タブ
+// ============================================================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.getAttribute('data-tab');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
