@@ -2933,7 +2933,248 @@ Phase 3: 営業開始 (1 ヶ月)
 8. <strong>鹿児島県保健所 (屋久島出張所) との簡易宿所事前協議</strong><br />
 9. <strong>国産 Cinderella 焼却トイレ取扱業者</strong> へのスペック・価格問合せ<br />
 10. <strong>PurePods Biolytix の日本浄化槽法対応</strong> (国土交通省認定機種の Biolytix 系存否確認)</p>
-<div class="ttl-footer">⏰ このページは <strong>2026-05-17 01:25 JST</strong> に自動削除されます (TTL 再延長 72h)<br>🆔 ID: 803d73f88f82db1a / 🔄 2026-05-14 更新 (Part II 追加: コンセプト言語化 + 世界事例 + インフラ Capex/Opex)</div>
+<hr />
+<h1>Part IV: NotebookLM 用プロンプト 3 種 (スライド / インフォグラフィック / 音声解説)</h1>
+<p>(2026-05-14 追加依頼。本レポートは情報量が膨大なため、NotebookLM にアップロード後に Studio / カスタムプロンプトで二次加工する前提)</p>
+<h2>使い方</h2>
+<ol>
+<li>本レポートの最新版 HTML を NotebookLM の「ソース」として URL 追加 ( https://ikedhidenori.github.io/jp/article-803d73f88f82db1a.html )</li>
+<li>または plan ファイル本体をテキストでコピペでも可</li>
+<li>下記 3 プロンプトを目的に応じて NotebookLM の「カスタマイズ」or「チャット」に投入</li>
+</ol>
+<h2>A. スライド構成プロンプト (NotebookLM → Gamma / Tome / Google Slides 引き渡し用)</h2>
+<pre><code>あなたはトッププレゼンデザイナーです。
+このソース全体を 25 スライドの構成に変換してください。
+
+【全体方針】
+- 聴衆: 屋久島で小規模高級リゾート (modern wilderness luxury) を立ち上げたい
+  個人投資家・副業起業家 (40 代、Capex ¥1-2 億の意思決定者)
+- 目的: 30 分のプレゼンで意思決定に必要な全体像と数字を渡す
+- トーン: データドリブン、ただし 1 行コンセプトを冒頭・中盤・末尾で繰り返す
+- 言語: 日本語
+- デザイン: モノクロベース + アクセント色 1 色 (深緑 #2b7a78)、Sans-serif、写真は実写自然風景
+
+【スライドフォーマット】 (各スライド統一)
+[Slide N] タイトル (16 字以内)
+Key Message: 1 行 (聴衆に最も伝えたい一文)
+Content:
+  - 箇条書き 3-4 点 (各 30 字以内)
+Visual: 推奨ビジュアル (グラフ種類 / 図 / 表 / 写真 / アイコン)
+Speaker Notes: 発表者ノート 2-3 行
+Source: 本レポートの該当章番号
+
+【スライド順序】
+1. 表紙: 「建築は最小、景観は最大」/ Architecture minimum, Landscape maximum
+2. 問題提起: 既存宿泊事業の 4 つの限界 (ヴィラ重い / グランピング軽すぎ / 別荘集客なし / オーベルジュ密度高)
+3. 新しい層の需要: モダンラグジュアリー + 冒険 + 内外境界融合
+4. ジョニーの 5 特徴 (絶景占有 / アウトドアリビング / モダンラグジュアリー / 建築最小 / フルサービス)
+5. 業界用語化マッピング (5 特徴 → 5 業界キーワード)
+6. 1 行コンセプト + 競合がいない象限の発見
+7. 既存カテゴリ境界線 (vs グランピング)
+8. 既存カテゴリ境界線 (vs Aman / オーベルジュ / コテージ)
+9. ポジショニングマップ A (建築規模 × ラグジュアリー度)
+10. ポジショニングマップ B (内外境界融合 × サービス充実)
+11. ポジショニングマップ C (冒険要素 × 滞在密度)
+12. 世界類似事例 ティア 1 (Sheldon Chalet / Camp Sarika / Eleven / Longitude 131)
+13. 世界類似事例 ティア 2 (Naviva FS / ULUM / Manshausen / Treehotel / Lindis / PurePods)
+14. 世界類似事例 ティア 3 (Kabn / WOODNEST / Bird's eye / THE FOREST)
+15. 世界類似事例 ティア 4 (Postcard Cabins / SANU / Under Canvas)
+16. インフラ 8 層スタック (電気/上水/排水/トイレ/風呂/暖房/通信/アウトドア体験)
+17. 12 事例 インフラ仕様 横断比較 (要約版)
+18. インフラ別ベストプラクティス (電気: Solar / 排水: 浄化槽 / 風呂: Ozone)
+19. Capex 1 棟 ¥40-100M の内訳 (12 カテゴリ円グラフ)
+20. Opex 売上比 57-68% の内訳 (清掃/メンテ/OTA手数料/管理)
+21. インフラ費用上昇の影響 (2 年遅延 = 損益分岐 +¥10K/泊)
+22. 日本法令 (旅館業法 5 区分 / 簡易宿所営業 が最適)
+23. 屋久島固有規制 (世界遺産 / 特別保護地区 / 1 ha 未満で林地開発回避)
+24. 各国比較 (NZ 30sqm exemption が PurePods の moat / 日本にはない)
+25. 屋久島 実装最短経路 (Phase 0-3、18-32 ヶ月) + 結論 3 点
+26. 次のアクション (土地選定 / 行政書士 / 1 級建築士 / 司法書士の 3 者同時着手)
+
+全スライドに「該当章番号」を入れ、引用元への戻し動線を確保してください。
+</code></pre>
+<h2>B. インフォグラフィック用プロンプト (3 種、Midjourney / Adobe Firefly / ChatGPT-Image 用)</h2>
+<p>このレポート内で <strong>特にインフォグラフィック化の効果が高い 3 セクション</strong> を選定:</p>
+<h3>B-1. ポジショニングマップ Map A (建築規模 × ラグジュアリー度)</h3>
+<pre><code>プロンプト (Midjourney v6 / Adobe Firefly / ChatGPT-image 共通):
+
+A clean editorial-style positioning map infographic for a luxury hospitality
+report. Horizontal axis: &quot;Architecture Size — Small ⇔ Large&quot;.
+Vertical axis: &quot;Luxury Tier — Mid ⇔ Ultra&quot;.
+Plot the following 17 properties as small minimalist icons with property
+name labels and price/night annotations:
+
+Upper-right (small architecture × ultra luxury) — TARGET ZONE highlighted:
+  - Sheldon Chalet (Alaska, $32K/night)
+  - Camp Sarika by Amangiri ($6,000/night)
+  - Eleven Experience (12 lodges, $$$$$)
+  - Manshausen Sea Cabins (9 cabins, glass)
+  - Treehotel Biosphere (BIG-designed)
+  - ★ &quot;Johnny's Concept&quot; (highlighted with star)
+
+Upper-mid: Naviva FS / Lindis Pods / ULUM Moab / Whitepod / Longitude 131
+Mid-right: PurePods (NZ, $395-550) / Kabn / Bird's eye / THE FOREST
+Mid-left: Aman / Soneva / 星のや / Four Seasons (massive)
+Lower-right: Postcard Cabins / SANU 2nd Home / Cabinscape
+Lower-left: Under Canvas / AfriCamps / generic Airbnb
+
+Style: Swiss-design infographic, editorial magazine quality, monochrome
+background (#fbfaf8) with deep green accent (#2b7a78), Helvetica/Inter font,
+generous whitespace, minimal icons (line art for cabin/tent/pod shapes),
+property logos rendered as small monogram badges.
+
+Highlight &quot;Johnny's Concept&quot; with a subtle radiating glow + star marker.
+Add a callout box: &quot;Open Quadrant — competitors limited at ¥40-60K/night tier&quot;
+
+16:9 landscape orientation, high resolution.
+No people, no text errors, no clutter.
+</code></pre>
+<h3>B-2. インフラ 8 層スタック (Capex 内訳)</h3>
+<pre><code>プロンプト:
+
+A vertical infographic stack diagram showing 8 layers of off-grid luxury
+cabin infrastructure for a Japanese mountain/island resort. Each layer is
+a horizontal band with:
+  - Layer icon (left, line art)
+  - Layer name (center, bold)
+  - Capex range in JPY (right)
+  - 1-line description (below)
+
+Layer order top-to-bottom:
+1. Power: Solar PV 6kW + LiFePO4 30kWh — ¥4-7M (sun icon)
+2. Water: Stream intake + UV + 5m³ rainwater tank — ¥1.5-3M (water drop icon)
+3. Wastewater: Aerobic septic 5-person — ¥1.2-1.8M (filter icon)
+4. Toilet: Low-flow 3.8L water closet — ¥0.5-1M (toilet icon)
+5. Bath/Pool: Plunge pool 8m³ + hot tub + wood sauna — ¥4-7M (water wave icon)
+6. Heating: Wood stove + underfloor + AC — ¥1.5-3M (flame icon)
+7. Communication: Starlink Standard + Wi-Fi 6 — ¥0.1M (satellite icon)
+8. Outdoor Experience: Firepit + large-opening windows + deck — included
+   above (campfire icon)
+
+Total Capex: ¥13.8-22.8M / cabin (highlighted at bottom in a bold band)
+
+Style: Swiss-design, monochrome (#fbfaf8 background, #2b7a78 accent, #1a1a1a
+text), line-art icons, Helvetica/Inter, generous whitespace.
+
+Side annotation: Compare to &quot;Karuizawa-grade (grid-connected)&quot;: ¥7.2-16.8M
+— save ¥6M but lose off-grid premium pricing power.
+
+9:16 vertical orientation, suitable for Instagram Stories.
+No photos, line art only.
+</code></pre>
+<h3>B-3. Capex / Opex / 5 年回収シミュレーション</h3>
+<pre><code>プロンプト:
+
+A 3-panel financial infographic for a luxury cabin business case.
+
+Panel 1 (left): Donut chart of ¥65M Capex breakdown:
+  - Land 8% (¥5M)
+  - Site prep &amp; access road 8% (¥5M)
+  - Building (40-60 sqm wood) 35% (¥22.5M)
+  - Outdoor amenities (sauna/hot tub/plunge pool) 12% (¥8M)
+  - Power infrastructure 9% (¥6M)
+  - Water/wastewater 5% (¥3.5M)
+  - Interior &amp; furniture 5% (¥3.5M)
+  - Heating/HVAC 4% (¥2.5M)
+  - Communication 1% (¥0.5M)
+  - Landscape 3% (¥2M)
+  - Design &amp; permits 5% (¥3M)
+  - Contingency 5% (¥3.5M)
+
+Panel 2 (center): Stacked bar of annual Opex at ¥8M revenue (55% occupancy
+× ¥40K/night):
+  - Cleaning &amp; linen 15% (¥1.2M)
+  - Maintenance reserve 13% (¥1.0M)
+  - OTA fees 13% (¥1.0M)
+  - Owner mgmt time 10% (¥0.8M)
+  - Utilities 8% (¥0.65M)
+  - Insurance 4% (¥0.3M)
+  - Marketing 7% (¥0.55M)
+  - Tax 3% (¥0.25M)
+  - PMS + other 4% (¥0.35M)
+  - EBITDA margin 23% (¥1.85M)
+
+Panel 3 (right): 5-year cumulative EBITDA line chart, 3 scenarios:
+  - 1 cabin: barely break-even, ¥1.5M/yr EBITDA
+  - 3 cabins (shared mgmt): ¥7M/yr EBITDA, payback Y6-7
+  - 5 cabins (premium ¥60K/night, occ 65%): ¥18M/yr, payback Y5
+Add a vertical dashed line at &quot;Year 5&quot; with annotation: &quot;Sweet spot for
+modern wilderness luxury operators&quot;
+
+Style: Editorial Bloomberg/FT style, monochrome + deep green accent
+(#2b7a78), Inter/Helvetica, clean grid, no 3D effects, clear data labels.
+
+16:9 landscape, suitable for Keynote/PDF report cover.
+</code></pre>
+<h2>C. 音声解説 (NotebookLM Audio Overview / Deep Dive) カスタマイズプロンプト</h2>
+<pre><code>NotebookLM の Audio Overview をカスタマイズしてください。
+
+【基本設定】
+- 言語: 日本語
+- 形式: 2 名のホスト掛け合い (女性 A = ホスピタリティ業界アナリスト視点 /
+  男性 B = 起業家視点で「自分が屋久島でやるなら?」を質問する役)
+- 想定リスナー: 屋久島など地方で小規模高級リゾート (¥40-80K/泊) を
+  立ち上げ検討中の個人 (40 代、Capex ¥1-2 億の意思決定者、ADHD 傾向で
+  数字と物語を交互に欲しがる)
+- 長さ: 25-30 分
+- スタイル: カジュアル + 「ですます」/「だよね」混在、専門用語が出たら
+  必ず女性 A が 1 行で噛み砕く
+
+【時間配分 (必ず守る)】
+- 0-3 分: 「Cabin Fever Escapes って何?」導入 + ジョニーがなぜこれに
+  注目したかの背景
+- 3-8 分: ジョニーの 5 特徴とコンセプト「建築は最小、景観は最大」を、
+  既存カテゴリ (グランピング / 別荘 / Aman / オーベルジュ) と対比しながら
+- 8-15 分: 世界事例ツアー (Sheldon Chalet $32K / Manshausen / PurePods
+  $395 / Camp Sarika $6,000 / Whitepod 山岳水力 / Treehotel 焼却トイレ
+  / Naviva 80% Solar の各「決定的差別化」を 1 件 1 分で紹介)
+- 15-22 分: お金の話 (Capex ¥65M/棟、Opex 売上比 57-68%、3 棟スタートで
+  黒字化、2 年遅延で損益分岐 +¥10K/泊)
+- 22-28 分: 日本の法令ハードル (旅館業法は簡易宿所営業 / 屋久島は世界
+  遺産の特別保護地区を外す / NZ の 30sqm 例外は日本にない / 浄化槽法の
+  強制 / 4 号特例廃止) → 屋久島 18-32 ヶ月の実装フロー
+- 28-30 分: 結論 3 点 + 次のアクション (土地選定 / 行政書士 / 建築士)
+
+【必ず読み上げる固有名詞・数字 (英語/日本語表記併用)】
+- 「Cabin Fever Escapes (キャビン フィーバー エスケープス)」
+- 「James &amp; Kirsty Hughes (ジェームスとカースティ・ヒューズ夫妻)」
+- 「PurePods (ピュア ポッズ)、ニュージーランド」
+- 「Sheldon Chalet (シェルダン シャレー)、アラスカ、$32,000/泊」
+- 「Camp Sarika by Amangiri (キャンプ サリカ by アマンギリ)、$6,000/泊」
+- 「Manshausen (マンスハウゼン)、ノルウェー」
+- 「Whitepod (ホワイトポッド)、スイス」
+- 「Treehotel (ツリーホテル)、スウェーデン」
+- 「Naviva, A Four Seasons Resort (ナビーバ、フォーシーズンズ)」
+- 「ULUM Moab (ウルム モアブ)」
+- Capex ¥65M、Opex 売上比 57-68%、稼働率 55%、客単価 ¥40K-80K/泊
+- 法令: 旅館業法 / 簡易宿所営業 / 浄化槽法 / 自然公園法 / 林地開発許可
+  (1 ha) / 4 号特例廃止 / NZ 30 sqm sleepout
+
+【冒頭と末尾で読み上げる 1 行コンセプト】
+「建築は最小、景観は最大。サービスは完備、自然は野生。」
+Architecture minimum, Landscape maximum. Service curated, Nature wild.
+
+【聴き終わったあとに、リスナーが取るべき次のアクション】
+1. 屋久島町役場 (建設課 + 環境課 + 観光商工課) への事前相談
+2. 鹿児島県保健所 屋久島出張所との簡易宿所事前協議
+3. 国産プレハブ・サウナ事業者 (Vipp 代理店 / 国産サウナストーブ Ko-On
+   / Misa) への見積もり依頼
+これらを「次の 30 日でやること」として最後にまとめてください。
+
+【避けること】
+- 「いかがでしたか」「結論として」など標準 AI ライティング表現
+- 過度な専門用語連発 (必ず女性 A が噛み砕く)
+- 推測を断定的に話す (必ず「推計では」「公開情報なし、ベンチマークから推計」と注記)
+</code></pre>
+<h2>NotebookLM Tips (ジョニー向け)</h2>
+<ul>
+<li><strong>「ソース」追加方法</strong>: 本レポート HTML URL を貼るのが最速。文字量が多すぎる場合は Part I/II / Part III / Part IV を別ソースとして 3 分割アップロードも可</li>
+<li><strong>Studio パネル</strong> で Audio Overview / Mind Map / Briefing / FAQ / Study Guide が生成可能</li>
+<li><strong>「カスタマイズ」ボタン</strong> で上記 A/B/C プロンプトを投入</li>
+<li><strong>Audio Overview は英語デフォルト</strong> → 日本語化のため上記 C プロンプトで明示</li>
+<li><strong>Gamma / Tome に渡す場合</strong> → 上記 A プロンプトの出力をそのまま貼ると 25 スライド自動生成</li>
+</ul>
+<div class="ttl-footer">⏰ このページは <strong>2026-05-17 02:55 JST</strong> に自動削除されます (TTL 再延長 72h)<br>🆔 ID: 803d73f88f82db1a / 🔄 2026-05-14 更新 (Part II 追加: コンセプト言語化 + 世界事例 + インフラ Capex/Opex)</div>
 </div>
 </body>
 </html>
