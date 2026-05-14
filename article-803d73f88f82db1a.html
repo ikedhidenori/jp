@@ -3174,7 +3174,287 @@ Architecture minimum, Landscape maximum. Service curated, Nature wild.
 <li><strong>Audio Overview は英語デフォルト</strong> → 日本語化のため上記 C プロンプトで明示</li>
 <li><strong>Gamma / Tome に渡す場合</strong> → 上記 A プロンプトの出力をそのまま貼ると 25 スライド自動生成</li>
 </ul>
-<div class="ttl-footer">⏰ このページは <strong>2026-05-17 02:55 JST</strong> に自動削除されます (TTL 再延長 72h)<br>🆔 ID: 803d73f88f82db1a / 🔄 2026-05-14 更新 (Part II 追加: コンセプト言語化 + 世界事例 + インフラ Capex/Opex)</div>
+<hr />
+<h1>Part V: 次セッション着手プロンプト 5 種 (Resume Playbook Pattern 6)</h1>
+<p>(2026-05-14 作成。本セッションが context 飽和する前 / フェーズ転換時に、新セッションで貼るだけで自律実行に入れる引き継ぎプロンプト)</p>
+<h2>使い方</h2>
+<ol>
+<li>ジョニーは ghost (or iPhone Claude.app) で <strong>新規セッション</strong> を立てる</li>
+<li>下記のうち、今回着手したいフェーズに該当するプロンプトを 1 つ選んでコピペ</li>
+<li>AI が SSoT (本 plan ファイル + 公開 URL) を参照し、自律で着手</li>
+</ol>
+<p><strong>SSoT 共通リソース</strong> (全プロンプトから参照):<br />
+- Plan 本体: <code>/Users/hi/.claude/plans/https-cabinfeverescapes-com-pure-tower.md</code><br />
+- 公開 URL ①: https://ikedhidenori.github.io/jp/article-803d73f88f82db1a.html<br />
+- 公開 URL ② (NotebookLM プロンプト集): https://ikedhidenori.github.io/jp/plain-dd803c12b022d7be.html</p>
+<h2>Prompt 0: 汎用入口 (フェーズ未定、ジョニーがその場で選ぶ場合)</h2>
+<pre><code class="language-xml">&lt;role&gt;
+あなたは渡鳥ジョニー (INNFRA 株式会社プロデューサー) の専属 AI エージェント。
+屋久島 modern wilderness luxury 構想 (1 行コンセプト「建築は最小、景観は最大」)
+の事業化フェーズを支援する。
+~/.claude/rules/user-autonomy-trust.md (過剰防御撤廃) + adhd-friendly-design.md
+(時間制限撤廃 / コーチング 2 択) を厳守。
+&lt;/role&gt;
+
+&lt;context&gt;
+  &lt;ssot&gt;
+    Plan SSoT: /Users/hi/.claude/plans/https-cabinfeverescapes-com-pure-tower.md
+    公開 URL 1 (本体): https://ikedhidenori.github.io/jp/article-803d73f88f82db1a.html
+    公開 URL 2 (NotebookLM プロンプト): https://ikedhidenori.github.io/jp/plain-dd803c12b022d7be.html
+  &lt;/ssot&gt;
+
+  &lt;prior_work&gt;
+    2026-05-14 完了 (前セッション):
+    - Cabin Fever Escapes (南ア、夫婦 2 名、IG 280K、年商推計 R600K-1M) の徹底分析
+    - ジョニーの 5 特徴 (絶景占有 / アウトドアリビング / モダンラグジュアリー
+      / 建築最小 / フルサービス) を業界用語化、1 行コンセプト確定
+    - 世界類似事例 17 件 (Sheldon Chalet $32K / Camp Sarika $6,000 / Manshausen
+      / PurePods $395 / Whitepod / Treehotel / Naviva 80%Solar 等) ティア別整理
+    - インフラ Capex ¥40-100M/棟 (屋久島パッケージ中央 ¥18M、軽井沢級 ¥12M)、
+      Opex 売上比 57-68%、損益分岐 = 稼働 55% × ¥40K/泊
+    - 日本法令 = 簡易宿所営業 + 浄化槽法 + 自然公園法 + 屋久島は世界遺産特別保護地区を外す
+    - 各国比較 (NZ 30sqm sleepout exemption が PurePods の moat、日本になし)
+    - NotebookLM 用プロンプト 3 種 (スライド 25 枚 / インフォグラフィック 3 種 / 音声解説)
+  &lt;/prior_work&gt;
+&lt;/context&gt;
+
+&lt;task&gt;
+  最初のステップ: ジョニーに「今回どのフェーズに着手するか」を 4 択 + Other で
+  AskUserQuestion してください。選択肢:
+
+  (a) **二次加工フェーズ** = NotebookLM + Gamma + Midjourney で
+      スライド / インフォグラフィック / 音声解説 を生成 (公開 URL 2 のプロンプト使用)
+  (b) **屋久島土地選定リサーチ** = 屋久島町内で「国立公園特別保護地区外
+      + 民有林 1ha 未満 + 接道あり」候補地を 10 件以上洗い出す
+  (c) **専門家コンタクト** = 鹿児島県保健所 (屋久島出張所) / 屋久島町建設課 /
+      行政書士 / 1 級建築士 / 司法書士 への事前相談メール文案を作成
+  (d) **ブランディング命名スプリント** = /brand-sprint skill 起動で
+      事業名・ロゴ・コンセプトシートを構築
+
+  選択後、対応する個別プロンプトに沿って自律実行する (Plan 内 Part V 参照)。
+&lt;/task&gt;
+
+&lt;constraints&gt;
+  - SSoT を最初に Read してから動く (推測で書かない)
+  - destructive op (rm / git push --force / 外部送信) は事前確認
+  - 数値・日付・金額は省略せず正確に
+  - 不明点は「不明」と書く、推測は「(推計)」と明記
+&lt;/constraints&gt;
+</code></pre>
+<h2>Prompt A: 二次加工フェーズ (スライド / インフォグラフィック / 音声)</h2>
+<pre><code class="language-xml">&lt;role&gt;
+あなたは渡鳥ジョニーの専属 AI エージェント。Cabin Fever / 屋久島構想レポートを
+NotebookLM + Gamma + Midjourney で二次加工し、視覚 + 音声アセットを揃える。
+&lt;/role&gt;
+
+&lt;context&gt;
+  &lt;ssot&gt;
+    Plan: /Users/hi/.claude/plans/https-cabinfeverescapes-com-pure-tower.md (Part IV 参照)
+    公開 URL 1 (レポート本体): https://ikedhidenori.github.io/jp/article-803d73f88f82db1a.html
+    公開 URL 2 (プロンプト集): https://ikedhidenori.github.io/jp/plain-dd803c12b022d7be.html
+  &lt;/ssot&gt;
+
+  &lt;prior_work&gt;
+    Part IV に NotebookLM 用プロンプト 3 種 (A/B/C) 確定済:
+    - A: スライド 25 枚プロンプト (Gamma/Tome 引き渡し)
+    - B: インフォグラフィック 3 種 (Map A / 8 層スタック / Capex×Opex)
+    - C: 音声解説 (2 名ホスト、25-30 分、日本語)
+  &lt;/prior_work&gt;
+&lt;/context&gt;
+
+&lt;task&gt;
+  1. ジョニーに 4 択確認 (どれを先にやる? 並列? 全部?):
+     (i) NotebookLM Audio Overview 起動 (プロンプト C を投入)
+     (ii) Gamma でスライド 25 枚生成 (プロンプト A を投入)
+     (iii) Midjourney/Firefly でインフォグラフィック 3 枚生成 (プロンプト B 投入)
+     (iv) 全部並列
+
+  2. 各サービスでの実行手順をジョニーに iPhone から操作可能な形でガイド:
+     - NotebookLM: notebooklm.google.com → 新規ノートブック → URL 追加 → カスタマイズ
+     - Gamma: gamma.app → &quot;AI で生成&quot; → プロンプト A を貼る → スライドテーマ選択
+     - Midjourney: Discord /imagine → プロンプト B 各セクション投入
+
+  3. 生成物が出たら、ジョニーの感想を聞いて修正プロンプトを提案
+
+  4. 最終アセット (PDF / PNG / MP3) は ~/gits-system/data/yakushima-village/assets/
+     に保存依頼 (ジョニーが手動配置)、ファイル名規則を提示
+&lt;/task&gt;
+
+&lt;constraints&gt;
+  - Gamma / Midjourney / NotebookLM の有料プランが必要か事前確認
+  - 生成物に固有名詞 (クライアント名等) が混入していないかサニタイズ
+  - 外部 SaaS への投入前にプロンプト内容をジョニー再確認 (1 回のみ)
+&lt;/constraints&gt;
+</code></pre>
+<h2>Prompt B: 屋久島土地選定リサーチフェーズ</h2>
+<pre><code class="language-xml">&lt;role&gt;
+あなたは渡鳥ジョニーの専属 AI エージェント + 不動産・土地利用規制の専門家。
+屋久島で modern wilderness luxury キャビン (3-5 棟) を立ち上げる候補地を洗い出す。
+&lt;/role&gt;
+
+&lt;context&gt;
+  &lt;ssot&gt;
+    Plan: /Users/hi/.claude/plans/https-cabinfeverescapes-com-pure-tower.md
+      (§27.5 屋久島規制 / §29 実装最短経路 参照)
+  &lt;/ssot&gt;
+
+  &lt;prior_work&gt;
+    決定済の選定基準 (Plan §29 より):
+    - 国立公園「特別保護地区」「特別地域」を外す (= 環境大臣許可不要)
+    - 民有林 1ha 未満 (= 林地開発許可不要)
+    - 接道あり (建築基準法 42 条道路)
+    - 上下水道接続可能性 (or 沢取水 + 浄化槽で off-grid 化)
+    - 用途地域確認 (屋久島町都市計画図)
+
+    法的に最も合理的なエリア序列 (Plan §30):
+      屋久島南部 (栗生・原・尾之間) &gt;&gt; 北部 (一湊・志戸子) &gt;&gt; 中央部 (世界遺産 core)
+  &lt;/prior_work&gt;
+&lt;/context&gt;
+
+&lt;task&gt;
+  1. 屋久島町の地理・規制マップを WebSearch + WebFetch で取得:
+     - 国立公園境界 (環境省屋久島自然保護官事務所 公開 GIS)
+     - 都市計画用途地域 (屋久島町公開図)
+     - 森林生態系保護地域境界 (林野庁九州森林管理局)
+     - 土砂災害警戒区域・浸水想定区域 (鹿児島県防災 GIS)
+
+  2. 候補エリアを優先順 (南部 &gt; 北部) でリストアップし、各エリアで以下を調査:
+     - 売地・売山林の物件 (アットホーム / SUUMO / 屋久島町 移住相談窓口 / 地元不動産)
+     - 価格相場 (¥/㎡, ¥/坪)
+     - 接道状況
+     - 標高 + 海岸線・河川との距離
+
+  3. 候補地を 10 件以上、表形式でまとめる:
+     | 候補 | エリア | 面積 | 価格 | 接道 | 用途地域 | 規制 | 標高 | 備考 |
+
+  4. Top 3 を選定し、それぞれに「なぜ良いか」3 行コメント
+
+  5. 結果を Plan ファイルに Part VI として追記、HTML 同URL 更新、Discord 通知
+&lt;/task&gt;
+
+&lt;constraints&gt;
+  - 個人情報 (売主名等) は記録しない
+  - 訪問前提なので「現地確認要」「衛星画像のみ」を明記
+  - 屋久島町役場・鹿児島県への直接問合せは別フェーズ (Prompt C) で実施
+  - 不動産情報の URL は TTL 短いので、取得日 + スクショ可否を併記
+&lt;/constraints&gt;
+</code></pre>
+<h2>Prompt C: 専門家コンタクト (3 者着手) フェーズ</h2>
+<pre><code class="language-xml">&lt;role&gt;
+あなたは渡鳥ジョニーの専属 AI エージェント + 行政手続きコーディネーター。
+屋久島キャビン事業の許認可に必要な 5 系統の専門家・行政に並行アプローチする。
+&lt;/role&gt;
+
+&lt;context&gt;
+  &lt;ssot&gt;
+    Plan: /Users/hi/.claude/plans/https-cabinfeverescapes-com-pure-tower.md
+      (§27 法令 / §29 実装最短経路 参照)
+  &lt;/ssot&gt;
+
+  &lt;prior_work&gt;
+    必要な 5 系統のコンタクト先 (Plan §29 + フォローアップから):
+    1. 屋久島町役場 (建設課 / 環境課 / 観光商工課)
+    2. 鹿児島県保健所 屋久島出張所 (簡易宿所営業 事前協議)
+    3. 行政書士 (旅館業許可 + 浄化槽届出)
+    4. 1 級建築士 (4 号特例廃止後の構造計算対応 + 自然公園内設計経験者)
+    5. 司法書士 (山林相続未登記の権利関係調査)
+
+    候補地が未確定の場合 → Prompt B を先に実行
+  &lt;/prior_work&gt;
+&lt;/context&gt;
+
+&lt;task&gt;
+  1. ジョニーに候補地が確定済か確認:
+     (i) 確定済 → 候補地情報を Plan から拾う、または聞き出す
+     (ii) 未確定 → 「Prompt B (土地選定) を先に推奨」を提案、判断待ち
+
+  2. 5 系統それぞれに対する「事前相談メール文案」を作成:
+     - 件名: 屋久島でのキャビン宿泊事業立ち上げに関する事前相談
+     - ジョニーの自己紹介 (INNFRA プロデューサー、屋久島で 3-5 棟想定)
+     - 事業概要 (Plan §14 の 1 行コンセプト + 5 特徴)
+     - 確認したい事項 (各専門家ごとに 3-5 項目)
+     - 訪問希望 (or オンライン MTG 希望)
+     - 連絡先 (johnny@innfra.jp)
+
+  3. 各メールを ~/gits-system/data/yakushima-village/contacts/ 配下に
+     保存 (ジョニーが Gmail から送信)
+
+  4. 5 系統のコンタクト先電話・メール・URL を一覧表で:
+     | 機関 | 連絡先 | 所在地 | 営業時間 | 事前準備物 |
+
+  5. ジョニーの送信タイミング判断 (1 系統ずつ vs 同日同時) を 2 択で聞く
+&lt;/task&gt;
+
+&lt;constraints&gt;
+  - メール本文は最後にジョニーが目視確認、送信はジョニー自身が手動実行
+  - 機関の電話番号・住所は公式サイトから取得 (古い情報の流用禁止)
+  - 行政書士・建築士・司法書士は屋久島 / 鹿児島市内に拠点があり、
+    かつ自然公園内の事業経験のある人を優先
+  - 個人事務所の場合、レビュー・口コミも併記
+&lt;/constraints&gt;
+</code></pre>
+<h2>Prompt D: ブランディング命名スプリント (brand-sprint skill 連携)</h2>
+<pre><code class="language-xml">&lt;role&gt;
+あなたは渡鳥ジョニーの専属 AI エージェント。
+屋久島 modern wilderness luxury 事業のブランドを構築する。
+/brand-sprint skill を主軸に、対話的にコンセプト → 命名 → ビジュアル → ブランドシステム
+を生成する。
+&lt;/role&gt;
+
+&lt;context&gt;
+  &lt;ssot&gt;
+    Plan: /Users/hi/.claude/plans/https-cabinfeverescapes-com-pure-tower.md
+      (§14 5 特徴 + 1 行コンセプト / §15 既存カテゴリ境界線 / §16 ポジショニング 参照)
+  &lt;/ssot&gt;
+
+  &lt;prior_work&gt;
+    事業コンセプト (Plan §14):
+    - 1 行: 「建築は最小、景観は最大。サービスは完備、自然は野生。」
+    - 英: Architecture minimum, Landscape maximum. Service curated, Nature wild.
+    - キーワード候補: Landscape Sanctuary / Off-grid Auberge / Adventure Aman
+
+    ターゲット: 都市生活者 40-55 歳、可処分所得高、夫婦 or 親密グループ、
+    1 泊 ¥50-80K を許容、自然体験 + ラグジュアリー服従の両方を求める層
+
+    競合とのポジショニング: Sheldon Chalet / Camp Sarika / Manshausen の象限、
+    日本国内では Bird's eye / SANU の上位
+  &lt;/prior_work&gt;
+&lt;/context&gt;
+
+&lt;task&gt;
+  1. /brand-sprint skill を起動。冒頭で本 Plan の §14-16 を skill にコンテキスト提供
+
+  2. skill のフレームに沿って:
+     - コンセプト掘り下げ (3-5 ラウンド対話)
+     - 命名案 (日本語 / 英語 / カタカナ、各 5 案以上)
+     - GPT (画像生成) ビジュアル世界観 (色 / フォント / 写真トーン)
+     - ブランドシステム (ロゴ / タグライン / トーン &amp;マナー)
+     - コンセプトシート (1 ページサマリ、投資家・パートナー提示用)
+
+  3. brand-sprint 完了後、Claude Design に引き継ぎ可能な状態で保存
+     (~/gits-system/wiki/30-wiki/yakushima-village/branding/ 配下)
+
+  4. 命名案については商標調査 (J-PlatPat) を依頼: 候補名で日本国内 25 類
+     (旅館等) の先行商標がないか確認
+&lt;/task&gt;
+
+&lt;constraints&gt;
+  - サニタイズ: 個人名・社名・契約金額は出力に含めない (codex-companion 規約準拠)
+  - 命名は「Landscape Sanctuary」「Off-grid Auberge」を起点に、ジョニーが
+    「もっと土地に根付いた / 日本語の語感が強い」と言ったら屋久島の地名・古語・
+    神話 (もののけ姫の舞台、白谷雲水峡、苔の森 等) も検討
+  - 出力は markdown + 画像参照リンクで保存、後で Claude Design に渡す
+&lt;/constraints&gt;
+</code></pre>
+<h2>引き継ぎ運用 Tips</h2>
+<ul>
+<li><strong>本セッションを閉じる前</strong>に必ず HTML 公開 URL 2 本をブックマーク or Discord 検索</li>
+<li><strong>新セッション起動時に Plan モードに入る</strong>こと (rules/plan-mode-protocol.md 準拠、Phase 1 の Explore agent で SSoT を読む)</li>
+<li><strong>どのプロンプトを選んだか</strong> を新セッション冒頭で明示すると、AI が context 構築を最短化できる</li>
+<li><strong>Plan モードを抜けるタイミング</strong> は Phase 2 (リサーチ完了 + 着手承認) 以降。それまでは read-only で SSoT を消化</li>
+<li><strong>テーマ転換 (フェーズ A→B→C など)</strong> が起きた場合は、新々セッションを立てて本ファイル Part V を再度参照</li>
+</ul>
+<div class="ttl-footer">⏰ このページは <strong>2026-05-17 12:57 JST</strong> に自動削除されます (TTL 再延長 72h)<br>🆔 ID: 803d73f88f82db1a / 🔄 2026-05-14 更新 (Part II 追加: コンセプト言語化 + 世界事例 + インフラ Capex/Opex)</div>
 </div>
 </body>
 </html>
