@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>キャンピングカーで稼ぐ会社、ホントに儲かってるの? — Carstay 7年分の決算をぜんぶ見てみた</title>
+<style>
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #1c1e29;
+  --muted: #707487;
+  --accent: #ff4d4d;
+  --accent2: #1a73e8;
+  --green: #1aa260;
+  --yellow: #ffcc00;
+  --border: #e3e6ef;
+  --shadow: 0 2px 8px rgba(28,30,41,0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --text: #ececf1;
+    --muted: #8a8fa3;
+    --accent: #ff6b6b;
+    --accent2: #4d9eff;
+    --green: #34d399;
+    --yellow: #fbbf24;
+    --border: #2a2e3a;
+    --shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.85;
+  margin: 0;
+  padding: 24px 16px 80px;
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 680px; margin: 0 auto; }
+
+/* ヒーロー */
+.hero {
+  background: linear-gradient(135deg, #ff4d4d 0%, #ff8a3d 100%);
+  color: white;
+  padding: 32px 24px 28px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.hero .tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.22);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+}
+.hero h1 {
+  margin: 14px 0 10px;
+  font-size: 26px;
+  line-height: 1.4;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.hero .lead {
+  font-size: 15px;
+  opacity: 0.95;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* 一般見出し */
+h2 {
+  font-size: 21px;
+  margin: 40px 0 14px;
+  line-height: 1.45;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+h2 .emoji { display: inline-block; margin-right: 6px; }
+h3 {
+  font-size: 17px;
+  margin: 24px 0 10px;
+  color: var(--accent2);
+  font-weight: 700;
+}
+p { margin: 14px 0; }
+strong { font-weight: 700; }
+.hl { background: linear-gradient(transparent 60%, var(--yellow) 60%); padding: 0 2px; font-weight: 700; }
+
+/* 結論ボックス */
+.tldr {
+  background: var(--card);
+  border-left: 5px solid var(--accent);
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 24px 0;
+  box-shadow: var(--shadow);
+}
+.tldr h3 { margin: 0 0 8px; color: var(--accent); font-size: 14px; letter-spacing: 0.08em; }
+.tldr ul { margin: 8px 0 0; padding-left: 20px; }
+.tldr li { margin: 6px 0; }
+
+/* 数字バッジ */
+.bignum {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 16px 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+.bignum .v {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+.bignum .v.green { color: var(--green); }
+.bignum .v.blue { color: var(--accent2); }
+.bignum .label { color: var(--muted); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 4px; }
+.bignum .desc { font-size: 14px; line-height: 1.6; }
+.bignum .desc strong { color: var(--text); }
+
+/* ふきだし */
+.bubble {
+  background: var(--card);
+  border: 1px dashed var(--border);
+  padding: 14px 18px;
+  border-radius: 12px;
+  position: relative;
+  margin: 22px 0 22px 56px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.bubble::before {
+  content: "🧑‍🏫";
+  position: absolute;
+  left: -52px;
+  top: 8px;
+  font-size: 38px;
+}
+.bubble.student::before { content: "🙋‍♂️"; }
+.bubble.surprised::before { content: "😳"; }
+
+/* テーブル */
+.table-wrap { overflow-x: auto; margin: 16px 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: var(--card);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+th { background: rgba(0,0,0,0.03); font-weight: 700; font-size: 13px; }
+@media (prefers-color-scheme: dark) {
+  th { background: rgba(255,255,255,0.04); }
+}
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.good { color: var(--green); font-weight: 700; }
+.bad { color: var(--accent); font-weight: 700; }
+
+/* なるほどボックス */
+.naruhodo {
+  background: linear-gradient(180deg, rgba(26,115,232,0.07) 0%, rgba(26,115,232,0.03) 100%);
+  border: 1px solid rgba(26,115,232,0.25);
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 22px 0;
+}
+.naruhodo .lbl {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent2);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.naruhodo p { margin: 4px 0; font-size: 15px; }
+
+/* チェックリスト */
+.checklist { background: var(--card); padding: 16px 20px; border-radius: 10px; margin: 16px 0; box-shadow: var(--shadow); }
+.checklist ul { list-style: none; padding: 0; margin: 0; }
+.checklist li { padding: 6px 0 6px 28px; position: relative; line-height: 1.7; font-size: 15px; }
+.checklist li::before { content: "✅"; position: absolute; left: 0; top: 6px; }
+.checklist li.bad::before { content: "⚠️"; }
+.checklist li.que::before { content: "🤔"; }
+
+/* TTL */
+.ttl-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin: 56px 0 16px;
+  padding: 16px;
+  border-top: 1px dashed var(--border);
+}
+
+/* スマホ最適化 */
+@media (max-width: 480px) {
+  body { font-size: 16px; padding: 18px 12px 60px; }
+  .hero { padding: 26px 20px 22px; border-radius: 14px; }
+  .hero h1 { font-size: 22px; }
+  h2 { font-size: 19px; }
+  .bignum .v { font-size: 26px; }
+  .bubble { margin-left: 48px; }
+  .bubble::before { left: -46px; font-size: 32px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <span class="tag">📚 やさしい決算ニュース #1</span>
+  <h1>キャンピングカーで稼ぐ会社、<br>ホントに儲かってるの?</h1>
+  <p class="lead">「Carstay」っていう会社の決算書をぜんぶ調べてみたら、めちゃくちゃ面白い話がいっぱい出てきた。<br>赤字なのに、たぶんあと数年で黒字になる。なんで?</p>
+</div>
+
+<div class="tldr">
+  <h3>3 行でわかるまとめ</h3>
+  <ul>
+    <li><strong>Carstay は 7 年間でずっと赤字</strong>。累計で <span class="hl">マイナス 4.76 億円</span></li>
+    <li>でも、<strong>赤字の幅は急速に小さくなってる</strong>。3 年前の 1/3 まで縮んだ</li>
+    <li>キャンピングカーで日本一の予約サイト。<strong>2027 年に株式上場を目指してる</strong></li>
+  </ul>
+</div>
+
+<h2><span class="emoji">🚐</span> そもそも Carstay って何の会社?</h2>
+
+<p>キャンピングカー × バンライフ × 車中泊。<br>この 3 つをまとめてプラットフォームにした、日本でほぼ唯一の会社。</p>
+
+<div class="bubble student">
+ん? バンライフって?
+</div>
+
+<div class="bubble">
+キャンピングカーで暮らす&旅するライフスタイルのこと。アメリカやヨーロッパでブームになって、日本にも 2018 年ごろから広まってきた新しい遊び方。Carstay の会員数は <strong>すでに 6 万人</strong>。
+</div>
+
+<h3>Carstay の 4 つの事業</h3>
+<div class="checklist">
+<ul>
+  <li><strong>車中泊スポットの予約サイト</strong> — 全国 360 か所、Airbnb のキャンピングカー版</li>
+  <li><strong>キャンピングカーのシェアリング</strong> — 500 台以上の登録車両</li>
+  <li><strong>EV キャンピングカーの製造販売</strong>「moonn.」(電気で動くキャンピングカー!)</li>
+  <li><strong>専門メディア</strong>「VANLIFE JAPAN」で情報発信</li>
+</ul>
+</div>
+
+<h2><span class="emoji">📉</span> でも、ずっと赤字なんでしょ?</h2>
+
+<p>そう。決算書を見ると、設立した 2018 年からずっと赤字。<br>累計で <span class="hl">マイナス 4 億 7,600 万円</span>。これは中学生のお小遣いだと <strong>約 158 万か月分</strong>。131,000 年間ぶん。</p>
+
+<div class="bubble surprised">
+え、それヤバくない!?
+</div>
+
+<div class="bubble">
+ふつうの会社ならヤバい。でも<strong>スタートアップ</strong>(新しいビジネスをゼロから作る会社) は、最初の数年は「<span class="hl">先に投資して、あとで大きく回収する</span>」のがふつう。Amazon も Facebook も最初は赤字だった。
+</div>
+
+<h2><span class="emoji">📊</span> 数字で見る Carstay の 7 年</h2>
+
+<div class="bignum">
+  <div class="v">▲4.76<small style="font-size:14px">億</small></div>
+  <div>
+    <div class="label">累計の赤字 (純損失)</div>
+    <div class="desc">会社ができてから今までの <strong>合計の赤字額</strong>。これだけ損してる。</div>
+  </div>
+</div>
+
+<div class="bignum">
+  <div class="v blue">4.7<small style="font-size:14px">億</small></div>
+  <div>
+    <div class="label">これまで集めたお金</div>
+    <div class="desc">投資家からの出資 + 銀行からの借金。<strong>赤字と集めたお金がほぼ同じ額</strong>。つまり「集めた金で全部チャレンジに使った」。</div>
+  </div>
+</div>
+
+<div class="bignum">
+  <div class="v green">▲57%</div>
+  <div>
+    <div class="label">直近 1 年の赤字改善幅</div>
+    <div class="desc">去年の赤字 1.1 億 → 今年は <strong>4,700 万まで縮んだ</strong>。半分以下! このペースなら来年か再来年に黒字化が見えてくる。</div>
+  </div>
+</div>
+
+<div class="bignum">
+  <div class="v green">3.7<small style="font-size:14px">倍</small></div>
+  <div>
+    <div class="label">3 年で売上がどれだけ伸びた?</div>
+    <div class="desc">売掛金(未回収の売上)が 3.7 倍。<strong>事業はちゃんとデカくなってる</strong>っていう証拠。</div>
+  </div>
+</div>
+
+<h2><span class="emoji">😳</span> いちばんビックリした話</h2>
+
+<h3>「資本金を 1 億 3,500 万 → たった 500 万」に減らした!?</h3>
+
+<p>2024 年 2 月、Carstay は <strong>資本金をいきなり 96% カット</strong>した。<br>会社の体力を表す数字をわざと小さくしたわけ。なんで?</p>
+
+<div class="naruhodo">
+  <div class="lbl">🤓 中学生でもわかる解説</div>
+  <p><strong>日本の税金ルール</strong>には「資本金 1 億円以下の会社は、税金が安くなる」っていう中小企業向けの特典がある。Carstay は IPO(株式上場) の前に、わざと資本金を下げて節税モードに入った。</p>
+  <p>「減らした分のお金がどっか消えた」わけじゃなくて、<strong>"資本準備金" っていう別の場所に移動しただけ</strong>。会社全体のお金は変わってない。これ、IPO 直前のスタートアップが <span class="hl">よくやるテクニック</span>。</p>
+</div>
+
+<h2><span class="emoji">🎢</span> 7 期分の数字を表で見てみる</h2>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>期</th><th>年度</th><th class="num">赤字 (推定)</th><th class="num">売掛金</th><th class="num">前受金</th></tr>
+</thead>
+<tbody>
+<tr><td>第1期</td><td>2019/5</td><td class="num bad">▲0.16億</td><td class="num">1万</td><td class="num">7千</td></tr>
+<tr><td>第2期</td><td>2020/5</td><td class="num bad">▲0.45億</td><td class="num">460万</td><td class="num">2,955万</td></tr>
+<tr><td>第3期</td><td>2021/5</td><td class="num bad">▲0.49億</td><td class="num">167万</td><td class="num">1,780万</td></tr>
+<tr><td>第4期</td><td>2022/5</td><td class="num bad">▲0.66億</td><td class="num">285万</td><td class="num">641万</td></tr>
+<tr><td>第5期</td><td>2023/5</td><td class="num bad">▲1.43億</td><td class="num">409万</td><td class="num">1,748万</td></tr>
+<tr><td>第6期</td><td>2024/5</td><td class="num bad">▲1.11億</td><td class="num">656万</td><td class="num">4,496万</td></tr>
+<tr><td><strong>第7期</strong></td><td><strong>2025/5</strong></td><td class="num good"><strong>▲0.48億</strong></td><td class="num"><strong>1,069万</strong></td><td class="num"><strong>4,394万</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<p style="font-size:13px; color: var(--muted);">※ 赤字額は決算公告に直接書かれていないので、毎期の繰越損失の差から推定。<br>※ 売掛金 = 「もうサービス売ったけどお金がまだ振り込まれてない金額」=売上規模の目安。<br>※ 前受金 = 「お客さんから先払いされた予約金」=これから売上になる予定の金額。</p>
+
+<div class="naruhodo">
+  <div class="lbl">📈 ここに注目!</div>
+  <p>第 5 期 (2023 年) で <strong>赤字がいちばんデカくなって 1.43 億</strong>。これは「事業を一気に大きくするために、たくさんお金を使った時期」。Mobi Lab. っていう工房を作って、EV キャンパー開発もスタート。</p>
+  <p>そして第 6 期、第 7 期で<strong>ぐんぐん回復</strong>。「攻め→守り」モードへの切り替えがちゃんと結果になって出てる。</p>
+</div>
+
+<h2><span class="emoji">💪</span> Carstay の強み</h2>
+
+<div class="checklist">
+<ul>
+  <li><strong>V 字回復のトレンド</strong>: 3 年で赤字が 1/3 に縮んだ。経営が締まってる証拠</li>
+  <li><strong>事業が 1 本足じゃない</strong>: シェア + 製造 + メディアの 3 本柱。1 個コケても倒れない構造</li>
+  <li><strong>売上が伸び続けてる</strong>: 売掛金 3.7 倍、前受金(予約) 6.9 倍。お客さんは着実に増えてる</li>
+  <li><strong>業界の追い風</strong>: 日本のキャンピングカー販売は <span class="hl">2024 年に過去最高 1,126 億円</span>。10 年で 4 倍に成長してる</li>
+  <li><strong>節税スキルも一流</strong>: 減資で中小企業税制をしっかり取りに行った</li>
+</ul>
+</div>
+
+<h2><span class="emoji">⚠️</span> Carstay の弱み・心配なところ</h2>
+
+<div class="checklist">
+<ul>
+  <li class="bad"><strong>借金の方が会社の体力より多い</strong>: 「債務超過」って状態。マイナス 8,100 万。投資家がいなくなったら一発アウト</li>
+  <li class="bad"><strong>運転資金がギリギリ</strong>: 「すぐ払わなきゃいけない借金」と「すぐ使えるお金」の比率が 83%。100% 切ってる = ちょっと回りにくい</li>
+  <li class="bad"><strong>ストックオプションが大量発行された</strong>: IPO したときに株が <span class="hl">大幅に薄まる(希薄化)</span> リスクがある</li>
+  <li class="que"><strong>キャンピングカーの量産はまだこれから</strong>: EV キャンパー「moonn.」が売れるかどうかが、黒字化のカギ</li>
+</ul>
+</div>
+
+<h2><span class="emoji">🎯</span> ここまでをひとことで</h2>
+
+<div class="tldr">
+  <h3>🚐 結論</h3>
+  <ul>
+    <li>Carstay は <strong>「赤字だけど健全に育ってるスタートアップ」</strong>の典型例</li>
+    <li>業界の追い風 + 自社の改善 で、<strong>あと 2-3 年で黒字化 → 2027 年 IPO</strong> が現実的なシナリオ</li>
+    <li>ただし、追加調達 or EV キャンパーの本格量産が <strong>必要条件</strong>。コケたら危ない</li>
+    <li>キャンピングカー業界全体は今 <strong>ぐんぐん伸びてる</strong>ので、波には乗りやすい</li>
+  </ul>
+</div>
+
+<h2><span class="emoji">🧠</span> 中学生でも使える、覚えておくと得する 3 つの言葉</h2>
+
+<div class="naruhodo">
+  <div class="lbl">📝 用語メモ</div>
+  <p><strong>① 決算公告(けっさんこうこく)</strong><br>会社が 1 年に 1 回、「うちの会社の財布の中身、これだけです」って公開するルール。本当に公開してるかは <code>k.secure.freee.co.jp</code> 等で誰でも見られる。</p>
+  <p><strong>② 債務超過(さいむちょうか)</strong><br>「借金の方が、持ってる財産より多い」状態。ふつうはヤバいけど、スタートアップではよくある一時的な状態。投資家がついてれば、問題ない。</p>
+  <p><strong>③ 資本金減少(げんし)</strong><br>会社の資本金をわざと小さくすること。税金を安くしたい、赤字を整理したい、IPO の準備、などの理由で行われる。中小企業 (資本金 1 億以下) になると、税金が結構安くなる。</p>
+</div>
+
+<div class="ttl-footer">
+  📅 このページは 2026-05-18 00:37 JST に自動的に削除されます (TTL 72 時間)<br>
+  🔗 Carstay 株式会社 第1〜7期 (2019/5〜2025/5) 決算公告分析 / 出典: freee 法定公告ビューワー<br>
+  ✍️ 中学生でも読める決算ニュース ver.1
+</div>
+
+</div>
+</body>
+</html>
