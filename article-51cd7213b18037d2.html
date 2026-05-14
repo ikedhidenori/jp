@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>水って なんで 買うの? 〜のみもの ビジネスの ふしぎ〜</title>
+<style>
+:root {
+  --bg: #fffdf5;
+  --text: #2a2a2a;
+  --muted: #7a7a7a;
+  --pink: #ff8db4;
+  --yellow: #ffd84d;
+  --green: #8dd47e;
+  --blue: #7ec4ff;
+  --orange: #ffa45c;
+  --purple: #c4a3ff;
+  --border: #f0e8d8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #2a2823; --text: #f5f0e6; --muted: #b3a99a;
+    --pink: #e26d95; --yellow: #ddb83a; --green: #6cb55f; --blue: #5aa3df; --orange: #df8a4a; --purple: #a384df;
+    --border: #4a4438;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic", "Meiryo", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 2;
+  margin: 0;
+  padding: 24px 16px;
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,216,77,0.08) 0, transparent 40%),
+    radial-gradient(circle at 90% 60%, rgba(126,196,255,0.08) 0, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(255,141,180,0.08) 0, transparent 40%);
+}
+.container { max-width: 700px; margin: 0 auto; }
+
+.title-card {
+  background: linear-gradient(135deg, #ffe89c, #ffa9c8);
+  padding: 28px 24px;
+  border-radius: 24px;
+  text-align: center;
+  margin: 10px 0 28px;
+  border: 4px dashed #fff;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.06);
+}
+.title-card h1 { font-size: 26px; margin: 8px 0; line-height: 1.5; font-weight: 800; color: #5a3a3a; letter-spacing: 0.02em; }
+.title-card .sub { font-size: 14px; color: #6a4a4a; margin-top: 6px; }
+.title-card .icons { font-size: 34px; margin-bottom: 4px; }
+
+h2 {
+  font-size: 21px;
+  margin: 40px 0 14px;
+  padding: 10px 18px;
+  border-radius: 16px;
+  font-weight: 800;
+  color: #3a3a3a;
+  display: inline-block;
+  line-height: 1.5;
+}
+h2.h-pink { background: var(--pink); }
+h2.h-yellow { background: var(--yellow); }
+h2.h-green { background: var(--green); }
+h2.h-blue { background: var(--blue); }
+h2.h-orange { background: var(--orange); }
+h2.h-purple { background: var(--purple); }
+
+h3 { font-size: 18px; margin: 24px 0 10px; color: #c25450; font-weight: 800; }
+p { margin: 12px 0; }
+strong { font-weight: 800; background: linear-gradient(transparent 60%, rgba(255,216,77,0.7) 60%); padding: 0 3px; }
+em { font-style: normal; color: var(--pink); font-weight: 800; }
+ul, ol { padding-left: 24px; margin: 10px 0; }
+li { margin: 6px 0; }
+
+.character {
+  display: flex;
+  gap: 12px;
+  margin: 18px 0;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: white;
+  border: 3px solid var(--blue);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.04);
+}
+.character.right { border-color: var(--pink); flex-direction: row-reverse; }
+.character .face { font-size: 38px; flex-shrink: 0; line-height: 1.2; }
+.character .bubble { flex: 1; font-size: 16px; line-height: 1.7; }
+.character .name { font-size: 12px; color: var(--muted); font-weight: 700; margin-bottom: 2px; }
+
+.quiz-box {
+  background: #fff8d6;
+  border: 4px dashed var(--orange);
+  border-radius: 20px;
+  padding: 20px 22px;
+  margin: 20px 0;
+}
+.quiz-box .label { display: inline-block; background: var(--orange); color: white; padding: 4px 12px; border-radius: 12px; font-weight: 800; font-size: 14px; margin-bottom: 8px; }
+.quiz-box .q { font-size: 18px; font-weight: 800; margin: 8px 0; }
+.quiz-box .a { background: white; border-radius: 12px; padding: 12px 16px; margin-top: 10px; font-size: 15px; }
+.quiz-box .a .label-a { display: inline-block; background: var(--green); color: white; padding: 2px 10px; border-radius: 10px; font-weight: 800; font-size: 13px; margin-right: 8px; }
+
+.timeline {
+  position: relative;
+  padding-left: 24px;
+  margin: 16px 0;
+  border-left: 4px solid var(--blue);
+}
+.timeline .event { margin: 14px 0; position: relative; padding: 10px 14px; border-radius: 12px; background: white; border: 2px solid var(--border); }
+.timeline .event::before { content: "●"; position: absolute; left: -34px; top: 10px; color: var(--blue); font-size: 18px; background: var(--bg); padding: 0 2px; }
+.timeline .event.big { background: linear-gradient(135deg, #fff3a8, #ffd5e8); border-color: var(--pink); }
+.timeline .event.big::before { color: var(--pink); }
+.timeline .year { font-weight: 800; color: var(--pink); font-size: 15px; }
+.timeline .text { margin-top: 4px; font-size: 15px; line-height: 1.6; }
+
+.tricks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.trick {
+  padding: 14px 14px;
+  border-radius: 16px;
+  background: white;
+  border: 3px solid var(--green);
+  position: relative;
+}
+.trick:nth-child(1) { border-color: var(--pink); background: #ffeef5; }
+.trick:nth-child(2) { border-color: var(--yellow); background: #fffadb; }
+.trick:nth-child(3) { border-color: var(--green); background: #ecfae8; }
+.trick:nth-child(4) { border-color: var(--blue); background: #e8f4ff; }
+.trick:nth-child(5) { border-color: var(--orange); background: #fff0e2; }
+.trick:nth-child(6) { border-color: var(--purple); background: #f0e8ff; }
+.trick:nth-child(7) { border-color: #ff5c5c; background: #ffe5e5; }
+.trick:nth-child(8) { border-color: var(--green); background: #e8fae0; }
+.trick .n { display: inline-block; background: rgba(0,0,0,0.1); width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: 800; font-size: 14px; margin-right: 6px; }
+.trick .icon { font-size: 28px; margin-right: 4px; vertical-align: middle; }
+.trick .title { font-weight: 800; font-size: 16px; display: block; margin-bottom: 6px; }
+.trick .desc { font-size: 14px; line-height: 1.6; }
+
+.point-card {
+  padding: 18px 20px;
+  border-radius: 18px;
+  margin: 16px 0;
+  background: white;
+  border: 3px solid var(--border);
+  position: relative;
+}
+.point-card .badge { position: absolute; top: -12px; left: 16px; padding: 4px 12px; border-radius: 10px; font-size: 13px; font-weight: 800; color: white; }
+.point-card.warn { background: #ffe5e5; border-color: #ff5c5c; }
+.point-card.warn .badge { background: #ff5c5c; }
+.point-card.good { background: #ecfae8; border-color: var(--green); }
+.point-card.good .badge { background: var(--green); color: #2a2a2a; }
+.point-card.tip { background: #fffadb; border-color: var(--yellow); }
+.point-card.tip .badge { background: var(--yellow); color: #2a2a2a; }
+
+.hint-list {
+  background: white;
+  border-radius: 18px;
+  padding: 18px 22px;
+  margin: 14px 0;
+  border: 3px solid var(--purple);
+}
+.hint-list .hint { margin: 14px 0; padding: 10px 12px 10px 0; border-bottom: 2px dotted var(--border); }
+.hint-list .hint:last-child { border-bottom: none; }
+.hint-list .hint .h-no { display: inline-block; background: var(--purple); color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: 800; margin-right: 8px; font-size: 14px; }
+.hint-list .hint .h-title { font-weight: 800; font-size: 16px; }
+.hint-list .hint .h-desc { font-size: 14.5px; margin-top: 4px; line-height: 1.7; }
+
+.ending {
+  background: linear-gradient(135deg, #c4f0c4, #c4e0ff, #f5d4ff);
+  padding: 24px 22px;
+  border-radius: 20px;
+  text-align: center;
+  margin: 28px 0;
+  border: 3px dashed white;
+}
+.ending .big-msg { font-size: 19px; font-weight: 800; margin: 8px 0; line-height: 1.6; }
+.ending .small { font-size: 14px; color: #4a4a4a; margin-top: 6px; }
+
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12px; margin: 36px 0 8px; padding: 10px; }
+
+@media (max-width: 480px) {
+  body { font-size: 16px; padding: 18px 12px; line-height: 1.8; }
+  .title-card h1 { font-size: 21px; }
+  .title-card .icons { font-size: 28px; }
+  h2 { font-size: 17px; padding: 6px 14px; }
+  h3 { font-size: 16px; }
+  .tricks { grid-template-columns: 1fr; }
+  .character { padding: 12px 14px; gap: 10px; }
+  .character .face { font-size: 32px; }
+  .character .bubble { font-size: 15px; }
+  .timeline { padding-left: 18px; }
+  .timeline .event::before { left: -28px; }
+  .quiz-box { padding: 16px 18px; }
+  .quiz-box .q { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="title-card">
+<div class="icons">🚰 💧 🍶 🥤 🥫</div>
+<h1>水って なんで 買うの?</h1>
+<div class="sub">〜のみもの ビジネスの ふしぎ〜</div>
+</div>
+
+<div class="character">
+<div class="face">🧒</div>
+<div class="bubble">
+<div class="name">ハカセくん</div>
+ねぇ、おねえさん。蛇口をひねれば水が <strong>タダ</strong> で出てくるよね。なのに、コンビニで水を 100 円で買う人がいっぱいいる。<br><strong>なんで?</strong>
+</div>
+</div>
+
+<div class="character right">
+<div class="face">👩‍🔬</div>
+<div class="bubble">
+<div class="name">ミズキおねえさん</div>
+いい質問だね! じつは「水を買う」っていう しくみは、<strong>みんなが考えて 50 年かけて つくった</strong> ものなんだ。今日はその ひみつ を のぞいてみよう!
+</div>
+</div>
+
+<h2 class="h-pink">♪ クイズで スタート!</h2>
+
+<div class="quiz-box">
+<span class="label">クイズ 1</span>
+<div class="q">Q. 日本で「家で飲む水」を <strong>はじめて売り出した年</strong> はいつ?</div>
+<div>① 1960年　② 1983年　③ 2011年</div>
+<div class="a">
+<span class="label-a">こたえ</span><strong>② 1983 年!</strong> ハウス食品の「六甲のおいしい水」が <strong>家庭用の元年</strong>。それより前は、水は タダで飲むもの だったんだ。
+</div>
+</div>
+
+<div class="quiz-box">
+<span class="label">クイズ 2</span>
+<div class="q">Q. 缶に入った「LIQUID DEATH」という水が、たった数年で <strong>2000 億円</strong> も売れたよ。なぜ?</div>
+<div>① 中身が特別おいしいから　② パッケージが超かっこいいから　③ 安いから</div>
+<div class="a">
+<span class="label-a">こたえ</span><strong>② パッケージ!</strong> 中身は ふつうの水。でもドクロ模様のアルミ缶と「のどを ぶっ殺せ」のキャッチコピーで、若者が <strong>「持ってるとカッコいい」</strong> と思う水になったんだ。
+</div>
+</div>
+
+<h2 class="h-yellow">♪ 日本の「水を買う」歴史</h2>
+
+<div class="character">
+<div class="face">👩‍🔬</div>
+<div class="bubble"><div class="name">ミズキおねえさん</div>日本では、水道がぜんぶの家に届くようになってから <strong>たった 60 年</strong>。そのあいだに何が起きたか、見てみよう!</div>
+</div>
+
+<div class="timeline">
+<div class="event"><div class="year">1960 年代</div><div class="text">🚰 水道がほぼ ぜんこく に普及。「水はタダ」が当たり前に</div></div>
+<div class="event"><div class="year">1970 年代</div><div class="text">🥃 ウィスキーの水割りブーム。お店で売る「業務用ボトル水」が登場</div></div>
+<div class="event big"><div class="year">⭐ 1983 年</div><div class="text">🍶 ハウス食品「六甲のおいしい水」発売。<strong>家庭で水を買う元年!</strong> (まだ紙パックだった)</div></div>
+<div class="event big"><div class="year">⭐ 1996 年</div><div class="text">🥤 500ml ペットボトルが解禁。コンビニで「持ち歩く水」が誕生</div></div>
+<div class="event"><div class="year">1995-2002 年</div><div class="text">🏠 アクアクララ・クリクラ、家にウォーターサーバーを置く時代へ</div></div>
+<div class="event big"><div class="year">⭐ 2011 年 3 月</div><div class="text">⚡ 東日本大震災。<strong>「もしも」のための備え</strong> として水を買う人が大ばくはつ。サーバー利用者 3 割増</div></div>
+<div class="event"><div class="year">2013-2016 年</div><div class="text">✨ 水素水ブーム。「のむと体にいい」とテレビで大流行</div></div>
+<div class="event big"><div class="year">⚠️ 2016 年 12 月</div><div class="text">📢 「水素ほとんど入ってないよ」と国が発表 → <strong>ブームが しゅんかんで くずれる</strong></div></div>
+<div class="event"><div class="year">2014 年〜</div><div class="text">💧 水道直結のサブスク (月いくら) が新しい主役に</div></div>
+<div class="event"><div class="year">2020 年代</div><div class="text">🌱 「プラごみが気になる」「マイボトル」など、地球にやさしい水が人気</div></div>
+</div>
+
+<h2 class="h-green">♪ 世界の話、ちょこっと</h2>
+
+<div class="character">
+<div class="face">🧒</div>
+<div class="bubble"><div class="name">ハカセくん</div>外国でも 水を買うようになったの?</div>
+</div>
+
+<div class="character right">
+<div class="face">👩‍🔬</div>
+<div class="bubble"><div class="name">ミズキおねえさん</div>そうそう! しかも 日本より <strong>もっと早く</strong> 始まったよ。</div>
+</div>
+
+<ul>
+<li>🇫🇷 <strong>1863 年 (160 年前!)</strong>: フランスで「Perrier」(ペリエ) という炭酸水ブランドが誕生</li>
+<li>🇺🇸 <strong>1977 年</strong>: アメリカの広告マンが Perrier を <strong>「ヨーロッパからきた高級な水」</strong> として売り出す。当時の伝説のクラブ「Studio 54」で セレブ がみんな飲む → 「水を飲む = カッコいい」が誕生</li>
+<li>💀 <strong>2018 年</strong>: アメリカで「LIQUID DEATH」が登場。<strong>パンクロック × ドクロ × アルミ缶</strong> でわずか数年で 2000 億円企業に</li>
+</ul>
+
+<h2 class="h-blue">♪ 8 つの しかけ を 見つけよう!</h2>
+
+<div class="character">
+<div class="face">👩‍🔬</div>
+<div class="bubble"><div class="name">ミズキおねえさん</div>水を売る人たちは、いろんな <strong>しかけ</strong> をつくって、「水を買う理由」をつくってきたんだ。8 つに わけて 見てみよう!</div>
+</div>
+
+<div class="tricks">
+<div class="trick">
+<span class="icon">😰</span><span class="title"><span class="n">1</span>ふあん さくせん</span>
+<div class="desc">「水道水って ヤバくない?」と <strong>見えない不安に名前をつける</strong>。トリハロメタン・カルキ・放射能…</div>
+</div>
+<div class="trick">
+<span class="icon">😎</span><span class="title"><span class="n">2</span>カッコいい さくせん</span>
+<div class="desc">「あのセレブが飲んでる」「あのお店に置いてある」<br>= <strong>文化のシンボル</strong> にする。Perrier の緑のビンが代表選手!</div>
+</div>
+<div class="trick">
+<span class="icon">⏰</span><span class="title"><span class="n">3</span>毎日のクセ さくせん</span>
+<div class="desc">「朝の 1 杯」「うんどう後の水」<br>= <strong>日課に組み込む</strong>。クセになると ずっと買ってくれる</div>
+</div>
+<div class="trick">
+<span class="icon">🚰</span><span class="title"><span class="n">4</span>もう 1 本の水道 さくせん</span>
+<div class="desc">家にサーバーを設置 = <strong>もう 1 本水道を引く</strong> ようなもの。簡単には やめられない</div>
+</div>
+<div class="trick">
+<span class="icon">🥤</span><span class="title"><span class="n">5</span>容器が メディア さくせん</span>
+<div class="desc">中身よりも <strong>容器のデザイン</strong> で勝負! LIQUID DEATH のドクロ缶が SNS で バズった</div>
+</div>
+<div class="trick">
+<span class="icon">⚠️</span><span class="title"><span class="n">6</span>もしもの備え さくせん</span>
+<div class="desc">災害の不安を <strong>「自動でとどく サブスク」</strong> に変える。<br>一時の こわさ を、毎月の売上にチェンジ!</div>
+</div>
+<div class="trick">
+<span class="icon">💊</span><span class="title"><span class="n">7</span>○○水だから さくせん</span>
+<div class="desc">「水素水」「アルカリ水」など <strong>効きそうな話</strong> で売る。<br><em>でも… 短命! 3 年でくずれる ことが多い ⚠️</em></div>
+</div>
+<div class="trick">
+<span class="icon">🌱</span><span class="title"><span class="n">8</span>こういう自分が好き さくせん</span>
+<div class="desc">「サステナを大事にする私」「地元を応援する私」<br>= 商品が <strong>自己表現の道具</strong> になる</div>
+</div>
+</div>
+
+<h2 class="h-orange">♪ いちばん 大事な ポイント!</h2>
+
+<div class="point-card warn">
+<div class="badge">⚠️ あぶない!</div>
+<h3 style="margin-top: 8px; color: #cc3333;">「効くよ」と 言うと… 3 年で くずれる</h3>
+<p>水素水ブームは「のむと体にいい」「シミが消える」と <strong>効くストーリー</strong> で売り出した。でも 3 年後…</p>
+<p>📢 国民生活センターが <strong>「水素ほとんど入ってないよ」</strong> と発表 → 消費者庁から「うそはダメ」と指導 → <strong>ブーム しゅんさつ</strong>。</p>
+<p>👉 <strong>「効く」と言うと、規制で潰される</strong> 運命なんだ。</p>
+</div>
+
+<div class="point-card good">
+<div class="badge">✅ ながく つづく!</div>
+<h3 style="margin-top: 8px; color: #2a8a3a;">「文化」を 売ると… 50 年残る</h3>
+<p>Perrier (緑のビン + フランス + セレブ文化) は <strong>1860 年代から 今も人気</strong>。Evian も 1970 年代から、宅配水も 1995 年から ずーっと続いてる。</p>
+<p>共通点: <strong>「ライフスタイル」「体験」「気分」「自己表現」</strong> を売っていること。</p>
+<p>👉 これらは <strong>規制では潰せない</strong>。だから 50 年残る。</p>
+</div>
+
+<div class="character right">
+<div class="face">👩‍🔬</div>
+<div class="bubble"><div class="name">ミズキおねえさん</div>つまりね、<strong>「効くよ」より「こういう生き方だよ」</strong> って売ったほうが、ずーっと長く愛されるんだ。</div>
+</div>
+
+<div class="character">
+<div class="face">🧒</div>
+<div class="bubble"><div class="name">ハカセくん</div>へぇ〜! 「機能」より「文化」かぁ。 これって 水だけじゃなくて、いろんな しごと に つかえそう!</div>
+</div>
+
+<h2 class="h-purple">♪ あたらしい しごと を つくる 7 つのヒント</h2>
+
+<div class="character">
+<div class="face">👩‍🔬</div>
+<div class="bubble"><div class="name">ミズキおねえさん</div>水の歴史から学んだ <strong>「市場のつくりかた」</strong> は、新しい仕事を考えるときの ヒント になるよ! 7 つ集めてみたよ ↓</div>
+</div>
+
+<div class="hint-list">
+<div class="hint">
+<span class="h-no">1</span><span class="h-title">タダで使ってるものに「不快」と なまえをつける</span>
+<div class="h-desc">水道水を「不安」「面倒」と言葉にした人が市場を作った。今で言うと「メール疲れ」「通知疲れ」みたいに、<strong>みんなが当たり前に思ってる無料サービスの違和感に なまえをつける</strong> のがスタート!</div>
+</div>
+<div class="hint">
+<span class="h-no">2</span><span class="h-title">商品じゃなくて「儀式 (クセ)」を 売る</span>
+<div class="h-desc">「朝の 1 杯」「運動後の水」みたいに、<strong>毎日くりかえす動作</strong> に商品をハメ込む。クセになれば、ずっと買ってくれる。</div>
+</div>
+<div class="hint">
+<span class="h-no">3</span><span class="h-title">物理的に 部屋を 占拠する</span>
+<div class="h-desc">ウォーターサーバーは <strong>「家にあるだけで次も買う」</strong> 状態を作る。サブスク + 物理デバイスは、ネットだけのサブスクより やめにくい。設置型ビジネスは強い!</div>
+</div>
+<div class="hint">
+<span class="h-no">4</span><span class="h-title">容器で ファンを つくる</span>
+<div class="h-desc">中身が同じでも、容器が SNS で映える / 棚で目立つ → これだけで <strong>何千億円の差</strong> が出る。LIQUID DEATH がまさにそれ!</div>
+</div>
+<div class="hint">
+<span class="h-no">5</span><span class="h-title">災害の こわさ を 「毎月の売上」に かえる</span>
+<div class="h-desc">災害は一過性。でも <strong>「ローリングストック」「自動補充サブスク」</strong> として仕組み化すれば、毎月のビジネスになる。防災 × サブスクは今もチャンス!</div>
+</div>
+<div class="hint">
+<span class="h-no">6</span><span class="h-title">「効く」と 言いすぎない</span>
+<div class="h-desc">効能を強く言うと最初は売れる。でも嘘がバレると規制で潰れる (水素水)。<strong>「気分」「習慣」「気持ちよさ」「文化」</strong> にとどめると ながく もつ。</div>
+</div>
+<div class="hint">
+<span class="h-no">7</span><span class="h-title">いまの業界の「つかれ」を 次のチャンスにする</span>
+<div class="h-desc">宅配水の <em>ボトル返却 つかれ</em> → 浄水サブスクが伸びた。今は <strong>「サブスク疲れ + プラごみ罪悪感」</strong> が次のチャンス。<strong>今の業界の不満 = 次の市場の入口</strong> なんだ!</div>
+</div>
+</div>
+
+<h2 class="h-pink">♪ きょうの まとめ</h2>
+
+<div class="ending">
+<div style="font-size: 32px;">💧✨🥤</div>
+<div class="big-msg">「効く」と 言うと 3 年で くずれる<br>「文化」を 売ると 50 年 のこる</div>
+<div class="small">Perrier も Evian も 宅配水も ウォーターサーバーも、<br>ぜんぶ <strong>「文化 = ライフスタイル」</strong> を 売ってきたんだ。</div>
+</div>
+
+<div class="character">
+<div class="face">🧒</div>
+<div class="bubble"><div class="name">ハカセくん</div>へぇ〜! ぼくも 何か しごと を つくるとき、<strong>「効くよ」じゃなくて「こういう生き方だよ」</strong> って 売ろう!</div>
+</div>
+
+<div class="character right">
+<div class="face">👩‍🔬</div>
+<div class="bubble"><div class="name">ミズキおねえさん</div>そう! それじゃ、また 次回、ベイビ〜!</div>
+</div>
+
+<div style="text-align: center; font-size: 13px; color: var(--muted); margin: 30px 0 8px;">
+〜 つづく 〜<br>
+元データ: 30-wiki/markets/beverage-water-market-creation.md (2026-05-14)
+</div>
+
+<div class="ttl-footer">このページは 2026-05-18 自動削除されます (TTL 72h)</div>
+
+</div>
+</body>
+</html>
