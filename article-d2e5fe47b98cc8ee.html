@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>絶滅職種図鑑 — 並行作業 3 件 (2026-05-17)</title>
+<style>
+:root {
+  --bg: #fbfaf8;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2b7a78;
+  --quote-bg: #f0ebe3;
+  --border: #e8e2d8;
+  --table-head: #efe8db;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1c1b19; --text: #e8e4dc; --muted: #9a958c; --accent: #6ab8b4; --quote-bg: #28262a; --border: #3a3731; --table-head: #2a2724; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Hiragino Sans", "Yu Gothic", -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.85;
+  margin: 0;
+  padding: 32px 20px;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 760px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 32px 0 20px; line-height: 1.4; font-weight: 700; border-bottom: 3px solid var(--accent); padding-bottom: 10px; }
+h2 { font-size: 21px; margin: 36px 0 14px; line-height: 1.5; font-weight: 700; padding-left: 12px; border-left: 4px solid var(--accent); }
+h3 { font-size: 18px; margin: 28px 0 10px; color: var(--accent); }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--accent); font-weight: 700; }
+p { margin: 14px 0; }
+a { color: var(--accent); text-decoration: underline; }
+blockquote { background: var(--quote-bg); padding: 14px 18px; margin: 18px 0; border-radius: 4px; font-size: 15px; line-height: 1.8; border-left: 3px solid var(--accent); }
+em { font-style: italic; }
+strong { font-weight: 700; background: linear-gradient(transparent 65%, rgba(43,122,120,0.18) 65%); }
+ul, ol { padding-left: 24px; margin: 12px 0; }
+li { margin: 4px 0; line-height: 1.8; }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px auto; width: 60%; }
+code { font-family: "SF Mono", Menlo, monospace; background: var(--quote-bg); padding: 2px 6px; border-radius: 3px; font-size: 13.5px; }
+pre { background: var(--quote-bg); padding: 14px 16px; border-radius: 4px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
+pre code { background: transparent; padding: 0; }
+table { border-collapse: collapse; margin: 18px 0; width: 100%; font-size: 14.5px; display: block; overflow-x: auto; }
+th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; vertical-align: top; }
+th { background: var(--table-head); font-weight: 700; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12.5px; margin: 48px 0 16px; padding: 12px; border-top: 1px dashed var(--border); }
+@media (max-width: 480px) {
+  body { font-size: 15px; padding: 24px 14px; }
+  h1 { font-size: 21px; }
+  h2 { font-size: 18px; }
+  h3 { font-size: 16px; }
+  table { font-size: 13px; }
+  th, td { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>並行作業 3 件 (2026-05-17、価格円卓 + 第 2 章完成後)</h1>
+<blockquote>
+<p>アカウント開設以降の素子代行作業まとめ。3 件をひとつのドキュメントに統合。</p>
+</blockquote>
+<hr />
+<h1>Doc 1: マガジン審査フォールバック設計</h1>
+<h1>note 定期購読マガジン審査フォールバック設計</h1>
+<blockquote>
+<p><strong>目的</strong>: Phase 1 MVP 公開期限 (2026-06-15) を死守するため、note 定期購読マガジン審査の不確実性に対する 3 案比較 + 切替判断フローを設計する。</p>
+<p><strong>起源</strong>: 価格円卓会議 (2026-05-15) で B note 編集者が指摘した「note 新規アカウントの 60 日運用実績要件」リスク (pricing-research-revenue-model.md v2 § 5-1 #3)。</p>
+<p><strong>判断期限</strong>: <strong>2026-06-01</strong> (この日までにジョニーが Plan A 通過の兆候を見て、Plan B 切替コミットの要否を判断)</p>
+</blockquote>
+<hr />
+<h2>1. 背景 + リスク</h2>
+<h3>1-1. タイムライン</h3>
+<table>
+<thead>
+<tr>
+<th>日付</th>
+<th>イベント</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-05-22 (W2)</td>
+<td>note 新規アカウント <code>zetsumetsu_zukan</code> 開設 + note プレミアム登録 (¥500/月) + <strong>定期購読マガジン申請送信</strong></td>
+</tr>
+<tr>
+<td>2026-05-22〜</td>
+<td>審査待ち期間 (note 運営事務局)</td>
+</tr>
+<tr>
+<td>2026-06-01</td>
+<td><strong>判断分岐ポイント</strong>: 審査状況に基づき Plan A 継続 or Plan B 切替コミット</td>
+</tr>
+<tr>
+<td>2026-06-08</td>
+<td>第 1 章「データ入力」公開 (全文無料)</td>
+</tr>
+<tr>
+<td>2026-06-15</td>
+<td><strong>Phase 1 MVP 公開期限</strong> — 第 2 章公開 + マガジン正式運用開始</td>
+</tr>
+</tbody>
+</table>
+<h3>1-2. リスクの構造</h3>
+<p><strong>定期購読マガジン審査の不確実性</strong>:</p>
+<ul>
+<li>note 公式ヘルプ (https://www.help-note.com/hc/ja/articles/360000390782) には「運営事務局の審査があります」とのみ記載。具体的な審査基準・期間は<strong>公式未明示</strong></li>
+<li>B note 編集者 (円卓会議パネリスト) の業界知識:</li>
+<li>新規アカウントは<strong>暗黙の 60 日運用実績要件</strong>がある可能性 (note 公式未明示、業界実例ベースの推測)</li>
+<li>既存の運用実績 (記事投稿数、フォロワー数、エンゲージメント) が審査通過に影響する</li>
+<li>実績ゼロの新規アカウントからの即日申請は差し戻しリスクが高い</li>
+<li>業界実例のばらつき: 申請から 1 営業日〜4 週間 (note-account-setup-checklist.md § 2-2 注記)</li>
+<li><strong>最悪ケース</strong>: 5/22 申請 → 「運用実績が不足しています」で差し戻し → 60 日待ち → 7/21 以降に再申請 → 6/15 公開に<strong>間に合わない</strong></li>
+</ul>
+<h3>1-3. リスクの深刻度</h3>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>評価</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>発生確率</td>
+<td><strong>中〜高</strong> (新規アカウント即申請の差し戻し実例あり、ただし note 公式未明示のため定量不可)</td>
+</tr>
+<tr>
+<td>影響度</td>
+<td><strong>高</strong> (Phase 1 MVP 公開期限 6/15 の主要収益構造が成立しない)</td>
+</tr>
+<tr>
+<td>検知タイミング</td>
+<td>5/22 申請後〜6/1 の間 (審査結果通知 or 沈黙)</td>
+</tr>
+<tr>
+<td>軽減可能性</td>
+<td><strong>高</strong> (Plan B / C で代替手段が存在)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. 3 案比較表</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>Plan A (本命)</th>
+<th>Plan B (買切+単品)</th>
+<th>Plan C (副業 Pillar 既存)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>概要</strong></td>
+<td>定期購読マガジン申請、通過待ち</td>
+<td>買切型マガジン + 単品有料記事</td>
+<td>副業 Pillar 既存アカウントに図鑑マガジン追加</td>
+</tr>
+<tr>
+<td><strong>審査リスク</strong></td>
+<td><strong>高</strong> (通過時期不明)</td>
+<td><strong>0</strong> (買切型は審査不要、即開設可)</td>
+<td><strong>0</strong> (既存アカウントは運用実績あり)</td>
+</tr>
+<tr>
+<td><strong>6/15 公開可能性</strong></td>
+<td>△ (審査通過次第)</td>
+<td><strong>◎</strong> (確実)</td>
+<td><strong>◎</strong> (確実)</td>
+</tr>
+<tr>
+<td><strong>¥980/月 定期購読収益</strong></td>
+<td>✓ (通過時)</td>
+<td><strong>×</strong> (買切のみ、月額課金なし)</td>
+<td>△ (副業 Pillar アカウントで定期購読申請すれば可能、ただし審査あり)</td>
+</tr>
+<tr>
+<td><strong>ブランド独立性</strong></td>
+<td><strong>◎</strong> (新規アカウント独立)</td>
+<td><strong>◎</strong> (新規アカウント独立)</td>
+<td><strong>×</strong> (副業 Pillar 配下、戦略 v0.4.2 判断 G 矛盾)</td>
+</tr>
+<tr>
+<td><strong>INNFRA 信用材料</strong></td>
+<td><strong>◎</strong> (独立メディアとしての信用)</td>
+<td><strong>△</strong> (単品売上は可能だが定期購読の「メディア感」がない)</td>
+<td><strong>×</strong> (副業 Pillar の一連載、経営層への独立メディア訴求が弱い)</td>
+</tr>
+<tr>
+<td><strong>手取り率</strong></td>
+<td>70% (プラットフォーム 20% + 決済 5% + 振込 ¥270)</td>
+<td><strong>80-85%</strong> (買切型はプラットフォーム 10% + 決済 5%、定期購読より手取り率は高い)</td>
+<td>70% (Pillar 既存でも定期購読なら同率)</td>
+</tr>
+<tr>
+<td><strong>月額継続収益</strong></td>
+<td>✓ (MRR 構造、解約率管理で成長)</td>
+<td><strong>×</strong> (都度購入のみ、MRR なし)</td>
+<td>△ (Pillar マガジン構造次第)</td>
+</tr>
+<tr>
+<td><strong>定期購読通過後の切替コスト</strong></td>
+<td>0 (そのまま運用)</td>
+<td><strong>中</strong> (買切マガジン → 定期購読マガジンへ移行、既存購入者への告知必要)</td>
+<td><strong>高</strong> (独立アカウント移行 = 購読者ゼロリセット)</td>
+</tr>
+<tr>
+<td><strong>Phase 2 への影響</strong></td>
+<td>なし (戦略通り)</td>
+<td>低 (通過後に定期購読立ち上げ、買切は Phase 1 限定)</td>
+<td><strong>高</strong> (ブランド分離の二度手間)</td>
+</tr>
+</tbody>
+</table>
+<h3>2-1. 手数料構造の詳細比較 (¥980 基準)</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>Plan A: 定期購読¥980/月</th>
+<th>Plan B: 買切型¥980 (一括)</th>
+<th>Plan B: 単品¥500</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>プラットフォーム利用料</td>
+<td><strong>20%</strong> = ¥196</td>
+<td><strong>10%</strong> = ¥98</td>
+<td><strong>10%</strong> = ¥50</td>
+</tr>
+<tr>
+<td>決済手数料 (クレカ 5%)</td>
+<td>¥49</td>
+<td>¥49</td>
+<td>¥25</td>
+</tr>
+<tr>
+<td>振込手数料</td>
+<td>¥270/月</td>
+<td>¥270/月</td>
+<td>¥270/月</td>
+</tr>
+<tr>
+<td>手取り (1 件、振込控除前)</td>
+<td><strong>≈ ¥670</strong></td>
+<td><strong>≈ ¥784</strong></td>
+<td><strong>≈ ¥400</strong></td>
+</tr>
+<tr>
+<td>100 件/月の手取り</td>
+<td>¥67,000</td>
+<td>¥78,400 (一括のため累積しない)</td>
+<td>¥40,000</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>買切型は手数料率が定期購読より有利 (10% vs 20%)。ただし MRR (Monthly Recurring Revenue) 構造がないため、毎月新規獲得が必要。</p>
+</blockquote>
+<hr />
+<h2>3. 各案の詳細</h2>
+<h3>Plan A: 定期購読マガジン申請 + 通過待ち (本命)</h3>
+<p><strong>実装手順</strong>:<br />
+1. 5/22: note アカウント開設 + note プレミアム登録<br />
+2. 5/22: 定期購読マガジン申請 (タイトル / 説明文 / ¥980 / 更新頻度「月 1 章以上」)<br />
+3. 5/22-28: 審査待ちの間に開設挨拶記事 + 第 1 章下書き作成 (無料公開準備)<br />
+4. 審査通過通知受領 → そのままマガジン公開設定<br />
+5. 6/8: 第 1 章公開 (全文無料、マガジン所属 ON)<br />
+6. 6/15: 第 2 章公開 (¥500 + マガジン ¥980/月 正式運用開始)</p>
+<p><strong>審査通過を促進するための施策</strong> (note 公式未明示、業界ベストプラクティス):<br />
+- 申請前に 2-3 件の無料記事を投稿 (開設挨拶 + コンセプト説明 + 第 1 章プレビュー)<br />
+- プロフィールを完全に埋める (アイコン / ヘッダー / 自己紹介 140 字 / URL)<br />
+- 申請フォームのコンセプト説明を充実させる (公的データ出典 + 更新計画 + ターゲット読者)<br />
+- (note 公式未明示、推測) note プレミアム登録が審査に好影響を与える可能性</p>
+<p><strong>リスク評価</strong>:<br />
+| リスク | 確率 | 影響 | 軽減策 |<br />
+|---|---|---|---|<br />
+| 審査差し戻し (運用実績不足) | 中〜高 | 6/15 に定期購読マガジンが使えない | Plan B 同時準備 |<br />
+| 審査に 2 週間以上かかる (沈黙) | 中 | 6/1 判断ポイントで不明 | 6/1 時点で未通知なら Plan B 切替コミット |<br />
+| 審査通過するが 6/8 以降 | 低〜中 | 第 1 章公開は可能だが定期購読導線が遅延 | 単品先行公開 + 定期購読通過後にマガジン追加 |</p>
+<hr />
+<h3>Plan B: 買切型マガジン + 単品有料記事 (フォールバック 1)</h3>
+<p><strong>実装手順</strong>:<br />
+1. 5/22: note アカウント開設 (Plan A と共通)<br />
+2. 5/22: 定期購読マガジン申請も<strong>同時に送信</strong> (Plan A 並行)<br />
+3. 5/29-6/1: <strong>買切型マガジン「絶滅職種図鑑 Phase 1 セット」を下書き作成</strong><br />
+   - 買切型マガジンは審査不要、即作成可能<br />
+   - 構造: 第 1-5 章をまとめたバンドル<br />
+4. 6/1: Plan A 審査状況確認 → 未通過なら Plan B 切替コミット<br />
+5. 6/8: 第 1 章公開 (全文無料、買切型マガジン所属 ON)<br />
+6. 6/15: 第 2 章公開 (¥500) + 買切型マガジン正式販売</p>
+<p><strong>買切型マガジンの設計</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>設定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>マガジン名</td>
+<td>「絶滅職種図鑑 — Phase 1 全章セット」</td>
+</tr>
+<tr>
+<td>価格</td>
+<td><strong>未設定 (6/1 判断時に決定)</strong> — 後述の価格検討参照</td>
+</tr>
+<tr>
+<td>内容</td>
+<td>第 1 章 (無料) + 第 2-5 章 (有料) を収録</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>Phase 1 期間中に第 3-5 章を順次追加</td>
+</tr>
+<tr>
+<td>位置づけ</td>
+<td><strong>定期購読マガジン通過までのつなぎ</strong>。通過後は定期購読に一本化し、買切型は「Phase 1 アーカイブ」として残すか販売停止</td>
+</tr>
+</tbody>
+</table>
+<p><strong>買切型マガジン価格の検討</strong> (6/1 判断ポイントでジョニーが決定):</p>
+<table>
+<thead>
+<tr>
+<th>案</th>
+<th>価格</th>
+<th>ロジック</th>
+<th>推奨度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>B-1</strong></td>
+<td><strong>¥1,500</strong></td>
+<td>単品合計 ¥2,000 (¥500 x 4 章) より ¥500 お得、書籍価格 ¥1,650-1,980 を下回る</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>B-2</td>
+<td>¥2,000</td>
+<td>単品合計と同額、お得感なし、セット購入の動機が「一括管理」のみ</td>
+<td>★</td>
+</tr>
+<tr>
+<td>B-3</td>
+<td>¥980</td>
+<td>定期購読と同額、「1 ヶ月分で全章」の訴求、ただし 5 章セット ¥980 は安すぎで品質印象を損なう</td>
+<td>★★</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>素子推奨</strong>: <strong>B-1 (¥1,500)</strong>。理由: (1) 単品 4 章 ¥2,000 vs セット ¥1,500 = 25% 割引で購入動機を明確にする、(2) 書籍化打診時の comparable (¥1,650-1,980) を下回るので書籍価格とバッティングしない (pricing-research-revenue-model.md § 4-4 の「5 章セット価格は出さない」推奨は定期購読前提の話で、定期購読が使えない場合のフォールバックでは状況が異なる)、(3) 手取り ¥1,500 x 85% = ¥1,275/セット</p>
+</blockquote>
+<p><strong>収益インパクト (Plan B の場合)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>シナリオ</th>
+<th>月収構造</th>
+<th>MVP Gate ¥10 万</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PV 10K / 単品 CVR 0.7% / 買切セット CVR 0.3%</td>
+<td>単品 70 件 x ¥400 + セット 30 件 x ¥1,275 = <strong>¥28,000 + ¥38,250 = ¥66,250/月</strong></td>
+<td>× 単月未達</td>
+</tr>
+<tr>
+<td>累積 2 ヶ月 (PV 10K 維持)</td>
+<td>¥66,250 x 2 = <strong>¥132,500</strong> (ただし買切は一括なので累積効果は限定的、新規ユーザーの流入次第)</td>
+<td>△ ギリギリ</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Plan B は MRR 構造がないため、MVP Gate ¥10 万達成は Plan A より厳しい。ただし 6/15 公開は確実に担保できる。定期購読通過後に MRR 構造を追加すれば Phase 2 以降で回復可能。</p>
+</blockquote>
+<p><strong>リスク評価</strong>:<br />
+| リスク | 確率 | 影響 | 軽減策 |<br />
+|---|---|---|---|<br />
+| 定期購読通過後の移行で購読者混乱 | 低〜中 | 買切マガジン購入者が「定期購読も必要?」と混乱 | 移行時に告知記事 + 買切購入者は定期購読 1 ヶ月無料クーポン (note 機能有無要確認) |<br />
+| 買切マガジンの売上が伸びない | 中 | 単品のみの収益構造に | セット価格の「お得感」CTA を記事内で訴求 |<br />
+| 定期購読が結局通らない (60 日以上) | 低 | Plan B が Phase 1 の恒久構造に | Phase 2 ゲートで独自サイト課金検討に前倒し |</p>
+<hr />
+<h3>Plan C: 副業 Pillar 既存アカウントの利用 (フォールバック 2、最終手段)</h3>
+<p><strong>前提確認</strong> (pillar-asset-inventory.md 依存):<br />
+- 副業 Pillar の既存 note アカウントの有無 + URL = <strong>ジョニー確認待ち</strong> (checklist § 4-2 / pillar-asset § 6)<br />
+- 既存アカウントがある場合: 運用実績あり → 定期購読マガジン申請の審査通過見込みは Plan A より大幅に高い<br />
+- 既存アカウントがない場合: Plan C 自体が成立しない</p>
+<p><strong>実装手順</strong> (既存アカウントありの場合):<br />
+1. 副業 Pillar 既存 note アカウントにログイン<br />
+2. 「絶滅職種図鑑」マガジンを新規作成 (定期購読 ¥980/月 or 買切型)<br />
+3. 既存アカウントの運用実績で審査通過見込み高<br />
+4. 第 1-5 章を既存アカウント内で公開</p>
+<p><strong>リスク評価</strong>:<br />
+| リスク | 確率 | 影響 | 軽減策 |<br />
+|---|---|---|---|<br />
+| <strong>ブランド独立性の毀損</strong> | <strong>確定</strong> | 戦略 v0.4.2 判断 G (新規開設) と矛盾、図鑑 = 副業 Pillar の一コンテンツに格下げ | Phase 2 で独立アカウント移行 (購読者ゼロリセットのコスト大) |<br />
+| INNFRA 信用材料の弱化 | 高 | 経営層が「副業の note 内連載」と認識、独立メディアとしての信用が立たない | Concept Sheet § 3 Secondary persona 向けの訴求が弱まる |<br />
+| 副業 Pillar 読者との世界観衝突 | 中 | 「逃げていい」の柔らかい世界観 vs 「絶滅職種図鑑」の Forensic 世界観が同一アカウント内で衝突 | マガジンで分離するが、プロフィールレベルでは混在 |<br />
+| 独立移行時の購読者ゼロリセット | 確定 | Phase 2 で独立アカウントに移行する場合、Pillar アカウントの購読者は自動移行されない | 移行期の告知 + 新規アカウントで初月無料キャンペーン (note 機能有無要確認) |</p>
+<hr />
+<h2>4. 素子推奨案 + 起動条件</h2>
+<h3>推奨: Plan A 申請 + Plan B 同時準備 (A+B ハイブリッド)</h3>
+<p><strong>理由</strong>:<br />
+1. <strong>Plan A 通過 = 戦略最適解</strong>。定期購読 ¥980/月の MRR 構造は MVP Gate ¥10 万達成の主軸。通過できるなら Plan A がベスト<br />
+2. <strong>Plan B は保険として低コスト</strong>。買切型マガジンの下書き作成は 1-2 時間の追加工数で済む。定期購読通過後は下書きを破棄するだけ<br />
+3. <strong>Plan C はブランド独立性毀損リスクが大きすぎる</strong>。戦略 v0.4.2 判断 G (新規開設) を覆すレベルの判断変更であり、Phase 2 での独立移行コストを考えると回避すべき。Plan B で 6/15 公開を担保できるなら Plan C を発動する理由がない</p>
+<p><strong>Plan C を発動すべき唯一のケース</strong>: Plan B でも公開できない致命的事態 (note アカウント自体が凍結される等、極めて低確率)</p>
+<h3>起動条件タイムライン</h3>
+<table>
+<thead>
+<tr>
+<th>日付</th>
+<th>アクション</th>
+<th>判断者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>5/22</strong></td>
+<td>Plan A: 定期購読マガジン申請送信</td>
+<td>ジョニー (note 操作)</td>
+</tr>
+<tr>
+<td><strong>5/22</strong></td>
+<td>Plan B 準備開始: 買切型マガジン「絶滅職種図鑑 Phase 1 セット」の構成 + 説明文を下書き</td>
+<td>素子 (下書き作成)</td>
+</tr>
+<tr>
+<td><strong>5/22-28</strong></td>
+<td>審査促進施策: 開設挨拶記事 + コンセプト説明記事を 2-3 本投稿 (無料)</td>
+<td>ジョニー + 素子</td>
+</tr>
+<tr>
+<td><strong>5/29</strong></td>
+<td>審査状況確認 (1 週間経過): note からのメール通知有無を確認</td>
+<td>ジョニー</td>
+</tr>
+<tr>
+<td><strong>6/1</strong></td>
+<td><strong>判断分岐ポイント</strong> (後述 § 5 フローチャート)</td>
+<td><strong>ジョニー</strong></td>
+</tr>
+<tr>
+<td><strong>6/1-7</strong></td>
+<td>判断結果に基づき Plan A 続行 or Plan B 切替の実行</td>
+<td>ジョニー + 素子</td>
+</tr>
+<tr>
+<td><strong>6/8</strong></td>
+<td>第 1 章公開 (Plan A/B どちらでも全文無料で公開可能)</td>
+<td>ジョニー</td>
+</tr>
+<tr>
+<td><strong>6/15</strong></td>
+<td>Phase 1 MVP 公開 (Plan A: 定期購読 / Plan B: 買切+単品)</td>
+<td>ジョニー</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. 6/1 判断分岐ポイント (ジョニーが選ぶフローチャート)</h2>
+<pre><code>6/1 時点の状況確認
+│
+├─ [A] 定期購読マガジン審査 **通過済**
+│   └─ → Plan A 続行。買切型下書きは破棄。6/8 第 1 章公開、6/15 定期購読マガジン正式運用。
+│
+├─ [B] 審査 **差し戻し** (「運用実績が不足」等の理由)
+│   └─ → **Plan B に即切替**。
+│       ├─ 買切型マガジン「Phase 1 セット」を 6/1-7 で完成
+│       ├─ 定期購読マガジン申請は取り下げず保留 (再申請のタイミングを見計らう)
+│       ├─ 6/8 第 1 章公開 (全文無料、買切型マガジン所属)
+│       └─ 6/15 第 2 章公開 (¥500 単品 + 買切型マガジン ¥1,500)
+│
+├─ [C] 審査結果 **未着** (沈黙、1 週間以上)
+│   └─ → **Plan B に切替コミット** (保守的判断)。
+│       ├─ 理由: 6/15 まで残り 14 日、沈黙が続く場合は更に 1-2 週間かかる可能性
+│       ├─ 買切型マガジン準備を 6/1-7 で完成
+│       ├─ 定期購読審査は引き続き待つ (通過したら移行)
+│       └─ 6/8 第 1 章公開 → 6/15 第 2 章公開 (Plan B 構造)
+│
+└─ [D] 審査結果未着だが、note から「審査中です」等の中間通知あり
+    └─ → **6/4 まで Plan A 待機延長** (3 日猶予)。
+        ├─ 6/4 までに通過 → Plan A 続行
+        └─ 6/4 時点で未通過 → Plan B 切替コミット (6/15 まで 11 日、最低限の準備期間確保)
+</code></pre>
+<h3>判断の鍵: 「6/1 で切替コミットする」理由</h3>
+<ul>
+<li>6/15 公開まで 14 日</li>
+<li>買切型マガジンの準備 (説明文・カバー画像・記事紐付け) に最低 3-5 日</li>
+<li>第 2 章の有料設定 + CTA 文言調整 (定期購読 vs 買切で文言が異なる) に 2-3 日</li>
+<li><strong>6/8 第 1 章公開は Plan A/B どちらでも可能</strong> (全文無料なので課金構造に依存しない)</li>
+<li>6/8 以降の有料記事の CTA を確定させるには 6/1 時点での判断が必要</li>
+</ul>
+<hr />
+<h2>6. Plan B 切替時の CTA 文言変更</h2>
+<p>定期購読マガジンと買切型マガジンでは CTA のメッセージが異なる。Plan B 切替時には以下を変更:</p>
+<h3>記事内 CTA (3 箇所、note-account-setup-checklist.md § 3-2 参照)</h3>
+<table>
+<thead>
+<tr>
+<th>CTA 位置</th>
+<th>Plan A (定期購読)</th>
+<th>Plan B (買切型)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>記事冒頭 (有料ライン直前)</td>
+<td>「ここから先、生き延びた人の記録 → マガジン購読 ¥980/月」</td>
+<td>「ここから先、生き延びた人の記録 → 単品 ¥500 / 全章セット ¥1,500」</td>
+</tr>
+<tr>
+<td>記事末尾</td>
+<td>「絶滅職種図鑑マガジン ¥980/月 — 全章 + Discord 特典」</td>
+<td>「絶滅職種図鑑 全章セット ¥1,500 (単品合計より ¥500 お得) + Discord 特典」</td>
+</tr>
+<tr>
+<td>マガジン説明文</td>
+<td>「月額 ¥980 で全章読み放題 + ボーナス記事 + Discord 特典チャンネル」</td>
+<td>「5 章セット ¥1,500 で全章を一括入手 + Discord 特典チャンネル」</td>
+</tr>
+</tbody>
+</table>
+<h3>定期購読通過後の移行告知 (Plan B → Plan A 移行時)</h3>
+<p>Plan B で公開後に定期購読が通過した場合の告知テンプレ:</p>
+<pre><code>絶滅職種図鑑の定期購読マガジンを開始しました。
+
+月額 ¥980 で全章 + 今後の新章を読み放題。
+既に「Phase 1 全章セット」をご購入の方は、そのまま全章をお読みいただけます。
+今後の新章 (第 6 章以降) は定期購読マガジンで配信します。
+
+定期購読はこちら → [マガジンURL]
+</code></pre>
+<hr />
+<h2>7. 定期購読審査通過率を上げるための先行施策 (5/22-28 で実施)</h2>
+<p>note 公式が審査基準を明示していないため、以下は<strong>業界ベストプラクティスに基づく推測</strong> (note 公式未明示と明記):</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>施策</th>
+<th>所要</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>開設挨拶記事を即日投稿</strong> (無料)</td>
+<td>30 分</td>
+<td>アカウントに「活動している」シグナルを残す。空アカウントからの申請を避ける</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>コンセプト説明記事を 2-3 日以内に投稿</strong> (無料)</td>
+<td>1 時間</td>
+<td>「どういうマガジンを作るのか」を記事として実証する</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>第 1 章のプレビュー記事を 5/28 までに投稿</strong> (無料)</td>
+<td>2 時間</td>
+<td>コンテンツの品質を審査チームに見せる。本編は 6/8 公開、プレビューは冒頭 2,000 字 + 章扉画像</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>プロフィール完全設定</strong> (アイコン / ヘッダー / 自己紹介 140 字 / URL)</td>
+<td>20 分</td>
+<td>「本気のクリエイター」シグナル</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>note プレミアム即日登録</strong></td>
+<td>5 分</td>
+<td>定期購読マガジンの前提条件であり、課金意志のシグナル</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>申請フォームのコンセプト記述を充実</strong></td>
+<td>30 分</td>
+<td>公的データ出典 (JILPT / e-Stat) + 明確な更新計画 (月 1 章以上) + ターゲット読者を具体的に記述</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>(note 公式未明示、推測) 上記 6 施策を 5/22-28 で実施することで、「運用実績ゼロの新規アカウント」から「コンテンツ準備が整ったクリエイター」に審査チームの印象を変える可能性がある。ただし 60 日要件が機械的ルールの場合は施策で回避できない。</p>
+</blockquote>
+<hr />
+<h2>8. 関連ファイル</h2>
+<table>
+<thead>
+<tr>
+<th>ファイル</th>
+<th>関連セクション</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[[note-account-setup-checklist]]</td>
+<td>§ 2-2 定期購読マガジン申請 / § 8-5 手数料インパクト</td>
+</tr>
+<tr>
+<td>[[pricing-research-revenue-model]]</td>
+<td>§ 5-1 #3 (マガジン審査タイミング論点) / § 3-1 手数料共通前提</td>
+</tr>
+<tr>
+<td>[[extinct-jobs-bible-strategy]] v0.4.2</td>
+<td>§ 5-2-A Pricing Hypothesis / § 5-3 スケジュール W2-W4</td>
+</tr>
+<tr>
+<td>[[extinct-jobs-bible-concept-sheet]]</td>
+<td>§ 7 Pricing / § 8 フォーマット規約</td>
+</tr>
+<tr>
+<td>[[note-magazine-launch-brief]]</td>
+<td>マガジン戦略 + コピー SSoT</td>
+</tr>
+<tr>
+<td>[[pillar-asset-inventory]]</td>
+<td>§ 6 ジョニー確認待ち項目 (Plan C の前提条件)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>作成</strong>: 2026-05-17 (ビルダーエージェント、ジョニー指示)<br />
+<strong>起源</strong>: 価格円卓会議 (2026-05-15) B note 編集者指摘「60 日運用実績要件」<br />
+<strong>次のジョニー判断</strong>: 6/1 判断分岐ポイント (§ 5 フローチャート [A] / [B] / [C] / [D])</p>
+<hr />
+<h1>Doc 2: note 公開計画 + iOS Apple Tax CTA</h1>
+<h1>note 公開計画 W3-W4 + iOS Apple Tax 対策 CTA 文言</h1>
+<blockquote>
+<p>Phase 1 MVP の note 公開スケジュール (5/29-6/15) + iOS Apple Tax CTA 設計 + 章末 CTA 汎用テンプレ + X 拡散テンプレ。<br />
+執筆進捗: 第 1 章全セクション完成 / 第 2 章全セクション完成 (v1) / 第 3-5 章未着手。<br />
+前倒し案 (6/8) と標準案 (6/15) の 2 案併記。</p>
+</blockquote>
+<hr />
+<h2>1. W3-W4 公開スケジュール</h2>
+<h3>1-1. 執筆進捗サマリ (2026-05-17 時点)</h3>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>テーマ</th>
+<th>執筆状態</th>
+<th>セクション</th>
+<th>残作業</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 章</td>
+<td>データ入力 (EW)</td>
+<td><strong>完成</strong></td>
+<td>§1 v3 / §2-§7 v1</td>
+<td>note フォーマット調整のみ</td>
+</tr>
+<tr>
+<td>第 2 章</td>
+<td>コールセンター (CR)</td>
+<td><strong>完成</strong></td>
+<td>§1-§7 v1</td>
+<td>note フォーマット調整 + ジョニー査読</td>
+</tr>
+<tr>
+<td>第 3 章</td>
+<td>スーパーレジ (EN)</td>
+<td>未着手</td>
+<td>—</td>
+<td>構成案 + 全セクション執筆 (テンプレ流用、1 セッション)</td>
+</tr>
+<tr>
+<td>第 4 章</td>
+<td>翻訳者 (CR)</td>
+<td>未着手</td>
+<td>—</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>第 5 章</td>
+<td>受託 SE (VU)</td>
+<td>未着手</td>
+<td>—</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<p><strong>見積もり</strong>: 第 1-2 章テンプレ流用で第 3-5 章は各 1 セッション (3-5 時間)。並列執筆で 5/17-5/28 の 11 日間で 3 章完了は十分余裕あり。</p>
+<h3>1-2. 前倒し案 A (6/8 全章公開完了)</h3>
+<p>第 1 章公開を 5/31 に前倒し、6/8 までに全 5 章公開。X バズの初速を 2 週間早く取れる。</p>
+<table>
+<thead>
+<tr>
+<th>日付</th>
+<th>曜日</th>
+<th>章</th>
+<th>アクション</th>
+<th>X 投稿</th>
+<th>Discord</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>5/17-21</strong></td>
+<td>—</td>
+<td>—</td>
+<td>第 3 章執筆完了 / 第 4 章着手</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>5/22</strong></td>
+<td>木</td>
+<td>—</td>
+<td>note アカウント開設 (<code>zetsumetsu_zukan</code>) + プレミアム登録 + マガジン審査申請</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>5/23-25</strong></td>
+<td>—</td>
+<td>—</td>
+<td>第 4 章執筆完了 / 第 5 章着手</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>5/26-28</strong></td>
+<td>—</td>
+<td>—</td>
+<td>第 5 章執筆完了 / 開設挨拶記事 下書き</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>5/29</strong></td>
+<td>木</td>
+<td>第 1 章</td>
+<td>note 下書き保存 (マガジン所属 ON、全文無料) + 3 環境 dry-run (iPhone Safari / Chrome / note アプリ)</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>5/30</strong></td>
+<td>金</td>
+<td>—</td>
+<td>dry-run 修正 / 第 2-5 章 note 下書き一括保存</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>5/31</strong></td>
+<td><strong>土</strong></td>
+<td><strong>第 1 章</strong></td>
+<td><strong>note 公開 (全文無料)</strong> + 開設挨拶記事公開</td>
+<td>ローンチスレッド 7 件 (x-launch-strategy §2 準拠)</td>
+<td>#zetsumetsu-zukan チャンネル新設</td>
+</tr>
+<tr>
+<td><strong>6/1</strong></td>
+<td>日</td>
+<td>第 1 章</td>
+<td>章扉画像 X 追加拡散</td>
+<td>フォロー投稿 3 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/2</strong></td>
+<td>月</td>
+<td>—</td>
+<td>副業 Pillar 既存アカウントから 1 回限り告知 (note + X)</td>
+<td>Pillar 告知 1 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/3</strong></td>
+<td><strong>火</strong></td>
+<td><strong>第 2 章</strong></td>
+<td><strong>note 公開 (有料 ¥500)</strong> + マガジン正式運用開始 (審査通過前提)</td>
+<td>ローンチスレッド 5 件</td>
+<td>購読者 Discord 招待開始</td>
+</tr>
+<tr>
+<td><strong>6/4</strong></td>
+<td>水</td>
+<td>第 2 章</td>
+<td>章扉画像 X 拡散</td>
+<td>フォロー投稿 3 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/5</strong></td>
+<td><strong>木</strong></td>
+<td><strong>第 3 章</strong></td>
+<td><strong>note 公開 (¥500)</strong></td>
+<td>ローンチスレッド 5 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/6</strong></td>
+<td>金</td>
+<td>第 3 章</td>
+<td>X 拡散 + 次章予告</td>
+<td>フォロー投稿 3 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/7</strong></td>
+<td><strong>土</strong></td>
+<td><strong>第 4 章</strong></td>
+<td><strong>note 公開 (¥500)</strong></td>
+<td>ローンチスレッド 5 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/8</strong></td>
+<td><strong>日</strong></td>
+<td><strong>第 5 章</strong></td>
+<td><strong>note 公開 (¥500)</strong> — <strong>Phase 1 全章公開完了</strong></td>
+<td>ローンチスレッド 5 件 + 全章完結告知 1 件</td>
+<td>全章完結報告</td>
+</tr>
+<tr>
+<td><strong>6/9-15</strong></td>
+<td>—</td>
+<td>—</td>
+<td>CVR 計測開始 / 初月データ収集 / CTA 最適化 / X 拡散継続 (週 3-5 件)</td>
+<td>過去章の再拡散 / 引用 RT</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>リスク</strong>: マガジン審査が 5/31 に間に合わない場合、第 1 章は「マガジン未所属の無料記事」として公開し、審査通過後にマガジン所属を追加。第 2 章以降は単品 ¥500 で先行公開、マガジン通過後にマガジン所属を追加。</p>
+<h3>1-3. 標準案 B (6/15 期限厳守)</h3>
+<p>余裕を持たせ、第 1 章公開を 6/4 に設定。6/15 までに全 5 章公開。</p>
+<table>
+<thead>
+<tr>
+<th>日付</th>
+<th>曜日</th>
+<th>章</th>
+<th>アクション</th>
+<th>X 投稿</th>
+<th>Discord</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>5/17-28</strong></td>
+<td>—</td>
+<td>—</td>
+<td>第 3-5 章執筆完了 + note アカウント開設 (5/22) + マガジン審査申請 + 全章 note 下書き保存</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>5/29-6/1</strong></td>
+<td>—</td>
+<td>—</td>
+<td>3 環境 dry-run / CTA 配置テスト / 開設挨拶記事公開</td>
+<td>予告投稿 1 件 (アカウント開設告知)</td>
+<td>#zetsumetsu-zukan 新設</td>
+</tr>
+<tr>
+<td><strong>6/4</strong></td>
+<td><strong>水</strong></td>
+<td><strong>第 1 章</strong></td>
+<td><strong>note 公開 (全文無料)</strong></td>
+<td>ローンチスレッド 7 件</td>
+<td>章末 Discord 招待</td>
+</tr>
+<tr>
+<td><strong>6/5</strong></td>
+<td>木</td>
+<td>第 1 章</td>
+<td>X 追加拡散 + Pillar 告知</td>
+<td>フォロー投稿 3 件 + Pillar 告知 1 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/7</strong></td>
+<td><strong>土</strong></td>
+<td><strong>第 2 章</strong></td>
+<td><strong>note 公開 (¥500)</strong> + マガジン正式運用</td>
+<td>ローンチスレッド 5 件</td>
+<td>購読者招待開始</td>
+</tr>
+<tr>
+<td><strong>6/9</strong></td>
+<td>月</td>
+<td>第 2 章</td>
+<td>X 拡散</td>
+<td>フォロー投稿 3 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/11</strong></td>
+<td><strong>水</strong></td>
+<td><strong>第 3 章</strong></td>
+<td><strong>note 公開 (¥500)</strong></td>
+<td>ローンチスレッド 5 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/13</strong></td>
+<td><strong>金</strong></td>
+<td><strong>第 4 章</strong></td>
+<td><strong>note 公開 (¥500)</strong></td>
+<td>ローンチスレッド 5 件</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>6/15</strong></td>
+<td><strong>日</strong></td>
+<td><strong>第 5 章</strong></td>
+<td><strong>note 公開 (¥500)</strong> — <strong>Phase 1 MVP 完成</strong></td>
+<td>ローンチスレッド 5 件 + 全章完結告知</td>
+<td>全章完結報告</td>
+</tr>
+</tbody>
+</table>
+<h3>1-4. 素子推奨: <strong>前倒し案 A</strong></h3>
+<p>理由:<br />
+1. 執筆進捗が想定より大幅に早い (第 2 章まで完成済)<br />
+2. 5/31 (土) 公開 = 週末のソーシャルメディア閲覧率が高い<br />
+3. 6/3-6/8 の毎日公開リズムが X のアルゴリズム的に有利 (連続投稿でアカウントのリーチが伸びる)<br />
+4. 前倒しで 6/9-6/15 の 1 週間を CVR 計測 + CTA 最適化に使える<br />
+5. マガジン審査が間に合わない場合も、単品 ¥500 の先行公開でフォールバック可能</p>
+<h3>1-5. マガジン審査フォールバック (論点 #3 対応)</h3>
+<p>note 新規アカウントの定期購読マガジン審査が長引く場合のフォールバック:</p>
+<table>
+<thead>
+<tr>
+<th>状況</th>
+<th>フォールバック</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5/31 (第 1 章公開) 時点で審査未通過</td>
+<td>第 1 章を「マガジン未所属の無料記事」で公開。マガジン申請中の旨をプロフィール / 挨拶記事に記載</td>
+</tr>
+<tr>
+<td>6/3 (第 2 章公開) 時点で審査未通過</td>
+<td>第 2 章を「単品 ¥500 の有料記事」で公開。マガジン通過後に所属追加。CTA は「マガジン準備中、まずは単品で」</td>
+</tr>
+<tr>
+<td>6/8 (全章公開) 時点で審査未通過</td>
+<td>全章を単品有料で公開 + 「買切型マガジン ¥2,500」(5 章一括) を暫定設定。定期購読審査通過後に切替、買切型は廃止</td>
+</tr>
+<tr>
+<td>審査却下</td>
+<td>「メンバーシップ機能」(note メンバーシップ、月額設定可能) への切替検討。ジョニー判断ポイント</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. iOS Apple Tax 対策 CTA 文言</h2>
+<h3>2-0. 問題の構造</h3>
+<p>note の iOS アプリ経由で購入すると、Apple の App Store 決済手数料 (30%) が上乗せされる可能性がある (2026-05-15 円卓追加論点 #2、B note 編集者指摘)。Web ブラウザ (note.com) 経由なら note 標準手数料のみ。読者に「ブラウザで買ってほしい」を Brand Voice を壊さずに伝える文言設計。</p>
+<h3>2-1. Pattern A: Forensic 型 (事実だけ述べる)</h3>
+<blockquote>
+<p>本書を購入される際は、Web ブラウザ (note.com) からどうぞ。アプリ経由の場合、プラットフォーム手数料の構造上、著者への配分が下がります。</p>
+</blockquote>
+<p><strong>Brand Voice 配合</strong>: Forensic 90% / Tender 10%<br />
+<strong>副業常套句チェック</strong>: 「お願いします」不使用、「いただけます」不使用、感嘆符なし -- 合格<br />
+<strong>配置位置</strong>: マガジン購読ページ / プロフィール固定記事<br />
+<strong>推奨度</strong>: ★★★</p>
+<p><strong>評価</strong>: 図鑑の Forensic トーンと最も整合。「構造上」という語が研究書の観察者視点を維持する。「どうぞ」は最小限の誘導で押し付け感がない。</p>
+<h3>2-2. Pattern B: 図鑑書誌注 型 (世界観内)</h3>
+<blockquote>
+<p>[編集部注] 本誌の購読・購入は note.com (Web ブラウザ) から行うと、著者への配分が最大化されます。アプリ経由の決済では、外部手数料が上乗せされます。</p>
+</blockquote>
+<p><strong>Brand Voice 配合</strong>: Forensic 80% / Inevitable 20%<br />
+<strong>副業常套句チェック</strong>: 「[編集部注]」で世界観を維持、過剰丁寧なし -- 合格<br />
+<strong>配置位置</strong>: 各章末の出典テンプレ直後 (§7 の一部として)<br />
+<strong>推奨度</strong>: ★★</p>
+<p><strong>評価</strong>: 「[編集部注]」は Office of Workforce Heritage の世界観内で自然。ただし「最大化」がやや経営用語寄り。</p>
+<h3>2-3. Pattern C: Tender 型 (読者への語りかけ)</h3>
+<blockquote>
+<p>マガジンや単品の購入は、note の Web 版 (note.com) からどうぞ。アプリ経由だと手数料の構造が変わり、著者の手取りが小さくなります。読み続けてもらうための、小さな補足です。</p>
+</blockquote>
+<p><strong>Brand Voice 配合</strong>: Tender 60% / Forensic 40%<br />
+<strong>副業常套句チェック</strong>: 「小さなお願い」→「小さな補足」に差し替え済 (「お願い」は副業常套句の過剰丁寧に近い) -- 合格<br />
+<strong>配置位置</strong>: 章末 CTA ブロック内 (§6 段落 D の後、有料ライン境界の直前)<br />
+<strong>推奨度</strong>: ★★</p>
+<p><strong>評価</strong>: 「読み続けてもらうための」は Tender 層を維持しつつ実利を伝える。ただし §6 の本文 Tender トーンと重なると、章末の余韻が「CTA で終わる」印象になるリスクあり。</p>
+<h3>2-4. Pattern D: 最小 (1 行) 型</h3>
+<blockquote>
+<p>Web 版 (note.com) からの購入を推奨します。</p>
+</blockquote>
+<p><strong>Brand Voice 配合</strong>: Forensic 100%<br />
+<strong>副業常套句チェック</strong>: 合格<br />
+<strong>配置位置</strong>: note 有料エリア境界の直下 (1 行のみ、灰色小文字想定)<br />
+<strong>推奨度</strong>: ★★</p>
+<p><strong>評価</strong>: 最小限。読者の視線を遮らない。ただし理由不明で「なぜ?」と思われる。</p>
+<h3>2-5. 素子推奨: <strong>Pattern A (Forensic 型)</strong></h3>
+<p>理由:<br />
+1. 図鑑全体の Brand Voice (Forensic 主導) と最も整合する<br />
+2. 「構造上」で理由を説明しつつ、読者に判断を委ねる<br />
+3. 副業常套句を完全回避<br />
+4. 配置は <strong>マガジン購読ページ + プロフィール固定記事 + 各章末 CTA ブロック</strong> の 3 箇所に同一文面で統一</p>
+<h3>2-6. 配置位置の設計</h3>
+<table>
+<thead>
+<tr>
+<th>配置箇所</th>
+<th>文言</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>プロフィール固定記事</strong></td>
+<td>Pattern A 全文</td>
+<td>初見読者が最初に見る場所</td>
+</tr>
+<tr>
+<td><strong>マガジン説明文</strong> (note マガジンページ)</td>
+<td>Pattern A 全文</td>
+<td>購読検討時に見る場所</td>
+</tr>
+<tr>
+<td><strong>各章末 CTA ブロック</strong> (§7 出典テンプレ後)</td>
+<td>Pattern A 全文</td>
+<td>購入判断の直前</td>
+</tr>
+<tr>
+<td><strong>各章の有料エリア境界 直下</strong></td>
+<td>Pattern D (1 行型)</td>
+<td>視線を遮らない最小補足</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. 章末 CTA 汎用テンプレ (第 2-5 章用)</h2>
+<h3>3-1. 設計原則</h3>
+<ul>
+<li>第 1 章 §6 v1 段落 D の構造を流用 (Brand Voice を壊さない Tender 誘導)</li>
+<li>4 要素統合: マガジン購読 / 単品購入 / 次章リンク / iOS Apple Tax 告知</li>
+<li>note の「有料エリア境界」の自然な配置を意識</li>
+<li>CTA ブロックは §6 章末コラム本文の「後」、§7 出典テンプレの「前」に配置</li>
+</ul>
+<h3>3-2. 有料エリア境界の配置設計</h3>
+<p>note の有料ライン (「ここから先は有料です」) の配置位置:</p>
+<pre><code>[無料エリア]
+  章扉ビジュアル (Plate N-A)
+  Specimen Notes 300 字
+  解剖図 + タスク分解 8 要素
+  置換率タイムライン
+  レッドリスト分類マーク + 最終就業者数 + 主な生息域 + 学名
+  §1 冒頭風景 (最初の 3-4 段落、約 800-1,000 字)
+
+  ──── note 有料ライン ────
+  [Apple Tax 告知 (Pattern D 1 行型)]
+
+[有料エリア]
+  §1 冒頭風景 (続き)
+  §2 歴史と現在地
+  §3 AI 侵食の領域
+  §4 転身者の物語
+  §5 明日からの選択肢
+  §6 章末コラム
+  [CTA ブロック (下記テンプレ)]
+  §7 出典明示テンプレ
+  [Apple Tax 告知 (Pattern A 全文)]
+  合成インタビュー注記 (Phase 1)
+</code></pre>
+<h3>3-3. CTA ブロック テンプレ (Markdown)</h3>
+<p>第 2-5 章共通。<code>{変数}</code> は章ごとに差し替え。</p>
+<pre><code class="language-markdown">— — —
+
+この章を読んでくれたことに、感謝する。
+
+{次章接続文 (Inevitable トーン、1-2 文)}
+
+**次章: 第 {N+1} 章「{次章テーマ}」** — {次章の 1 行予告}
+
+— — —
+
+**絶滅職種図鑑マガジン** ¥980/月
+全章 + Discord 特典チャンネル + 章扉高解像度ダウンロード。
+マガジン購読者には、同じ章を読んだ人と現在地を確かめあえる Discord コミュニティへの招待を送る。
+
+この章のみ: **¥500** (単品購入)
+
+Web ブラウザ (note.com) からの購入を推奨します。アプリ経由の場合、プラットフォーム手数料の構造上、著者への配分が下がります。
+</code></pre>
+<h3>3-4. 章別の差し替え変数</h3>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>{次章接続文}</th>
+<th>{N+1}</th>
+<th>{次章テーマ}</th>
+<th>{次章の 1 行予告}</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 2 章 (コールセンター)</td>
+<td>AI が声を呑んだあと、次に呑みにかかるのは、指先ではなく身体の動きだ。</td>
+<td>3</td>
+<td>スーパーレジ</td>
+<td>セルフレジが並ぶ売場で、最後のレジ係が見ている風景。</td>
+</tr>
+<tr>
+<td>第 3 章 (スーパーレジ)</td>
+<td>身体の労働が消えたあと、次に消えるのは、言葉そのものを扱う仕事だ。</td>
+<td>4</td>
+<td>翻訳者</td>
+<td>言葉の橋を架けてきた人たちが、橋の向こうに何を見たか。</td>
+</tr>
+<tr>
+<td>第 4 章 (翻訳者)</td>
+<td>言葉が消えたあと、最後に残るのは、仕組みそのものを作る仕事だ。</td>
+<td>5</td>
+<td>受託 SE</td>
+<td>コードを書いてきた人が、コードを書く AI を見つめる。</td>
+</tr>
+<tr>
+<td>第 5 章 (受託 SE)</td>
+<td>(最終章のため次章接続なし。代わりに全体を閉じる 1 文) これで、5 つの職業の記録が揃った。記録は続く。</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3>3-5. 第 5 章 (最終章) 専用 CTA テンプレ</h3>
+<pre><code class="language-markdown">— — —
+
+5 つの職業の記録が揃った。
+データ入力、コールセンター、スーパーレジ、翻訳者、受託 SE。
+いずれも 2035 年の時点で「絶滅」または「絶滅危惧」に分類される。
+だが、その仕事をしていた人は消えない。形を変え、別の場所で働いている。
+
+この図鑑は続く。次の 5 章は、Phase 2 として準備中だ。
+
+— — —
+
+**絶滅職種図鑑マガジン** ¥980/月
+全章 + Discord 特典チャンネル + 章扉高解像度ダウンロード。
+Phase 2 の新章も、マガジン購読者に優先配信する。
+
+Web ブラウザ (note.com) からの購入を推奨します。アプリ経由の場合、プラットフォーム手数料の構造上、著者への配分が下がります。
+
+**Discord コミュニティ**
+同じ図鑑を読んだ人と、自分の現在地を静かに確かめあえる場。
+発言は任意、読むだけでも構わない。
+マガジン購読者に招待リンクを送る。
+</code></pre>
+<hr />
+<h2>4. X 拡散テンプレ (章公開時)</h2>
+<h3>4-1. 固定形式 (全章共通)</h3>
+<p>各章公開時に、以下の固定形式でローンチスレッドを投稿。x-launch-strategy.md の設計を W3-W4 向けに具体化。</p>
+<h4>Tweet 1 (メイン、章扉画像付き)</h4>
+<pre><code>{職業名}。
+{絶滅予告年}年{月}月、最後の従事者が{場所}を去った。
+
+— 第{N}章「{職業名}」
+絶滅職種図鑑 / Field Notes from 2035
+
+{note URL}
+
+#絶滅職種図鑑 #FieldNotesFrom2035
+</code></pre>
+<h4>Tweet 2 (Specimen Notes 300 字ダイジェスト)</h4>
+<pre><code>[Specimen Notes]
+学名: {ラテン擬似学名}
+分類: {IUCN レッドリスト分類} ({分類略称})
+最終就業者数: {人数} ({年}年)
+主な生息域: {生息域}
+置換率: {置換率}% ({年}年→{年}年)
+
+#絶滅職種図鑑 #{章固有ハッシュタグ}
+</code></pre>
+<h4>Tweet 3 (Tender 1 文 + 次章予告)</h4>
+<pre><code>{Tender 核フレーズ 1 文}
+
+次章は、第{N+1}章「{次章テーマ}」。
+{次章予告 1 文}
+
+#絶滅職種図鑑
+</code></pre>
+<h4>Tweet 4 (解剖図画像付き)</h4>
+<pre><code>{解剖図 / タスク分解 8 要素の画像}
+
+{職業名}の仕事は{タスク数}の工程に分かれていた。
+AI が呑んだのは{呑まれた工程}。残ったのは{残った工程}。
+
+#絶滅職種図鑑 #{章固有ハッシュタグ}
+</code></pre>
+<h4>Tweet 5 (マガジン購読導線)</h4>
+<pre><code>第 1 章「データ入力」は全文無料。
+第{N}章以降は、単品 ¥500 / マガジン ¥980(月)。
+
+マガジン購読者には Discord コミュニティへの招待を送る。
+煽らない場所がいい、という設計。
+
+→ {note マガジン URL}
+
+#絶滅職種図鑑
+</code></pre>
+<h3>4-2. 章別の具体値</h3>
+<h4>第 1 章「データ入力」(x-launch-strategy.md §2 に詳細あり、ここでは要約)</h4>
+<table>
+<thead>
+<tr>
+<th>変数</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>職業名</td>
+<td>データ入力</td>
+</tr>
+<tr>
+<td>絶滅予告年月</td>
+<td>2034 年 3 月</td>
+</tr>
+<tr>
+<td>場所</td>
+<td>オフィス</td>
+</tr>
+<tr>
+<td>ラテン擬似学名</td>
+<td>Operatorus centrumus</td>
+</tr>
+<tr>
+<td>IUCN 分類</td>
+<td>野生絶滅 (EW)</td>
+</tr>
+<tr>
+<td>Tender 核フレーズ</td>
+<td>彼女たちは知っている。自分の指が、最後の世代の指であることを。</td>
+</tr>
+<tr>
+<td>章固有ハッシュタグ</td>
+<td>#データ入力 #AI自動化</td>
+</tr>
+</tbody>
+</table>
+<h4>第 2 章「コールセンターオペレーター」</h4>
+<table>
+<thead>
+<tr>
+<th>変数</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>職業名</td>
+<td>コールセンターオペレーター</td>
+</tr>
+<tr>
+<td>絶滅予告年月</td>
+<td>2033 年 9 月</td>
+</tr>
+<tr>
+<td>場所</td>
+<td>ヘッドセットを外した</td>
+</tr>
+<tr>
+<td>ラテン擬似学名</td>
+<td>Operatorius vocalis</td>
+</tr>
+<tr>
+<td>IUCN 分類</td>
+<td>近絶滅 (CR)</td>
+</tr>
+<tr>
+<td>Tender 核フレーズ</td>
+<td>声で対応するという仕事は、声を聞いてほしいという仕事でもあった。</td>
+</tr>
+<tr>
+<td>章固有ハッシュタグ</td>
+<td>#コールセンター #IVR</td>
+</tr>
+</tbody>
+</table>
+<h4>第 3 章「スーパーレジ」</h4>
+<table>
+<thead>
+<tr>
+<th>変数</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>職業名</td>
+<td>スーパーレジ</td>
+</tr>
+<tr>
+<td>絶滅予告年月</td>
+<td>2033 年 12 月</td>
+</tr>
+<tr>
+<td>場所</td>
+<td>レジカウンター</td>
+</tr>
+<tr>
+<td>ラテン擬似学名</td>
+<td>Cassarius manualis</td>
+</tr>
+<tr>
+<td>IUCN 分類</td>
+<td>絶滅危惧 (EN)</td>
+</tr>
+<tr>
+<td>Tender 核フレーズ</td>
+<td>「いらっしゃいませ」を言う人がいなくなった売場は、少しだけ静かになった。</td>
+</tr>
+<tr>
+<td>章固有ハッシュタグ</td>
+<td>#セルフレジ #小売</td>
+</tr>
+</tbody>
+</table>
+<h4>第 4 章「翻訳者」</h4>
+<table>
+<thead>
+<tr>
+<th>変数</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>職業名</td>
+<td>翻訳者</td>
+</tr>
+<tr>
+<td>絶滅予告年月</td>
+<td>2034 年 6 月</td>
+</tr>
+<tr>
+<td>場所</td>
+<td>辞書を閉じた</td>
+</tr>
+<tr>
+<td>ラテン擬似学名</td>
+<td>Interpretarius linguae</td>
+</tr>
+<tr>
+<td>IUCN 分類</td>
+<td>近絶滅 (CR)</td>
+</tr>
+<tr>
+<td>Tender 核フレーズ</td>
+<td>言葉の橋を架けてきた人は、橋がなくても人は渡れることを知っていた。</td>
+</tr>
+<tr>
+<td>章固有ハッシュタグ</td>
+<td>#翻訳者 #機械翻訳</td>
+</tr>
+</tbody>
+</table>
+<h4>第 5 章「受託 SE」</h4>
+<table>
+<thead>
+<tr>
+<th>変数</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>職業名</td>
+<td>受託 SE</td>
+</tr>
+<tr>
+<td>絶滅予告年月</td>
+<td>2035 年 3 月</td>
+</tr>
+<tr>
+<td>場所</td>
+<td>客先常駐のフロア</td>
+</tr>
+<tr>
+<td>ラテン擬似学名</td>
+<td>Ingenarius contractus</td>
+</tr>
+<tr>
+<td>IUCN 分類</td>
+<td>危急 (VU)</td>
+</tr>
+<tr>
+<td>Tender 核フレーズ</td>
+<td>コードを書くことが仕事だった人は、コードが自分で書かれる時代を、誰より静かに見ていた。</td>
+</tr>
+<tr>
+<td>章固有ハッシュタグ</td>
+<td>#SE #受託開発 #エンジニア</td>
+</tr>
+</tbody>
+</table>
+<h3>4-3. ハッシュタグ戦略</h3>
+<p><strong>全章共通</strong> (固定):<br />
+- <code>#絶滅職種図鑑</code><br />
+- <code>#FieldNotesFrom2035</code></p>
+<p><strong>章公開時に追加</strong> (変動):<br />
+- 章固有ハッシュタグ (上記各章の表)<br />
+- トレンド接続用 (公開日の X トレンドに合わせて 1 個追加、素子が提案)</p>
+<p><strong>使わないハッシュタグ</strong> (Brand Voice 禁忌):<br />
+- <code>#AI時代</code> <code>#AIに奪われる仕事</code> <code>#副業</code> <code>#転職</code> <code>#キャリアチェンジ</code> — 煽り / 副業常套句と接続するため不使用<br />
+- <code>#note</code> <code>#有料記事</code> — note 内部タグは note 記事のハッシュタグ欄で使い、X では使わない</p>
+<h3>4-4. 投稿リズム設計</h3>
+<table>
+<thead>
+<tr>
+<th>日</th>
+<th>投稿数</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公開日 (Day 0)</td>
+<td><strong>5-7 件</strong></td>
+<td>ローンチスレッド (Tweet 1-5) + 引用 RT (Pillar アカウントから) + 補足 1-2 件</td>
+</tr>
+<tr>
+<td>Day +1</td>
+<td><strong>2-3 件</strong></td>
+<td>章扉画像再掲 + Tender 1 文 + フォロワー反応への引用 RT</td>
+</tr>
+<tr>
+<td>Day +2</td>
+<td><strong>1-2 件</strong></td>
+<td>次章予告 + 置換率タイムライン画像</td>
+</tr>
+<tr>
+<td>非公開日</td>
+<td><strong>0-1 件</strong></td>
+<td>過去章の再拡散 or 関連ニュースへの引用 RT (Forensic トーンで)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>週間合計</strong>: 章公開週 = 10-15 件 / 非公開週 = 3-5 件</p>
+<hr />
+<h2>5. 公開前チェックリスト (全章共通)</h2>
+<p>各章を note 公開する前に確認するリスト:</p>
+<h3>note フォーマット</h3>
+<ul>
+<li>[ ] 章扉プレート画像 (見出し画像) が設定されている</li>
+<li>[ ] マガジン所属 ON (審査通過後)</li>
+<li>[ ] 有料ライン位置: 無料エリア = 章扉 + Specimen Notes + §1 冒頭 3-4 段落 (約 1,000 字)</li>
+<li>[ ] 有料ライン直下に Pattern D (1 行型) Apple Tax 告知を配置</li>
+<li>[ ] ハッシュタグ: <code>#絶滅職種図鑑</code> <code>#FieldNotesFrom2035</code> + 章固有タグ</li>
+<li>[ ] CTA ブロック (§3-3 テンプレ) が §6 章末コラム後に配置されている</li>
+<li>[ ] §7 出典明示テンプレが末尾に配置されている</li>
+<li>[ ] 合成インタビュー注記 (Phase 1) が §7 後に配置されている</li>
+<li>[ ] 価格設定: 第 1 章 = ¥0 / 第 2-5 章 = ¥500</li>
+</ul>
+<h3>Brand Voice チェック</h3>
+<ul>
+<li>[ ] 禁忌語彙 20 件 (Concept Sheet §8) に引っかかっていない</li>
+<li>[ ] 副業常套句 (「人生を変える」「気づき」「コーチング」等) が CTA 含め全域で不使用</li>
+<li>[ ] 感嘆符・絵文字なし</li>
+<li>[ ] 「ある種の」が章内 1 回以下</li>
+</ul>
+<h3>3 環境表示確認</h3>
+<ul>
+<li>[ ] iPhone Safari</li>
+<li>[ ] iPhone Chrome</li>
+<li>[ ] iPhone note アプリ</li>
+</ul>
+<hr />
+<h2>6. 関連ファイル</h2>
+<ul>
+<li>[[extinct-jobs-bible-strategy]] v0.4.2 — 戦略全体 (§5-3 W1-W4 スケジュール)</li>
+<li>[[extinct-jobs-bible-concept-sheet]] — Brand Voice + 禁忌語彙 + 組版規約</li>
+<li>[[note-account-setup-checklist]] — アカウント開設手順 + マガジン申請</li>
+<li>[[note-magazine-launch-brief]] — マガジン設定値・コピー・素材</li>
+<li>[[pricing-research-revenue-model]] — 価格確定 (¥980 + ¥500 一律)、§5-1 #2 iOS Apple Tax 論点</li>
+<li>[[x-launch-strategy]] — X 拡散戦略 (ローンチスレッド詳細)</li>
+<li>[[chapter-01-draft-section6]] — §6 章末 CTA 設計の前例 (段落 D + 末尾形式 A)</li>
+<li>[[pillar-asset-inventory]] — 副業 Pillar 既存アセット接続マップ</li>
+</ul>
+<hr />
+<p><strong>作成</strong>: 2026-05-17<br />
+<strong>作成者</strong>: 素子 (Claude Opus 4.7)<br />
+<strong>次のジョニー判断</strong>: 前倒し案 A / 標準案 B の選択 + Apple Tax CTA Pattern A-D の選択</p>
+<hr />
+<h1>Doc 3: 章扉画像プロンプト (第 2-5 章)</h1>
+<h1>絶滅職種図鑑 — 章扉画像生成プロンプト (Plate II-A ~ V-A)</h1>
+<blockquote>
+<p>Plate I-A (データ入力、9.5/10) の視覚品質を完全継承し、第 2-5 章の章扉画像を生成するためのプロンプト集。<br />
+生成ツール: DALL-E 3 (GPT Image Gen) / Midjourney v7 / Stable Diffusion 3.5 対応。<br />
+出力先: <code>~/gits-system/data/extinct-jobs-bible/brand/</code></p>
+</blockquote>
+<hr />
+<h2>0. 全章共通 視覚 DNA (Plate I-A から抽出した品質基準)</h2>
+<h3>0-1. 視覚三層構造</h3>
+<table>
+<thead>
+<tr>
+<th>層</th>
+<th>様式</th>
+<th>Plate I-A での表現</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>第 1 層: 19 世紀博物図鑑</strong></td>
+<td>手描き風の細密銅版画タッチ、紙の経年劣化 (foxing spots, 端の褐変)、活版印刷の版ズレ感</td>
+<td>中央の人物 + デスク + 機器がすべて銅版画風ハッチングで描写、背景に羊皮紙テクスチャ</td>
+</tr>
+<tr>
+<td><strong>第 2 層: IUCN レッドリスト</strong></td>
+<td>分類ラベル (EW/CR/EN/VU)、標本番号 (OWH-2035-XXX)、学名 (擬似ラテン語)、観察期間</td>
+<td>左上に EW/CRX ラベル、左下に標本番号・収集者名・保存方法、右上に学名 + 分類</td>
+</tr>
+<tr>
+<td><strong>第 3 層: 解剖図鑑</strong></td>
+<td>矢印 + 番号付きコールアウトで職業の「機能系統」を分解、断面図的レイアウト</td>
+<td>右半分に「業態解剖図 / ANATOMICAL DIAGRAM」として機器構成を番号付きで分解、下部に絶滅タイムラインのグラフ</td>
+</tr>
+</tbody>
+</table>
+<h3>0-2. カラーパレット (Brand System Board STEP 2 確定値)</h3>
+<table>
+<thead>
+<tr>
+<th>トークン名</th>
+<th>HEX (推定)</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Forensic Charcoal</strong></td>
+<td>#2C2C2C</td>
+<td>本文テキスト、銅版画の主線</td>
+</tr>
+<tr>
+<td><strong>Inevitable Sepia</strong></td>
+<td>#8B6914</td>
+<td>紙のベースカラー、背景グラデーション</td>
+</tr>
+<tr>
+<td><strong>Warm Parchment</strong></td>
+<td>#E8D5B0</td>
+<td>紙の明部、ページ中央</td>
+</tr>
+<tr>
+<td><strong>Foxing Brown</strong></td>
+<td>#A0845C</td>
+<td>経年シミ、端の褐変</td>
+</tr>
+<tr>
+<td><strong>Tender Sage</strong></td>
+<td>#6B7F5E</td>
+<td>控えめなアクセント (Tender 軸の色)</td>
+</tr>
+<tr>
+<td><strong>Hope Sage</strong></td>
+<td>#8FAF7E</td>
+<td>CTA 帯、生存パス表記</td>
+</tr>
+<tr>
+<td><strong>Red List — EW</strong></td>
+<td>#1A1A1A</td>
+<td>Extinct in Workforce (黒)</td>
+</tr>
+<tr>
+<td><strong>Red List — CR</strong></td>
+<td>#C41E3A</td>
+<td>Critically Endangered (深紅)</td>
+</tr>
+<tr>
+<td><strong>Red List — EN</strong></td>
+<td>#D4760A</td>
+<td>Endangered (橙)</td>
+</tr>
+<tr>
+<td><strong>Red List — VU</strong></td>
+<td>#C4A000</td>
+<td>Vulnerable (黄)</td>
+</tr>
+<tr>
+<td><strong>Red List — NT</strong></td>
+<td>#4A7C59</td>
+<td>Near Threatened (深緑)</td>
+</tr>
+</tbody>
+</table>
+<h3>0-3. 構図テンプレート (Plate I-A 踏襲)</h3>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│  [上部帯]                                           │
+│  「2035年版 — もう、ない仕事の図鑑。」              │
+│  「絶滅職種図鑑 FIELD NOTES FROM 2035」             │
+│  Office of Workforce Heritage / TOKYO 2035          │
+├──────────────────────┬──────────────────────────────┤
+│  [左半分]            │  [右半分]                     │
+│                      │                               │
+│  章番号 + 職業名     │  業態解剖図 /                 │
+│  分類ステータス      │  ANATOMICAL DIAGRAM           │
+│  学名               │  PLATE X-A                     │
+│  観察期間 / 最終確認 │                               │
+│  最終就業者数        │  [番号付き分解図]             │
+│  主な生息域          │  1. ...                       │
+│  生態ノート          │  2. ...                       │
+│                      │  3. ...                       │
+│  ┌──────────┐       │                               │
+│  │ 標本ラベル │       │  [絶滅タイムライン]          │
+│  │ OWH-2035- │       │  EXTINCTION TIMELINE          │
+│  │ Specimen  │       │  2026 ───── 203X              │
+│  └──────────┘       │                               │
+│                      │  [AI REPLACEMENT RATE]        │
+│                      │  グラフ                       │
+├──────────────────────┴──────────────────────────────┤
+│  [下部帯] ページ番号                                 │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<h3>0-4. 共通プロンプト骨格 (全章で前置きとして使用)</h3>
+<pre><code>[STYLE PREFIX — 全章共通、このブロックを毎回プロンプト冒頭に置く]
+
+A highly detailed illustration in the style of a 19th-century natural history
+field guide plate. Hand-drawn copperplate engraving aesthetic with fine
+crosshatching and stippling. Aged parchment paper with foxing spots, edge
+browning, and subtle yellowing. The overall color palette is warm sepia tones
+(#E8D5B0 parchment base, #8B6914 sepia ink, #2C2C2C charcoal linework).
+Typography uses serif fonts reminiscent of Victorian scientific publications.
+The layout combines a specimen illustration (left) with an anatomical diagram
+(right), mimicking the format of a zoological or botanical reference plate.
+Published by &quot;Office of Workforce Heritage, Tokyo 2035&quot; — a fictional
+labor history research institute. This is Plate X-A from &quot;Field Notes from
+2035: Work That No Longer Exists&quot; (絶滅職種図鑑).
+
+[NEGATIVE PROMPT — 全章共通]
+--no modern UI elements, digital interface, photography, photorealism,
+anime style, manga style, cartoon, bright neon colors, gradients,
+glossy surfaces, lens flare, bokeh, chromatic aberration, 3D rendering,
+CGI, clean white backgrounds, minimalist design, flat design, material
+design, emojis, stock photo aesthetic
+</code></pre>
+<h3>0-5. アスペクト比</h3>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>アスペクト比</th>
+<th>ピクセル (推奨)</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>章扉 (note 記事メイン)</strong></td>
+<td>4:3 横</td>
+<td>2048 x 1536</td>
+<td>note のメイン画像枠に最適</td>
+</tr>
+<tr>
+<td><strong>X / Instagram タイムライン</strong></td>
+<td>1:1 正方形</td>
+<td>1536 x 1536</td>
+<td>SNS バズ用クリエイティブ</td>
+</tr>
+<tr>
+<td><strong>note サムネイル</strong></td>
+<td>16:9 横</td>
+<td>2048 x 1152</td>
+<td>note の OGP / マガジン表示</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>1. Plate II-A — コールセンターオペレーター</h2>
+<h3>1-1. メタデータ</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>章</td>
+<td>第 2 章</td>
+</tr>
+<tr>
+<td>Plate No.</td>
+<td>Plate II-A</td>
+</tr>
+<tr>
+<td>職業</td>
+<td>コールセンターオペレーター</td>
+</tr>
+<tr>
+<td>学名</td>
+<td><em>Operatorius vocalis</em></td>
+</tr>
+<tr>
+<td>レッドリスト</td>
+<td>CR (Critically Endangered)</td>
+</tr>
+<tr>
+<td>ラベル色</td>
+<td>Deep Crimson (#C41E3A)</td>
+</tr>
+<tr>
+<td>絶滅予告年</td>
+<td>2033</td>
+</tr>
+<tr>
+<td>標本番号</td>
+<td>OWH-2035-002</td>
+</tr>
+<tr>
+<td>観察期間</td>
+<td>2026年4月8-12日</td>
+</tr>
+<tr>
+<td>副題</td>
+<td>Plate II-A. コールセンターのフロア、2026年4月 — 観察記録より</td>
+</tr>
+</tbody>
+</table>
+<h3>1-2. 中心モチーフ</h3>
+<ul>
+<li><strong>主要素</strong>: ヘッドセットを装着した女性オペレーター (30-40 代、やや疲れた表情、しかし姿勢は正しい)</li>
+<li><strong>デスク上</strong>: デュアルモニター (画面にスクリプト文書が映る)、テンキー、A4 スクリプトファイル (開いた状態)、メモパッド、のど飴の缶、ペットボトルの水、ティッシュ箱</li>
+<li><strong>ヘッドセット</strong>: 片耳型の業務用モノラルヘッドセット (マイクブームが口元に伸びる)、ケーブルがデスクの下へ消える</li>
+<li><strong>認定証</strong>: A6 サイズの「コンタクトセンター検定」中級認定証がパーティションに立てかけてある</li>
+<li><strong>背景</strong>: 低い間仕切りパネル (ひざ下の高さ) 越しに、他のブースが並ぶ 72 席フロアの奥行き、閉じたブラインド、蛍光灯の均一な光</li>
+</ul>
+<h3>1-3. 解剖図構造 — 「声の伝達経路」</h3>
+<pre><code>業態解剖図 / ANATOMICAL DIAGRAM — 声の伝達経路 (Voice Transmission Path)
+
+1. 口腔 / Oral cavity — 発声の起点、研修で調律された「明るすぎず、暗すぎず」の音域
+2. 咽頭 / Pharynx — 声帯を通過、1 日 6-8 時間の継続発声負荷
+3. マイクブーム / Microphone boom — 口元 3cm に固定、呼気音を拾わない角度
+4. ヘッドセット本体 / Headset unit — 片耳装着、もう片耳はフロアの環境音を聴く
+5. PBX 接続ケーブル / PBX trunk line — デスク下を経由し交換機へ
+6. IVR (自動音声応答) / Interactive Voice Response — 2033 年、ここが 98% を呑む
+7. 受話器 (顧客側) / Customer handset — 声の終着点、2033 年以降ここに届く声は AI 合成音
+</code></pre>
+<p>矢印は <code>1 → 2 → 3 → 4 → 5 → 6 → 7</code> の一方向フロー。<code>6</code> の IVR に赤い破線の囲みと「CR — 2033」ラベルを付す。</p>
+<h3>1-4. 場所の物理性</h3>
+<ul>
+<li><strong>空間</strong>: 6 列 72 席のオープンフロア、低いパネル仕切り (隣の肩まで見える)</li>
+<li><strong>光</strong>: 蛍光灯の均一な白色光、窓際もブラインドが閉じている</li>
+<li><strong>音</strong>: 呼出音、応答の声、保留音、キー打鍵音が混じった「低い川に似た音」</li>
+<li><strong>温度</strong>: 空調が効きすぎて寒い (カーディガンを羽織っている人が多い)</li>
+<li><strong>時間感覚</strong>: 外の天気がわからない、時計は壁に 1 つだけ</li>
+</ul>
+<h3>1-5. プロンプト本体 (章扉 4:3 横)</h3>
+<pre><code>[STYLE PREFIX を先頭に置く]
+
+PLATE II-A: &quot;Call Center Floor, April 2026 — Field Observation&quot;
+Specimen: Operatorius vocalis / Classification: CR — Critically Endangered
+Archive: OWH-DSC-CR-2033-002
+
+CENTER ILLUSTRATION (left half):
+A female call center operator in her late 30s, seated at a cubicle desk,
+wearing a monaural headset with a microphone boom extending to her mouth.
+She is depicted in detailed copperplate engraving style, with fine
+crosshatching on her cardigan and hair. Her posture is upright but her
+eyes show quiet fatigue. On the desk: dual monitors displaying script
+documents, a numeric keypad, an open A4 script binder, a notepad, a tin
+of throat lozenges, a water bottle, and a tissue box. An A6 certification
+card (&quot;Contact Center Certification — Intermediate&quot;) leans against the
+low partition panel. Behind her, rows of identical cubicles stretch into
+the distance — 72 workstations under uniform fluorescent lighting, all
+window blinds closed. The perspective creates depth, showing the
+repetitive geometry of the call center floor.
+
+ANATOMICAL DIAGRAM (right half):
+&quot;Voice Transmission Path&quot; — a vertical cross-section diagram showing:
+(1) Oral cavity → (2) Pharynx/vocal cords → (3) Microphone boom →
+(4) Headset unit → (5) PBX trunk cable → (6) IVR system [marked with
+a red dashed border and &quot;CR — 2033&quot; label] → (7) Customer handset.
+Arrows flow top to bottom. Each node is labeled in Japanese and English
+with small numbered callouts in the Victorian scientific style.
+
+BOTTOM SECTION:
+An extinction timeline graph (2026–2035) showing the IVR automation
+percentage rising from 45% to 98% by 2033. Line graph on aged graph
+paper with sepia gridlines.
+
+SPECIMEN LABEL (bottom-left):
+Specimen No.: OWH-2035-002 / Collected by: Office of Workforce Heritage /
+Preservation: Audio Archive (Digital) / Red List status badge in deep
+crimson (#C41E3A) with &quot;CR&quot; in white serif text.
+
+OVERALL MOOD: The quiet intensity of a workplace that hums with human
+voices — voices that are about to be replaced. The operator's hands are
+still, resting on the desk between calls. The headset cable is the
+lifeline that connects her to relevance.
+
+[NEGATIVE PROMPT を末尾に置く]
+
+--ar 4:3 --style raw --s 200
+</code></pre>
+<h3>1-6. SNS バリエーション (1:1 正方形)</h3>
+<pre><code>[STYLE PREFIX]
+
+A square-format specimen plate in the style of a 19th-century natural
+history illustration. Center: a detailed copperplate engraving of a
+monaural headset (the kind used in call centers), resting on a desk
+next to an open script binder and a tin of throat lozenges. The headset
+cable coils downward and disappears off the page. Around the headset,
+Victorian-style numbered callouts label each component: (1) ear cushion,
+(2) microphone boom, (3) volume dial, (4) PBX connector. A red
+classification badge reads &quot;CR — Critically Endangered&quot; in the upper
+right. At the bottom, a specimen label: &quot;Operatorius vocalis /
+OWH-2035-002 / Call Center Floor, Tokyo / April 2026&quot;. Aged parchment
+background with foxing spots. Sepia and charcoal tones only.
+
+[NEGATIVE PROMPT]
+
+--ar 1:1 --style raw --s 200
+</code></pre>
+<hr />
+<h2>2. Plate III-A — スーパーレジ係</h2>
+<h3>2-1. メタデータ</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>章</td>
+<td>第 3 章</td>
+</tr>
+<tr>
+<td>Plate No.</td>
+<td>Plate III-A</td>
+</tr>
+<tr>
+<td>職業</td>
+<td>スーパーレジ係</td>
+</tr>
+<tr>
+<td>学名</td>
+<td><em>Cashierus standensis</em></td>
+</tr>
+<tr>
+<td>レッドリスト</td>
+<td>EN (Endangered)</td>
+</tr>
+<tr>
+<td>ラベル色</td>
+<td>Amber Orange (#D4760A)</td>
+</tr>
+<tr>
+<td>絶滅予告年</td>
+<td>2034</td>
+</tr>
+<tr>
+<td>標本番号</td>
+<td>OWH-2035-003</td>
+</tr>
+<tr>
+<td>観察期間</td>
+<td>2026年5月 (暫定)</td>
+</tr>
+<tr>
+<td>副題</td>
+<td>Plate III-A. スーパーマーケットのレジ、2026年5月 — 観察記録より</td>
+</tr>
+</tbody>
+</table>
+<h3>2-2. 中心モチーフ</h3>
+<ul>
+<li><strong>主要素</strong>: エプロン姿の女性レジ係 (40-50 代、パート従事者の佇まい)、立ち姿でバーコードスキャナーを構える</li>
+<li><strong>レジ台上</strong>: バーコードスキャナー (ハンドヘルド型)、POS レジスター (液晶画面 + レシートプリンター)、レジ袋の束、商品 (キャベツ、食パン、ペットボトル麦茶) がベルトコンベアの上を流れる</li>
+<li><strong>身につけるもの</strong>: エプロン (店名は一般化)、名札 (ファーストネームのみ)、腰には釣り銭ポーチ (キャッシュレス移行後も習慣として残っている)</li>
+<li><strong>背景</strong>: レジ台の向こうに客動線 (カートを押す人影)、さらに奥にセルフレジの列 (4-6 台、人がいない)、天井の蛍光灯、POP が吊り下がった売場</li>
+</ul>
+<h3>2-3. 解剖図構造 — 「商品認識の経路」</h3>
+<pre><code>業態解剖図 / ANATOMICAL DIAGRAM — 商品認識の経路 (Product Recognition Path)
+
+1. 商品 (バーコード面) / Product barcode — 13 桁 JAN コード、表面の向きを 0.3 秒で判別
+2. 手首の回旋 / Wrist rotation — 商品を持ち替えずにバーコード面をスキャナーに向ける熟練動作
+3. バーコードスキャナー / Barcode scanner — 赤色レーザー読取、1 日 2,000-3,000 スキャン
+4. POS レジスター / POS register — 商品名・価格・割引を自動表示、画面を一瞥して確認
+5. レシートプリンター / Receipt printer — 感熱紙、合計金額 + ポイント + クーポンを印字
+6. セルフレジ (背景) / Self-checkout kiosk — 2034 年、ここが有人レジを呑む
+</code></pre>
+<p>矢印は <code>1 → 2 → 3 → 4 → 5</code> の横フロー (商品が客から袋へ移動する流れ)。<code>6</code> のセルフレジに橙色の破線囲みと「EN — 2034」ラベルを付す。</p>
+<h3>2-4. 場所の物理性</h3>
+<ul>
+<li><strong>空間</strong>: レジカウンター (幅 1.2m) を挟んで客と対面、足元はコンクリート床にゴムマット</li>
+<li><strong>光</strong>: 売場の蛍光灯 + レジ上方のスポットライト、商品の色が正確に見える明るさ</li>
+<li><strong>音</strong>: 「ピッ」というスキャン音、レシートの印字音、客の会話、BGM (店内放送)</li>
+<li><strong>身体</strong>: 6-8 時間の立ち仕事、手首の反復動作、腰への負荷</li>
+<li><strong>時間感覚</strong>: レジ前に並ぶ客の列で混雑度がわかる、ピークは 17:00-19:00</li>
+</ul>
+<h3>2-5. プロンプト本体 (章扉 4:3 横)</h3>
+<pre><code>[STYLE PREFIX を先頭に置く]
+
+PLATE III-A: &quot;Supermarket Checkout, May 2026 — Field Observation&quot;
+Specimen: Cashierus standensis / Classification: EN — Endangered
+Archive: OWH-DSC-EN-2034-003
+
+CENTER ILLUSTRATION (left half):
+A female supermarket cashier in her late 40s, standing behind a checkout
+counter, holding a handheld barcode scanner aimed at a cabbage. She wears
+a store apron over a collared shirt, with a name tag (first name only)
+and a change pouch clipped to her waist. Depicted in copperplate
+engraving style with meticulous crosshatching on the apron fabric and
+the produce textures. On the checkout belt: a loaf of bread, a PET
+bottle of barley tea, and a bag of rice — all rendered with the botanical
+precision of a 19th-century still life. The POS register beside her
+shows a glowing LCD screen (rendered as a light rectangle in the
+engraving). Behind her, through the aisle perspective, 4-6 self-checkout
+kiosks stand in a row — unmanned, their screens glowing faintly. Hanging
+POP signs and fluorescent ceiling lights complete the background. The
+cashier's posture is slightly forward-leaning from hours of standing,
+but her hands move with practiced certainty.
+
+ANATOMICAL DIAGRAM (right half):
+&quot;Product Recognition Path&quot; — a horizontal cross-section showing the
+flow of a product from customer to bag: (1) Product barcode (JAN code
+close-up) → (2) Wrist rotation (anatomical detail of hand positioning)
+→ (3) Barcode scanner (red laser line detail) → (4) POS register
+(screen showing price) → (5) Receipt printer (thermal paper emerging).
+In the background of the diagram, a (6) Self-checkout kiosk silhouette
+with an amber dashed border and &quot;EN — 2034&quot; label. Arrows flow left to
+right. Victorian scientific callout style with numbered labels in
+Japanese and English.
+
+BOTTOM SECTION:
+Extinction timeline (2026–2035) showing self-checkout adoption rate
+rising from 35% to 85% by 2034. Bar chart on aged graph paper,
+amber-tinted.
+
+SPECIMEN LABEL (bottom-left):
+Specimen No.: OWH-2035-003 / Collected by: Office of Workforce Heritage /
+Preservation: Receipt Archive (Thermal Paper) / Red List badge in amber
+orange (#D4760A) with &quot;EN&quot; in white serif text.
+
+OVERALL MOOD: The physicality of retail work — hands that know the weight
+of a cabbage, wrists that rotate 3,000 times a day. The self-checkout
+kiosks in the background are ghosts of the near future, waiting quietly.
+
+[NEGATIVE PROMPT]
+
+--ar 4:3 --style raw --s 200
+</code></pre>
+<h3>2-6. SNS バリエーション (1:1 正方形)</h3>
+<pre><code>[STYLE PREFIX]
+
+A square-format specimen plate in 19th-century natural history style.
+Center: a detailed copperplate engraving of a handheld barcode scanner
+resting on a checkout counter next to a cabbage, a loaf of bread, and a
+coiled receipt. The scanner's red laser line is depicted as a thin
+crimson stroke cutting across the barcode. Numbered callouts label:
+(1) trigger button, (2) laser aperture, (3) ergonomic grip,
+(4) data cable. An amber classification badge reads &quot;EN — Endangered&quot;
+in the upper right. Specimen label at bottom: &quot;Cashierus standensis /
+OWH-2035-003 / Supermarket, Suburban Tokyo / May 2026&quot;. Aged parchment
+background, sepia and charcoal tones.
+
+[NEGATIVE PROMPT]
+
+--ar 1:1 --style raw --s 200
+</code></pre>
+<hr />
+<h2>3. Plate IV-A — 翻訳者</h2>
+<h3>3-1. メタデータ</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>章</td>
+<td>第 4 章</td>
+</tr>
+<tr>
+<td>Plate No.</td>
+<td>Plate IV-A</td>
+</tr>
+<tr>
+<td>職業</td>
+<td>翻訳者</td>
+</tr>
+<tr>
+<td>学名</td>
+<td><em>Interpretes contextualis</em></td>
+</tr>
+<tr>
+<td>レッドリスト</td>
+<td>CR (Critically Endangered)</td>
+</tr>
+<tr>
+<td>ラベル色</td>
+<td>Deep Crimson (#C41E3A)</td>
+</tr>
+<tr>
+<td>絶滅予告年</td>
+<td>2033</td>
+</tr>
+<tr>
+<td>標本番号</td>
+<td>OWH-2035-004</td>
+</tr>
+<tr>
+<td>観察期間</td>
+<td>2026年6月 (暫定)</td>
+</tr>
+<tr>
+<td>副題</td>
+<td>Plate IV-A. 翻訳者の書斎、2026年6月 — 観察記録より</td>
+</tr>
+</tbody>
+</table>
+<p><strong>学名の選択根拠</strong>: <code>Interpretes textualis</code> (暫定案) を <code>Interpretes contextualis</code> に変更提案。理由: この職業の核心的スキルは「テキストを訳す」ことではなく「文脈を読んで判断する」こと。AI が呑むのは textualis (テキスト処理) であり、contextualis (文脈判断) は最後まで残る。その皮肉を学名に込める。</p>
+<h3>3-2. 中心モチーフ</h3>
+<ul>
+<li><strong>主要素</strong>: 自宅書斎の机に向かう翻訳者 (40-50 代、男女問わず、眼鏡をかけた知的な佇まい)、椅子に深く座り原稿を読む姿勢</li>
+<li><strong>デスク上</strong>: 紙の辞書 (大型、英和または独和、開いた状態で付箋が多数)、万年筆 (キャップを外した状態)、原稿用紙の束 (赤入れの校正跡)、ノートパソコン (画面に DeepL / ChatGPT のインターフェースを暗示する矩形)、拡大鏡 (ルーペ)、コーヒーカップ (半分飲みかけ)</li>
+<li><strong>本棚</strong>: デスク背後に天井まで届く本棚、辞書・専門書・原書が並ぶ (背表紙が見える密度感)</li>
+<li><strong>窓際</strong>: デスクは窓際に置かれている、カーテン越しの柔らかい自然光 (蛍光灯ではない)</li>
+</ul>
+<h3>3-3. 解剖図構造 — 「翻訳の判断経路」</h3>
+<pre><code>業態解剖図 / ANATOMICAL DIAGRAM — 翻訳の判断経路 (Translation Decision Path)
+
+1. 原文 / Source text — 著者の意図、文化的背景、暗黙の前提を含むテキスト
+2. 読解 / Comprehension — 語義の表層だけでなく文脈・ニュアンス・韻律を捉える
+3. 文化的補正 / Cultural calibration — 原語の文化圏 → 訳語の文化圏への座標変換
+4. 訳出 / Rendering — 日本語 (or 他言語) としての自然さ、リズム、読者への配慮
+5. 校閲 / Review — 原文との照合、訳語の一貫性、誤訳チェック、声に出して読む
+6. 機械翻訳 (背景) / Machine translation — DeepL / GPT-4.x、2033 年に 4→5 を自動化
+</code></pre>
+<p>矢印は <code>1 → 2 → 3 → 4 → 5</code> の円弧フロー (翻訳は直線ではなく <code>5 → 2</code> への戻りがある)。<code>6</code> の機械翻訳が <code>1 → 4</code> を短絡するバイパス矢印 (赤色破線) で描かれ、「CR — 2033」ラベル付き。<code>3</code> (文化的補正) に Tender Sage (#6B7F5E) のハイライトを入れ「ここだけは、機械が届かない」を暗示。</p>
+<h3>3-4. 場所の物理性</h3>
+<ul>
+<li><strong>空間</strong>: 自宅書斎 (6-8 畳)、机 1 台、椅子 1 脚、壁一面の本棚</li>
+<li><strong>光</strong>: 窓からの自然光 + デスクランプ (暖色)、蛍光灯ではない (フリーランスの自宅)</li>
+<li><strong>音</strong>: 静寂、ページをめくる音、万年筆のスクラッチ音、キーボードのタイプ音がまれに</li>
+<li><strong>温度</strong>: 季節感がある (窓から光が入る)、コーヒーの湯気</li>
+<li><strong>時間感覚</strong>: 辞書の厚み、コーヒーの残量、窓の光の角度で時間がわかる (外部と接続されている)</li>
+</ul>
+<h3>3-5. プロンプト本体 (章扉 4:3 横)</h3>
+<pre><code>[STYLE PREFIX を先頭に置く]
+
+PLATE IV-A: &quot;Translator's Study, June 2026 — Field Observation&quot;
+Specimen: Interpretes contextualis / Classification: CR — Critically Endangered
+Archive: OWH-DSC-CR-2033-004
+
+CENTER ILLUSTRATION (left half):
+A translator in their late 40s seated at a wooden desk by a window in a
+home study. They wear reading glasses and lean slightly forward over a
+manuscript. Depicted in detailed copperplate engraving with careful
+crosshatching on the wood grain of the desk, the fabric of their
+cardigan, and the pages of books. On the desk: a large open paper
+dictionary (English-Japanese, with many Post-it note tabs protruding
+from the edges), an uncapped fountain pen resting on manuscript pages
+marked with red editorial corrections, a laptop computer (screen showing
+a faintly rendered rectangular interface suggesting machine translation
+software), a magnifying glass (brass-rimmed loupe), and a half-drunk
+coffee cup with visible steam wisps. Behind the desk, a floor-to-ceiling
+bookshelf fills the entire wall — dictionaries, reference books, and
+foreign-language originals packed tightly with visible spine lettering.
+Soft natural light enters through a curtained window to the left,
+creating gentle shadows across the desk — no fluorescent lighting.
+A desk lamp with a warm-toned shade provides additional illumination.
+
+ANATOMICAL DIAGRAM (right half):
+&quot;Translation Decision Path&quot; — an arc-shaped flow diagram showing:
+(1) Source text → (2) Comprehension (deep reading) → (3) Cultural
+calibration [highlighted with a subtle sage-green (#6B7F5E) wash,
+indicating &quot;the part machines cannot reach&quot;] → (4) Rendering (target
+language output) → (5) Review (with a return arrow looping back to
+step 2, showing the iterative nature of translation). A red dashed
+bypass arrow labeled (6) &quot;Machine Translation — CR 2033&quot; shortcuts
+from (1) directly to (4), bypassing steps (2) and (3). Each node has
+Victorian-style numbered callouts in Japanese and English.
+
+BOTTOM SECTION:
+Extinction timeline (2026–2035) showing machine translation market share
+in Japanese commercial translation rising from 60% to 95% by 2033.
+Overlaid curve showing &quot;human translator assignments per year&quot; declining
+inversely. Dual-axis line chart on aged graph paper.
+
+SPECIMEN LABEL (bottom-left):
+Specimen No.: OWH-2035-004 / Collected by: Office of Workforce Heritage /
+Preservation: Manuscript Archive (Paper &amp; Digital) / Red List badge in
+deep crimson (#C41E3A) with &quot;CR&quot; in white serif text.
+
+OVERALL MOOD: The solitary intimacy of intellectual labor. Unlike the
+fluorescent uniformity of data entry or call center floors, this
+workspace is personal — shaped by decades of accumulated books, marked
+manuscripts, and the particular angle of afternoon light. The dictionary
+is still open, but the laptop screen glows with the future that will
+make it unnecessary.
+
+[NEGATIVE PROMPT]
+
+--ar 4:3 --style raw --s 200
+</code></pre>
+<h3>3-6. SNS バリエーション (1:1 正方形)</h3>
+<pre><code>[STYLE PREFIX]
+
+A square-format specimen plate in 19th-century natural history style.
+Center: a detailed copperplate engraving of an open paper dictionary
+(large format, English-Japanese) with Post-it note tabs protruding from
+dozens of pages, resting on a wooden desk. Next to it: an uncapped
+fountain pen, a magnifying loupe, and manuscript pages with red editorial
+marks. The dictionary's spine shows years of use — creased, with the
+gold lettering partially worn. Numbered callouts label: (1) headword
+entry, (2) usage examples, (3) cultural notes section, (4) translator's
+marginalia in pencil. A crimson badge reads &quot;CR — Critically Endangered&quot;
+in the upper right. Specimen label: &quot;Interpretes contextualis /
+OWH-2035-004 / Home Study, Tokyo / June 2026&quot;. Aged parchment, sepia
+and charcoal.
+
+[NEGATIVE PROMPT]
+
+--ar 1:1 --style raw --s 200
+</code></pre>
+<hr />
+<h2>4. Plate V-A — システムエンジニア (受託開発)</h2>
+<h3>4-1. メタデータ</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>章</td>
+<td>第 5 章</td>
+</tr>
+<tr>
+<td>Plate No.</td>
+<td>Plate V-A</td>
+</tr>
+<tr>
+<td>職業</td>
+<td>システムエンジニア (受託開発)</td>
+</tr>
+<tr>
+<td>学名</td>
+<td><em>Systemus contractualis</em></td>
+</tr>
+<tr>
+<td>レッドリスト</td>
+<td>VU (Vulnerable)</td>
+</tr>
+<tr>
+<td>ラベル色</td>
+<td>Amber Yellow (#C4A000)</td>
+</tr>
+<tr>
+<td>絶滅予告年</td>
+<td>2035 年以降 (VU = まだ生きているが危機的)</td>
+</tr>
+<tr>
+<td>標本番号</td>
+<td>OWH-2035-005</td>
+</tr>
+<tr>
+<td>観察期間</td>
+<td>2026年7月 (暫定)</td>
+</tr>
+<tr>
+<td>副題</td>
+<td>Plate V-A. 受託開発者の机、2026年7月 — 観察記録より</td>
+</tr>
+</tbody>
+</table>
+<p><strong>学名の選択根拠</strong>: <code>contractualis</code> (契約に基づく) を採用。受託 SE の本質は「技術力」ではなく「契約構造の中で開発する」こと。AI が呑むのは実装工程であり、契約構造 (要件の曖昧さ、責任分界、変更管理) はむしろ肥大化する。その皮肉を学名に込める。VU (Vulnerable) = 最も絶滅が遅い = 最も複雑な絶滅過程、という階層構造も学名で暗示。</p>
+<h3>4-2. 中心モチーフ</h3>
+<ul>
+<li><strong>主要素</strong>: デュアルモニターに向かう男性 SE (30-40 代、やや猫背、集中した表情)、椅子はオフィスチェア (高機能だが使い古されている)</li>
+<li><strong>モニター画面</strong>: 左モニターに VS Code のようなコードエディタ (ダークテーマ、コードの行が見える)、右モニターに GitHub の PR レビュー画面 (コードの差分が見える)。画面の端に AI コード補完のインライン候補 (薄い文字) が暗示される</li>
+<li><strong>デスク上</strong>: 機械式キーボード (Cherry MX 系のキーキャップが見える)、マウス、コーヒーマグ (「404 Sleep Not Found」的な IT ジョークが書いてある)、付箋が貼られたモニターの枠</li>
+<li><strong>ホワイトボード</strong>: デスク横の壁にホワイトボード、システム構成図 (箱と矢印) とスプリントのタスクリスト (一部完了チェック済)</li>
+<li><strong>背景</strong>: オープンオフィス (or 在宅のワンルーム)、他のデスクには書類の山、空のエナジードリンク缶</li>
+</ul>
+<h3>4-3. 解剖図構造 — 「コード生成の判断経路と AI 侵食位置」</h3>
+<pre><code>業態解剖図 / ANATOMICAL DIAGRAM — コード生成の判断経路 (Code Generation Decision Path)
+
+1. 要件定義 / Requirements — 顧客の言語化されない要求を構造化する (人間の最後の砦)
+2. 設計 / Architecture — システム構成図、DB スキーマ、API 設計 (AI が部分侵食中)
+3. 実装 / Implementation — コーディング、単体テスト [赤破線囲み: AI が最も深く侵食]
+4. コードレビュー / Code review — PR 上での品質・セキュリティチェック (AI が部分代替中)
+5. テスト / Testing — 結合テスト、E2E テスト (AI が部分代替中)
+6. デプロイ / Deployment — CI/CD パイプライン、本番リリース (自動化済)
+7. 運用保守 / Maintenance — 障害対応、顧客折衝、契約更新 (人間が残る)
+</code></pre>
+<p>矢印は <code>1 → 2 → 3 → 4 → 5 → 6 → 7</code> の直線フロー。<code>3</code> (実装) に最も濃い赤の囲み (AI 侵食率 80%)、<code>2</code> <code>4</code> <code>5</code> に薄い赤の囲み (AI 侵食率 40-60%)、<code>1</code> と <code>7</code> に黄色 (VU) の囲み (人間が残る工程)。全体として「中央が空洞化し、両端だけが残る」ドーナツ型の絶滅パターンを図示。</p>
+<h3>4-4. 場所の物理性</h3>
+<ul>
+<li><strong>空間</strong>: オープンオフィス (40-60 席規模) or 在宅ワンルーム、デスクには 2-3 台のモニター</li>
+<li><strong>光</strong>: モニターの青白い光が主光源、蛍光灯はあるが暗めに設定されている</li>
+<li><strong>音</strong>: キーボードの打鍵音 (機械式の「カチカチ」)、Slack の通知音、ときどきオンライン会議の声</li>
+<li><strong>身体</strong>: 長時間座位、猫背、手首の腱鞘炎リスク、目の疲れ</li>
+<li><strong>時間感覚</strong>: Slack の未読数とスプリントの残日数で時間が流れる、深夜作業が常態化</li>
+</ul>
+<h3>4-5. プロンプト本体 (章扉 4:3 横)</h3>
+<pre><code>[STYLE PREFIX を先頭に置く]
+
+PLATE V-A: &quot;Contract Developer's Desk, July 2026 — Field Observation&quot;
+Specimen: Systemus contractualis / Classification: VU — Vulnerable
+Archive: OWH-DSC-VU-2035-005
+
+CENTER ILLUSTRATION (left half):
+A male systems engineer in his mid-30s, seated at a desk with dual
+monitors, slightly hunched forward in concentration. Depicted in
+copperplate engraving style with detailed crosshatching on his hoodie,
+the chair's mesh back, and the cable clutter under the desk. Left
+monitor shows lines of code in a dark-themed editor (rendered as fine
+parallel lines suggesting code syntax). Right monitor shows a code
+review interface with diff markers (green and red line indicators,
+rendered in the engraving as different hatching densities). At the edge
+of the right screen, faint ghost-text suggests AI code completion
+(barely visible, like a watermark). On the desk: a mechanical keyboard
+with visible keycaps, a mouse, a coffee mug with faded text, Post-it
+notes stuck to the monitor bezels, scattered printouts. On the wall
+beside the desk: a whiteboard with a system architecture diagram (boxes
+and arrows) and a sprint task list (some items crossed out). In the
+background, other desks with monitors, stacked documents, and empty
+energy drink cans. The lighting is predominantly from the monitors'
+blue-white glow, with dim overhead fluorescents.
+
+ANATOMICAL DIAGRAM (right half):
+&quot;Code Generation Decision Path&quot; — a vertical flow diagram showing:
+(1) Requirements [yellow VU border — &quot;human stronghold&quot;] →
+(2) Architecture [light red wash — &quot;AI partially encroaching, 40%&quot;] →
+(3) Implementation [deep red dashed border — &quot;AI deeply encroaching,
+80%&quot; with &quot;Copilot / Claude Code&quot; label] →
+(4) Code Review [light red wash — 50%] →
+(5) Testing [light red wash — 45%] →
+(6) Deployment [gray — &quot;already automated&quot;] →
+(7) Maintenance [yellow VU border — &quot;human stronghold, contract
+negotiation&quot;].
+The diagram shows the &quot;donut pattern&quot;: center hollowed out by AI,
+human work surviving only at the ends. A &quot;VU — 2035+&quot; label in amber
+yellow at the diagram's header.
+
+BOTTOM SECTION:
+Extinction timeline (2026–2037) showing AI code generation adoption in
+Japanese contract development firms. Unlike the steep curves of previous
+chapters, this is a gradual S-curve reaching 70% by 2035 — reflecting
+VU status (slower extinction, more complex displacement). Dual lines:
+&quot;AI-generated code %&quot; rising vs &quot;billable engineer-hours&quot; declining.
+
+SPECIMEN LABEL (bottom-left):
+Specimen No.: OWH-2035-005 / Collected by: Office of Workforce Heritage /
+Preservation: Repository Archive (Git) / Red List badge in amber yellow
+(#C4A000) with &quot;VU&quot; in dark serif text.
+
+OVERALL MOOD: The most complex specimen in the collection. Unlike data
+entry clerks or cashiers who face swift extinction, the contract SE
+faces a slow hollowing — the creative endpoints survive while the
+productive middle is consumed by AI tools. The engineer's posture —
+hunched, focused, surrounded by screens — is simultaneously a portrait
+of mastery and of a body being made redundant from the inside out.
+
+[NEGATIVE PROMPT]
+
+--ar 4:3 --style raw --s 200
+</code></pre>
+<h3>4-6. SNS バリエーション (1:1 正方形)</h3>
+<pre><code>[STYLE PREFIX]
+
+A square-format specimen plate in 19th-century natural history style.
+Center: a detailed copperplate engraving of a mechanical keyboard (with
+visible Cherry-style keycaps), viewed from a three-quarter angle, resting
+on a desk. Two monitor screens are partially visible in the background,
+showing code (rendered as fine horizontal lines). A coffee mug and
+scattered Post-it notes frame the keyboard. The keyboard's USB cable
+trails off the page. Numbered callouts label: (1) WASD cluster (worn
+keycaps), (2) Enter key (most used), (3) function row (macro-bound),
+(4) USB cable (to the system that is learning to type for itself).
+An amber-yellow badge reads &quot;VU — Vulnerable&quot; in the upper right.
+Specimen label: &quot;Systemus contractualis / OWH-2035-005 / Open Office,
+Tokyo / July 2026&quot;. Aged parchment, sepia and charcoal.
+
+[NEGATIVE PROMPT]
+
+--ar 1:1 --style raw --s 200
+</code></pre>
+<hr />
+<h2>5. 補足注記</h2>
+<h3>5-1. Plate I-A との視覚一貫性チェックリスト</h3>
+<p>生成後、各 Plate を Plate I-A と並べて以下を確認する:</p>
+<ul>
+<li>[ ] <strong>紙質</strong>: 同じ foxing spots / edge browning の密度、過度に新しくない</li>
+<li>[ ] <strong>線質</strong>: 銅版画のクロスハッチング密度が同水準 (細すぎず太すぎず)</li>
+<li>[ ] <strong>人物描写</strong>: 顔の詳細度が同水準 (写実的すぎず抽象的すぎず)</li>
+<li>[ ] <strong>レイアウト</strong>: 左右分割 (人物図 + 解剖図) の比率が Plate I-A と一致</li>
+<li>[ ] <strong>フォント</strong>: セリフ体のヴィクトリアン・サイエンティフィック様式が統一</li>
+<li>[ ] <strong>色温度</strong>: セピアトーンの暖かさが同一 (寒色に振れていない)</li>
+<li>[ ] <strong>レッドリストバッジ</strong>: 位置・サイズ・書体が統一 (色のみ章別で変更)</li>
+<li>[ ] <strong>標本ラベル</strong>: 位置 (左下)・フォーマットが統一</li>
+</ul>
+<h3>5-2. 各章の差別化ポイント (一見同じに見えて、職業ごとの固有性がある)</h3>
+<table>
+<thead>
+<tr>
+<th>Plate</th>
+<th>光源</th>
+<th>音のメタファー</th>
+<th>身体部位</th>
+<th>空間の開放度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I-A (データ入力)</td>
+<td>蛍光灯 (均一)</td>
+<td>キーボードの川</td>
+<td>指</td>
+<td>閉鎖 (ブラインド閉)</td>
+</tr>
+<tr>
+<td>II-A (コールセンター)</td>
+<td>蛍光灯 (均一)</td>
+<td>会話の川</td>
+<td>耳と喉</td>
+<td>閉鎖 (ブラインド閉)</td>
+</tr>
+<tr>
+<td>III-A (スーパーレジ)</td>
+<td>蛍光灯 + スポット</td>
+<td>スキャン音のリズム</td>
+<td>手首</td>
+<td>半開放 (客動線あり)</td>
+</tr>
+<tr>
+<td>IV-A (翻訳者)</td>
+<td>自然光 + デスクランプ</td>
+<td>静寂 + ページめくり</td>
+<td>目 (眼鏡)</td>
+<td>開放 (窓、本棚)</td>
+</tr>
+<tr>
+<td>V-A (受託 SE)</td>
+<td>モニターの青白い光</td>
+<td>キーボード + 通知音</td>
+<td>背中 (猫背)</td>
+<td>半閉鎖 (暗いオフィス)</td>
+</tr>
+</tbody>
+</table>
+<p>この差別化が「同じフォーマットなのに、1 枚ずつ手に取りたくなる」図鑑としての魅力を生む。</p>
+<h3>5-3. 学名一覧 (全 5 章)</h3>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>職業</th>
+<th>学名</th>
+<th>命名根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>データ入力</td>
+<td><em>Operatorus centrumus</em></td>
+<td>確定済 (STEP 1)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>コールセンター</td>
+<td><em>Operatorius vocalis</em></td>
+<td>確定済 (§1 v1 frontmatter)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>スーパーレジ</td>
+<td><em>Cashierus standensis</em></td>
+<td>暫定 (standensis = 立ち仕事の場所)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>翻訳者</td>
+<td><em>Interpretes contextualis</em></td>
+<td>本文書で提案 (textualis から変更)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>受託 SE</td>
+<td><em>Systemus contractualis</em></td>
+<td>暫定 (contractualis = 契約に基づく)</td>
+</tr>
+</tbody>
+</table>
+<p>第 4-5 章の学名はジョニー確認後に確定。</p>
+<h3>5-4. 生成順序の推奨</h3>
+<ol>
+<li><strong>Plate II-A (コールセンター)</strong> を最初に生成 — 第 2 章 §1 が完成済で文体参照可、Plate I-A と同じ閉鎖空間 + 蛍光灯のため視覚的一貫性を確認しやすい</li>
+<li><strong>Plate III-A (スーパーレジ)</strong> — 空間が半開放に変わる最初の章、レイアウト調整が必要</li>
+<li><strong>Plate V-A (受託 SE)</strong> — モニター光源が支配的、セピアトーンとの両立が最も難しい (先に試行)</li>
+<li><strong>Plate IV-A (翻訳者)</strong> — 自然光が入る唯一の Plate、品質調整の最終仕上げ</li>
+</ol>
+<h3>5-5. Midjourney / Stable Diffusion 用の調整メモ</h3>
+<ul>
+<li><strong>Midjourney v7</strong>: <code>--style raw</code> + <code>--s 200</code> で写実寄りを抑える。<code>--sref</code> で Plate I-A の URL を渡すとスタイル参照が効く</li>
+<li><strong>Stable Diffusion 3.5</strong>: <code>(copperplate engraving:1.4), (crosshatching:1.3), (aged parchment:1.2)</code> のウェイト調整推奨。LoRA がある場合は Victorian Scientific Illustration 系を適用</li>
+<li><strong>DALL-E 3 (GPT Image Gen)</strong>: STYLE PREFIX をそのまま使用、ネガティブプロンプトは <code>I DON'T want:</code> 形式に変換</li>
+</ul>
+<hr />
+<h2>関連</h2>
+<ul>
+<li>[[extinct-jobs-bible-concept-sheet]] (§ 5 Proof Points + § 8 Brand Voice)</li>
+<li>[[extinct-jobs-bible-strategy]] (v0.4.2 § 4-3 ビジュアル方針)</li>
+<li>[[chapter-01-draft-section1]] (Plate I-A 副題、文体 DNA)</li>
+<li>[[chapter-02-draft-section1]] (Plate II-A、本 v1 の文体参照)</li>
+<li><code>~/gits-system/data/extinct-jobs-bible/brand/step1_cover_plate1.png</code> (Plate I-A 実物)</li>
+<li><code>~/gits-system/data/extinct-jobs-bible/brand/step2_system_board.png</code> (Brand System Board)</li>
+</ul>
+<div class="ttl-footer">⏰ このページは <strong>2026-05-20 15:23 JST</strong> に自動削除されます</div>
+</div>
+</body>
+</html>
