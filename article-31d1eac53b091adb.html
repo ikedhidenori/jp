@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>絶滅職種図鑑 — 戦略ホワイトペーパー v0.5</title>
+<meta name="description" content="絶滅職種図鑑 v0.5 戦略書 + 出口戦略ファネル + 100章スケール Pipeline + ゼロ起ち上げ集客 + 第1-2章ダイジェスト">
+<style>
+:root {
+  --bg: #fbfaf8;
+  --paper: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2b7a78;
+  --accent-2: #c7522a;
+  --accent-3: #e9b44c;
+  --quote-bg: #f4ede0;
+  --border: #e8e2d8;
+  --table-head: #efe8db;
+  --phase-a: #d4e8e7;
+  --phase-b: #e9d8c4;
+  --phase-c: #e4c7b3;
+  --phase-d: #c7a8a0;
+  --kpi-bg: #fdf9f0;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14130f;
+    --paper: #1c1b18;
+    --text: #ece8de;
+    --muted: #9a958c;
+    --accent: #6ab8b4;
+    --accent-2: #e58264;
+    --accent-3: #f1c570;
+    --quote-bg: #25231e;
+    --border: #38342d;
+    --table-head: #2a2722;
+    --phase-a: #2a3b3a;
+    --phase-b: #3a3225;
+    --phase-c: #44322a;
+    --phase-d: #4a3a36;
+    --kpi-bg: #221f18;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Hiragino Sans", "Yu Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.85;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 820px; margin: 0 auto; padding: 24px 20px 80px; }
+
+/* Cover */
+.cover {
+  background: linear-gradient(135deg, var(--accent) 0%, #1d5856 100%);
+  color: #ffffff;
+  padding: 56px 32px;
+  border-radius: 8px;
+  margin: 24px 0 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  top: -50%; left: -10%;
+  width: 60%; height: 200%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.08) 0%, transparent 70%);
+  transform: rotate(15deg);
+}
+.cover-label { font-size: 11px; letter-spacing: 0.3em; color: rgba(255,255,255,0.7); margin-bottom: 18px; }
+.cover h1.cover-title { font-size: 32px; font-weight: 700; line-height: 1.3; margin: 0 0 14px; color: #fff; border: none; padding: 0; }
+.cover-sub { font-size: 15px; color: rgba(255,255,255,0.88); font-style: italic; margin-bottom: 32px; line-height: 1.7; }
+.cover-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 24px; font-size: 12.5px; color: rgba(255,255,255,0.8); margin-top: 24px; }
+.cover-meta span { display: inline-block; }
+.cover-meta b { color: #fff; font-weight: 600; }
+@media (max-width: 480px) {
+  .cover { padding: 36px 18px; }
+  .cover h1.cover-title { font-size: 24px; }
+  .cover-sub { font-size: 13.5px; }
+}
+
+/* TOC */
+.toc {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 24px 28px;
+  margin: 32px 0 48px;
+}
+.toc-title { font-size: 13px; letter-spacing: 0.2em; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
+.toc ol { padding-left: 0; list-style: none; counter-reset: toc-item; column-count: 2; column-gap: 28px; }
+.toc ol li { counter-increment: toc-item; padding: 5px 0 5px 28px; position: relative; font-size: 14px; line-height: 1.6; break-inside: avoid; }
+.toc ol li::before {
+  content: counter(toc-item, decimal-leading-zero);
+  position: absolute;
+  left: 0; top: 5px;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 11px;
+  font-family: "SF Mono", monospace;
+}
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px dashed transparent; }
+.toc a:hover { border-bottom-color: var(--accent); color: var(--accent); }
+@media (max-width: 600px) { .toc ol { column-count: 1; } }
+
+/* Headings */
+h1 { font-size: 26px; margin: 60px 0 20px; line-height: 1.35; font-weight: 700; color: var(--text); padding-bottom: 12px; border-bottom: 3px double var(--accent); }
+h1.part-heading::before {
+  content: attr(data-part);
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--accent-2);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+h2 { font-size: 21px; margin: 40px 0 14px; line-height: 1.45; font-weight: 700; padding-left: 14px; border-left: 4px solid var(--accent); }
+h3 { font-size: 17px; margin: 30px 0 12px; color: var(--accent); font-weight: 700; }
+h4 { font-size: 15.5px; margin: 22px 0 8px; color: var(--accent-2); font-weight: 700; }
+p { margin: 14px 0; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+/* Inline */
+strong { font-weight: 700; background: linear-gradient(transparent 62%, rgba(233, 180, 76, 0.4) 62%); padding: 0 2px; }
+em { font-style: italic; color: var(--muted); }
+code { font-family: "SF Mono", "Menlo", monospace; background: var(--quote-bg); padding: 2px 6px; border-radius: 3px; font-size: 13.5px; }
+pre { background: var(--quote-bg); padding: 14px 16px; border-radius: 5px; overflow-x: auto; font-size: 13px; line-height: 1.6; border: 1px solid var(--border); }
+pre code { background: transparent; padding: 0; }
+
+/* Quotes */
+blockquote { background: var(--quote-bg); padding: 16px 20px; margin: 20px 0; border-radius: 4px; font-size: 14.5px; line-height: 1.85; border-left: 3px solid var(--accent); }
+blockquote p:first-child { margin-top: 0; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Lists */
+ul, ol { padding-left: 24px; margin: 12px 0; }
+li { margin: 5px 0; line-height: 1.8; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 18px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; vertical-align: top; line-height: 1.65; }
+th { background: var(--table-head); font-weight: 700; }
+tr:nth-child(even) td { background: rgba(0,0,0,0.015); }
+@media (prefers-color-scheme: dark) { tr:nth-child(even) td { background: rgba(255,255,255,0.02); } }
+
+/* Callouts */
+.callout {
+  margin: 22px 0;
+  padding: 16px 20px;
+  border-radius: 5px;
+  border-left: 4px solid;
+  background: var(--quote-bg);
+  font-size: 14.5px;
+}
+.callout-label { font-weight: 700; font-size: 12px; letter-spacing: 0.15em; margin-bottom: 8px; display: block; }
+.callout.note { border-left-color: var(--accent); }
+.callout.note .callout-label { color: var(--accent); }
+.callout.warning { border-left-color: var(--accent-2); background: rgba(199, 82, 42, 0.08); }
+.callout.warning .callout-label { color: var(--accent-2); }
+.callout.tip { border-left-color: var(--accent-3); background: rgba(233, 180, 76, 0.12); }
+.callout.tip .callout-label { color: #a8841f; }
+@media (prefers-color-scheme: dark) {
+  .callout.tip .callout-label { color: var(--accent-3); }
+}
+
+/* KPI cards */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin: 24px 0; }
+.kpi-card { background: var(--kpi-bg); border: 1px solid var(--border); padding: 16px 18px; border-radius: 6px; }
+.kpi-card .kpi-label { font-size: 11.5px; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+.kpi-card .kpi-value { font-size: 22px; font-weight: 700; color: var(--accent); line-height: 1.2; }
+.kpi-card .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* Phase tags */
+.phase-tag {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 4px 0 0;
+  vertical-align: middle;
+}
+.phase-tag.a { background: var(--phase-a); color: #1d5856; }
+.phase-tag.b { background: var(--phase-b); color: #8a5a1d; }
+.phase-tag.c { background: var(--phase-c); color: #7a3a18; }
+.phase-tag.d { background: var(--phase-d); color: #5a2a24; }
+
+/* SVG Figures */
+.figure { margin: 28px 0; text-align: center; }
+.figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+.figure-caption { font-size: 12.5px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+.figure-caption b { color: var(--text); font-weight: 700; }
+
+/* Plate placeholder for chapter cover */
+.plate {
+  display: flex; flex-direction: column;
+  border: 2px solid var(--accent); border-radius: 8px;
+  background: var(--paper); padding: 24px;
+  margin: 24px 0;
+}
+.plate-header { display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 0.2em; color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 14px; }
+.plate-title-en { font-size: 11px; letter-spacing: 0.25em; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+.plate-title { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+.plate-latin { font-size: 13px; font-style: italic; color: var(--muted); margin-bottom: 14px; }
+.plate-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px 16px; font-size: 12.5px; margin: 14px 0; }
+.plate-meta div { padding: 6px 0; border-bottom: 1px dotted var(--border); }
+.plate-meta b { color: var(--accent); font-weight: 700; }
+.plate-notes { font-size: 13.5px; line-height: 1.85; margin-top: 14px; padding: 12px 14px; background: var(--quote-bg); border-radius: 4px; }
+.plate-prompt { font-size: 11.5px; color: var(--muted); margin-top: 12px; font-family: "SF Mono", monospace; line-height: 1.6; padding: 8px 10px; border-left: 2px solid var(--accent-3); }
+
+/* Funnel ASCII-art replacement */
+.funnel-stage {
+  margin: 4px auto;
+  padding: 14px 20px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 14.5px; line-height: 1.5;
+  border-left: 4px solid;
+}
+.funnel-stage.s1 { width: 100%; background: var(--phase-a); border-left-color: #1d5856; }
+.funnel-stage.s2 { width: 88%; background: var(--phase-b); border-left-color: #8a5a1d; }
+.funnel-stage.s3 { width: 70%; background: var(--phase-c); border-left-color: #7a3a18; }
+.funnel-stage.s4 { width: 52%; background: var(--phase-d); border-left-color: #5a2a24; }
+.funnel-stage-title { font-weight: 700; }
+.funnel-stage-num { font-size: 11px; color: rgba(0,0,0,0.65); }
+@media (prefers-color-scheme: dark) {
+  .funnel-stage-num { color: rgba(255,255,255,0.7); }
+}
+@media (max-width: 540px) {
+  .funnel-stage { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .funnel-stage.s1, .funnel-stage.s2, .funnel-stage.s3, .funnel-stage.s4 { width: 100%; }
+}
+
+/* Hr & footer */
+hr { border: none; border-top: 1px solid var(--border); margin: 36px auto; width: 60%; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12.5px; margin: 60px 0 16px; padding: 14px; border-top: 1px dashed var(--border); }
+.appendix-divider { margin: 80px 0 0; padding: 24px; text-align: center; background: var(--quote-bg); border-radius: 6px; }
+.appendix-divider .label { font-size: 12px; letter-spacing: 0.3em; color: var(--accent-2); margin-bottom: 6px; }
+.appendix-divider .title { font-size: 19px; font-weight: 700; }
+
+/* Mobile */
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .container { padding: 16px 14px 60px; }
+  h1 { font-size: 21px; }
+  h2 { font-size: 17.5px; }
+  h3 { font-size: 15.5px; }
+  table { font-size: 12.5px; }
+  th, td { padding: 7px 8px; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-card .kpi-value { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ============== COVER ============== -->
+<div class="cover">
+<div class="cover-label">STRATEGIC WHITE PAPER · v0.5</div>
+<h1 class="cover-title">絶滅職種図鑑</h1>
+<div class="cover-sub">Field Notes from 2035 — Work That No Longer Exists<br>戦略ホワイトペーパー / 100 章カバレッジ × 教育産業ファネル設計</div>
+<div class="cover-meta">
+<span>📅 <b>2026-05-17</b></span>
+<span>📚 <b>Phase 1 着手</b></span>
+<span>✍️ <b>素子 (Claude Opus 4.7) + ジョニー</b></span>
+<span>🏛️ <b>Office of Workforce Heritage, Tokyo 2035</b></span>
+</div>
+</div>
+
+<!-- ============== TOC ============== -->
+<div class="toc">
+<div class="toc-title">CONTENTS — 目次</div>
+<ol>
+<li><a href="#exec">エグゼクティブ・サマリー</a></li>
+<li><a href="#part1">Part 1 — ビジョンと戦略の核</a></li>
+<li><a href="#part2">Part 2 — 市場とオーディエンス</a></li>
+<li><a href="#part3">Part 3 — プロダクト設計</a></li>
+<li><a href="#part4">Part 4 — 収益モデル (Phase A-D)</a></li>
+<li><a href="#part5">Part 5 — 集客 (Go-to-Market)</a></li>
+<li><a href="#part6">Part 6 — リスクと撤退ライン</a></li>
+<li><a href="#part7">Part 7 — 6-18 ヶ月ロードマップ</a></li>
+<li><a href="#appendix-a">Appendix A — 第 1 章ダイジェスト</a></li>
+<li><a href="#appendix-b">Appendix B — 第 2 章ダイジェスト</a></li>
+<li><a href="#appendix-c">Appendix C — 章扉ビジュアル設計</a></li>
+<li><a href="#appendix-d">Appendix D — 参照モデル一覧</a></li>
+</ol>
+</div>
+
+<!-- ============== EXEC SUMMARY ============== -->
+<h1 id="exec" class="part-heading" data-part="EXECUTIVE SUMMARY">本書の要点 — 3 分で理解する v0.5</h1>
+
+<p><strong>絶滅職種図鑑</strong>は、AI に置換される職業の物語を 1 章 = 1 職種 で記録する、SF プロトタイピング型の労働史研究書です。本書は v0.5 で「<strong>100 章カバレッジ × 教育産業ファネル</strong>」へ大規模再設計し、12 ヶ月で月収 ¥50-150 万のコンテンツ事業に育てる戦略を確定しました。</p>
+
+<div class="kpi-grid">
+<div class="kpi-card"><div class="kpi-label">SCOPE</div><div class="kpi-value">100 章</div><div class="kpi-sub">jobtag 567 のうち優先 100 職種を 1 ヶ月で完走</div></div>
+<div class="kpi-card"><div class="kpi-label">PHASE 1 PERIOD</div><div class="kpi-value">31 日</div><div class="kpi-sub">2026/05/17 → 06/17、1 日 3-4 章ペース</div></div>
+<div class="kpi-card"><div class="kpi-label">12 ヶ月目標</div><div class="kpi-value">¥50-150万/月</div><div class="kpi-sub">フォロワー 5K-15K 想定</div></div>
+<div class="kpi-card"><div class="kpi-label">出口</div><div class="kpi-value">Phase A→D</div><div class="kpi-sub">単品 → 定期 → 教材 → コミュ</div></div>
+</div>
+
+<h2>5 つの核心的選択</h2>
+<ol>
+<li><strong>Phase A 単品 ¥500 主軸</strong> — 定期購読マガジン ¥980/月は 60 日運用後 (Phase B) に降格、Phase 1 は単品のみで様子見</li>
+<li><strong>INNFRA 接続削除</strong> — 本書は本業と独立、ブランド単独で立ち上げる初案件</li>
+<li><strong>ゼロ起ち上げ前提</strong> — フォロワー 0 / メルマガ 0 / Discord 0 から開始</li>
+<li><strong>100 章カバレッジ</strong> — 5 章 MVP は単なる起点、jobtag 567 のほぼ全域カバーで「業界辞書」ポジションを取る</li>
+<li><strong>教育産業ファネル</strong> — DaiGo / シバタナオキ / 中田 PROGRESS 型の参照モデル、12 ヶ月で 3 段ピラミッド形成</li>
+</ol>
+
+<div class="callout note">
+<span class="callout-label">📐 戦略の核 (1 行)</span>
+JILPT IPD v7.00 + e-Stat の公的一次データ + 絶滅前夜の物語 + 当事者の声 + 転身ナラティブ + 100 章カバレッジ × 教育産業ファネル = <strong>LLM 自動生成では絶対作れない領域に立ち、12 ヶ月で月収 ¥50-150 万のコンテンツ事業に育てる。</strong>
+</div>
+
+<!-- ============== PART 1 ============== -->
+<h1 id="part1" class="part-heading" data-part="PART 1">ビジョンと戦略の核</h1>
+
+<h2>1.1 ブランド・エッセンス</h2>
+<blockquote>
+<p><strong>2035 年に出版された、絶滅した職業の図鑑である。</strong></p>
+<p><em>A field guide to professions that have vanished. Published in 2035.</em></p>
+</blockquote>
+
+<p>本書は事実 (架空発行年) + 時間軸 (未来からの記録) + ユニーク性 (図鑑フォーマットを職業に応用) を 1 文に圧縮した essence で立つ。煽らず、観察者の冷静さで物語ることを宣言する。</p>
+
+<div class="callout tip">
+<span class="callout-label">⚙️ Brand Voice の三本柱</span>
+<strong>Forensic</strong> (法医学者の冷静さ) + <strong>Inevitable</strong> (避けられない記録) + <strong>Tender</strong> (当事者へのやさしさ)。煽らず、しかし真実を曖昧にせず、観察者として最後まで寄り添う。
+</div>
+
+<h2>1.2 戦略の三層構造</h2>
+
+<div class="figure">
+<svg viewBox="0 0 740 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="戦略の三層構造図">
+<defs>
+<linearGradient id="ll" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#2b7a78"/><stop offset="100%" stop-color="#1d5856"/>
+</linearGradient>
+</defs>
+<rect x="40" y="20" width="660" height="60" rx="6" fill="url(#ll)" />
+<text x="370" y="55" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">公的一次データ (JILPT IPD v7.00 + e-Stat 賃金構造基本統計調査)</text>
+<text x="370" y="73" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="12">権威性・引用可能性・商用 OK</text>
+
+<line x1="370" y1="80" x2="370" y2="110" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="4 4"/>
+<polygon points="370,120 360,110 380,110" fill="#6b6b6b"/>
+
+<rect x="40" y="125" width="320" height="100" rx="6" fill="#efe8db" stroke="#c7522a" stroke-width="2"/>
+<text x="200" y="155" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">mirai-shigoto.com</text>
+<text x="200" y="178" text-anchor="middle" fill="#6b6b6b" font-size="11.5">552 職業全網羅 (IPD v6.00)</text>
+<text x="200" y="195" text-anchor="middle" fill="#6b6b6b" font-size="11.5">Claude Opus 4.7 単発算出</text>
+<text x="200" y="212" text-anchor="middle" fill="#c7522a" font-size="11.5" font-weight="600">カタログ分析 · マネタイズなし</text>
+
+<rect x="380" y="125" width="320" height="100" rx="6" fill="#f4ede0" stroke="#2b7a78" stroke-width="3"/>
+<text x="540" y="155" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">絶滅職種図鑑 (本書 v0.5)</text>
+<text x="540" y="178" text-anchor="middle" fill="#6b6b6b" font-size="11.5">567 → 100 章 (IPD v7.00、+15 職業)</text>
+<text x="540" y="195" text-anchor="middle" fill="#6b6b6b" font-size="11.5">物語 + 当事者の声 + 転身ガイド</text>
+<text x="540" y="212" text-anchor="middle" fill="#2b7a78" font-size="11.5" font-weight="600">個体の物語 · 教育産業ファネル</text>
+
+<line x1="370" y1="240" x2="370" y2="270" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="4 4"/>
+<polygon points="370,280 360,270 380,270" fill="#6b6b6b"/>
+
+<rect x="40" y="285" width="660" height="55" rx="6" fill="#c7a8a0" />
+<text x="370" y="312" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">読者: AI 置換濃度の高い職業の従事者 + 近未来の自分のキャリアに不安を抱く層</text>
+<text x="370" y="330" text-anchor="middle" fill="rgba(0,0,0,0.7)" font-size="11.5">ゼロから獲得する未知のオーディエンス (フォロワー 0 / メルマガ 0 / Discord 0 から開始)</text>
+</svg>
+<div class="figure-caption"><b>Figure 1.1</b> — 公的一次データを中央に置き、mirai-shigoto と本書が同格の独立分析者として並ぶ三層構造。本書は「物語 + 教育産業ファネル」で差別化する。</div>
+</div>
+
+<h2>1.3 Phase 体系 (v0.5)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Phase</th><th>期間</th><th>主要施策</th><th>目標</th></tr></thead>
+<tbody>
+<tr><td><span class="phase-tag a">A</span> 単品</td><td>5/17–6/17 (31 日)</td><td>note 単品 ¥500 × 100 章公開、X 章扉拡散、note SEO 構築</td><td>月¥50-100K + フォロワー 1.5-3K</td></tr>
+<tr><td><span class="phase-tag b">B</span> 定期</td><td>8/15 以降 (60 日後)</td><td>マガジン ¥980/月、ボーナス記事週 1 本、Discord 特典</td><td>月¥100-200K + 購読者 100-300 人</td></tr>
+<tr><td><span class="phase-tag c">C</span> 教材</td><td>7/1 から段階リリース</td><td>情報商材 PDF/動画 ¥3,980-9,800 × 3 種</td><td>月¥100-300K + 売上 30-100 件/月</td></tr>
+<tr><td><span class="phase-tag d">D</span> コミュ</td><td>8/15 以降</td><td>Discord ¥1,980/月 (新規 12/1 から ¥3,000/月)</td><td>月¥50-150K + アクティブ 30-150 人</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>1.4 ジョニーフィードバック 5 件 (v0.4.2 → v0.5 への大規模再設計)</h2>
+<ol>
+<li><strong>定期購読マガジンは保留</strong> — Phase 1 では単品 ¥500 のみ、¥980/月は Phase B に降格 (副次効果: note マガジン審査 60 日要件リスクが構造的に解消)</li>
+<li><strong>INNFRA は関係ない</strong> — Secondary persona「INNFRA 経営層」「コンサル付帯資料」「企業案件転用」前提を全削除</li>
+<li><strong>既存副業はまだ何もない、これが初案件</strong> — 「副業 Pillar 既存読者」「Discord 既存サーバー」前提は幻、ゼロ起ち上げ</li>
+<li><strong>職種は 5 で終わりでなく最低 100</strong> — jobtag 567 をほぼカバー目標、長期連載 + ナレッジベース化が核</li>
+<li><strong>出口戦略の確定</strong> — 教育産業ファネル (単品 → 定期 → 情報商材 → コミュ) を採用</li>
+</ol>
+
+<!-- ============== PART 2 ============== -->
+<h1 id="part2" class="part-heading" data-part="PART 2">市場とオーディエンス</h1>
+
+<h2>2.1 競合: mirai-shigoto.com との同格独立分析</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>項目</th><th>mirai-shigoto.com</th><th>絶滅職種図鑑 v0.5</th></tr></thead>
+<tbody>
+<tr><td>公開</td><td>稼働中 (最終更新 2026-05-12)</td><td>Phase 1 着手中 (5/17、第 1-2 章完成済)</td></tr>
+<tr><td>職業数</td><td>552 (IPD v6.00)</td><td><strong>567 / Phase 1 で 100 章</strong> (IPD v7.00、+15)</td></tr>
+<tr><td>AI 算出</td><td>Claude Opus 4.7 / single-pass</td><td>同 + 取材視点での質的補正</td></tr>
+<tr><td>物語性</td><td>⭐</td><td>⭐⭐⭐⭐⭐ (本プロジェクトのコア)</td></tr>
+<tr><td>商用利用</td><td>マネタイズなし</td><td><strong>Phase A-D ファネル</strong> (¥500-9,800)</td></tr>
+<tr><td>認知</td><td>X フォロワー 44</td><td>ゼロ起ち上げ (フォロワー 0 から開始)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout note">
+<span class="callout-label">🤝 同格関係</span>
+mirai-shigoto は「カタログ分析」、本書は「個体の物語 + 教育産業ファネル」。引用ではなく、それぞれが独立して公的データを使い、独立した視点で解釈する。両者を引き立てるポジショニング。
+</div>
+
+<h2>2.2 ターゲット読者層 (v0.5)</h2>
+<h3>Primary</h3>
+<p>AI 置換濃度が高い職業に従事する 20-40 代、または近未来の自分のキャリアに不安を抱く広範な層。<strong>ゼロから獲得する未知のオーディエンス</strong>。</p>
+
+<h3>Secondary (v0.5 で削除)</h3>
+<p><em>v0.4.2 までは「INNFRA 経営層」「副業 Pillar 既存読者」を想定していたが、v0.5 で前提崩壊により全削除。本書はブランド単独で立つ。</em></p>
+
+<h3>JTBD (Jobs To Be Done)</h3>
+<div class="kpi-grid">
+<div class="kpi-card"><div class="kpi-label">機能的</div><div class="kpi-value" style="font-size:14.5px;line-height:1.5">煽りなしの具体性</div><div class="kpi-sub">「自分の仕事が AI でどう変わるか」を冷静に知る</div></div>
+<div class="kpi-card"><div class="kpi-label">感情的</div><div class="kpi-value" style="font-size:14.5px;line-height:1.5">許可の欲求</div><div class="kpi-sub">「逃げていい」と言ってもらいたい</div></div>
+<div class="kpi-card"><div class="kpi-label">社会的</div><div class="kpi-value" style="font-size:14.5px;line-height:1.5">観察者への反転</div><div class="kpi-sub">受動的犠牲者でなく時代の観察者として立つ</div></div>
+</div>
+
+<h2>2.3 AI 時代 (2024-2026) の構造変化</h2>
+
+<h3>本書の追い風 (AI で執筆効率化されるメリット)</h3>
+<ul>
+<li><strong>1 人で大量生産</strong>: ChatGPT / Claude + テンプレで 1 日 3-4 記事 = 本書の 100 章スケールと一致</li>
+<li><strong>リサーチ高速化</strong>: 公的データ ETL を Agent 並列で自動構造化、人間判断は §1 冒頭 + §6 章末コラムに集中</li>
+<li><strong>画像生成</strong>: DALL-E 3 で章扉 1 枚 10 分 → 100 章でも 17 時間で完成</li>
+<li><strong>note トップ層</strong>: AI 補助で ¥1,200 万+ に拡大 (note 公式統計、`edu-funnel-best-practices.md` §4-A)</li>
+</ul>
+
+<h3>本書の差別化要因 (AI で価値低下するデメリットの裏返し)</h3>
+<ul>
+<li><strong>公的データ直接引用</strong> = AI 自動算出より権威性高</li>
+<li><strong>当事者の声 + 物語性</strong> = AI 単独では出ない質的補正</li>
+<li><strong>AI 影響度 C-3 両併記</strong> = 取材視点での独自評価</li>
+<li><strong>Brand Voice (Forensic + Inevitable + Tender)</strong> = 人間編集レイヤーの証拠</li>
+<li><strong>100 章カバレッジ</strong> = AI で量産しても「業界辞書」にはなれない volume シグナル</li>
+</ul>
+
+<div class="callout warning">
+<span class="callout-label">⚠️ 最大リスク</span>
+note プラットフォームの<strong>AI パトロール</strong> (機械大量生成扱い)。対策: 公的データ直接引用 + 人間編集レイヤー (§1+§6 素子直接) + 取材深度の証拠化。
+</div>
+
+<!-- ============== PART 3 ============== -->
+<h1 id="part3" class="part-heading" data-part="PART 3">プロダクト設計</h1>
+
+<h2>3.1 §1-§7 章構造 (機械適用テンプレ)</h2>
+
+<div class="figure">
+<svg viewBox="0 0 740 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="章構造図 §1-§7">
+<rect x="40" y="20" width="660" height="50" rx="6" fill="#c7522a" opacity="0.9"/>
+<text x="60" y="42" fill="#fff" font-size="13" font-weight="700">§1 冒頭風景 (1,000 字)</text>
+<text x="60" y="58" fill="rgba(255,255,255,0.85)" font-size="11">職場ルポ・観察視点 ── <tspan font-weight="700">素子直接 30-45 分</tspan> ← ボトルネック</text>
+
+<rect x="40" y="80" width="660" height="50" rx="6" fill="#2b7a78" opacity="0.85"/>
+<text x="60" y="102" fill="#fff" font-size="13" font-weight="700">§2 データ要約 (800 字 + 図表)</text>
+<text x="60" y="118" fill="rgba(255,255,255,0.85)" font-size="11">JILPT IPD + e-Stat 直接引用 + AI 影響度 C-3 ── Agent 並列</text>
+
+<rect x="40" y="140" width="660" height="50" rx="6" fill="#2b7a78" opacity="0.85"/>
+<text x="60" y="162" fill="#fff" font-size="13" font-weight="700">§3 歴史と現在地 (2,000 字)</text>
+<text x="60" y="178" fill="rgba(255,255,255,0.85)" font-size="11">職業の誕生〜現在 ── Agent 並列</text>
+
+<rect x="40" y="200" width="660" height="50" rx="6" fill="#2b7a78" opacity="0.85"/>
+<text x="60" y="222" fill="#fff" font-size="13" font-weight="700">§4 AI 侵食領域 (2,000 字)</text>
+<text x="60" y="238" fill="rgba(255,255,255,0.85)" font-size="11">置換事例 + 当事者の声 ── Agent 並列</text>
+
+<rect x="40" y="260" width="660" height="50" rx="6" fill="#2b7a78" opacity="0.85"/>
+<text x="60" y="282" fill="#fff" font-size="13" font-weight="700">§5 転身者の物語 (2,000 字)</text>
+<text x="60" y="298" fill="rgba(255,255,255,0.85)" font-size="11">生き延びた人 + 副業転換者 ── Agent 並列 (Phase 1 = 合成インタビュー)</text>
+
+<rect x="40" y="320" width="660" height="50" rx="6" fill="#c7522a" opacity="0.9"/>
+<text x="60" y="342" fill="#fff" font-size="13" font-weight="700">§6 明日からの選択肢 (1,500 字)</text>
+<text x="60" y="358" fill="rgba(255,255,255,0.85)" font-size="11">AI 共生 + 副業ガイド + 「逃げていい」 ── <tspan font-weight="700">素子直接 20-30 分</tspan> ← ボトルネック</text>
+
+<rect x="40" y="380" width="660" height="14" rx="3" fill="#2b7a78" opacity="0.5"/>
+<text x="370" y="392" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">§7 章末コラム + 出典 (700 字) ── Agent 並列</text>
+</svg>
+<div class="figure-caption"><b>Figure 3.1</b> — §1 と §6 は素子直接 (人間編集レイヤーの差別化点)、§2-§5 + §7 は claude --bg 並列 Agent 5 体で 45-60 分並列実行。約 10,000 字/章。</div>
+</div>
+
+<h2>3.2 100 章 Pipeline (Step 1-10)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Step</th><th>処理</th><th>所要</th><th>実行者</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>章 select + IPD JSON 取得</td><td>3 分</td><td>スクリプト自動</td></tr>
+<tr><td>2</td><td>outline 生成 (テンプレ + 変数置換)</td><td>5 分</td><td>Agent</td></tr>
+<tr><td>3</td><td>§1 冒頭風景</td><td>30-45 分</td><td><strong>素子直接</strong></td></tr>
+<tr><td>4</td><td>§2-§5 + §7 並列 Agent 5 体</td><td>45-60 分</td><td>claude --bg (上限 3)</td></tr>
+<tr><td>5</td><td>§6 章末コラム</td><td>20-30 分</td><td><strong>素子直接</strong></td></tr>
+<tr><td>6</td><td>品質 Gate 自動チェック</td><td>5 分</td><td>スクリプト</td></tr>
+<tr><td>7</td><td>章扉画像生成 (DALL-E 3 バッチ)</td><td>10 分/枚</td><td>API 並列</td></tr>
+<tr><td>8</td><td>統合 + 引用整合 + 字数集計</td><td>5 分</td><td>スクリプト</td></tr>
+<tr><td>9</td><td>note 下書き保存</td><td>5 分</td><td>手動 or 自動</td></tr>
+<tr><td>10</td><td>X 拡散 Tweet 生成</td><td>5 分</td><td>Agent</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="kpi-grid">
+<div class="kpi-card"><div class="kpi-label">1 日ペース</div><div class="kpi-value">3-4 章</div><div class="kpi-sub">素子直接 §1+§6 = 4.5-6h/日</div></div>
+<div class="kpi-card"><div class="kpi-label">月間ペース</div><div class="kpi-value">100 章</div><div class="kpi-sub">31 日 × 3.2 章/日 = 100 章</div></div>
+<div class="kpi-card"><div class="kpi-label">執筆字数</div><div class="kpi-value">100 万字</div><div class="kpi-sub">10,000 字 × 100 章</div></div>
+<div class="kpi-card"><div class="kpi-label">章扉画像</div><div class="kpi-value">100 枚</div><div class="kpi-sub">DALL-E 3 並列 17 時間</div></div>
+</div>
+
+<h2>3.3 1 ヶ月達成の制約条件 (破れると崩壊)</h2>
+<ol>
+<li>§1 冒頭風景を <strong>30-45 分</strong>で仕上げる (第 1-2 章は 60-90 分、慣熟で短縮)</li>
+<li>§6 章末コラムを <strong>20-30 分</strong>で仕上げる (テンプレ化)</li>
+<li>ジョニー review を <strong>5-10 章まとめバッチ</strong>で処理</li>
+<li>IPD ETL バッチを <strong>5/17 中完了</strong> (事前に 100 職業 JSON 揃え)</li>
+<li>章扉画像を執筆と<strong>並列生成</strong> (執筆完了後待ちは律速)</li>
+</ol>
+
+<h2>3.4 100 職業選定基準 (v0.5 新規)</h2>
+<pre><code>優先順位スコア = AI 影響度 × 母集団規模 × 物語性スコア / 既書き済みフラグ</code></pre>
+<div class="table-wrap">
+<table>
+<thead><tr><th>軸</th><th>重み</th><th>計算方法</th></tr></thead>
+<tbody>
+<tr><td>AI 影響度</td><td>0.4</td><td>mirai-shigoto + JILPT IPD v7.00 のスコア (10 点満点)</td></tr>
+<tr><td>母集団規模</td><td>0.3</td><td>e-Stat 就業者数 log スケール (10 万人以上で満点)</td></tr>
+<tr><td>物語性スコア</td><td>0.3</td><td>素子 + ジョニー判断 (女性比率 / 地方性 / ドラマ性 / 転身しやすさ)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>3.5 確定済 5 章 (MVP 起点、優先実装)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>職業</th><th>状態</th><th>分類</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>データ入力</td><td>§1-§7 v1 完成 (19,267 字、5/15) ✅</td><td>EW (野生絶滅相当)</td></tr>
+<tr><td>2</td><td>コールセンターオペレーター</td><td>§1-§7 v1 完成 (96KB、5/16) ✅</td><td>CR (深刻な危機)</td></tr>
+<tr><td>3</td><td>スーパーレジ係</td><td>handoff 作成済 (5/16 18:42)、Phase 1 第 1 弾</td><td>EN (絶滅危惧)</td></tr>
+<tr><td>4</td><td>翻訳者</td><td>未着手</td><td>CR (深刻な危機、高年収落差)</td></tr>
+<tr><td>5</td><td>システムエンジニア (受託開発)</td><td>未着手</td><td>VU (危急、INNFRA 接続)</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============== PART 4 ============== -->
+<h1 id="part4" class="part-heading" data-part="PART 4">収益モデル — Phase A-D 教育産業ファネル</h1>
+
+<h2>4.1 ファネル全体図</h2>
+
+<div class="figure" style="text-align:left">
+<div class="funnel-stage s1">
+<div>
+<div class="funnel-stage-title"><span class="phase-tag a">A</span> 単品 note 有料記事 ¥500/章</div>
+<div class="funnel-stage-num">第 1 章無料 + 第 2-100 章 ¥500</div>
+</div>
+<div style="text-align:right;font-size:12.5px"><b>5/17–6/17</b><br><span style="opacity:0.7">月¥50-100K</span></div>
+</div>
+<div style="text-align:center;font-size:11px;color:var(--muted);margin:6px 0">↓ 1-5% (業界平均) / <b>2-3%</b> (目標)</div>
+<div class="funnel-stage s2">
+<div>
+<div class="funnel-stage-title"><span class="phase-tag b">B</span> 定期購読マガジン ¥980/月</div>
+<div class="funnel-stage-num">全章 + ボーナス + Discord 特典</div>
+</div>
+<div style="text-align:right;font-size:12.5px"><b>8/15〜</b><br><span style="opacity:0.7">月¥100-200K</span></div>
+</div>
+<div style="text-align:center;font-size:11px;color:var(--muted);margin:6px 0">↓ 5-15% / <b>8-10%</b></div>
+<div class="funnel-stage s3">
+<div>
+<div class="funnel-stage-title"><span class="phase-tag c">C</span> 情報商材 ¥3,980-9,800</div>
+<div class="funnel-stage-num">PDF / 動画講座 × 3 種</div>
+</div>
+<div style="text-align:right;font-size:12.5px"><b>6/17〜</b><br><span style="opacity:0.7">月¥100-300K</span></div>
+</div>
+<div style="text-align:center;font-size:11px;color:var(--muted);margin:6px 0">↓ 10-30% / <b>15-20%</b></div>
+<div class="funnel-stage s4">
+<div>
+<div class="funnel-stage-title"><span class="phase-tag d">D</span> 小コミュニティ ¥1,980-3,000/月</div>
+<div class="funnel-stage-num">Discord / サロン (200-500 人で蓋)</div>
+</div>
+<div style="text-align:right;font-size:12.5px"><b>8/15〜</b><br><span style="opacity:0.7">月¥50-150K</span></div>
+</div>
+<div class="figure-caption" style="margin-top:14px"><b>Figure 4.1</b> — Phase A-D 教育産業ファネル。各段階の移行率は業界平均値と本書目標値を併記。Phase A の Volume が他 Phase の源泉になる。</div>
+</div>
+
+<h2>4.2 Phase A 詳細 — 単品 ¥500 (5/17-6/17、Phase 1 MVP)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>期間</th><th>アクション</th><th>章数</th></tr></thead>
+<tbody>
+<tr><td>5/17 中</td><td>IPD ETL バッチ + 戦略 v0.5 確定 + 出口設計書</td><td>2 (既完成)</td></tr>
+<tr><td>5/18-5/24 (W1)</td><td>第 3-5 章執筆 + note アカウント正式開設 + 章扉 5 種公開</td><td>5</td></tr>
+<tr><td>5/25-5/31 (W2)</td><td>第 6-25 章 (1 日 3 章)、X 章扉公開 + note SEO KW</td><td>25</td></tr>
+<tr><td>6/1-6/7 (W3)</td><td>第 26-55 章 (1 日 4 章)、X Premium 契約</td><td>55</td></tr>
+<tr><td>6/8-6/14 (W4)</td><td>第 56-85 章、note SEO 流入観測開始</td><td>85</td></tr>
+<tr><td>6/15-6/17 (W5)</td><td>第 86-100 章 + Phase B 申請準備</td><td><strong>100</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Phase A 価格根拠</h3>
+<ul>
+<li><strong>¥500 = note 衝動課金最強帯</strong> (中央値 ¥500-1,000 の下限)</li>
+<li><strong>全章一律</strong> = ADHD 選択麻痺回避 + 書籍 ¥1,650-1,980 との価格逆転リスク回避</li>
+<li><strong>5 章セット ¥2,000 は廃止</strong> (出版社判断 negative 影響回避、書籍化打診の商業的アピール温存)</li>
+</ul>
+
+<h2>4.3 Phase B 詳細 — 定期購読 ¥980/月 (8/15〜)</h2>
+<div class="callout note">
+<span class="callout-label">⏳ なぜ 60 日後か</span>
+note 新規アカウントの暗黙の<strong>60 日運用実績要件</strong> (公式未明示、業界実例ベース)。5/17 → 7/16 で要件達成、8/15 申請通過想定。v0.4.2 では即日申請でリスクが大きかったが、v0.5 で構造的に解消。
+</div>
+
+<h3>参照モデル</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>参照</th><th>規模</th><th>本書との差分</th></tr></thead>
+<tbody>
+<tr><td>DaiGo Dラボ</td><td>76,000 人 × ¥599/月 = 年商 ¥77 億</td><td>本書は ¥980、テキスト主軸 (動画は Phase C)</td></tr>
+<tr><td>シバタナオキ note</td><td>月商 ¥100-300 万</td><td><strong>完全同型構造</strong> (公的データ × ¥1,000/月)</td></tr>
+<tr><td>中田敦彦 PROGRESS</td><td>4-6K 人 × ¥980/月 = ¥400-600 万</td><td>価格帯一致、本書は note 主軸</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>4.4 Phase C 詳細 — 情報商材 ¥3,980-9,800 (6/17〜)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>教材</th><th>価格</th><th>内容</th><th>リリース</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>データ入力職の生存戦略 — 100 章を読み解く副業ガイド</td><td>¥3,980</td><td>PDF 80-120P</td><td>7/1</td></tr>
+<tr><td>2</td><td>翻訳者の AI 共生 — Phase 別生存戦略</td><td>¥5,980</td><td>動画 4 本 + PDF 60P</td><td>9/1</td></tr>
+<tr><td>3</td><td>絶滅職種から逃げる技術 — 100 職種転身マップ</td><td>¥9,800</td><td>動画 8 本 + PDF 150P + Notion テンプレ</td><td>12/1</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>4.5 Phase D 詳細 — コミュニティ ¥1,980-3,000/月 (8/15〜)</h2>
+<ul>
+<li>プラットフォーム: <strong>Discord</strong> (note マガジン購読者限定)</li>
+<li>価格: ¥1,980/月 (初期) → ¥3,000/月 (3 ヶ月後の新規のみ、既存据置)</li>
+<li>特典: 月 1-2 回オフ会 / Discord 限定取材 / 章扉 DL / Phase C 教材 30-50% off</li>
+<li>対象: <strong>コア層 30-150 人</strong> (西野モデルの 7.4 万 → 2.4 万カスケード回避、200-500 人で蓋)</li>
+</ul>
+
+<h2>4.6 12 ヶ月数値計画</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月</th><th>Phase</th><th>主要マイルストーン</th><th>章数</th><th>フォロワー</th><th>月収</th></tr></thead>
+<tbody>
+<tr><td>5/末</td><td>A 着手</td><td>第 3-25 章 + note 開設</td><td>25</td><td>0→500</td><td>¥10-30K</td></tr>
+<tr><td>6 月</td><td><strong>A 完走</strong></td><td>第 26-100 章 + 100 章公開</td><td><strong>100</strong></td><td>1.5-3K</td><td><strong>¥50-100K</strong></td></tr>
+<tr><td>7 月</td><td>A+C 起動</td><td>教材 1 ローンチ ¥3,980</td><td>100</td><td>2-4K</td><td><strong>¥120-300K</strong></td></tr>
+<tr><td>8 月</td><td><strong>A+B+C+D 起動</strong></td><td>マガジン + Discord 起ち上げ</td><td>100</td><td>3-5K</td><td><strong>¥150-400K</strong></td></tr>
+<tr><td>9 月</td><td>A+B+C+D</td><td>教材 2 ローンチ ¥5,980</td><td>105</td><td>4-6K</td><td>¥200-500K</td></tr>
+<tr><td>10-11 月</td><td>同上</td><td>書籍化打診 + B 安定運営</td><td>110</td><td>5-8K</td><td>¥250-600K</td></tr>
+<tr><td><strong>12 月</strong></td><td>教材 3 ローンチ</td><td>¥9,800 + Discord 値上げ ¥3,000</td><td>115</td><td>7-10K</td><td><strong>¥400-800K</strong></td></tr>
+<tr><td>1-3 月</td><td>最適化</td><td>エバーグリーン販売 + 書籍化</td><td>120</td><td>7-10K</td><td>¥300-700K</td></tr>
+<tr><td><strong>4-5 月</strong></td><td><strong>12 ヶ月目標</strong></td><td><strong>書籍化決定 or 第 2 弾教材</strong></td><td>125-130</td><td><strong>10-15K</strong></td><td><strong>¥500-1,500K</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="kpi-grid">
+<div class="kpi-card"><div class="kpi-label">悲観 (フォロワー 5K)</div><div class="kpi-value">¥30-50万</div><div class="kpi-sub">Phase A+B 中心</div></div>
+<div class="kpi-card"><div class="kpi-label">中位 (10K)</div><div class="kpi-value">¥50-100万</div><div class="kpi-sub">Phase A+B+C 主軸</div></div>
+<div class="kpi-card"><div class="kpi-label">楽観 (15K + 書籍)</div><div class="kpi-value">¥100-150万</div><div class="kpi-sub">全 Phase + ロイヤルティ</div></div>
+<div class="kpi-card"><div class="kpi-label">12 ヶ月累計</div><div class="kpi-value">¥250-700万</div><div class="kpi-sub">中位シナリオ売上</div></div>
+</div>
+
+<!-- ============== PART 5 ============== -->
+<h1 id="part5" class="part-heading" data-part="PART 5">集客 — ゼロ起ち上げ Go-to-Market</h1>
+
+<h2>5.1 3 層チャネル構造</h2>
+
+<div class="figure">
+<svg viewBox="0 0 740 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="集客 3 層構造">
+<rect x="40" y="20" width="660" height="80" rx="6" fill="#2b7a78"/>
+<text x="60" y="48" fill="#fff" font-size="14" font-weight="700">入口 (主軸) ─ X (Twitter)</text>
+<text x="60" y="68" fill="rgba(255,255,255,0.88)" font-size="12">章扉ビジュアル + Tweet スレッド + X Premium 月¥368 で発見性 2-4 倍</text>
+<text x="60" y="86" fill="rgba(255,255,255,0.88)" font-size="12">6 ヶ月で 1,500-5,000 フォロワー / CVR 0.5-1.5%</text>
+
+<line x1="370" y1="100" x2="370" y2="125" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="3 3"/>
+<rect x="40" y="130" width="660" height="80" rx="6" fill="#c7522a" opacity="0.92"/>
+<text x="60" y="158" fill="#fff" font-size="14" font-weight="700">中軸 (永続) ─ note SEO</text>
+<text x="60" y="178" fill="rgba(255,255,255,0.88)" font-size="12">「{職業名} AI 消える」型ロングテール 100 章 + note ドメインパワー 96.4/100</text>
+<text x="60" y="196" fill="rgba(255,255,255,0.88)" font-size="12">6 ヶ月後から月 15,000-50,000 PV / 業界辞書ポジション獲得</text>
+
+<line x1="370" y1="210" x2="370" y2="235" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="3 3"/>
+<rect x="40" y="240" width="660" height="80" rx="6" fill="#5a2a24"/>
+<text x="60" y="268" fill="#fff" font-size="14" font-weight="700">奥座敷 (高 CVR) ─ Discord</text>
+<text x="60" y="288" fill="rgba(255,255,255,0.88)" font-size="12">マガジン購読者限定の有料 Discord + 月 1-2 回オフ会 + 限定取材</text>
+<text x="60" y="306" fill="rgba(255,255,255,0.88)" font-size="12">30-150 アクティブ / CVR 5-15% / Phase D 教材導線</text>
+</svg>
+<div class="figure-caption"><b>Figure 5.1</b> — 役割分離型 3 層構造。単一チャネル集中ではなく、発見・累積・コア層化を別々に最適化する。</div>
+</div>
+
+<h2>5.2 各チャネル ROI 比較</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>チャネル</th><th>立ち上げ工数</th><th>6 ヶ月 読者</th><th>CVR</th><th>コメント</th></tr></thead>
+<tbody>
+<tr><td><strong>X</strong></td><td>中</td><td>1,500-5,000 フォロワー</td><td>0.5-1.5%</td><td>章扉視覚バイラルが核</td></tr>
+<tr><td><strong>note SEO</strong></td><td>低</td><td>月 15-50K PV (累積)</td><td>0.1-0.5%</td><td>ロングテール 100 章で業界辞書化</td></tr>
+<tr><td><strong>Discord</strong></td><td>低</td><td>30-150 アクティブ</td><td>5-15%</td><td>コア層、Phase D 予備軍</td></tr>
+<tr><td>メルマガ (Substack)</td><td>低-中</td><td>100-800 登録者</td><td>2-5%</td><td>Phase 2 から、SSoT 保険</td></tr>
+<tr><td>YouTube ショート</td><td>高</td><td>1-10K 視聴</td><td>0.3-1%</td><td>Phase 3 以降、工数 ROI 低</td></tr>
+<tr><td>書籍化</td><td>高</td><td>別経路</td><td>—</td><td>章 30-50 完了後</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>5.3 構造的祖型 (Brand Voice 整合)</h2>
+<div class="kpi-grid">
+<div class="kpi-card"><div class="kpi-label">視覚バイラル</div><div class="kpi-value" style="font-size:14.5px;line-height:1.5">ぬまがさワタリ</div><div class="kpi-sub">98.5K フォロワー、@numagasa、図解 + 時事ネタ</div></div>
+<div class="kpi-card"><div class="kpi-label">構造的祖型</div><div class="kpi-value" style="font-size:14.5px;line-height:1.5">わけあって絶滅</div><div class="kpi-sub">累計 100 万部、4 日で 13 万部、一人称ナラティブ</div></div>
+</div>
+
+<h2>5.4 立ち上げ期暗黒期間の耐え方</h2>
+<ul>
+<li><strong>3 ヶ月間は数字を見ない</strong> — X フォロワー数、note スキ数を毎日確認しない</li>
+<li><strong>週次レビューで「章数」だけ追う</strong> — 100 章カバレッジ完了 (6/17) までは集客 KPI = 章数</li>
+<li><strong>100 章という volume 自体</strong>が「諦めない著者」シグナル、ぬまがさ + 「わけあって絶滅」型ヒット要因 (見開き完結 + 蓄積) と同じ構造</li>
+</ul>
+
+<!-- ============== PART 6 ============== -->
+<h1 id="part6" class="part-heading" data-part="PART 6">リスクと撤退ライン</h1>
+
+<h2>6.1 主要リスク一覧 (v0.5)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>リスク</th><th>確率</th><th>軽減策</th></tr></thead>
+<tbody>
+<tr><td><strong>100 章完走できない</strong> (§1+§6 ボトルネック)</td><td>中-高</td><td>慣熟必須、ジョニー review バッチ化、Agent 並列 (上限 3)</td></tr>
+<tr><td><strong>note AI パトロール</strong> (機械大量生成扱い)</td><td>中</td><td>公的データ直接引用 + §1+§6 素子直接 + 取材深度の証拠化</td></tr>
+<tr><td><strong>ゼロ起ち上げで読者ゼロ</strong></td><td>中</td><td>章扉視覚バイラル、X Premium 月¥368、note SEO 100 章累積</td></tr>
+<tr><td>mirai-shigoto が物語層に参入</td><td>低</td><td>低人的コスト運営から物語層移行は構造的に困難、観察継続</td></tr>
+<tr><td>mirai-shigoto が IPD v7.00 にアップグレード</td><td>中</td><td>物語層 + 100 章カバレッジで構造的優位を確立</td></tr>
+<tr><td>SEO 流入で負ける</td><td>中</td><td>100 章 × ドメインパワー 96.4 で「{職業名} 図鑑」業界辞書化</td></tr>
+<tr><td>「絶滅」フレーム炎上</td><td>中</td><td>「逃げていい」「変わる」「育つ」徹底、煽り表現編集除く</td></tr>
+<tr><td>Phase B マガジン審査 60 日要件</td><td>低 (v0.5 で解消)</td><td>Phase A 単品主軸で 60 日待機、8/15 以降申請</td></tr>
+<tr><td><strong>Phase C ローンチ陳腐化</strong></td><td>中</td><td>エバーグリーン販売構造に切替、ローンチ単発依存回避</td></tr>
+<tr><td><strong>Phase D コミュニティ減衰</strong></td><td>中</td><td>西野モデル (7.4 万→2.4 万) 回避、200-500 人で蓋</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>6.2 撤退ライン (Phase 別)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>判定タイミング</th><th>✅ 続行</th><th>⚠ 減速</th><th>❌ 撤退</th></tr></thead>
+<tbody>
+<tr><td><strong>6/17 (Phase 1 完了)</strong></td><td>100 章公開 + フォロワー 1,500+ + 月¥50K+</td><td>章 60-99 + 月¥20-50K → Phase B 90 日延期</td><td>章 30 未満 + フォロワー 100 未満 → ブランド再評価</td></tr>
+<tr><td><strong>8/15 (Phase 2 開始)</strong></td><td>マガジン審査通過 + 教材 1 ¥100K 売上</td><td>審査不通過 → 買切型マガジン fallback</td><td>教材 1 ゼロ → Phase C 6 ヶ月後退</td></tr>
+<tr><td><strong>11/15 (Phase 3 中間)</strong></td><td>月¥200K+ + Discord 50 人+</td><td>月¥100-200K → Phase D 一時停止</td><td>月¥50K 未満 → 全 Phase 見直し</td></tr>
+<tr><td><strong>2027/02 (Phase 4 終盤)</strong></td><td>月¥400K+ + 書籍化進行</td><td>月¥200-400K → 教材 3 延期</td><td>月¥100K 未満 → 12 ヶ月目標未達、撤退検討</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warning">
+<span class="callout-label">⚠️ Devil's Advocate</span>
+12 ヶ月数値計画の「中位シナリオ」は、参照モデル (DaiGo / シバタナオキ / 中田) 比 100-1000 分の 1 規模に設定済。それでも note トップ 1-3% 圏。<strong>Phase A 単独で月¥50 万は構造的に困難</strong>、Phase B-D の段階移行が成功して初めて達成可能な数値であることに留意。
+</div>
+
+<!-- ============== PART 7 ============== -->
+<h1 id="part7" class="part-heading" data-part="PART 7">6-18 ヶ月ロードマップ</h1>
+
+<div class="figure">
+<svg viewBox="0 0 740 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ロードマップ">
+<line x1="80" y1="40" x2="80" y2="340" stroke="#2b7a78" stroke-width="3"/>
+
+<circle cx="80" cy="60" r="9" fill="#2b7a78"/>
+<text x="100" y="56" font-size="13" font-weight="700" fill="#1a1a1a">Phase 1 ─ 5/17–6/17 (1 ヶ月)</text>
+<text x="100" y="74" font-size="11.5" fill="#6b6b6b">100 章執筆完走 / note 開設 / X 拡散 / DoD: 月¥50-100K + フォロワー 1.5-3K</text>
+
+<circle cx="80" cy="110" r="9" fill="#c7522a"/>
+<text x="100" y="106" font-size="13" font-weight="700" fill="#1a1a1a">Phase 2 ─ 6/17–8/15 (2 ヶ月)</text>
+<text x="100" y="124" font-size="11.5" fill="#6b6b6b">Phase A 安定 + 教材 1 ローンチ 7/1 + マガジン申請準備 + 書籍化打診開始</text>
+
+<circle cx="80" cy="160" r="9" fill="#c7522a"/>
+<text x="100" y="156" font-size="13" font-weight="700" fill="#1a1a1a">Phase 3 ─ 8/15–11/15 (3 ヶ月)</text>
+<text x="100" y="174" font-size="11.5" fill="#6b6b6b">マガジン ¥980 + Discord ¥1,980 起動 / 教材 2 ¥5,980 / Substack ブリッジ</text>
+
+<circle cx="80" cy="210" r="9" fill="#e9b44c"/>
+<text x="100" y="206" font-size="13" font-weight="700" fill="#1a1a1a">Phase 4 ─ 11/15–2027/02 (3 ヶ月)</text>
+<text x="100" y="224" font-size="11.5" fill="#6b6b6b">教材 3 ¥9,800 + Discord ¥3,000 値上げ + 書籍化進行 + DoD: 月¥400-800K</text>
+
+<circle cx="80" cy="260" r="9" fill="#5a2a24"/>
+<text x="100" y="256" font-size="13" font-weight="700" fill="#1a1a1a">Phase 5 ─ 2027/02–05 (3 ヶ月)</text>
+<text x="100" y="274" font-size="11.5" fill="#6b6b6b">全 Phase 安定運営 + エバーグリーン化 + 書籍出版 + YouTube ショート起動</text>
+
+<circle cx="80" cy="310" r="9" fill="#1d5856"/>
+<text x="100" y="306" font-size="13" font-weight="700" fill="#1a1a1a">Phase 6 ─ 2027/05〜 (Year 2)</text>
+<text x="100" y="324" font-size="11.5" fill="#6b6b6b">第 2 弾 100 章 / 法人研修 / 海外展開 / 月¥100-300 万へ</text>
+</svg>
+<div class="figure-caption"><b>Figure 7.1</b> — 18 ヶ月ロードマップ。Phase 1 (100 章完走) が全 Phase の volume 源泉。Phase 4 で 12 ヶ月目標達成判定。</div>
+</div>
+
+<h2>7.1 各 Phase の DoD (Definition of Done)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Phase</th><th>期間</th><th>DoD</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>5/17–6/17</td><td>100 章公開 + フォロワー 1.5-3K + 月¥50-100K</td></tr>
+<tr><td>2</td><td>6/17–8/15</td><td>月¥150-300K + フォロワー 3-5K + 教材 1 ローンチ完了</td></tr>
+<tr><td>3</td><td>8/15–11/15</td><td>月¥200-500K + 購読者 100-300 + Discord 30-100</td></tr>
+<tr><td>4</td><td>11/15–2027/02</td><td>月¥400-800K + フォロワー 7-10K + 教材 3 ローンチ完了</td></tr>
+<tr><td>5</td><td>2027/02–05</td><td>月¥500-1,500K (<strong>12 ヶ月目標達成判定</strong>)</td></tr>
+<tr><td>6</td><td>2027/05〜</td><td>月¥100-300 万 + 第 2 弾 100 章 / 法人研修 / 海外展開</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============== APPENDIX A ============== -->
+<div class="appendix-divider">
+<div class="label">APPENDIX</div>
+<div class="title">サンプル章 + 参照資料</div>
+</div>
+
+<h1 id="appendix-a" class="part-heading" data-part="APPENDIX A">第 1 章「データ入力」ダイジェスト</h1>
+
+<div class="plate">
+<div class="plate-header">
+<span>OWH-2035-001 · Plate I-A</span>
+<span>絶滅職種図鑑 §1</span>
+</div>
+<div class="plate-title-en">CHAPTER I — DATA ENTRY</div>
+<div class="plate-title">データ入力</div>
+<div class="plate-latin">Operatorus centrumus — 中央処理員</div>
+<div class="plate-meta">
+<div><b>分類:</b> EW (野生絶滅相当)</div>
+<div><b>絶滅予告年:</b> 2034</div>
+<div><b>就業者数:</b> 156,000 (2024)</div>
+<div><b>平均年収:</b> ¥3,560,000</div>
+<div><b>女性比率:</b> 76%</div>
+<div><b>AI 影響度:</b> 10/10 (公式) / 8/10 (図鑑独自)</div>
+</div>
+<div class="plate-notes">
+<strong>Specimen Notes</strong> ── 蛍光灯の薄い灯りの下、女性たちの指がキーボードを叩く音だけが響く。8 時間で 12,000 件の数字を打ち、誤入力 0.3% で給与が決まる。OCR と LLM が共存する 2026 年、彼女たちは「最後に見つかる」職業として観察されている。
+</div>
+</div>
+
+<h3>章構成サマリ (§1-§7 v1 完成、19,267 字、5/15)</h3>
+<ul>
+<li><strong>§1 冒頭風景</strong> (1,000 字): 派遣会社オフィスの朝、データ入力作業員の現場ルポ</li>
+<li><strong>§2 データ要約</strong> (800 字): JILPT IPD v7.00 + e-Stat 賃金構造、AI 影響度 C-3 両併記</li>
+<li><strong>§3 歴史と現在地</strong> (2,082 字): 1970 年代パンチカードオペレーターからの系譜</li>
+<li><strong>§4 AI 侵食領域</strong> (2,144 字): OCR + LLM の置換事例 + 当事者の声 (合成)</li>
+<li><strong>§5 転身者の物語</strong> (2,395 字): 派遣事務 → 介護フロント / 副業ライター転身</li>
+<li><strong>§6 明日からの選択肢</strong> (1,800 字): AI 共生スキル + 副業ガイド + 「逃げていい」</li>
+<li><strong>§7 章末コラム</strong> (997 字): 編集視点 + 出典明示テンプレ</li>
+</ul>
+
+<div class="callout note">
+<span class="callout-label">📖 第 1 章は note 全文無料公開</span>
+CVR 計測 + 導入障壁ゼロ + 「逃げていい」フレーミング実効性担保のため、第 1 章のみ全文無料公開する (Phase A 起点)。
+</div>
+
+<!-- ============== APPENDIX B ============== -->
+<h1 id="appendix-b" class="part-heading" data-part="APPENDIX B">第 2 章「コールセンターオペレーター」ダイジェスト</h1>
+
+<div class="plate">
+<div class="plate-header">
+<span>OWH-2035-002 · Plate II-A</span>
+<span>絶滅職種図鑑 §2</span>
+</div>
+<div class="plate-title-en">CHAPTER II — CALL CENTER OPERATOR</div>
+<div class="plate-title">コールセンターオペレーター</div>
+<div class="plate-latin">Operatorius vocalis — 声の代理人</div>
+<div class="plate-meta">
+<div><b>分類:</b> CR (深刻な危機)</div>
+<div><b>絶滅予告年:</b> 2033</div>
+<div><b>就業者数:</b> 146,000 (2024)</div>
+<div><b>平均年収:</b> ¥3,930,000</div>
+<div><b>女性比率:</b> 78%</div>
+<div><b>AI 影響度:</b> 9/10 (公式) / 7/10 (図鑑独自)</div>
+</div>
+<div class="plate-notes">
+<strong>Specimen Notes</strong> ── 9:00、ヘッドセットの灯が一斉に灯る。録音アナウンスが流れたあと、息継ぎより早く「お電話ありがとうございます」が呑まれていく。LLM が会話の 7 割を引き受けても、残り 3 割の「例外」が呑まれずに残る。彼らはいま、その 3 割の番人として観察されている。
+</div>
+</div>
+
+<h3>章構成サマリ (§1-§7 v1 完成、11,653 字、5/16)</h3>
+<ul>
+<li><strong>§1 冒頭風景</strong> (1,323 字): コールセンター 9 時、ヘッドセット点灯の瞬間</li>
+<li><strong>§2 歴史と現在地</strong> (2,082 字): 1970 年代電話交換手からの系譜、禁忌語彙修正済</li>
+<li><strong>§3 AI 侵食領域</strong> (2,144 字): 「呑む」リフレイン + Tender 核搭載</li>
+<li><strong>§4 転身者の物語</strong> (2,395 字): M さん合成、42 歳、介護施設フロント転身</li>
+<li><strong>§5 明日からの選択肢</strong> (1,800 字): 倒置ストック消費</li>
+<li><strong>§6 章末コラム</strong> (912 字): 「指→声→手」第 3 章スーパーレジへの接続</li>
+<li><strong>§7 出典明示</strong> (997 字)</li>
+</ul>
+
+<div class="callout tip">
+<span class="callout-label">🧬 章間連続性</span>
+第 1 章「指」(データ入力) → 第 2 章「声」(コールセンター) → 第 3 章「手」(スーパーレジ) と<strong>身体部位の三項対句</strong>で接続。Brand Voice (Forensic + Inevitable + Tender) を貫きつつ、章間に意味の連鎖を作る。
+</div>
+
+<!-- ============== APPENDIX C ============== -->
+<h1 id="appendix-c" class="part-heading" data-part="APPENDIX C">章扉ビジュアル設計 (5 章分)</h1>
+
+<div class="callout warning">
+<span class="callout-label">🎨 画像生成について</span>
+本ホワイトペーパーでは<strong>章扉プロンプトの設計仕様</strong>のみ示す。実画像は DALL-E 3 (ChatGPT 経由) / Midjourney / Imagen 等で生成。生成プロンプトは `chapter-plate-image-prompts.md` (内部 wiki) に 5 章分が STEP 1 品質 9.5/10 で完成済。100 章拡張時はテンプレ機械適用 + Agent 並列で 1 章 10 分目標。
+</div>
+
+<h3>共通設計原則 (Brand Sprint STEP 1 確定)</h3>
+<ul>
+<li><strong>世界観</strong>: 2035 年に出版された未来の労働史研究書</li>
+<li><strong>フォーマット</strong>: IUCN レッドリスト × WWF 報告書 × 19 世紀博物図鑑 × 解剖図鑑の三層</li>
+<li><strong>視覚言語</strong>: 古書感 (枯れた茶色 / セピア / 手描き解剖図風) + ラテン擬似学名</li>
+<li><strong>必須要素</strong>: 表紙番号 (OWH-2035-XXX) / Plate 番号 / 章タイトル英語 + 日本語 / ラテン学名 / 分類タグ (EW/CR/EN/VU) / 解剖図 + タスク 8 要素 / Specimen Notes 300 字</li>
+</ul>
+
+<h3>5 章分の章扉プロンプト概要</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>章</th><th>職業</th><th>Plate</th><th>視覚主題</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>データ入力 (Operatorus centrumus)</td><td>I-A</td><td>キーボードを打つ手の解剖図 + パンチカード遺物 + 蛍光灯</td></tr>
+<tr><td>2</td><td>コールセンター (Operatorius vocalis)</td><td>II-A</td><td>ヘッドセットの解剖図 + 声紋波形 + 1970 年代電話交換機</td></tr>
+<tr><td>3</td><td>スーパーレジ (Cashierus standensis)</td><td>III-A</td><td>レジスター解剖図 + バーコード + 1980 年代計算機</td></tr>
+<tr><td>4</td><td>翻訳者 (Translator polyglossus)</td><td>IV-A</td><td>辞書解剖図 + 多言語紙片 + 万年筆</td></tr>
+<tr><td>5</td><td>受託 SE (Programmaticus delegatus)</td><td>V-A</td><td>キーボード解剖図 + コードシート + 1990 年代 CRT モニター</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>100 章拡張時の画像生成手順 (Pipeline Step 7)</h3>
+<pre><code># DALL-E 3 バッチ API、並列上限 3 並列
+for chapter in chapters_100:
+    prompt = render_template(
+      base_prompt=common_brand_prompt,
+      latin_name=chapter.latin_name,
+      object_anatomy=chapter.object,  # 主要道具の解剖図
+      era_artifacts=chapter.era,      # 時代背景の遺物
+      plate_no=chapter.plate_no,
+    )
+    image = dalle3.generate(prompt, size="1024x1024", quality="hd")
+    save_to(f"~/gits-system/data/extinct-jobs-bible/plates/{chapter.id}.png")</code></pre>
+
+<h3>Chrome 経由生成 (代替経路)</h3>
+<p>API キー消費を抑える場合、Chrome MCP 経由で chatgpt.com の DALL-E 3 を呼ぶ:</p>
+<ol>
+<li>Chrome MCP で chatgpt.com にログイン状態でアクセス</li>
+<li>章扉プロンプトを貼って画像生成</li>
+<li>生成画像をダウンロード、`~/gits-system/data/extinct-jobs-bible/plates/` に保存</li>
+<li>章扉 HTML 内に <code>&lt;img src="..."&gt;</code> として埋め込み</li>
+</ol>
+
+<!-- ============== APPENDIX D ============== -->
+<h1 id="appendix-d" class="part-heading" data-part="APPENDIX D">参照モデル一覧</h1>
+
+<h2>Tier A — 大手インフルエンサー型ファネル</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>名前</th><th>規模 (推定)</th><th>本書との適合性</th></tr></thead>
+<tbody>
+<tr><td>イケハヤ</td><td>サロン年商 ¥600 万 + アフィ年収数千万</td><td>△ Brand Voice 真逆、ファネル構造のみ参考</td></tr>
+<tr><td>マナブ</td><td>月収 8 桁、CodeLife 教材販売月 ¥200 万</td><td>○ 教材化 + Phase C 参考</td></tr>
+<tr><td><strong>DaiGo Dラボ</strong></td><td>76,000 人 × ¥599 = 年商 ¥77 億</td><td>◎ <strong>低価格 × 大量、本書 100 章スケールと相性最良</strong></td></tr>
+<tr><td>Testosterone</td><td>フォロワー 210 万、書籍 60 万部</td><td>○ ニッチ + 一貫世界観 + 大量書籍化</td></tr>
+<tr><td>鴨頭嘉人</td><td>年商 ¥10 億、講演年 350 回</td><td>△ Brand Voice 別軸、講演展開は将来候補</td></tr>
+<tr><td>中田敦彦</td><td>PROGRESS ¥980 × 4-6K = 月¥400-600 万</td><td>○ <strong>¥980 価格帯一致、本書 Phase B 参考</strong></td></tr>
+<tr><td>田端信太郎</td><td>田端大学 ¥9,800 × 150-250 人</td><td>△ Phase D 最高単価レンジ参考</td></tr>
+<tr><td>西野亮廣</td><td>エンタメ研究所 ¥1,000 × ピーク 7.4 万 → 2.4 万</td><td>◎ <strong>大衆化カスケード回避の前例</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Tier B — note / Substack / Newsletter 型</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>名前</th><th>規模</th><th>本書との適合性</th></tr></thead>
+<tbody>
+<tr><td>深津貴之 (fladdict)</td><td>note トップ層、年商 ¥897 万+</td><td>◎ note + AI 運用思想直結</td></tr>
+<tr><td><strong>シバタナオキ</strong></td><td>マガジン ¥1,000/月、月商 ¥100-300 万</td><td>◎ <strong>本書と完全同型構造</strong>、公的データ + マガジン</td></tr>
+<tr><td>西田亮介</td><td>著作 + 講演中心</td><td>○ 学術 × 評論 × 公的データ</td></tr>
+<tr><td>落合陽一</td><td>落合陽一塾 ¥11,000/月 (DMM)</td><td>△ 高単価ハイブロー、参考用</td></tr>
+<tr><td>安宅和人</td><td>『シン・ニホン』ベストセラー + 講演</td><td>◎ 長期出口候補</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Tier C — AI 時代の新興クリエイター (2024-2026)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>事例</th><th>規模</th><th>学び</th></tr></thead>
+<tbody>
+<tr><td><strong>らっこ (note × AI 副業)</strong></td><td>累計 2 億円、24h で 3,771 万円ローンチ</td><td>◎ AI × note ローンチ手法、Phase C 直接応用</td></tr>
+<tr><td>アトカ (AI コラム)</td><td>フォロワー 1.4 万、累計 150 万ビュー、2,400 記事</td><td>○ AI 大量生産モデル</td></tr>
+<tr><td>絵本クリエイター</td><td>72h で 26P 絵本、月¥100 万超</td><td>◎ 図鑑フォーマット高速生産、章扉 + 解剖図に応用</td></tr>
+<tr><td>note 平均クリエイター</td><td>中央値 ¥6.8 万、トップ 1000 平均 ¥897 万</td><td>◎ ¥980 sweet spot、本書 Phase B 一致</td></tr>
+<tr><td>ぱやぱやくん</td><td>3 ヶ月で月商 ¥100 万超</td><td>◎ リアル天井ベンチマーク</td></tr>
+<tr><td>安斎響市 (転職デビル)</td><td>月 ¥100 万超</td><td>◎ 特化ジャンル + 質高無料 + 有料 10-20% バランス</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>結論: 本書のポジショニング</h2>
+<p>本書は <strong>「シバタナオキ型 (公的データ × マガジン)」 × 「DaiGo 型 (低価格 × 大量)」 × 「ぬまがさワタリ型 (視覚バイラル)」</strong> の三項合成。AI 時代 (2024-2026) の新興クリエイター事例 (らっこ / 絵本クリエイター) の生産手法を取り入れつつ、Brand Voice (Forensic + Inevitable + Tender) で煽り型インフルエンサー (イケハヤ / マナブ) と差別化する。</p>
+
+<hr>
+
+<h2>関連内部資料</h2>
+<ul>
+<li><code>extinct-jobs-bible-strategy.md</code> v0.5 (本書の親戦略文書)</li>
+<li><code>extinct-jobs-bible-exit-funnel-design.md</code> v1.0 (Phase A-D 詳細 + 12 ヶ月数値計画)</li>
+<li><code>edu-funnel-best-practices.md</code> (business-strategy-researcher、教育産業ファネル国内ベスプラ)</li>
+<li><code>zero-launch-marketing-strategy.md</code> (content-marketing-researcher、ゼロ起ち上げ集客)</li>
+<li><code>100-jobs-monthly-pipeline.md</code> (ai-content-ops、AI 並列 100 章/月 Pipeline)</li>
+<li><code>extinct-jobs-bible-concept-sheet.md</code> v1.0 (Brand Voice + フォーマット規約 § 8)</li>
+<li><code>pricing-research-revenue-model.md</code> v2 (円卓 6 専門家パネル + DA 査読)</li>
+<li><code>chapter-plate-image-prompts.md</code> (章扉ビジュアル prompt、5 章分)</li>
+<li><code>chapter-01-draft-section{1-7}.md</code> (第 1 章本文ドラフト、19,267 字)</li>
+<li><code>chapter-02-draft-section{1-7}.md</code> (第 2 章本文ドラフト、約 12,000 字)</li>
+</ul>
+
+<div class="ttl-footer">
+このページは <strong>2026-05-20 23:39 JST</strong> に自動削除されます (TTL 72h)。<br>
+延長・永続化が必要な場合はジョニーが /publish persist で指示してください。<br>
+<br>
+<em>絶滅職種図鑑 — 戦略ホワイトペーパー v0.5 / Office of Workforce Heritage, Tokyo 2035</em>
+</div>
+
+</div>
+</body>
+</html>
