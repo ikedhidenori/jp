@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>publish-md-polymorphic-beacon — デザイン監修ゲート横断統合</title>
+<style>
+:root {
+  --bg: #fbfaf8;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2b7a78;
+  --quote-bg: #f0ebe3;
+  --border: #e8e2d8;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1c1b19; --text: #e8e4dc; --muted: #9a958c; --accent: #6ab8b4; --quote-bg: #28262a; --border: #3a3731; }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Georgia", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.95;
+  margin: 0;
+  padding: 32px 20px;
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 720px; margin: 0 auto; transition: max-width .2s; }
+h1 { font-size: 32px; margin: 24px 0 32px; line-height: 1.35; font-weight: 700; letter-spacing: 0.02em; border-bottom: 2px solid var(--accent); padding-bottom: 18px; }
+h2 {
+  font-size: 23px; margin: 88px 0 24px; line-height: 1.45; font-weight: 700;
+  padding: 14px 0 0 16px; border-left: 4px solid var(--accent);
+  position: relative;
+}
+h2::before {
+  content: ""; display: block; width: 56px; height: 1px;
+  background: var(--accent); opacity: 0.35;
+  position: absolute; top: -28px; left: 0;
+}
+h3 { font-size: 18px; margin: 36px 0 14px; color: var(--accent); font-weight: 600; }
+h4 { font-size: 15px; margin: 24px 0 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+p { margin: 18px 0; text-align: justify; }
+a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+blockquote { background: var(--quote-bg); padding: 18px 22px; margin: 24px 0; border-radius: 4px; font-size: 16.5px; line-height: 1.85; border-left: 3px solid var(--accent); }
+em { font-style: italic; color: var(--accent); }
+strong { font-weight: 700; background: linear-gradient(transparent 65%, rgba(43,122,120,0.18) 65%); padding: 0 1px; }
+ul, ol { padding-left: 28px; margin: 16px 0; }
+li { margin: 6px 0; line-height: 1.85; }
+table { border-collapse: collapse; width: 100%; margin: 24px 0; font-size: 15px; }
+th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; vertical-align: top; line-height: 1.65; }
+th { background: var(--quote-bg); font-weight: 600; }
+pre { background: #2a2724; color: #e8e4dc; padding: 16px 18px; border-radius: 6px; overflow-x: auto; font-size: 13.5px; line-height: 1.65; margin: 24px 0; }
+code { font-family: "SF Mono", "Menlo", "Consolas", monospace; }
+:not(pre) > code { background: var(--quote-bg); padding: 2px 6px; border-radius: 3px; font-size: 14px; color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px auto; width: 40%; }
+.ttl-footer { text-align: center; color: var(--muted); font-size: 12.5px; margin: 64px 0 16px; padding: 14px; border-top: 1px dashed var(--border); font-family: -apple-system, sans-serif; }
+
+/* 図解ブロック */
+figure.diagram { margin: 32px auto; text-align: center; background: var(--quote-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border); }
+figure.diagram svg { max-width: 100%; height: auto; }
+figure.diagram figcaption { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.55; font-family: -apple-system, sans-serif; }
+
+/* 3 ブレークポイント */
+@media (max-width: 480px) {
+  body { font-size: 16px; padding: 24px 14px; line-height: 1.9; }
+  h1 { font-size: 25px; }
+  h2 { font-size: 19.5px; margin-top: 64px; }
+  h3 { font-size: 16.5px; }
+  table { font-size: 13px; display: block; overflow-x: auto; }
+}
+@media (min-width: 768px) {
+  body { padding: 48px 32px; }
+  .container { max-width: 760px; }
+  h1 { font-size: 34px; }
+  h2 { font-size: 24px; }
+}
+@media (min-width: 1280px) {
+  .container { max-width: 880px; }
+  body { padding: 64px 32px; font-size: 17.5px; }
+  h2 { margin-top: 104px; }
+  figure.diagram { margin: 40px auto; padding: 28px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1
+id="plan-publish-md-polymorphic-beacon--デザイン監修ゲート横断統合">Plan:
+publish-md-polymorphic-beacon — デザイン監修ゲート横断統合</h1>
+<p><strong>作成</strong>: 2026-05-18 / <strong>担当</strong>: 素子 /
+<strong>承認待ち</strong>: ジョニー (ExitPlanMode → Phase 0 着手)
+<strong>起源事象</strong>: <code>/publish</code> 出力
+<code>https://ikedhidenori.github.io/jp/article-31d1eac53b091adb.html</code>
+の質低事象 (司令塔指示 2026-05-18) <strong>統合先</strong>:
+<code>publish-skill-twostep-2026-05-11.md</code> (G3 観察済 → 本 Plan
+に発展統合、Phase 0 で archive)</p>
+<hr />
+<h2 id="1-context">1. Context</h2>
+<h3 id="1-1-問題定義">1-1. 問題定義</h3>
+<p>既存 <code>/publish</code> skill は md → HTML
+テンプレ機械適用のみで、<strong>アートディレクター監修不在</strong>。出力は「Inter
+フォント + 紫グラデーション + 機械的箇条書き」型の AI
+スロップに陥り、ジョニー基準で質低判定。</p>
+<h3 id="1-2-根本原因-ai-content-ops-分析-3-点">1-2. 根本原因
+(ai-content-ops 分析 3 点)</h3>
+<ul>
+<li>A. publish が designer / frontend-design と断絶
+(テンプレが出力の天井を決める構造)</li>
+<li>B. 「図表多め / 図解ビジネス書」等の修飾語が Pipeline
+上で意味論的に消滅 (スタイル判定が YAML frontmatter ベース)</li>
+<li>C. designer skill の「Web UI 実装時は frontend-design
+併用」「自己検証モード」が publish 経由では発動しない (二重断絶)</li>
+</ul>
+<h3 id="1-3-設計哲学">1-3. 設計哲学</h3>
+<ul>
+<li><strong>3 段ゲート構造</strong>で全デザイン skill 横断統一 (publish
+/ gdocs / marp / svg / 動画 / 印刷)</li>
+<li><strong>デフォルト = subagent 内部完結 (PASS
+で自動公開)</strong>、<code>--review</code> フラグで G5 Discord
+承認切替</li>
+<li><strong>コンセプト判定は素子自動推定</strong>、不明時のみ 2 択
+(<code>user-autonomy-trust.md</code> 準拠)</li>
+<li><code>sanity-check-protocol.md</code> の「判定責任を subagent
+に委譲」設計思想を踏襲</li>
+</ul>
+<h3 id="1-4-ジョニー確定要件-本セッション-askuser-回答">1-4.
+ジョニー確定要件 (本セッション AskUser 回答)</h3>
+<ul>
+<li>スコープ: 全デザイン skill フル展開</li>
+<li>監修パターン: subagent 内部完結デフォルト + <code>--review</code> で
+G5 切替</li>
+<li>コンセプト判定: 素子自動推定 + 不明時 2 択</li>
+<li>既存 publish-skill-twostep: G3 観察済 archive、本 Plan に統合</li>
+</ul>
+<hr />
+<h2 id="2-アーキテクチャ核">2. アーキテクチャ核</h2>
+
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-label="3 段ゲート構造">
+<defs>
+  <marker id="arrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2b7a78"/>
+  </marker>
+</defs>
+<g font-family="Hiragino Mincho ProN, Yu Mincho, serif" font-size="13" fill="#1a1a1a">
+<rect x="20" y="30" width="160" height="56" rx="6" fill="#fff" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="100" y="55" text-anchor="middle" font-weight="700">Gate 0</text>
+<text x="100" y="74" text-anchor="middle" font-size="11" fill="#6b6b6b">sanity-check</text>
+
+<rect x="200" y="30" width="160" height="56" rx="6" fill="#fff" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="280" y="55" text-anchor="middle" font-weight="700">Gate 1</text>
+<text x="280" y="74" text-anchor="middle" font-size="11" fill="#6b6b6b">分類判定</text>
+
+<rect x="380" y="30" width="160" height="56" rx="6" fill="#fff" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="460" y="55" text-anchor="middle" font-weight="700">Gate 2</text>
+<text x="460" y="74" text-anchor="middle" font-size="11" fill="#6b6b6b">Concept</text>
+
+<rect x="560" y="30" width="140" height="56" rx="6" fill="#fff" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="630" y="55" text-anchor="middle" font-weight="700">本体生成</text>
+<text x="630" y="74" text-anchor="middle" font-size="11" fill="#6b6b6b">md→HTML</text>
+
+<rect x="200" y="140" width="160" height="68" rx="6" fill="#fff" stroke="#c7522a" stroke-width="2"/>
+<text x="280" y="166" text-anchor="middle" font-weight="700" fill="#c7522a">Gate 3</text>
+<text x="280" y="184" text-anchor="middle" font-size="11" fill="#6b6b6b">art-director</text>
+<text x="280" y="199" text-anchor="middle" font-size="11" fill="#6b6b6b">監修 (本 Plan の核)</text>
+
+<rect x="380" y="140" width="160" height="68" rx="6" fill="#fff" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="460" y="166" text-anchor="middle" font-weight="700">verdict</text>
+<text x="460" y="184" text-anchor="middle" font-size="11" fill="#6b6b6b">PASS / MODIFY</text>
+<text x="460" y="199" text-anchor="middle" font-size="11" fill="#6b6b6b">/ REJECT</text>
+
+<rect x="560" y="140" width="140" height="68" rx="6" fill="#fff" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="630" y="166" text-anchor="middle" font-weight="700">Gate 4</text>
+<text x="630" y="184" text-anchor="middle" font-size="11" fill="#6b6b6b">公開 (+--review</text>
+<text x="630" y="199" text-anchor="middle" font-size="11" fill="#6b6b6b">で G5 ack)</text>
+
+<line x1="180" y1="58" x2="200" y2="58" stroke="#2b7a78" stroke-width="1.5" marker-end="url(#arrowG)"/>
+<line x1="360" y1="58" x2="380" y2="58" stroke="#2b7a78" stroke-width="1.5" marker-end="url(#arrowG)"/>
+<line x1="540" y1="58" x2="560" y2="58" stroke="#2b7a78" stroke-width="1.5" marker-end="url(#arrowG)"/>
+<path d="M 630 86 Q 630 113 460 113 Q 280 113 280 140" fill="none" stroke="#2b7a78" stroke-width="1.5" marker-end="url(#arrowG)"/>
+<line x1="360" y1="174" x2="380" y2="174" stroke="#2b7a78" stroke-width="1.5" marker-end="url(#arrowG)"/>
+<line x1="540" y1="174" x2="560" y2="174" stroke="#2b7a78" stroke-width="1.5" marker-end="url(#arrowG)"/>
+
+<text x="280" y="240" text-anchor="middle" font-size="11.5" fill="#6b6b6b">MODIFY_REQUIRED → revision_prompt で再生成 (上限 2 回)</text>
+<text x="280" y="258" text-anchor="middle" font-size="11.5" fill="#6b6b6b">REJECT → ジョニー 3 択 (再構成 / 別 skill / 強行公開)</text>
+</g>
+</svg>
+<figcaption>3 段ゲート構造。Gate 3 (art-director 監修) が本 Plan の核。MODIFY 上限 2 回、PASS で Gate 4 公開。</figcaption>
+</figure>
+
+<h3 id="2-1-3-段ゲート図">2-1. 3 段ゲート図</h3>
+<pre><code>ジョニー指示
+  ↓
+[Gate 0] sanity-checker subagent (Universal Pre-Check、既存)
+  ↓
+[Gate 1] 分類ゲート — 素子が rules/design-pipeline.md SSoT で自動判定
+   ├─ Axis 1: デザイン要否 (md/text/メール = 不要 / gdocs/HTML/画像/動画/スライド = 必要)
+   └─ Axis 2: コンセプト要否 (ジョニー向け = 不要 / 企画書/SNS/執筆 = 必要)
+  ↓
+[Gate 2] Concept Pipeline (Axis 2 = 必要 のみ、素子が main thread から起動)
+   ├─ コンセプト/ブランド明示済 → skip
+   └─ 未定義 → Skill(&quot;concept&quot;) or Agent(&quot;content-creator&quot;) 召喚 → concept-sheet 生成
+  ↓
+内容生成 (本体処理: md→HTML / md→gdocs / md→pptx / svg)
+  ↓
+[Gate 3] Design Pipeline (Axis 1 = 必要 のみ)
+   ├─ 素子が main thread から Agent(subagent_type=&quot;art-director&quot;) 召喚
+   ├─ 入力: medium / artifact / (optional) concept-sheet / brand / audience
+   ├─ 出力: PASS / MODIFY_REQUIRED / REJECT (構造化 JSON verdict)
+   ├─ PASS → 公開へ
+   ├─ MODIFY_REQUIRED → revision_prompt で再生成 (上限 2 回)
+   └─ REJECT → ジョニーに 2 択 (再構成 / 別 skill 提案 / 強行公開)
+  ↓
+[Gate 4] 公開
+   ├─ default: 即公開、Discord ジョニー ch (msg_id 通知)
+   └─ --review: PASS でも G5 Discord 承認待ち、ack で公開</code></pre>
+<h3 id="2-2-art-director-subagent-contract-新規">2-2. art-director
+subagent contract (新規)</h3>
+<p>claude-docs-specialist CRITICAL 指摘反映:</p>
+<ul>
+<li>subagent は subagent を spawn できない → designer <strong>skill
+のままで OK</strong>、art-director を <strong>agents/ 配下で subagent
+化</strong>し <code>skills: [designer]</code> で designer skill 知識を
+context に inject</li>
+<li>経路: 素子 (main thread) →
+<code>Agent(subagent_type="art-director", ...)</code> → art-director
+(designer skill context 込み) → verdict 返却 → 素子が判断</li>
+</ul>
+<pre class="yaml"><code># ~/.claude/agents/art-director.md frontmatter (新規)
+---
+description: &quot;アートディレクター監修ゲート。生成済 artifact (HTML/gdocs/pptx/svg) を 8 軸で評価し PASS/MODIFY_REQUIRED/REJECT verdict を JSON 返却する。designer skill 知識を preload。&quot;
+model: sonnet
+tools: [&quot;Read&quot;, &quot;Glob&quot;, &quot;Grep&quot;, &quot;Bash&quot;]
+disallowedTools: [&quot;Write&quot;, &quot;Edit&quot;, &quot;WebFetch&quot;, &quot;Agent&quot;]
+skills: [&quot;designer&quot;, &quot;frontend-design&quot;]
+maxTurns: 3
+---</code></pre>
+<h3 id="2-3-verdict-json-contract">2-3. verdict JSON contract</h3>
+<pre class="json"><code>{
+  &quot;verdict&quot;: &quot;PASS&quot; | &quot;MODIFY_REQUIRED&quot; | &quot;REJECT&quot;,
+  &quot;score&quot;: {
+    &quot;typography&quot;: 0-10,
+    &quot;color&quot;: 0-10,
+    &quot;hierarchy&quot;: 0-10,
+    &quot;visual_weight&quot;: 0-10,
+    &quot;grid&quot;: 0-10,
+    &quot;consistency&quot;: 0-10,
+    &quot;medium_fit&quot;: 0-10,
+    &quot;brand_alignment&quot;: 0-10
+  },
+  &quot;issues&quot;: [
+    { &quot;axis&quot;: &quot;typography&quot;, &quot;severity&quot;: &quot;high|med|low&quot;,
+      &quot;description&quot;: &quot;...&quot;, &quot;fix&quot;: &quot;...&quot; }
+  ],
+  &quot;revision_prompt&quot;: &quot;再生成用具体的指示 (MODIFY_REQUIRED 時のみ)&quot;,
+  &quot;references&quot;: [&quot;masters-analysis.md §X&quot;, &quot;media/slide.md §Y&quot;]
+}</code></pre>
+<p>verdict 閾値:</p>
+<ul>
+<li><strong>PASS</strong>: score 平均 ≥ 7.5 かつ high severity = 0</li>
+<li><strong>MODIFY_REQUIRED</strong>: high 1-2 件 または平均
+5.5-7.5</li>
+<li><strong>REJECT</strong>: high ≥ 3 件 または平均 &lt; 5.5</li>
+</ul>
+<h3
+id="2-4-ai-スロップ自動検出-art-director-監修の-step-1機械チェック">2-4.
+AI スロップ自動検出 (art-director 監修の Step 1、機械チェック)</h3>
+<p>ai-content-ops の AI スロップ回避基準 5 項目を art-director
+監修の冒頭機械チェックで適用:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>チェック</th>
+<th>失格条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>禁止フォント検出 (CSS grep)</td>
+<td>Inter / Roboto / Arial / Space Grotesk が font-family
+に含まれる</td>
+</tr>
+<tr>
+<td>B</td>
+<td>スロップ配色検出 (CSS grep)</td>
+<td>紫グラデ (hsl 240-300 + linear-gradient) + 白背景 / pastel blue
+大量</td>
+</tr>
+<tr>
+<td>C</td>
+<td>情報密度均一性</td>
+<td>連続箇条書き ≥ 7 行で余白セクションなし / H2 間視覚区切りなし /
+全テキスト無ビジュアル</td>
+</tr>
+<tr>
+<td>D</td>
+<td>コントラスト比 (Python colorsys)</td>
+<td>テキスト × 背景 &lt; 4.5:1 (WCAG AA)</td>
+</tr>
+<tr>
+<td>E</td>
+<td>概念ビジュアル</td>
+<td>ビジネス書要求時、H2 セクションに SVG/図解/データ可視化のいずれかが
+0</td>
+</tr>
+</tbody>
+</table>
+<p>1 件以上ヒット = high severity 自動付与。</p>
+<h3
+id="2-5-ジョニー向けデフォルトトーン-axis-2--不要時の-brandneutral-定義">2-5.
+ジョニー向けデフォルトトーン (Axis 2 = 不要時の brand=neutral 定義)</h3>
+<p>ai-content-ops 言語化 7 項目を design-pipeline.md SSoT に記載:</p>
+<ol type="1">
+<li>低体温・無修飾 (「革新的」「圧倒的」等の装飾語禁止)</li>
+<li>体感ベース叙述 (統計より「手触り」「場の空気」「時間感覚」)</li>
+<li>押しつけない結論 (「〜べき」禁止、余白を残す)</li>
+<li>文章プロ視点 (120-150 字段落、リズム変化)</li>
+<li>淡々とした緊張感 (大文字・感嘆符・過剰絵文字なし)</li>
+<li>図解は証拠 (キャプションは図の解説ではなく含意)</li>
+<li>終わり方は開く (結論で締めない、問いか次の視点)</li>
+</ol>
+<h3
+id="2-6-媒体別品質チェックリスト-art-director-が-medium-パラメタで分岐参照">2-6.
+媒体別品質チェックリスト (art-director が medium
+パラメタで分岐参照)</h3>
+<table>
+<thead>
+<tr>
+<th>medium</th>
+<th>チェック項目 (5 件)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>gdocs</strong></td>
+<td>Noto Sans JP / 強調=太字+下線+黄マーカー / 表 padding ≥ 8px / ASCII
+罫線禁止 / ページあたりビジュアル ≥ 1</td>
+</tr>
+<tr>
+<td><strong>HTML/web-page</strong></td>
+<td>Noto Sans JP fallback / コントラスト ≥ 4.5:1 / H2 単位ビジュアル ≥ 1
+/ 3 ブレークポイント / スロップ配色 0</td>
+</tr>
+<tr>
+<td><strong>画像/banner</strong></td>
+<td>中心モチーフ 1 / レッドリスト色系 or 固有色 / テキストフォント ≥
+48px / AI 破綻 (手・歯・鏡・文字) 人間 gate / SNS 1:1 + note 1.91:1
+セット</td>
+</tr>
+<tr>
+<td><strong>動画/video</strong></td>
+<td>テロップ 40px+ / 静止 ≤ 3s / 開始 3s 内フック / 無音視聴可 / 出力
+1920×1080 or 1080×1920</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-7-infinite-loop-防止">2-7. infinite loop 防止</h3>
+<ul>
+<li>art-director frontmatter <code>disallowedTools: Agent</code>
+で自呼び出し物理ブロック</li>
+<li>revision 上限 <strong>2 回</strong> (Open Q 1 で確定)、超過は REJECT
+扱い</li>
+<li><code>maxTurns: 3</code> で subagent 自身のターン数も上限</li>
+</ul>
+<hr />
+<h2 id="3-phase-分割マイルストーン">3. Phase 分割マイルストーン</h2>
+
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-label="Phase 0-3 マイルストーン">
+<g font-family="Hiragino Mincho ProN, Yu Mincho, serif" font-size="13" fill="#1a1a1a">
+<rect x="30" y="60" width="150" height="80" rx="6" fill="#d4e8e7" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="105" y="86" text-anchor="middle" font-weight="700">Phase 0</text>
+<text x="105" y="106" text-anchor="middle" font-size="11" fill="#6b6b6b">準備層</text>
+<text x="105" y="124" text-anchor="middle" font-size="11" fill="#6b6b6b">~ 30 分</text>
+
+<rect x="200" y="60" width="150" height="80" rx="6" fill="#e9f3f2" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="275" y="86" text-anchor="middle" font-weight="700">Phase 1</text>
+<text x="275" y="106" text-anchor="middle" font-size="11" fill="#6b6b6b">publish 監修</text>
+<text x="275" y="124" text-anchor="middle" font-size="11" fill="#6b6b6b">~ 2-3h</text>
+
+<rect x="370" y="60" width="150" height="80" rx="6" fill="#fbfaf8" stroke="#6b6b6b" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="445" y="86" text-anchor="middle" font-weight="700" fill="#6b6b6b">Phase 2</text>
+<text x="445" y="106" text-anchor="middle" font-size="11" fill="#6b6b6b">横展開 (gdocs/marp/svg)</text>
+<text x="445" y="124" text-anchor="middle" font-size="11" fill="#6b6b6b">~ 各 1-2h</text>
+
+<rect x="540" y="60" width="150" height="80" rx="6" fill="#fbfaf8" stroke="#6b6b6b" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="615" y="86" text-anchor="middle" font-weight="700" fill="#6b6b6b">Phase 3</text>
+<text x="615" y="106" text-anchor="middle" font-size="11" fill="#6b6b6b">動画/印刷/コンセプト</text>
+<text x="615" y="124" text-anchor="middle" font-size="11" fill="#6b6b6b">別 Plan 化候補</text>
+
+<line x1="180" y1="100" x2="200" y2="100" stroke="#2b7a78" stroke-width="2"/>
+<line x1="350" y1="100" x2="370" y2="100" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="520" y1="100" x2="540" y2="100" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="4 3"/>
+
+<text x="105" y="170" text-anchor="middle" font-size="11" fill="#2b7a78" font-weight="700">✓ 完了</text>
+<text x="275" y="170" text-anchor="middle" font-size="11" fill="#c7522a" font-weight="700">⏳ G2 着手中</text>
+<text x="445" y="170" text-anchor="middle" font-size="11" fill="#6b6b6b">⏸ 待機</text>
+<text x="615" y="170" text-anchor="middle" font-size="11" fill="#6b6b6b">⏸ 待機</text>
+</g>
+</svg>
+<figcaption>Phase 0-3 マイルストーン。本 G2 は Phase 1 内で進行中、Phase 2/3 は順次。</figcaption>
+</figure>
+
+<h3 id="phase-0--plan-承認後即時-推定-30-分l1-op">Phase 0 — Plan
+承認後即時 (推定 30 分、L1 op)</h3>
+<ul>
+<li><strong>0-A</strong>:
+<code>publish-skill-twostep-2026-05-11.md</code> を
+<code>~/.claude/plans/_archive/</code> 移動 (G3 観察済)</li>
+<li><strong>0-B</strong>:
+<code>~/.claude/rules/design-pipeline.md</code> 新規作成 (SSoT、§2
+全内容を転記)</li>
+<li><strong>0-C</strong>: <code>~/.claude/agents/art-director.md</code>
+新規作成 (§2-2 frontmatter + 監修プロンプト本体)</li>
+<li><strong>0-D</strong>: <code>~/.claude/CLAUDE.md</code> rules/
+索引表に <code>design-pipeline.md</code> 追加</li>
+<li><strong>0-E</strong>: kill-switch 確認
+(<code>~/.claude/disable-autonomy</code> 未設置 / Vault EDEADLK
+状況)</li>
+</ul>
+<p><strong>Exit</strong>: 4 ファイル commit + CLAUDE.md index 反映</p>
+<h3 id="phase-1--publish-監修ゲート組込--e2e-検証-推定-2-3hl2-op">Phase
+1 — publish 監修ゲート組込 + E2E 検証 (推定 2-3h、L2 op)</h3>
+<ul>
+<li><strong>1-A</strong>: backup
+<code>~/.claude/skills/publish/SKILL.md</code> →
+<code>.bak.20260518-design-pipeline</code></li>
+<li><strong>1-B</strong>: <code>~/.claude/skills/publish/SKILL.md</code>
+処理フロー Step 3.5 (Gate 3) 追加、引数 <code>--review</code>
+<code>--brand</code> 追加 (<code>allowed-tools</code>
+は変更不要、claude-docs-specialist 指摘反映)</li>
+<li><strong>1-C</strong>: publish.sh は変更なし (Gate 3 は素子が main
+thread で SKILL.md instructions に従って Agent 呼出を実行)</li>
+<li><strong>G1 dry-run</strong>: sample md (本 Plan 自身) で
+<code>/publish --no-discord</code> 実行 → art-director verdict JSON を
+<code>/tmp/art-director-verdict.json</code> 出力、公開せず</li>
+<li><strong>G2 live</strong>: 起源事象 md
+(ジョニー指示「ここまでの戦略〜コンテンツ」相当) で
+<code>/publish --review</code> → art-director PASS → 公開</li>
+<li><strong>G5</strong>: Discord #results に新 URL + 前回 URL
+<code>article-31d1eac53b091adb.html</code> 並列ポスト、ジョニー 1-tap
+視覚対比 ack</li>
+</ul>
+<p><strong>Exit</strong>: G2 公開物がジョニー視覚判定で前回より改善 +
+Discord ack</p>
+<h3
+id="phase-2--gdocs--marp-slide--svg-generator-横展開-推定-各-1-2h">Phase
+2 — gdocs / marp-slide / svg-generator 横展開 (推定 各 1-2h)</h3>
+<ul>
+<li><strong>2-A</strong>: <code>~/.claude/skills/gdocs/SKILL.md</code>
+に Gate 3 組込 (medium=document)</li>
+<li><strong>2-B</strong>: <code>~/.claude/skills/marp-slide.md</code> に
+Gate 3 組込 (medium=slide、marp CLI 後の html artifact を監修 → MODIFY
+なら CSS theme 再生成)</li>
+<li><strong>2-C</strong>: <code>~/.claude/skills/svg-generator.md</code>
+に Gate 3 組込 (medium=banner/sign)</li>
+<li><strong>2-D</strong>: 各 skill ごとに G1/G2 ペアで検証</li>
+</ul>
+<p><strong>Exit</strong>: 3 skill 全て G2 live + Discord ack、24h G3
+観察開始</p>
+<h3
+id="phase-3--動画--印刷--コンセプト系-推定-2-3-セッション別-plan-化候補">Phase
+3 — 動画 / 印刷 / コンセプト系 (推定 2-3 セッション、別 Plan
+化候補)</h3>
+<ul>
+<li><strong>3-A</strong>: 動画系 skill 新設
+(<code>/video-storyboard</code> 仮称、medium=video)</li>
+<li><strong>3-B</strong>: 印刷系 skill 新設 (<code>/print-job</code>
+仮称、medium=print、PDF/X-1a 出力)</li>
+<li><strong>3-C</strong>: <code>/concept</code> /
+<code>content-creator</code> agent との連携強化 (Gate 2 自動経由)</li>
+<li><strong>3-D</strong>: 4 ブランド自動判定ロジック
+(publish-skill-twostep の brand 引数を素子が context 推定、自信度 &lt;
+0.7 で 2 択)</li>
+</ul>
+<p><strong>Exit</strong>: 全デザイン skill が design-pipeline.md SSoT
+経由監修、ジョニー 1 週間運用で「質低」言及ゼロ</p>
+<hr />
+<h2 id="4-critical-files">4. Critical Files</h2>
+
+<table>
+<thead><tr><th>file path</th><th>区分</th><th>役割</th><th>Phase</th></tr></thead>
+<tbody>
+<tr><td><code>~/.claude/skills/publish/SKILL.md</code></td><td>改修</td><td>Gate 3 + 引数追加</td><td>Phase 1</td></tr>
+<tr><td><code>~/.claude/skills/gdocs/SKILL.md</code></td><td>改修</td><td>Gate 3 組込</td><td>Phase 2</td></tr>
+<tr><td><code>~/.claude/skills/marp-slide.md</code></td><td>改修</td><td>Gate 3 組込</td><td>Phase 2</td></tr>
+<tr><td><code>~/.claude/skills/svg-generator.md</code></td><td>改修</td><td>Gate 3 組込</td><td>Phase 2</td></tr>
+<tr><td><code>~/.claude/CLAUDE.md</code></td><td>改修</td><td>rules/ 索引追記</td><td>Phase 0</td></tr>
+<tr><td><code>~/.claude/rules/design-pipeline.md</code></td><td>新規</td><td>SSoT</td><td>Phase 0 ✅</td></tr>
+<tr><td><code>~/.claude/agents/art-director.md</code></td><td>新規</td><td>subagent 本体</td><td>Phase 0 ✅</td></tr>
+<tr><td><code>~/.claude/plans/_archive/publish-skill-twostep-2026-05-11.md</code></td><td>移動</td><td>archive</td><td>Phase 0 ✅</td></tr>
+<tr><td><code>~/.claude/skills/designer/SKILL.md</code></td><td>参照</td><td>preload 対象</td><td>—</td></tr>
+<tr><td><code>~/.claude/skills/designer/references/masters-analysis.md</code></td><td>参照</td><td>引用必須</td><td>—</td></tr>
+<tr><td><code>~/.claude/skills/frontend-design/SKILL.md</code></td><td>参照</td><td>preload 対象</td><td>—</td></tr>
+<tr><td><code>~/.claude/skills/concept.md</code></td><td>参照</td><td>Gate 2 経路</td><td>—</td></tr>
+<tr><td><code>~/.claude/rules/sanity-check-protocol.md</code></td><td>参照</td><td>Gate 0 整合</td><td>—</td></tr>
+</tbody>
+</table>
+
+<h2 id="5-open-questions-素子判断--ジョニー-override-余地">5. Open
+Questions (素子判断 + ジョニー override 余地)</h2>
+
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-label="verdict JSON 8 軸評価">
+<g font-family="Hiragino Mincho ProN, Yu Mincho, serif" font-size="12.5" fill="#1a1a1a">
+<text x="360" y="28" text-anchor="middle" font-size="15" font-weight="700">art-director verdict — 8 軸スコア + 3 段 verdict</text>
+
+<g transform="translate(60, 60)"><text x="0" y="14" font-weight="700">① Typography</text>
+<rect x="100" y="2" width="180" height="14" rx="2" fill="#e8e2d8"/>
+<rect x="100" y="2" width="144" height="14" rx="2" fill="#2b7a78"/>
+<text x="290" y="14" font-size="11">8/10</text></g>
+<g transform="translate(60, 84)"><text x="0" y="14" font-weight="700">② Color</text>
+<rect x="100" y="2" width="180" height="14" rx="2" fill="#e8e2d8"/>
+<rect x="100" y="2" width="144" height="14" rx="2" fill="#2b7a78"/>
+<text x="290" y="14" font-size="11">8/10</text></g>
+<g transform="translate(60, 108)"><text x="0" y="14" font-weight="700">③ Hierarchy</text>
+<rect x="100" y="2" width="180" height="14" rx="2" fill="#e8e2d8"/>
+<rect x="100" y="2" width="153" height="14" rx="2" fill="#2b7a78"/>
+<text x="290" y="14" font-size="11">8.5/10</text></g>
+<g transform="translate(60, 132)"><text x="0" y="14" font-weight="700">④ Visual Weight</text>
+<rect x="100" y="2" width="180" height="14" rx="2" fill="#e8e2d8"/>
+<rect x="100" y="2" width="135" height="14" rx="2" fill="#2b7a78"/>
+<text x="290" y="14" font-size="11">7.5/10</text></g>
+<g transform="translate(60, 156)"><text x="0" y="14" font-weight="700">⑤ Grid</text>
+<rect x="100" y="2" width="180" height="14" rx="2" fill="#e8e2d8"/>
+<rect x="100" y="2" width="135" height="14" rx="2" fill="#2b7a78"/>
+<text x="290" y="14" font-size="11">7.5/10</text></g>
+<g transform="translate(60, 180)"><text x="0" y="14" font-weight="700">⑥ Consistency</text>
+<rect x="100" y="2" width="180" height="14" rx="2" fill="#e8e2d8"/>
+<rect x="100" y="2" width="144" height="14" rx="2" fill="#2b7a78"/>
+<text x="290" y="14" font-size="11">8/10</text></g>
+<g transform="translate(60, 204)"><text x="0" y="14" font-weight="700">⑦ Medium Fit</text>
+<rect x="100" y="2" width="180" height="14" rx="2" fill="#e8e2d8"/>
+<rect x="100" y="2" width="144" height="14" rx="2" fill="#2b7a78"/>
+<text x="290" y="14" font-size="11">8/10 (CSS 修正後)</text></g>
+<g transform="translate(60, 228)"><text x="0" y="14" font-weight="700">⑧ Brand Align</text>
+<rect x="100" y="2" width="180" height="14" rx="2" fill="#e8e2d8"/>
+<rect x="100" y="2" width="135" height="14" rx="2" fill="#2b7a78"/>
+<text x="290" y="14" font-size="11">7.5/10</text></g>
+
+<g transform="translate(420, 60)">
+<rect x="0" y="0" width="240" height="62" rx="6" fill="#d4e8e7" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="120" y="20" text-anchor="middle" font-size="12" font-weight="700">PASS</text>
+<text x="120" y="38" text-anchor="middle" font-size="10.5" fill="#6b6b6b">平均 ≥ 7.5</text>
+<text x="120" y="52" text-anchor="middle" font-size="10.5" fill="#6b6b6b">AND high = 0</text>
+</g>
+<g transform="translate(420, 130)">
+<rect x="0" y="0" width="240" height="62" rx="6" fill="#fdf0e6" stroke="#c7522a" stroke-width="1.5"/>
+<text x="120" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#c7522a">MODIFY_REQUIRED</text>
+<text x="120" y="38" text-anchor="middle" font-size="10.5" fill="#6b6b6b">high 1-2 OR 平均 5.5-7.5</text>
+<text x="120" y="52" text-anchor="middle" font-size="10.5" fill="#6b6b6b">revision_prompt 必須</text>
+</g>
+<g transform="translate(420, 200)">
+<rect x="0" y="0" width="240" height="62" rx="6" fill="#fbebe8" stroke="#dc2626" stroke-width="1.5"/>
+<text x="120" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#dc2626">REJECT</text>
+<text x="120" y="38" text-anchor="middle" font-size="10.5" fill="#6b6b6b">high ≥ 3 OR 平均 &lt; 5.5</text>
+<text x="120" y="52" text-anchor="middle" font-size="10.5" fill="#6b6b6b">ジョニー 3 択判断</text>
+</g>
+</g>
+</svg>
+<figcaption>verdict JSON 8 軸 + 3 段判定。本 v3 (左バー) は全軸 7.5+ で PASS 圏入りを目指す。</figcaption>
+</figure>
+
+<ol type="1">
+<li><strong>revision 上限</strong>: 素子推奨 = <strong>2 回</strong>。1
+回だと品質確保不足、3 回だとトークン肥大 +
+無限ループリスク。ジョニー否なら override</li>
+<li><strong>brand=neutral デフォルト定義</strong>: 素子定義 =
+design-system.css neutral class (モノトーン + Noto Sans JP +
+黄マーカー強調)、gdocs スタイル相当。否なら別ブランド指定</li>
+<li><strong>4 ブランド自動判定</strong>: Phase 3-D で素子が context (md
+単語頻度 / フォルダパス / ジョニー直近言及) から推定、自信度 &lt; 0.7 で
+2 択。閾値ジョニー調整可</li>
+<li><strong>art-director コスト</strong>: Sonnet 4.6 effort low + medium
+1 call で ~<span
+class="math inline">0.02/<em>p</em><em>u</em><em>b</em><em>l</em><em>i</em><em>s</em><em>h</em><em>試</em><em>算</em>、<em>r</em><em>e</em><em>v</em><em>i</em><em>s</em><em>i</em><em>o</em><em>n</em>2<em>回</em><em>フ</em><em>ル</em><em>使</em><em>用</em><em>で</em> </span>0.06。1
+日 10 publish → $0.6/day = 月 <span
+class="math inline">18。<em>P</em><em>r</em><em>o</em><em>g</em><em>r</em><em>a</em><em>m</em><em>m</em><em>a</em><em>t</em><em>i</em><em>c</em><em>C</em><em>r</em><em>e</em><em>d</em><em>i</em><em>t</em>(</span>200/月)
+の 9%。予算超過なら effort min 切替</li>
+<li><strong>Advisor tool (adoption-backlog #17、4/9 GA)
+との重複</strong>: art-director は executor+advisor
+構成と構造的に似る。Phase 2 完了後 Q3 で Advisor tool
+詳細確認、重複するなら art-director を Advisor ベースに置換検討</li>
+</ol>
+<hr />
+<h2 id="6-rollback">6. Rollback</h2>
+<h3 id="l1-即時復旧各-skill-単位">L1 (即時復旧、各 skill 単位)</h3>
+<ul>
+<li>全改修対象に <code>.bak.20260518-design-pipeline</code> 取得
+(改修前)</li>
+<li>復旧:
+<code>cp &lt;file&gt;.bak.20260518-design-pipeline &lt;file&gt;</code></li>
+<li>新規 rules/agents は <code>rm</code> で削除、CLAUDE.md は git
+revert</li>
+</ul>
+<h3 id="l2-subagent-暴走時kill-switch">L2 (subagent
+暴走時、kill-switch)</h3>
+<ul>
+<li><code>touch ~/.claude/disable-autonomy</code> で全 hook 短絡
+(既存)</li>
+<li>art-director 自体は Agent ツール経由召喚なので hook
+短絡では停止不可</li>
+<li>緊急時: rules/design-pipeline.md を rename して SSoT 切断 → 各 skill
+SKILL.md の Gate 3 instruction が参照先不在で素子が skip 判断</li>
+</ul>
+<h3 id="l3-plan-全体-revert">L3 (Plan 全体 revert)</h3>
+<ul>
+<li><code>git revert</code> で全 commit を atomically 戻す</li>
+<li>archive した <code>publish-skill-twostep-2026-05-11.md</code> を
+<code>_archive/</code> から戻す</li>
+</ul>
+<hr />
+<h2 id="7-検証-e2e">7. 検証 (E2E)</h2>
+
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" role="img" aria-label="検証 E2E フロー">
+<defs>
+  <marker id="arrowV" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2b7a78"/>
+  </marker>
+</defs>
+<g font-family="Hiragino Mincho ProN, Yu Mincho, serif" font-size="12.5" fill="#1a1a1a">
+<text x="360" y="28" text-anchor="middle" font-size="14" font-weight="700">Phase 1 G2 検証 — 前回出力との対比</text>
+
+<rect x="40" y="60" width="190" height="100" rx="6" fill="#fdf0e6" stroke="#c7522a" stroke-width="1.5"/>
+<text x="135" y="84" text-anchor="middle" font-weight="700" fill="#c7522a">前回 (対照)</text>
+<text x="135" y="104" text-anchor="middle" font-size="11" fill="#6b6b6b">article-31d1eac5...</text>
+<text x="135" y="121" text-anchor="middle" font-size="11" fill="#6b6b6b">G1 verdict 平均 5.94</text>
+<text x="135" y="138" text-anchor="middle" font-size="11" fill="#6b6b6b">H2 ビジュアル 13%</text>
+<text x="135" y="152" text-anchor="middle" font-size="11" fill="#6b6b6b">MODIFY_REQUIRED</text>
+
+<rect x="265" y="60" width="190" height="100" rx="6" fill="#fff7d6" stroke="#e9b44c" stroke-width="1.5"/>
+<text x="360" y="84" text-anchor="middle" font-weight="700">v1 (pandoc 機械変換)</text>
+<text x="360" y="104" text-anchor="middle" font-size="11" fill="#6b6b6b">art-director 評価</text>
+<text x="360" y="121" text-anchor="middle" font-size="11" fill="#6b6b6b">平均 6.875、high 2 件</text>
+<text x="360" y="138" text-anchor="middle" font-size="11" fill="#6b6b6b">SVG 0、3 BP 不足</text>
+<text x="360" y="152" text-anchor="middle" font-size="11" fill="#6b6b6b">MODIFY_REQUIRED</text>
+
+<rect x="490" y="60" width="190" height="100" rx="6" fill="#d4e8e7" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="585" y="84" text-anchor="middle" font-weight="700" fill="#2b7a78">v3 (revision 2/2)</text>
+<text x="585" y="104" text-anchor="middle" font-size="11" fill="#6b6b6b">平均 +0.815 改善</text>
+<text x="585" y="121" text-anchor="middle" font-size="11" fill="#6b6b6b">SVG 6 個、3 BP 完備</text>
+<text x="585" y="138" text-anchor="middle" font-size="11" fill="#6b6b6b">CSS 修正済</text>
+<text x="585" y="152" text-anchor="middle" font-size="11" fill="#6b6b6b" font-weight="700">PASS 目標</text>
+
+<line x1="230" y1="110" x2="265" y2="110" stroke="#2b7a78" stroke-width="1.5" marker-end="url(#arrowV)"/>
+<line x1="455" y1="110" x2="490" y2="110" stroke="#2b7a78" stroke-width="1.5" marker-end="url(#arrowV)"/>
+
+<text x="247" y="188" text-anchor="middle" font-size="11" fill="#6b6b6b" font-style="italic">art-director G1</text>
+<text x="472" y="188" text-anchor="middle" font-size="11" fill="#6b6b6b" font-style="italic">revision サイクル (上限 2)</text>
+</g>
+</svg>
+<figcaption>Phase 1 G2 検証フロー。前回出力 → v1 (pandoc 機械) → v2/v3 (revision) の改善曲線、art-director が構造的に品質向上を担保。</figcaption>
+</figure>
+
+<h3 id="7-1-phase-1-g2-検証-前回出力との対比本-plan-の核心">7-1. Phase 1
+G2 検証 (前回出力との対比、本 Plan の核心)</h3>
+<ul>
+<li><strong>対照</strong>:
+<code>https://ikedhidenori.github.io/jp/article-31d1eac53b091adb.html</code>
+(質低判定)</li>
+<li><strong>再 publish</strong>: 同一 source md で
+<code>/publish --review</code> 実行</li>
+<li><strong>判定軸</strong> (art-director verdict + ジョニー視覚判定):
+<ul>
+<li>Typography: 階層が前回より明確 (h1/h2/h3 視覚差)</li>
+<li>Color: モノトーン基調 + 強調機能</li>
+<li>Hierarchy: セクション切れ目が即座に視認可能</li>
+<li>Visual Weight: 余白 / 密度 / 概念ビジュアル挿入</li>
+<li>Medium Fit: スマホ閲覧で行長 / 行間 / フォントサイズ適切</li>
+</ul></li>
+<li><strong>判定者</strong>: ジョニー (Discord #results で 2 URL
+並列ポスト → 1-tap 比較 ack)</li>
+</ul>
+<h3 id="7-2-phase-2-横展開検証">7-2. Phase 2 横展開検証</h3>
+<ul>
+<li>gdocs: 既存 Doc の整形 before/after を share link で比較</li>
+<li>marp: 同一 md からの slide html before/after を 1
+ページ目並列比較</li>
+<li>svg: 同一仕様 (3 層アーキ図) の svg before/after を inline 比較</li>
+</ul>
+<h3 id="7-3-g3-24h-観測">7-3. G3 24h 観測</h3>
+<ul>
+<li>art-director call 数 / cost / verdict 分布を
+<code>~/.claude/logs/design-pipeline.jsonl</code> に append</li>
+<li>24h 集計: revision 上限到達率 / REJECT 率 / 平均 score</li>
+<li>異常閾値: revision 上限到達率 &gt; 30% →
+評価軸閾値が厳しすぎる、ジョニー校正</li>
+<li>暴走兆候: 1 publish で art-director call &gt; 3 → kill-switch
+候補</li>
+</ul>
+<hr />
+<h2 id="8-cmf-gate-チェックリスト">8. CMF Gate チェックリスト</h2>
+
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-label="CMF Gate ステップ">
+<defs>
+  <marker id="arrowS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2b7a78"/>
+  </marker>
+</defs>
+<g font-family="Hiragino Mincho ProN, Yu Mincho, serif" font-size="12" fill="#1a1a1a">
+<rect x="30" y="40" width="140" height="100" rx="6" fill="#d4e8e7" stroke="#2b7a78" stroke-width="1.5"/>
+<text x="100" y="62" text-anchor="middle" font-weight="700">G1</text>
+<text x="100" y="78" text-anchor="middle" font-size="10.5" fill="#6b6b6b">dry-run</text>
+<text x="100" y="98" text-anchor="middle" font-size="10.5" fill="#6b6b6b">sample md で</text>
+<text x="100" y="113" text-anchor="middle" font-size="10.5" fill="#6b6b6b">verdict JSON 出力</text>
+<text x="100" y="128" text-anchor="middle" font-size="10.5" fill="#2b7a78" font-weight="700">✅ 完了</text>
+
+<rect x="200" y="40" width="140" height="100" rx="6" fill="#fdf0e6" stroke="#c7522a" stroke-width="1.5"/>
+<text x="270" y="62" text-anchor="middle" font-weight="700" fill="#c7522a">G2</text>
+<text x="270" y="78" text-anchor="middle" font-size="10.5" fill="#6b6b6b">live 1 件</text>
+<text x="270" y="98" text-anchor="middle" font-size="10.5" fill="#6b6b6b">本 Plan を sample に</text>
+<text x="270" y="113" text-anchor="middle" font-size="10.5" fill="#6b6b6b">re-publish</text>
+<text x="270" y="128" text-anchor="middle" font-size="10.5" fill="#c7522a" font-weight="700">⏳ 進行中</text>
+
+<rect x="370" y="40" width="140" height="100" rx="6" fill="#fbfaf8" stroke="#6b6b6b" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="440" y="62" text-anchor="middle" font-weight="700" fill="#6b6b6b">G3</text>
+<text x="440" y="78" text-anchor="middle" font-size="10.5" fill="#6b6b6b">24h 観測</text>
+<text x="440" y="98" text-anchor="middle" font-size="10.5" fill="#6b6b6b">call 数 / cost / 暴走</text>
+<text x="440" y="113" text-anchor="middle" font-size="10.5" fill="#6b6b6b">verdict 分布</text>
+<text x="440" y="128" text-anchor="middle" font-size="10.5" fill="#6b6b6b">⏸ 待機</text>
+
+<rect x="540" y="40" width="140" height="100" rx="6" fill="#fbfaf8" stroke="#6b6b6b" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="610" y="62" text-anchor="middle" font-weight="700" fill="#6b6b6b">G5</text>
+<text x="610" y="78" text-anchor="middle" font-size="10.5" fill="#6b6b6b">Discord ack</text>
+<text x="610" y="98" text-anchor="middle" font-size="10.5" fill="#6b6b6b">2 URL 並列 +</text>
+<text x="610" y="113" text-anchor="middle" font-size="10.5" fill="#6b6b6b">1-tap react</text>
+<text x="610" y="128" text-anchor="middle" font-size="10.5" fill="#6b6b6b">⏸ 待機</text>
+
+<line x1="170" y1="90" x2="200" y2="90" stroke="#2b7a78" stroke-width="2" marker-end="url(#arrowS)"/>
+<line x1="340" y1="90" x2="370" y2="90" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowS)"/>
+<line x1="510" y1="90" x2="540" y2="90" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowS)"/>
+
+<text x="360" y="172" text-anchor="middle" font-size="11" fill="#6b6b6b">CMF (Change Management Framework) — destructive op の段階確認</text>
+</g>
+</svg>
+<figcaption>CMF Gate G1-G5 ステップ。各 Gate で判定基準満たせば次へ、失敗は Rollback (L1/L2/L3)。</figcaption>
+</figure>
+
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>内容</th>
+<th>判定基準</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>G1 dry-run</strong></td>
+<td>Phase 1: sample md で art-director 召喚テスト (公開せず JSON verdict
+のみ)</td>
+<td>verdict が contract 通り JSON 出力 / 評価軸 8 項目埋まる / AI
+スロップ機械チェック 5 項目稼働</td>
+</tr>
+<tr>
+<td><strong>G2 live</strong></td>
+<td>Phase 1: 質低事象 md を <code>/publish --review</code> で再
+publish</td>
+<td>art-director PASS / 新 URL 取得 / Discord ack</td>
+</tr>
+<tr>
+<td><strong>G3 24h 観測</strong></td>
+<td>art-director call 数 / cost / verdict 分布 / 暴走兆候</td>
+<td>revision 上限到達率 &lt; 30% / 1 publish 内 art-director call ≤
+3</td>
+</tr>
+<tr>
+<td><strong>G5 Discord ack</strong></td>
+<td>#results に G2 URL + 前回 URL 並列ポスト</td>
+<td>ジョニー 1-tap react ack</td>
+</tr>
+</tbody>
+</table>
+<h3 id="同時禁止確認-cmf">同時禁止確認 (CMF)</h3>
+<ul>
+<li>① API キー 2 本切替: 該当なし</li>
+<li>② MEMORY.md 同時編集: 該当なし (Plan 完了後追記)</li>
+<li>③ hook 単体テスト前 live 化: hook 改修なし (subagent 召喚は素子の
+LLM 判断経路)</li>
+<li>④ dry-run のみで本配信: G1→G2→G3→G5 順守</li>
+</ul>
+<hr />
+<h2 id="9-subagent-召喚-claudemd-必須ルール">9. subagent 召喚 (CLAUDE.md
+必須ルール)</h2>
+<table>
+<thead>
+<tr>
+<th>Subagent</th>
+<th>結果</th>
+<th>主要指摘</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>sanity-checker</strong></td>
+<td>✅ MODIFY_REQUIRED 反映済</td>
+<td>Phase 1 Explore 不要 / publish 内部 subagent 召喚経路最短 /
+publish-skill-twostep G3 archive</td>
+</tr>
+<tr>
+<td><strong>claude-docs-specialist</strong></td>
+<td>✅ OK + 重要修正</td>
+<td>subagent は subagent spawn 不可 → art-director を agents/ 新規
+(<code>skills: [designer]</code> preload) /
+<code>allowed-tools: Agent</code> 追加不要 /
+<code>disallowedTools: Write,Edit,Bash</code> + <code>maxTurns: 3</code>
++ sonnet effort low / Advisor tool Q3 重複確認</td>
+</tr>
+<tr>
+<td><strong>Plan agent</strong></td>
+<td>✅ 完成版提示</td>
+<td>3 段ゲート / contract / Phase 0-3 / Open Q 5 件、本 Plan §2-§8
+に統合</td>
+</tr>
+<tr>
+<td><strong>ai-content-ops</strong></td>
+<td>✅ Pipeline 品質観点反映</td>
+<td>根本原因 3 点 / AI スロップ 5 基準 / ジョニートーン 7 項目 /
+媒体別チェックリスト 4 媒体 / 100 章 Pipeline 将来 3 決定 (本 Plan §2-4,
+§2-5, §2-6)</td>
+</tr>
+<tr>
+<td><strong>security-auditor</strong></td>
+<td>召喚不要</td>
+<td>本改修は L1/L2 op (新規 skill / rules / subagent
+追加、外部通信なし、認証なし、destructive op なし)。Phase 3
+で動画/印刷の外部 API 連携時に再召喚</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-master-plan-display-ツリー">10. master-plan-display
+ツリー</h2>
+
+<figure class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-label="master-plan-display ツリー">
+<g font-family="SF Mono, Menlo, monospace" font-size="13" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-family="Hiragino Mincho ProN, Yu Mincho, serif">[全デザイン skill 監修ゲート統合]</text>
+<text x="40" y="58">├─ Phase 0: rules + agents 新設 + archive  </text>
+<text x="430" y="58" fill="#2b7a78" font-weight="700">✅ 完了</text>
+<text x="40" y="82">├─ Phase 1: publish Gate 3 + G1 + G2     </text>
+<text x="430" y="82" fill="#c7522a" font-weight="700">⏳ ← イマココ</text>
+<text x="60" y="106" fill="#6b6b6b">│   └ G1 dry-run                          ✅ 完了 (verdict 構造的再現)</text>
+<text x="60" y="130" fill="#6b6b6b">│   └ G2 本 Plan sample (v1→v2 revision)  ⏳ 進行中</text>
+<text x="40" y="154">├─ Phase 2: gdocs / marp / svg 横展開    </text>
+<text x="430" y="154" fill="#6b6b6b">⏸ 待機</text>
+<text x="40" y="178">└─ Phase 3: 動画 / 印刷 / コンセプト連携 </text>
+<text x="430" y="178" fill="#6b6b6b">⏸ 待機 (別 Plan 候補)</text>
+
+<text x="20" y="216" font-weight="700" font-family="Hiragino Mincho ProN, Yu Mincho, serif">[並走系統]</text>
+<text x="40" y="240" fill="#6b6b6b">└─ publish-skill-twostep G3 観察          ✅ 完了 → _archive/ 移動済</text>
+</g>
+</svg>
+<figcaption>master-plan-display ツリー。Phase 0 完了、Phase 1 G2 進行中、Phase 2/3 待機。</figcaption>
+</figure>
+
+<pre><code>[全デザイン skill 監修ゲート統合]
+├─ Phase 0: rules/design-pipeline.md + agents/art-director.md 新設    ⏳ ← イマココ (Plan 承認待ち)
+│           + publish-skill-twostep archive
+├─ Phase 1: publish skill Gate 3 組込                                ⏸ 待機 (Phase 0 完了後)
+│           └ G1 dry-run → G2 live (質低事象再 publish) → G5
+├─ Phase 2: gdocs / marp / svg 横展開                                 ⏸ 待機 (Phase 1 G2 ack 後)
+└─ Phase 3: 動画 / 印刷 / コンセプト連携                              ⏸ 待機 (Phase 2 G3 観察後、別 Plan 化候補)
+
+[並走系統]
+└─ publish-skill-twostep-2026-05-11.md G3 観察結果                ✅ 完了 → _archive/ 移動 (Phase 0-A)
+
+[将来検討 backlog]
+└─ Advisor tool (4/9 GA) との重複評価                              ⏸ Q3 着手 (Phase 2 完了後)
+
+司令塔: Plan mode → ExitPlanMode 承認 → Phase 0 ← イマココ</code></pre>
+<hr />
+<h2 id="11-critical-files-具体-diff-案">11. Critical Files 具体 diff
+案</h2>
+<h3 id="11-a-clauderulesdesign-pipelinemd-新規骨格">11-A.
+<code>~/.claude/rules/design-pipeline.md</code> (新規骨格)</h3>
+<pre class="markdown"><code># Design Pipeline — 全デザイン skill 共通の監修ゲート SSoT
+
+&gt; 2026-05-18 司令塔指示 (publish 出力質低事象起点) で新設。
+&gt; 全デザイン skill (publish/gdocs/marp-slide/svg-generator/video/print) は本 SSoT に従う。
+
+## 1. タスク分類表 (デザイン要否 × コンセプト要否)
+[本 Plan §1-4 + §2 を転記]
+
+## 2. 分類判定基準 (素子 LLM 判断規約)
+- output が「ジョニー本人が即消費する一次情報」→ デザイン不要
+- output が「他者に見せる / 媒体に乗る / 保存される」→ デザイン必要
+- 内容が「ジョニー個人向け補助」→ コンセプト不要 (brand=neutral)
+- 内容が「対外発信 / 顧客向け / プロダクト定義」→ コンセプト必要
+
+## 3. art-director subagent contract (§2-2/2-3)
+## 4. AI スロップ自動検出 (§2-4)
+## 5. ジョニー向けデフォルトトーン (§2-5)
+## 6. 媒体別品質チェックリスト (§2-6)
+## 7. skill 改修テンプレ (Gate 3 instruction ボイラープレート)
+## 8. infinite loop 防止 (§2-7)
+
+## 関連
+- ~/.claude/agents/art-director.md (subagent 本体)
+- ~/.claude/skills/designer/SKILL.md (preload 対象)
+- ~/.claude/skills/frontend-design/SKILL.md (preload 対象)
+- ~/.claude/rules/sanity-check-protocol.md (Gate 0 と整合)
+- ~/.claude/plans/publish-md-polymorphic-beacon.md (本 Plan)</code></pre>
+<h3 id="11-b-claudeagentsart-directormd-新規骨格">11-B.
+<code>~/.claude/agents/art-director.md</code> (新規骨格)</h3>
+<pre class="markdown"><code>---
+description: &quot;アートディレクター監修ゲート。生成済 artifact を 8 軸で評価し PASS/MODIFY_REQUIRED/REJECT verdict を JSON 返却する。designer + frontend-design skill を preload。&quot;
+model: sonnet
+tools: [&quot;Read&quot;, &quot;Glob&quot;, &quot;Grep&quot;, &quot;Bash&quot;]
+disallowedTools: [&quot;Write&quot;, &quot;Edit&quot;, &quot;WebFetch&quot;, &quot;Agent&quot;]
+skills: [&quot;designer&quot;, &quot;frontend-design&quot;]
+maxTurns: 3
+---
+
+# アートディレクター監修エージェント
+
+## 役割
+生成済 artifact (HTML/gdocs/pptx/svg/img) を design-pipeline.md SSoT に従って評価し、構造化 verdict JSON を返却する。
+
+## 入力 (素子が prompt で渡す)
+- medium: web-page | slide | document | banner | sign | video | print
+- artifact_path: 評価対象ファイルの絶対パス
+- concept_sheet_path (optional): /concept 出力 JSON
+- brand (optional): innfra | ourus | nigete | yakushima | neutral
+- audience: johnny | client | public
+
+## 評価手順
+### Step 1: AI スロップ自動検出 (5 項目機械チェック)
+[本 Plan §2-4 の表を実装]
+1 件以上ヒット → 該当 issue を high severity で記録
+
+### Step 2: 8 軸スコア評価
+[本 Plan §2-3 の評価軸を Read で artifact 確認しつつ採点]
+評価には designer skill (preload) の masters-analysis.md 引用 1 件以上必須
+
+### Step 3: 媒体別チェックリスト適用
+medium 別に §2-6 の 5 項目で再評価
+
+### Step 4: verdict 判定
+- PASS: score 平均 ≥ 7.5 かつ high severity = 0
+- MODIFY_REQUIRED: high 1-2 件 または平均 5.5-7.5、revision_prompt 必須
+- REJECT: high ≥ 3 件 または平均 &lt; 5.5
+
+### Step 5: 構造化 JSON で返却 (§2-3 contract)
+
+## 禁則
+- 本 subagent は Write / Edit / WebFetch / Agent を持たない (frontmatter disallowedTools)
+- 自呼び出し物理ブロック (Agent ツール所有しないため)
+- maxTurns 3 で暴走防止</code></pre>
+<h3 id="11-c-publishskillmd-diff-案">11-C. <code>publish/SKILL.md</code>
+diff 案</h3>
+<p>frontmatter 引数追加:</p>
+<pre class="diff"><code>- argument-hint: &lt;file-path&gt; [--style=plain|article|short-dialogue|minutes|nanj] [--ttl=72h|7d|forever] [--no-discord]
++ argument-hint: &lt;file-path&gt; [--style=...] [--ttl=...] [--no-discord] [--review] [--brand=innfra|ourus|nigete|yakushima|neutral]</code></pre>
+<p><code>allowed-tools</code> は <strong>変更不要</strong>
+(claude-docs-specialist 指摘: Agent はデフォルト main thread
+から呼出可能)。</p>
+<p>処理フローに Step 3.5 挿入:</p>
+<pre class="markdown"><code>### 3.5. Gate 3: アートディレクター監修 (新規、`~/.claude/rules/design-pipeline.md` 準拠)
+
+HTML 生成 (`/tmp/publish-out.html`) 後、git push 前に:
+
+1. 素子が main thread で `Agent(subagent_type=&quot;art-director&quot;, ...)` 召喚:
+   - medium: &quot;web-page&quot;
+   - artifact_path: /tmp/publish-out.html
+   - concept_sheet_path: (Gate 2 経由なら /tmp/concept-sheet.json、なければ null)
+   - brand: $BRAND (引数 or 自動推定)
+   - audience: &quot;johnny&quot; (default、内容次第で &quot;public&quot; に切替)
+2. 戻り値 verdict.verdict を分岐:
+   - PASS → Step 4 (git push) へ
+   - MODIFY_REQUIRED → verdict.revision_prompt を Step 3 (HTML 生成) に渡して再実行 (上限 2 回)
+   - REJECT → ジョニーに 3 択 AskUserQuestion (再構成 / 別 skill 提案 / 強行公開)
+3. `--review` フラグ指定時のみ PASS でも Discord #results に preview URL ポスト + react ack 待機 (G5 相当)</code></pre>
+<hr />
+<h2 id="12-day-n-着手プロンプト-中断時-resume-用">12. Day N
+着手プロンプト (中断時 Resume 用)</h2>
+<pre class="text"><code>~/.claude/plans/publish-md-polymorphic-beacon.md
+を読んで、Plan の「Phase 0」から順次実装してください。
+
+前提:
+- 引き継ぎ元セッション: (本セッション、ExitPlanMode 後の続き)
+- subagent 召喚済: sanity-checker (MODIFY 反映) / claude-docs-specialist (subagent spawn 制約反映) / Plan / ai-content-ops
+- ファイル直接 Write OK (~/.claude/{rules,agents,skills,plans}/** は deny rule 圏外)
+- backup: .bak.20260518-design-pipeline を必ず作る
+- G1 dry-run → G2 live → G5 Discord 報告
+
+Phase 0 実装内容:
+0-A: ~/.claude/plans/publish-skill-twostep-2026-05-11.md を _archive/ 移動
+0-B: ~/.claude/rules/design-pipeline.md 新規作成 (本 Plan §11-A 骨格)
+0-C: ~/.claude/agents/art-director.md 新規作成 (本 Plan §11-B 骨格)
+0-D: ~/.claude/CLAUDE.md rules/ 索引表に design-pipeline.md 追加
+0-E: kill-switch / Vault EDEADLK 状態確認
+
+Phase 0 完了後ジョニー Discord 報告 → Phase 1 (publish skill Gate 3 組込) 着手承認待ち</code></pre>
+<h2 id="resume-option">Resume Option</h2>
+<p>このプロンプトは <strong>新規セッション</strong> で実行が原則 (Phase
+0 が小規模で context 軽量化のため)。
+ただし以下のケースでは過去セッションを resume 可:</p>
+<table>
+<thead>
+<tr>
+<th>ケース</th>
+<th>経路</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本テーマで前回セッションを途中で切ってしまった</td>
+<td><code>claude --resume &lt;session-id&gt;</code></td>
+</tr>
+<tr>
+<td>iPhone から接続</td>
+<td>Claude.app の過去セッション一覧</td>
+</tr>
+</tbody>
+</table>
+<p>近接セッション (resume するとテーマ混入リスク有):</p>
+<ul>
+<li>publish-skill-twostep-2026-05-11 (G3 観察済、本 Plan に統合済)</li>
+</ul>
+<p><strong>判断基準</strong>: 新規 (推奨)。状態確認が混じる →
+resume。</p>
+<hr />
+<h2 id="関連">関連</h2>
+<ul>
+<li><a
+href="https://ikedhidenori.github.io/jp/article-31d1eac53b091adb.html">起源事象
+URL</a> — 質低判定の対照</li>
+<li><a
+href="publish-skill-twostep-2026-05-11.md">publish-skill-twostep-2026-05-11.md</a>
+— Phase 0-A で archive</li>
+<li><code>~/.claude/skills/designer/SKILL.md</code> — art-director の
+skills: preload</li>
+<li><code>~/.claude/skills/frontend-design/SKILL.md</code> — 同上、AI
+スロップ回避知見</li>
+<li><code>~/.claude/skills/concept.md</code> — Gate 2 経路</li>
+<li><code>~/.claude/rules/sanity-check-protocol.md</code> — Gate 0
+と整合</li>
+<li><code>~/.claude/rules/user-autonomy-trust.md</code> — 過剰防御撤廃
+(--review なしデフォルト即公開と整合)</li>
+<li>adoption-backlog #17 — Advisor tool GA (4/9)、Q3 重複評価</li>
+</ul>
+
+
+<div class="ttl-footer"><div class="ttl-footer" style="text-align:center;color:#888;font-size:11.5px;margin:32px 0 12px;padding:10px;border-top:1px dashed #ccc;line-height:1.6;">⏰ このページは <strong>2026-05-21 02:11 JST</strong> に自動削除されます</div></div>
+</div>
+</body>
+</html>
