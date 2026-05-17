@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>絶滅職種図鑑</title>
+<meta name="description" content="AI・技術変化で消える職種を図鑑形式でまとめるコンテンツ/事業プロジェクト。安野貴博×ひろゆき対談 (2026-04-28) を主な論拠とした最初の論点整理。">
+<style>
+:root {
+  --bg: #fbfaf8;
+  --paper: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2b7a78;
+  --accent-2: #c7522a;
+  --accent-3: #e9b44c;
+  --quote-bg: #f4ede0;
+  --border: #e8e2d8;
+  --table-head: #efe8db;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14130f;
+    --paper: #1c1b18;
+    --text: #ece8de;
+    --muted: #9a958c;
+    --accent: #6ab8b4;
+    --accent-2: #e58264;
+    --accent-3: #f1c570;
+    --quote-bg: #25231e;
+    --border: #38342d;
+    --table-head: #2a2722;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.95;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 32px 22px 80px; }
+
+/* Cover — 控えめ、写本の扉ページ風 */
+.cover {
+  margin: 24px 0 56px;
+  padding: 48px 0 36px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.cover-label {
+  font-family: "SF Mono", "Menlo", monospace;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+.cover h1.cover-title {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 18px;
+  letter-spacing: 0.08em;
+}
+.cover-sub {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 480px;
+  margin: 0 auto 22px;
+  font-style: italic;
+}
+.cover-meta {
+  font-family: "SF Mono", "Menlo", monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin-top: 14px;
+}
+@media (max-width: 480px) {
+  .cover h1.cover-title { font-size: 26px; }
+  .cover-sub { font-size: 13.5px; padding: 0 6px; }
+}
+
+/* TOC — 余白多めの 1 列 */
+.toc {
+  margin: 0 0 56px;
+  padding: 22px 26px;
+  border-left: 3px solid var(--accent);
+  background: var(--paper);
+}
+.toc-title {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.toc ol { padding-left: 0; list-style: none; counter-reset: toc; margin: 0; }
+.toc ol li {
+  counter-increment: toc;
+  padding: 6px 0 6px 32px;
+  position: relative;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+.toc ol li::before {
+  content: counter(toc, decimal-leading-zero);
+  position: absolute;
+  left: 0; top: 6px;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 11px;
+  font-family: "SF Mono", monospace;
+}
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px dashed var(--border); }
+.toc a:hover { border-bottom-color: var(--accent); color: var(--accent); }
+
+/* Headings */
+h2 {
+  font-size: 22px;
+  margin: 64px 0 18px;
+  line-height: 1.5;
+  font-weight: 700;
+  padding-left: 16px;
+  border-left: 4px solid var(--accent);
+  letter-spacing: 0.02em;
+}
+h3 {
+  font-size: 17.5px;
+  margin: 34px 0 12px;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+p {
+  margin: 16px 0;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+}
+.sans {
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", -apple-system, sans-serif;
+}
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+/* Inline */
+strong { font-weight: 700; background: linear-gradient(transparent 62%, rgba(233, 180, 76, 0.42) 62%); padding: 0 2px; }
+em { font-style: italic; color: var(--muted); }
+
+/* Quotes — 戸田奈津子エピソード等 */
+figure { margin: 28px 0; }
+blockquote {
+  background: var(--quote-bg);
+  padding: 20px 24px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.95;
+  border-left: 3px solid var(--accent);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+}
+blockquote p:first-child { margin-top: 0; }
+blockquote p:last-child { margin-bottom: 0; }
+figcaption {
+  font-family: "SF Mono", monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 8px;
+  letter-spacing: 0.1em;
+  text-align: right;
+}
+
+/* Lists */
+ul, ol { padding-left: 24px; margin: 14px 0; }
+li { margin: 7px 0; line-height: 1.85; }
+
+/* Tables — 図鑑カードとして再解釈 */
+.table-wrap { overflow-x: auto; margin: 22px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif; }
+th, td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; line-height: 1.7; }
+th { background: var(--table-head); font-weight: 700; letter-spacing: 0.02em; }
+tr:nth-child(even) td { background: rgba(0,0,0,0.015); }
+@media (prefers-color-scheme: dark) {
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+}
+
+/* Callout — 「→」結論を強調 */
+.lead {
+  margin: 18px 0 24px;
+  padding: 14px 18px 14px 22px;
+  border-left: 3px solid var(--accent-2);
+  font-size: 14.5px;
+  background: rgba(199, 82, 42, 0.06);
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  line-height: 1.85;
+}
+.lead b { color: var(--accent-2); }
+
+/* 論点関係図 SVG container */
+.diagram {
+  margin: 32px 0;
+  padding: 28px 16px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-align: center;
+}
+.diagram svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+.diagram-caption {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 14px;
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* 図鑑カード — 設計示唆セクション */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+.card {
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--paper);
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+.card-label {
+  font-family: "SF Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.card-body { color: var(--text); }
+
+/* Hr & footer */
+hr { border: none; border-top: 1px solid var(--border); margin: 48px auto; width: 50%; }
+.ttl-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin: 72px 0 12px;
+  padding: 18px 0 0;
+  border-top: 1px dashed var(--border);
+  font-family: "SF Mono", monospace;
+  letter-spacing: 0.12em;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  body { font-size: 15px; line-height: 1.9; }
+  .container { padding: 20px 16px 60px; }
+  h2 { font-size: 18.5px; margin: 48px 0 14px; }
+  h3 { font-size: 15.5px; }
+  table { font-size: 12.5px; }
+  th, td { padding: 8px 9px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ============== COVER ============== -->
+<div class="cover">
+<div class="cover-label">FIELD NOTES · INDEX</div>
+<h1 class="cover-title">絶滅職種図鑑</h1>
+<div class="cover-sub">AI・技術変化で消える職種を図鑑形式でまとめる。<br>主な論拠 — 安野貴博 × ひろゆき対談 (2026-04-28)。</div>
+<div class="cover-meta">v0.1 · 2026-04-29</div>
+</div>
+
+<!-- ============== TOC ============== -->
+<div class="toc">
+<div class="toc-title">CONTENTS</div>
+<ol>
+<li><a href="#sec1">核心的な論点 — 対談から</a></li>
+<li><a href="#sec2">絶滅 / 生存の判定軸</a></li>
+<li><a href="#sec3">職種別の予測 — 絶滅と生存</a></li>
+<li><a href="#sec4">戸田奈津子エピソード — 人間の仕事の本質</a></li>
+<li><a href="#sec5">絶滅速度の不確実性</a></li>
+<li><a href="#sec6">コンテンツ設計への示唆</a></li>
+<li><a href="#sec7">参考資料</a></li>
+</ol>
+</div>
+
+<!-- ============== SEC 1 ============== -->
+<h2 id="sec1">核心的な論点 — 対談から</h2>
+
+<p>安野貴博とひろゆきの対談 (2026-04-28) で交わされた論点は、表面上「楽観 vs 慎重」の対立に見えるが、実のところ <strong>同じ現象を別の時間スケールで切り出している</strong>。短期的には一部の業界が確実に削られ、長期的には職業の種は意外と残る。</p>
+
+<div class="diagram" role="figure" aria-labelledby="dia1-caption">
+<svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b7a78"/>
+    </marker>
+  </defs>
+  <!-- 3 nodes -->
+  <g font-family="Hiragino Sans, Yu Gothic, sans-serif" font-size="13">
+    <circle cx="120" cy="80" r="58" fill="#f4ede0" stroke="#2b7a78" stroke-width="1.5"/>
+    <text x="120" y="74" text-anchor="middle" font-weight="700" fill="#1a1a1a">論点 ①</text>
+    <text x="120" y="92" text-anchor="middle" font-size="11" fill="#6b6b6b">職業の種は残る</text>
+    <text x="120" y="106" text-anchor="middle" font-size="10.5" fill="#6b6b6b">(ひろゆき)</text>
+
+    <circle cx="320" cy="80" r="58" fill="#f4ede0" stroke="#c7522a" stroke-width="1.5"/>
+    <text x="320" y="74" text-anchor="middle" font-weight="700" fill="#1a1a1a">論点 ②</text>
+    <text x="320" y="92" text-anchor="middle" font-size="11" fill="#6b6b6b">数年以内に打撃</text>
+    <text x="320" y="106" text-anchor="middle" font-size="10.5" fill="#6b6b6b">(安野)</text>
+
+    <circle cx="520" cy="80" r="58" fill="#f4ede0" stroke="#e9b44c" stroke-width="1.5"/>
+    <text x="520" y="74" text-anchor="middle" font-weight="700" fill="#1a1a1a">論点 ③</text>
+    <text x="520" y="92" text-anchor="middle" font-size="11" fill="#6b6b6b">需要の拡大効果</text>
+    <text x="520" y="106" text-anchor="middle" font-size="10.5" fill="#6b6b6b">(両者合意)</text>
+
+    <!-- arrows -->
+    <line x1="178" y1="80" x2="262" y2="80" stroke="#2b7a78" stroke-width="1.2" marker-end="url(#arr)"/>
+    <line x1="378" y1="80" x2="462" y2="80" stroke="#2b7a78" stroke-width="1.2" marker-end="url(#arr)"/>
+
+    <!-- bottom annotation -->
+    <text x="220" y="170" text-anchor="middle" font-size="11" fill="#6b6b6b">短期では削られるが</text>
+    <text x="420" y="170" text-anchor="middle" font-size="11" fill="#6b6b6b">価格下落 → 新規需要</text>
+    <text x="320" y="210" text-anchor="middle" font-weight="700" fill="#c7522a">同じ現象、別スケール</text>
+  </g>
+</svg>
+<div class="diagram-caption">3 つの論点は対立しているように見えて、時間軸を揃えると同じ波の表面と底を見ている。</div>
+</div>
+
+<h3>論点 ① 「職業の種は残る、量が変わる」(ひろゆき)</h3>
+<ul>
+<li>「タイプライター打つだけの仕事」は消えたが、職業の構成自体は大きく変わらなかった。</li>
+<li>オフショア (インド人エンジニア) でも同じことが起きたが、職業の種は結果的に残った。</li>
+<li>中途半端な会社が潰れ、強い会社に集約される (出版業界の例: 漫画系は利益 UP)。</li>
+</ul>
+<div class="lead"><b>→</b> 「言われたことだけをやってます系の人」が減るだけ。</div>
+
+<h3>論点 ② 「ホワイトカラーへの打撃は数年以内」(安野)</h3>
+<ul>
+<li>スタンフォード CS 卒でも BigTech に入れない現象がアメリカで始まっている。</li>
+<li>翻訳業界では仕事量がすでに減少中 (最も AI が得意な領域から先に打撃)。</li>
+<li>5 年以内に人間を超える AI 到来を「体感 40–50% の確率」と予測。</li>
+</ul>
+<div class="lead"><b>→</b> セーフティネットとしての BI が必要。</div>
+
+<h3>論点 ③ 「需要の拡大効果」(両者で合意)</h3>
+<ul>
+<li>価格下落 → 新規需要が発生するメカニズム。</li>
+<li>翻訳: 多言語展開コストが下がる → 全体の翻訳量は増える。</li>
+<li>ソフトウェア: 小規模アプリも作れる → 今まで作らなかった需要が生まれる。</li>
+<li>AI を使って月 100 本 → 300 本できる翻訳者の実例。</li>
+</ul>
+
+<!-- ============== SEC 2 ============== -->
+<h2 id="sec2">絶滅 / 生存の判定軸</h2>
+
+<p>「どんな仕事が消えるか」は職種名ではなく <strong>仕事の構造</strong> で決まる。インプット・アウトプット・エラーの方向・名前の有無で 4 軸に分解すると、絶滅と生存の境界線が見えてくる。</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>判定軸</th><th>絶滅方向</th><th>生存方向</th></tr></thead>
+<tbody>
+<tr><td>インプット</td><td>純粋に数字・ルール</td><td>文脈・人間関係</td></tr>
+<tr><td>アウトプット</td><td>正解が 1 つ</td><td>判断・提案</td></tr>
+<tr><td>エラーの方向</td><td>ヒューマンエラーが損</td><td>人間的判断が得</td></tr>
+<tr><td>名前</td><td>無名・代替可能</td><td>固有名で選ばれる</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============== SEC 3 ============== -->
+<h2 id="sec3">職種別の予測 — 絶滅と生存</h2>
+
+<h3>絶滅予測</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>職種</th><th>理由</th><th>残る要素</th></tr></thead>
+<tbody>
+<tr><td>調剤薬剤師</td><td>ヒューマンエラー排除の方が得。機械の方が正確。</td><td>なし (ひろゆきは「ほぼ絶滅」)</td></tr>
+<tr><td>会計・経理の数字部分</td><td>全部数字なので自動化が得。</td><td>領収書を人から集める仕事 (コミュニケーション部分)</td></tr>
+<tr><td>保険の事務処理</td><td>数字・ルールで完結。</td><td>複雑な設計・相談部分</td></tr>
+<tr><td>名前のない翻訳家</td><td>AI + 人間チェックで代替可能。</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>生存予測</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>職種</th><th>理由</th><th>キーワード</th></tr></thead>
+<tbody>
+<tr><td>名前のある翻訳家 (戸田奈津子的な)</td><td>固有名で選ばれる。泥を被ったり文脈判断ができる。</td><td>人間的介入</td></tr>
+<tr><td>節税提案できる税理士</td><td>法律の知識 + 「その人の最大利益」の提案。</td><td>コンテキスト判断</td></tr>
+<tr><td>補助金・構造提案できる社労士 / 弁護士</td><td>会社の構造自体を変える提案。</td><td>経営的判断</td></tr>
+<tr><td>経営者・クライアントと対話する系</td><td>借手 (AI) にできないこの部分。</td><td>人間対話</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============== SEC 4 ============== -->
+<h2 id="sec4">戸田奈津子エピソード — 人間の仕事の本質</h2>
+
+<figure>
+<blockquote>
+<p>トムクルーズが来日バラエティ番組でシークレットシューズ (背を高く見せる靴) を履かされそうになった。戸田奈津子が「こんなもの履かないわよ」と止めた。</p>
+</blockquote>
+<figcaption>— 対談で語られたエピソード</figcaption>
+</figure>
+
+<p>なぜこれが人間の仕事か。</p>
+<ul>
+<li>翻訳者の仕事は本来「言葉を訳すこと」。</li>
+<li>しかし「トムクルーズの品位を守るために泥を被る」という判断は、アルゴリズムには出せない。</li>
+<li>正解は「トムクルーズを守ること」だが、表面上は「NG を出して場を止める」という行為。</li>
+<li>これが「固有名で選ばれる人間」の付加価値。</li>
+</ul>
+
+<!-- ============== SEC 5 ============== -->
+<h2 id="sec5">絶滅速度の不確実性</h2>
+
+<p>同じ素材を見ても 2 人の予測時期は大きく違う。これは「どちらが正しい」ではなく <strong>不確実性の幅</strong> として記録しておく。</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>予測</th><th>安野</th><th>ひろゆき</th></tr></thead>
+<tbody>
+<tr><td>AGI 到来</td><td>5 年以内 40–50% の確率</td><td>来るかどうかわからない</td></tr>
+<tr><td>ホワイトカラー打撃</td><td>数年以内に始まる</td><td>翻訳・ソフトウェアは先行、全体は不明</td></tr>
+<tr><td>職業の種の変化</td><td>大きく変わる</td><td>そんなに変わらない</td></tr>
+<tr><td>対応策</td><td>BI + AI 企業課税</td><td>BI 支持 (人材流動性のため)</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============== SEC 6 ============== -->
+<h2 id="sec6">コンテンツ設計への示唆</h2>
+
+<h3>図鑑フォーマット案 — 各職種ページの構造</h3>
+
+<figure>
+<div class="card-grid">
+<div class="card"><div class="card-label">RISK</div><div class="card-body"><b>絶滅危惧度</b><br>★1〜5 の階層表記。図鑑らしい記号性を担保する。</div></div>
+<div class="card"><div class="card-label">CAUSE</div><div class="card-body"><b>なぜ絶滅するか</b><br>仕事の構造的理由 (判定軸 4 つに照らして説明)。</div></div>
+<div class="card"><div class="card-label">REMNANT</div><div class="card-body"><b>何が残るか</b><br>その職種のうち AI に代替されない人間的部分。</div></div>
+<div class="card"><div class="card-label">METAMORPHOSIS</div><div class="card-body"><b>代替後の姿</b><br>その仕事が変容した形。新しい名前と仕事内容。</div></div>
+<div class="card"><div class="card-label">EXAMPLE</div><div class="card-body"><b>実例</b><br>固有名のあるリアルな事例。戸田奈津子のような象徴。</div></div>
+</div>
+<figcaption style="font-family: 'SF Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 14px; text-align: center; letter-spacing: 0.1em;">各職種ページの 5 構造要素 — Risk / Cause / Remnant / Metamorphosis / Example</figcaption>
+</figure>
+
+<h3>戦略的ポジション</h3>
+<ul>
+<li>「AI vs 人間」の対立フレームではなく <strong>「職業の進化」</strong> フレームが刺さる。</li>
+<li>ひろゆき × 安野の対立点 (楽観 vs 慎重) 自体をコンテンツ素材にできる。</li>
+<li>「数字で完結する仕事ほど絶滅する」という軸は直感的でわかりやすい。</li>
+</ul>
+
+<!-- ============== SEC 7 ============== -->
+<h2 id="sec7">参考資料</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>タイトル</th><th>URL</th><th>取得日</th></tr></thead>
+<tbody>
+<tr>
+<td>安野貴博 × ひろゆきが AI 失業について語りつくす</td>
+<td><a href="https://youtu.be/NAKLapcR1T4" target="_blank" rel="noopener">youtu.be/NAKLapcR1T4</a></td>
+<td>2026-04-29</td>
+</tr>
+<tr>
+<td>2026 年最強スキルは「クリエイティブディレクション」 (@kawai_design)</td>
+<td><a href="https://x.com/kawai_design/status/2025202679711191116" target="_blank" rel="noopener">x.com/kawai_design</a></td>
+<td>2026-04-29</td>
+</tr>
+<tr>
+<td>「広報 is Dead」 — Claude Code 実務使用者の証言 (@akihiro_nagare)</td>
+<td><a href="https://x.com/akihiro_nagare/status/2048898845023834293" target="_blank" rel="noopener">x.com/akihiro_nagare</a></td>
+<td>2026-04-29</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+<p class="sans" style="text-align: center; color: var(--muted); font-size: 13px;">作成: 2026-04-29 &nbsp;·&nbsp; 出典: 安野貴博 × ひろゆき対談 (2026-04-28)</p>
+
+<div class="ttl-footer">このページは 2026-05-21 08:02 JST に自動削除されます</div>
+
+</div>
+</body>
+</html>
