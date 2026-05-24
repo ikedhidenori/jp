@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【悲報】ワイ、Brooks 読んでも円安の理由が一ミリも理解できん</title>
+<style>
+:root {
+  --bg: #efe9d7;
+  --board: #faf4dd;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --link: #0b2a8a;
+  --link-visited: #6b1a8a;
+  --thread-title: #b30000;
+  --post-num: #228822;
+  --post-name: #006600;
+  --post-meta: #888;
+  --post-id: #555;
+  --border: #c8b88a;
+  --quote: #007050;
+  --anchor: #0b2a8a;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1813;
+    --board: #20201a;
+    --text: #d8d4c8;
+    --muted: #888577;
+    --link: #6aa0ff;
+    --link-visited: #c180ff;
+    --thread-title: #ff5a5a;
+    --post-num: #5fcf5f;
+    --post-name: #6ad06a;
+    --post-meta: #998;
+    --post-id: #aaa;
+    --border: #3a362a;
+    --quote: #4cc198;
+    --anchor: #6aa0ff;
+  }
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "Yu Gothic", "Meiryo", -apple-system, BlinkMacSystemFont, "MS PGothic", sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 12px 8px 28px;
+}
+.container { max-width: 760px; margin: 0 auto; }
+
+/* スレタイ部分 */
+.thread-header {
+  background: var(--board);
+  border: 1px solid var(--border);
+  padding: 14px 16px 12px;
+  margin: 0 0 12px;
+}
+.thread-header .crumb {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-family: "Menlo", "Monaco", monospace;
+}
+.thread-title {
+  color: var(--thread-title);
+  font-size: 19px;
+  font-weight: 700;
+  margin: 4px 0 6px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+.thread-meta {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-family: "Menlo", "Monaco", monospace;
+}
+
+/* レス本体 */
+.posts {
+  background: var(--board);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+}
+.post {
+  padding: 6px 0 10px;
+  border-bottom: 1px dotted var(--border);
+}
+.post:last-child { border-bottom: none; }
+.post-header {
+  font-size: 12.5px;
+  margin-bottom: 4px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+.post-num {
+  color: var(--post-num);
+  font-weight: 700;
+}
+.post-name {
+  color: var(--post-name);
+  font-weight: 700;
+  margin: 0 2px;
+}
+.post-meta {
+  color: var(--post-meta);
+  font-family: "Menlo", "Monaco", "Courier New", monospace;
+  font-size: 11.5px;
+}
+.post-id {
+  color: var(--post-id);
+  font-family: "Menlo", "Monaco", "Courier New", monospace;
+  font-size: 11.5px;
+}
+.post-body {
+  margin: 4px 0 0 14px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 15px;
+  line-height: 1.75;
+}
+.post-body a.anchor {
+  color: var(--anchor);
+  text-decoration: underline;
+  font-weight: 600;
+}
+.post-body strong {
+  font-weight: 700;
+  background: linear-gradient(transparent 65%, rgba(255, 220, 80, 0.6) 65%);
+  padding: 0 1px;
+}
+@media (prefers-color-scheme: dark) {
+  .post-body strong {
+    background: linear-gradient(transparent 65%, rgba(255, 220, 80, 0.25) 65%);
+  }
+}
+.post-body ul, .post-body ol {
+  margin: 4px 0 4px 0;
+  padding-left: 22px;
+}
+.post-body li { margin: 2px 0; }
+
+/* スレ末フッター */
+.thread-end {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-family: "Menlo", "Monaco", monospace;
+  margin: 16px 0 0;
+  padding: 8px;
+}
+
+/* TTL */
+.ttl-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11.5px;
+  margin: 24px 0 8px;
+  padding: 10px;
+  border-top: 1px dashed var(--border);
+  line-height: 1.6;
+  font-family: -apple-system, sans-serif;
+}
+
+@media (max-width: 480px) {
+  body { font-size: 14px; padding: 8px 4px 24px; }
+  .container { padding: 0; }
+  .thread-header { padding: 12px 12px 10px; }
+  .thread-title { font-size: 16.5px; }
+  .posts { padding: 8px 10px; }
+  .post-body { margin-left: 8px; font-size: 14px; }
+  .post-header { font-size: 11.5px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="thread-header">
+  <div class="crumb">なんでも実況J板 &gt; スレッド</div>
+  <h1 class="thread-title">【悲報】ワイ、Brooks 読んでも円安の理由が一ミリも理解できん</h1>
+  <div class="thread-meta">全 65 レス  /  2026/05/25(日) 01:14:32.18  〜  2026/05/25(日) 01:31:13.66</div>
+</div>
+
+<div class="posts">
+<div class="post" id="p1">
+  <div class="post-header">
+    <span class="post-num">1</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:14:32.18</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body">助けてクレメンス
+twitter で Robin Brooks ってオッサンが「日本円が世界最弱通貨になった」言うてて
+記事読みに行ったら「fiscal distress は bond market か currency market で表出する」とか書いてあって
+ファッ!? てなった
+ワイ中学レベルの社会科しか覚えてないんやが、誰か翻訳してくれや</div>
+</div>
+<div class="post" id="p2">
+  <div class="post-header">
+    <span class="post-num">2</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:14:51.02</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">円安は単にアメリカが金利高いからやろ</div>
+</div>
+<div class="post" id="p3">
+  <div class="post-header">
+    <span class="post-num">3</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:15:09.77</span> <span class="post-id">ID:BojN1ki9</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p2">&gt;&gt;2</a>
+Brooks「そのよくある説明は間違い」って言ってるから<a class="anchor" href="#p1">&gt;&gt;1</a> が混乱してるんやろ</div>
+</div>
+<div class="post" id="p4">
+  <div class="post-header">
+    <span class="post-num">4</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:15:28.41</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p3">&gt;&gt;3</a>
+それや
+日銀が利上げ示唆したのに円安続いてる、これは矛盾やないって書いてあって
+矛盾やろ普通に</div>
+</div>
+<div class="post" id="p5">
+  <div class="post-header">
+    <span class="post-num">5</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:15:44.66</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body">矛盾やない
+短期金利と長期金利は別物やからな
+これ分かってない奴多すぎ</div>
+</div>
+<div class="post" id="p6">
+  <div class="post-header">
+    <span class="post-num">6</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:16:02.13</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">ワイ経済学部やけど順番に説明したろか
+スレ立ったの嬉しいわ普段こんな話できる場所ないし</div>
+</div>
+<div class="post" id="p7">
+  <div class="post-header">
+    <span class="post-num">7</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:16:15.88</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">頼むで</div>
+</div>
+<div class="post" id="p8">
+  <div class="post-header">
+    <span class="post-num">8</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:16:33.42</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">ほな Step 1 から
+そもそも「お金」って何や？<a class="anchor" href="#p1">&gt;&gt;1</a></div>
+</div>
+<div class="post" id="p9">
+  <div class="post-header">
+    <span class="post-num">9</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:16:48.91</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p8">&gt;&gt;8</a>
+紙</div>
+</div>
+<div class="post" id="p10">
+  <div class="post-header">
+    <span class="post-num">10</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:17:01.55</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p9">&gt;&gt;9</a>
+正解や
+ただの紙
+でも全員が「これに価値ある」って信じてるから価値が出る
+信用ゲームなんよ</div>
+</div>
+<div class="post" id="p11">
+  <div class="post-header">
+    <span class="post-num">11</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:17:18.27</span> <span class="post-id">ID:5enT4ma9</span>
+  </div>
+  <div class="post-body">クラスで誰かが「この消しゴム 1 個でジュース 1 本」とか言い出したらそれが通貨になる的なやつか</div>
+</div>
+<div class="post" id="p12">
+  <div class="post-header">
+    <span class="post-num">12</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:17:34.10</span> <span class="post-id">ID:BojN1ki9</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p11">&gt;&gt;11</a>
+それや
+で、全員が「いや消しゴム要らんわ」になった瞬間にただの消しゴムに戻る
+お札も同じ</div>
+</div>
+<div class="post" id="p13">
+  <div class="post-header">
+    <span class="post-num">13</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:17:51.83</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">ふむふむ</div>
+</div>
+<div class="post" id="p14">
+  <div class="post-header">
+    <span class="post-num">14</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:18:09.44</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">通貨の価値 = その国の信用度の通知表
+覚えとけ<a class="anchor" href="#p1">&gt;&gt;1</a></div>
+</div>
+<div class="post" id="p15">
+  <div class="post-header">
+    <span class="post-num">15</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:18:25.71</span> <span class="post-id">ID:tonkEn3p</span>
+  </div>
+  <div class="post-body">腹減った</div>
+</div>
+<div class="post" id="p16">
+  <div class="post-header">
+    <span class="post-num">16</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:18:38.02</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p14">&gt;&gt;14</a>
+お、ええやん次は</div>
+</div>
+<div class="post" id="p17">
+  <div class="post-header">
+    <span class="post-num">17</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:18:52.33</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">Step 2 国の借金
+これも難しくない、国が「あとで利息つけて返すで」って書いた借用書を売ってるだけ
+これを「国債」って呼んでるだけや</div>
+</div>
+<div class="post" id="p18">
+  <div class="post-header">
+    <span class="post-num">18</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:19:07.85</span> <span class="post-id">ID:5enT4ma9</span>
+  </div>
+  <div class="post-body">ワイが友達に「10 万貸して、来年 10 万 5 千で返す」って紙書いて渡すのと同じか？</div>
+</div>
+<div class="post" id="p19">
+  <div class="post-header">
+    <span class="post-num">19</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:19:21.40</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p18">&gt;&gt;18</a>
+完全に同じ
+それを国レベルでやってるのが国債
+銀行とか保険会社とか年金とか外国人投資家が買ってる
+そして<strong>日本銀行（BoJ）が半分以上持ってる</strong></div>
+</div>
+<div class="post" id="p20">
+  <div class="post-header">
+    <span class="post-num">20</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:19:35.18</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body">ここから話が変わってくる</div>
+</div>
+<div class="post" id="p21">
+  <div class="post-header">
+    <span class="post-num">21</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:19:48.66</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">それ普通の銀行と違うんか日銀って</div>
+</div>
+<div class="post" id="p22">
+  <div class="post-header">
+    <span class="post-num">22</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:20:02.91</span> <span class="post-id">ID:BojN1ki9</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p21">&gt;&gt;21</a>
+全然違う
+日銀は「銀行の銀行」やで
+普通の人は日銀に口座持てん</div>
+</div>
+<div class="post" id="p23">
+  <div class="post-header">
+    <span class="post-num">23</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:20:19.30</span> <span class="post-id">ID:tonkEn3p</span>
+  </div>
+  <div class="post-body">ワイの口座も日銀にあったら金利つくんかな</div>
+</div>
+<div class="post" id="p24">
+  <div class="post-header">
+    <span class="post-num">24</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:20:27.55</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body">つかん</div>
+</div>
+<div class="post" id="p25">
+  <div class="post-header">
+    <span class="post-num">25</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:20:42.18</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body">で、Step 3 が金利やろ？
+金利って何やねん本当に
+銀行で見るアレやろ？</div>
+</div>
+<div class="post" id="p26">
+  <div class="post-header">
+    <span class="post-num">26</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:21:01.74</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">金利 = お金のレンタル料
+家借りたら家賃払うやろ？それのお金版</div>
+</div>
+<div class="post" id="p27">
+  <div class="post-header">
+    <span class="post-num">27</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:21:14.22</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">で、ここからが Brooks の話の心臓部やが
+<strong>短期金利と長期金利は別物</strong></div>
+</div>
+<div class="post" id="p28">
+  <div class="post-header">
+    <span class="post-num">28</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:21:30.91</span> <span class="post-id">ID:5enT4ma9</span>
+  </div>
+  <div class="post-body">何が違うん？</div>
+</div>
+<div class="post" id="p29">
+  <div class="post-header">
+    <span class="post-num">29</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:21:48.13</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body"><ul>
+<li>短期金利（1 年以内）= 中央銀行が決める</li>
+<li>長期金利（10 年・30 年）= 本来は市場が決める</li>
+</ul>
+
+ここ大事や
+日銀がコントロールできるのは短期だけ
+長期は「世界が日本をどう見てるか」が出る</div>
+</div>
+<div class="post" id="p30">
+  <div class="post-header">
+    <span class="post-num">30</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:22:03.55</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body">ほー</div>
+</div>
+<div class="post" id="p31">
+  <div class="post-header">
+    <span class="post-num">31</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:22:18.27</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body">で、通貨に効くのは長期金利のほうな
+これ理由分かる？</div>
+</div>
+<div class="post" id="p32">
+  <div class="post-header">
+    <span class="post-num">32</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:22:33.40</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p31">&gt;&gt;31</a>
+わからん</div>
+</div>
+<div class="post" id="p33">
+  <div class="post-header">
+    <span class="post-num">33</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:22:48.18</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p32">&gt;&gt;32</a>
+通貨を持つって「この国に長い時間お金置いとく」ってことやから
+1 ヶ月後にどうなるかじゃなくて 10 年後・30 年後にどうなるかが効くんよ</div>
+</div>
+<div class="post" id="p34">
+  <div class="post-header">
+    <span class="post-num">34</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:23:05.66</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">なるほどな</div>
+</div>
+<div class="post" id="p35">
+  <div class="post-header">
+    <span class="post-num">35</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:23:18.91</span> <span class="post-id">ID:tonkEn3p</span>
+  </div>
+  <div class="post-body">（このスレ読みながらカップ麺食ってる）</div>
+</div>
+<div class="post" id="p36">
+  <div class="post-header">
+    <span class="post-num">36</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:23:34.27</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">Step 4 行くで
+日銀（BoJ）が何やってるか
+3 つだけ覚えればええ
+1. 短期金利を上げ下げできる
+2. 国債を買える/売れる
+3. 長期国債を大量に買うと長期金利を下げられる</div>
+</div>
+<div class="post" id="p37">
+  <div class="post-header">
+    <span class="post-num">37</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:23:51.13</span> <span class="post-id">ID:5enT4ma9</span>
+  </div>
+  <div class="post-body">3 番が今の日本やな？</div>
+</div>
+<div class="post" id="p38">
+  <div class="post-header">
+    <span class="post-num">38</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:24:08.40</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p37">&gt;&gt;37</a>
+そう
+日銀は今も長期国債を大量に買い続けてて、長期金利を不自然に低く抑えてる</div>
+</div>
+<div class="post" id="p39">
+  <div class="post-header">
+    <span class="post-num">39</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:24:23.18</span> <span class="post-id">ID:BojN1ki9</span>
+  </div>
+  <div class="post-body">メルカリで例えるとな
+1000 円のはずの商品があって、1 人の超大金持ちが「絶対 100 円までしか払わん」って買い占め続けたら
+相場が 100 円のまま固定される
+それの国債版</div>
+</div>
+<div class="post" id="p40">
+  <div class="post-header">
+    <span class="post-num">40</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:24:38.91</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body">ほぉぉぉ</div>
+</div>
+<div class="post" id="p41">
+  <div class="post-header">
+    <span class="post-num">41</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:24:52.55</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body">それ大金持ちが買うのやめたら相場戻るやん？</div>
+</div>
+<div class="post" id="p42">
+  <div class="post-header">
+    <span class="post-num">42</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:25:10.18</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body"><a class="anchor" href="#p41">&gt;&gt;41</a>
+そう、やめた瞬間に長期金利が本来の水準に戻って跳ね上がる
+だから日銀はやめられん</div>
+</div>
+<div class="post" id="p43">
+  <div class="post-header">
+    <span class="post-num">43</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:25:24.40</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">詰んでて草</div>
+</div>
+<div class="post" id="p44">
+  <div class="post-header">
+    <span class="post-num">44</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:25:38.77</span> <span class="post-id">ID:tonkEn3p</span>
+  </div>
+  <div class="post-body">（無視されてた）</div>
+</div>
+<div class="post" id="p45">
+  <div class="post-header">
+    <span class="post-num">45</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:25:55.12</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">で、最後の Step 5 が為替や
+為替 = 通貨同士の交換レート、これは知ってるよな
+1 ドル何円みたいなアレ</div>
+</div>
+<div class="post" id="p46">
+  <div class="post-header">
+    <span class="post-num">46</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:26:11.40</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body">それは分かる</div>
+</div>
+<div class="post" id="p47">
+  <div class="post-header">
+    <span class="post-num">47</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:26:28.18</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">ここで Brooks の言いたいことが繋がるんやが
+
+風船を想像してくれ
+<ul>
+<li>国の財政が悪化すると風船に水が増える（圧力が増す）</li>
+<li>普通なら「長期金利が上がる」って穴から圧力が抜ける</li>
+<li>でも日銀がその穴を塞いでる</li>
+<li>行き場をなくした圧力は「通貨が安くなる」って別の穴から抜ける</li>
+</ul></div>
+</div>
+<div class="post" id="p48">
+  <div class="post-header">
+    <span class="post-num">48</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:26:45.91</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body">えっ</div>
+</div>
+<div class="post" id="p49">
+  <div class="post-header">
+    <span class="post-num">49</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:26:58.27</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body">ファッ!? 円安ってそういうことなん？</div>
+</div>
+<div class="post" id="p50">
+  <div class="post-header">
+    <span class="post-num">50</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:27:14.55</span> <span class="post-id">ID:BojN1ki9</span>
+  </div>
+  <div class="post-body">そうやで
+日本の借金不安が長期金利に出られへんから、為替に漏れ出してるだけ
+これが Brooks の言う「fiscal distress は bond か currency のどっちかで必ず表出する」っちゅう話</div>
+</div>
+<div class="post" id="p51">
+  <div class="post-header">
+    <span class="post-num">51</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:27:30.22</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body">保存則やな
+水の量は同じ
+出口が違うだけ</div>
+</div>
+<div class="post" id="p52">
+  <div class="post-header">
+    <span class="post-num">52</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:27:46.18</span> <span class="post-id">ID:5enT4ma9</span>
+  </div>
+  <div class="post-body">ええ話やん</div>
+</div>
+<div class="post" id="p53">
+  <div class="post-header">
+    <span class="post-num">53</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:27:59.91</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">じゃあ日銀が国債買うのやめたら円高になるんか？</div>
+</div>
+<div class="post" id="p54">
+  <div class="post-header">
+    <span class="post-num">54</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:28:18.40</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body">理論上はそう
+でも長期金利が跳ねるから財政が詰む
+だからやめられん</div>
+</div>
+<div class="post" id="p55">
+  <div class="post-header">
+    <span class="post-num">55</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:28:34.27</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">要するに「長期金利を抑える」か「円安を許容する」かのトレードオフ
+日本は前者を選び続けてる、それだけのこと</div>
+</div>
+<div class="post" id="p56">
+  <div class="post-header">
+    <span class="post-num">56</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:28:51.55</span> <span class="post-id">ID:BojN1ki9</span>
+  </div>
+  <div class="post-body">ここまで構造で見ると「いつまで続くんや」じゃなくて「日銀が買い続ける限り続く」って分かる
+短期の為替ニュースに振り回されんでよくなる</div>
+</div>
+<div class="post" id="p57">
+  <div class="post-header">
+    <span class="post-num">57</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:29:08.18</span> <span class="post-id">ID:tonkEn3p</span>
+  </div>
+  <div class="post-body">で、結局ワイらは何したらええん</div>
+</div>
+<div class="post" id="p58">
+  <div class="post-header">
+    <span class="post-num">58</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:29:24.40</span> <span class="post-id">ID:fxNek1Lz</span>
+  </div>
+  <div class="post-body">それは Brooks も書いてない
+記事の最後「The most obvious one is...」で paywall や</div>
+</div>
+<div class="post" id="p59">
+  <div class="post-header">
+    <span class="post-num">59</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:29:38.91</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">有料の壁の向こうに答えあるパターンやめろ</div>
+</div>
+<div class="post" id="p60">
+  <div class="post-header">
+    <span class="post-num">60</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:29:55.27</span> <span class="post-id">ID:hM3kPq7w</span>
+  </div>
+  <div class="post-body"><span class="anchor">&gt;&gt;tarOkO2x</span> ニキと <span class="anchor">&gt;&gt;BojN1ki9</span> ニキと <span class="anchor">&gt;&gt;fxNek1Lz</span> ニキありがとう
+ワイようやく Brooks 読めそうや</div>
+</div>
+<div class="post" id="p61">
+  <div class="post-header">
+    <span class="post-num">61</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:30:11.13</span> <span class="post-id">ID:tarOkO2x</span>
+  </div>
+  <div class="post-body">最後にもう一度翻訳すると
+「日本は借金多い。普通なら長期金利上がるはずやが、日銀が大量に国債買って金利を抑えてる。
+抑えてる代わりに、市場の不安は円安として漏れ出してる。
+円安はガソリン高として個人を直撃するけど、その正体は日本の財政不安が為替の窓から漏れてるってこと」
+
+これだけや</div>
+</div>
+<div class="post" id="p62">
+  <div class="post-header">
+    <span class="post-num">62</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:30:28.41</span> <span class="post-id">ID:5enT4ma9</span>
+  </div>
+  <div class="post-body">保存したわ</div>
+</div>
+<div class="post" id="p63">
+  <div class="post-header">
+    <span class="post-num">63</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:30:42.18</span> <span class="post-id">ID:k0maRu88</span>
+  </div>
+  <div class="post-body">で、大谷は</div>
+</div>
+<div class="post" id="p64">
+  <div class="post-header">
+    <span class="post-num">64</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:30:55.40</span> <span class="post-id">ID:tonkEn3p</span>
+  </div>
+  <div class="post-body">カップ麺おかわりしてくる</div>
+</div>
+<div class="post" id="p65">
+  <div class="post-header">
+    <span class="post-num">65</span>
+    <span class="post-name">:風吹けば名無し:</span><span class="post-meta">2026/05/25(日) 01:31:13.66</span> <span class="post-id">ID:BojN1ki9</span>
+  </div>
+  <div class="post-body">解散</div>
+</div>
+</div>
+
+<div class="thread-end">─── このスレは終了しました ───</div>
+
+<div class="ttl-footer">⏰ このページは <strong>2026-05-28 00:58 JST</strong> に自動削除されます</div>
+
+</div>
+</body>
+</html>
