@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>中野邸 中庭計画 ご提案 — INNFRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7;
+    --ink:#1A1A1A;
+    --warm:#8B7D6B;
+    --warm-soft:#C9C0B3;
+    --marker:#F5E6A8;
+    --rule:#E8E3DA;
+    --slide-w:1920px;
+    --slide-h:1080px;
+    --mx:80px;
+    --base:8px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:#2A2A28;
+    font-family:"Noto Sans JP","IBM Plex Sans",sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  body{
+    display:flex;justify-content:center;align-items:center;
+    min-height:100vh;
+  }
+
+  /* deck container — scales 1920×1080 to viewport */
+  .deck{
+    width:var(--slide-w);
+    height:var(--slide-h);
+    position:relative;
+    transform-origin:center center;
+  }
+
+  .slide{
+    width:var(--slide-w);
+    height:var(--slide-h);
+    background:var(--paper);
+    color:var(--ink);
+    position:absolute;
+    inset:0;
+    padding:80px var(--mx) 64px var(--mx);
+    display:none;
+    flex-direction:column;
+    font-family:"Noto Sans JP","IBM Plex Sans",sans-serif;
+    font-weight:300;
+    line-height:1.7;
+  }
+  .slide.active{display:flex}
+
+  /* typography */
+  .eyebrow{
+    font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;
+    font-size:14pt;letter-spacing:.18em;color:var(--warm);
+    text-transform:uppercase;font-weight:400;
+    margin-bottom:24px;
+  }
+  h1.slide-title{
+    font-size:56pt;line-height:1.25;font-weight:400;
+    letter-spacing:-.01em;color:var(--ink);
+    margin-bottom:8px;
+  }
+  h1.slide-title .en{
+    display:block;font-family:"IBM Plex Sans",sans-serif;
+    font-size:18pt;letter-spacing:.06em;color:var(--warm);
+    font-weight:300;margin-top:16px;
+  }
+  h2{
+    font-size:32pt;font-weight:400;line-height:1.35;
+    color:var(--ink);margin-bottom:16px;letter-spacing:-.005em;
+  }
+  h3{
+    font-size:22pt;font-weight:500;line-height:1.4;
+    color:var(--ink);margin-bottom:12px;
+  }
+  p,li{font-size:20pt;line-height:1.8;color:var(--ink);font-weight:300}
+  small,.note{font-size:14pt;line-height:1.7;color:var(--warm);font-weight:300}
+
+  .marker{
+    background:linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%);
+    font-weight:500;padding:0 .15em;
+  }
+  .em{font-weight:500}
+  .num{font-family:"IBM Plex Sans",sans-serif;font-feature-settings:"tnum" on}
+
+  /* layout primitives */
+  .row{display:grid;gap:64px;flex:1;align-items:start}
+  .split-left{grid-template-columns:1.05fr 1fr}
+  .split-right{grid-template-columns:1fr 1.05fr}
+  .col{display:flex;flex-direction:column;gap:24px;min-width:0}
+
+  /* image / placeholder */
+  .image-frame{
+    width:100%;height:100%;min-height:680px;
+    background:#F0EDE5;border:1px solid var(--rule);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .image-frame img{width:100%;height:100%;object-fit:cover;display:block}
+  .image-placeholder{
+    font-family:"IBM Plex Sans",monospace;
+    font-size:14pt;color:var(--warm);letter-spacing:.04em;
+    border:1px dashed var(--warm-soft);
+    padding:32px 40px;background:transparent;
+  }
+  figcaption{
+    font-size:14pt;color:var(--warm);font-style:italic;
+    margin-top:8px;line-height:1.6;
+  }
+
+  /* data list */
+  .data-list{display:flex;flex-direction:column;gap:20px}
+  .data-row{
+    display:grid;grid-template-columns:140px 1fr;gap:24px;
+    padding-bottom:16px;border-bottom:1px solid var(--rule);
+  }
+  .data-row:last-child{border-bottom:none}
+  .data-key{
+    font-family:"IBM Plex Sans",sans-serif;
+    font-size:14pt;color:var(--warm);letter-spacing:.04em;
+    text-transform:uppercase;font-weight:400;padding-top:8px;
+  }
+  .data-val{font-size:18pt;line-height:1.7;color:var(--ink)}
+
+  .bullets{display:flex;flex-direction:column;gap:14px;list-style:none}
+  .bullets li{
+    font-size:18pt;line-height:1.7;color:var(--ink);
+    padding-left:28px;position:relative;
+  }
+  .bullets li::before{
+    content:"";position:absolute;left:0;top:.85em;
+    width:14px;height:1px;background:var(--warm);
+  }
+
+  /* spec block */
+  .spec-block{
+    padding:24px 28px;background:#F4F1EA;border-left:2px solid var(--warm);
+  }
+  .spec-block h3{font-size:18pt;margin-bottom:8px;color:var(--warm);font-weight:500;letter-spacing:.04em}
+  .spec-block p{font-size:17pt;line-height:1.65}
+
+  /* price tag */
+  .price-tag{
+    display:flex;align-items:baseline;gap:16px;
+    margin-bottom:8px;font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;
+  }
+  .price-tag .yen{font-size:14pt;color:var(--warm)}
+  .price-tag .amount{
+    font-size:48pt;font-weight:300;letter-spacing:-.02em;
+    font-feature-settings:"tnum" on;color:var(--ink);
+  }
+  .price-tag .unit{font-size:18pt;color:var(--warm)}
+
+  /* comparison table */
+  table.compare{
+    width:100%;border-collapse:collapse;font-size:16pt;
+    margin-top:16px;
+  }
+  table.compare th,table.compare td{
+    padding:18px 20px;text-align:left;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;line-height:1.55;font-weight:300;
+  }
+  table.compare thead th{
+    font-family:"IBM Plex Sans",sans-serif;
+    font-size:14pt;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--warm);font-weight:400;
+    border-bottom:1px solid var(--warm-soft);
+    padding-bottom:12px;
+  }
+  table.compare tbody th{
+    font-size:14pt;letter-spacing:.04em;color:var(--warm);
+    font-weight:400;text-transform:uppercase;width:160px;
+    padding-top:20px;
+  }
+  table.compare td{font-size:16pt;color:var(--ink);width:auto}
+  table.compare tr.price-row td{
+    background:linear-gradient(transparent 30%, var(--marker) 30%, var(--marker) 90%, transparent 90%);
+    font-weight:500;font-size:18pt;
+  }
+  table.compare tr.price-row th{background:transparent}
+
+  /* hearing list */
+  .hearing-list{display:flex;flex-direction:column;gap:18px}
+  .hearing-item{
+    display:grid;grid-template-columns:60px 1fr;gap:20px;
+    padding:16px 0;border-bottom:1px solid var(--rule);
+  }
+  .hearing-item:last-child{border-bottom:none}
+  .hearing-num{
+    font-family:"IBM Plex Sans",sans-serif;font-size:18pt;
+    color:var(--warm);font-feature-settings:"tnum" on;
+    padding-top:4px;
+  }
+  .hearing-q{font-size:18pt;color:var(--ink);font-weight:400;line-height:1.5;margin-bottom:4px}
+  .hearing-hint{font-size:13pt;color:var(--warm);line-height:1.5;font-weight:300}
+
+  /* timeline */
+  .timeline{
+    margin-top:48px;display:grid;grid-template-columns:repeat(5,1fr);
+    gap:0;position:relative;padding:0 20px;
+  }
+  .timeline::before{
+    content:"";position:absolute;left:80px;right:80px;top:48px;
+    height:1px;background:var(--warm-soft);
+  }
+  .tl-step{
+    display:flex;flex-direction:column;align-items:center;gap:16px;
+    text-align:center;position:relative;padding:0 12px;
+  }
+  .tl-dot{
+    width:18px;height:18px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--warm);
+    position:relative;z-index:2;margin-top:38px;
+  }
+  .tl-step:first-child .tl-dot,.tl-step:last-child .tl-dot{background:var(--warm)}
+  .tl-num{
+    font-family:"IBM Plex Sans",sans-serif;font-size:14pt;
+    color:var(--warm);letter-spacing:.08em;margin-top:8px;
+  }
+  .tl-label{font-size:18pt;font-weight:500;color:var(--ink);line-height:1.4}
+  .tl-date{font-size:14pt;color:var(--warm);font-family:"IBM Plex Sans",sans-serif;font-feature-settings:"tnum" on}
+  .tl-dur{font-size:13pt;color:var(--warm);font-style:italic}
+
+  /* footer */
+  .footer{
+    position:absolute;left:var(--mx);right:var(--mx);bottom:32px;
+    display:flex;justify-content:space-between;align-items:flex-end;
+    font-size:12pt;color:var(--warm);font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;
+    letter-spacing:.04em;font-weight:300;
+    padding-top:16px;border-top:1px solid var(--rule);
+  }
+  .footer .meta{font-feature-settings:"tnum" on}
+
+  /* counter */
+  .counter{
+    position:fixed;right:32px;bottom:24px;z-index:100;
+    font-family:"IBM Plex Sans",monospace;font-size:14pt;
+    color:#FAFAF7;letter-spacing:.08em;
+    font-feature-settings:"tnum" on;
+    background:rgba(0,0,0,.35);padding:8px 14px;border-radius:2px;
+    backdrop-filter:blur(4px);
+  }
+
+  /* cover (slide 1 specific style) */
+  .slide.cover .row{align-items:stretch}
+  .slide.cover .image-frame{min-height:920px}
+
+  /* schedule slide layout */
+  .slide.schedule{justify-content:flex-start}
+  .slide.schedule .note-block{
+    margin-top:auto;padding:24px 32px;background:#F4F1EA;
+    border-left:2px solid var(--warm);max-width:1100px;
+  }
+
+  /* hearing slide */
+  .slide.hearing .image-frame{min-height:880px}
+  .slide.hearing .intro{font-size:18pt;color:var(--warm);margin-bottom:24px;line-height:1.7;max-width:680px}
+
+  /* compare slide */
+  .slide.compare{padding-bottom:80px}
+  .slide.compare .table-note{
+    margin-top:20px;font-size:13pt;color:var(--warm);
+    font-style:italic;line-height:1.6;
+  }
+
+  /* helper */
+  .stack-sm{display:flex;flex-direction:column;gap:8px}
+  .stack-md{display:flex;flex-direction:column;gap:20px}
+  .stack-lg{display:flex;flex-direction:column;gap:32px}
+
+  /* print */
+  @media print{
+    @page{size:1920px 1080px;margin:0}
+    html,body{background:#FFFFFF;overflow:visible}
+    body{display:block;min-height:auto}
+    .deck{transform:none !important;width:auto;height:auto}
+    .slide{
+      display:flex !important;position:relative;inset:auto;
+      page-break-after:always;break-after:page;
+      box-shadow:none;
+    }
+    .slide:last-child{page-break-after:auto}
+    .counter,.nav-hint{display:none !important}
+    .image-frame{background:#F4F1EA;border-color:#D8D2C5}
+  }
+
+  /* small nav hint */
+  .nav-hint{
+    position:fixed;left:32px;bottom:24px;z-index:100;
+    font-family:"IBM Plex Sans",monospace;font-size:11pt;
+    color:#FAFAF7;opacity:.55;letter-spacing:.08em;
+    background:rgba(0,0,0,.35);padding:8px 14px;border-radius:2px;
+    backdrop-filter:blur(4px);
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- ============ SLIDE 01 ============ -->
+  <section class="slide cover active" data-i="1">
+    <div class="eyebrow">Brief — 与件</div>
+    <h1 class="slide-title">中野邸 中庭計画<span class="en">Courtyard Programme for the Nakano Residence, Kiyosato</span></h1>
+
+    <div class="row split-left" style="margin-top:48px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="../parse/images/courtyard_plan.png" alt="中庭平面図" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[courtyard_plan.png — 中庭平面図]&lt;/div&gt;')">
+          </div>
+          <figcaption>中庭平面図 (北壁 7m / 西壁 4–7m + 下端 pilotis ~3m)</figcaption>
+        </figure>
+      </div>
+
+      <div class="col">
+        <h2>187㎡の中庭を、<br>暮らしの場へ。</h2>
+
+        <div class="data-list" style="margin-top:24px">
+          <div class="data-row">
+            <div class="data-key">寸法</div>
+            <div class="data-val"><span class="num">17m × 11m</span> ／ <span class="num">187㎡</span></div>
+          </div>
+          <div class="data-row">
+            <div class="data-key">壁面</div>
+            <div class="data-val">北壁 <span class="num">7m</span> ／ 西壁 <span class="num">4–7m</span><br>西壁下端 pilotis <span class="num">~3m</span></div>
+          </div>
+          <div class="data-row">
+            <div class="data-key">既存建物</div>
+            <div class="data-val">清里フォトアートミュージアム<br><small>栗生明設計 / 1998 / 4 階建</small></div>
+          </div>
+          <div class="data-row">
+            <div class="data-key">想定利用</div>
+            <div class="data-val">大人 <span class="num">2</span> 名 + ゲスト<br>宿泊・滞在・ギャラリー連携<br><small>週末および季節滞在</small></div>
+          </div>
+          <div class="data-row">
+            <div class="data-key">躯体候補</div>
+            <div class="data-val">IZH (主軸) ／ MUJI HUT ／ MOKUJIKU</div>
+          </div>
+          <div class="data-row">
+            <div class="data-key">搬入制約</div>
+            <div class="data-val">西壁下 pilotis 経由 ／ 開口 <span class="num">~3m</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 01</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 02 — Plan A ============ -->
+  <section class="slide" data-i="2">
+    <div class="eyebrow">Plan A — 完全独立 L 字配置</div>
+
+    <div class="price-tag">
+      <span class="yen">JPY</span>
+      <span class="amount">50,000,000</span>
+      <span class="unit">/ 5,000 万円</span>
+    </div>
+    <h2>水回り棟 + リビング棟、<br>中庭で完結する <span class="marker">独立宿泊空間</span>。</h2>
+
+    <div class="row split-left" style="margin-top:32px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="../parse/images/planA_v6.png" alt="プラン A 配置図" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[planA_v6.png]&lt;/div&gt;')">
+          </div>
+          <figcaption>L 字配置 / 北西角接続 / 中庭側に L 字デッキ展開</figcaption>
+        </figure>
+      </div>
+
+      <div class="col stack-md">
+        <div class="spec-block">
+          <h3>IZH ユーティリティ棟</h3>
+          <p>西壁沿い <span class="num">6.12m × 2.37m</span>。水循環システム / シャワー / バイオトイレ / PV <span class="num">3kW</span> + 蓄電 <span class="num">24kWh</span>。</p>
+        </div>
+
+        <div class="spec-block">
+          <h3>IZH リビング棟</h3>
+          <p>北壁沿い <span class="num">6.12m × 2.37m</span>。寝室 / リビング / ダイニング / PV <span class="num">1.5kW</span> + 蓄電 <span class="num">15kWh</span>。</p>
+        </div>
+
+        <div class="spec-block">
+          <h3>L 字デッキ</h3>
+          <p>2 棟を結ぶ <span class="num">30㎡</span>。ソファ / ローテーブル / 焚き火台。北西角を起点に中庭中央へ伸びる構成。</p>
+        </div>
+
+        <p class="note" style="margin-top:8px">既存建物への接続なし。ライフライン独立。建築確認不要 (IZH = 車両扱い)。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 02</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 03 — Plan B ============ -->
+  <section class="slide" data-i="3">
+    <div class="eyebrow">Plan B — 灰スチール基幹 + 浴槽</div>
+
+    <div class="price-tag">
+      <span class="yen">JPY</span>
+      <span class="amount">40,000,000</span>
+      <span class="unit">/ 4,000 万円</span>
+    </div>
+    <h2>水処理基幹を分離し、<br>居住棟に <span class="marker">檜の浴槽</span> を据える。</h2>
+
+    <div class="row split-left" style="margin-top:32px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="../parse/images/planB_v6.png" alt="プラン B 配置図" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[planB_v6.png]&lt;/div&gt;')">
+          </div>
+          <figcaption>L 字配置 / INNFRA Base + IZH リビング棟 / 木製浴槽併設</figcaption>
+        </figure>
+      </div>
+
+      <div class="col stack-md">
+        <div class="spec-block">
+          <h3>INNFRA Base (灰スチール)</h3>
+          <p>西壁沿い <span class="num">3.6m × 2.4m</span>。水循環 / 雨水収集。建材は灰スチール仕上げ、中庭の石壁と調和。</p>
+        </div>
+
+        <div class="spec-block">
+          <h3>IZH リビング棟</h3>
+          <p>北壁沿い <span class="num">6.12m × 2.37m</span>。寝室 / シャワー / バイオトイレ / キッチン。生活機能を 1 棟に集約。</p>
+        </div>
+
+        <div class="spec-block">
+          <h3>L 字デッキ + 木製浴槽</h3>
+          <p>檜製浴槽 <span class="num">1.5m × 1m × 0.7m</span>。デッキ南端に半埋設、空を眺める入浴体験。</p>
+        </div>
+
+        <p class="note" style="margin-top:8px">水処理棟を小型化することでコスト低減。基幹機能は維持。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 03</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 04 — Plan C ============ -->
+  <section class="slide" data-i="4">
+    <div class="eyebrow">Plan C — 既存ギャラリー連携</div>
+
+    <div class="price-tag">
+      <span class="yen">JPY</span>
+      <span class="amount">30,000,000</span>
+      <span class="unit">/ 3,000 万円</span>
+    </div>
+    <h2>寝室は既存ギャラリーへ。<br>中庭は <span class="marker">水回りとデッキ</span> に。</h2>
+
+    <div class="row split-left" style="margin-top:32px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="../parse/images/planC_v6.png" alt="プラン C 配置図" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[planC_v6.png]&lt;/div&gt;')">
+          </div>
+          <figcaption>IZH ユーティリティ棟 (北壁西寄り) + L/T 字デッキ / 寝室は既存内部</figcaption>
+        </figure>
+      </div>
+
+      <div class="col stack-md">
+        <div class="spec-block">
+          <h3>IZH ユーティリティ棟</h3>
+          <p>北壁の西寄りに配置。水回りを集約。設備パッケージは Plan A の水回り棟に準じる。</p>
+        </div>
+
+        <div class="spec-block">
+          <h3>寝室 — 既存ギャラリー内部</h3>
+          <p>既存建物内の一室を寝室として活用。フォトアートミュージアムの内部空間を生活に組み込む。</p>
+        </div>
+
+        <div class="spec-block">
+          <h3>L / T 字デッキ</h3>
+          <p>面積 <span class="num">32㎡</span>。IZH 棟から東側ガラスドアまで連続。中庭と既存建物を物理的につなぐ動線。</p>
+        </div>
+
+        <p class="note" style="margin-top:8px">既存建物の改装が並行発生。完成 1–2 ヶ月遅延を見込む。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 04</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 05 — Plan C' ============ -->
+  <section class="slide" data-i="5">
+    <div class="eyebrow">Plan C′ — 浄化槽地中化</div>
+
+    <div class="price-tag">
+      <span class="yen">JPY</span>
+      <span class="amount">30,000,000</span>
+      <span class="unit">/ 3,000 万円</span>
+    </div>
+    <h2>浄化槽を地中へ。<br>清里の冬を見据えた <span class="marker">凍結対策</span>。</h2>
+
+    <div class="row split-left" style="margin-top:32px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="../parse/images/planCprime_v6.png" alt="プラン C′ 配置図" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[planCprime_v6.png]&lt;/div&gt;')">
+          </div>
+          <figcaption>プラン C と同一構成 / 浄化槽はデッキ南端の地中へ</figcaption>
+        </figure>
+      </div>
+
+      <div class="col stack-md">
+        <div class="spec-block">
+          <h3>構成 — Plan C と同一</h3>
+          <p>IZH ユーティリティ棟 / 既存ギャラリー寝室 / L・T 字デッキ <span class="num">32㎡</span>。建物配置は変えない。</p>
+        </div>
+
+        <div class="spec-block">
+          <h3>差分 — 浄化槽地中設置</h3>
+          <p>デッキ南端の地中に埋設。地上は芝生盛り土 <span class="num">1.5m × 1.5m × 0.3m</span> で覆い、中庭の連続性を保つ。</p>
+        </div>
+
+        <div class="spec-block">
+          <h3>採用理由</h3>
+          <p>清里冬季 (氷点下 <span class="num">-10℃</span> 想定) での凍結リスク回避。地表設備を減らし、中庭の見え方も整理。</p>
+        </div>
+
+        <p class="note" style="margin-top:8px">地中工事 1 週間の追加。本体価格は Plan C と同等。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 05</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 06 — Compare ============ -->
+  <section class="slide compare" data-i="6">
+    <div class="eyebrow">Comparison — 4 案比較</div>
+    <h1 class="slide-title" style="font-size:42pt;margin-bottom:24px">並べて、選ぶ。<span class="en">A / B / C / C′</span></h1>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Plan A</th>
+          <th>Plan B</th>
+          <th>Plan C / C′</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="price-row">
+          <th>価格</th>
+          <td><span class="num">5,000</span> 万円</td>
+          <td><span class="num">4,000</span> 万円</td>
+          <td><span class="num">3,000</span> 万円</td>
+        </tr>
+        <tr>
+          <th>躯体</th>
+          <td>IZH × 2 棟</td>
+          <td>INNFRA Base + IZH</td>
+          <td>IZH × 1 棟 + 既存建物</td>
+        </tr>
+        <tr>
+          <th>配置</th>
+          <td>L 字 (北西接続)</td>
+          <td>L 字 (北西接続)</td>
+          <td>北壁西寄り単棟</td>
+        </tr>
+        <tr>
+          <th>寝室</th>
+          <td>IZH リビング棟内</td>
+          <td>IZH リビング棟内</td>
+          <td>既存ギャラリー内部</td>
+        </tr>
+        <tr>
+          <th>水回り</th>
+          <td>IZH 独立棟 (フル)</td>
+          <td>INNFRA Base + 居住棟</td>
+          <td>IZH ユーティリティ棟集約</td>
+        </tr>
+        <tr>
+          <th>デッキ装備</th>
+          <td>L 字 30㎡ / 焚き火</td>
+          <td>L 字 + 木製浴槽</td>
+          <td>L・T 字 32㎡</td>
+        </tr>
+        <tr>
+          <th>浄化槽</th>
+          <td>地上設置 (西壁陰)</td>
+          <td>地上設置 (西壁陰)</td>
+          <td>C: 地上 / C′: 地中</td>
+        </tr>
+        <tr>
+          <th>法的扱い</th>
+          <td>IZH = 車両扱い</td>
+          <td>IZH = 車両扱い</td>
+          <td>IZH = 車両扱い / 既存改装届出</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="table-note">全案とも IZH は車両扱い。建築確認不要 ・ 固定資産税非課税 ・ 移設可能。Plan C / C′ の既存改装部分のみ通常の届出が発生する。</p>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 06</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 07 — Hearing ============ -->
+  <section class="slide hearing" data-i="7">
+    <div class="eyebrow">Hearing — ご確認</div>
+
+    <div class="row split-right" style="margin-top:8px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame" style="min-height:880px">
+            <img src="../parse/images/courtyard_photo.png" alt="中庭縦長写真" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[courtyard_photo.png — 中庭]&lt;/div&gt;')">
+          </div>
+          <figcaption>清里・中野邸 中庭 / 北東より望む</figcaption>
+        </figure>
+      </div>
+
+      <div class="col">
+        <h1 class="slide-title" style="font-size:48pt">ご確認させてください。<span class="en">Seven open questions.</span></h1>
+        <p class="intro">この時点で固める必要はありません。輪郭が見える範囲で。</p>
+
+        <div class="hearing-list" style="margin-top:8px">
+          <div class="hearing-item">
+            <div class="hearing-num">01</div>
+            <div>
+              <div class="hearing-q">定員</div>
+              <div class="hearing-hint">大人 2 名のみ / ゲスト 2–4 名想定 / それ以上</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">02</div>
+            <div>
+              <div class="hearing-q">用途</div>
+              <div class="hearing-hint">私的滞在 / ギャラリー併設の宿泊 / 招待制の貸し空間</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">03</div>
+            <div>
+              <div class="hearing-q">使用頻度</div>
+              <div class="hearing-hint">月 1–2 回 / 季節滞在 / 通年定住寄り</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">04</div>
+            <div>
+              <div class="hearing-q">予算</div>
+              <div class="hearing-hint">3,000 万円帯 / 4,000 万円帯 / 5,000 万円帯</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">05</div>
+            <div>
+              <div class="hearing-q">完成希望時期</div>
+              <div class="hearing-hint">2026 年内 / 2027 年春 / 時期未定</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">06</div>
+            <div>
+              <div class="hearing-q">躯体選定優先度</div>
+              <div class="hearing-hint">設備充実 / 意匠 / 価格 / 移設可能性</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">07</div>
+            <div>
+              <div class="hearing-q">既存建物改装の許容度</div>
+              <div class="hearing-hint">触らない / 一部改装可 / 内部活用前提</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 07</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 08 — Schedule ============ -->
+  <section class="slide schedule" data-i="8">
+    <div class="eyebrow">Schedule — 工程</div>
+    <h1 class="slide-title">ご決定から完成まで<br>約 <span class="num">6</span> ヶ月。<span class="en">From go-ahead to completion, six months.</span></h1>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">01</div>
+        <div class="tl-label">ヒアリング<br>プラン確定</div>
+        <div class="tl-date">2026-06</div>
+        <div class="tl-dur">2–3 週</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">02</div>
+        <div class="tl-label">詳細設計</div>
+        <div class="tl-date">2026-06 → 07</div>
+        <div class="tl-dur">2 ヶ月</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">03</div>
+        <div class="tl-label">製造発注・製造</div>
+        <div class="tl-date">2026-07 → 09</div>
+        <div class="tl-dur">3 ヶ月</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">04</div>
+        <div class="tl-label">搬入・設置</div>
+        <div class="tl-date">2026-09</div>
+        <div class="tl-dur">2 週 / 西壁 pilotis 経由</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">05</div>
+        <div class="tl-label">完成</div>
+        <div class="tl-date">2026-09 末</div>
+        <div class="tl-dur">—</div>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <p style="font-size:17pt;line-height:1.7;color:var(--ink)">
+        Plan C / C′ は既存建物の改装工事が <span class="em">1–2 ヶ月</span> 並行します。<br>
+        この場合の完成時期は <span class="em">2026-10 〜 11 月</span> を想定。冬季前の通水確認まで含めた工程です。
+      </p>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 08</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="counter" id="counter">01 / 08</div>
+<div class="nav-hint">← → keys</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('counter');
+  const deck = document.getElementById('deck');
+  let idx = 0;
+
+  function show(i){
+    idx = Math.max(0, Math.min(slides.length-1, i));
+    slides.forEach((s,k)=>s.classList.toggle('active', k===idx));
+    counter.textContent = String(idx+1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+  }
+
+  function fit(){
+    const sw = 1920, sh = 1080;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const scale = Math.min(vw/sw, vh/sh);
+    deck.style.transform = 'scale(' + scale + ')';
+  }
+
+  window.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowRight' || e.key==='PageDown' || e.key===' ') { show(idx+1); e.preventDefault(); }
+    else if(e.key==='ArrowLeft' || e.key==='PageUp') { show(idx-1); e.preventDefault(); }
+    else if(e.key==='Home') show(0);
+    else if(e.key==='End') show(slides.length-1);
+  });
+
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  fit();
+  show(0);
+})();
+</script>
+
+</body>
+</html>
