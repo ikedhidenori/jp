@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FAFAF7">
+<title>Wake Brief 2026-05-29 / 中野邸 中庭計画</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF7;
+  --paper-2:#F4F1EA;
+  --ink:#1A1A1A;
+  --ink-2:#3A3A38;
+  --warm:#8B7D6B;
+  --warm-soft:#C9C0B3;
+  --marker:#F5E6A8;
+  --rule:#E8E3DA;
+  --ume:#A07050;
+  --take:#5A7A55;
+  --matsu:#3E5A6E;
+  --maxw:760px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans JP","IBM Plex Sans",sans-serif;
+  font-weight:300;
+  line-height:1.8;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:80px;
+}
+
+/* Top bar */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,250,247,.92);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+  padding:14px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;letter-spacing:.06em;
+  color:var(--warm);
+  font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;
+}
+.topbar .brand{font-weight:500;color:var(--ink)}
+.topbar .meta{font-feature-settings:"tnum" on}
+
+/* Container */
+main{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 22px;
+}
+
+/* Hero */
+.hero{
+  padding:48px 0 32px;
+  border-bottom:1px solid var(--rule);
+}
+.hero .eyebrow{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:11px;letter-spacing:.22em;
+  color:var(--warm);text-transform:uppercase;
+  margin-bottom:14px;
+}
+.hero h1{
+  font-size:28px;font-weight:500;line-height:1.45;
+  letter-spacing:-.01em;color:var(--ink);
+  margin-bottom:18px;
+}
+.hero h1 .en{
+  display:block;font-family:"IBM Plex Sans",sans-serif;
+  font-size:13px;font-weight:300;letter-spacing:.06em;
+  color:var(--warm);margin-top:10px;
+}
+.hero .lead{
+  font-size:15px;line-height:1.85;color:var(--ink-2);
+}
+.hero .lead em{
+  font-style:normal;font-weight:500;
+  background:linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%);
+  padding:0 .12em;
+}
+
+/* Section heading */
+section{
+  padding:40px 0 16px;
+  border-bottom:1px solid var(--rule);
+}
+section:last-of-type{border-bottom:none}
+section .label{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:11px;letter-spacing:.22em;
+  color:var(--warm);text-transform:uppercase;
+  margin-bottom:12px;
+}
+section h2{
+  font-size:22px;font-weight:500;line-height:1.4;
+  color:var(--ink);margin-bottom:22px;letter-spacing:-.005em;
+}
+section h3{
+  font-size:17px;font-weight:500;line-height:1.5;
+  color:var(--ink);margin:24px 0 10px;
+}
+section p{
+  font-size:14.5px;line-height:1.85;color:var(--ink-2);
+  margin-bottom:14px;
+}
+
+/* TL;DR card */
+.tldr{
+  background:var(--paper-2);
+  border-left:3px solid var(--warm);
+  padding:18px 22px;
+  margin:18px 0 8px;
+}
+.tldr p{font-size:14px;margin:0;color:var(--ink)}
+.tldr p + p{margin-top:8px}
+
+/* 3-plan cards */
+.plans{
+  display:grid;gap:14px;
+  margin-top:16px;
+}
+.plan-card{
+  background:var(--paper-2);
+  border:1px solid var(--rule);
+  padding:20px 22px;
+  position:relative;
+}
+.plan-card .tier{
+  font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:500;margin-bottom:6px;
+}
+.plan-card.ume .tier{color:var(--ume)}
+.plan-card.take .tier{color:var(--take)}
+.plan-card.matsu .tier{color:var(--matsu)}
+.plan-card.ume{border-top:3px solid var(--ume)}
+.plan-card.take{border-top:3px solid var(--take)}
+.plan-card.matsu{border-top:3px solid var(--matsu)}
+.plan-card h3{
+  font-size:20px;font-weight:500;margin:4px 0 10px;
+  font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;
+  font-feature-settings:"tnum" on;
+}
+.plan-card .tagline{
+  font-size:13.5px;color:var(--warm);margin-bottom:14px;line-height:1.6;
+}
+.plan-card .spec{
+  display:grid;grid-template-columns:80px 1fr;gap:8px 14px;
+  font-size:13.5px;line-height:1.7;
+}
+.plan-card .spec dt{
+  font-family:"IBM Plex Sans",sans-serif;font-size:11px;
+  letter-spacing:.06em;color:var(--warm);text-transform:uppercase;
+  padding-top:3px;
+}
+.plan-card .spec dd{color:var(--ink-2)}
+
+/* Action box (確認項目) */
+.action{
+  background:#FFF;
+  border:2px solid var(--ink);
+  padding:22px;
+  margin-top:18px;
+}
+.action h3{
+  margin-top:0;font-size:15px;letter-spacing:.04em;
+  color:var(--ink);margin-bottom:14px;
+}
+.action ol{
+  list-style:none;counter-reset:q;
+  display:flex;flex-direction:column;gap:12px;
+}
+.action ol li{
+  counter-increment:q;
+  padding-left:36px;position:relative;
+  font-size:14.5px;line-height:1.7;color:var(--ink);
+}
+.action ol li::before{
+  content:"Q" counter(q);
+  position:absolute;left:0;top:1px;
+  font-family:"IBM Plex Sans",sans-serif;font-size:11px;
+  font-weight:500;letter-spacing:.06em;color:var(--warm);
+  background:var(--paper-2);padding:3px 7px;border-radius:2px;
+}
+.action ol li em{
+  font-style:normal;font-weight:500;color:var(--ink);
+  background:linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%);
+  padding:0 .12em;
+}
+.action ol li small{
+  display:block;font-size:12px;color:var(--warm);
+  margin-top:4px;line-height:1.6;
+}
+
+/* Tables */
+.t-wrap{
+  margin:14px -22px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:0 22px;
+}
+table{
+  width:100%;border-collapse:collapse;
+  font-size:13px;font-feature-settings:"tnum" on;
+  min-width:520px;
+}
+table th,table td{
+  padding:10px 12px;text-align:left;
+  border-bottom:1px solid var(--rule);
+  vertical-align:top;line-height:1.55;
+}
+table thead th{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--warm);font-weight:500;
+  border-bottom:1px solid var(--warm-soft);
+  white-space:nowrap;
+}
+table tbody th{
+  font-size:11px;letter-spacing:.04em;color:var(--warm);
+  font-weight:500;text-transform:uppercase;
+  white-space:nowrap;
+}
+table td{color:var(--ink-2);font-weight:300}
+table tr.highlight td,table tr.highlight th{
+  background:linear-gradient(transparent 25%, var(--marker) 25%, var(--marker) 88%, transparent 88%);
+  font-weight:500;color:var(--ink);
+}
+table .num{font-family:"IBM Plex Sans",sans-serif}
+table .check{color:#3A6E3A;font-weight:500}
+table .warn{color:#A06A30;font-weight:500}
+table .ng{color:#9A4040;font-weight:500}
+
+/* Inline notes */
+.note{
+  font-size:12.5px;color:var(--warm);
+  margin-top:10px;line-height:1.65;font-style:italic;
+}
+
+/* List */
+ul.bullets{list-style:none;padding-left:0;margin:10px 0}
+ul.bullets li{
+  font-size:14.5px;line-height:1.8;color:var(--ink-2);
+  padding-left:18px;position:relative;margin-bottom:6px;
+}
+ul.bullets li::before{
+  content:"";position:absolute;left:0;top:.95em;
+  width:10px;height:1px;background:var(--warm);
+}
+
+/* Timeline */
+.timeline-row{
+  display:grid;grid-template-columns:78px 1fr;gap:14px;
+  padding:12px 0;border-bottom:1px solid var(--rule);
+  font-size:14px;line-height:1.6;
+}
+.timeline-row:last-child{border-bottom:none}
+.timeline-row .time{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:13px;color:var(--warm);font-feature-settings:"tnum" on;
+  padding-top:2px;
+}
+.timeline-row .task strong{font-weight:500;color:var(--ink);display:block;margin-bottom:2px}
+.timeline-row .task span{font-size:12px;color:var(--warm);font-style:italic}
+
+/* Sub callout (補欠) */
+.sub-callout{
+  background:transparent;
+  border:1px dashed var(--warm-soft);
+  padding:18px 20px;
+  margin-top:14px;
+}
+.sub-callout .label-sub{
+  font-family:"IBM Plex Sans",sans-serif;font-size:11px;
+  letter-spacing:.16em;color:var(--warm);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.sub-callout h3{margin-top:0;font-size:17px}
+.sub-callout .warn-msg{
+  font-size:12.5px;color:#9A4040;font-weight:500;margin-top:8px;
+}
+
+/* Footer */
+footer{
+  max-width:var(--maxw);margin:48px auto 0;padding:24px 22px;
+  border-top:1px solid var(--rule);
+  font-size:11px;color:var(--warm);letter-spacing:.04em;
+  font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+
+/* Mobile-specific */
+@media (max-width:480px){
+  body{font-size:15px}
+  main{padding:0 18px}
+  .topbar{padding:12px 18px;font-size:11px}
+  .hero{padding:36px 0 24px}
+  .hero h1{font-size:24px}
+  section{padding:32px 0 12px}
+  section h2{font-size:19px;margin-bottom:18px}
+  .plan-card{padding:18px 18px}
+  .plan-card h3{font-size:18px}
+  .plan-card .spec{grid-template-columns:70px 1fr;font-size:13px}
+  .action{padding:18px}
+  table{font-size:12px;min-width:480px}
+  table th,table td{padding:8px 10px}
+}
+
+/* Print */
+@media print{
+  body{background:#FFF;color:#000;padding:0}
+  .topbar{position:static;background:#FFF;border-bottom:1px solid #CCC}
+  section{page-break-inside:avoid}
+  .plan-card{page-break-inside:avoid;border:1px solid #999}
+  .action{border-color:#000}
+}
+
+/* Smooth color transition for cards */
+.plan-card,.action,.sub-callout{transition:transform .15s ease}
+.plan-card:active{transform:scale(.995)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="brand">中野邸 中庭計画 / Wake Brief</span>
+  <span class="meta">2026-05-29 03:00</span>
+</div>
+
+<main>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="eyebrow">For 03:00 wake-up</div>
+  <h1>起きたら、これだけ。<span class="en">Three plans, ready to choose.</span></h1>
+  <p class="lead">
+    仮眠中に <em>躯体表 + 設備価格表 + 松竹梅 3 案</em> まで仕上げました。<br>
+    起床後にやるのは <em>3 案中どれを推すか</em> と <em>確認項目 5 件への回答</em> だけです。
+  </p>
+</header>
+
+<!-- 確認項目 -->
+<section id="action">
+  <div class="label">First 5 minutes</div>
+  <h2>起きたら最初に答えてほしい 5 件</h2>
+
+  <div class="action">
+    <h3>これに答えれば素子がパース・スライドに直行できます</h3>
+    <ol>
+      <li>
+        目安価格 <em>2,000 / 3,500 / 5,000</em> 万円 で OK?
+        <small>ジョニー例示 1,500/2,500/4,500 から上振れ。躯体 + 設備 + 工事込み実勢額。</small>
+      </li>
+      <li>
+        <em>MOKUJIKU 補欠案</em> を竹に差し替えるか、別軸で出すか
+        <small>2,500 万円帯狙えるが搬入リスク有 (走行全高 3.13m > 西壁下 ~3m)</small>
+      </li>
+      <li>
+        既存ギャラリー <em>改装の許容度</em> (中野氏意向)
+        <small>竹案・梅案で寝室を既存に逃がす設計の前提</small>
+      </li>
+      <li>
+        <em>INNFRA Base 公式価格</em> (素子推定 600–900 万円)
+        <small>旧 B 案系を残すかどうか</small>
+      </li>
+      <li>
+        3 案揃えてプレゼンか、<em>1 案推し</em> か
+        <small>社内 FB 想定で 3 案見せて反応見るのが妥当?</small>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 松竹梅 3 案 -->
+<section id="plans">
+  <div class="label">Shochiku-Bai</div>
+  <h2>松竹梅 3 案</h2>
+
+  <div class="plans">
+
+    <div class="plan-card ume">
+      <div class="tier">梅 — Ume</div>
+      <h3>約 2,000 万円</h3>
+      <p class="tagline">既存建物併用の最小宿泊棟。月数回滞在向け。</p>
+      <dl class="spec">
+        <dt>躯体</dt><dd>IZH リビング棟 × 1 (1,500 万円)</dd>
+        <dt>寝室</dt><dd>棟内 (ベッド × 2、LDK 含む)</dd>
+        <dt>水回り</dt><dd>既存ギャラリー共用<br>バイオトイレのみ棟内</dd>
+        <dt>デッキ</dt><dd>小型 10–15 ㎡</dd>
+        <dt>浄化槽</dt><dd>既存活用 or 不要</dd>
+        <dt>PV</dt><dd>1.5 kW / 15 kWh</dd>
+        <dt>価値</dt><dd>最小投資。後で増築判断の出発点</dd>
+      </dl>
+    </div>
+
+    <div class="plan-card take">
+      <div class="tier">竹 — Take</div>
+      <h3>約 3,500 万円</h3>
+      <p class="tagline">水回り独立 + 既存ギャラリー活用。季節滞在向け。</p>
+      <dl class="spec">
+        <dt>躯体</dt><dd>IZH インフラ棟 × 1 (3,000 万円)</dd>
+        <dt>寝室</dt><dd>既存ギャラリー (栗生明意匠を活用)</dd>
+        <dt>水回り</dt><dd>IZH 棟内フル装備<br>水循環 / シャワー / キッチン</dd>
+        <dt>デッキ</dt><dd>中型 20–25 ㎡</dd>
+        <dt>浴槽</dt><dd>オプション (檜)</dd>
+        <dt>浄化槽</dt><dd>地中埋設 (清里冬季対策)</dd>
+        <dt>PV</dt><dd>3 kW / 24 kWh</dd>
+        <dt>価値</dt><dd>既存意匠を活かしつつ水回りで快適性 UP</dd>
+      </dl>
+    </div>
+
+    <div class="plan-card matsu">
+      <div class="tier">松 — Matsu</div>
+      <h3>約 5,000 万円</h3>
+      <p class="tagline">中庭で完結する独立空間。通年 + ゲスト対応。</p>
+      <dl class="spec">
+        <dt>躯体</dt><dd>IZH リビング棟 + インフラ棟<br>L 字配置 (4,500 万円)</dd>
+        <dt>寝室</dt><dd>リビング棟内</dd>
+        <dt>水回り</dt><dd>インフラ棟内 (フル)</dd>
+        <dt>デッキ</dt><dd>L 字 30–40 ㎡<br>ソファ + ローテーブル + 焚き火</dd>
+        <dt>浴槽</dt><dd>檜 (オプション)</dd>
+        <dt>浄化槽</dt><dd>地中埋設</dd>
+        <dt>PV</dt><dd>合計 4.5 kW / 39 kWh</dd>
+        <dt>価値</dt><dd>中庭完結 + 既存に干渉せず両立</dd>
+      </dl>
+    </div>
+
+  </div>
+
+  <!-- 補欠 MOKUJIKU -->
+  <div class="sub-callout">
+    <div class="label-sub">Alternative — 補欠案</div>
+    <h3>MOKUJIKU × 2 棟構成 — 約 2,500 万円</h3>
+    <p>ジョニー例示「2,500 万円帯」を狙う中間案。MOKUJIKU 1 棟リビング化 + 1 棟水回り化、内装フルカスタム。</p>
+    <ul class="bullets">
+      <li>躯体 600 万 + 内装カスタム 1,000 万 + デッキ 150 万 + 搬入 300 万 + 浄化槽 200 万 + 諸経費 200 万 ≒ <strong>2,450 万円</strong></li>
+      <li>意匠は IZH (杉板) よりも工業的、中野邸の世界観との相性は要検討</li>
+    </ul>
+    <p class="warn-msg">⚠ 搬入リスク: MOKUJIKU 走行全高 3.13m > 西壁下 pilotis ~3m。INNFRA 確認必要。</p>
+  </div>
+</section>
+
+<!-- 比較サマリ -->
+<section id="compare">
+  <div class="label">Comparison</div>
+  <h2>3 案 比較サマリ</h2>
+
+  <div class="t-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>軸</th>
+        <th>梅 (2,000)</th>
+        <th>竹 (3,500)</th>
+        <th>松 (5,000)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>投資規模</th><td class="check">◯ 最小</td><td class="warn">△ 中</td><td class="ng">× 大</td></tr>
+      <tr><th>完全独立性</th><td class="ng">× 既存依存</td><td class="warn">△ 水回りのみ</td><td class="check">◯ 完全独立</td></tr>
+      <tr><th>通年利用</th><td class="warn">△ 季節限定</td><td class="check">◯ 春〜秋</td><td class="check">◎ 通年</td></tr>
+      <tr><th>将来可変性</th><td class="check">◎ 1 棟撤去可</td><td class="check">◯ 撤去可</td><td class="check">◯ 撤去可</td></tr>
+      <tr><th>既存干渉</th><td class="warn">△ 水回り共用</td><td class="warn">△ 一部改装</td><td class="check">◯ 干渉ゼロ</td></tr>
+      <tr><th>ゲスト対応</th><td class="ng">×</td><td class="warn">△</td><td class="check">◯</td></tr>
+      <tr><th>デッキ体験</th><td class="warn">△</td><td class="check">◯</td><td class="check">◎ 焚火+浴槽</td></tr>
+      <tr><th>法的扱い</th><td>車両</td><td>車両</td><td>車両</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- 躯体 3 種 -->
+<section id="chassis">
+  <div class="label">Chassis</div>
+  <h2>躯体 3 種 比較</h2>
+
+  <div class="t-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>IZH リビング</th>
+        <th>IZH インフラ</th>
+        <th>MOKUJIKU</th>
+        <th>MUJI 小屋</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <th>価格</th>
+        <td class="num">1,500 万</td>
+        <td class="num">3,000 万</td>
+        <td class="num">300 万</td>
+        <td class="num">500 万 ※</td>
+      </tr>
+      <tr><th>形態</th><td>車両</td><td>車両</td><td>車両</td><td class="warn">建築</td></tr>
+      <tr><th>寸法 W×L</th><td>2.37×6.12 m</td><td>2.37×6.12 m</td><td>2.44×5.32 m</td><td>~3×3 m</td></tr>
+      <tr><th>床面積</th><td>14.5 ㎡</td><td>14.5 ㎡</td><td>~13.0 ㎡</td><td>9.1 ㎡</td></tr>
+      <tr><th>重量</th><td>&lt; 3.5 t</td><td>&lt; 3.5 t</td><td>3.48 t</td><td>—</td></tr>
+      <tr><th>主機能</th><td>寝室 + LDK<br>+ バイオトイレ</td><td>水循環+シャワー<br>+キッチン</td><td>カスタム<br>(自由)</td><td>(内装別)</td></tr>
+      <tr><th>PV/蓄電池</th><td>1.5kW/15kWh</td><td>3kW/24kWh</td><td>—</td><td>—</td></tr>
+      <tr><th>建築確認</th><td class="check">不要</td><td class="check">不要</td><td class="check">不要</td><td class="ng">要</td></tr>
+      <tr><th>固定資産税</th><td class="check">非課税</td><td class="check">非課税</td><td class="check">非課税</td><td class="ng">対象</td></tr>
+      <tr><th>移設</th><td class="check">可</td><td class="check">可</td><td class="check">可</td><td class="ng">不可</td></tr>
+      <tr><th>西壁 3m 通過</th><td class="warn">△ ギリギリ</td><td class="warn">△ ギリギリ</td><td class="ng">❌ 超過可能性</td><td class="check">✅ 制約なし</td></tr>
+      <tr><th>デザイナー</th><td>MUJI × INNFRA</td><td>MUJI × INNFRA</td><td>CrocoArt</td><td>深澤直人</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">※ MUJI 小屋 500 万円 = 現行価格 (発売当初 300 万円、近年改定)</p>
+</section>
+
+<!-- 設備価格 -->
+<section id="equipment">
+  <div class="label">Equipment Pricing</div>
+  <h2>設備価格表</h2>
+
+  <p>✅ catalog / ジョニー指示 由来の確実値、🟡 素子推定 (要確認・要見積)</p>
+
+  <h3>A. 躯体本体 ✅</h3>
+  <div class="t-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>価格</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><th>IZH リビング棟</th><td class="num">1,500 万</td><td>バイオトイレ・LDK・寝室・PV 内蔵</td></tr>
+      <tr><th>IZH インフラ棟</th><td class="num">3,000 万</td><td>水循環・シャワー・キッチン・PV 内蔵</td></tr>
+      <tr><th>MOKUJIKU 12ft</th><td class="num">300 万</td><td>ベース車両、内装オプション別</td></tr>
+      <tr><th>MUJI 小屋</th><td class="num">500 万</td><td>焼杉外装、建築物扱い</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>B. 水回り単体 🟡 (INNFRA 要見積)</h3>
+  <div class="t-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>推定価格</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><th>INNFRA Base</th><td class="num">600–900 万</td><td>3.6×2.4m、処理 1,000 L/日</td></tr>
+      <tr><th>INNFRA Water 単体</th><td class="num">300–500 万</td><td>水循環システムのみ</td></tr>
+      <tr><th>バイオトイレ単体</th><td class="num">60–150 万</td><td>棟外設置</td></tr>
+      <tr><th>木製浴槽 (檜)</th><td class="num">100–200 万</td><td>1.5×1×0.7m、デッキ埋込</td></tr>
+      <tr><th>浄化槽 地上</th><td class="num">80–150 万</td><td>5–7 人槽、樹脂</td></tr>
+      <tr><th>浄化槽 地中埋設</th><td class="num">150–250 万</td><td>掘削+基礎、凍結対策</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>C. デッキ・外構 🟡</h3>
+  <div class="t-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>30㎡ 換算</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><th>デッキ 杉</th><td class="num">120–150 万</td><td>4–5 万/㎡、防腐処理</td></tr>
+      <tr><th>デッキ イペ</th><td class="num">210–270 万</td><td>7–9 万/㎡、高耐久</td></tr>
+      <tr><th>焚き火台 + 防火</th><td class="num">30–80 万</td><td>清里冬季対応</td></tr>
+      <tr><th>デッキ照明 + 配線</th><td class="num">30–60 万</td><td>屋外 LED</td></tr>
+      <tr><th>サイドファニチャー</th><td class="num">50–150 万</td><td>ソファ + テーブル屋外仕様</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>D. インフラ + 工事 🟡</h3>
+  <div class="t-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>推定価格</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><th>上下水道接続</th><td class="num">200–500 万</td><td>本管引込、既存経由なら下限</td></tr>
+      <tr><th>電力引込 (PV なし)</th><td class="num">30–80 万</td><td>IZH なら PV で原則不要</td></tr>
+      <tr><th>搬入工事</th><td class="num">200–400 万</td><td>pilotis 経由、二重戦略</td></tr>
+      <tr><th>仮置き基礎 / 棟</th><td class="num">50–150 万</td><td>車両扱い、簡易</td></tr>
+      <tr><th>RC ベタ基礎 (MUJI 小屋)</th><td class="num">150–300 万</td><td>建築物扱いに必要</td></tr>
+      <tr><th>既存改装 (寝室化)</th><td class="num">100–300 万</td><td>規模次第</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- タイムボックス -->
+<section id="schedule">
+  <div class="label">Timebox to 08:00</div>
+  <h2>03:00 起床〜08:00 プレゼン まで</h2>
+
+  <div class="timeline-row">
+    <div class="time">03:00–<br>03:15</div>
+    <div class="task"><strong>本 brief + 3 案目視確認、5 件回答</strong><span>ジョニー</span></div>
+  </div>
+  <div class="timeline-row">
+    <div class="time">03:15–<br>04:00</div>
+    <div class="task"><strong>価格・構成の微調整、3 案内訳確定</strong><span>ジョニー判断 + 素子作業</span></div>
+  </div>
+  <div class="timeline-row">
+    <div class="time">04:00–<br>05:30</div>
+    <div class="task"><strong>パース prompt 作成 → ChatGPT 投入 (引き / 俯瞰 / 人物入り)</strong><span>ジョニー手動 + 素子準備</span></div>
+  </div>
+  <div class="timeline-row">
+    <div class="time">05:30–<br>06:30</div>
+    <div class="task"><strong>スライド HTML 内容差替え (前回 deck を雛形)</strong><span>素子</span></div>
+  </div>
+  <div class="timeline-row">
+    <div class="time">06:30–<br>07:15</div>
+    <div class="task"><strong>art-director レビュー + 修正</strong><span>素子</span></div>
+  </div>
+  <div class="timeline-row">
+    <div class="time">07:15–<br>07:45</div>
+    <div class="task"><strong>最終確認、印刷 PDF 化</strong><span>ジョニー</span></div>
+  </div>
+  <div class="timeline-row">
+    <div class="time">07:45–<br>08:00</div>
+    <div class="task"><strong>予備時間 / 出発準備</strong><span>—</span></div>
+  </div>
+</section>
+
+<!-- 推測・前提 -->
+<section id="assumptions">
+  <div class="label">Assumptions</div>
+  <h2>素子が置いた推測・前提</h2>
+  <p>ジョニー判断で全部覆して OK。</p>
+  <ul class="bullets">
+    <li><strong>目安価格を上振れさせた</strong> (1,500→2,000 / 2,500→3,500 / 4,500→5,000) — 躯体だけでなくデッキ・搬入・諸経費を含めた実勢額</li>
+    <li><strong>竹案の寝室は既存ギャラリー活用前提</strong> — 躯体 1 棟 (インフラ棟) で水回り完結、寝室を既存に逃がす設計</li>
+    <li><strong>梅案の水回りは既存共用前提</strong> — IZH リビング棟単独ではシャワー・キッチン・水循環なし</li>
+    <li><strong>竹・松で浄化槽は地中埋設前提</strong> — 清里冬季の凍結対策、+150–250 万円</li>
+    <li><strong>MOKUJIKU は補欠扱い</strong> — 搬入経路リスクで次点、2,500 万円帯の選択肢として残す</li>
+    <li><strong>MUJI 小屋は 3 案から外した</strong> — 建築扱いで他 2 種と性格が違いすぎる、別軸提案候補</li>
+  </ul>
+</section>
+
+<!-- 関連 -->
+<section id="links">
+  <div class="label">References</div>
+  <h2>過去資産・参照</h2>
+  <ul class="bullets">
+    <li>前回 HTML deck (旧 4 案 A/B/C/C'): <code>~/gits-system/data/proposals/nakano-courtyard/proposal-2026-05-29.html</code></li>
+    <li>旧 deck 公開 URL: <code>https://ikedhidenori.github.io/jp/proposal-d201f06ce0f39258.html</code></li>
+    <li>詳細スペック source: <code>~/gits-system/data/proposals/nakano-2026-05-29/parse/reference/scale-catalog.md</code></li>
+    <li>旧 prompt v6: <code>~/gits-system/data/proposals/nakano-2026-05-29/parse/prompts/</code></li>
+    <li>案件 Decision Log: <code>~/gits-system/data/proposals/nakano-2026-05-29/decisions.md</code></li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <span>INNFRA / 中野邸 中庭計画</span>
+  <span>2026-05-29 / Wake Brief</span>
+</footer>
+
+</body>
+</html>
