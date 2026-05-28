@@ -33,10 +33,10 @@ small,.note{font-size:14pt;line-height:1.7;color:var(--warm);font-weight:300}
 .em{font-weight:500}
 .num{font-family:"IBM Plex Sans",sans-serif;font-feature-settings:"tnum" on}
 .row{display:grid;gap:64px;flex:1;align-items:start}
-.split-left{grid-template-columns:1.4fr 1fr}
+.split-left{grid-template-columns:1.7fr 1fr}
 .split-right{grid-template-columns:1fr 1.05fr}
 .col{display:flex;flex-direction:column;gap:24px;min-width:0}
-.image-frame{width:100%;height:100%;min-height:560px;background:#F0EDE5;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.image-frame{width:100%;height:100%;min-height:760px;background:#F0EDE5;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .image-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .image-placeholder{font-family:"IBM Plex Sans",monospace;font-size:14pt;color:var(--warm);letter-spacing:.04em;border:1px dashed var(--warm-soft);padding:32px 40px;background:transparent;text-align:center;line-height:1.6}
 .image-placeholder .pfile{display:block;font-size:11pt;color:var(--warm-soft);margin-top:8px}
@@ -45,7 +45,7 @@ figcaption{font-size:14pt;color:var(--warm);font-style:italic;margin-top:8px;lin
 .tier-badge.a{color:var(--a)}.tier-badge.b{color:var(--b)}.tier-badge.c{color:var(--c)}
 .price-tag{display:flex;align-items:baseline;gap:16px;margin-bottom:8px;font-family:"IBM Plex Sans","Noto Sans JP",sans-serif}
 .price-tag .yen{font-size:14pt;color:var(--warm)}
-.price-tag .amount{font-size:56pt;font-weight:300;letter-spacing:-.02em;font-feature-settings:"tnum" on;color:var(--ink)}
+.price-tag .amount{font-size:34pt;font-weight:300;letter-spacing:-.02em;font-feature-settings:"tnum" on;color:var(--ink)}
 .price-tag .unit{font-size:18pt;color:var(--warm)}
 .price-tag .tax{font-size:13pt;color:var(--warm);letter-spacing:.04em;align-self:flex-end;margin-bottom:8px}
 .spec-list{display:flex;flex-direction:column;gap:8px;margin-top:18px}
@@ -81,8 +81,8 @@ table.compare .ng{color:#9A4040;font-weight:500}
 .hearing-num{font-family:"IBM Plex Sans",sans-serif;font-size:18pt;color:var(--warm);font-feature-settings:"tnum" on;padding-top:4px}
 .hearing-q{font-size:18pt;color:var(--ink);font-weight:400;line-height:1.5;margin-bottom:4px}
 .hearing-hint{font-size:13pt;color:var(--warm);line-height:1.5;font-weight:300}
-.timeline{margin-top:48px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;padding:0 20px}
-.timeline::before{content:"";position:absolute;left:80px;right:80px;top:48px;height:1px;background:var(--warm-soft)}
+.timeline{margin-top:48px;display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;padding:0 20px}
+.timeline::before{content:"";position:absolute;left:60px;right:60px;top:48px;height:1px;background:var(--warm-soft)}
 .tl-step{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;position:relative;padding:0 12px}
 .tl-dot{width:18px;height:18px;border-radius:50%;background:var(--paper);border:2px solid var(--warm);position:relative;z-index:2;margin-top:38px}
 .tl-step:first-child .tl-dot,.tl-step:last-child .tl-dot{background:var(--warm)}
@@ -90,7 +90,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
 .tl-label{font-size:18pt;font-weight:500;color:var(--ink);line-height:1.4}
 .tl-date{font-size:14pt;color:var(--warm);font-family:"IBM Plex Sans",sans-serif;font-feature-settings:"tnum" on}
 .tl-dur{font-size:13pt;color:var(--warm);font-style:italic}
-.footer{position:absolute;left:var(--mx);right:var(--mx);bottom:32px;display:flex;justify-content:space-between;align-items:flex-end;font-size:12pt;color:var(--warm);font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;letter-spacing:.04em;font-weight:300;padding-top:16px;border-top:1px solid var(--rule)}
+.footer{position:absolute;left:var(--mx);right:var(--mx);bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;font-size:12pt;color:var(--warm);font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;letter-spacing:.04em;font-weight:300;padding-top:16px;border-top:1px solid var(--rule)}
 .footer .meta{font-feature-settings:"tnum" on}
 .counter{position:fixed;right:32px;bottom:24px;z-index:100;font-family:"IBM Plex Sans",monospace;font-size:14pt;color:#FAFAF7;letter-spacing:.08em;font-feature-settings:"tnum" on;background:rgba(0,0,0,.35);padding:8px 14px;border-radius:2px;backdrop-filter:blur(4px)}
 .nav-hint{position:fixed;left:32px;bottom:24px;z-index:100;font-family:"IBM Plex Sans",monospace;font-size:11pt;color:#FAFAF7;opacity:.55;letter-spacing:.08em;background:rgba(0,0,0,.35);padding:8px 14px;border-radius:2px;backdrop-filter:blur(4px)}
@@ -150,39 +150,37 @@ table.compare .ng{color:#9A4040;font-weight:500}
       <div class="col">
         <h3 style="font-size:22pt;margin-bottom:18px">業界相場と今回のレンジ</h3>
         <p style="font-size:18pt;line-height:1.8;color:var(--ink-2);margin-bottom:24px">
-          中庭に <span class="em">独立した宿泊機能</span> (寝室・水回り・電力) を実現すると、<br>
-          一般的な相場では <span class="marker">3,000–6,000 万円圏</span> です。
+          躯体 (建築単体) 1,500 万円という相場感は妥当ですが、<br>
+          そこに<span class="em">水回り・電力・搬入・基礎・諸経費</span> を加えると、<br>
+          現実の総額はそれを <span class="em">上回ります</span>。
         </p>
         <p style="font-size:18pt;line-height:1.8;color:var(--ink-2);margin-bottom:24px">
-          躯体 (建築単体) 1,500 万円という相場感は妥当ですが、<br>
-          そこに<span class="em">水回り・電力・搬入・基礎</span> を加えると、<br>
-          総額は上記のレンジに収まります。
-        </p>
-        <p style="font-size:18pt;line-height:1.8;color:var(--ink-2)">
-          今回の 3 案は、その相場のなかで <span class="em">「何を残し、何を削るか」</span> を整理したものです。
+          今回の 3 案は、<span class="marker">「何を残し、何を削るか」</span> の整理です。<br>
+          ご希望のインフラゼロハウスを活かしたフル装備版から、<br>
+          本館の生活と組み合わせる最小版まで。
         </p>
       </div>
 
       <div class="col">
         <h3 style="font-size:22pt;margin-bottom:18px">今回の 3 案レンジ</h3>
         <div style="display:flex;flex-direction:column;gap:20px;margin-top:8px">
-          <div style="padding:20px 24px;background:#F4F1EA;border-left:3px solid var(--c)">
-            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13pt;letter-spacing:.12em;color:var(--c);text-transform:uppercase;font-weight:500;margin-bottom:6px">C 案 — フル装備</div>
-            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:32pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on">約 4,020 万円</div>
-            <div style="font-size:14pt;color:var(--warm);margin-top:4px">IZH + Base、お風呂 + 災害対応</div>
+          <div style="padding:20px 24px;background:#F4F1EA;border-left:3px solid var(--a)">
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13pt;letter-spacing:.12em;color:var(--a);text-transform:uppercase;font-weight:500;margin-bottom:6px">A 案 — 最安</div>
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:32pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on">約 1,760 万円</div>
+            <div style="font-size:14pt;color:var(--warm);margin-top:4px">Base Lite、本館生活と組合せ</div>
           </div>
           <div style="padding:20px 24px;background:#F4F1EA;border-left:3px solid var(--b)">
             <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13pt;letter-spacing:.12em;color:var(--b);text-transform:uppercase;font-weight:500;margin-bottom:6px">B 案 — 中</div>
             <div style="font-family:'IBM Plex Sans',sans-serif;font-size:32pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on">約 2,310 万円</div>
             <div style="font-size:14pt;color:var(--warm);margin-top:4px">MOKUJIKU + Water′、中庭独立</div>
           </div>
-          <div style="padding:20px 24px;background:#F4F1EA;border-left:3px solid var(--a)">
-            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13pt;letter-spacing:.12em;color:var(--a);text-transform:uppercase;font-weight:500;margin-bottom:6px">A 案 — 最安</div>
-            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:32pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on">約 1,760 万円</div>
-            <div style="font-size:14pt;color:var(--warm);margin-top:4px">Base Lite、本館生活と組合せ</div>
+          <div style="padding:20px 24px;background:#F4F1EA;border-left:3px solid var(--c)">
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13pt;letter-spacing:.12em;color:var(--c);text-transform:uppercase;font-weight:500;margin-bottom:6px">C 案 — フル装備</div>
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:32pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on">約 4,020 万円</div>
+            <div style="font-size:14pt;color:var(--warm);margin-top:4px">インフラゼロハウス + Base、お風呂 + 災害対応</div>
           </div>
         </div>
-        <p class="note" style="margin-top:24px">次ページ以降、<span class="em">高い順 (C → B → A)</span> でご説明します。</p>
+        <p class="note" style="margin-top:24px">次ページ以降、<span class="em">フル装備の C 案からご説明</span>します。</p>
       </div>
     </div>
 
@@ -194,9 +192,9 @@ table.compare .ng{color:#9A4040;font-weight:500}
 
   <!-- ============ SLIDE 03 — Plan C (high to low order) ============ -->
   <section class="slide" data-i="3">
-    <div class="eyebrow">Plan C — INNFRA Base + IZH</div>
+    <div class="eyebrow">Plan C — INNFRA Base + インフラゼロハウス</div>
     <span class="tier-badge c">フル / Off-Grid Living</span>
-    <h2>ご希望の IZH を活かす、<br><span class="marker">お風呂 + 災害対応</span> の豪華版。</h2>
+    <h2>ご希望の インフラゼロハウス を活かす、<br><span class="marker">お風呂 + 災害対応</span> の豪華版。</h2>
 
     <div class="row split-left" style="margin-top:24px">
       <div class="col">
@@ -204,7 +202,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
           <div class="image-frame">
             <img src="parse/images/planC_v1.png" alt="プラン C パース" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ パース生成予定 ]&lt;span class=\'pfile\'&gt;parse/images/planC_v1.png&lt;/span&gt;&lt;/div&gt;')">
           </div>
-          <figcaption>引き俯瞰 / 夕暮れ / Base + IZH リビング棟 L 字 + デッキ + ホットタブ</figcaption>
+          <figcaption>引き俯瞰 / 夕暮れ / Base + インフラゼロハウス リビング棟 L 字 + デッキ + ホットタブ</figcaption>
         </figure>
       </div>
 
@@ -224,7 +222,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
           </div>
           <div class="spec-row">
             <div class="spec-key">主躯体</div>
-            <div class="spec-val">IZH リビング棟 + INNFRA Base</div>
+            <div class="spec-val">インフラゼロハウス リビング棟 + INNFRA Base</div>
           </div>
           <div class="spec-row">
             <div class="spec-key">床面積</div>
@@ -232,11 +230,11 @@ table.compare .ng{color:#9A4040;font-weight:500}
           </div>
           <div class="spec-row">
             <div class="spec-key">寝室</div>
-            <div class="spec-val">IZH 棟内 (ベッド × 2)</div>
+            <div class="spec-val">インフラゼロハウス 棟内 (ベッド × 2)</div>
           </div>
           <div class="spec-row">
             <div class="spec-key">水回り</div>
-            <div class="spec-val">IZH 内 + Base 水循環 1,000 L/日</div>
+            <div class="spec-val">インフラゼロハウス 内 + Base 水循環 1,000 L/日</div>
           </div>
           <div class="spec-row">
             <div class="spec-key">お風呂</div>
@@ -392,7 +390,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
           </div>
           <div class="spec-row" style="border-bottom:none;padding-bottom:0;padding-top:4px">
             <div class="spec-key" style="color:var(--a)">将来性</div>
-            <div class="spec-val" style="font-size:15pt;line-height:1.5;color:var(--ink-2,var(--ink))"><span class="em" style="color:var(--a)">IZH 追加で C 案へアップグレード可</span><br><small style="font-size:12pt;color:var(--warm)">車両扱いのため移設・追加が容易</small></div>
+            <div class="spec-val" style="font-size:15pt;line-height:1.5;color:var(--ink-2,var(--ink))"><span class="em" style="color:var(--a)">インフラゼロハウス 追加で C 案へアップグレード可</span><br><small style="font-size:12pt;color:var(--warm)">車両扱いのため移設・追加が容易</small></div>
           </div>
         </div>
       </div>
@@ -404,39 +402,65 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
   </section>
 
-  <!-- ============ SLIDE 06 — 比較 ============ -->
+  <!-- ============ SLIDE 06 — 躯体比較 ============ -->
   <section class="slide" data-i="6">
-    <div class="eyebrow">Comparison — 3 案比較</div>
-    <h2>並べて、選ぶ。<span style="font-family:'IBM Plex Sans',sans-serif;font-size:18pt;color:var(--warm);letter-spacing:.06em;font-weight:300;margin-left:24px">C / B / A</span></h2>
+    <div class="eyebrow">Chassis — 躯体比較</div>
+    <h2>使用する躯体 <span class="num">5</span> 種。<span style="font-family:'IBM Plex Sans',sans-serif;font-size:14pt;color:var(--warm);letter-spacing:.06em;font-weight:300;margin-left:16px">Foundations of the three plans.</span></h2>
 
-    <table class="compare">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:32px;flex:0 0 auto">
+      <div>
+        <div class="image-frame" style="min-height:280px;aspect-ratio:1/1">
+          <img src="parse/images/chassis_izh_living.png" alt="インフラゼロハウス リビング棟" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:11pt;padding:16px 18px\'&gt;[ 写真 ]&lt;span class=\'pfile\' style=\'font-size:9pt\'&gt;chassis_izh_living.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:12pt;margin-top:8px;text-align:center;color:var(--ink)">インフラゼロハウス<br><small style="font-size:10pt;color:var(--warm)">リビング棟</small></figcaption>
+      </div>
+      <div>
+        <div class="image-frame" style="min-height:280px;aspect-ratio:1/1">
+          <img src="parse/images/chassis_izh_infra.png" alt="インフラゼロハウス インフラ棟" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:11pt;padding:16px 18px\'&gt;[ 写真 ]&lt;span class=\'pfile\' style=\'font-size:9pt\'&gt;chassis_izh_infra.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:12pt;margin-top:8px;text-align:center;color:var(--ink)">インフラゼロハウス<br><small style="font-size:10pt;color:var(--warm)">インフラ棟</small></figcaption>
+      </div>
+      <div>
+        <div class="image-frame" style="min-height:280px;aspect-ratio:1/1">
+          <img src="parse/images/chassis_base.png" alt="INNFRA Base" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:11pt;padding:16px 18px\'&gt;[ 写真 ]&lt;span class=\'pfile\' style=\'font-size:9pt\'&gt;chassis_base.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:12pt;margin-top:8px;text-align:center;color:var(--ink)">INNFRA Base<br><small style="font-size:10pt;color:var(--warm)">水循環専用</small></figcaption>
+      </div>
+      <div>
+        <div class="image-frame" style="min-height:280px;aspect-ratio:1/1">
+          <img src="parse/images/chassis_mokujiku.png" alt="MOKUJIKU" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:11pt;padding:16px 18px\'&gt;[ 写真 ]&lt;span class=\'pfile\' style=\'font-size:9pt\'&gt;chassis_mokujiku.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:12pt;margin-top:8px;text-align:center;color:var(--ink)">MOKUJIKU<br><small style="font-size:10pt;color:var(--warm)">木造ラーメン</small></figcaption>
+      </div>
+      <div>
+        <div class="image-frame" style="min-height:280px;aspect-ratio:1/1">
+          <img src="parse/images/chassis_muji.png" alt="MUJI 小屋" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:11pt;padding:16px 18px\'&gt;[ 写真 ]&lt;span class=\'pfile\' style=\'font-size:9pt\'&gt;chassis_muji.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:12pt;margin-top:8px;text-align:center;color:var(--ink)">MUJI 小屋<br><small style="font-size:10pt;color:var(--warm)">建築 (バックアップ)</small></figcaption>
+      </div>
+    </div>
+
+    <table class="compare" style="margin-top:24px;font-size:14pt">
       <thead>
         <tr>
           <th></th>
-          <th>Plan C<br><small style="font-weight:300;font-size:11pt">Base + IZH</small></th>
-          <th>Plan B<br><small style="font-weight:300;font-size:11pt">MOKUJIKU + Water′</small></th>
-          <th>Plan A<br><small style="font-weight:300;font-size:11pt">Base Lite</small></th>
+          <th>インフラゼロハウス<br>リビング棟</th>
+          <th>インフラゼロハウス<br>インフラ棟</th>
+          <th>INNFRA Base</th>
+          <th>MOKUJIKU</th>
+          <th>MUJI 小屋</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="price-row">
-          <th>価格 (税別)</th>
-          <td><span class="num">4,020</span> 万円</td>
-          <td><span class="num">2,310</span> 万円</td>
-          <td><span class="num">1,760</span> 万円</td>
-        </tr>
-        <tr><th>形態</th><td>車両 2 棟</td><td>車両 1 棟</td><td>車両 1 棟</td></tr>
-        <tr><th>寝室</th><td>IZH 棟内</td><td>棟内</td><td>本館既存</td></tr>
-        <tr><th>水回り独立</th><td class="check">○</td><td class="check">○</td><td class="ng">×</td></tr>
-        <tr><th>お風呂</th><td class="check">○</td><td>—</td><td>—</td></tr>
-        <tr><th>PV / 蓄電池</th><td class="check">1.5 kW / 15 kWh</td><td>—</td><td>—</td></tr>
-        <tr><th>災害対応</th><td class="check">○</td><td class="warn">△</td><td class="warn">△</td></tr>
-        <tr><th>床面積</th><td>23.1 ㎡</td><td>13.0 ㎡</td><td>8.6 ㎡</td></tr>
-        <tr><th>用途</th><td>完全独立 / 通年</td><td>コンパクト独立</td><td>本館補完</td></tr>
+        <tr><th style="font-size:11pt">価格</th><td><span class="num">1,500</span> 万</td><td><span class="num">3,000</span> 万</td><td><span class="num">2,000</span> 万</td><td><span class="num">300</span> 万</td><td><span class="num">500</span> 万</td></tr>
+        <tr><th style="font-size:11pt">形態</th><td>車両</td><td>車両</td><td>車両</td><td>車両</td><td class="warn">建築</td></tr>
+        <tr><th style="font-size:11pt">床面積</th><td>14.5 ㎡</td><td>14.5 ㎡</td><td>8.6 ㎡</td><td>13.0 ㎡</td><td>9.1 ㎡</td></tr>
+        <tr><th style="font-size:11pt">主機能</th><td>寝室 + LDK<br>+ バイオトイレ</td><td>水循環 + シャワー<br>+ キッチン</td><td>水循環 専用<br>1,000 L/日</td><td>カスタム自由</td><td>(内装別)</td></tr>
+        <tr><th style="font-size:11pt">PV</th><td>1.5 kW / 15 kWh</td><td>3 kW / 24 kWh</td><td>—</td><td>—</td><td>—</td></tr>
       </tbody>
     </table>
 
-    <p style="margin-top:20px;font-size:13pt;color:var(--warm);font-style:italic;line-height:1.6">全案とも車両扱い (建築確認不要 / 固定資産税非課税 / 移設可能)。搬入で詰まる場合は建築バックアップに切替可。A 案は将来 IZH 追加で C 案にアップグレード可。</p>
+    <p style="margin-top:16px;font-size:12pt;color:var(--warm);font-style:italic;line-height:1.6">本提案ではトレーラー扱いの 4 種を主に組み合わせます。MUJI 小屋は搬入で詰まる場合の建築バックアップ用。</p>
 
     <div class="footer">
       <div>INNFRA / 中野邸 中庭計画 / Page 06</div>
@@ -444,8 +468,48 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
   </section>
 
-  <!-- ============ SLIDE 07 — ヒアリング ============ -->
+  <!-- ============ SLIDE 07 — 3 案比較 ============ -->
   <section class="slide" data-i="7">
+    <div class="eyebrow">Comparison — 3 案比較</div>
+    <h2>並べて、選ぶ。<span style="font-family:'IBM Plex Sans',sans-serif;font-size:18pt;color:var(--warm);letter-spacing:.06em;font-weight:300;margin-left:24px">A / B / C</span></h2>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Plan A<br><small style="font-weight:300;font-size:11pt">Base Lite</small></th>
+          <th>Plan B<br><small style="font-weight:300;font-size:11pt">MOKUJIKU + Water′</small></th>
+          <th>Plan C<br><small style="font-weight:300;font-size:11pt">Base + インフラゼロハウス</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="price-row">
+          <th>価格 (税別)</th>
+          <td><span class="num">1,760</span> 万円</td>
+          <td><span class="num">2,310</span> 万円</td>
+          <td><span class="num">4,020</span> 万円</td>
+        </tr>
+        <tr><th>形態</th><td>車両 1 棟</td><td>車両 1 棟</td><td>車両 2 棟</td></tr>
+        <tr><th>寝室</th><td>本館既存</td><td>棟内</td><td>インフラゼロハウス 棟内</td></tr>
+        <tr><th>水回り独立</th><td class="ng">×</td><td class="check">○</td><td class="check">○</td></tr>
+        <tr><th>お風呂</th><td>—</td><td>—</td><td class="check">○</td></tr>
+        <tr><th>PV / 蓄電池</th><td>—</td><td>—</td><td class="check">1.5 kW / 15 kWh</td></tr>
+        <tr><th>災害対応</th><td class="warn">△</td><td class="warn">△</td><td class="check">○</td></tr>
+        <tr><th>床面積</th><td>8.6 ㎡</td><td>13.0 ㎡</td><td>23.1 ㎡</td></tr>
+        <tr><th>用途</th><td>本館補完</td><td>コンパクト独立</td><td>完全独立 / 通年</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:20px;font-size:13pt;color:var(--warm);font-style:italic;line-height:1.6">全案とも車両扱い (建築確認不要 / 固定資産税非課税 / 移設可能)。搬入で詰まる場合は建築バックアップに切替可。A 案は将来 インフラゼロハウス 追加で C 案にアップグレード可。</p>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 07</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 08 — ヒアリング ============ -->
+  <section class="slide" data-i="8">
     <div class="eyebrow">Hearing — ご確認</div>
 
     <div class="row split-right" style="margin-top:8px">
@@ -488,7 +552,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
             <div class="hearing-num">04</div>
             <div>
               <div class="hearing-q">予算優先度</div>
-              <div class="hearing-hint">C 案 (4,020 万) / B 案 (2,310 万) / A 案 (1,760 万)</div>
+              <div class="hearing-hint">A 案 (1,760 万) / B 案 (2,310 万) / C 案 (4,020 万)</div>
             </div>
           </div>
           <div class="hearing-item">
@@ -517,15 +581,15 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
 
     <div class="footer">
-      <div>INNFRA / 中野邸 中庭計画 / Page 07</div>
+      <div>INNFRA / 中野邸 中庭計画 / Page 08</div>
       <div class="meta">2026-05-29 / Confidential</div>
     </div>
   </section>
 
-  <!-- ============ SLIDE 08 — スケジュール ============ -->
-  <section class="slide" data-i="8">
+  <!-- ============ SLIDE 09 — スケジュール ============ -->
+  <section class="slide" data-i="9">
     <div class="eyebrow">Schedule — 工程</div>
-    <h1 class="slide-title">ご決定から完成まで<br>約 <span class="num">6</span> ヶ月。<span class="en">From go-ahead to completion, six months.</span></h1>
+    <h1 class="slide-title">ご決定から使用開始まで<br>約 <span class="num">6</span> ヶ月。<span class="en">From go-ahead to first use, six months.</span></h1>
 
     <div class="timeline">
       <div class="tl-step">
@@ -545,35 +609,43 @@ table.compare .ng{color:#9A4040;font-weight:500}
       <div class="tl-step">
         <div class="tl-dot"></div>
         <div class="tl-num">03</div>
-        <div class="tl-label">製造発注・製造</div>
-        <div class="tl-date">2026-07 → 09</div>
+        <div class="tl-label">製造発注<br>・製造</div>
+        <div class="tl-date">2026-08 → 10</div>
         <div class="tl-dur">3 ヶ月</div>
       </div>
       <div class="tl-step">
         <div class="tl-dot"></div>
         <div class="tl-num">04</div>
         <div class="tl-label">搬入・設置</div>
-        <div class="tl-date">2026-09</div>
+        <div class="tl-date">2026-10 末</div>
         <div class="tl-dur">2 週 / 西壁 pilotis 経由</div>
       </div>
       <div class="tl-step">
         <div class="tl-dot"></div>
         <div class="tl-num">05</div>
-        <div class="tl-label">完成</div>
-        <div class="tl-date">2026-09 末</div>
+        <div class="tl-label">シーディング</div>
+        <div class="tl-date">2026-11</div>
+        <div class="tl-dur">1 ヶ月 / 微生物培養</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">06</div>
+        <div class="tl-label">使用開始</div>
+        <div class="tl-date">2026-11 末</div>
         <div class="tl-dur">—</div>
       </div>
     </div>
 
     <div style="margin-top:auto;padding:24px 32px;background:#F4F1EA;border-left:2px solid var(--warm);max-width:1100px">
       <p style="font-size:17pt;line-height:1.7;color:var(--ink)">
-        全 3 案ともこの工程です。建築バックアップ (MUJI 小屋等) に切替の場合は、現場組立で <span class="em">+1–2 ヶ月</span> 並行発生、完成 10–11 月想定。<br>
-        詳細設計フェーズ中に <span class="em">ヒアリング結果を反映</span> しながら 1 案に絞り込みます。
+        全 3 案ともこの工程 (車両搬入の場合)。<br>
+        建築バックアップ (MUJI 小屋等に切替) の場合は <span class="em">期間がさらに延びる可能性あり (現在確認中)</span>。<br>
+        詳細設計フェーズで <span class="em">ヒアリング結果を反映</span> しながら 1 案に絞り込みます。
       </p>
     </div>
 
     <div class="footer">
-      <div>INNFRA / 中野邸 中庭計画 / Page 08</div>
+      <div>INNFRA / 中野邸 中庭計画 / Page 09</div>
       <div class="meta">2026-05-29 / Confidential</div>
     </div>
   </section>
@@ -582,7 +654,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
 </div>
 </div>
 
-<div class="counter" id="counter">01 / 08</div>
+<div class="counter" id="counter">01 / 09</div>
 <div class="nav-hint">← → keys</div>
 
 <script>
