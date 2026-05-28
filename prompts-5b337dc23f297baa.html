@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FAFAF7">
+<title>パース GPT プロンプト / 中野邸 中庭計画</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF7;--paper-2:#F4F1EA;--ink:#1A1A1A;--ink-2:#3A3A38;
+  --warm:#8B7D6B;--warm-soft:#C9C0B3;--marker:#F5E6A8;--rule:#E8E3DA;
+  --a:#5A7A55;--b:#A07050;--c:#3E5A6E;--code-bg:#1A1A1A;--code-fg:#E8E3DA;
+  --maxw:760px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Sans JP","IBM Plex Sans",sans-serif;font-weight:300;line-height:1.8;font-size:16px;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(250,250,247,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.06em;color:var(--warm);font-family:"IBM Plex Sans","Noto Sans JP",sans-serif}
+.topbar .brand{font-weight:500;color:var(--ink)}
+main{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.hero{padding:48px 0 32px;border-bottom:1px solid var(--rule)}
+.hero .eyebrow{font-family:"IBM Plex Sans",sans-serif;font-size:11px;letter-spacing:.22em;color:var(--warm);text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-size:28px;font-weight:500;line-height:1.45;color:var(--ink);margin-bottom:18px}
+.hero h1 .en{display:block;font-family:"IBM Plex Sans",sans-serif;font-size:13px;font-weight:300;letter-spacing:.06em;color:var(--warm);margin-top:10px}
+.hero .lead{font-size:14.5px;line-height:1.85;color:var(--ink-2)}
+.hero .lead em{font-style:normal;font-weight:500;background:linear-gradient(transparent 55%,var(--marker) 55%,var(--marker) 92%,transparent 92%);padding:0 .12em}
+section{padding:40px 0 16px;border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:none}
+section .label{font-family:"IBM Plex Sans",sans-serif;font-size:11px;letter-spacing:.22em;color:var(--warm);text-transform:uppercase;margin-bottom:12px}
+section .label.a{color:var(--a)}.label.b{color:var(--b)}.label.c{color:var(--c)}
+section h2{font-size:22px;font-weight:500;line-height:1.4;color:var(--ink);margin-bottom:18px}
+section h3{font-size:16px;font-weight:500;line-height:1.5;color:var(--ink);margin:22px 0 10px}
+section p{font-size:14.5px;line-height:1.8;color:var(--ink-2);margin-bottom:12px}
+.callout{background:var(--paper-2);border-left:3px solid var(--warm);padding:16px 20px;margin:14px 0;font-size:13.5px;line-height:1.7;color:var(--ink-2)}
+.callout strong{color:var(--ink);font-weight:500}
+.callout.warn{background:#FBEFEB;border-left-color:#9A4040;color:#5A2020}
+.callout.warn strong{color:#9A4040}
+ul.bullets{list-style:none;padding-left:0;margin:10px 0}
+ul.bullets li{font-size:14.5px;line-height:1.8;color:var(--ink-2);padding-left:18px;position:relative;margin-bottom:6px}
+ul.bullets li::before{content:"";position:absolute;left:0;top:.95em;width:10px;height:1px;background:var(--warm)}
+.ref-list{display:flex;flex-direction:column;gap:12px;margin:14px 0}
+.ref-item{background:var(--paper-2);padding:14px 18px;font-size:13.5px;line-height:1.6}
+.ref-item .ref-num{font-family:"IBM Plex Sans",sans-serif;font-size:11px;letter-spacing:.06em;color:var(--warm);margin-bottom:4px;text-transform:uppercase}
+.ref-item .ref-title{font-weight:500;color:var(--ink);margin-bottom:4px}
+.ref-item .ref-src{font-size:12px;color:var(--warm)}
+.ref-item a{color:var(--c);text-decoration:underline;word-break:break-all;font-size:12px}
+.code-block{position:relative;background:var(--code-bg);color:var(--code-fg);padding:18px 16px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word;margin:16px 0;border-radius:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.code-block .copy-btn{position:absolute;top:8px;right:8px;background:var(--warm);color:var(--paper);border:none;padding:6px 12px;font-family:"IBM Plex Sans",sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;font-weight:500}
+.code-block .copy-btn:hover{background:var(--ink);color:var(--paper)}
+.code-block .copy-btn.copied{background:#3A6E3A}
+.code-block-wrap{position:relative}
+.plan-tag{display:inline-block;padding:4px 12px;font-family:"IBM Plex Sans",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;border:1px solid currentColor;margin-bottom:14px}
+.plan-tag.a{color:var(--a)}.plan-tag.b{color:var(--b)}.plan-tag.c{color:var(--c)}
+.toc{background:var(--paper-2);padding:18px 20px;margin-top:20px;font-size:13.5px}
+.toc .toc-label{font-family:"IBM Plex Sans",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--warm);margin-bottom:10px}
+.toc ul{list-style:none}
+.toc li{padding:4px 0}
+.toc a{color:var(--ink-2);text-decoration:none}
+.toc a:hover{color:var(--ink)}
+.spec-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:12px 0}
+.spec-table th,.spec-table td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+.spec-table th{font-family:"IBM Plex Sans",sans-serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--warm);font-weight:500;white-space:nowrap}
+.spec-table td{color:var(--ink-2)}
+footer{max-width:var(--maxw);margin:48px auto 0;padding:24px 22px;border-top:1px solid var(--rule);font-size:11px;color:var(--warm);letter-spacing:.04em;font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:480px){body{font-size:15px}main{padding:0 18px}.topbar{padding:12px 18px;font-size:11px}.hero h1{font-size:24px}section h2{font-size:19px}.code-block{font-size:10.5px;padding:16px 12px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="brand">パース GPT プロンプト / 中野邸 中庭計画</span>
+  <span>2026-05-29</span>
+</div>
+
+<main>
+
+<header class="hero">
+  <div class="eyebrow">ChatGPT GPT-Image-1 prompt</div>
+  <h1>パース生成プロンプト<br>A / B / C 3 案分。<span class="en">Copy &amp; paste into ChatGPT Temporary Chat.</span></h1>
+  <p class="lead">
+    提示画像 (dusk concrete courtyard + container + cedar cabin + deck + hot tub) を <em>トーン基準</em> として 3 案統一。<br>
+    各 prompt は <em>右上 COPY ボタン</em> でコピー可能。参照画像は順番に upload してください。
+  </p>
+
+  <div class="toc">
+    <div class="toc-label">目次</div>
+    <ul>
+      <li><a href="#tone">トーン基準 (全案共通)</a></li>
+      <li><a href="#privacy">機密境界 (MUST)</a></li>
+      <li><a href="#refs">参照画像リスト</a></li>
+      <li><a href="#planA">A 案 prompt — Base Lite</a></li>
+      <li><a href="#planB">B 案 prompt — MOKUJIKU + Water′</a></li>
+      <li><a href="#planC">C 案 prompt — Base + IZH</a></li>
+      <li><a href="#humans">人物入りユースケース追加 prompt</a></li>
+      <li><a href="#tips">ChatGPT セッション運用 Tips</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- トーン基準 -->
+<section id="tone">
+  <div class="label">Tone Reference</div>
+  <h2>トーン基準 (全案共通)</h2>
+  <p>提示画像 (本セッション添付) の特徴を 3 案で統一:</p>
+  <ul class="bullets">
+    <li><strong>環境光</strong>: golden hour 夕暮れ、暖色 → 群青 fade、空に最後の太陽光</li>
+    <li><strong>コンクリート壁</strong>: 高 7m RC、未塗装、横目地、シンメトリック配置、奥に植栽帯と森林</li>
+    <li><strong>既存建物 右側</strong>: 全面ガラス facade、内部にベンチ + テーブル、室内照明オレンジ、壁面ライト</li>
+    <li><strong>躯体外装</strong>: 黒 (コンテナ) と杉色 (木造棟) のコントラスト、PV/ガルバ屋根</li>
+    <li><strong>デッキ</strong>: 木製、芝生境界、飛び石が手前</li>
+    <li><strong>家具</strong>: アースカラー (ベージュ + 木 + コンクリート)、押しつけ感なし</li>
+    <li><strong>質感</strong>: 建築写真 (Iwan Baan + Hiroshi Nakamura 系)、lit-from-inside</li>
+    <li><strong>アスペクト</strong>: 3:2 ランドスケープ、視点高 30-40m、俯角 35-40°</li>
+    <li><strong>構図</strong>: 中庭縦長 (N-S)、奥に森林、手前に芝生 + 飛び石、中央に躯体 + デッキ</li>
+  </ul>
+</section>
+
+<!-- 機密境界 -->
+<section id="privacy">
+  <div class="label">Privacy MUST</div>
+  <h2>機密境界 — ChatGPT 送信前に除外</h2>
+
+  <div class="callout warn">
+    <strong>送信プロンプトから全除外:</strong><br>
+    中野氏氏名 / 株式会社 nakanogumi / 山梨県北杜市清里 / K*MoPA / 栗生明 / 契約金額 / 個人情報
+  </div>
+
+  <h3>代替表現</h3>
+  <table class="spec-table">
+    <thead><tr><th>避ける</th><th>代替</th></tr></thead>
+    <tbody>
+      <tr><td>中野邸</td><td>a private residence in Japanese highlands</td></tr>
+      <tr><td>K*MoPA</td><td>an adjacent concrete modernist museum, 1998</td></tr>
+      <tr><td>清里</td><td>Japanese forested highlands</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 参照画像リスト -->
+<section id="refs">
+  <div class="label">Reference Images</div>
+  <h2>参照画像リスト</h2>
+
+  <h3>必須 (3 案共通)</h3>
+  <div class="ref-list">
+    <div class="ref-item">
+      <div class="ref-num">Ref 01</div>
+      <div class="ref-title">中野邸 中庭写真 (Google Photos 共有 × 2 枚)</div>
+      <div class="ref-src">スケール参考、壁高 7m + 既存建物 facade<br>取得: ジョニー手元の Google Photos 共有リンク → ChatGPT に直接 upload</div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">Ref 02</div>
+      <div class="ref-title">提示画像 (本セッション添付)</div>
+      <div class="ref-src">トーン基準として全案で参照、dusk concrete courtyard + container + cedar cabin + deck + hot tub</div>
+    </div>
+  </div>
+
+  <h3>A 案 で必要</h3>
+  <div class="ref-list">
+    <div class="ref-item">
+      <div class="ref-num">A-01</div>
+      <div class="ref-title">INNFRA Base 12ft コンテナ外観 (黒・スチール)</div>
+      <div class="ref-src"><a href="https://innfra.jp/innfrabase">innfra.jp/innfrabase</a><br>Drive PDF: <code>12wJ92SoP7C4uRnLq8l-Q_AFbrmQM29Cy</code><br>道の駅富士川 実装写真 (Drive 内)</div>
+    </div>
+  </div>
+
+  <h3>B 案 で必要</h3>
+  <div class="ref-list">
+    <div class="ref-item">
+      <div class="ref-num">B-01</div>
+      <div class="ref-title">MOKUJIKU 木造ラーメン外観 (杉外装 + ガルバ屋根)</div>
+      <div class="ref-src"><a href="https://crocoart-factory.studio/">crocoart-factory.studio</a><br>旧 URL 画像: <code>mokujiku/images/MOKUJIKU_hosei_11.jpg</code></div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">B-02</div>
+      <div class="ref-title">MUJI 小屋 (バックアップ参考、焼杉 + 三角屋根)</div>
+      <div class="ref-src"><a href="https://media.wired.jp/photos/61cebc68cf21751fe9416ae0/master/w_1024,c_limit/94cb7d04f7b54cb57a2fb08d9b9366ef.jpg">WIRED 高画質画像</a></div>
+    </div>
+  </div>
+
+  <h3>C 案 で必要</h3>
+  <div class="ref-list">
+    <div class="ref-item">
+      <div class="ref-num">C-01</div>
+      <div class="ref-title">IZH リビング棟 (杉板) + インフラ棟 (黒 PV ガルバ)</div>
+      <div class="ref-src"><a href="https://innfra.jp/posts/press-20240418-01">INNFRA press release</a><br><a href="https://www.muji.net/ie/infrazerohouse/">MUJI 公式</a><br><a href="https://mag.tecture.jp/product/20240424-110468/">TECTURE MAG</a></div>
+    </div>
+    <div class="ref-item">
+      <div class="ref-num">C-02</div>
+      <div class="ref-title">バスタブ / ホットタブ (檜 or コンクリート円形)</div>
+      <div class="ref-src"><a href="https://dwel.jp/shopdetail/000000000934/">dwel SA-BATH</a><br>または提示画像のホットタブ参考</div>
+    </div>
+  </div>
+</section>
+
+<!-- A 案 -->
+<section id="planA">
+  <span class="plan-tag a">A 案 — 最安</span>
+  <div class="label a">Plan A · Base Lite</div>
+  <h2>INNFRA Base Lite トレーラー</h2>
+  <p>黒コンテナ 1 棟、家具最小限、ミニマル構成。本館 (既存建物) のガラス越しに室内が見える表現。</p>
+
+  <h3>引き俯瞰 prompt (英語)</h3>
+  <div class="code-block-wrap">
+  <div class="code-block" id="codeA"><button class="copy-btn" onclick="copyCode('codeA',this)">COPY</button>Architectural visualization, dusk golden hour, aerial 35-degree downward angle view of a private courtyard in Japanese highlands.
+
+SITE:
+- North-south longitudinal courtyard, 17m × 11m, surrounded by 7m-tall raw concrete walls (unpainted, horizontal formwork joints, symmetric layout)
+- An adjacent concrete modernist museum building from 1998 on the right side, full glass facade revealing warm-lit interior (benches, tables visible)
+- Background: deciduous forest with golden sunset light filtering through trees
+- Foreground: dry lawn with stepping stones leading into the courtyard, low planting beds along walls
+
+STRUCTURE (single object):
+- One small black steel shipping container, 3.6m × 2.4m × 2.5m, placed along the north wall, west side
+- Subtle, industrial finish (Corten or matte black steel), discreet rooftop ventilation
+- No visible doors on the courtyard-facing side; service access from the back
+- Connected by underground piping to the main building (not visible)
+
+LANDSCAPE:
+- Minimal wooden deck (~10sqm) adjacent to container, single piece
+- One bench, no furniture clutter
+- No hot tub, no fire bowl
+- Lawn dominates the visual; container is a discrete utility element
+
+LIGHTING:
+- Golden hour: warm sky transitioning to deep blue at zenith
+- Last sunlight grazing the top of the concrete walls
+- Existing building interior lit warm orange, glowing through glass facade
+- Small container has subtle exterior LED accent at the base
+
+ATMOSPHERE:
+- Calm, contemplative, low-key
+- Architectural photography style (reference: Iwan Baan, Hiroshi Nakamura aesthetic)
+- 3:2 landscape ratio, photorealistic, high resolution
+- Color palette: warm earth tones, charcoal, dry green, golden sky
+
+NO PEOPLE in this perspective.</div>
+  </div>
+
+  <h3>画像 upload 順 (ChatGPT セッション内)</h3>
+  <ul class="bullets">
+    <li>Ref 02 (提示画像) ← トーン基準</li>
+    <li>Ref 01 (中庭写真) ← スケール</li>
+    <li>A-01 (INNFRA Base 12ft コンテナ画像) ← 躯体形状</li>
+  </ul>
+</section>
+
+<!-- B 案 -->
+<section id="planB">
+  <span class="plan-tag b">B 案 — 中</span>
+  <div class="label b">Plan B · MOKUJIKU + Water′</div>
+  <h2>木造小屋 + 地中埋設チャレンジ</h2>
+  <p>木造の小型住居 1 棟 (杉外装)、デッキあり、焚き火あり、ホットタブなし。芝生に小さな盛り土 (生物槽地中埋設の暗示)。</p>
+
+  <h3>引き俯瞰 prompt (英語)</h3>
+  <div class="code-block-wrap">
+  <div class="code-block" id="codeB"><button class="copy-btn" onclick="copyCode('codeB',this)">COPY</button>Architectural visualization, dusk golden hour, aerial 35-degree downward angle view of a private courtyard in Japanese highlands.
+
+SITE: (same as A: 17×11m courtyard, 7m concrete walls, adjacent 1998 modernist museum with glass facade, forest background, lawn + stepping stones foreground)
+
+STRUCTURE (single object, centered):
+- One compact wooden cabin, 5.3m × 2.4m × 2.5m, wood-frame rigid construction
+- Exterior: vertical cedar plank cladding, dark stained, galvalume corrugated steel roof (single-pitch)
+- Small windows (3-4), one entrance door facing the courtyard
+- Built on a 12ft container chassis, but the chassis is hidden by a low cedar skirt
+- Placed along the north wall, slightly east-of-center
+
+LANDSCAPE:
+- Medium wooden deck (~20sqm) extending south from the cabin entrance
+- A small earth mound (1.5m × 1.5m × 0.3m) covered with grass, located at the south end of the deck — subtle hint of an underground biological filtration tank
+- One outdoor sofa (earth-tone fabric), low wooden coffee table, one fire bowl (small stone, glowing embers)
+- NO hot tub
+- Pampas grass or low planting around the deck edge
+
+LIGHTING:
+- Golden hour, warm sky to deep blue zenith
+- Cabin interior warmly lit through one window
+- Lantern-style exterior lights on cabin wall (2 sconces)
+- Fire bowl glowing orange
+
+ATMOSPHERE:
+- Cozy but spacious, the cabin reads as a complete tiny home
+- The earth mound is a quiet detail, not the focus
+- Architectural photography style (Iwan Baan, Hiroshi Nakamura)
+- 3:2 landscape ratio, photorealistic
+
+NO PEOPLE in this perspective.</div>
+  </div>
+
+  <h3>画像 upload 順</h3>
+  <ul class="bullets">
+    <li>Ref 02 (提示画像) ← トーン基準</li>
+    <li>Ref 01 (中庭写真)</li>
+    <li>B-01 (MOKUJIKU 公式画像) ← 躯体形状</li>
+    <li>(オプション) B-02 (MUJI HUT) ← バックアップ建築版の意匠参考</li>
+  </ul>
+</section>
+
+<!-- C 案 -->
+<section id="planC">
+  <span class="plan-tag c">C 案 — フル</span>
+  <div class="label c">Plan C · Base + IZH</div>
+  <h2>提示画像トーン直接、L 字配置 + ホットタブ</h2>
+  <p>黒コンテナ (Base) + 杉板棟 (IZH リビング) の L 字配置。L 字デッキ + ソファ + 焚き火 + ホットタブ。提示画像にほぼ一致するトーン。</p>
+
+  <h3>引き俯瞰 prompt (英語)</h3>
+  <div class="code-block-wrap">
+  <div class="code-block" id="codeC"><button class="copy-btn" onclick="copyCode('codeC',this)">COPY</button>Architectural visualization, dusk golden hour, aerial 35-degree downward angle view of a private courtyard in Japanese highlands.
+
+SITE: (same as A/B: 17×11m courtyard, 7m concrete walls, adjacent 1998 modernist museum with glass facade, forest background, lawn + stepping stones foreground)
+
+STRUCTURES (two objects in L-shape configuration):
+- LEFT: One small black steel shipping container (utility/water-circulation building), 3.6m × 2.4m × 2.5m, matte black steel exterior, placed along the west wall
+- CENTER/RIGHT: One larger cedar-clad cabin (living quarters), 6.12m × 2.37m × 2.5m, vertical cedar plank cladding (unpainted, warm wood tone), single-pitch galvalume roof with integrated PV panels (slight visible array), large glass sliding door facing the courtyard, one small side window
+- The two structures meet at the northwest corner forming an L-shape
+
+LANDSCAPE:
+- Large L-shape wooden deck (~30-40sqm) extending from the cabin entrance and wrapping toward the south
+- Outdoor sofa with earth-tone cushions, low wooden coffee table (centered)
+- Fire bowl (small stone, glowing embers, low and centered on deck)
+- Circular hot tub (concrete or cedar finish, steaming gently, water reflecting evening sky), placed on the south end of the deck
+- Low planting along the west wall, pampas grass and ornamental grasses
+
+LIGHTING:
+- Golden hour: warm sky to deep blue zenith, last sunlight on the tops of concrete walls
+- Cabin interior glowing warm orange through glass door (visible bed + lounge area)
+- Lantern wall lights on cabin exterior (3-4 sconces)
+- Existing museum interior visible through glass facade (warm-lit)
+- Hot tub steam catching the golden light
+
+ATMOSPHERE:
+- Refined, luxurious but understated
+- Reads as a self-contained living retreat
+- Architectural photography style (Iwan Baan, Hiroshi Nakamura)
+- 3:2 landscape ratio, photorealistic, high resolution
+
+NO PEOPLE in this perspective.</div>
+  </div>
+
+  <h3>画像 upload 順</h3>
+  <ul class="bullets">
+    <li><strong>Ref 02 (提示画像)</strong> ← トーン + 構図直接基準 (このパースが本案そのもの)</li>
+    <li>Ref 01 (中庭写真)</li>
+    <li>C-01 (IZH 公式画像) ← 杉板リビング棟 + 黒インフラ棟</li>
+    <li>A-01 (INNFRA Base 画像) ← 黒コンテナ参考</li>
+    <li>C-02 (dwel SA-BATH or ホットタブ) ← 円形バスタブ</li>
+  </ul>
+</section>
+
+<!-- 人物入り -->
+<section id="humans">
+  <div class="label">Optional · With People</div>
+  <h2>人物入りユースケース版 (追加 prompt)</h2>
+  <p>各案の <strong>引き俯瞰 prompt の最後</strong> に以下を追加して人物入り版を生成:</p>
+
+  <div class="code-block-wrap">
+  <div class="code-block" id="codeHuman"><button class="copy-btn" onclick="copyCode('codeHuman',this)">COPY</button>ADD: Two adults in their 40s-50s (silhouettes only, no facial features, no recognizable identities) — one standing at the cabin entrance looking toward the courtyard, one seated on the outdoor sofa with a book. They are dressed in minimal, earth-tone casual wear. They are background elements, not the focus. Scale reference: 165cm tall.</div>
+  </div>
+
+  <div class="callout warn">
+    <strong>⚠ 機密境界:</strong> 中野氏ご本人を描写しない、シルエット + 後ろ姿のみ
+  </div>
+</section>
+
+<!-- Tips -->
+<section id="tips">
+  <div class="label">Operation Tips</div>
+  <h2>ChatGPT セッション運用</h2>
+
+  <ol class="bullets" style="counter-reset:item">
+    <li><strong>Temporary Chat</strong> で開始 (学習除外)</li>
+    <li><strong>画像 upload 順</strong>: トーン基準 → 中庭スケール → 躯体形状 の順</li>
+    <li><strong>生成設定</strong>: GPT-Image-1 / 1792×1024 (or 1024×1024 4 連張)</li>
+    <li><strong>修正指示パターン</strong>:
+      <ul class="bullets" style="margin-top:6px;margin-left:18px">
+        <li>「縦横比 1.5:1 (N-S 長辺) 厳守、再生成」</li>
+        <li>「躯体スケールが大きすぎる、人物 165cm 比で約 3.2 倍の高さに」</li>
+        <li>「夕暮れ感弱い、空をもう一段暖色に、コンクリート壁の上部に夕日のグラデ」</li>
+      </ul>
+    </li>
+    <li><strong>保存先</strong>: <code>~/gits-system/data/proposals/nakano-courtyard/parse/images/</code></li>
+    <li><strong>命名規約</strong> (スライド側で自動参照):
+      <ul class="bullets" style="margin-top:6px;margin-left:18px">
+        <li><code>planA_v1.png</code> (引き俯瞰、人なし)</li>
+        <li><code>planB_v1.png</code></li>
+        <li><code>planC_v1.png</code></li>
+        <li><code>planX_human_v1.png</code> (人物入り)</li>
+      </ul>
+    </li>
+  </ol>
+</section>
+
+<!-- 関連 -->
+<section id="links">
+  <div class="label">References</div>
+  <h2>関連</h2>
+  <ul class="bullets">
+    <li>md 原本: <code>~/gits-system/data/proposals/nakano-courtyard/perspective-prompts-2026-05-29.md</code></li>
+    <li>参照 URL リスト (詳細): <code>~/gits-system/data/proposals/nakano-2026-05-29/parse/reference/reference-urls.md</code></li>
+    <li>スケールカタログ: <code>~/gits-system/data/proposals/nakano-2026-05-29/parse/reference/scale-catalog.md</code></li>
+    <li>Wake Brief v3: <a href="https://ikedhidenori.github.io/jp/wake-brief-87fb9676d5356486.html">wake-brief-...html</a></li>
+    <li>スライド deck: <a href="https://ikedhidenori.github.io/jp/deck-b385a0ee9e63d296.html">deck-...html</a></li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <span>INNFRA / 中野邸 中庭計画</span>
+  <span>2026-05-29 / Perspective Prompts</span>
+</footer>
+
+<script>
+function copyCode(id, btn){
+  const el = document.getElementById(id);
+  const txt = el.innerText.replace(/^COPY\n?/, '').trim();
+  navigator.clipboard.writeText(txt).then(()=>{
+    btn.textContent = 'COPIED';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='COPY';btn.classList.remove('copied');},1500);
+  }).catch(()=>{
+    btn.textContent = 'FAIL';
+    setTimeout(()=>{btn.textContent='COPY';},1500);
+  });
+}
+</script>
+
+</body>
+</html>
