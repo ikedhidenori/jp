@@ -36,7 +36,7 @@ small,.note{font-size:14pt;line-height:1.7;color:var(--warm);font-weight:300}
 .split-left{grid-template-columns:1.4fr 1fr}
 .split-right{grid-template-columns:1fr 1.05fr}
 .col{display:flex;flex-direction:column;gap:24px;min-width:0}
-.image-frame{width:100%;height:100%;min-height:720px;background:#F0EDE5;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.image-frame{width:100%;height:100%;min-height:560px;background:#F0EDE5;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .image-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .image-placeholder{font-family:"IBM Plex Sans",monospace;font-size:14pt;color:var(--warm);letter-spacing:.04em;border:1px dashed var(--warm-soft);padding:32px 40px;background:transparent;text-align:center;line-height:1.6}
 .image-placeholder .pfile{display:block;font-size:11pt;color:var(--warm-soft);margin-top:8px}
@@ -48,8 +48,8 @@ figcaption{font-size:14pt;color:var(--warm);font-style:italic;margin-top:8px;lin
 .price-tag .amount{font-size:56pt;font-weight:300;letter-spacing:-.02em;font-feature-settings:"tnum" on;color:var(--ink)}
 .price-tag .unit{font-size:18pt;color:var(--warm)}
 .price-tag .tax{font-size:13pt;color:var(--warm);letter-spacing:.04em;align-self:flex-end;margin-bottom:8px}
-.spec-list{display:flex;flex-direction:column;gap:14px;margin-top:24px}
-.spec-row{display:grid;grid-template-columns:140px 1fr;gap:24px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.spec-list{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.spec-row{display:grid;grid-template-columns:140px 1fr;gap:24px;padding-bottom:7px;border-bottom:1px solid var(--rule)}
 .spec-row:last-child{border-bottom:none}
 .spec-key{font-family:"IBM Plex Sans",sans-serif;font-size:13pt;color:var(--warm);letter-spacing:.06em;text-transform:uppercase;font-weight:400;padding-top:4px}
 .spec-val{font-size:18pt;line-height:1.6;color:var(--ink);font-weight:300}
@@ -141,67 +141,48 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
   </section>
 
-  <!-- ============ SLIDE 02 — Plan A ============ -->
+  <!-- ============ SLIDE 02 — 予算と現実 ============ -->
   <section class="slide" data-i="2">
-    <div class="eyebrow">Plan A — INNFRA Base Lite</div>
-    <span class="tier-badge a">最安 / Compact</span>
-    <h2>水循環の核 1 棟、<br>生活は <span class="marker">本館</span> で。</h2>
+    <div class="eyebrow">Context — 予算と現実</div>
+    <h1 class="slide-title" style="font-size:48pt">中庭で暮らす、<br>いくらかかるか。<span class="en">A look at the real cost.</span></h1>
 
-    <div class="row split-left" style="margin-top:24px">
+    <div class="row" style="grid-template-columns:1fr 1fr;margin-top:32px">
       <div class="col">
-        <figure style="height:100%;display:flex;flex-direction:column">
-          <div class="image-frame">
-            <img src="parse/images/planA_v1.png" alt="プラン A パース" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ パース生成予定 ]&lt;span class=\'pfile\'&gt;parse/images/planA_v1.png&lt;/span&gt;&lt;/div&gt;')">
-          </div>
-          <figcaption>引き俯瞰 / 夕暮れ / INNFRA Base Lite (黒コンテナ 1 棟) + 既存建物</figcaption>
-        </figure>
+        <h3 style="font-size:22pt;margin-bottom:18px">業界相場と今回のレンジ</h3>
+        <p style="font-size:18pt;line-height:1.8;color:var(--ink-2);margin-bottom:24px">
+          中庭に <span class="em">独立した宿泊機能</span> (寝室・水回り・電力) を実現すると、<br>
+          一般的な相場では <span class="marker">3,000–6,000 万円圏</span> です。
+        </p>
+        <p style="font-size:18pt;line-height:1.8;color:var(--ink-2);margin-bottom:24px">
+          躯体 (建築単体) 1,500 万円という相場感は妥当ですが、<br>
+          そこに<span class="em">水回り・電力・搬入・基礎</span> を加えると、<br>
+          総額は上記のレンジに収まります。
+        </p>
+        <p style="font-size:18pt;line-height:1.8;color:var(--ink-2)">
+          今回の 3 案は、その相場のなかで <span class="em">「何を残し、何を削るか」</span> を整理したものです。
+        </p>
       </div>
 
       <div class="col">
-        <div class="price-tag">
-          <span class="yen">JPY</span>
-          <span class="amount">1,760</span>
-          <span class="unit">万円</span>
-          <span class="tax">税別</span>
-        </div>
-        <small style="display:block;margin-top:-4px">本体 1,500 + 追加 260</small>
-
-        <div class="spec-list">
-          <div class="spec-row">
-            <div class="spec-key">形態</div>
-            <div class="spec-val">トレーラー (車両扱い)</div>
+        <h3 style="font-size:22pt;margin-bottom:18px">今回の 3 案レンジ</h3>
+        <div style="display:flex;flex-direction:column;gap:20px;margin-top:8px">
+          <div style="padding:20px 24px;background:#F4F1EA;border-left:3px solid var(--c)">
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13pt;letter-spacing:.12em;color:var(--c);text-transform:uppercase;font-weight:500;margin-bottom:6px">C 案 — フル装備</div>
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:32pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on">約 4,020 万円</div>
+            <div style="font-size:14pt;color:var(--warm);margin-top:4px">IZH + Base、お風呂 + 災害対応</div>
           </div>
-          <div class="spec-row">
-            <div class="spec-key">主躯体</div>
-            <div class="spec-val">INNFRA Base Lite<br><small>12ft / Water 300 L/日</small></div>
+          <div style="padding:20px 24px;background:#F4F1EA;border-left:3px solid var(--b)">
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13pt;letter-spacing:.12em;color:var(--b);text-transform:uppercase;font-weight:500;margin-bottom:6px">B 案 — 中</div>
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:32pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on">約 2,310 万円</div>
+            <div style="font-size:14pt;color:var(--warm);margin-top:4px">MOKUJIKU + Water′、中庭独立</div>
           </div>
-          <div class="spec-row">
-            <div class="spec-key">床面積</div>
-            <div class="spec-val"><span class="num">8.6 ㎡</span></div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-key">寝室</div>
-            <div class="spec-val"><span class="x">本館既存</span></div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-key">水回り</div>
-            <div class="spec-val"><span class="x">本館既存</span> + 水循環</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-key">お風呂</div>
-            <div class="spec-val"><span class="x">—</span></div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-key">PV / 蓄電池</div>
-            <div class="spec-val"><span class="x">—</span></div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-key">災害対応</div>
-            <div class="spec-val">△</div>
+          <div style="padding:20px 24px;background:#F4F1EA;border-left:3px solid var(--a)">
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13pt;letter-spacing:.12em;color:var(--a);text-transform:uppercase;font-weight:500;margin-bottom:6px">A 案 — 最安</div>
+            <div style="font-family:'IBM Plex Sans',sans-serif;font-size:32pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on">約 1,760 万円</div>
+            <div style="font-size:14pt;color:var(--warm);margin-top:4px">Base Lite、本館生活と組合せ</div>
           </div>
         </div>
-
-        <p class="note" style="margin-top:24px">最小投資。本館の生活機能はそのまま、中庭には水循環の核だけ。</p>
+        <p class="note" style="margin-top:24px">次ページ以降、<span class="em">高い順 (C → B → A)</span> でご説明します。</p>
       </div>
     </div>
 
@@ -211,8 +192,78 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
   </section>
 
-  <!-- ============ SLIDE 03 — Plan B ============ -->
+  <!-- ============ SLIDE 03 — Plan C (high to low order) ============ -->
   <section class="slide" data-i="3">
+    <div class="eyebrow">Plan C — INNFRA Base + IZH</div>
+    <span class="tier-badge c">フル / Off-Grid Living</span>
+    <h2>ご希望の IZH を活かす、<br><span class="marker">お風呂 + 災害対応</span> の豪華版。</h2>
+
+    <div class="row split-left" style="margin-top:24px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="parse/images/planC_v1.png" alt="プラン C パース" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ パース生成予定 ]&lt;span class=\'pfile\'&gt;parse/images/planC_v1.png&lt;/span&gt;&lt;/div&gt;')">
+          </div>
+          <figcaption>引き俯瞰 / 夕暮れ / Base + IZH リビング棟 L 字 + デッキ + ホットタブ</figcaption>
+        </figure>
+      </div>
+
+      <div class="col">
+        <div class="price-tag">
+          <span class="yen">JPY</span>
+          <span class="amount">4,020</span>
+          <span class="unit">万円</span>
+          <span class="tax">税別</span>
+        </div>
+        <small style="display:block;margin-top:-4px">本体 3,500 + 追加 520</small>
+
+        <div class="spec-list">
+          <div class="spec-row">
+            <div class="spec-key">形態</div>
+            <div class="spec-val">トレーラー × 2 棟</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">主躯体</div>
+            <div class="spec-val">IZH リビング棟 + INNFRA Base</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">床面積</div>
+            <div class="spec-val"><span class="num">23.1 ㎡</span> (14.5 + 8.6)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">寝室</div>
+            <div class="spec-val">IZH 棟内 (ベッド × 2)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">水回り</div>
+            <div class="spec-val">IZH 内 + Base 水循環 1,000 L/日</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">お風呂</div>
+            <div class="spec-val has"><span class="o">○ バスタブ + 給湯</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">PV / 蓄電池</div>
+            <div class="spec-val has"><span class="o">1.5 kW / 15 kWh</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">災害対応</div>
+            <div class="spec-val has"><span class="o">○ オフグリッド</span></div>
+          </div>
+        </div>
+
+        <p class="note" style="margin-top:24px">中庭で生活完結、お風呂も使えるフル装備。PV + 蓄電池で災害時もエネルギー自立。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 03</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 04 — Plan B ============ -->
+  <section class="slide" data-i="4">
     <div class="eyebrow">Plan B — MOKUJIKU + Water′</div>
     <span class="tier-badge b">中 / Compact Living</span>
     <h2>中庭で完結する 1 棟、<br>生物槽は <span class="marker">地中</span> へ。</h2>
@@ -276,114 +327,76 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
 
     <div class="footer">
-      <div>INNFRA / 中野邸 中庭計画 / Page 03</div>
+      <div>INNFRA / 中野邸 中庭計画 / Page 04</div>
       <div class="meta">2026-05-29 / Confidential</div>
     </div>
   </section>
 
-  <!-- ============ SLIDE 04 — Plan C ============ -->
-  <section class="slide" data-i="4">
-    <div class="eyebrow">Plan C — INNFRA Base + IZH</div>
-    <span class="tier-badge c">フル / Off-Grid Living</span>
-    <h2>中庭で完結。<br><span class="marker">お風呂 + 災害対応</span> の豪華版。</h2>
+  <!-- ============ SLIDE 05 — Plan A (高い順の着地点) ============ -->
+  <section class="slide" data-i="5">
+    <div class="eyebrow">Plan A — INNFRA Base Lite</div>
+    <span class="tier-badge a">最安 / Compact</span>
+    <h2>本館の生活と組み合わせ、<br>水循環の核 <span class="marker">1 棟だけ</span> 中庭へ。</h2>
 
     <div class="row split-left" style="margin-top:24px">
       <div class="col">
         <figure style="height:100%;display:flex;flex-direction:column">
           <div class="image-frame">
-            <img src="parse/images/planC_v1.png" alt="プラン C パース" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ パース生成予定 ]&lt;span class=\'pfile\'&gt;parse/images/planC_v1.png&lt;/span&gt;&lt;/div&gt;')">
+            <img src="parse/images/planA_v1.png" alt="プラン A パース" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ パース生成予定 ]&lt;span class=\'pfile\'&gt;parse/images/planA_v1.png&lt;/span&gt;&lt;/div&gt;')">
           </div>
-          <figcaption>引き俯瞰 / 夕暮れ / Base + IZH リビング棟 L 字 + デッキ + ホットタブ</figcaption>
+          <figcaption>引き俯瞰 / 夕暮れ / INNFRA Base Lite (黒コンテナ 1 棟) + 既存建物</figcaption>
         </figure>
       </div>
 
       <div class="col">
         <div class="price-tag">
           <span class="yen">JPY</span>
-          <span class="amount">4,020</span>
+          <span class="amount">1,760</span>
           <span class="unit">万円</span>
           <span class="tax">税別</span>
         </div>
-        <small style="display:block;margin-top:-4px">本体 3,500 + 追加 520</small>
+        <small style="display:block;margin-top:-4px">本体 1,500 + 追加 260</small>
 
         <div class="spec-list">
           <div class="spec-row">
             <div class="spec-key">形態</div>
-            <div class="spec-val">トレーラー × 2 棟</div>
+            <div class="spec-val">トレーラー (車両扱い)</div>
           </div>
           <div class="spec-row">
             <div class="spec-key">主躯体</div>
-            <div class="spec-val">IZH リビング棟 + INNFRA Base</div>
+            <div class="spec-val">INNFRA Base Lite<br><small>12ft / Water 300 L/日</small></div>
           </div>
           <div class="spec-row">
             <div class="spec-key">床面積</div>
-            <div class="spec-val"><span class="num">23.1 ㎡</span> (14.5 + 8.6)</div>
+            <div class="spec-val"><span class="num">8.6 ㎡</span></div>
           </div>
           <div class="spec-row">
             <div class="spec-key">寝室</div>
-            <div class="spec-val">IZH 棟内 (ベッド × 2)</div>
+            <div class="spec-val"><span class="x">本館既存</span></div>
           </div>
           <div class="spec-row">
             <div class="spec-key">水回り</div>
-            <div class="spec-val">IZH 内 + Base 水循環 1,000 L/日</div>
+            <div class="spec-val"><span class="x">本館既存</span> + 水循環</div>
           </div>
           <div class="spec-row">
             <div class="spec-key">お風呂</div>
-            <div class="spec-val has"><span class="o">○ バスタブ + 給湯</span></div>
+            <div class="spec-val"><span class="x">—</span></div>
           </div>
           <div class="spec-row">
             <div class="spec-key">PV / 蓄電池</div>
-            <div class="spec-val has"><span class="o">1.5 kW / 15 kWh</span></div>
+            <div class="spec-val"><span class="x">—</span></div>
           </div>
           <div class="spec-row">
             <div class="spec-key">災害対応</div>
-            <div class="spec-val has"><span class="o">○ オフグリッド</span></div>
+            <div class="spec-val">△</div>
+          </div>
+          <div class="spec-row" style="border-bottom:none;padding-bottom:0;padding-top:4px">
+            <div class="spec-key" style="color:var(--a)">将来性</div>
+            <div class="spec-val" style="font-size:15pt;line-height:1.5;color:var(--ink-2,var(--ink))"><span class="em" style="color:var(--a)">IZH 追加で C 案へアップグレード可</span><br><small style="font-size:12pt;color:var(--warm)">車両扱いのため移設・追加が容易</small></div>
           </div>
         </div>
-
-        <p class="note" style="margin-top:24px">中庭で生活完結、お風呂も使えるフル装備。PV + 蓄電池で災害時もエネルギー自立。</p>
       </div>
     </div>
-
-    <div class="footer">
-      <div>INNFRA / 中野邸 中庭計画 / Page 04</div>
-      <div class="meta">2026-05-29 / Confidential</div>
-    </div>
-  </section>
-
-  <!-- ============ SLIDE 05 — 比較 ============ -->
-  <section class="slide" data-i="5">
-    <div class="eyebrow">Comparison — 3 案比較</div>
-    <h2>並べて、選ぶ。<span style="font-family:'IBM Plex Sans',sans-serif;font-size:18pt;color:var(--warm);letter-spacing:.06em;font-weight:300;margin-left:24px">A / B / C</span></h2>
-
-    <table class="compare">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Plan A<br><small style="font-weight:300;font-size:11pt">Base Lite</small></th>
-          <th>Plan B<br><small style="font-weight:300;font-size:11pt">MOKUJIKU + Water′</small></th>
-          <th>Plan C<br><small style="font-weight:300;font-size:11pt">Base + IZH</small></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="price-row">
-          <th>価格 (税別)</th>
-          <td><span class="num">1,760</span> 万円</td>
-          <td><span class="num">2,310</span> 万円</td>
-          <td><span class="num">4,020</span> 万円</td>
-        </tr>
-        <tr><th>形態</th><td>車両 1 棟</td><td>車両 1 棟</td><td>車両 2 棟</td></tr>
-        <tr><th>寝室</th><td>本館既存</td><td>棟内</td><td>IZH 棟内</td></tr>
-        <tr><th>水回り独立</th><td class="ng">×</td><td class="check">○</td><td class="check">○</td></tr>
-        <tr><th>お風呂</th><td>—</td><td>—</td><td class="check">○</td></tr>
-        <tr><th>PV / 蓄電池</th><td>—</td><td>—</td><td class="check">1.5 kW / 15 kWh</td></tr>
-        <tr><th>災害対応</th><td class="warn">△</td><td class="warn">△</td><td class="check">○</td></tr>
-        <tr><th>床面積</th><td>8.6 ㎡</td><td>13.0 ㎡</td><td>23.1 ㎡</td></tr>
-        <tr><th>用途</th><td>本館補完</td><td>コンパクト独立</td><td>完全独立 / 通年</td></tr>
-      </tbody>
-    </table>
-
-    <p style="margin-top:20px;font-size:13pt;color:var(--warm);font-style:italic;line-height:1.6">全案とも車両扱い (建築確認不要 / 固定資産税非課税 / 移設可能)。搬入で詰まる場合は建築バックアップに切替可。</p>
 
     <div class="footer">
       <div>INNFRA / 中野邸 中庭計画 / Page 05</div>
@@ -391,8 +404,48 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
   </section>
 
-  <!-- ============ SLIDE 06 — ヒアリング ============ -->
+  <!-- ============ SLIDE 06 — 比較 ============ -->
   <section class="slide" data-i="6">
+    <div class="eyebrow">Comparison — 3 案比較</div>
+    <h2>並べて、選ぶ。<span style="font-family:'IBM Plex Sans',sans-serif;font-size:18pt;color:var(--warm);letter-spacing:.06em;font-weight:300;margin-left:24px">C / B / A</span></h2>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Plan C<br><small style="font-weight:300;font-size:11pt">Base + IZH</small></th>
+          <th>Plan B<br><small style="font-weight:300;font-size:11pt">MOKUJIKU + Water′</small></th>
+          <th>Plan A<br><small style="font-weight:300;font-size:11pt">Base Lite</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="price-row">
+          <th>価格 (税別)</th>
+          <td><span class="num">4,020</span> 万円</td>
+          <td><span class="num">2,310</span> 万円</td>
+          <td><span class="num">1,760</span> 万円</td>
+        </tr>
+        <tr><th>形態</th><td>車両 2 棟</td><td>車両 1 棟</td><td>車両 1 棟</td></tr>
+        <tr><th>寝室</th><td>IZH 棟内</td><td>棟内</td><td>本館既存</td></tr>
+        <tr><th>水回り独立</th><td class="check">○</td><td class="check">○</td><td class="ng">×</td></tr>
+        <tr><th>お風呂</th><td class="check">○</td><td>—</td><td>—</td></tr>
+        <tr><th>PV / 蓄電池</th><td class="check">1.5 kW / 15 kWh</td><td>—</td><td>—</td></tr>
+        <tr><th>災害対応</th><td class="check">○</td><td class="warn">△</td><td class="warn">△</td></tr>
+        <tr><th>床面積</th><td>23.1 ㎡</td><td>13.0 ㎡</td><td>8.6 ㎡</td></tr>
+        <tr><th>用途</th><td>完全独立 / 通年</td><td>コンパクト独立</td><td>本館補完</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:20px;font-size:13pt;color:var(--warm);font-style:italic;line-height:1.6">全案とも車両扱い (建築確認不要 / 固定資産税非課税 / 移設可能)。搬入で詰まる場合は建築バックアップに切替可。A 案は将来 IZH 追加で C 案にアップグレード可。</p>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 06</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 07 — ヒアリング ============ -->
+  <section class="slide" data-i="7">
     <div class="eyebrow">Hearing — ご確認</div>
 
     <div class="row split-right" style="margin-top:8px">
@@ -435,7 +488,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
             <div class="hearing-num">04</div>
             <div>
               <div class="hearing-q">予算優先度</div>
-              <div class="hearing-hint">A 案 (1,760 万) / B 案 (2,310 万) / C 案 (4,020 万)</div>
+              <div class="hearing-hint">C 案 (4,020 万) / B 案 (2,310 万) / A 案 (1,760 万)</div>
             </div>
           </div>
           <div class="hearing-item">
@@ -464,13 +517,13 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
 
     <div class="footer">
-      <div>INNFRA / 中野邸 中庭計画 / Page 06</div>
+      <div>INNFRA / 中野邸 中庭計画 / Page 07</div>
       <div class="meta">2026-05-29 / Confidential</div>
     </div>
   </section>
 
-  <!-- ============ SLIDE 07 — スケジュール ============ -->
-  <section class="slide" data-i="7">
+  <!-- ============ SLIDE 08 — スケジュール ============ -->
+  <section class="slide" data-i="8">
     <div class="eyebrow">Schedule — 工程</div>
     <h1 class="slide-title">ご決定から完成まで<br>約 <span class="num">6</span> ヶ月。<span class="en">From go-ahead to completion, six months.</span></h1>
 
@@ -520,7 +573,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
     </div>
 
     <div class="footer">
-      <div>INNFRA / 中野邸 中庭計画 / Page 07</div>
+      <div>INNFRA / 中野邸 中庭計画 / Page 08</div>
       <div class="meta">2026-05-29 / Confidential</div>
     </div>
   </section>
@@ -529,7 +582,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
 </div>
 </div>
 
-<div class="counter" id="counter">01 / 07</div>
+<div class="counter" id="counter">01 / 08</div>
 <div class="nav-hint">← → keys</div>
 
 <script>
