@@ -38,6 +38,7 @@ small,.note{font-size:14pt;line-height:1.7;color:var(--warm);font-weight:300}
 .col{display:flex;flex-direction:column;gap:24px;min-width:0}
 .image-frame{width:100%;height:100%;min-height:760px;background:#F0EDE5;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .image-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.image-frame.contain img{object-fit:contain;background:#F0EDE5}
 .image-placeholder{font-family:"IBM Plex Sans",monospace;font-size:14pt;color:#9A4040;letter-spacing:.04em;border:2px dashed #9A4040;padding:20px 28px;background:#FBEFEB;text-align:center;line-height:1.6;font-weight:500}
 .image-placeholder .pfile{display:block;font-size:11pt;color:var(--warm-soft);margin-top:8px}
 figcaption{font-size:14pt;color:var(--warm);font-style:italic;margin-top:8px;line-height:1.6}
@@ -120,7 +121,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
     <div class="eyebrow">Proposal — 中野邸 中庭計画</div>
     <h1 class="slide-title">3 案、ご提案。<span class="en">A starting point for our conversation.</span></h1>
 
-    <div class="row split-left" style="margin-top:32px;flex:1">
+    <div class="row split-left" style="margin-top:32px;flex:1;grid-template-columns:1.2fr 1fr">
       <div class="col">
         <h3 style="font-size:24pt;font-weight:500;margin-bottom:20px">前提条件</h3>
         <ul class="premise-list" style="font-size:18pt">
@@ -199,7 +200,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
     <span class="tier-badge a">フル / Off-Grid Living</span>
     <h2>ご希望の インフラゼロハウス を活かす、<br><span class="marker">お風呂 + 災害対応</span> の豪華版。</h2>
 
-    <div class="row split-left" style="margin-top:24px">
+    <div class="row split-left" style="margin-top:24px;grid-template-columns:1.5fr 1fr">
       <div class="col">
         <figure style="height:100%;display:flex;flex-direction:column">
           <div class="image-frame">
@@ -270,7 +271,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
     <span class="tier-badge b">中 / Compact Living</span>
     <h2>中庭で完結する 1 棟、<br>生物槽は <span class="marker">地中</span> へ。</h2>
 
-    <div class="row split-left" style="margin-top:24px">
+    <div class="row split-left" style="margin-top:24px;grid-template-columns:1.5fr 1fr">
       <div class="col">
         <figure style="height:100%;display:flex;flex-direction:column">
           <div class="image-frame">
@@ -341,7 +342,7 @@ table.compare .ng{color:#9A4040;font-weight:500}
     <span class="tier-badge c">最安 / Compact</span>
     <h2>本館の生活と組み合わせ、<br>水循環の核 <span class="marker">1 棟だけ</span> 中庭へ。</h2>
 
-    <div class="row split-left" style="margin-top:24px">
+    <div class="row split-left" style="margin-top:24px;grid-template-columns:1.5fr 1fr">
       <div class="col">
         <figure style="height:100%;display:flex;flex-direction:column">
           <div class="image-frame">
@@ -415,31 +416,31 @@ table.compare .ng{color:#9A4040;font-weight:500}
 
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;flex:0 0 auto">
       <div>
-        <div class="image-frame" style="min-height:0;height:160px">
+        <div class="image-frame contain" style="min-height:0;height:160px">
           <img src="parse/images/chassis_izh_living.png" alt="インフラゼロハウス リビング棟" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_izh_living.png&lt;/span&gt;&lt;/div&gt;')">
         </div>
         <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">インフラゼロハウス<br><small style="font-size:9pt;color:var(--warm)">リビング棟</small></figcaption>
       </div>
       <div>
-        <div class="image-frame" style="min-height:0;height:160px">
+        <div class="image-frame contain" style="min-height:0;height:160px">
           <img src="parse/images/chassis_izh_infra.png" alt="インフラゼロハウス インフラ棟" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_izh_infra.png&lt;/span&gt;&lt;/div&gt;')">
         </div>
         <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">インフラゼロハウス<br><small style="font-size:9pt;color:var(--warm)">インフラ棟</small></figcaption>
       </div>
       <div>
-        <div class="image-frame" style="min-height:0;height:160px">
+        <div class="image-frame contain" style="min-height:0;height:160px">
           <img src="parse/images/chassis_base.png" alt="INNFRA Base" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_base.png&lt;/span&gt;&lt;/div&gt;')">
         </div>
         <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">INNFRA Base<br><small style="font-size:9pt;color:var(--warm)">水循環専用</small></figcaption>
       </div>
       <div>
-        <div class="image-frame" style="min-height:0;height:160px">
+        <div class="image-frame contain" style="min-height:0;height:160px">
           <img src="parse/images/chassis_mokujiku.png" alt="MOKUJIKU" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_mokujiku.png&lt;/span&gt;&lt;/div&gt;')">
         </div>
         <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">MOKUJIKU<br><small style="font-size:9pt;color:var(--warm)">木造ラーメン</small></figcaption>
       </div>
       <div>
-        <div class="image-frame" style="min-height:0;height:160px">
+        <div class="image-frame contain" style="min-height:0;height:160px">
           <img src="parse/images/chassis_muji.png" alt="MUJI 小屋" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_muji.png&lt;/span&gt;&lt;/div&gt;')">
         </div>
         <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">MUJI 小屋<br><small style="font-size:9pt;color:var(--warm)">建築 (BU)</small></figcaption>
@@ -479,7 +480,13 @@ table.compare .ng{color:#9A4040;font-weight:500}
     <div class="eyebrow">Comparison — 3 案比較</div>
     <h2>並べて、選ぶ。<span style="font-family:'IBM Plex Sans',sans-serif;font-size:18pt;color:var(--warm);letter-spacing:.06em;font-weight:300;margin-left:24px">A / B / C</span></h2>
 
-    <table class="compare">
+    <table class="compare" style="table-layout:fixed">
+      <colgroup>
+        <col style="width:180px">
+        <col>
+        <col>
+        <col>
+      </colgroup>
       <thead>
         <tr>
           <th></th>
