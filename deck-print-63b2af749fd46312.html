@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>中野邸 中庭計画 ご提案 — INNFRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF7;--ink:#1A1A1A;--ink-2:#3A3A38;
+  --warm:#8B7D6B;--warm-soft:#C9C0B3;
+  --marker:#F5E6A8;--rule:#E8E3DA;
+  --a:#3E5A6E;--b:#A07050;--c:#5A7A55;
+  --slide-w:1920px;--slide-h:1080px;--mx:80px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#FFFFFF;font-family:"Noto Sans JP","IBM Plex Sans",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;margin:0;padding:0;width:1920px}
+.viewport{position:relative;display:block;background:#FFFFFF;width:1920px}
+.deck-frame{position:relative;width:1920px}
+.deck{width:1920px;position:relative}
+.slide{width:1920px;height:1080px;background:var(--paper);color:var(--ink);position:relative;padding:80px var(--mx) 64px var(--mx);display:flex;flex-direction:column;font-family:"Noto Sans JP","IBM Plex Sans",sans-serif;font-weight:300;line-height:1.7;page-break-after:always;break-after:page;overflow:hidden}
+.slide:last-child{page-break-after:auto;break-after:auto}
+.eyebrow{font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;font-size:14pt;letter-spacing:.18em;color:var(--warm);text-transform:uppercase;font-weight:400;margin-bottom:24px}
+h1.slide-title{font-size:56pt;line-height:1.25;font-weight:400;letter-spacing:-.01em;color:var(--ink);margin-bottom:8px}
+h1.slide-title .en{display:block;font-family:"IBM Plex Sans",sans-serif;font-size:18pt;letter-spacing:.06em;color:var(--warm);font-weight:300;margin-top:16px}
+h2{font-size:32pt;font-weight:400;line-height:1.35;color:var(--ink);margin-bottom:16px;letter-spacing:-.005em}
+h3{font-size:22pt;font-weight:500;line-height:1.4;color:var(--ink);margin-bottom:12px}
+p,li{font-size:20pt;line-height:1.8;color:var(--ink);font-weight:300}
+small,.note{font-size:14pt;line-height:1.7;color:var(--warm);font-weight:300}
+.marker{background:linear-gradient(transparent 55%,var(--marker) 55%,var(--marker) 92%,transparent 92%);font-weight:500;padding:0 .15em}
+.em{font-weight:500}
+.num{font-family:"IBM Plex Sans",sans-serif;font-feature-settings:"tnum" on}
+.row{display:grid;gap:64px;flex:1;align-items:start}
+.split-left{grid-template-columns:1.7fr 1fr}
+.split-right{grid-template-columns:1fr 1.05fr}
+.col{display:flex;flex-direction:column;gap:24px;min-width:0}
+.image-frame{width:100%;height:100%;min-height:760px;background:#F0EDE5;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.image-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.image-placeholder{font-family:"IBM Plex Sans",monospace;font-size:14pt;color:#9A4040;letter-spacing:.04em;border:2px dashed #9A4040;padding:20px 28px;background:#FBEFEB;text-align:center;line-height:1.6;font-weight:500}
+.image-placeholder .pfile{display:block;font-size:11pt;color:var(--warm-soft);margin-top:8px}
+figcaption{font-size:14pt;color:var(--warm);font-style:italic;margin-top:8px;line-height:1.6}
+.tier-badge{display:inline-block;padding:6px 16px;font-family:"IBM Plex Sans",sans-serif;font-size:13pt;letter-spacing:.18em;text-transform:uppercase;font-weight:500;border:1px solid currentColor;margin-bottom:16px}
+.tier-badge.a{color:var(--a)}.tier-badge.b{color:var(--b)}.tier-badge.c{color:var(--c)}
+.price-tag{display:flex;align-items:baseline;gap:16px;margin-bottom:8px;font-family:"IBM Plex Sans","Noto Sans JP",sans-serif}
+.price-tag .yen{font-size:14pt;color:var(--warm)}
+.price-tag .amount{font-size:34pt;font-weight:300;letter-spacing:-.02em;font-feature-settings:"tnum" on;color:var(--ink)}
+.price-tag .unit{font-size:18pt;color:var(--warm)}
+.price-tag .tax{font-size:13pt;color:var(--warm);letter-spacing:.04em;align-self:flex-end;margin-bottom:8px}
+.spec-list{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.spec-row{display:grid;grid-template-columns:140px 1fr;gap:24px;padding-bottom:7px;border-bottom:1px solid var(--rule)}
+.spec-row:last-child{border-bottom:none}
+.spec-key{font-family:"IBM Plex Sans",sans-serif;font-size:13pt;color:var(--warm);letter-spacing:.06em;text-transform:uppercase;font-weight:400;padding-top:4px}
+.spec-val{font-size:18pt;line-height:1.6;color:var(--ink);font-weight:300}
+.spec-val.has{font-weight:500}
+.spec-val .o{color:var(--a);font-weight:500}
+.spec-val .x{color:var(--warm);font-weight:300}
+.bullets{display:flex;flex-direction:column;gap:14px;list-style:none}
+.bullets li{font-size:18pt;line-height:1.7;color:var(--ink);padding-left:28px;position:relative}
+.bullets li::before{content:"";position:absolute;left:0;top:.85em;width:14px;height:1px;background:var(--warm)}
+.intro-block{display:grid;grid-template-columns:1fr 1fr;gap:80px;flex:1;align-items:start;margin-top:32px}
+.intro-block h3{font-size:24pt;font-weight:500;margin-bottom:20px;color:var(--ink)}
+.intro-block p{font-size:18pt;line-height:1.8;color:var(--ink-2);margin-bottom:18px}
+.intro-block .premise-list{display:flex;flex-direction:column;gap:16px;margin-top:24px}
+.intro-block .premise-list li{font-size:16pt;line-height:1.7;color:var(--ink-2);padding-left:24px;position:relative;list-style:none}
+.intro-block .premise-list li::before{content:"";position:absolute;left:0;top:.85em;width:14px;height:1px;background:var(--warm)}
+table.compare{width:100%;border-collapse:collapse;font-size:16pt;margin-top:16px}
+table.compare th,table.compare td{padding:18px 20px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.55;font-weight:300}
+table.compare thead th{font-family:"IBM Plex Sans",sans-serif;font-size:13pt;letter-spacing:.06em;text-transform:uppercase;color:var(--warm);font-weight:400;border-bottom:1px solid var(--warm-soft);padding-bottom:12px}
+table.compare tbody th{font-size:13pt;letter-spacing:.04em;color:var(--warm);font-weight:400;text-transform:uppercase;width:180px;padding-top:20px}
+table.compare td{font-size:16pt;color:var(--ink);width:auto}
+table.compare tr.price-row td{background:var(--marker);font-weight:500;font-size:20pt}
+table.compare tr.price-row th{background:var(--marker);color:var(--ink)}
+table.compare .check{color:var(--a);font-weight:500}
+table.compare .warn{color:var(--b);font-weight:500}
+table.compare .ng{color:#9A4040;font-weight:500}
+.hearing-list{display:flex;flex-direction:column;gap:18px}
+.hearing-item{display:grid;grid-template-columns:60px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.hearing-item:last-child{border-bottom:none}
+.hearing-num{font-family:"IBM Plex Sans",sans-serif;font-size:18pt;color:var(--warm);font-feature-settings:"tnum" on;padding-top:4px}
+.hearing-q{font-size:18pt;color:var(--ink);font-weight:400;line-height:1.5;margin-bottom:4px}
+.hearing-hint{font-size:13pt;color:var(--warm);line-height:1.5;font-weight:300}
+.timeline{margin-top:48px;display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;padding:0 20px}
+.timeline::before{content:"";position:absolute;left:60px;right:60px;top:48px;height:1px;background:var(--warm-soft)}
+.tl-step{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;position:relative;padding:0 12px}
+.tl-dot{width:18px;height:18px;border-radius:50%;background:var(--paper);border:2px solid var(--warm);position:relative;z-index:2;margin-top:38px}
+.tl-step:first-child .tl-dot,.tl-step:last-child .tl-dot{background:var(--warm)}
+.tl-num{font-family:"IBM Plex Sans",sans-serif;font-size:14pt;color:var(--warm);letter-spacing:.08em;margin-top:8px}
+.tl-label{font-size:18pt;font-weight:500;color:var(--ink);line-height:1.4}
+.tl-date{font-size:14pt;color:var(--warm);font-family:"IBM Plex Sans",sans-serif;font-feature-settings:"tnum" on}
+.tl-dur{font-size:13pt;color:var(--warm);font-style:italic}
+.footer{position:absolute;left:var(--mx);right:var(--mx);bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;font-size:12pt;color:var(--warm);font-family:"IBM Plex Sans","Noto Sans JP",sans-serif;letter-spacing:.04em;font-weight:300;padding-top:16px;border-top:1px solid var(--rule)}
+.footer .meta{font-feature-settings:"tnum" on}
+.counter{display:none}
+.nav-hint{display:none}
+.draft-stamp{position:absolute;top:36px;right:80px;font-family:"IBM Plex Sans",sans-serif;font-size:11pt;letter-spacing:.2em;color:var(--warm);border:1px solid var(--warm-soft);padding:6px 14px;text-transform:uppercase}
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{background:#FFFFFF !important;overflow:visible !important;width:1920px !important;height:auto !important;margin:0;padding:0}
+  .viewport{position:relative !important;inset:auto !important;display:block !important;overflow:visible !important;width:1920px !important;height:auto !important;background:#FFFFFF !important}
+  .deck-frame{position:relative !important;width:1920px !important;height:auto !important;flex-shrink:initial !important}
+  .deck{transform:none !important;width:1920px !important;height:auto !important;position:relative !important}
+  .slide{display:flex !important;position:relative !important;inset:auto !important;width:1920px !important;height:1080px !important;page-break-after:always !important;break-after:page !important;box-shadow:none;overflow:hidden}
+  .slide:last-child{page-break-after:auto !important;break-after:auto !important}
+  .counter,.nav-hint{display:none !important}
+  .image-frame{background:#F4F1EA;border-color:#D8D2C5}
+}
+</style>
+</head>
+<body>
+
+<div class="viewport">
+<div class="deck-frame" id="frame">
+<div class="deck" id="deck">
+
+  <!-- ============ SLIDE 01 — 表紙・はじめに ============ -->
+  <section class="slide active" data-i="1">
+    <div class="draft-stamp">DRAFT · 議論のたたき台</div>
+    <div class="eyebrow">Proposal — 中野邸 中庭計画</div>
+    <h1 class="slide-title">3 案、ご提案。<span class="en">A starting point for our conversation.</span></h1>
+
+    <div class="intro-block">
+      <div>
+        <h3>今回ご提案する 3 案について</h3>
+        <p>
+          本資料の 3 案は <span class="marker">議論のたたき台</span> です。<br>
+          これをベースに、用途・予算・優先度を <span class="em">ヒアリングしながら</span> 絞り込ませてください。
+        </p>
+        <p>
+          価格・スペックは <span class="em">現時点の試算値</span>、要件確定後に詳細設計・正式見積に進みます。
+        </p>
+      </div>
+
+      <div>
+        <h3>前提条件</h3>
+        <ul class="premise-list">
+          <li>中庭 <span class="num">17m × 11m / 187 ㎡</span>、壁高 <span class="num">7m</span> RC、西壁下 pilotis <span class="num">~3m</span></li>
+          <li>既存建物 (栗生明設計、1998) を活かす</li>
+          <li>想定: 大人 2 名 + ゲスト、宿泊 / 滞在</li>
+          <li>すべて <span class="em">トレーラー (車両扱い)</span> 前提 — 建築確認不要・移設可能</li>
+          <li>搬入で詰まる場合は <span class="em">建築バックアップ</span> を併記</li>
+          <li>価格はすべて <span class="em">超概算 (税別)</span>、本体 = 内装工事込み</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 01</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 02 — 提案アプローチ ============ -->
+  <section class="slide" data-i="2">
+    <div class="eyebrow">Approach — 提案アプローチ</div>
+    <h1 class="slide-title" style="font-size:44pt">仮住まいとして、<br>移転可能 = <span class="marker">トレーラーハウス</span> でのご提案。<span class="en">A movable, off-grid living solution.</span></h1>
+
+    <div style="margin-top:40px;flex:1;display:flex;flex-direction:column">
+      <h3 style="font-size:22pt;margin-bottom:24px;color:var(--ink)">3 案、価格レンジ</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:8px">
+        <div style="padding:28px 28px;background:#F4F1EA;border-top:4px solid var(--a);display:flex;flex-direction:column;gap:8px">
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:14pt;letter-spacing:.14em;color:var(--a);text-transform:uppercase;font-weight:500">A 案 — フル装備</div>
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:38pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on;margin-top:8px">約 4,020 万</div>
+          <div style="font-size:14pt;color:var(--warm);margin-top:12px;line-height:1.6">インフラゼロハウス + Base<br>お風呂 + 災害対応</div>
+        </div>
+        <div style="padding:28px 28px;background:#F4F1EA;border-top:4px solid var(--b);display:flex;flex-direction:column;gap:8px">
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:14pt;letter-spacing:.14em;color:var(--b);text-transform:uppercase;font-weight:500">B 案 — 中</div>
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:38pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on;margin-top:8px">約 2,310 万</div>
+          <div style="font-size:14pt;color:var(--warm);margin-top:12px;line-height:1.6">MOKUJIKU + Water′<br>中庭独立</div>
+        </div>
+        <div style="padding:28px 28px;background:#F4F1EA;border-top:4px solid var(--c);display:flex;flex-direction:column;gap:8px">
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:14pt;letter-spacing:.14em;color:var(--c);text-transform:uppercase;font-weight:500">C 案 — 最安</div>
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:38pt;font-weight:300;color:var(--ink);font-feature-settings:'tnum' on;margin-top:8px">約 1,760 万</div>
+          <div style="font-size:14pt;color:var(--warm);margin-top:12px;line-height:1.6">Base Lite<br>本館生活と組合せ</div>
+        </div>
+      </div>
+
+      <div style="margin-top:auto;padding-top:32px">
+        <ul class="bullets" style="font-size:18pt">
+          <li>全てトレーラーハウス前提 — <span class="em">建築確認不要・固定資産税非課税・移設可能</span></li>
+          <li>将来的に他用途への転用・売却・敷地内移動が可能</li>
+          <li>すべての価格は <span class="em">超概算 (税別)</span>、本体価格 = 内装工事込み</li>
+        </ul>
+        <p class="note" style="margin-top:16px">次ページ以降、<span class="em">フル装備の A 案からご説明</span>します。</p>
+      </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 02</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 03 — Plan A (フル装備、高い順の起点) ============ -->
+  <section class="slide" data-i="3">
+    <div class="eyebrow">Plan A — INNFRA Base + インフラゼロハウス</div>
+    <span class="tier-badge a">フル / Off-Grid Living</span>
+    <h2>ご希望の インフラゼロハウス を活かす、<br><span class="marker">お風呂 + 災害対応</span> の豪華版。</h2>
+
+    <div class="row split-left" style="margin-top:24px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="parse/images/planA_v1.png" alt="プラン A パース" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ 後ほど パース挿入予定 ]&lt;span class=\'pfile\'&gt;parse/images/planA_v1.png&lt;/span&gt;&lt;/div&gt;')">
+          </div>
+          <figcaption>引き俯瞰 / 夕暮れ / Base + インフラゼロハウス リビング棟 L 字 + デッキ + ホットタブ</figcaption>
+        </figure>
+      </div>
+
+      <div class="col">
+        <div class="price-tag">
+          <span class="yen">JPY</span>
+          <span class="amount">4,020</span>
+          <span class="unit">万円</span>
+          <span class="tax">税別</span>
+        </div>
+        <small style="display:block;margin-top:-4px">本体 3,500 + 追加 520 <span style="color:var(--warm-soft)">※</span></small>
+        <small style="display:block;margin-top:4px;font-size:11pt;color:var(--warm)">※ 追加 = 工事費 (搬入・基礎・浄化槽・デッキ・諸経費)</small>
+
+        <div class="spec-list">
+          <div class="spec-row">
+            <div class="spec-key">形態</div>
+            <div class="spec-val">トレーラー × 2 棟</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">主躯体</div>
+            <div class="spec-val">インフラゼロハウス リビング棟 + INNFRA Base</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">床面積</div>
+            <div class="spec-val"><span class="num">23.1 ㎡</span> (14.5 + 8.6)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">寝室</div>
+            <div class="spec-val">インフラゼロハウス 棟内 (ベッド × 2)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">水回り</div>
+            <div class="spec-val" style="font-size:16pt;line-height:1.5">シャワー / バイオトイレ / キッチン<br><small style="font-size:13pt;color:var(--warm)">(インフラゼロハウス 棟内 + Base 水循環 1,000 L/日)</small></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">お風呂</div>
+            <div class="spec-val has"><span class="o">○ バスタブ + 給湯</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">PV / 蓄電池</div>
+            <div class="spec-val has"><span class="o">1.5 kW / 15 kWh</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">災害対応</div>
+            <div class="spec-val has"><span class="o">○ オフグリッド</span></div>
+          </div>
+        </div>
+
+        <p class="note" style="margin-top:24px">中庭で生活完結、お風呂も使えるフル装備。PV + 蓄電池で災害時もエネルギー自立。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 03</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 04 — Plan B ============ -->
+  <section class="slide" data-i="4">
+    <div class="eyebrow">Plan B — MOKUJIKU + Water′</div>
+    <span class="tier-badge b">中 / Compact Living</span>
+    <h2>中庭で完結する 1 棟、<br>生物槽は <span class="marker">地中</span> へ。</h2>
+
+    <div class="row split-left" style="margin-top:24px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="parse/images/planB_v1.png" alt="プラン B パース" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ 後ほど パース挿入予定 ]&lt;span class=\'pfile\'&gt;parse/images/planB_v1.png&lt;/span&gt;&lt;/div&gt;')">
+          </div>
+          <figcaption>引き俯瞰 / 夕暮れ / MOKUJIKU 1 棟 + 地中盛り土 (Water′ チャレンジ)</figcaption>
+        </figure>
+      </div>
+
+      <div class="col">
+        <div class="price-tag">
+          <span class="yen">JPY</span>
+          <span class="amount">2,310</span>
+          <span class="unit">万円</span>
+          <span class="tax">税別</span>
+        </div>
+        <small style="display:block;margin-top:-4px">本体 1,900 + 追加 410 <span style="color:var(--warm-soft)">※</span></small>
+        <small style="display:block;margin-top:4px;font-size:11pt;color:var(--warm)">※ 追加 = 工事費 (搬入・基礎・デッキ・諸経費)</small>
+
+        <div class="spec-list">
+          <div class="spec-row">
+            <div class="spec-key">形態</div>
+            <div class="spec-val">トレーラー (車両扱い)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">主躯体</div>
+            <div class="spec-val">MOKUJIKU 1 棟<br><small>+ INNFRA Water′ (地中埋設チャレンジ)</small></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">床面積</div>
+            <div class="spec-val"><span class="num">13.0 ㎡</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">寝室</div>
+            <div class="spec-val">棟内</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">水回り</div>
+            <div class="spec-val" style="font-size:16pt;line-height:1.5">シャワー / バイオトイレ / キッチン<br><small style="font-size:13pt;color:var(--warm)">(MOKUJIKU 棟内フル装備)</small></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">お風呂</div>
+            <div class="spec-val"><span class="x">—</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">PV / 蓄電池</div>
+            <div class="spec-val"><span class="x">—</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">災害対応</div>
+            <div class="spec-val">△</div>
+          </div>
+        </div>
+
+        <p class="note" style="margin-top:24px">コンパクト独立。生物槽地中埋設で景観もスッキリ、INNFRA 側の技術チャレンジ案件。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 04</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 05 — Plan C (最安、高い順の着地点) ============ -->
+  <section class="slide" data-i="5">
+    <div class="eyebrow">Plan C — INNFRA Base Lite</div>
+    <span class="tier-badge c">最安 / Compact</span>
+    <h2>本館の生活と組み合わせ、<br>水循環の核 <span class="marker">1 棟だけ</span> 中庭へ。</h2>
+
+    <div class="row split-left" style="margin-top:24px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame">
+            <img src="parse/images/planC_v1.png" alt="プラン C パース" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ 後ほど パース挿入予定 ]&lt;span class=\'pfile\'&gt;parse/images/planC_v1.png&lt;/span&gt;&lt;/div&gt;')">
+          </div>
+          <figcaption>引き俯瞰 / 夕暮れ / INNFRA Base Lite (黒コンテナ 1 棟) + 既存建物</figcaption>
+        </figure>
+      </div>
+
+      <div class="col">
+        <div class="price-tag">
+          <span class="yen">JPY</span>
+          <span class="amount">1,760</span>
+          <span class="unit">万円</span>
+          <span class="tax">税別</span>
+        </div>
+        <small style="display:block;margin-top:-4px">本体 1,500 + 追加 260 <span style="color:var(--warm-soft)">※</span></small>
+        <small style="display:block;margin-top:4px;font-size:11pt;color:var(--warm)">※ 追加 = 工事費 (搬入・基礎・デッキ・諸経費)</small>
+
+        <div class="spec-list">
+          <div class="spec-row">
+            <div class="spec-key">形態</div>
+            <div class="spec-val">トレーラー (車両扱い)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">主躯体</div>
+            <div class="spec-val">INNFRA Base Lite<br><small>12ft / Water 300 L/日</small></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">床面積</div>
+            <div class="spec-val"><span class="num">8.6 ㎡</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">寝室</div>
+            <div class="spec-val" style="font-size:16pt;line-height:1.5"><span class="x">本館内に新規設置</span><br><small style="font-size:12pt;color:var(--warm)">※ 本館に居室機能なし、設置工事費別</small></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">水回り</div>
+            <div class="spec-val" style="font-size:16pt;line-height:1.5"><span class="x">本館に新規設置</span>: シャワー / バイオトイレ / キッチン<br><small style="font-size:12pt;color:var(--warm)">+ 中庭 Base Lite (水循環 300 L/日) ※ 本館工事費別</small></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">お風呂</div>
+            <div class="spec-val"><span class="x">—</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">PV / 蓄電池</div>
+            <div class="spec-val"><span class="x">—</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">災害対応</div>
+            <div class="spec-val">△</div>
+          </div>
+          <div class="spec-row" style="border-bottom:none;padding-bottom:0;padding-top:4px">
+            <div class="spec-key" style="color:var(--c)">将来性</div>
+            <div class="spec-val" style="font-size:15pt;line-height:1.5;color:var(--ink-2,var(--ink))"><span class="em" style="color:var(--c)">Base 採用で A 案にアップグレード可</span><br><small style="font-size:11pt;color:var(--warm);line-height:1.5">Lite は水循環 300 L/日のためお風呂不可、Base (1,000 L/日) なら可</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 05</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 06 — 躯体比較 ============ -->
+  <section class="slide" data-i="6">
+    <div class="eyebrow">Chassis — 躯体比較</div>
+    <h2>使用する躯体 <span class="num">5</span> 種。<span style="font-family:'IBM Plex Sans',sans-serif;font-size:14pt;color:var(--warm);letter-spacing:.06em;font-weight:300;margin-left:16px">Foundations of the three plans.</span></h2>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;flex:0 0 auto">
+      <div>
+        <div class="image-frame" style="min-height:0;height:160px">
+          <img src="parse/images/chassis_izh_living.png" alt="インフラゼロハウス リビング棟" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_izh_living.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">インフラゼロハウス<br><small style="font-size:9pt;color:var(--warm)">リビング棟</small></figcaption>
+      </div>
+      <div>
+        <div class="image-frame" style="min-height:0;height:160px">
+          <img src="parse/images/chassis_izh_infra.png" alt="インフラゼロハウス インフラ棟" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_izh_infra.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">インフラゼロハウス<br><small style="font-size:9pt;color:var(--warm)">インフラ棟</small></figcaption>
+      </div>
+      <div>
+        <div class="image-frame" style="min-height:0;height:160px">
+          <img src="parse/images/chassis_base.png" alt="INNFRA Base" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_base.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">INNFRA Base<br><small style="font-size:9pt;color:var(--warm)">水循環専用</small></figcaption>
+      </div>
+      <div>
+        <div class="image-frame" style="min-height:0;height:160px">
+          <img src="parse/images/chassis_mokujiku.png" alt="MOKUJIKU" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_mokujiku.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">MOKUJIKU<br><small style="font-size:9pt;color:var(--warm)">木造ラーメン</small></figcaption>
+      </div>
+      <div>
+        <div class="image-frame" style="min-height:0;height:160px">
+          <img src="parse/images/chassis_muji.png" alt="MUJI 小屋" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\' style=\'font-size:10pt;padding:12px 14px\'&gt;[ 後ほど 写真挿入予定 ]&lt;span class=\'pfile\' style=\'font-size:8pt\'&gt;chassis_muji.png&lt;/span&gt;&lt;/div&gt;')">
+        </div>
+        <figcaption style="font-size:11pt;margin-top:6px;text-align:center;color:var(--ink);line-height:1.4">MUJI 小屋<br><small style="font-size:9pt;color:var(--warm)">建築 (BU)</small></figcaption>
+      </div>
+    </div>
+
+    <table class="compare" style="margin-top:20px;font-size:12pt;table-layout:fixed">
+      <thead>
+        <tr>
+          <th style="width:90px"></th>
+          <th>IZ リビング</th>
+          <th>IZ インフラ</th>
+          <th>INNFRA Base</th>
+          <th>MOKUJIKU</th>
+          <th>MUJI 小屋</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th style="font-size:10pt">価格</th><td><span class="num">1,500</span> 万</td><td><span class="num">3,000</span> 万</td><td><span class="num">2,000</span> 万</td><td><span class="num">300</span> 万</td><td><span class="num">500</span> 万</td></tr>
+        <tr><th style="font-size:10pt">形態</th><td>車両</td><td>車両</td><td>車両</td><td>車両</td><td class="warn">建築</td></tr>
+        <tr><th style="font-size:10pt">床面積</th><td>14.5 ㎡</td><td>14.5 ㎡</td><td>8.6 ㎡</td><td>13.0 ㎡</td><td>9.1 ㎡</td></tr>
+        <tr><th style="font-size:10pt">主機能</th><td style="font-size:11pt">寝室+LDK+トイレ</td><td style="font-size:11pt">水循環+シャワー+キッチン</td><td style="font-size:11pt">水循環 1,000 L/日</td><td style="font-size:11pt">カスタム自由</td><td style="font-size:11pt">(内装別)</td></tr>
+        <tr><th style="font-size:10pt">PV/蓄電池</th><td>1.5 kW</td><td>3 kW</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:16px;font-size:12pt;color:var(--warm);font-style:italic;line-height:1.6">本提案ではトレーラー扱いの 4 種を主に組み合わせます。MUJI 小屋は搬入で詰まる場合の建築バックアップ用。</p>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 06</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 07 — 3 案比較 ============ -->
+  <section class="slide" data-i="7">
+    <div class="eyebrow">Comparison — 3 案比較</div>
+    <h2>並べて、選ぶ。<span style="font-family:'IBM Plex Sans',sans-serif;font-size:18pt;color:var(--warm);letter-spacing:.06em;font-weight:300;margin-left:24px">A / B / C</span></h2>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Plan A<br><small style="font-weight:300;font-size:11pt">Base + インフラゼロハウス</small></th>
+          <th>Plan B<br><small style="font-weight:300;font-size:11pt">MOKUJIKU + Water′</small></th>
+          <th>Plan C<br><small style="font-weight:300;font-size:11pt">Base Lite</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="price-row">
+          <th>価格 (税別)</th>
+          <td><span class="num">4,020</span> 万円</td>
+          <td><span class="num">2,310</span> 万円</td>
+          <td><span class="num">1,760</span> 万円</td>
+        </tr>
+        <tr><th>形態</th><td>車両 2 棟</td><td>車両 1 棟</td><td>車両 1 棟</td></tr>
+        <tr><th>寝室</th><td>インフラゼロハウス 棟内</td><td>棟内</td><td>本館既存</td></tr>
+        <tr><th>水回り独立</th><td class="check">○</td><td class="check">○</td><td class="ng">×</td></tr>
+        <tr><th>お風呂</th><td class="check">○</td><td>—</td><td>—</td></tr>
+        <tr><th>PV / 蓄電池</th><td class="check">1.5 kW / 15 kWh</td><td>—</td><td>—</td></tr>
+        <tr><th>災害対応</th><td class="check">○</td><td class="warn">△</td><td class="warn">△</td></tr>
+        <tr><th>床面積</th><td>23.1 ㎡</td><td>13.0 ㎡</td><td>8.6 ㎡</td></tr>
+        <tr><th>用途</th><td>完全独立 / 通年</td><td>コンパクト独立</td><td>本館補完</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:20px;font-size:13pt;color:var(--warm);font-style:italic;line-height:1.6">全案とも車両扱い (建築確認不要 / 固定資産税非課税 / 移設可能)。搬入で詰まる場合は建築バックアップに切替可。C 案 (Base Lite) は <span class="em">水循環 300 L/日でお風呂不可</span>、Base 採用 (1,000 L/日) で A 案にアップグレード可。</p>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 07</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 08 — ヒアリング ============ -->
+  <section class="slide" data-i="8">
+    <div class="eyebrow">Hearing — ご確認</div>
+
+    <div class="row split-right" style="margin-top:8px">
+      <div class="col">
+        <figure style="height:100%;display:flex;flex-direction:column">
+          <div class="image-frame" style="min-height:880px">
+            <img src="parse/images/courtyard_photo.png" alt="中庭縦長写真" onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('beforeend','&lt;div class=\'image-placeholder\'&gt;[ 中庭写真 ]&lt;span class=\'pfile\'&gt;parse/images/courtyard_photo.png&lt;/span&gt;&lt;/div&gt;')">
+          </div>
+          <figcaption>中野邸 中庭 / 北東より望む</figcaption>
+        </figure>
+      </div>
+
+      <div class="col">
+        <h1 class="slide-title" style="font-size:48pt">ご確認させてください。<span class="en">Seven open questions.</span></h1>
+        <p style="font-size:17pt;color:var(--warm);margin-bottom:24px;line-height:1.7;max-width:680px">この時点で固める必要はありません。輪郭が見える範囲で。</p>
+
+        <div class="hearing-list" style="margin-top:8px">
+          <div class="hearing-item">
+            <div class="hearing-num">01</div>
+            <div>
+              <div class="hearing-q">定員</div>
+              <div class="hearing-hint">大人 2 名のみ / ゲスト 2–4 名想定 / それ以上</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">02</div>
+            <div>
+              <div class="hearing-q">用途</div>
+              <div class="hearing-hint">私的滞在 / ギャラリー併設の宿泊 / 招待制の貸し空間</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">03</div>
+            <div>
+              <div class="hearing-q">使用頻度</div>
+              <div class="hearing-hint">月 1–2 回 / 季節滞在 / 通年定住寄り</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">04</div>
+            <div>
+              <div class="hearing-q">予算優先度</div>
+              <div class="hearing-hint">A 案 (4,020 万・フル) / B 案 (2,310 万・中) / C 案 (1,760 万・最安)</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">05</div>
+            <div>
+              <div class="hearing-q">完成希望時期</div>
+              <div class="hearing-hint">2026 年内 / 2027 年春 / 時期未定</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">06</div>
+            <div>
+              <div class="hearing-q">お風呂・PV の重要度</div>
+              <div class="hearing-hint">不要 / あれば嬉しい / 必須 (C 案前提)</div>
+            </div>
+          </div>
+          <div class="hearing-item">
+            <div class="hearing-num">07</div>
+            <div>
+              <div class="hearing-q">既存建物改装の許容度</div>
+              <div class="hearing-hint">触らない / 一部改装可 / 内部活用前提</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 08</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 09 — スケジュール ============ -->
+  <section class="slide" data-i="9">
+    <div class="eyebrow">Schedule — 工程</div>
+    <h1 class="slide-title">ご決定から使用開始まで<br>約 <span class="num">6</span> ヶ月。<span class="en">From go-ahead to first use, six months.</span></h1>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">01</div>
+        <div class="tl-label">ヒアリング<br>プラン確定</div>
+        <div class="tl-date">2026-06</div>
+        <div class="tl-dur">2–3 週</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">02</div>
+        <div class="tl-label">詳細設計</div>
+        <div class="tl-date">2026-06 → 07</div>
+        <div class="tl-dur">2 ヶ月</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">03</div>
+        <div class="tl-label">製造発注<br>・製造</div>
+        <div class="tl-date">2026-08 → 10</div>
+        <div class="tl-dur">3 ヶ月</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">04</div>
+        <div class="tl-label">搬入・設置</div>
+        <div class="tl-date">2026-10 末</div>
+        <div class="tl-dur">2 週 / 西壁 pilotis 経由</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">05</div>
+        <div class="tl-label">シーディング</div>
+        <div class="tl-date">2026-11</div>
+        <div class="tl-dur">1 ヶ月 / 微生物培養</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-num">06</div>
+        <div class="tl-label">使用開始</div>
+        <div class="tl-date">2026-11 末</div>
+        <div class="tl-dur">—</div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;padding:24px 32px;background:#F4F1EA;border-left:2px solid var(--warm);max-width:1100px">
+      <p style="font-size:17pt;line-height:1.7;color:var(--ink)">
+        全 3 案ともこの工程 (車両搬入の場合)。<br>
+        建築バックアップ (MUJI 小屋等に切替) の場合は <span class="em">期間がさらに延びる可能性あり (現在確認中)</span>。<br>
+        詳細設計フェーズで <span class="em">ヒアリング結果を反映</span> しながら 1 案に絞り込みます。
+      </p>
+    </div>
+
+    <div class="footer">
+      <div>INNFRA / 中野邸 中庭計画 / Page 09</div>
+      <div class="meta">2026-05-29 / Confidential</div>
+    </div>
+  </section>
+
+</div>
+</div>
+</div>
+
+<div class="counter" id="counter">01 / 09</div>
+<div class="nav-hint">← → keys</div>
+
+<!-- print mode: no JS, all slides shown vertically -->
+
+</body>
+</html>
