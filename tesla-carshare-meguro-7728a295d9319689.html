@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>テスラ×カーシェア 投資シミュレーター（下目黒版）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0e0e10; --panel:#17171a; --panel2:#1f1f24; --line:#2c2c33;
+    --ink:#ECECEE; --sub:#9a9aa3; --accent:#E31937; --good:#2ecc71; --warn:#f5a623; --bad:#ff5a5f;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans JP",system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;
+    line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px 80px;}
+  /* hero */
+  .hero{padding:64px 20px 40px; text-align:center; border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 80% at 50% 0%, #1b1b20 0%, var(--bg) 70%);}
+  .hero .tag{font-size:12px; letter-spacing:.18em; color:var(--accent); font-weight:700;}
+  .hero h1{font-size:30px; font-weight:900; margin:14px 0 8px; letter-spacing:.01em;}
+  .hero p{color:var(--sub); margin:0 auto; max-width:600px; font-size:15px;}
+  .hero .loc{display:inline-block; margin-top:18px; font-size:13px; color:var(--sub);
+    border:1px solid var(--line); border-radius:999px; padding:5px 14px;}
+  /* tldr */
+  .tldr{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:36px 0;}
+  .tldr .c{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:20px 18px;}
+  .tldr .c .n{font-size:22px; font-weight:900;}
+  .tldr .c .t{font-size:13px; color:var(--sub); margin-top:6px;}
+  .tldr .c.g .n{color:var(--good);} .tldr .c.w .n{color:var(--warn);} .tldr .c.b .n{color:var(--bad);}
+  section{margin:48px 0;}
+  h2{font-size:21px; font-weight:900; margin:0 0 6px; display:flex; align-items:center; gap:10px;}
+  h2::before{content:""; width:6px; height:22px; background:var(--accent); border-radius:3px; display:inline-block;}
+  .lead{color:var(--sub); font-size:14px; margin:0 0 22px;}
+  /* table */
+  .tbl{width:100%; border-collapse:collapse; font-size:13.5px; overflow:hidden; border-radius:12px;}
+  .tbl th,.tbl td{padding:11px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top;}
+  .tbl thead th{background:var(--panel2); color:var(--ink); font-weight:700; font-size:12.5px;}
+  .tbl tbody tr:nth-child(even){background:rgba(255,255,255,.02);}
+  .tbl .em{color:var(--accent); font-weight:700;}
+  .badge{display:inline-block; font-size:11px; padding:2px 8px; border-radius:6px; font-weight:700;}
+  .badge.ok{background:rgba(46,204,113,.15); color:var(--good);}
+  .badge.no{background:rgba(255,90,95,.15); color:var(--bad);}
+  .badge.mid{background:rgba(245,166,35,.15); color:var(--warn);}
+  /* calculator */
+  .calc{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px;}
+  .calc .controls{display:grid; grid-template-columns:1fr 1fr; gap:22px 28px; margin-bottom:8px;}
+  .ctrl label{display:block; font-size:13px; color:var(--sub); margin-bottom:8px; font-weight:500;}
+  .ctrl .val{color:var(--ink); font-weight:700;}
+  .seg{display:flex; gap:6px; flex-wrap:wrap;}
+  .seg button{flex:1; min-width:60px; background:var(--panel2); color:var(--sub); border:1px solid var(--line);
+    border-radius:10px; padding:9px 6px; font-size:13px; font-weight:700; cursor:pointer; transition:.15s;
+    font-family:inherit;}
+  .seg button.on{background:var(--accent); color:#fff; border-color:var(--accent);}
+  input[type=range]{width:100%; accent-color:var(--accent); height:6px; margin-top:4px;}
+  .kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:24px 0 8px;}
+  .kpi{background:var(--panel2); border:1px solid var(--line); border-radius:12px; padding:16px 14px; text-align:center;}
+  .kpi .k{font-size:11.5px; color:var(--sub);}
+  .kpi .v{font-size:21px; font-weight:900; margin-top:6px;}
+  .kpi .s{font-size:11px; color:var(--sub); margin-top:2px;}
+  .verdict{margin-top:18px; padding:14px 16px; border-radius:12px; font-size:14px; font-weight:700; text-align:center;}
+  .chart-box{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:20px; margin-top:18px;}
+  .chart-box h3{margin:0 0 14px; font-size:14px; font-weight:700; color:var(--ink);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  canvas{max-width:100%;}
+  /* pitfalls */
+  .pit{display:grid; gap:14px;}
+  .pit .p{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
+    border-radius:12px; padding:16px 18px;}
+  .pit .p b{display:block; margin-bottom:4px; font-size:15px;}
+  .pit .p span{color:var(--sub); font-size:13.5px;}
+  .concl{background:linear-gradient(180deg,var(--panel) 0%,var(--panel2) 100%);
+    border:1px solid var(--line); border-radius:var(--radius); padding:28px 24px; font-size:15px;}
+  .concl b.hl{color:var(--accent);}
+  .src{font-size:12px; color:var(--sub); line-height:1.9;}
+  .src a{color:#7da7d9; text-decoration:none; word-break:break-all;}
+  .disc{margin-top:28px; padding:16px; border:1px dashed var(--line); border-radius:12px; font-size:12px; color:var(--sub);}
+  .foot{text-align:center; color:var(--sub); font-size:12px; margin-top:40px;}
+  @media(max-width:680px){
+    .tldr{grid-template-columns:1fr;} .calc .controls{grid-template-columns:1fr;}
+    .kpis{grid-template-columns:1fr 1fr;} .grid2{grid-template-columns:1fr;}
+    .hero h1{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">EV SUBSIDY × CARSHARE / 2026</div>
+  <h1>テスラ × カーシェア 投資シミュレーター</h1>
+  <p>東京都の補助金は本物。でも「200万で買って貸せば儲かる」は成立しない。<br>稼働日数を動かして、回収できるラインを自分の目で確かめる。</p>
+  <div class="loc">📍 下目黒（目黒区）想定 — 駐車場 月35,000円基準</div>
+</div>
+
+<div class="wrap">
+
+  <div class="tldr">
+    <div class="c g"><div class="n">最大207万円</div><div class="t">東京都民の補助（国127万＋都80万、Model 3/Y）</div></div>
+    <div class="c w"><div class="n">実質324万〜</div><div class="t">Model 3 の補助後取得額。「200万円台」は最安ケースの誇張</div></div>
+    <div class="c b"><div class="n">月4〜5日で<br>維持費トントン</div><div class="t">投資回収は稼働率しだい。Model Yで月10日なら現実圏</div></div>
+  </div>
+
+  <!-- 補助金 -->
+  <section>
+    <h2>① 補助金は本物（2026年度）</h2>
+    <p class="lead">東京都民はテスラ Model 3/Y で国＋都あわせて最大207万円。これは事実。ただし車両価格が高いので「実質200万円台」にはならない。</p>
+    <div class="chart-box"><h3>補助金を引いた実質取得額（東京都民・税込）</h3><canvas id="chSubsidy" height="200"></canvas></div>
+    <table class="tbl" style="margin-top:18px;">
+      <thead><tr><th>モデル</th><th>本体(税込)</th><th>国CEV</th><th>都ZEV</th><th>実質取得</th></tr></thead>
+      <tbody>
+        <tr><td>Model 3 RWD</td><td>531万</td><td class="em">−127万</td><td class="em">−80万</td><td><b>324万</b></td></tr>
+        <tr><td>Model Y</td><td>587万</td><td class="em">−127万</td><td class="em">−80万</td><td><b>380万</b></td></tr>
+        <tr><td>Model S</td><td>1,299万</td><td class="em">−102万</td><td class="em">−約60万</td><td><b>約1,137万</b></td></tr>
+        <tr><td>Model X</td><td>1,349万</td><td class="em">−102万</td><td class="em">−約60万</td><td><b>約1,187万</b></td></tr>
+      </tbody>
+    </table>
+    <p class="lead" style="margin-top:12px;">※ 都の受付は2026年4月30日〜2027年3月31日。S/Xの都補助は「高額車両調整(0.8倍)」で目減りする概算。新車は5年間 自動車税が免税。</p>
+  </section>
+
+  <!-- 市場 -->
+  <section>
+    <h2>② テスラ特化カーシェア市場マップ</h2>
+    <p class="lead">Anyca以外にもテスラ専用サービスは増殖中。ただし「個人が車を預けて副業で儲ける」用途に向くのは、実は今もAnyca（自主運用）が中心。BOXIV/weevは"場所・事業者提供"寄りで、オーナー取り分は各社とも非公開。</p>
+    <table class="tbl">
+      <thead><tr><th>サービス</th><th>型</th><th>オーナーの関わり方</th><th>取り分/特徴</th></tr></thead>
+      <tbody>
+        <tr><td><b>BOXIV SHARE</b></td><td>運用代行・アプリ完結（テスラ特化・全国拡大中）</td><td>車両or場所を提供し事業者に委託</td><td><span class="badge mid">取り分非公開</span> 集合住宅サブスク構想（月1〜5万で使い放題）</td></tr>
+        <tr><td><b>weev</b></td><td>マンション型/公用車（九電系）</td><td>管理組合・事業者向け。個人が儲ける形ではない</td><td>料金は運営が回収し保険・車検に充当</td></tr>
+        <tr><td><b>Zevo</b></td><td>米国P2P（車両の90%がテスラ）</td><td>個人が貸し出し</td><td>1年で車両価格の35〜65%回収（※米国データ）</td></tr>
+        <tr><td><b>Anyca</b></td><td>国内P2P最大手</td><td>個人が自主運用で貸す</td><td><span class="badge ok">取り分≒90%</span> 充電・清掃・受渡しは自分</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- calculator -->
+  <section>
+    <h2>③ 損益シミュレーター（動かせる）</h2>
+    <p class="lead">モデル・月の稼働日数・駐車場・運用形態を変えると、年間純利益・損益分岐・投資回収年がその場で計算される。デフォルトは「下目黒・Model 3・自主運用」。</p>
+    <div class="calc">
+      <div class="controls">
+        <div class="ctrl">
+          <label>モデル</label>
+          <div class="seg" id="segModel">
+            <button data-m="3" class="on">Model 3</button>
+            <button data-m="Y">Model Y</button>
+            <button data-m="S">Model S</button>
+            <button data-m="X">Model X</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <label>運用形態</label>
+          <div class="seg" id="segShare">
+            <button data-s="0.9" class="on">自主運用 (Anyca型 90%)</button>
+            <button data-s="0.6">運用代行型 (約60%)</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <label>月の稼働日数：<span class="val" id="vDays">10</span> 日/月</label>
+          <input type="range" id="rDays" min="0" max="20" value="10" step="1">
+        </div>
+        <div class="ctrl">
+          <label>駐車場：月 <span class="val" id="vPark">35,000</span> 円</label>
+          <input type="range" id="rPark" min="0" max="70000" value="35000" step="1000">
+        </div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><div class="k">実質取得額</div><div class="v" id="kAcq">–</div><div class="s">補助金控除後</div></div>
+        <div class="kpi"><div class="k">年間純利益</div><div class="v" id="kProfit">–</div><div class="s">売上−維持費</div></div>
+        <div class="kpi"><div class="k">損益分岐</div><div class="v" id="kBreak">–</div><div class="s">維持費が出る稼働</div></div>
+        <div class="kpi"><div class="k">投資回収</div><div class="v" id="kPayback">–</div><div class="s">取得額÷年純益</div></div>
+      </div>
+      <div class="verdict" id="verdict">–</div>
+    </div>
+
+    <div class="chart-box">
+      <h3>稼働日数 → 投資回収年（◆が今の設定）</h3>
+      <canvas id="chCurve" height="240"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>4年（補助金の保有義務期間）累積キャッシュフロー</h3>
+      <canvas id="chCF" height="240"></canvas>
+    </div>
+  </section>
+
+  <!-- model compare -->
+  <section>
+    <h2>④ モデル別 投資回収年（同条件比較）</h2>
+    <p class="lead">自主運用90%・月10日稼働で固定したときの回収年（駐車場は Model 3/Y=3.5万、S/X=大型枠4.5万円）。<span style="color:var(--good)">緑=4年以内に回収</span> / <span style="color:var(--warn)">橙=8年以内</span> / <span style="color:var(--bad)">赤=回収困難(20年+)</span>。補助金の4年保有義務を超えると縛り期間内に元が取れない。</p>
+    <div class="chart-box"><canvas id="chModels" height="220"></canvas></div>
+  </section>
+
+  <!-- pitfalls -->
+  <section>
+    <h2>⑤ 見落としやすい3つの落とし穴</h2>
+    <div class="pit">
+      <div class="p"><b>1. 補助金の4年保有義務</b><span>乗用車は登録から4年間手放せない。承認なく売却・用途変更すると補助金（最大207万円）を全額返納。回収カーブが4年を超えると、この縛りの中では元が取れない。</span></div>
+      <div class="p"><b>2.「自家用→営利」のグレーゾーン</b><span>補助金は原則"自家用"前提。Anyca（白ナンバーのまま個人間）はグレーで通る運用だが、本格レンタカー/カーシェア事業（わナンバー）にすると自家用要件を外れ、補助金が減額・対象外になりうる。</span></div>
+      <div class="p"><b>3. テスラのリセール下落</b><span>度重なる値下げで中古値落ちが激しい。4年後の売却益は期待しにくく、減価が利益を食う。下のCFグラフの点線（リセール反映）が、見かけの回収より厳しい現実。</span></div>
+    </div>
+  </section>
+
+  <!-- conclusion -->
+  <section>
+    <h2>⑥ 結論</h2>
+    <div class="concl">
+      <p style="margin-top:0;"><b class="hl">「200万で買って貸せば儲かる」は成立しない。</b>でも見方を変えると優秀なスキーム。</p>
+      <p>✅ <b>維持費を浮かせて憧れのEVに乗る</b>なら◎ — 損益分岐は月4〜5日貸すだけ。下目黒の高い駐車場込みでも、テスラの維持費はカーシェアで容易に相殺できる。</p>
+      <p>✅ <b>投資として回収する</b>なら <b class="hl">Model Y ＋ 月10〜12日の高稼働を4年維持</b>が条件。Model 3はもう一歩ハード、S/Xは10年超で投資不成立（趣味の領域）。</p>
+      <p style="margin-bottom:0;">⚠️ 楽観を3つ割り引く：稼働率（実績は需要ピーク期）・リセール下落・運用の手間と4年縛り。<b>結局これは「投資」というより、維持費ヘッジ付きでテスラに乗る方法</b>——が正直な評価。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>出典・前提</h2>
+    <p class="src">
+      数値は2026年5月時点の公開情報。前提：東京都民・現金一括・新車5年自動車税免税・電気代はカーシェア充電に含むと仮定（オーナー負担から除外）。<br>
+      ・東京都 ZEV補助金 <a href="https://www.tokyo-co2down.jp/subsidy/ev/">クール・ネット東京</a> / <a href="https://www.metro.tokyo.lg.jp/information/press/2026/03/2026033008">都プレス</a><br>
+      ・国CEV補助金・保有義務 <a href="https://www.meti.go.jp/policy/mono_info_service/mono/automobile/cev/">経産省</a> / <a href="https://www.cev-pc.or.jp/hojo/cev-disposal.html">財産処分(次世代自動車振興センター)</a><br>
+      ・テスラ価格 <a href="https://lifeap.co.jp/column/2026/03/05/understanding-tesla-electric-cars-models-prices-comparison-2026/">全モデル一覧2026</a><br>
+      ・カーシェア実績 Anyca（Model 3 月平均約7万・Model Y 月約10万、需要ピーク期事例） / <a href="https://boxiv.co.jp/share">BOXIV SHARE</a> / <a href="https://note.com/suzuken0331/n/nff59539d9917">Zevo</a><br>
+      ・維持費 テスラ年8〜12万（駐車場別）/ 下目黒 月極相場 約3.3万円
+    </p>
+    <div class="disc">
+      ⚠️ これは公開情報をもとにした試算であり、投資助言ではありません。補助金額・予算残・車両価格・各社規約は変動します。購入・運用前に必ず一次ソースと各社の最新条件をご確認ください。Anycaでの貸出と補助金「自家用要件」の整合は、次世代自動車振興センター等への個別確認を推奨します。なお回収が5年を超える場合、5年目以降は自動車税（年数万円）が加算され、実態は本試算よりやや厳しくなります。
+    </div>
+  </section>
+
+  <div class="foot">作成: 2026-05-30 / テスラ×カーシェア投資シミュレーター（下目黒版）</div>
+</div>
+
+<script>
+const MODELS = {
+  '3': {name:'Model 3 RWD', price:5310000, subsidy:2070000, dayRate:10000, maintBase:180000, parkDefault:35000},
+  'Y': {name:'Model Y',     price:5870000, subsidy:2070000, dayRate:13000, maintBase:180000, parkDefault:35000},
+  'S': {name:'Model S',     price:12990000,subsidy:1616000, dayRate:18000, maintBase:300000, parkDefault:45000},
+  'X': {name:'Model X',     price:13490000,subsidy:1616000, dayRate:20000, maintBase:300000, parkDefault:45000},
+};
+const state = {m:'3', share:0.9, days:10, park:35000};
+const yen = v => '¥'+Math.round(v).toLocaleString('ja-JP');
+const man = v => (v/10000).toLocaleString('ja-JP',{maximumFractionDigits:0})+'万';
+
+function calc(m, share, days, park){
+  const M = MODELS[m];
+  const acq = M.price - M.subsidy;
+  const annualMaint = M.maintBase + park*12;
+  const recvPerDay = M.dayRate * share;
+  const annualRev = recvPerDay * days * 12;
+  const profit = annualRev - annualMaint;
+  const breakeven = annualMaint / (recvPerDay * 12); // days/month
+  const payback = profit > 0 ? acq / profit : Infinity;
+  return {acq, annualMaint, recvPerDay, annualRev, profit, breakeven, payback};
+}
+
+// charts
+let curveChart, cfChart, modelsChart, subsidyChart;
+const FONT = "'Noto Sans JP', sans-serif";
+Chart.defaults.font.family = FONT;
+Chart.defaults.color = '#9a9aa3';
+
+function buildStatic(){
+  // subsidy stacked horizontal
+  const labels = Object.values(MODELS).map(x=>x.name);
+  const acqArr = Object.values(MODELS).map(x=>(x.price-x.subsidy)/10000);
+  const subArr = Object.values(MODELS).map(x=>x.subsidy/10000);
+  subsidyChart = new Chart(document.getElementById('chSubsidy'),{
+    type:'bar',
+    data:{labels,datasets:[
+      {label:'実質取得額(万円)', data:acqArr, backgroundColor:'#E31937', borderRadius:4},
+      {label:'補助金(万円)', data:subArr, backgroundColor:'#3a3a42', borderRadius:4},
+    ]},
+    options:{indexAxis:'y', responsive:true, scales:{x:{stacked:true,grid:{color:'#2c2c33'}},y:{stacked:true,grid:{display:false}}},
+      plugins:{legend:{position:'bottom'}}}
+  });
+  // models payback bar (fixed: share .9, days 10, park default per model)
+  const mlabels=[], mdata=[], mcolors=[];
+  for(const k of ['3','Y','S','X']){
+    const r=calc(k,0.9,10,MODELS[k].parkDefault);
+    const p = isFinite(r.payback)? Math.min(r.payback,20):20;
+    mlabels.push(MODELS[k].name); mdata.push(+p.toFixed(1));
+    mcolors.push(r.payback<=4?'#2ecc71':r.payback<=8?'#f5a623':'#ff5a5f');
+  }
+  modelsChart = new Chart(document.getElementById('chModels'),{
+    type:'bar',
+    data:{labels:mlabels,datasets:[{label:'投資回収年', data:mdata, backgroundColor:mcolors, borderRadius:6}]},
+    options:{responsive:true, scales:{y:{grid:{color:'#2c2c33'},title:{display:true,text:'回収年（20=回収困難）'}},x:{grid:{display:false}}},
+      plugins:{legend:{display:false},
+        annotation:false,
+        tooltip:{callbacks:{label:c=>c.parsed.y>=20?'回収困難(20年+)':c.parsed.y+' 年'}}}}
+  });
+}
+
+function buildDynamic(){
+  // curve: days 0..20 -> payback
+  const xs=[...Array(21).keys()];
+  curveChart = new Chart(document.getElementById('chCurve'),{
+    type:'line',
+    data:{labels:xs,datasets:[
+      {label:'投資回収年', data:[], borderColor:'#E31937', backgroundColor:'rgba(227,25,55,.12)',
+       fill:true, tension:.25, pointRadius:0},
+      {label:'現在の設定', data:[], borderColor:'#fff', backgroundColor:'#fff',
+       pointRadius:6, pointStyle:'rectRot', showLine:false},
+      {label:'4年ライン', data:xs.map(()=>4), borderColor:'#2ecc71', borderDash:[6,5], pointRadius:0, borderWidth:1.5},
+    ]},
+    options:{responsive:true, scales:{
+      x:{title:{display:true,text:'月の稼働日数'},grid:{color:'#2c2c33'}},
+      y:{title:{display:true,text:'回収年'},min:0,max:20,grid:{color:'#2c2c33'}}},
+      plugins:{legend:{position:'bottom'},
+        tooltip:{callbacks:{label:c=>c.parsed.y>=20?'回収困難':c.parsed.y.toFixed(1)+'年'}}}}
+  });
+  // cumulative CF over 4 years
+  cfChart = new Chart(document.getElementById('chCF'),{
+    type:'line',
+    data:{labels:[0,1,2,3,4],datasets:[
+      {label:'累積純利益', data:[], borderColor:'#2ecc71', backgroundColor:'rgba(46,204,113,.1)', fill:true, tension:.2, pointRadius:3},
+      {label:'累積純益−含み損(リセール年10%目安)', data:[], borderColor:'#f5a623', borderDash:[5,4], pointRadius:3, tension:.2},
+      {label:'実質取得額(回収目標)', data:[], borderColor:'#888', borderDash:[3,3], pointRadius:0},
+    ]},
+    options:{responsive:true, scales:{
+      x:{title:{display:true,text:'経過年'},grid:{color:'#2c2c33'}},
+      y:{title:{display:true,text:'円'},grid:{color:'#2c2c33'},ticks:{callback:v=>(v/10000)+'万'}}},
+      plugins:{legend:{position:'bottom'},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+man(c.parsed.y)+'円'}}}}
+  });
+}
+
+function render(){
+  const M=MODELS[state.m];
+  const r=calc(state.m, state.share, state.days, state.park);
+  // KPIs
+  document.getElementById('kAcq').textContent=man(r.acq)+'円';
+  const pf=document.getElementById('kProfit');
+  pf.textContent=(r.profit>=0?'+':'−')+man(Math.abs(r.profit))+'円';
+  pf.style.color=r.profit>=0?'var(--good)':'var(--bad)';
+  document.getElementById('kBreak').textContent='月'+r.breakeven.toFixed(1)+'日';
+  const pb=document.getElementById('kPayback');
+  pb.textContent=isFinite(r.payback)?r.payback.toFixed(1)+'年':'回収不可';
+  pb.style.color=isFinite(r.payback)&&r.payback<=4?'var(--good)':(isFinite(r.payback)&&r.payback<=8?'var(--warn)':'var(--bad)');
+  // verdict
+  const v=document.getElementById('verdict');
+  if(r.profit<=0){v.textContent='⚠️ この稼働では維持費すら出ない（赤字）';v.style.background='rgba(255,90,95,.15)';v.style.color='var(--bad)';}
+  else if(isFinite(r.payback)&&r.payback<=4){v.textContent='✅ 4年の保有義務内に投資回収できるライン';v.style.background='rgba(46,204,113,.15)';v.style.color='var(--good)';}
+  else if(isFinite(r.payback)&&r.payback<=8){v.textContent='△ 維持費は出るが、回収は保有義務(4年)を超える';v.style.background='rgba(245,166,35,.15)';v.style.color='var(--warn)';}
+  else {v.textContent='⚠️ 回収困難。実質「維持費を相殺して乗る」用途向き';v.style.background='rgba(245,166,35,.12)';v.style.color='var(--warn)';}
+  // curve
+  const xs=[...Array(21).keys()];
+  curveChart.data.datasets[0].data = xs.map(d=>{const rr=calc(state.m,state.share,d,state.park); return rr.profit>0?Math.min(rr.payback,20):20;});
+  curveChart.data.datasets[1].data = xs.map(d=> d===state.days ? (r.profit>0?Math.min(r.payback,20):20) : null);
+  curveChart.update('none');
+  // CF cumulative
+  const yrs=[0,1,2,3,4];
+  cfChart.data.datasets[0].data = yrs.map(y=>r.profit*y);
+  // resale: assume value drop reduces realizable; model as profit minus annual depreciation hit ~8% of acq folded in
+  const deprec = r.acq*0.10; // テスラ実態(4年で30-50%下落)に寄せ、年10%の保守見積り
+  cfChart.data.datasets[1].data = yrs.map(y=> r.profit*y - deprec*y);
+  cfChart.data.datasets[2].data = yrs.map(()=>r.acq);
+  cfChart.update('none');
+}
+
+document.querySelectorAll('#segModel button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#segModel button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); state.m=b.dataset.m;
+  state.park=MODELS[state.m].parkDefault;
+  document.getElementById('rPark').value=state.park;
+  document.getElementById('vPark').textContent=state.park.toLocaleString('ja-JP');
+  render();
+});
+document.querySelectorAll('#segShare button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#segShare button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); state.share=+b.dataset.s; render();
+});
+document.getElementById('rDays').oninput=e=>{state.days=+e.target.value;document.getElementById('vDays').textContent=state.days;render();};
+document.getElementById('rPark').oninput=e=>{state.park=+e.target.value;document.getElementById('vPark').textContent=state.park.toLocaleString('ja-JP');render();};
+
+buildStatic(); buildDynamic(); render();
+</script>
+</body>
+</html>
