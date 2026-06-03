@@ -66,4 +66,5 @@ content-engine/
 4. デッキ化するなら `../design-system.css` を読み込んだHTMLで対外出力
 
 ## 既存トピック
-- [`topics/bosozoku/backbone.md`](topics/bosozoku/backbone.md) — 暴走族はなぜ消えた／逸脱のアンバンドルと中流没落、AI未来の暴論
+- [`topics/bosozoku/backbone.md`](topics/bosozoku/backbone.md) — **固定済**。暴走族は減ったのに、なぜ"また増えた"気がするのか／逸脱のアンバンドル・中流没落・世界潮流への収斂・AI暴論。時事フック（福生事件ほか）付き。
+- [`topics/seicho-vs-suitai/backbone.md`](topics/seicho-vs-suitai/backbone.md) — **探索中（起案）**。誇示と剥奪／成長駆動 vs 衰退駆動の逸脱（バブル日本・中国炫富 ≒ 誇示型／令和日本の闇バイト ≒ 剥奪型）。bosozokuの切り分けメモから派生。
