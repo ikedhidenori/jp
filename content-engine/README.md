@@ -65,6 +65,11 @@ content-engine/
 3. `channel-adapters.md` のレシピで目的別に量産 → `topics/<topic>/` に保存
 4. デッキ化するなら `../design-system.css` を読み込んだHTMLで対外出力
 
+## 公開先（アカウント）
+- **本拠地**：note 個人アカ **[@jon_megane](https://note.com/jon_megane)** ← 論考・オピニオンはここ（事業ブランドINNFRA等とは切り離す）
+- **テーマ別**：note **[@zetsumetsuzukan（絶滅職種）](https://note.com/zetsumetsuzukan)** ← AI/職の自動化・中流没落・「誇示と剥奪」系の派生はこちらが好相性
+- **拡散**：X（スレッド→noteへ誘導）。短尺はニュアンスが落ちるため、必ずnoteを先に公開してから。
+
 ## 既存トピック
-- [`topics/bosozoku/backbone.md`](topics/bosozoku/backbone.md) — **固定済**。暴走族は減ったのに、なぜ"また増えた"気がするのか／逸脱のアンバンドル・中流没落・世界潮流への収斂・AI暴論。時事フック（福生事件ほか）付き。
-- [`topics/seicho-vs-suitai/backbone.md`](topics/seicho-vs-suitai/backbone.md) — **探索中（起案）**。誇示と剥奪／成長駆動 vs 衰退駆動の逸脱（バブル日本・中国炫富 ≒ 誇示型／令和日本の闇バイト ≒ 剥奪型）。bosozokuの切り分けメモから派生。
+- [`topics/bosozoku/backbone.md`](topics/bosozoku/backbone.md) — **固定済**。暴走族は減ったのに、なぜ"また増えた"気がするのか／逸脱のアンバンドル・中流没落・世界潮流への収斂・AI暴論。時事フック（福生事件ほか）付き。→ 公開：**@jon_megane**（`note-article.md` / `x-posts.md`）
+- [`topics/seicho-vs-suitai/backbone.md`](topics/seicho-vs-suitai/backbone.md) — **探索中（起案）**。誇示と剥奪／成長駆動 vs 衰退駆動の逸脱（バブル日本・中国炫富 ≒ 誇示型／令和日本の闇バイト ≒ 剥奪型）。bosozokuの切り分けメモから派生。→ 公開候補：**@zetsumetsuzukan**
