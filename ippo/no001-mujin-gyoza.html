@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一坪ビジネス図鑑 No.001 ｜ 無人餃子直売所</title>
+<!--
+  一坪ビジネス図鑑 / 共通デザイン規約 (トンマナ) — rev.2 (designer skill + AD監修反映)
+  Concept : 昭和の博物図鑑 × 現代データビジュアライゼーション
+  Voice   : 低体温・観察者・数字主語・非煽り・推定明示
+  Color   : paper #f4efe4 / ink #23201b / 朱(衰退/警告) #b5402e / 朱soft #d98a78 / 醤油茶 #80652f (AA 4.79:1) / 鈍緑(成長) #5b7553 / 紺 #1a3a5c = 構造図の箱・帯 (カバー画像整合の準トークン、チャート軸は墨 #23201b)
+  Type    : 見出し=Noto Serif JP / 本文・数値=Noto Sans JP
+  SVG rule: 1図1メッセージ / 高データインク比 / 直接ラベル / 色=意味 / 出典明記 / AIスロップ回避
+  SVG type-scale: 値=22-24 / 主要ラベル=17 / 軸・補助=16 (モバイル可読性 floor) / 長文は figcaption へ退避
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4efe4; --paper2:#ece2cf; --card:#fbf7ee;
+  --ink:#23201b; --sub:#6b6052; --rule:#d8ccb5; --rule2:#e7dcc6;
+  --shu:#b5402e; --shu-soft:#d98a78; --cha:#80652f; --midori:#5b7553; --kin:#c79a3b;
+  --maxw:760px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--paper); color:var(--ink); font-family:"Noto Sans JP",-apple-system,sans-serif; font-size:16px; line-height:1.85; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 18px 80px;}
+.serif{font-family:"Noto Serif JP",serif;}
+
+.cover{padding:46px 0 30px; border-bottom:3px double var(--ink); margin-bottom:6px;}
+.brandline{display:flex; align-items:center; gap:10px; font-size:12.5px; letter-spacing:.2em; color:var(--cha); font-weight:700;}
+.brandline .seal{display:inline-flex; align-items:center; justify-content:center; width:34px;height:34px;border:1.5px solid var(--shu); color:var(--shu); border-radius:50%; font-family:"Noto Serif JP",serif; font-size:15px; font-weight:700; letter-spacing:0;}
+.brandsub{font-family:"Noto Serif JP",serif; font-size:14px; color:var(--sub); margin-top:10px; letter-spacing:.08em;}
+.no{font-family:"Noto Serif JP",serif; font-size:13px; color:var(--shu); letter-spacing:.18em; margin:22px 0 6px; font-weight:700;}
+h1{font-family:"Noto Serif JP",serif; font-weight:700; font-size:clamp(30px,8vw,46px); line-height:1.18; margin:0 0 16px; letter-spacing:.01em;}
+.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+.tag{font-size:12px; font-weight:700; letter-spacing:.04em; padding:4px 11px; border-radius:2px; border:1px solid var(--rule); background:var(--card); color:var(--sub);}
+.tag.cat{border-color:var(--cha); color:var(--cha);}
+.tag.trend{border-color:var(--shu); color:#fff; background:var(--shu);}
+.tag.diff{border-color:var(--midori); color:var(--midori);}
+
+.lead{font-size:16.5px; line-height:2.0; margin:26px 0 8px;}
+.lead .big{font-family:"Noto Serif JP",serif; font-size:21px; color:var(--shu); font-weight:700;}
+
+section{margin:46px 0 0;}
+.shead{display:flex; align-items:baseline; gap:12px; margin:0 0 6px; padding-bottom:8px; border-bottom:1.5px solid var(--ink);}
+.shead .sn{font-family:"Noto Serif JP",serif; color:var(--shu); font-weight:700; font-size:15px;}
+.shead h2{font-family:"Noto Serif JP",serif; font-weight:700; font-size:20px; margin:0; letter-spacing:.02em;}
+.note{font-size:13px; color:var(--sub); line-height:1.8;}
+p{margin:12px 0;}
+.secprose{font-size:15.5px; line-height:1.95; margin:14px 0 10px; color:var(--ink);}
+.takeaway{font-family:"Noto Serif JP",serif; font-weight:700; font-size:16px; color:var(--ink); border-left:4px solid var(--shu); background:#fbf3ea; padding:10px 14px; margin:12px 0 16px; line-height:1.6;}
+.closing-sec .secprose{font-size:16px;}
+.closing-sec .takeaway{font-size:17px;}
+
+.spec{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0 6px;}
+.specbox{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:13px 14px;}
+.specbox .k{font-size:11.5px; letter-spacing:.06em; color:var(--cha); font-weight:700;}
+.specbox .v{font-family:"Noto Serif JP",serif; font-size:22px; font-weight:700; margin-top:3px; line-height:1.3;}
+.specbox .u{font-size:12px; color:var(--sub); font-weight:500;}
+@media(min-width:560px){.spec{grid-template-columns:repeat(4,1fr);}}
+
+figure{margin:20px 0 6px;}
+.fig{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:14px 12px 8px;}
+.figttl{font-family:"Noto Serif JP",serif; font-size:15.5px; font-weight:700; margin:2px 4px 8px;}
+.figttl .accent{color:var(--shu);}
+svg{display:block; width:100%; height:auto;}
+figcaption{font-size:12.5px; color:var(--sub); margin:8px 4px 2px; line-height:1.75;}
+figcaption b{color:var(--ink);}
+.src{font-size:11px; color:var(--cha); margin-top:4px;}
+
+.paywall{margin:48px 0 8px; text-align:center; position:relative;}
+.paywall:before{content:""; position:absolute; top:50%; left:0; right:0; height:1px; background:repeating-linear-gradient(90deg,var(--rule) 0 8px,transparent 8px 16px);}
+.paywall span{position:relative; background:var(--paper); padding:0 16px; font-family:"Noto Serif JP",serif; font-weight:700; color:var(--shu); font-size:14px; letter-spacing:.1em;}
+.premium-note{background:#fbf3ea; border:1px dashed var(--shu-soft); border-radius:4px; padding:12px 14px; font-size:13px; color:var(--sub); margin:14px 0 0;}
+.premium-note b{color:var(--shu);}
+
+.locgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:9px; margin:16px 0 4px;}
+@media(min-width:560px){.locgrid{grid-template-columns:repeat(3,1fr);}}
+.loc{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:12px; display:flex; align-items:center; gap:11px;}
+.loc .mark{font-family:"Noto Serif JP",serif; font-size:26px; font-weight:700; width:30px; text-align:center;}
+.loc .m-yes{color:var(--midori);} .loc .m-ok{color:var(--cha);} .loc .m-na{color:var(--sub);} .loc .m-no{color:var(--shu);}
+.loc .lt{font-size:14px; font-weight:700;} .loc .ld{font-size:11.5px; color:var(--sub); line-height:1.6;}
+
+.md{display:grid; grid-template-columns:1fr; gap:12px; margin:16px 0 4px;}
+@media(min-width:560px){.md{grid-template-columns:1fr 1fr;}}
+.mdcol{border:1px solid var(--rule); border-radius:4px; overflow:hidden;}
+.mdcol h3{margin:0; font-family:"Noto Serif JP",serif; font-size:15px; padding:9px 13px; color:#fff;}
+.mdcol.pro h3{background:var(--midori);} .mdcol.con h3{background:var(--shu);}
+.mdcol ul{margin:0; padding:12px 16px 14px 30px;} .mdcol li{margin:7px 0; font-size:14px; line-height:1.7;}
+
+.series{margin:50px 0 0; background:var(--paper2); border-radius:5px; padding:22px 18px;}
+.series h2{font-family:"Noto Serif JP",serif; font-size:18px; margin:0 0 4px;}
+.series .row{display:grid; grid-template-columns:1fr; gap:9px; margin-top:14px;}
+@media(min-width:560px){.series .row{grid-template-columns:1fr 1fr 1fr;}}
+.scard{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:12px;}
+.scard .sno{font-size:11px; color:var(--shu); font-weight:700; letter-spacing:.1em;}
+.scard .stt{font-family:"Noto Serif JP",serif; font-size:14.5px; font-weight:700; margin:3px 0;}
+.scard .ss{font-size:11.5px; color:var(--sub); line-height:1.6;}
+.scard.future{opacity:.7;} .scard.future .stt:after{content:" （準備中）"; font-size:10px; color:var(--sub); font-weight:400;}
+
+.sources{margin-top:36px; padding-top:16px; border-top:1px solid var(--rule); font-size:11.5px; color:var(--sub); line-height:1.85;}
+.sources b{color:var(--ink);}
+.disclaim{margin-top:14px; font-size:11px; color:var(--sub); background:var(--card); border-left:3px solid var(--cha); padding:10px 13px; line-height:1.8;}
+.disclaim b{color:var(--ink);}
+.colophon{margin-top:24px; text-align:center; font-size:11px; color:var(--cha); letter-spacing:.12em; font-family:"Noto Serif JP",serif;}
+.hero-img{width:100%; border:1px solid var(--rule); border-radius:4px; margin:18px 0 4px; display:block;}
+.method-box{background:#fbf3ea; border:1px solid var(--shu-soft); border-radius:4px; padding:13px 16px; margin:16px 0; font-size:13.5px; line-height:1.85; color:var(--sub);}
+.method-box b{color:var(--shu); font-family:"Noto Serif JP",serif;}
+.note-fig{margin:24px 0 6px;}
+.note-fig img{width:100%; border:1px solid var(--rule); border-radius:4px; display:block;}
+.note-fig .nlabel{font-family:"Noto Serif JP",serif; font-size:12px; color:var(--cha); font-weight:700; letter-spacing:.08em; margin-bottom:6px;}
+.note-fig figcaption{font-size:12.5px; color:var(--sub); margin:8px 4px 2px; line-height:1.75;}
+.cta-box{background:var(--ink); color:var(--paper); border-radius:5px; padding:22px 18px; margin:24px 0; text-align:center;}
+.cta-box .ct{font-family:"Noto Serif JP",serif; font-size:18px; font-weight:700; margin-bottom:6px; color:var(--paper);}
+.cta-box .cd{font-size:13.5px; color:#d8ccb5; line-height:1.85;}
+.cta-box .cbtn{display:inline-block; margin-top:14px; background:var(--shu); color:#fff; font-weight:700; padding:11px 24px; border-radius:3px; font-size:14px; text-decoration:none;}
+.cta-mini{border:1px dashed var(--cha); border-radius:4px; padding:10px 14px; margin:16px 0; font-size:13px; color:var(--cha); text-align:center; font-weight:700; line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ COVER ============ -->
+  <header class="cover">
+    <div class="brandline"><span class="seal">坪</span>一坪ビジネス図鑑　STREET SPECIMENS</div>
+    <div class="brandsub">開業と閉店を、同じ物差しで。</div>
+    <div class="no">No.001 ／ 無人・自動化系</div>
+    <h1>無人餃子直売所</h1>
+    <div class="tags">
+      <span class="tag cat">分類：無人セルフ／冷凍物販</span>
+      <span class="tag trend">趨勢：📉 急拡大 → 淘汰</span>
+      <span class="tag diff">開業難易度：易（★☆☆）</span>
+      <span class="tag">標本年代：2018–2024</span>
+    </div>
+  </header>
+
+  <!-- ============ 章扉 HERO + 方法論 + CTA(冒頭) ============ -->
+  <img class="hero-img" src="cover-no001.jpg" alt="一坪ビジネス図鑑 No.001 無人餃子直売所 章扉">
+  <div class="method-box"><b>この図鑑について</b> ── 公的統計（帝国データバンク等）に基づく分析と、編集部による推計で構成しています。金額・利益率・損益分岐は参考値であり、特定事業者の経営実態を示すものではありません。店内に人の声は登場しません。数字で記録する図鑑です。</div>
+  <div class="cta-mini">▶ 新しい標本（次号）の通知は note のフォローで ／「一坪ビジネス原価ブック（PDF）」無料配布 準備中</div>
+
+  <!-- ============ LEAD ============ -->
+  <p class="lead">
+    ある日とつぜん街角に現れて、ある日しずかに消えていった。<br>
+    <span class="big">3年で10倍、全国1,400店。</span>
+    冷凍庫ひとつと防犯カメラだけで成り立つこの業態は、コロナ禍の巣ごもりとともに増殖し、ピークを越えると同じ速度で店を畳んでいった。これは「無人で売る」という発明が、なぜ広がり、なぜ続かなかったかの記録である。
+  </p>
+
+  <!-- ============ §1 標本データ ============ -->
+  <section>
+    <div class="shead"><span class="sn">§1</span><h2>標本データ（スペック）</h2></div>
+    <p class="secprose">1号店は2018年9月、埼玉県に開いた餃子の雪松だった。36個1,000円という単価は、市販の冷凍餃子より高い。初期費用の目安は350万円前後で、標準的な飲食店の約10分の1。無人であることが、この業態を成立させる設計の中心にある。</p>
+    <div class="takeaway">高めの単価、薄い初期投資、人件費ゼロが三位一体。</div>
+    <div class="spec">
+      <div class="specbox"><div class="k">必要面積</div><div class="v">約1〜3<span class="u">坪</span></div></div>
+      <div class="specbox"><div class="k">初期投資（推計）</div><div class="v">約350<span class="u">万円〜</span></div></div>
+      <div class="specbox"><div class="k">月固定費（推計）</div><div class="v">約15<span class="u">万円〜</span></div></div>
+      <div class="specbox"><div class="k">営業利益率</div><div class="v">約30<span class="u">%</span></div></div>
+      <div class="specbox"><div class="k">損益分岐（目安）</div><div class="v">月商90<span class="u">万円</span></div></div>
+      <div class="specbox"><div class="k">人件費</div><div class="v">ほぼ0<span class="u">円（無人）</span></div></div>
+      <div class="specbox"><div class="k">標準商品</div><div class="v">36個 1,000<span class="u">円</span></div></div>
+      <div class="specbox"><div class="k">投資回収（好調例）</div><div class="v">約8<span class="u">ヶ月</span></div></div>
+    </div>
+    <p class="note">※ 初期投資・固定費は本部・立地により変動。営業利益率・損益分岐は業界報道／FC公開シミュレーションに基づく目安値。</p>
+  </section>
+
+  <!-- ============ §2 栄枯盛衰タイムライン ============ -->
+  <section>
+    <div class="shead"><span class="sn">§2</span><h2>栄枯盛衰の時間軸</h2></div>
+    <p class="secprose">2020年末に131店舗だった無人餃子直売所は、2022年末に1,282店舗へ増えた（帝国データバンク）。最大手・餃子の雪松は、2023年2月に432店舗でピークを迎え、2024年11月には219店舗になった。数字が語るのは急成長ではなく、急成長と急縮小が同居する業態の輪郭だ。</p>
+    <div class="takeaway">ピークから約18ヶ月で、店舗数は半減した。</div>
+    <figure><div class="fig">
+      <div class="figttl">創業の食堂から<span class="accent">閉店ラッシュ</span>まで ── 6年の軌跡</div>
+      <svg viewBox="0 0 760 360" role="img" aria-label="無人餃子の栄枯盛衰カーブ（ハイプサイクル）">
+        <!-- 軸 -->
+        <line x1="60" y1="312" x2="724" y2="312" stroke="#23201b" stroke-width="1.5"/>
+        <line x1="60" y1="40" x2="60" y2="312" stroke="#23201b" stroke-width="1.5"/>
+        <text x="48" y="180" font-size="13" fill="#6b6052" transform="rotate(-90 48 180)" text-anchor="middle">勢い・店舗数 →</text>
+        <!-- フェーズ表示 -->
+        <text x="120" y="36" font-family="Noto Serif JP,serif" font-size="16" font-weight="700" fill="#5b7553">▲ 拡大期</text>
+        <text x="700" y="36" font-family="Noto Serif JP,serif" font-size="16" font-weight="700" fill="#b5402e" text-anchor="end">▼ 淘汰期</text>
+        <!-- 上昇カーブ（緑＝成長） -->
+        <path d="M90,265 C150,262 185,250 230,235 C300,212 320,195 380,165 C455,125 495,102 545,80" fill="none" stroke="#5b7553" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 下降カーブ（朱＝衰退・破線） -->
+        <path d="M545,80 C600,98 655,160 690,208" fill="none" stroke="#b5402e" stroke-width="3.5" stroke-dasharray="8 5" stroke-linecap="round"/>
+        <!-- ノード -->
+        <circle cx="90" cy="265" r="6.5" fill="#8a6d3b"/>
+        <circle cx="230" cy="235" r="6.5" fill="#8a6d3b"/>
+        <circle cx="380" cy="165" r="6.5" fill="#5b7553"/>
+        <circle cx="545" cy="80" r="9" fill="#5b7553" stroke="#23201b" stroke-width="1.5"/>
+        <circle cx="690" cy="208" r="9" fill="#b5402e" stroke="#23201b" stroke-width="1.5"/>
+        <!-- ラベル -->
+        <text x="90" y="250" font-size="16" font-weight="700" fill="#23201b" text-anchor="middle">2018</text>
+        <text x="90" y="290" font-size="14" fill="#6b6052" text-anchor="middle">雪松1号店</text>
+        <text x="230" y="220" font-size="16" font-weight="700" fill="#23201b" text-anchor="middle">2020</text>
+        <text x="230" y="203" font-size="14" fill="#6b6052" text-anchor="middle">巣ごもりで点火</text>
+        <text x="380" y="150" font-size="16" font-weight="700" fill="#23201b" text-anchor="middle">2021</text>
+        <text x="380" y="133" font-size="14" fill="#6b6052" text-anchor="middle">参入が殺到</text>
+        <text x="545" y="63" font-size="17" font-weight="700" fill="#5b7553" text-anchor="middle">2023 頂点</text>
+        <text x="545" y="46" font-size="14" fill="#6b6052" text-anchor="middle">全国 約1,400店</text>
+        <text x="690" y="234" font-size="17" font-weight="700" fill="#b5402e" text-anchor="middle">2024</text>
+        <text x="690" y="252" font-size="14" fill="#6b6052" text-anchor="middle">雪松 219店に半減</text>
+      </svg>
+      <figcaption>群馬の食堂（創業1940年）の味を継いだ「餃子の雪松」が2018年に無人1号店を開業。コロナ禍で点火し、低投資ゆえ供給が急増、需要が一巡すると同じ速度で縮んだ ── 典型的な<b>ブーム型業態</b>の曲線。</figcaption>
+      <div class="src">出典：帝国データバンク／餃子の雪松 公式・各種報道（2024）</div>
+    </div></figure>
+  </section>
+
+  <!-- ============ §3 店舗数推移 ============ -->
+  <section>
+    <figure class="note-fig">
+      <div class="nlabel">標本ノート ｜ 系譜</div>
+      <img src="cover-no001-b2-keifu.jpg" alt="群馬の食堂78年の系譜">
+      <figcaption>群馬の食堂（1940）から無人1号店（2018）、そして432→219店へ。78年の系譜を1枚で。</figcaption>
+    </figure>
+    <div class="shead"><span class="sn">§3</span><h2>店舗数の推移（実数）</h2></div>
+    <p class="secprose">雪松の店舗数を並べると、上りは急で、下りは長い。42（2020年7月）→ 372（2022年4月）→ 432（2023年2月）→ 374（2024年6月）→ 219（2024年11月）。折れ線にすると、ピークの山は鋭く、裾は緩やかに引く。飽和は個店ではなく、業態ごと進む。</p>
+    <div class="takeaway">山の登りは急で、下りはゆっくり続く。</div>
+    <figure><div class="fig">
+      <div class="figttl">全国の無人餃子店と、最大手「餃子の雪松」</div>
+      <svg viewBox="0 0 760 420" role="img" aria-label="無人餃子の店舗数推移グラフ">
+        <g stroke="#e7dcc6" stroke-width="1">
+          <line x1="70" y1="50" x2="730" y2="50"/><line x1="70" y1="153.3" x2="730" y2="153.3"/>
+          <line x1="70" y1="256.7" x2="730" y2="256.7"/><line x1="70" y1="360" x2="730" y2="360"/>
+        </g>
+        <g font-size="16" fill="#6b6052" text-anchor="end">
+          <text x="62" y="55">1,500</text><text x="62" y="158">1,000</text><text x="62" y="262">500</text><text x="62" y="365">0</text>
+        </g>
+        <line x1="70" y1="50" x2="70" y2="360" stroke="#23201b" stroke-width="1.5"/>
+        <g font-size="16" fill="#6b6052" text-anchor="middle">
+          <text x="120" y="385">2020末</text><text x="380" y="385">2022末</text><text x="690" y="385">2024</text>
+        </g>
+        <!-- 全国 -->
+        <polyline points="120,332.9 380,95.1 480,70.7 690,70.7" fill="none" stroke="#5b7553" stroke-width="3.5"/>
+        <g fill="#5b7553"><circle cx="120" cy="332.9" r="5"/><circle cx="380" cy="95.1" r="5"/><circle cx="480" cy="70.7" r="6.5"/><circle cx="690" cy="70.7" r="5"/></g>
+        <text x="120" y="320" font-size="17" font-weight="700" fill="#23201b" text-anchor="middle">131</text>
+        <text x="372" y="86" font-size="17" font-weight="700" fill="#23201b" text-anchor="end">1,282</text>
+        <text x="480" y="58" font-size="17" font-weight="700" fill="#5b7553" text-anchor="middle">1,400</text>
+        <text x="150" y="135" font-size="17" font-weight="700" fill="#5b7553">全国の無人餃子店</text>
+        <!-- 雪松 -->
+        <polyline points="120,351.3 380,283.1 480,270.7 620,282.7 690,314.7" fill="none" stroke="#23201b" stroke-width="2.5"/>
+        <g fill="#23201b"><circle cx="120" cy="351.3" r="4.5"/><circle cx="380" cy="283.1" r="4.5"/><circle cx="480" cy="270.7" r="6"/><circle cx="620" cy="282.7" r="4.5"/><circle cx="690" cy="314.7" r="6"/></g>
+        <text x="380" y="276" font-size="16" font-weight="700" fill="#23201b" text-anchor="middle">372</text>
+        <text x="480" y="263" font-size="16" font-weight="700" fill="#23201b" text-anchor="middle">432</text>
+        <text x="690" y="307" font-size="17" font-weight="700" fill="#b5402e" text-anchor="end">219</text>
+        <text x="400" y="340" font-size="17" font-weight="700" fill="#23201b">餃子の雪松（最大手）</text>
+      </svg>
+      <figcaption>全国の無人餃子店は2020年末131店 → 2022年末1,282店へ<b>約10倍</b>に膨張（ピーク約1,400店）。最大手・雪松（シェア約3割）は432店をピークに、2024年は<b>219店へほぼ半減</b>した。</figcaption>
+      <div class="src">出典：帝国データバンク（全国店舗数）／報道各社（雪松 2020.7=42→2024.11=219）</div>
+    </div></figure>
+  </section>
+
+  <!-- ============ §4 なぜ無人で成立したか ============ -->
+  <section>
+    <div class="shead"><span class="sn">§4</span><h2>なぜ「無人」で成立したのか</h2></div>
+    <p class="secprose">この業態を支えた条件は四つ。低投資（通常飲食の約1/10）、人件費ゼロ、コロナ禍の巣ごもり需要、非接触への要請。四つが同時に揃ったのは、2020年から2022年という限られた時間だった。追い風は業態固有の強みではなく、環境の組み合わせだった。</p>
+    <div class="takeaway">成立条件は「構造」ではなく「環境の重なり」だった。</div>
+    <figure><div class="fig">
+      <div class="figttl">4つの追い風が同時に吹いた</div>
+      <svg viewBox="0 0 760 330" role="img" aria-label="無人餃子が成立した構造">
+        <g font-family="Noto Sans JP,sans-serif">
+          <rect x="28" y="44" width="168" height="100" rx="4" fill="#fbf7ee" stroke="#1a3a5c" stroke-width="1.5"/>
+          <text x="112" y="74" font-size="17" font-weight="700" fill="#1a3a5c" text-anchor="middle">① 低投資</text>
+          <text x="112" y="102" font-size="15" fill="#23201b" text-anchor="middle">通常飲食の1/10</text>
+          <text x="112" y="124" font-size="15" fill="#6b6052" text-anchor="middle">冷凍庫＋カメラ</text>
+
+          <rect x="216" y="44" width="168" height="100" rx="4" fill="#fbf7ee" stroke="#1a3a5c" stroke-width="1.5"/>
+          <text x="300" y="74" font-size="17" font-weight="700" fill="#1a3a5c" text-anchor="middle">② 人件費ゼロ</text>
+          <text x="300" y="102" font-size="15" fill="#23201b" text-anchor="middle">無人運営</text>
+          <text x="300" y="124" font-size="15" fill="#6b6052" text-anchor="middle">多店化が容易</text>
+
+          <rect x="404" y="44" width="168" height="100" rx="4" fill="#fbf7ee" stroke="#1a3a5c" stroke-width="1.5"/>
+          <text x="488" y="74" font-size="17" font-weight="700" fill="#1a3a5c" text-anchor="middle">③ 巣ごもり需要</text>
+          <text x="488" y="102" font-size="15" fill="#23201b" text-anchor="middle">コロナで内食化</text>
+          <text x="488" y="124" font-size="15" fill="#6b6052" text-anchor="middle">冷凍需要が拡大</text>
+
+          <rect x="592" y="44" width="168" height="100" rx="4" fill="#fbf7ee" stroke="#1a3a5c" stroke-width="1.5"/>
+          <text x="676" y="74" font-size="17" font-weight="700" fill="#1a3a5c" text-anchor="middle">④ 非接触</text>
+          <text x="676" y="102" font-size="15" fill="#23201b" text-anchor="middle">人と会わず買える</text>
+          <text x="676" y="124" font-size="15" fill="#6b6052" text-anchor="middle">不安期に適合</text>
+
+          <g stroke="#1a3a5c" stroke-width="1.5" fill="none">
+            <path d="M112 144 V178"/><path d="M300 144 V178"/><path d="M488 144 V178"/><path d="M676 144 V178"/>
+          </g>
+          <rect x="28" y="182" width="732" height="58" rx="4" fill="#1a3a5c"/>
+          <text x="394" y="208" font-size="19" font-weight="700" fill="#fff" text-anchor="middle" font-family="Noto Serif JP,serif">供給が爆発的に増加 ── 3年で10倍</text>
+          <text x="394" y="230" font-size="15" fill="#d8e0e8" text-anchor="middle">＝ 参入が容易 ＝ 堀がない、の裏返しでもあった</text>
+          <path d="M394 240 V270" stroke="#b5402e" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+          <defs><marker id="ar" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#b5402e"/></marker></defs>
+          <text x="394" y="300" font-size="17" font-weight="700" fill="#b5402e" text-anchor="middle" font-family="Noto Serif JP,serif">→ §5以降で「弱さ」を解剖する</text>
+        </g>
+      </svg>
+      <figcaption>低投資・無人・巣ごもり・非接触。成立を支えた4条件は、そのまま<b>「誰でも真似できる」＝参入障壁の低さ</b>でもあった。追い風が止んだとき、堀のなさが露わになる。</figcaption>
+      <div class="src">出典：帝国データバンク調査・各種報道をもとに編集部が構造化</div>
+    </div></figure>
+  </section>
+
+  <!-- ============ PAYWALL ============ -->
+  <div class="paywall"><span>🔒 ここから先は プレミアム図鑑</span></div>
+  <div class="premium-note">
+    <b>※これはフリーミアム設計のデモ表示です。</b> 通常はこの線から下（損益の中身・撤退要因・立地戦略）を有料に閉じます。「概要は無料で見せ、儲けの構造と失敗の理由で課金する」── 収益エンジンの実物見本として、今回は全文を表示しています。
+  </div>
+  <div class="cta-mini">▶ 損益分岐の精密版・立地スコアシートは続きで。次号通知は note フォローで／「原価ブックPDF」無料配布 準備中</div>
+
+  <!-- ============ §5 コスト構造 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§5</span><h2>1店舗のコスト構造</h2></div>
+    <p class="secprose">月商150万円のモデルで分解すると、商品原価が約55%、人件費は無人ゆえ理論上ゼロ、家賃・光熱・通信・廃棄などの固定費が月22万円ほど（推定）。残る営業利益は約45万円で、利益率は約30%という実績値とほぼ重なる。利益のかたちは、原価率の高さで決まる。</p>
+    <div class="takeaway">利益率30%は「人を雇わない」が前提の数字。</div>
+    <figure><div class="fig">
+      <div class="figttl">月商150万円のモデル：利益はどこへ消えるか</div>
+      <svg viewBox="0 0 760 400" role="img" aria-label="月次コスト構造のウォーターフォール">
+        <g stroke="#e7dcc6" stroke-width="1">
+          <line x1="78" y1="340" x2="730" y2="340"/><line x1="78" y1="252.5" x2="730" y2="252.5"/>
+          <line x1="78" y1="165" x2="730" y2="165"/><line x1="78" y1="77.5" x2="730" y2="77.5"/>
+        </g>
+        <g font-size="16" fill="#6b6052" text-anchor="end">
+          <text x="70" y="345">0</text><text x="70" y="257">50</text><text x="70" y="170">100</text><text x="70" y="82">150万</text>
+        </g>
+        <line x1="78" y1="60" x2="78" y2="340" stroke="#23201b" stroke-width="1.5"/>
+        <!-- bars width 84: x=95,225,355,485,615 -->
+        <rect x="95" y="77.5" width="84" height="262.5" fill="#23201b"/>
+        <text x="137" y="68" font-size="18" font-weight="700" fill="#23201b" text-anchor="middle">150万</text>
+        <text x="137" y="362" font-size="15" fill="#6b6052" text-anchor="middle">月商</text>
+        <line x1="179" y1="77.5" x2="225" y2="77.5" stroke="#6b6052" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <rect x="225" y="77.5" width="84" height="144.4" fill="#b5402e"/>
+        <text x="267" y="68" font-size="18" font-weight="700" fill="#b5402e" text-anchor="middle">−82.5</text>
+        <text x="267" y="362" font-size="15" fill="#6b6052" text-anchor="middle">商品原価</text>
+        <text x="267" y="382" font-size="13" fill="#6b6052" text-anchor="middle">(約55%)</text>
+        <line x1="309" y1="221.9" x2="355" y2="221.9" stroke="#6b6052" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <rect x="355" y="221.9" width="84" height="17.5" fill="#8a6d3b"/>
+        <text x="397" y="212" font-size="18" font-weight="700" fill="#8a6d3b" text-anchor="middle">−10</text>
+        <text x="397" y="362" font-size="15" fill="#6b6052" text-anchor="middle">家賃</text>
+        <line x1="439" y1="239.4" x2="485" y2="239.4" stroke="#6b6052" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <rect x="485" y="239.4" width="84" height="21.85" fill="#8a6d3b"/>
+        <text x="527" y="230" font-size="18" font-weight="700" fill="#8a6d3b" text-anchor="middle">−12.5</text>
+        <text x="527" y="362" font-size="15" fill="#6b6052" text-anchor="middle">その他固定費</text>
+        <text x="527" y="382" font-size="13" fill="#6b6052" text-anchor="middle">(光熱･通信･廃棄)</text>
+        <line x1="569" y1="261.25" x2="615" y2="261.25" stroke="#6b6052" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <rect x="615" y="261.25" width="84" height="78.75" fill="#5b7553"/>
+        <text x="657" y="252" font-size="19" font-weight="700" fill="#5b7553" text-anchor="middle">45万</text>
+        <text x="657" y="362" font-size="15" font-weight="700" fill="#5b7553" text-anchor="middle">営業利益</text>
+        <text x="657" y="382" font-size="13" fill="#5b7553" text-anchor="middle">(約30%)</text>
+      </svg>
+      <figcaption>無人ゆえ人件費は乗らないが、利益の最大の敵は<b>原価率の高さ</b>。冷凍餃子は市販品より単価が高く、物価高はこの原価を直接押し上げる。</figcaption>
+      <div class="src">営業利益率 約30% は報道・FC公開値。内訳は編集部のモデル推計（立地・本部で変動）。</div>
+    </div></figure>
+  </section>
+
+  <!-- ============ §6 損益分岐 ============ -->
+  <section>
+    <figure class="note-fig">
+      <div class="nlabel">標本ノート ｜ 商品解剖</div>
+      <img src="cover-no001-b1-genka.jpg" alt="餃子1個28円の解剖図">
+      <figcaption>餃子1個28円の内訳 ── 原価15円・粗利13円。同じ餃子が、スーパーより高い理由。</figcaption>
+    </figure>
+    <div class="shead"><span class="sn">§6</span><h2>損益分岐点</h2></div>
+    <p class="secprose">損益分岐点は月商90万円、1日あたり約30セット（推定）。これを割り続けた店が地図から消えた。30セットは客数ではなく購買回数で、近隣の住民が繰り返し買うことが前提になる。生命線は集客力ではなく、反復購買だった。</p>
+    <div class="takeaway">1日30セットを割った日が、閉店の始まりだった。</div>
+    <figure><div class="fig">
+      <div class="figttl">明暗を分けるのは<span class="accent">「1日30セット」</span>の壁</div>
+      <svg viewBox="0 0 760 400" role="img" aria-label="損益分岐グラフ">
+        <g stroke="#e7dcc6" stroke-width="1">
+          <line x1="70" y1="60" x2="730" y2="60"/><line x1="70" y1="153.3" x2="730" y2="153.3"/><line x1="70" y1="246.7" x2="730" y2="246.7"/>
+        </g>
+        <!-- regions -->
+        <rect x="70" y="60" width="330" height="280" fill="#b5402e" opacity="0.07"/>
+        <rect x="400" y="60" width="330" height="280" fill="#5b7553" opacity="0.08"/>
+        <line x1="70" y1="60" x2="70" y2="340" stroke="#23201b" stroke-width="1.5"/>
+        <line x1="70" y1="340" x2="730" y2="340" stroke="#23201b" stroke-width="1.5"/>
+        <g font-size="16" fill="#6b6052" text-anchor="end">
+          <text x="62" y="345">0</text><text x="62" y="252">60</text><text x="62" y="158">120</text><text x="62" y="65">180万</text>
+        </g>
+        <g font-size="16" fill="#6b6052" text-anchor="middle">
+          <text x="180" y="365">10セット/日</text><text x="400" y="365">30セット</text><text x="620" y="365">50セット</text>
+        </g>
+        <!-- 総費用 (70,277)->(730,123) -->
+        <polyline points="70,277 730,123" fill="none" stroke="#8a6d3b" stroke-width="2.5" stroke-dasharray="8 4"/>
+        <text x="620" y="150" font-size="16" font-weight="700" fill="#8a6d3b">総費用</text>
+        <!-- 売上 (70,340)->(730,60) -->
+        <polyline points="70,340 730,60" fill="none" stroke="#23201b" stroke-width="3"/>
+        <text x="648" y="78" font-size="16" font-weight="700" fill="#23201b">売上</text>
+        <!-- BEP x=400 y(90)=200 -->
+        <line x1="400" y1="60" x2="400" y2="340" stroke="#b5402e" stroke-width="1.3" stroke-dasharray="4 4"/>
+        <circle cx="400" cy="200" r="6.5" fill="#b5402e"/>
+        <rect x="300" y="150" width="210" height="28" rx="3" fill="#f4efe4" stroke="#d8ccb5"/>
+        <text x="405" y="170" font-size="15" font-weight="700" fill="#b5402e" text-anchor="middle">損益分岐 ≒ 月商90万</text>
+        <text x="225" y="100" font-size="17" font-weight="700" fill="#b5402e" text-anchor="middle" font-family="Noto Serif JP,serif">赤字ゾーン</text>
+        <text x="575" y="305" font-size="17" font-weight="700" fill="#5b7553" text-anchor="middle" font-family="Noto Serif JP,serif">黒字ゾーン</text>
+      </svg>
+      <figcaption>固定費が軽い無人モデルでも、分岐点はおよそ<b>1日30セット（月商90万円）</b>。1日10セットでは人件費ゼロでも赤字、50セットなら月27万の利益。「無人＝楽に儲かる」ではなく<b>「立地で全部決まる」</b>業態である。</figcaption>
+      <div class="src">損益分岐の月商目安はFC公開シミュレーション。費用線は §5 モデルに基づく編集部推計。</div>
+    </div></figure>
+  </section>
+
+  <!-- ============ §7 リスクレーダー ============ -->
+  <section>
+    <figure class="note-fig">
+      <div class="nlabel">標本ノート ｜ 設計の謎</div>
+      <img src="cover-no001-b3-reizo.jpg" alt="なぜ36個1,000円なのか">
+      <figcaption>なぜ「36個1,000円」か。家庭の冷凍庫と「4人×3食×3日」から逆算された数字。</figcaption>
+    </figure>
+    <div class="shead"><span class="sn">§7</span><h2>リスク・プロファイル</h2></div>
+    <p class="secprose">リスクを6軸で並べると、過当競争・価格競争・需要消失・万引き・原材料高騰・立地依存が浮かぶ。なかでも万引きは、無人という設計の弱点が直接出る。25回の被害、推定12.5万円超で閉店した事例が記録されている。リスクの所在は商品ではなく、運営方式そのものにある。</p>
+    <div class="takeaway">無人の利点が、そのまま無人のリスクになった。</div>
+    <figure><div class="fig">
+      <div class="figttl">この業態の「弱点」を6軸で可視化（5＝高リスク）</div>
+      <svg viewBox="0 0 760 440" role="img" aria-label="リスクレーダーチャート">
+        <!-- grid rings -->
+        <g fill="none" stroke="#e7dcc6" stroke-width="1">
+          <polygon points="380,135 444.95,172.5 444.95,247.5 380,285 315.05,247.5 315.05,172.5"/>
+          <polygon points="380,90 483.9,150 483.9,270 380,330 276.1,270 276.1,150"/>
+        </g>
+        <polygon points="380,60 509.9,135 509.9,285 380,360 250.1,285 250.1,135" fill="none" stroke="#d8ccb5" stroke-width="1.3"/>
+        <g stroke="#d8ccb5" stroke-width="1">
+          <line x1="380" y1="210" x2="380" y2="60"/><line x1="380" y1="210" x2="509.9" y2="135"/><line x1="380" y1="210" x2="509.9" y2="285"/>
+          <line x1="380" y1="210" x2="380" y2="360"/><line x1="380" y1="210" x2="250.1" y2="285"/><line x1="380" y1="210" x2="250.1" y2="135"/>
+        </g>
+        <!-- data [5,5,4,4,4,5] -->
+        <polygon points="380,60 509.9,135 483.9,270 380,330 276.1,270 250.1,135" fill="#b5402e" fill-opacity="0.20" stroke="#b5402e" stroke-width="2.5"/>
+        <g fill="#b5402e"><circle cx="380" cy="60" r="4.5"/><circle cx="509.9" cy="135" r="4.5"/><circle cx="483.9" cy="270" r="4.5"/><circle cx="380" cy="330" r="4.5"/><circle cx="276.1" cy="270" r="4.5"/><circle cx="250.1" cy="135" r="4.5"/></g>
+        <g font-size="16" font-weight="700" fill="#23201b">
+          <text x="380" y="46" text-anchor="middle">万引き・盗難 <tspan fill="#b5402e">5</tspan></text>
+          <text x="520" y="130" text-anchor="start">過当競争 <tspan fill="#b5402e">5</tspan></text>
+          <text x="520" y="292" text-anchor="start">原材料高騰 <tspan fill="#b5402e">4</tspan></text>
+          <text x="380" y="388" text-anchor="middle">立地依存 <tspan fill="#b5402e">4</tspan></text>
+          <text x="240" y="292" text-anchor="end">流行の陳腐化 <tspan fill="#b5402e">4</tspan></text>
+          <text x="240" y="130" text-anchor="end">堀の低さ <tspan fill="#b5402e">5</tspan></text>
+        </g>
+      </svg>
+      <figcaption>無人ゆえの<b>万引き</b>、誰でも真似できる<b>堀の低さ</b>、<b>過当競争</b>が突出。ある店舗では25回・被害12.5万円超の盗難の末に閉店した例も報じられた。</figcaption>
+      <div class="src">出典：各種報道（盗難被害事例）／帝国データバンク調査をもとに編集部評価</div>
+    </div></figure>
+  </section>
+
+  <!-- ============ §8 なぜ消えた ============ -->
+  <section>
+    <div class="shead"><span class="sn">§8</span><h2>なぜ街から消えたのか ── 撤退の5大要因</h2></div>
+    <p class="secprose">撤退の要因として確認できるのは五つ。市場の飽和、スーパーの安い冷凍餃子への価格負け、目新しさの消失、万引き被害の累積、原材料・物価高。いずれも「無人である」ことを前提にした弱点へ収束する。2024年の飲食店倒産は894件で過去最多（帝国データバンク）、その文脈の中にこの業態もある。</p>
+    <div class="takeaway">スーパーに価格で負けた。無人が防げない理由で。</div>
+    <figure><div class="fig">
+      <div class="figttl">「盗まれる」より重かった、<span class="accent">構造的な要因</span></div>
+      <svg viewBox="0 0 760 330" role="img" aria-label="撤退要因の影響度（編集部評価・5段階）">
+        <g font-family="Noto Sans JP,sans-serif">
+          <text x="24" y="26" font-size="13" font-weight="700" fill="#8a6d3b">影響度（編集部評価・5段階）── 値が大きいほど撤退への寄与が大きい</text>
+          <!-- ① -->
+          <text x="24" y="64" font-size="16" font-weight="700" fill="#23201b">① 過当競争・市場の飽和</text>
+          <rect x="24" y="72" width="600" height="22" rx="2" fill="#b5402e"/>
+          <text x="636" y="89" font-size="16" font-weight="700" fill="#b5402e">5 / 5</text>
+          <!-- ② -->
+          <text x="24" y="120" font-size="16" font-weight="700" fill="#23201b">② スーパー冷凍餃子に価格で敗北</text>
+          <rect x="24" y="128" width="600" height="22" rx="2" fill="#b5402e"/>
+          <text x="636" y="145" font-size="16" font-weight="700" fill="#b5402e">5 / 5</text>
+          <!-- ③ -->
+          <text x="24" y="176" font-size="16" font-weight="700" fill="#23201b">③ 目新しさの消失（飽き）</text>
+          <rect x="24" y="184" width="480" height="22" rx="2" fill="#d98a78"/>
+          <text x="516" y="201" font-size="16" font-weight="700" fill="#b5402e">4 / 5</text>
+          <!-- ④ -->
+          <text x="24" y="232" font-size="16" font-weight="700" fill="#23201b">④ 万引き・盗難による在庫ロス</text>
+          <rect x="24" y="240" width="360" height="22" rx="2" fill="#8a6d3b"/>
+          <text x="396" y="257" font-size="16" font-weight="700" fill="#8a6d3b">3 / 5</text>
+          <!-- ⑤ -->
+          <text x="24" y="288" font-size="16" font-weight="700" fill="#23201b">⑤ 原材料・物価の高騰</text>
+          <rect x="24" y="296" width="360" height="22" rx="2" fill="#8a6d3b"/>
+          <text x="396" y="313" font-size="16" font-weight="700" fill="#8a6d3b">3 / 5</text>
+        </g>
+      </svg>
+      <figcaption>報じられがちな「万引き」は要因のひとつに過ぎない。本質は<b>参入が容易すぎて供給過多になった</b>こと、<b>スーパーの安い冷凍餃子に価格で勝てなかった</b>こと。ブーム業態が辿る教科書的な末路である。</figcaption>
+      <div class="src">出典：帝国データバンク調査・ITmedia・マネー現代ほか各種報道（2024）</div>
+    </div></figure>
+  </section>
+
+  <!-- ============ §9 立地適性 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§9</span><h2>立地適性マップ</h2></div>
+    <p class="secprose">向いている立地は、住宅密集地・幹線道路沿い・駐車場のある場所。逆に避けたいのは、通行量は多くても素通りされる駅前や商業施設内だ。冷凍＝持ち帰って家で焼く業態なので、来店動機は住居の近さにある。無人が求める立地は、有人店舗とは別の論理で決まる。</p>
+    <div class="takeaway">正解は「人が来る場所」より「戻ってくる場所」。</div>
+    <div class="locgrid">
+      <div class="loc"><div class="mark m-yes">◎</div><div><div class="lt">住宅街</div><div class="ld">夕食需要・リピート。本命立地</div></div></div>
+      <div class="loc"><div class="mark m-yes">◎</div><div><div class="lt">ロードサイド</div><div class="ld">駐車場＋車客。まとめ買い</div></div></div>
+      <div class="loc"><div class="mark m-yes">◎</div><div><div class="lt">スーパー隣接</div><div class="ld">買い物ついで。導線が強い</div></div></div>
+      <div class="loc"><div class="mark m-ok">○</div><div><div class="lt">駅前商店街</div><div class="ld">通行量はあるが家賃と相談</div></div></div>
+      <div class="loc"><div class="mark m-na">△</div><div><div class="lt">オフィス街</div><div class="ld">平日のみ・夜と週末が弱い</div></div></div>
+      <div class="loc"><div class="mark m-no">×</div><div><div class="lt">駅ナカ・繁華街</div><div class="ld">賃料が高すぎ薄利と相性最悪</div></div></div>
+    </div>
+    <p class="note">冷凍＝「持ち帰って家で焼く」業態。<b>住居の近さ＝来店動機</b>。通行量より生活導線で選ぶのが鉄則。</p>
+  </section>
+
+  <!-- ============ §10 メリデメ ============ -->
+  <section>
+    <div class="shead"><span class="sn">§10</span><h2>メリット / デメリット</h2></div>
+    <p class="secprose">強みは、低投資・無人・高利益率・回収の早さ。弱みは、差別化の乏しさ・万引き・反復購買への依存・競合参入の容易さ。好調例では回収約8ヶ月の記録もある。だが同じ仕組みで参入する競合が増えるほど、その数字は成立しにくくなる。強みと弱みは、同じ設計から生まれている。</p>
+    <div class="takeaway">回収8ヶ月の好条件と、飽和の加速は同根にある。</div>
+    <div class="md">
+      <div class="mdcol pro"><h3>メリット</h3>
+        <ul>
+          <li>初期投資が通常飲食の約1/10、人件費ほぼゼロ</li>
+          <li>無人＝副業・多店舗展開がしやすい</li>
+          <li>調理スキル不要（本部の冷凍品を置くだけ）</li>
+          <li>好立地・好調なら投資回収 約8ヶ月の例も</li>
+        </ul>
+      </div>
+      <div class="mdcol con"><h3>デメリット</h3>
+        <ul>
+          <li>万引き・盗難が構造的に防ぎきれない</li>
+          <li>参入容易＝堀がなく、過当競争に陥りやすい</li>
+          <li>原価率が高く、物価高に弱い</li>
+          <li>スーパー冷凍餃子という強力な代替がある</li>
+          <li>ブーム依存で賞味期限が短い</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section class="closing-sec">
+    <div class="shead"><span class="sn">§</span><h2>標本所見</h2></div>
+    <p class="secprose">無人餃子直売所は、ある条件の下でだけ成立した業態だった。条件が重なった3年で急増し、条件が変わると縮んでいる。標本として見れば、これは失敗でも成功でもない。「ある時代に存在した商いの形」だ。次に街角で冷凍庫を見かけたら、その店が今どの位置にいるかを、数字で確かめられる。</p>
+    <div class="takeaway">開業も閉店も、同じ物差しの上にある。</div>
+  </section>
+
+  <!-- ============ CTA(末尾) ============ -->
+  <div class="cta-box">
+    <div class="ct">この図鑑を、続けて受け取る</div>
+    <div class="cd">次号「セルフ写真館 No.002（製作中）」の通知は、noteのフォローで届きます。<br>「一坪ビジネス原価ブック（PDF）」の無料配布は、メール便の準備が整い次第はじめます。<br>煽りません。街角の商いを、数字で記録します。</div>
+    <a class="cbtn" href="https://note.com/zukan_jp">note でフォローして受け取る</a>
+  </div>
+
+  <!-- ============ SERIES / FOOTER ============ -->
+  <div class="series">
+    <h2>このシリーズについて</h2>
+    <p class="note">街角の極小ビジネスを、共通フォーマット（標本データ・栄枯盛衰・コスト構造・損益分岐・リスク・立地）で解剖する図鑑です。「消えゆくもの」と「生まれるもの」を同じ物差しで記録します。</p>
+    <div class="row">
+      <div class="scard"><div class="sno">No.001</div><div class="stt">無人餃子直売所</div><div class="ss">いま読んでいる標本</div></div>
+      <div class="scard future"><div class="sno">No.002</div><div class="stt">セルフ写真館</div><div class="ss">無人セルフ系・拡大中の次の標本</div></div>
+      <div class="scard future"><div class="sno">姉妹編</div><div class="stt">絶滅職種図鑑</div><div class="ss">「消える仕事」を同じ物差しで</div></div>
+    </div>
+  </div>
+
+  <div class="sources">
+    <b>主な出典</b><br>
+    ・帝国データバンク「餃子無人販売店」動向調査（全国約1,400店／2022年末1,282店／3年で約10倍）<br>
+    ・帝国データバンク「飲食店」倒産動向調査 2024（飲食倒産894件・過去最多）<br>
+    ・餃子の雪松 公式（1号店2018年9月・36個1,000円）／店舗数推移は各種報道（2020.7=42, 2022.4=372, 2023.2=432, 2024.6=374, 2024.11=219）<br>
+    ・無人餃子FCの初期費用・損益分岐・利益率：各FC公開情報／開業支援メディア<br>
+    ・盗難被害事例：FNN／関西テレビ ほか報道（2024）
+  </div>
+  <div class="disclaim">
+    ※ 本図鑑の金額・利益率・損益分岐は、公開統計・報道・FC公開資料をもとにした<b>参考値および編集部のモデル推計</b>です。実際の数値は立地・規模・運営方針・時期により大きく異なります。特定事業者の経営実態を示すものではありません。
+  </div>
+  <div class="colophon">一坪ビジネス図鑑 ／ No.001 ／ 無人餃子直売所</div>
+
+</div>
+</body>
+</html>
