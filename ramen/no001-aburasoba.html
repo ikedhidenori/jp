@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ラーメン屋図鑑 No.001 ｜ 油そば ― 一杯の損益を解剖する</title>
+<!--
+  ラーメン屋図鑑 / 共通デザイン規約 (一坪ビジネス図鑑 No.001 装丁を完全踏襲)
+  Concept : 昭和の博物図鑑 × 現代データビジュアライゼーション / 検死台のトーン
+  Voice   : 低体温・観察者・数字主語・非煽り・推定明示 (tier 階級を全数値に明示)
+  Color   : paper #f4efe4 / ink #23201b / 朱(衰退/警告) #b5402e / 朱soft #d98a78
+            / 醤油茶 #80652f (AA) / 鈍緑(成長/堅牢) #5b7553 / 紺 #1a3a5c = 構造図の箱・帯
+  Type    : 見出し=Noto Serif JP / 本文・数値=Noto Sans JP
+  Visual  : 画像なし。図解は HTML/CSS の表・バー・テキストマトリクスで表現。
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4efe4; --paper2:#ece2cf; --card:#fbf7ee;
+  --ink:#23201b; --sub:#6b6052; --rule:#d8ccb5; --rule2:#e7dcc6;
+  --shu:#b5402e; --shu-soft:#d98a78; --cha:#80652f; --midori:#5b7553; --midori-txt:#546c4c; --kin:#c79a3b; --kon:#1a3a5c;
+  --maxw:760px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--paper); color:var(--ink); font-family:"Noto Sans JP",-apple-system,sans-serif; font-size:16px; line-height:1.85; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 18px 80px;}
+.serif{font-family:"Noto Serif JP",serif;}
+
+/* ===== COVER ===== */
+.cover{padding:46px 0 30px; border-bottom:3px double var(--ink); margin-bottom:6px;}
+.brandline{display:flex; align-items:center; gap:10px; font-size:12.5px; letter-spacing:.2em; color:var(--cha); font-weight:700;}
+.brandline .seal{display:inline-flex; align-items:center; justify-content:center; width:34px;height:34px;border:1.5px solid var(--shu); color:var(--shu); border-radius:50%; font-family:"Noto Serif JP",serif; font-size:15px; font-weight:700; letter-spacing:0;}
+.brandsub{font-family:"Noto Serif JP",serif; font-size:14px; color:var(--sub); margin-top:10px; letter-spacing:.08em;}
+.no{font-family:"Noto Serif JP",serif; font-size:13px; color:var(--shu); letter-spacing:.18em; margin:22px 0 6px; font-weight:700;}
+h1{font-family:"Noto Serif JP",serif; font-weight:700; font-size:clamp(28px,7.5vw,44px); line-height:1.2; margin:0 0 14px; letter-spacing:.01em;}
+.binom{font-family:"Noto Serif JP",serif; font-size:13px; color:var(--sub); font-style:italic; letter-spacing:.04em; margin:0 0 4px;}
+.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+.tag{font-size:12px; font-weight:700; letter-spacing:.04em; padding:4px 11px; border-radius:2px; border:1px solid var(--rule); background:var(--card); color:var(--sub);}
+.tag.cat{border-color:var(--cha); color:var(--cha);}
+.tag.trend{border-color:var(--shu); color:#fff; background:var(--shu);}
+.tag.diff{border-color:var(--midori); color:var(--midori-txt);}
+
+/* ===== LEAD ===== */
+.lead{font-size:16.5px; line-height:2.0; margin:26px 0 8px;}
+.lead .big{font-family:"Noto Serif JP",serif; font-size:20px; color:var(--shu); font-weight:700;}
+.howto{background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--cha); border-radius:4px; padding:14px 16px; margin:18px 0; font-size:13.5px; line-height:1.85; color:var(--sub);}
+.howto b{color:var(--ink); font-family:"Noto Serif JP",serif;}
+
+/* ===== tier 凡例 ===== */
+.tierbox{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:15px 16px; margin:18px 0;}
+.tierbox .tt{font-family:"Noto Serif JP",serif; font-size:14px; font-weight:700; color:var(--ink); margin-bottom:10px;}
+.tierlist{display:grid; grid-template-columns:1fr; gap:7px;}
+@media(min-width:560px){.tierlist{grid-template-columns:1fr 1fr;}}
+.tierlist .ti{display:flex; align-items:baseline; gap:8px; font-size:12.5px; line-height:1.6; color:var(--sub);}
+.tierlist .ti .td{color:var(--ink);}
+
+/* tier pill (inline、本文・表中の数値根拠を示す) */
+.t{display:inline-block; font-family:"Noto Sans JP",sans-serif; font-size:10.5px; font-weight:700; letter-spacing:.02em; line-height:1.5; padding:1px 6px; border-radius:2px; vertical-align:.08em; white-space:nowrap; border:1px solid;}
+.t-official{color:#fff; background:var(--kon); border-color:var(--kon);}
+.t-gov{color:#fff; background:var(--cha); border-color:var(--cha);}
+.t-press{color:var(--cha); background:var(--card); border-color:var(--cha);}
+.t-est{color:var(--shu); background:#fbf3ea; border-color:var(--shu-soft);}
+.t-interp{color:var(--midori-txt); background:var(--card); border-color:var(--midori);}
+.t-need{color:#fff; background:var(--shu); border-color:var(--shu); letter-spacing:.04em;}
+
+/* ===== SECTION ===== */
+section{margin:46px 0 0;}
+.shead{display:flex; align-items:baseline; gap:12px; margin:0 0 6px; padding-bottom:8px; border-bottom:1.5px solid var(--ink);}
+.shead .sn{font-family:"Noto Serif JP",serif; color:var(--shu); font-weight:700; font-size:15px; white-space:nowrap;}
+.shead h2{font-family:"Noto Serif JP",serif; font-weight:700; font-size:20px; margin:0; letter-spacing:.02em; line-height:1.4;}
+.note{font-size:13px; color:var(--sub); line-height:1.8;}
+p{margin:12px 0;}
+.secprose{font-size:15.5px; line-height:1.95; margin:14px 0 10px; color:var(--ink);}
+.secprose + .secprose{margin-top:10px;}
+.takeaway{font-family:"Noto Serif JP",serif; font-weight:700; font-size:16px; color:var(--ink); border-left:4px solid var(--shu); background:#fbf3ea; padding:10px 14px; margin:14px 0 16px; line-height:1.6;}
+.closing-sec .secprose{font-size:16px;}
+.closing-sec .takeaway{font-size:17px;}
+
+/* ===== SPEC BOX ===== */
+.spec{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0 6px;}
+.specbox{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:13px 14px;}
+.specbox .k{font-size:11.5px; letter-spacing:.06em; color:var(--cha); font-weight:700;}
+.specbox .v{font-family:"Noto Serif JP",serif; font-size:21px; font-weight:700; margin-top:3px; line-height:1.3;}
+.specbox .u{font-size:12px; color:var(--sub); font-weight:500;}
+@media(min-width:560px){.spec{grid-template-columns:repeat(4,1fr);}}
+
+/* ===== FIGURE (HTML/CSS chart) ===== */
+figure{margin:20px 0 6px;}
+.fig{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:14px 14px 10px;}
+.figttl{font-family:"Noto Serif JP",serif; font-size:15.5px; font-weight:700; margin:2px 2px 12px;}
+.figttl .accent{color:var(--shu);}
+figcaption{font-size:12.5px; color:var(--sub); margin:10px 2px 2px; line-height:1.75;}
+figcaption b{color:var(--ink);}
+.src{font-size:11px; color:var(--cha); margin-top:5px;}
+
+/* breakdown bar (原価の積み上げ) */
+.barrow{display:flex; align-items:center; gap:10px; margin:9px 0;}
+.barrow .lbl{flex:0 0 96px; font-size:13px; font-weight:700; color:var(--ink); text-align:right;}
+.barrow .track{flex:1; background:#efe7d6; border-radius:2px; height:30px; position:relative; overflow:hidden;}
+.barrow .bar{height:100%; display:flex; align-items:center; padding:0 9px; color:#fff; font-size:12.5px; font-weight:700; white-space:nowrap;}
+.bar-men{background:var(--cha);} .bar-gu{background:var(--midori);} .bar-tare{background:var(--shu);} .bar-total{background:var(--ink);}
+.barrow .amt{flex:0 0 56px; font-family:"Noto Serif JP",serif; font-size:15px; font-weight:700; color:var(--ink);}
+
+/* data table */
+.tbl-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:16px 0 4px;}
+table{border-collapse:collapse; width:100%; font-size:13px; min-width:480px;}
+caption{caption-side:top; font-family:"Noto Serif JP",serif; font-size:14.5px; font-weight:700; text-align:left; margin-bottom:9px; color:var(--ink);}
+th,td{border:1px solid var(--rule); padding:8px 10px; text-align:left; line-height:1.65; vertical-align:top;}
+thead th{background:var(--ink); color:var(--paper); font-weight:700; font-size:12.5px; letter-spacing:.02em;}
+tbody tr:nth-child(even){background:#fbf7ee;}
+td .num{font-family:"Noto Serif JP",serif; font-weight:700; color:var(--ink);}
+td.col-strat{text-align:center; font-weight:700;}
+.col-strat .sA{color:var(--cha);} .col-strat .sB{color:var(--shu);}
+
+/* positioning matrix */
+.matrix{border:1px solid var(--rule); border-radius:4px; background:var(--card); padding:16px 14px 12px; margin:16px 0 4px;}
+.matrix .mttl{font-family:"Noto Serif JP",serif; font-size:14.5px; font-weight:700; margin:0 2px 12px;}
+.mgrid{display:grid; grid-template-columns:54px 1fr; grid-template-rows:auto auto auto; gap:8px;}
+.mgrid .yaxis{writing-mode:vertical-rl; text-orientation:mixed; font-size:11.5px; font-weight:700; color:var(--sub); text-align:center; display:flex; align-items:center; justify-content:center; letter-spacing:.06em;}
+.mcell{border:1px dashed var(--rule); border-radius:3px; padding:10px 11px; background:var(--paper); min-height:74px;}
+.mcell .pl{font-size:11px; font-weight:700; letter-spacing:.04em; margin-bottom:7px;}
+.mcell.hi .pl{color:var(--shu);} .mcell.mid .pl{color:var(--cha);} .mcell.lo .pl{color:var(--midori-txt);}
+.chip{display:inline-block; font-size:11.5px; font-weight:700; line-height:1.5; padding:3px 8px; margin:3px 4px 3px 0; border-radius:2px; border:1px solid;}
+.chip.A{color:var(--cha); background:var(--card); border-color:var(--cha);}
+.chip.B{color:var(--shu); background:#fbf3ea; border-color:var(--shu-soft);}
+.chip.out{color:var(--sub); background:transparent; border-color:var(--rule); border-style:dashed;}
+.mxaxis{grid-column:2; font-size:11px; color:var(--sub); display:flex; justify-content:space-between; border-top:1.5px solid var(--ink); padding-top:7px; margin-top:2px; font-weight:700;}
+
+/* two-strategy split cards */
+.split{display:grid; grid-template-columns:1fr; gap:12px; margin:16px 0 4px;}
+@media(min-width:560px){.split{grid-template-columns:1fr 1fr;}}
+.scol{border:1px solid var(--rule); border-radius:4px; overflow:hidden; background:var(--card);}
+.scol h3{margin:0; font-family:"Noto Serif JP",serif; font-size:14.5px; padding:10px 13px; color:#fff; line-height:1.45;}
+.scol.A h3{background:var(--cha);} .scol.B h3{background:var(--shu);}
+.scol .body{padding:12px 14px 14px;}
+.scol .body p{margin:0 0 10px; font-size:13.5px; line-height:1.8;}
+.scol ul{margin:8px 0 0; padding-left:18px;} .scol li{margin:7px 0; font-size:13px; line-height:1.7;}
+
+/* failure factor bars */
+.factor{margin:16px 0 4px;}
+.factor .frow{margin:11px 0;}
+.factor .flbl{font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px;}
+.factor .ftrack{background:#efe7d6; border-radius:2px; height:13px; overflow:hidden;}
+.factor .fbar{height:100%;}
+.fbar.lv-hi{background:var(--shu);} .fbar.lv-mid{background:var(--shu-soft);} .fbar.lv-lo{background:var(--cha);}
+
+/* series / footer */
+.series{margin:50px 0 0; background:var(--paper2); border-radius:5px; padding:22px 18px;}
+.series h2{font-family:"Noto Serif JP",serif; font-size:18px; margin:0 0 4px;}
+.series .row{display:grid; grid-template-columns:1fr; gap:9px; margin-top:14px;}
+@media(min-width:560px){.series .row{grid-template-columns:1fr 1fr 1fr;}}
+.scard{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:12px;}
+.scard .sno{font-size:11px; color:var(--shu); font-weight:700; letter-spacing:.1em;}
+.scard .stt{font-family:"Noto Serif JP",serif; font-size:14.5px; font-weight:700; margin:3px 0;}
+.scard .ss{font-size:11.5px; color:var(--sub); line-height:1.6;}
+.scard.future{opacity:.7;} .scard.future .stt:after{content:" （準備中）"; font-size:10px; color:var(--sub); font-weight:400;}
+
+.cta-box{background:var(--ink); color:var(--paper); border-radius:5px; padding:22px 18px; margin:24px 0; text-align:center;}
+.cta-box .ct{font-family:"Noto Serif JP",serif; font-size:18px; font-weight:700; margin-bottom:6px; color:var(--paper);}
+.cta-box .cd{font-size:13.5px; color:#d8ccb5; line-height:1.85;}
+.cta-box .cbtn{display:inline-block; margin-top:14px; background:var(--shu); color:#fff; font-weight:700; padding:11px 24px; border-radius:3px; font-size:14px; text-decoration:none;}
+
+.sources{margin-top:36px; padding-top:16px; border-top:1px solid var(--rule); font-size:11.5px; color:var(--sub); line-height:1.9;}
+.sources b{color:var(--ink);}
+.sources .src-item{margin:8px 0; padding-left:14px; text-indent:-14px;}
+.sources a{color:var(--cha); word-break:break-all;}
+.disclaim{margin-top:14px; font-size:11px; color:var(--sub); background:var(--card); border-left:3px solid var(--cha); padding:10px 13px; line-height:1.85;}
+.disclaim b{color:var(--ink);}
+.disclaim .need{color:var(--shu); font-weight:700;}
+.colophon{margin-top:24px; text-align:center; font-size:11px; color:var(--cha); letter-spacing:.12em; font-family:"Noto Serif JP",serif; line-height:1.9;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ COVER ============ -->
+  <header class="cover">
+    <div class="brandline"><span class="seal">麺</span>ラーメン屋図鑑　RAMEN SPECIMENS</div>
+    <div class="brandsub">一杯を、検死台に乗せる。</div>
+    <div class="no">No.001 ／ スープレス業態クラスター</div>
+    <p class="binom">Soba oleosa sine iure</p>
+    <h1>油そば ― 一杯の損益を解剖する</h1>
+    <p class="secprose" style="font-family:'Noto Serif JP',serif; color:var(--sub); font-size:16px; margin:0 0 4px;">スープを炊かない、という一手から分かれていく一群</p>
+    <div class="tags">
+      <span class="tag cat">分類：スープレス麺／物販-外食</span>
+      <span class="tag trend">趨勢：成長業態 → 競合乱立</span>
+      <span class="tag diff">開業難易度：易（★☆☆）</span>
+      <span class="tag">標本年代：2013–2025</span>
+    </div>
+  </header>
+
+  <!-- ============ LEAD ============ -->
+  <p class="lead">
+    一杯のラーメンを、検死台に乗せる図鑑です。骨を炊く時間も、丼の中の景色も、いったん脇に置きます。見るのは、原価と、損益分岐と、撤退の条件。<span class="big">一杯がいくらで成り立ち、どこで壊れるのか。</span>煽らず、淡々と、数字で標本にします。
+  </p>
+
+  <div class="howto">
+    <b>【この図鑑の読み方】</b> 数値はすべて出典の階級（tier）を添えています。FCの募集ページに載る「実績例」は募集側のバイアスを含み、店舗ごとの実態とは乖離しうる数字です。出典で割れる原価率は、片方に寄せず両方を並べます。
+  </div>
+
+  <!-- tier 凡例 -->
+  <div class="tierbox">
+    <div class="tt">tier 凡例 ── 数値の根拠の階級</div>
+    <div class="tierlist">
+      <div class="ti"><span class="t t-official">official</span><span class="td">各社の公式FC募集ページ・公式メニュー（募集側バイアスを含む実績例）</span></div>
+      <div class="ti"><span class="t t-gov">gov-stat</span><span class="td">政府・調査機関の統計（帝国データバンク等）</span></div>
+      <div class="ti"><span class="t t-press">press</span><span class="td">報道・業界記事・店主証言</span></div>
+      <div class="ti"><span class="t t-est">estimate</span><span class="td">一次資料のない推計</span></div>
+      <div class="ti"><span class="t t-interp">interpretation</span><span class="td">構造解釈</span></div>
+      <div class="ti"><span class="t t-need">要追加取材</span><span class="td">一次データが欠落、公開前に格上げ取材を推奨</span></div>
+    </div>
+  </div>
+
+  <!-- ============ 導入問い ============ -->
+  <section>
+    <p class="secprose">同じ「スープなし麺」なのに、八百八十円で回す店と、千三百円で売る店がある。違いは何か。</p>
+    <p class="secprose">先に答えを置く。違いは「スープを炊かないこと」そのものにはない。<b>炊かずに浮いた余力を、どこに振ったか</b>にある。片方はその余力を回転と価格据置へ流し、もう片方は同じ余力をタレへ注ぎ込んだ。スープを消した一手が、片方を「規模の店」に、もう片方を「味の店」に分けた。</p>
+    <p class="secprose">この記事は、油そば一杯を検死台に乗せるところから始める。一杯の原価と損益を解剖し、そのうえで視野を一段引く。油そばは単独の業態ではなく、「スープを炊かない」という一つの選択から枝分かれした、一群の入口にすぎないからだ。</p>
+  </section>
+
+  <!-- ============ §1 観察 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§1</span><h2>観察 ― スープのない厨房</h2></div>
+    <p class="secprose">昼の十一時半。大学の正門から徒歩三分、雑居ビルの一階。十四坪の店に、客が入りはじめる。券売機の前で迷う時間は短い。並、大、ダブル。サイズが違っても値段は同じだから、迷うのは麺の量だけだ。</p>
+    <p class="secprose">厨房を見る。寸胴がない。ラーメン屋にあるはずの、骨を何時間も炊く大きな鍋が、ここにはない。あるのは麺を茹でる湯と、タレの容器と、調合された油の瓶。注文が通ると、麺を茹で、湯を切り、タレと油で和えて、具をのせる。提供までの動きに、よどみがない。</p>
+    <p class="secprose">ラーメンが「スープに何時間かけたか」を競う料理だとすれば、油そばはその土俵に上がらない。スープという工程ごと、捨てている。捨てたぶんだけ、厨房は軽い。一時間ほどの仕込みで店が開き、未経験の手でも味がぶれない。「給油しに行く」という言葉が客のあいだで流通するほど、その軽さは支持されてきた <span class="t t-press">press</span>。</p>
+    <div class="takeaway">軽さは強さに見える。だが、軽さがそのまま弱さでもある。</div>
+  </section>
+
+  <!-- ============ §2 原価の解剖 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§2</span><h2>原価の解剖 ― スープゼロという三重の引き算</h2></div>
+    <p class="secprose">一杯を分解する。スープがないという事実は、原価表の上で三つの引き算になって現れる。</p>
+    <p class="secprose">第一に、食材費。骨も背脂もないから、その仕入れがゼロになる <span class="t t-interp">interpretation</span>。第二に、光熱費。寸胴を長時間炊き続けるガスと電気が要らない。第三に、労務費。仕込みの中心だった「炊き場」の人手と時間が消える。スープを持たないとは、原価の三つの源泉を同時に断つということだ。</p>
+    <p class="secprose">残るのは何か。一杯あたりの内訳を、店主証言ベースで置くと、麺がおよそ五十円、タレと調合油で十円、ネギ・チャーシュー・ナルトなどの具で四十円ほど <span class="t t-press">press</span>（2013年の個人店店主証言）。合計で、一杯の総原価は百円から百六十円に収まる <span class="t t-press">press</span>。タレと油は業態の「肝」でありながら、原価そのものはいちばん安い。味の核と、原価の重さが、ここでは一致しない。</p>
+
+    <figure><div class="fig">
+      <div class="figttl">一杯<span class="accent">百円</span>の内訳 ── 肝であるタレが、いちばん薄い</div>
+      <div class="barrow"><div class="lbl">麺</div><div class="track"><div class="bar bar-men" style="width:50%;">約50円</div></div><div class="amt">50円</div></div>
+      <div class="barrow"><div class="lbl">具</div><div class="track"><div class="bar bar-gu" style="width:40%;">約40円</div></div><div class="amt">40円</div></div>
+      <div class="barrow"><div class="lbl">タレ＋調合油</div><div class="track"><div class="bar bar-tare" style="width:10%;">10円</div></div><div class="amt">10円</div></div>
+      <div class="barrow"><div class="lbl">総原価</div><div class="track"><div class="bar bar-total" style="width:100%;">麺50＋具40＋タレ10 ＝ 約100円</div></div><div class="amt">100円</div></div>
+      <figcaption>店主証言ベースの理論下限モデル。総原価は<b>百〜百六十円</b>に収まる。業態の核であるタレ・調合油（10円）が、原価としては最も薄い ── <b>味の核と、原価の重さが一致しない</b>。</figcaption>
+      <div class="src">出典：個人店店主証言（2013）<span class="t t-press">press</span>／三重の引き算は <span class="t t-interp">interpretation</span></div>
+    </div></figure>
+
+    <p class="secprose">ここから食材原価率を出すと、十六・七パーセントから十八パーセント <span class="t t-press">press</span>（個人店店主証言）。飲食店の原価率としては、かなり低い部類に入る。ただし、この数字は出典によって大きく割れる。検死台では、割れた数字を片方に寄せない。両方を並べる。</p>
+
+    <div class="tbl-scroll">
+    <table>
+      <caption>食材原価率は出典で割れる ── 理論下限と実運用の二層</caption>
+      <thead><tr><th>出典</th><th>食材原価率</th><th>tier</th><th>注</th></tr></thead>
+      <tbody>
+        <tr><td>個人店店主証言 (2013)</td><td><span class="num">16.7〜18%</span></td><td><span class="t t-press">press</span></td><td>自家調達・トッピング最小の理論下限</td></tr>
+        <tr><td>歌志軒 (foods-route 公式募集)</td><td><span class="num">26.5%</span>（容器別4.8%）</td><td><span class="t t-official">official</span></td><td>FC募集ページの実績例</td></tr>
+        <tr><td>歌志軒 (kajiken.biz 公式)</td><td><span class="num">30%</span></td><td><span class="t t-official">official</span></td><td>同社内で 26.5% と 30% が併存</td></tr>
+        <tr><td>ぶらぶら (公式募集モデル A/B/C)</td><td><span class="num">34.0〜34.1%</span></td><td><span class="t t-official">official</span></td><td>容器・廃棄込みの実運用値に近いと推測 <span class="t t-est">estimate</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p class="secprose">「十六・七パーセント」と「三十〜三十四パーセント」は、矛盾ではなく別のレイヤーの数字だと読むのが正確だ <span class="t t-interp">interpretation</span>。前者は食材だけを見た理論下限。後者は、容器代・廃棄・実際のオペレーションを含んだチェーンの公称値。だから図鑑では、<b>理論下限十六・七パーセント、実運用三十〜三十四パーセント</b>、と二段で記録する。</p>
+    <p class="secprose">そして、スープがないことは「原価がゼロに近い」を意味しない。麺・タレ・油・チャーシュー・海苔は、二〇二二年から二四年にかけて全方位で約十三・五パーセント値上がりしている <span class="t t-gov">gov-stat</span>。スープを捨てた一杯も、物価高の手は届く。</p>
+    <div class="takeaway">原価は軽い。だが「ゼロに近い」のではない。物価高の手は届く。</div>
+  </section>
+
+  <!-- ============ §3 損益の構造 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§3</span><h2>損益の構造 ― 八百八十円という天井</h2></div>
+    <p class="secprose">原価が軽いなら、儲かるはずだ。図鑑が立ち止まるのは、ここからだ。</p>
+    <p class="secprose">代表的な標本価格を置く。東京油組総本店は、並 (160g)・大 (240g)・ダブル (320g) のどのサイズでも、一律で八百八十円 <span class="t t-official">official</span>（日経クロストレンド 2025年4月）。量が二倍でも値段は変わらない。この「八百八十円」という数字は、ただのメニュー価格ではなく、業態の天井を示している。</p>
+
+    <div class="spec">
+      <div class="specbox"><div class="k">標本価格（一律）</div><div class="v">880<span class="u">円</span></div></div>
+      <div class="specbox"><div class="k">サイズ展開</div><div class="v">並/大/<span class="u">ダブル同額</span></div></div>
+      <div class="specbox"><div class="k">食材原価率</div><div class="v">16.7<span class="u">〜34%</span></div></div>
+      <div class="specbox"><div class="k">利益率（公称）</div><div class="v">約20<span class="u">%前後</span></div></div>
+    </div>
+
+    <p class="secprose">千円の壁、という言葉が外食にはある。一杯が千円を超えると客の手が止まる、という経験則だ。油そばはその壁の、すぐ下に張りついている。物価が上がっても価格を上げないこと自体が、集客の装置になっている <span class="t t-press">press</span>。安さがブランドである以上、値上げは集客力を直接削る。価格転嫁の自由度が、構造的に低い。</p>
+    <p class="secprose">損益の骨格を、黒字の目安となる FL 比率で見る。家賃と人件費と食材費を足したものが売上に占める割合のことだ。一般に、食材費 (F) 三十パーセント、人件費 (L) 二十パーセントで合計六十パーセント以下なら黒字、とされる <span class="t t-official">official</span>。油そばは食材費が十六・七〜三十四パーセント、人件費はスープがないぶん構造的に低い <span class="t t-official">official</span> <span class="t t-interp">interpretation</span>。FL に余裕がある。これが、ラーメン業界が苦戦するなかで油そば業態が成長してきた、数字の上の理由だ <span class="t t-interp">interpretation</span>。</p>
+    <p class="secprose">利益率も、公式募集ページの実績例を並べると、おおむね二十パーセント前後に収束する。</p>
+
+    <div class="tbl-scroll">
+    <table>
+      <caption>利益率は20%前後に収束する ── ただし「並びすぎる数字」に注意</caption>
+      <thead><tr><th>チェーン</th><th>月商</th><th>営業利益</th><th>利益率</th><th>規模</th><th>tier</th></tr></thead>
+      <tbody>
+        <tr><td>歌志軒 (foods-route)</td><td>70万円</td><td>15万円</td><td><span class="num">21%</span></td><td>コンロのみ</td><td><span class="t t-official">official</span></td></tr>
+        <tr><td>ぶらぶら モデルA</td><td>320万円</td><td>62万円</td><td><span class="num">19.4%</span></td><td>14坪/18席</td><td><span class="t t-official">official</span></td></tr>
+        <tr><td>ぶらぶら モデルB</td><td>400万円</td><td>79万円</td><td><span class="num">19.8%</span></td><td>14坪/18席</td><td><span class="t t-official">official</span></td></tr>
+        <tr><td>ぶらぶら モデルC</td><td>600万円</td><td>129万円</td><td><span class="num">21.5%</span></td><td>14坪/18席</td><td><span class="t t-official">official</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p class="secprose">数字はきれいに並ぶ。だが、並びすぎる数字には注意がいる。同じ歌志軒で「月商七十万」(foods-route) と「十坪で月商五百万円超が続出」(kajiken 公式) という、約七倍も離れた二つの数字が併存している <span class="t t-official">official</span>。前者はテイクアウト含みの控えめなモデル、後者は好立地の上澄み事例だと推測する <span class="t t-est">estimate</span>。募集ページの「続出」は、うまくいった店だけが見える生存バイアスの典型だ。図鑑では、割り引いて読む。</p>
+    <p class="secprose">損益分岐の杯数も、一次資料がないので試算として置く <span class="t t-est">estimate</span>。仮に月の固定費 (家賃+人件費+ロイヤリティ) を百五十万円、客単価七百円、粗利率六十六パーセントと置くと、月およそ三千二百五十杯、一日およそ百八杯で分岐に届く計算になる。あくまで仮定からの逆算で、店ごとの実態とは違う。</p>
+    <div class="takeaway">「月商70万」と「10坪500万続出」── 約7倍の乖離は、生存バイアスとして記録する。</div>
+  </section>
+
+  <!-- ============ §4 なぜレシピが堀にならないか ============ -->
+  <section>
+    <div class="shead"><span class="sn">§4</span><h2>なぜレシピが堀にならないのか</h2></div>
+    <p class="secprose">ここまでで、油そばが「原価が軽く、損益に余裕のある業態」だと見えてくる。では、その強さはどこから来て、なぜ続かないのか。鍵は、レシピが堀にならない、という一点にある。</p>
+    <p class="secprose">ラーメンのスープは、何時間も炊く暗黙知のかたまりだ。透明度、炊き時間、配合。簡単には真似できないから、それ自体が参入障壁、つまり堀になる。油そばには、その堀がない。タレと調合油の配合が肝だが、配合は比較的たやすく模倣・リバースされる。そして業態の本質は「単純なオペレーションで、誰でも均質に作れる」ことにある <span class="t t-interp">interpretation</span>。</p>
+    <p class="secprose">ここに、この業態の二面性がある。「誰でも作れる」ことは、未経験者でも開けて味がぶれない、という業態成立の理由であると同時に、味では誰も堀を築けない、という弱点でもある。同じ事実が、強みと弱みの両方になっている <span class="t t-interp">interpretation</span>。</p>
+    <p class="secprose">味で差がつかないなら、堀はどこへ移るのか。三つだ。</p>
+
+    <div class="split" style="grid-template-columns:1fr;">
+      <div class="scol A"><h3>① 立地 ── 回転業態のほぼすべて</h3><div class="body"><p>大学やオフィス街に近接しているかどうかが、成功の条件になる <span class="t t-press">press</span> <span class="t t-interp">interpretation</span>。回転で稼ぐ業態にとって、立地はほぼすべてを決める。</p></div></div>
+      <div class="scol A"><h3>② 規模効率 ── チェーン限定の堀</h3><div class="body"><p>本部がタレや油を集中購買・大量生産することで生まれる原価圧縮。個人店には持てない、チェーンだけの堀だ <span class="t t-official">official</span>。</p></div></div>
+      <div class="scol B"><h3>③ ブランド露出 ── ミームと報道</h3><div class="body"><p>「給油」のミーム性や、物価高の文脈での報道露出 <span class="t t-press">press</span>。味でないところで、想起を稼ぐ。</p></div></div>
+    </div>
+
+    <div class="takeaway">味という、ラーメンが最も大切にしてきた軸を、油そばは堀に使えない。堀は丼の外へ出ていく。</div>
+  </section>
+
+  <!-- ============ §5 視野を引く ============ -->
+  <section>
+    <div class="shead"><span class="sn">§5</span><h2>視野を引く ― 油そばだけではない、スープレスという一群</h2></div>
+    <p class="secprose">ここまで、油そば一杯を解剖してきた。そろそろ、検死台から一歩離れて、棚の全体を見渡す。</p>
+    <p class="secprose">油そばで観測した「スープゼロ＝三重の引き算」は、油そば固有の特性ではなかった。汁なし担々麺、台湾まぜそば、進化系油そば。これらを横並びにすると、見えてくるものがある。<b>いずれも「寸胴を炊かない」という一つの選択から枝分かれした、ひとつの群（クラスター）</b>なのだ。油そばは、その群の入口の標本にすぎない。</p>
+    <p class="secprose">群の共通原理は、油そばで見た三重の引き算と同じだ。設備・光熱費が消え（スープの長時間煮込みが不要、ガス代は通常ラーメン店の約半分 <span class="t t-press">press</span>）、仕込み労務が消え（仕込み一時間・開店一時間前出勤で回る店もある、提供は麺茹で+和えのみで二分以内 <span class="t t-press">press</span> <span class="t t-official">official</span>）、最大費目だった食材費が消える。千円ラーメンの食材原価三百九十円のうち、スープ材料費が百五十円、つまり約三十八パーセントを占めるという報告がある <span class="t t-press">press</span>。スープレス業態は、この最大費目を丸ごと外している。</p>
+
+    <figure><div class="fig">
+      <div class="figttl">通常ラーメン一杯の原価<span class="accent">390円</span>のうち、スープが約38%</div>
+      <div class="barrow"><div class="lbl">スープ材料</div><div class="track"><div class="bar bar-tare" style="width:38.5%;">150円（約38%）</div></div><div class="amt">150円</div></div>
+      <div class="barrow"><div class="lbl">麺・具・他</div><div class="track"><div class="bar bar-men" style="width:61.5%;">240円</div></div><div class="amt">240円</div></div>
+      <figcaption>千円ラーメンの食材原価390円のうち、<b>スープ材料費が約150円（約38%）</b>。スープレス業態は、この最大費目を丸ごと外している ── だから設備・光熱費・仕込み労務も同時に軽くなる。</figcaption>
+      <div class="src">出典：報道 <span class="t t-press">press</span>／三重の引き算の横展開は <span class="t t-interp">interpretation</span></div>
+    </div></figure>
+
+    <p class="secprose">帰結として、高回転・最小八坪の低投資出店・食品ロス削減が同時に立つ <span class="t t-press">press</span>。原価高騰の局面でも「最大費目を構造的に外せる」ぶん、被弾する面積が小さい。ラーメン店から油そば業態へ変更した ZENJI の例では、原価率が約三十三パーセントから二十パーセント弱へ下がり、営業利益率は三十パーセント台に乗ったと報じられている <span class="t t-press">press</span>。</p>
+    <p class="secprose">だが、ここでも「無傷」ではないことを繰り返しておく。麺（約六十〜七十円/杯 <span class="t t-press">press</span>）、食用油（業務用は二〇二四年十月に前年比八〜十三パーセント上昇 <span class="t t-press">press</span>）、具材（チャーシュー・挽肉・卵黄など八十〜百三十円 <span class="t t-press">press</span>）は、汁あり業態と共通して値上がりの直撃を受ける。スープを外しても、麺と油と具からは逃げられない。</p>
+    <div class="takeaway">最大費目を構造的に外せる。だが、麺と油と具からは逃げられない。</div>
+  </section>
+
+  <!-- ============ §6 一原理・二戦略 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§6</span><h2>一原理・二戦略 ― 浮いた余力をどこに振るか</h2></div>
+    <p class="secprose">同じ原理から出発しながら、群は二つの方向へ分かれる。引き算で生まれた余力の、<b>投下先</b>が違うのだ。冒頭の問い ── 八百八十円と千三百円の差 ── の答えが、ここにある。</p>
+    <p class="secprose">なお、この「二戦略」は、きれいに二つの箱へ分かれるという話ではない。連続したスペクトラムの上で、力点をどちらに置いたか、という理念型（ideal type）として読んでほしい <span class="t t-interp">interpretation</span>。</p>
+
+    <div class="split">
+      <div class="scol A">
+        <h3>戦略A ── 原価圧縮を、低価格と高回転へ</h3>
+        <div class="body">
+          <p>余力を、価格据置・回転率・低投資に振る型。</p>
+          <ul>
+            <li><b>東京油組総本店</b>：並・大・ダブルを880円均一、増量無料で麺コストを満足度へ転嫁 <span class="t t-official">official</span></li>
+            <li><b>ぶらぶら</b>：周年で500円均一を打つ <span class="t t-official">official</span></li>
+            <li><b>歌志軒</b>：食材原価26.5%＋容器4.8%≒約31%を、セントラルキッチンと一人オペ、FC拡大の原資へ <span class="t t-press">press</span></li>
+          </ul>
+          <p style="margin-top:10px;">余力は、薄利を多売で回すエンジンになる。</p>
+        </div>
+      </div>
+      <div class="scol B">
+        <h3>戦略B ── タレと具へ、価値の重心を移す</h3>
+        <div class="body">
+          <p>余力を、高単価のタレ・具・体験設計に振り、汁なしでも単価千円前後を成立させる型。消したスープ原価を別費目へ「再投資」する。</p>
+          <ul>
+            <li><b>汁なし担々麺</b>：175°DENO 千円 <span class="t t-official">official</span>、ピリリ 千円 <span class="t t-press">press</span>、ほおずき 千三百円 <span class="t t-press">press</span>。芝麻醤のタレは一杯80〜120円、総原価の35〜50%を占めると見られる <span class="t t-est">estimate</span></li>
+            <li><b>台湾まぜそば</b>：麺屋はなび 1,090〜1,100円 <span class="t t-official">official</span>、チーズ台湾まぜそば 1,040円 <span class="t t-press">press</span>。台湾ミンチ60gは約134円 <span class="t t-official">official</span>。追い飯（白飯原価10〜20円 <span class="t t-est">estimate</span>）で体験を延長</li>
+            <li><b>高付加価値油そば</b>：斑鳩のうにまぜそば 千円・時間限定 <span class="t t-press">press</span>、己巳はトリュフオイル漬け卵と数量限定 <span class="t t-press">press</span> <span class="t t-official">official</span>。一杯あたり原価は <span class="t t-need">要追加取材</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="secprose" style="margin-top:14px;">汁なし担々麺では、油そばで最も安かったタレが主役に逆転する。「油そばと同じく安い業態」という見立ては、ここでは本質的に外れる。台湾まぜそばは、不可視だったスープのコストを、視認できる具のコストへ振り替えた、と読める <span class="t t-interp">interpretation</span>。</p>
+    <p class="secprose">戦略AとBの境界は、見た目ほど固くない。八百八十円均一 (A) の店でも、有料トッピング（半熟たまご100円・チャーシュー340円 <span class="t t-official">official</span>）で客単価を積み上げる混合型がある <span class="t t-official">official</span>。だから繰り返すが、二戦略は分類の箱ではなく、力点の置きどころの差だ。</p>
+    <div class="takeaway">タレが主役に逆転する型がある。同じ引き算が、安い店と高い店を分ける。</div>
+  </section>
+
+  <!-- ============ §7 比較と布置 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§7</span><h2>比較と布置 ― 同じ原理が、価格で二・六倍に広がる</h2></div>
+    <p class="secprose">群を一枚の表に並べる。戦略Bの原価率が、戦略A（十六〜十八パーセント）を大きく上回る点が核心だ。</p>
+
+    <div class="tbl-scroll">
+    <table>
+      <caption>スープレス群の布置 ── 客単価・価値ドライバ・原価率・戦略</caption>
+      <thead><tr><th>業態</th><th>客単価</th><th>主要コスト要因（価値ドライバ）</th><th>食材原価率</th><th>戦略</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>油そば<br>(個人/専門店)</td><td>600〜700円 <span class="t t-press">press</span></td>
+          <td>麺50円+具40円+タレ10円≒100円、タレが最薄 <span class="t t-press">press</span></td>
+          <td><span class="num">約16〜18%</span> <span class="t t-press">press</span></td>
+          <td class="col-strat"><span class="sA">A</span></td>
+        </tr>
+        <tr>
+          <td>進化系油そば<br>(原価抑制・FC)</td><td>880円均一 <span class="t t-official">official</span></td>
+          <td>麺(増量無料化)、CK量産タレ <span class="t t-official">official</span></td>
+          <td><span class="num">約30%</span> <span class="t t-official">official</span><br>（月商70万/原価26.5%系は本部公称と乖離＝信頼度低 <span class="t t-est">estimate</span>）</td>
+          <td class="col-strat"><span class="sA">A</span></td>
+        </tr>
+        <tr>
+          <td>高付加価値油そば<br>(専門店/限定)</td><td>1,000円 <span class="t t-press">press</span></td>
+          <td>うに・トリュフ油等の希少食材+時間/数量限定 <span class="t t-press">press</span></td>
+          <td><span class="t t-need">要追加取材</span></td>
+          <td class="col-strat"><span class="sB">B</span></td>
+        </tr>
+        <tr>
+          <td>汁なし担々麺</td><td>800〜1,300円 <span class="t t-press">press</span><span class="t t-official">official</span></td>
+          <td>芝麻醤80〜120円/杯(芝麻醤2,000〜2,860円/kg)+花椒・肉味噌 <span class="t t-official">official</span></td>
+          <td><span class="num">約25〜33%</span> <span class="t t-est">estimate</span></td>
+          <td class="col-strat"><span class="sB">B</span></td>
+        </tr>
+        <tr>
+          <td>台湾まぜそば</td><td>980〜1,100円 <span class="t t-official">official</span></td>
+          <td>台湾ミンチ≒134円/杯+卵黄・魚粉+追い飯 <span class="t t-official">official</span></td>
+          <td><span class="num">約26〜38%</span> <span class="t t-official">official</span><span class="t t-est">estimate</span></td>
+          <td class="col-strat"><span class="sB">B</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p class="secprose">戦略Bの原価率は、通常ラーメン（二十五〜四十パーセント <span class="t t-press">press</span>）の水準まで近づく。スープを外して浮いた余力を、芝麻醤や台湾ミンチという高単価のタレ・具へ再投資した結果だ。それでも光熱費・仕込み労務・廃棄が構造的に軽いため、営業利益率は維持されやすい <span class="t t-interp">interpretation</span>。</p>
+    <p class="secprose">価格と職人特化の二軸で布置すると、同じ群が広い範囲に展開していることがわかる。</p>
+
+    <div class="matrix">
+      <div class="mttl">価格 × 職人特化の布置 ── 同一原理が、広い象限に展開する</div>
+      <div class="mgrid">
+        <div class="yaxis" style="grid-row:1;">高価格<br>¥1,300+</div>
+        <div class="mcell hi" style="grid-row:1; grid-column:2;">
+          <div class="pl">スープが主役の名店</div>
+          <span class="chip out">有名豚骨／淡麗系</span>
+          <div style="font-size:11px; color:var(--sub); margin-top:6px;">← スープレス群は届きにくい（物語装置を持たない）</div>
+        </div>
+        <div class="yaxis" style="grid-row:2;">中価格<br>¥900–1,300</div>
+        <div class="mcell mid" style="grid-row:2; grid-column:2;">
+          <div class="pl">↑ 戦略B（タレ・具・限定で付加価値）</div>
+          <span class="chip B">台湾まぜそば ¥980-1,100</span>
+          <span class="chip B">汁なし担々麺 ¥1,000-1,300</span>
+          <span class="chip B">高付加価値油そば ¥1,000</span>
+        </div>
+        <div class="yaxis" style="grid-row:3;">低価格<br>¥500–880</div>
+        <div class="mcell lo" style="grid-row:3; grid-column:2;">
+          <div class="pl">↓ 戦略A（価格据置・高回転・低投資）</div>
+          <span class="chip A">ぶらぶら ¥500</span>
+          <span class="chip A">進化系油そば（歌志軒等）</span>
+          <span class="chip A">東京油組 ¥880均一</span>
+        </div>
+        <div class="mxaxis"><span>規模効率（均一価格・FL管理容易・FC親和）</span><span>職人特化（限定・高級食材・体験設計）→</span></div>
+      </div>
+    </div>
+
+    <p class="secprose">低価格端（油そば五百〜八百八十円・規模効率）から付加価値端（担々麺・台湾まぜ千〜千三百円・職人特化）まで、同一原理の群が価格で約二・六倍、職人特化軸で全幅にわたって展開している。ただし、最高価格かつ最高職人特化の象限 ── スープそのものが主役の名店 ── には届きにくい。スープという「物語装置」を、この群は持たないからだ <span class="t t-interp">interpretation</span>。</p>
+    <div class="takeaway">同じ群が価格で約2.6倍に広がる。だが、スープが主役の象限には届かない。</div>
+  </section>
+
+  <!-- ============ §8 生存と撤退 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§8</span><h2>生存と撤退 ― 相対的に強い、無傷ではない</h2></div>
+    <p class="secprose">二〇二四年、ラーメン店の倒産は過去最多を記録した。帝国データバンクの集計で七十二件、前年の五十三件から三割超の増加（負債千万円以上の法的整理）<span class="t t-gov">gov-stat</span>。東京商工リサーチは別スコープで五十七件 <span class="t t-press">press</span>。二〇二三年度に業績が悪化した店は六十一・五パーセント <span class="t t-gov">gov-stat</span>。主因は、人件費と原材料の高騰を、千円の壁のせいで価格に転嫁しきれないことだった。</p>
+
+    <div class="spec">
+      <div class="specbox"><div class="k">ラーメン倒産 2024（TDB）</div><div class="v">72<span class="u">件・過去最多</span></div></div>
+      <div class="specbox"><div class="k">前年比</div><div class="v">53<span class="u">件→3割超増</span></div></div>
+      <div class="specbox"><div class="k">業績悪化店（23年度）</div><div class="v">61.5<span class="u">%</span></div></div>
+      <div class="specbox"><div class="k">原価上昇（全方位）</div><div class="v">+13.5<span class="u">%</span></div></div>
+    </div>
+
+    <p class="secprose">この逆風のなかで、スープレスの群は相対的に強い。倒産したラーメン店を襲った原価増 ── 豚肉、背脂、麺、海苔、メンマが全方位で約十三・五パーセント上がった <span class="t t-gov">gov-stat</span> ── のうち、スープ系の原料、つまり骨や背脂、長時間の光熱費の打撃を、この群は受けない。スープを持たないことが、そのまま原価高騰への構造的な防御になっている <span class="t t-interp">interpretation</span>。</p>
+    <p class="secprose">ただし、強さの度合いは戦略によって違う。戦略A（低価格・高回転）は被弾面積がもっとも小さい。一方、戦略B（タレ・具へ重心）は、肉・油・香辛料という値上がりしやすい費目に価値の中心を置いているぶん、油や肉の高騰には汁あり業態と同等以上に脆くなりうる <span class="t t-interp">interpretation</span>。「相対的に強い」のであって、「免疫がある」のではない <span class="t t-interp">interpretation</span>。</p>
+    <p class="secprose">撤退の傾向を、検死的に並べておく <span class="t t-press">press</span> <span class="t t-interp">interpretation</span>。失敗のパターンは四つに集約される。</p>
+
+    <div class="factor">
+      <div class="frow"><div class="flbl">① 立地ミス ── 回転業態で人通りを読み違える</div><div class="ftrack"><div class="fbar lv-hi" style="width:100%;"></div></div></div>
+      <div class="frow"><div class="flbl">② メニューの単調さによる飽き・リピート減</div><div class="ftrack"><div class="fbar lv-mid" style="width:78%;"></div></div></div>
+      <div class="frow"><div class="flbl">③ タレ・油のサプライ依存による原価のぶれ</div><div class="ftrack"><div class="fbar lv-lo" style="width:60%;"></div></div></div>
+      <div class="frow"><div class="flbl">④ 出店容易ゆえの競合乱立 ── 価格と客数が共倒れ</div><div class="ftrack"><div class="fbar lv-hi" style="width:100%;"></div></div></div>
+    </div>
+    <p class="note">※ バーの長さは構造的寄与の相対イメージ <span class="t t-interp">interpretation</span>。失敗パターンの抽出は報道 <span class="t t-press">press</span> による。</p>
+
+    <p class="secprose">四つ目は、強みの裏返しだ。誰でも開ける業態は、都市部であっという間に乱立する。堀が立地頼みである以上、好立地の取り合いは家賃の高騰を招き、せっかくの坪効率の優位を相殺していく <span class="t t-interp">interpretation</span>。軽くて開けやすいことが、自分の首を絞める。</p>
+    <div class="takeaway">相対的に強い。だが免疫はない。軽さが、そのまま乱立を呼ぶ。</div>
+  </section>
+
+  <!-- ============ §9 含意 ============ -->
+  <section class="closing-sec">
+    <div class="shead"><span class="sn">§9</span><h2>含意 ― 同じ引き算が、規模の店と味の店を分ける</h2></div>
+    <p class="secprose">冒頭の問いに戻る。八百八十円で回す店と、千三百円で売る店の違いは何か。</p>
+    <p class="secprose">スープを炊かない、という引き算は、どの店にとっても同じだった。違ったのは、引き算で浮いた余力の行き先だ。八百八十円の油そばは、それを回転と価格据置へ流し、規模で生きる店になった。千三百円の汁なし担々麺は、同じ余力を芝麻醤（一キロあたり二千〜二千八百六十円 <span class="t t-official">official</span>）というタレへ注ぎ込み、味で立つ店になった。スープを消した一手が、片方を「規模の店」に、もう片方を「味の店」に分けた。</p>
+    <p class="secprose">ラーメン屋が骨を炊き、その暗黙知を堀にして、千円の壁と格闘しながら過去最多の倒産を出していくなかで、この群は寸胴ごと捨てることで軽さを手に入れた。原価率の余白、仕込み一時間、八坪、未経験者でも回せる軽さ。だがその軽さは、誰でも真似できることと同じ意味でもあった。味で堀を築けない店が最後に握るのは、立地と規模、あるいは具とタレの差別化だけになる。</p>
+    <p class="secprose">戦略Aは天井に張りつき、低原価の余白を物価高に少しずつ削られながら好立地を奪い合う。戦略Bは単価を上げられるかわりに、肉と油の高騰へ感応度を上げる。どちらが正解という話ではない。何を捨てて、何を握り、何に削られていくのか。標本は、それを静かに示しているだけだ。</p>
+    <div class="takeaway">何を捨てて、何を握り、何に削られていくのか。標本は、静かに示すだけ。</div>
+    <p class="secprose">次に、汁なしの麺を一杯すするとき。丼の底に、この損益の構造 ── スープを炊かなかった一手が、その店をどちらへ運んだのか ── が、少し透けて見えるかもしれない。</p>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <div class="cta-box">
+    <div class="ct">この図鑑を、続けて受け取る</div>
+    <div class="cd">「ラーメン屋図鑑」は、一杯を検死台に乗せて、原価と損益と撤退の条件を数字で記録するシリーズです。<br>次の標本の通知・ウェイトリスト登録は、メール便の準備が整い次第はじめます。<br>煽りません。一杯の商いを、数字で記録します。</div>
+    <a class="cbtn" href="#">フォローして次の標本を受け取る（準備中）</a>
+  </div>
+
+  <!-- ============ SERIES ============ -->
+  <div class="series">
+    <h2>このシリーズについて</h2>
+    <p class="note">スープを炊くか炊かないか、一杯がどこで成り立ち、どこで壊れるのか。ラーメンとその周辺の麺業態を、共通フォーマット（観察・原価解剖・損益・堀・比較布置・生存と撤退）で標本化する図鑑です。pilot 第一号は全文無料で公開します。</p>
+    <div class="row">
+      <div class="scard"><div class="sno">No.001</div><div class="stt">油そば</div><div class="ss">いま読んでいる標本 ── スープレス業態クラスターの入口</div></div>
+      <div class="scard future"><div class="sno">No.002</div><div class="stt">汁なし担々麺</div><div class="ss">タレが主役に逆転する型・次の標本候補</div></div>
+      <div class="scard future"><div class="sno">姉妹編</div><div class="stt">一坪ビジネス図鑑</div><div class="ss">街角の極小ビジネスを同じ物差しで</div></div>
+    </div>
+  </div>
+
+  <!-- ============ SOURCES / COLOPHON ============ -->
+  <div class="sources">
+    <b>データ源</b><br>
+    <div class="src-item">─ 日経クロストレンド「油そば、物価高騰でもコスパマシマシ 東京油組は店舗数8倍で全国へ」（東京油組 76店舗／全サイズ880円／2024ラーメン倒産過去最多／スープレス3コスト削減）<br><a href="https://xtrend.nikkei.com/atcl/contents/18/00628/00106/">https://xtrend.nikkei.com/atcl/contents/18/00628/00106/</a></div>
+    <div class="src-item">─ ITmedia「ラーメン業界が苦戦するなか、なぜ油そば専門店は成長しているのか」<br><a href="https://www.itmedia.co.jp/business/articles/2503/03/news075.html">https://www.itmedia.co.jp/business/articles/2503/03/news075.html</a></div>
+    <div class="src-item">─ TOKYO MX+「油そば専門店が急増 人気の秘密はコスパと味変」<br><a href="https://s.mxtv.jp/tokyomxplus/mx/article/202509190650/detail/">https://s.mxtv.jp/tokyomxplus/mx/article/202509190650/detail/</a></div>
+    <div class="src-item">─ フーズルート「歌志軒 FC情報」（原価率26.5%／月商70万／客単価1500円超／330店舗）<br><a href="https://foods-route.jp/franchise/167">https://foods-route.jp/franchise/167</a></div>
+    <div class="src-item">─ 歌志軒 公式FC募集（原価率30%／10坪500万続出／ロイヤリティ5%）<br><a href="https://www.kajiken.biz/fc/">https://www.kajiken.biz/fc/</a></div>
+    <div class="src-item">─ ぶらぶら 公式FC募集（原価率34%／14坪18席／月商320-600万モデル／周年500円均一）<br><a href="https://bura-2.com/fc/">https://bura-2.com/fc/</a></div>
+    <div class="src-item">─ next-business「油そば専門店FCは儲かるか 開業費用・年収・失敗」（利益率15-30%／失敗傾向）<br><a href="https://next-business.co.jp/franchise/18665/">https://next-business.co.jp/franchise/18665/</a></div>
+    <div class="src-item">─ 帝国データバンク「ラーメン店の倒産動向 2024」（倒産72件過去最多／業績悪化61.5%／原価+13.5%）<br><a href="https://www.tdb.co.jp/report/industry/20250107_ramen/">https://www.tdb.co.jp/report/industry/20250107_ramen/</a></div>
+    <div class="src-item">─ 東京商工リサーチ「2024年ラーメン店倒産 過去最多57件」<br><a href="https://www.tsr-net.co.jp/data/detail/1200917_1527.html">https://www.tsr-net.co.jp/data/detail/1200917_1527.html</a></div>
+    <div class="src-item">─ スープレスクラスター 4並列リサーチ統合（進化系油そば／汁なし担々麺／台湾まぜそば／原理横断＝計65 findings）<br>175°DENO担担麺・ピリリ・担々麺ほおずき／麺屋はなび・チーズ台湾まぜそば／斑鳩うにまぜそば・己巳／ZENJI業態変更例<br>（各業態の単杯原価・芝麻醤/台湾ミンチ原価は press / official / estimate 混在、本文 tier 表記参照）</div>
+  </div>
+
+  <div class="disclaim">
+    <b>数値の扱いに関する注記</b> ── 本標本の数値には、出典の階級（tier）を本文中に明示した。<span class="t t-official">official</span>（公式FC募集・公式メニュー）は募集側のバイアスを含む実績例であり、店舗ごとの実態とは乖離しうる。<span class="t t-est">estimate</span> は一次資料のない推計、<span class="t t-interp">interpretation</span> は構造解釈である。<br><br>
+    食材原価率は出典で大きく割れるため、理論下限（16.7〜18%／個人店証言）と実運用値（26.5〜34%／チェーン公称）を両論併記とした。損益分岐杯数（月約3,250杯）および日販・坪効率の一部は、公開モデルからの試算（estimate）であり、特定の公的統計からの引用ではない。歌志軒の「月商70万」と「10坪500万続出」の約7倍乖離は、生存バイアスの可能性を含む矛盾として、片方に寄せず記録した。<br><br>
+    「一原理・二戦略」は、排他的な二分類ではなく、連続スペクトラム上の力点配分を捉えるための理念型（ideal type）である。スープレス業態の「原価高騰への耐性」は、汁あり業態に対する相対優位に限定した命題であり、麺・油・具の共通被弾を否定するものではない。とりわけ戦略B（高付加価値型）は、油・肉・香辛料の高騰への感応度が高い。<br><br>
+    <span class="need">[要追加取材]</span> 高付加価値油そば（斑鳩・己巳系）の単杯原価は一次データが欠落している。<span class="need">[UNVERIFIED]</span> 戦略B各業態の単杯原価実測、および公的原価率の時系列は本リサーチの範囲外であり、公開前に格上げ取材を推奨する。歌志軒の月商70万/原価26.5%系は信頼度低（estimate）として、本部公称（原価30%・月商550万系）を主データに採用し、乖離を表に注記した。全数値はリサーチ由来で、捏造はない。<br><br>
+    価格・課金導線は <b>準備中</b>。本 pilot は全文無料での公開を想定している。note 公開 URL も <b>準備中</b>。
+  </div>
+
+  <div class="colophon">ラーメン屋図鑑 ／ No.001 ／ 油そば<br>一杯を、検死台に乗せる。</div>
+
+</div>
+</body>
+</html>
