@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 820" font-family="'Noto Sans JP','Hiragino Sans',sans-serif">
+  <!-- 一坪ビジネス図鑑 No.002 図1 稼働の物差し / 損益分岐 -->
+  <!-- type-scale: 値=22-24 / 主要ラベル=17 / 軸・補助=16 floor (No.001 規約) -->
+  <defs>
+    <pattern id="gap-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.3" fill="#d8ccb5"/>
+    </pattern>
+    <pattern id="deficit-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#d98a78" stroke-width="1.4" opacity="0.55"/>
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="680" height="820" fill="#f4efe4"/>
+
+  <!-- header -->
+  <text x="40" y="52" font-family="'Noto Serif JP','Hiragino Mincho ProN',serif" font-size="26" fill="#23201b">図1 ── 稼働の物差し</text>
+  <text x="40" y="82" font-size="16" fill="#6b6052">天井と分岐のあいだの、埋まらない空白</text>
+  <line x1="40" y1="98" x2="640" y2="98" stroke="#d8ccb5" stroke-width="1.5"/>
+
+  <!-- y-axis (月商) : 0万 at y=620, 65万 at y=150 -> 7.23px/万 -->
+  <text x="150" y="128" font-size="16" fill="#6b6052" text-anchor="end">月商</text>
+  <line x1="160" y1="150" x2="160" y2="620" stroke="#23201b" stroke-width="1.5"/>
+  <line x1="155" y1="620" x2="160" y2="620" stroke="#23201b" stroke-width="1.5"/>
+  <text x="150" y="625" font-size="16" fill="#6b6052" text-anchor="end">0</text>
+  <!-- 10 (y=547.7) --><line x1="155" y1="548" x2="160" y2="548" stroke="#23201b" stroke-width="1"/><text x="150" y="553" font-size="16" fill="#6b6052" text-anchor="end">10万</text>
+  <!-- 20 (y=475.4) --><line x1="155" y1="475" x2="160" y2="475" stroke="#23201b" stroke-width="1"/><text x="150" y="480" font-size="16" fill="#6b6052" text-anchor="end">20万</text>
+  <!-- 30 (y=403.1) --><line x1="155" y1="403" x2="160" y2="403" stroke="#23201b" stroke-width="1"/><text x="150" y="408" font-size="16" fill="#6b6052" text-anchor="end">30万</text>
+  <!-- 40 (y=330.8) --><line x1="155" y1="331" x2="160" y2="331" stroke="#23201b" stroke-width="1"/><text x="150" y="336" font-size="16" fill="#6b6052" text-anchor="end">40万</text>
+  <!-- 50 (y=258.5) --><line x1="155" y1="259" x2="160" y2="259" stroke="#23201b" stroke-width="1"/><text x="150" y="264" font-size="16" fill="#6b6052" text-anchor="end">50万</text>
+  <!-- 60 (y=186.2) --><line x1="155" y1="186" x2="160" y2="186" stroke="#23201b" stroke-width="1"/><text x="150" y="191" font-size="16" fill="#6b6052" text-anchor="end">60万</text>
+
+  <!-- column x=185..395 -->
+  <!-- deficit zone 0..20万 : y 475..620 -->
+  <rect x="185" y="475" width="210" height="145" fill="url(#deficit-hatch)" stroke="#d98a78" stroke-width="1"/>
+  <text x="290" y="550" font-size="17" fill="#a85440" text-anchor="middle" font-weight="bold">分岐未満</text>
+  <text x="290" y="572" font-size="16" fill="#a85440" text-anchor="middle">＝赤字ゾーン</text>
+
+  <!-- gap zone 20..62.4万 : 62.4 -> 620-62.4*7.23=168.9 ; 20 -> 475 -->
+  <rect x="185" y="169" width="210" height="306" fill="url(#gap-dots)" stroke="#d8ccb5" stroke-width="1"/>
+  <text x="290" y="312" font-size="18" fill="#23201b" text-anchor="middle" font-family="'Noto Serif JP',serif" font-weight="bold">埋まらない空白</text>
+  <text x="290" y="338" font-size="16" fill="#6b6052" text-anchor="middle">1日3件 と 1日8組(満枠) の差</text>
+
+  <!-- 損益分岐 line @20万 y=475 -->
+  <line x1="160" y1="475" x2="470" y2="475" stroke="#b5402e" stroke-width="2.4"/>
+  <text x="408" y="467" font-size="17" fill="#b5402e" font-weight="bold">損益分岐 月商20万</text>
+  <text x="408" y="446" font-size="16" fill="#a85440">≒ 月67件 ≒ 週17件 ≒ 1日3件 (週6営業)</text>
+
+  <!-- 天井 line @62.4万 y=169 -->
+  <line x1="160" y1="169" x2="470" y2="169" stroke="#1a3a5c" stroke-width="2.4"/>
+  <text x="408" y="161" font-size="17" fill="#1a3a5c" font-weight="bold">理論天井 月商62.4万</text>
+  <text x="408" y="140" font-size="16" fill="#3a5570">¥3,000×8組×26日 ＝ 1日8組(満枠)</text>
+  <text x="408" y="188" font-size="16" fill="#6b6052">※ 出典自身が「毎日満枠はほぼない」と注記</text>
+
+  <!-- ===== 月利益 別軸バンド (チャート下) ===== -->
+  <line x1="40" y1="650" x2="640" y2="650" stroke="#d8ccb5" stroke-width="1"/>
+  <text x="40" y="678" font-size="17" fill="#b5402e" font-weight="bold" font-family="'Noto Serif JP',serif">月利益は別軸 ── 一次確定値なし、振れ幅が大きい</text>
+  <text x="40" y="703" font-size="16" fill="#23201b">下振れ実例：個人の開業1年目で黒字は12ヶ月中2ヶ月だけ・大赤字で終了（運営者note）</text>
+  <text x="40" y="725" font-size="16" fill="#23201b">上振れ実例：韓国 人生4カット 1店の月純利益 ¥54万相当（₩500万・利益率約40%／為替前提注意）</text>
+  <text x="40" y="746" font-size="16" fill="#a85440">日本の個人運営の確たる月利益一次値は、いまのところ不明 ［推定］</text>
+
+  <!-- footer / 誤帰属の訂正注記 -->
+  <line x1="40" y1="762" x2="640" y2="762" stroke="#d8ccb5" stroke-width="1"/>
+  <text x="40" y="784" font-size="13" fill="#6b6052">月商・分岐・天井＝ozlog開業シミュレーション［報道/個人ブログ］。なお巷間の「月20〜25万が上限・月50万は非現実」説は当該出典に該当記述がなく</text>
+  <text x="40" y="802" font-size="13" fill="#6b6052">誤帰属（ozlog本文は月商20万＝67件予約の到達ライン・売上MAX62万とする）。数値は立地・規模・時期で大きく変動し、特定事業者の実態を示しません。</text>
+</svg>

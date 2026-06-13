@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 700" font-family="'Noto Sans JP','Hiragino Sans',sans-serif">
+  <!-- No.002 図2 新陳代謝: 消える写真業 / 生まれるセルフ写真館 -->
+  <!-- type-scale: 値=22-24 / 主要ラベル=17 / 軸・補助=16 floor (No.001 規約) -->
+  <!-- 緑テキストは #4d6647 (AA 5.54:1)、グラフィック fill のみ #5b7553 を保持 -->
+  <rect x="0" y="0" width="680" height="700" fill="#f4efe4"/>
+
+  <!-- header -->
+  <text x="40" y="50" font-family="'Noto Serif JP','Hiragino Mincho ProN',serif" font-size="26" fill="#23201b">図2 ── 新陳代謝</text>
+  <text x="40" y="80" font-size="16" fill="#6b6052">同じ街角で、消える写真業と生まれるセルフ写真館が入れ替わる</text>
+  <line x1="40" y1="96" x2="640" y2="96" stroke="#d8ccb5" stroke-width="1.5"/>
+
+  <!-- divider -->
+  <line x1="345" y1="118" x2="345" y2="545" stroke="#d8ccb5" stroke-width="1.4" stroke-dasharray="4 4"/>
+
+  <!-- ===== LEFT: 旧来の写真業 = 淘汰 (朱) ===== -->
+  <text x="55" y="138" font-size="17" fill="#b5402e" font-weight="bold" font-family="'Noto Serif JP',serif">旧来の写真業 ── 淘汰</text>
+
+  <!-- 事業所数 -->
+  <text x="55" y="172" font-size="16" fill="#23201b">写真業の事業所数（経済センサス）</text>
+  <!-- baseline y=340, max bar 135px -->
+  <line x1="60" y1="340" x2="320" y2="340" stroke="#23201b" stroke-width="1.2"/>
+  <!-- bar 2016: 17,555 -> 135px, top 205 -->
+  <rect x="78" y="205" width="50" height="135" fill="#1a3a5c"/>
+  <text x="103" y="360" font-size="16" fill="#6b6052" text-anchor="middle">2016</text>
+  <text x="103" y="197" font-size="17" fill="#1a3a5c" text-anchor="middle" font-weight="bold">17,555</text>
+  <!-- bar 2018: 11,931 -> 91.7px, top 248 -->
+  <rect x="168" y="248" width="50" height="92" fill="#1a3a5c" opacity="0.78"/>
+  <text x="193" y="360" font-size="16" fill="#6b6052" text-anchor="middle">2018</text>
+  <text x="193" y="240" font-size="17" fill="#1a3a5c" text-anchor="middle" font-weight="bold">11,931</text>
+  <!-- decline arrow + pct (右側の空きへ) -->
+  <path d="M225 232 L292 278" stroke="#b5402e" stroke-width="2.2" fill="none"/>
+  <path d="M292 278 l-13 -2 l6 -11 z" fill="#b5402e"/>
+  <text x="300" y="258" font-size="17" fill="#b5402e" font-weight="bold">▲32.0%</text>
+  <text x="300" y="278" font-size="16" fill="#a85440">2年で5,624減</text>
+
+  <!-- 倒産 -->
+  <text x="55" y="398" font-size="16" fill="#23201b">写真店の倒産件数（東京商工リサーチ）</text>
+  <!-- baseline y=525, max bar 100px -->
+  <line x1="60" y1="525" x2="320" y2="525" stroke="#23201b" stroke-width="1.2"/>
+  <!-- 3件 -> 15px top 510 -->
+  <rect x="78" y="510" width="50" height="15" fill="#1a3a5c" opacity="0.78"/>
+  <text x="103" y="545" font-size="16" fill="#6b6052" text-anchor="middle">22年同期</text>
+  <text x="103" y="502" font-size="17" fill="#1a3a5c" text-anchor="middle" font-weight="bold">3件</text>
+  <!-- 20件 -> 100px top 425 -->
+  <rect x="168" y="425" width="50" height="100" fill="#b5402e"/>
+  <text x="193" y="545" font-size="16" fill="#6b6052" text-anchor="middle">23年1-8月</text>
+  <text x="193" y="417" font-size="17" fill="#b5402e" text-anchor="middle" font-weight="bold">20件</text>
+  <text x="250" y="455" font-size="17" fill="#b5402e" font-weight="bold">+566.6%</text>
+  <text x="250" y="475" font-size="16" fill="#a85440">過去20年で最多</text>
+  <text x="250" y="494" font-size="16" fill="#a85440">（販売不振90%）</text>
+
+  <!-- ===== RIGHT: セルフ写真館 = 急増 (緑) ===== -->
+  <text x="368" y="138" font-size="17" fill="#4d6647" font-weight="bold" font-family="'Noto Serif JP',serif">セルフ写真館 ── 急増</text>
+
+  <!-- timeline vertical x=400 -->
+  <line x1="400" y1="185" x2="400" y2="505" stroke="#5b7553" stroke-width="2"/>
+  <path d="M400 185 l-7 14 l14 0 z" fill="#5b7553"/>
+
+  <circle cx="400" cy="215" r="5" fill="#5b7553"/>
+  <text x="416" y="212" font-size="17" fill="#23201b" font-weight="bold">2021</text>
+  <text x="416" y="231" font-size="16" fill="#6b6052">日本上陸・新大久保1号店</text>
+
+  <circle cx="400" cy="285" r="5" fill="#5b7553"/>
+  <text x="416" y="282" font-size="17" fill="#23201b" font-weight="bold">2022</text>
+  <text x="416" y="301" font-size="16" fill="#6b6052">北村写真機店 PICmii 参入</text>
+
+  <circle cx="400" cy="358" r="5" fill="#5b7553"/>
+  <text x="416" y="355" font-size="17" fill="#23201b" font-weight="bold">2023</text>
+  <text x="416" y="374" font-size="16" fill="#6b6052">ロフト等 商業施設へ出店ラッシュ</text>
+  <text x="416" y="392" font-size="16" fill="#6b6052">丸井モディ 400/500/1,000円×5台</text>
+
+  <circle cx="400" cy="445" r="5" fill="#5b7553"/>
+  <text x="416" y="442" font-size="17" fill="#23201b" font-weight="bold">2024初</text>
+  <text x="416" y="461" font-size="16" fill="#6b6052">ピーク感。平日限定など</text>
+  <text x="416" y="479" font-size="16" fill="#6b6052">価格テコ入れが登場</text>
+
+  <text x="368" y="505" font-size="16" fill="#6b6052">※「自分で撮る」入口で、職能が消え体験が残った</text>
+
+  <!-- center bottom message -->
+  <line x1="40" y1="575" x2="640" y2="575" stroke="#d8ccb5" stroke-width="1"/>
+  <text x="340" y="608" font-size="17" fill="#23201b" text-anchor="middle" font-family="'Noto Serif JP',serif">プロのカメラマンが要らなくなった代わりに、撮られる本人がシャッターを押す。</text>
+
+  <!-- footer tiers -->
+  <text x="40" y="644" font-size="13" fill="#6b6052">左＝経済センサス・東京商工リサーチ［公的統計］（直接確認済）。右＝各社プレス・報道［報道］。</text>
+  <text x="40" y="664" font-size="13" fill="#6b6052">セルフ写真館は公的統計で独立カテゴリ計上がなく、正確な国内店舗数は一次統計から把握できない。</text>
+</svg>
