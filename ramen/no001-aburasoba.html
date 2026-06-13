@@ -227,6 +227,10 @@ details[open] .logic-toggle::before{content:"▼ ";}
 .chapter-art{display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px; aspect-ratio:16/6; width:100%; border:1.5px dashed var(--rule); border-radius:4px; background:repeating-linear-gradient(135deg,var(--card),var(--card) 12px,#f0e8d8 12px,#f0e8d8 24px); color:var(--sub); margin:18px 0 4px; text-align:center;}
 .chapter-art .ca-ttl{font-family:"Noto Serif JP",serif; font-size:13px; font-weight:700; color:var(--cha); letter-spacing:.08em;}
 .chapter-art .ca-sub{font-size:11px; color:var(--sub); letter-spacing:.04em;}
+/* 章扉(画像差込版、2026-06-14): cover と同じ「画像+キャプション」形式で絵を活かす */
+.chapter-fig{margin:22px 0 6px;}
+.chapter-img{display:block; width:100%; max-width:100%; height:auto; border-radius:4px; border:1px solid var(--rule);}
+.chapter-cap{font-family:"Noto Serif JP",serif; font-size:12px; font-weight:700; color:var(--cha); letter-spacing:.07em; margin:7px 2px 0;}
 
 /* ===== 自己チェックリスト (2026-06-13 v2 追加) ===== */
 .checklist{background:var(--card); border:1px solid var(--rule); border-top:3px solid var(--kon); border-radius:4px; padding:18px 18px 14px; margin:30px 0 8px;}
@@ -313,7 +317,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
   <!-- ============ §2 原価の解剖 ============ -->
   <section>
     <div class="shead"><span class="sn">§2</span><h2>原価の解剖 ― スープゼロという三重の引き算</h2></div>
-    <div class="chapter-art" role="img" aria-label="§2 章扉図版 準備中"><div class="ca-ttl">§2 原価の解剖</div><div class="ca-sub">章扉図版 準備中</div></div>
+    <figure class="chapter-fig"><img class="chapter-img" src="img/no001-ch2-genka.jpg" alt="§2 原価の解剖 章扉 ― スープのない一杯を真上から検める和モダン図版"><figcaption class="chapter-cap">§2 原価の解剖 ― スープゼロという三重の引き算</figcaption></figure>
     <p class="secprose">一杯を分解する。スープがないという事実は、原価表の上で三つの引き算になって現れる。</p>
     <p class="secprose">第一に、食材費。骨も背脂もないから、その仕入れがゼロになる <span class="t t-interp">interpretation</span>。第二に、光熱費。寸胴を長時間炊き続けるガスと電気が要らない。第三に、労務費。仕込みの中心だった「炊き場」の人手と時間が消える。スープを持たないとは、原価の三つの源泉を同時に断つということだ。</p>
     <p class="secprose">残るのは何か。一杯あたりの内訳を、店主証言ベースで置くと、麺がおよそ五十円、タレと調合油で十円、ネギ・チャーシュー・ナルトなどの具で四十円ほど <span class="t t-press">press</span>（2013年の個人店店主証言）。合計で、一杯の総原価は百円から百六十円に収まる <span class="t t-press">press</span>。タレと油は業態の「肝」でありながら、原価そのものはいちばん安い。味の核と、原価の重さが、ここでは一致しない。</p>
@@ -569,7 +573,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
   <!-- ============ §5 視野を引く ============ -->
   <section>
     <div class="shead"><span class="sn">§5</span><h2>視野を引く ― 油そばだけではない、スープレスという一群</h2></div>
-    <div class="chapter-art" role="img" aria-label="§5 章扉図版 準備中"><div class="ca-ttl">§5 スープレスという一群</div><div class="ca-sub">章扉図版 準備中</div></div>
+    <figure class="chapter-fig"><img class="chapter-img" src="img/no001-ch5-group.jpg" alt="§5 スープレスという一群 章扉 ― 油そば・まぜそば・汁なし担々麺・台湾まぜそばを並べた和モダン図版"><figcaption class="chapter-cap">§5 視野を引く ― 油そばだけではない、スープレスという一群</figcaption></figure>
     <p class="secprose">ここまで、油そば一杯を解剖してきた。そろそろ、検死台から一歩離れて、棚の全体を見渡す。</p>
     <p class="secprose">油そばで観測した「スープゼロ＝三重の引き算」は、油そば固有の特性ではなかった。汁なし担々麺、台湾まぜそば、進化系油そば。これらを横並びにすると、見えてくるものがある。<b>いずれも「寸胴を炊かない」という一つの選択から枝分かれした、ひとつの群（クラスター）</b>なのだ。油そばは、その群の入口の標本にすぎない。</p>
     <p class="secprose">群の共通原理は、油そばで見た三重の引き算と同じだ。設備・光熱費が消え（スープの長時間煮込みが不要、ガス代は通常ラーメン店の約半分 <span class="t t-press">press</span>）、仕込み労務が消え（仕込み一時間・開店一時間前出勤で回る店もある、提供は麺茹で+和えのみで二分以内 <span class="t t-press">press</span> <span class="t t-official">official</span>）、最大費目だった食材費が消える。千円ラーメンの食材原価三百九十円のうち、スープ材料費が百五十円、つまり約三十八パーセントを占めるという報告がある <span class="t t-press">press</span>。スープレス業態は、この最大費目を丸ごと外している。</p>
@@ -763,7 +767,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
   <!-- ============ §8 生存と撤退 ============ -->
   <section>
     <div class="shead"><span class="sn">§8</span><h2>生存と撤退 ― 相対的に強い、無傷ではない</h2></div>
-    <div class="chapter-art" role="img" aria-label="§8 章扉図版 準備中"><div class="ca-ttl">§8 生存と撤退</div><div class="ca-sub">章扉図版 準備中</div></div>
+    <figure class="chapter-fig"><img class="chapter-img" src="img/no001-ch8-survival.jpg" alt="§8 生存と撤退 章扉 ― 空に近い器に箸を渡した静かな和モダン図版"><figcaption class="chapter-cap">§8 生存と撤退 ― 相対的に強い、無傷ではない</figcaption></figure>
     <p class="secprose">二〇二四年、ラーメン店の倒産は過去最多を記録した。帝国データバンクの集計で七十二件、前年の五十三件から三割超の増加（負債千万円以上の法的整理）<span class="t t-gov">gov-stat</span>。東京商工リサーチは別スコープで五十七件 <span class="t t-press">press</span>。二〇二三年度に業績が悪化した店は六十一・五パーセント <span class="t t-gov">gov-stat</span>。主因は、人件費と原材料の高騰を、千円の壁のせいで価格に転嫁しきれないことだった。</p>
 
     <div class="spec">
