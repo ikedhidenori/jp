@@ -123,20 +123,25 @@
   .cmdbox.copied .copyicon { color: var(--green); }
   .cmdbox.copied .copyicon::after { content: " 済"; }
 
-  /* ---------- 全体感サマリ chip 行 ---------- */
+  /* ---------- 全体感サマリ chip 行 (bordered pill、44px タップ域) ---------- */
   .summary {
-    display: flex; align-items: center; gap: 0;
-    margin: 14px 0 4px; padding: 0 2px;
-    font-size: 0.8rem; color: var(--txt-2); font-weight: 500;
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    margin: 16px 0 4px; padding: 0 2px;
   }
-  .schip, .summary .schip { display: inline-flex; align-items: center; gap: 7px; }
-  .summary .schip { padding: 4px 0; }
+  .schip, .summary .schip {
+    display: inline-flex; align-items: center; gap: 7px;
+    min-height: var(--tap); padding: 0 14px;
+    font-size: 0.8rem; font-weight: 500; color: var(--txt-2);
+    background: var(--surface-1); border: 1px solid var(--border-soft);
+    border-radius: 12px; white-space: nowrap;
+  }
   .sdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
   .dot-decide { background: var(--amber); }
   .dot-deleg { background: var(--blue); }
-  .schip-sep { width: 1px; height: 12px; background: var(--border); margin: 0 14px; }
   .schip-ok { color: var(--green); }
-  .schip-warn { color: var(--amber); }
+  .schip-ok .sdot { background: var(--green); }
+  .schip-warn { color: var(--amber); border-color: rgba(214,164,76,.3); }
+  .schip-warn .sdot { background: var(--amber); }
 
   /* ---------- row 共通 (8px グリッド、幾何統一、原則6) ---------- */
   .rows { display: flex; flex-direction: column; gap: 8px; }
@@ -151,10 +156,6 @@
   .row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
   .row-title {
     font-size: 0.95rem; font-weight: 500; line-height: 1.4; color: var(--txt);
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
-  .row-sub {
-    font-size: 0.76rem; color: var(--txt-3); line-height: 1.4;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .jid-mono {
@@ -179,6 +180,17 @@
   .today-row .row-main { flex-direction: row; align-items: baseline; gap: 8px; }
   .today-row .row-title { flex: 1; }
 
+  /* 完了 row = 穏やかな祝祭 + subtle grey で沈める (原則3/10、完了 issue があれば) */
+  .today-row.done { background: transparent; border-color: var(--border-soft); opacity: .55; }
+  .today-row.done .row-title { color: var(--txt-3); text-decoration: line-through; text-decoration-color: var(--txt-4); }
+  .today-row.done .check { background: var(--green); border-color: var(--green); position: relative; }
+  .today-row.done .check::after {
+    content: ""; position: absolute; left: 6px; top: 2px;
+    width: 4px; height: 9px; border: solid #0a0c10; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .today-row.done .dot { display: none; }
+
   /* DECISIONS = 判断ボール (calm amber 左アクセント) */
   .decision-row { padding-left: 16px; }
   .decision-row .row-accent {
@@ -189,17 +201,25 @@
   .decision-row .row-main { flex-direction: row; align-items: baseline; gap: 8px; }
   .decision-row .row-title { flex: 1; }
 
-  /* DELEGATED = 委任 (穏やかな blue View ボタン) */
+  /* DELEGATED = 委任 (単行タイトル + JON-NN + 穏やかな blue「やって」ボタン) */
   .delegate-row { padding-right: 10px; }
   .row-main-link { text-decoration: none; color: var(--txt); }
   .row-main-link:active { opacity: .65; }
+  .delegate-row .row-title { font-weight: 500; }
+  .row-meta { display: flex; align-items: center; gap: 8px; }
+  .row-domain {
+    font-size: 0.68rem; color: var(--txt-3); font-weight: 500;
+    padding: 1px 7px; border-radius: 6px; background: var(--surface-2);
+    white-space: nowrap;
+  }
   .view-btn {
-    flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
-    min-height: 34px; padding: 0 16px;
+    flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 2px;
+    min-height: var(--tap); min-width: 56px; padding: 0 14px;
     font-size: 0.8rem; font-weight: 600; text-decoration: none;
     color: #9cc2f5; background: rgba(90,147,230,.12);
-    border: 1px solid rgba(90,147,230,.28); border-radius: 9px;
+    border: 1px solid rgba(90,147,230,.28); border-radius: 10px;
   }
+  .view-btn .chev { font-size: 1rem; line-height: 1; color: #9cc2f5; }
   .view-btn:active { background: rgba(90,147,230,.2); }
 
   /* D3 機密タイトル (amber、italic 廃止 → weight 差) */
@@ -237,17 +257,20 @@
   .empty { color: var(--txt-3); font-size: 0.86rem; padding: 6px 2px; }
   .warn { color: var(--amber); font-size: 0.86rem; padding: 6px 2px; }
 
-  /* ---------- デスクトップ (黒余白過多を抑える) ---------- */
+  /* ---------- デスクトップ (黒余白過多を抑える + 見切れ防止) ---------- */
   @media (min-width: 620px) {
     body { padding: 36px 28px 48px; max-width: 680px; }
     h1 { font-size: 1.28rem; }
     .focus-title { font-size: 1.5rem; }
   }
   @media (min-width: 920px) {
-    body { max-width: 940px; }
+    body { max-width: 1120px; }   /* 中央寄せ (margin:0 auto)、viewport 端 truncate 防止 */
     main {
       display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; align-items: start;
     }
+    /* grid item の overflow blowout 防止 (nowrap タイトルで track が膨らむのを抑える) */
+    .section { min-width: 0; }
+    .section .rows, .section .row { min-width: 0; max-width: 100%; }
     .span-all { grid-column: 1 / -1; }
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -267,7 +290,7 @@
 <section class="section span-all">
   <div class="sec-label"><span class="ldot ldot-today"></span>Today's Focus</div>
   <article class="focus"><div class="focus-accent"></div><div class="focus-body"><div class="focus-domain">システム</div><h2 class="focus-title">素子の英語混入（思考レベル）</h2><p class="focus-action">英語混入の恒久修正をテストで検証する</p><div class="focus-foot"><a class="focus-link" href="https://linear.app/johnny-os/issue/JON-72" target="_blank" rel="noopener"><span class="jid-mono">JON-72</span><span class="focus-open">Linearで開く<span class="chev">›</span></span></a></div></div></article>
-  <div class="summary"><span class="schip"><span class="sdot dot-decide"></span>判断 3</span><span class="schip-sep"></span><span class="schip"><span class="sdot dot-deleg"></span>委任 4</span><span class="schip-sep"></span><span class="schip schip-warn"><span class="sdot dot-warn"></span>要確認</span></div>
+  <div class="summary"><span class="schip"><span class="sdot dot-decide"></span>判断待ち 3</span><span class="schip"><span class="sdot dot-deleg"></span>委任 4</span><span class="schip schip-warn"><span class="sdot dot-warn"></span>システム要確認</span></div>
 </section>
 
 <section class="section span-all">
@@ -282,7 +305,7 @@
 
 <section class="section">
   <div class="sec-label"><span class="ldot ldot-deleg"></span>Delegated — Offloaded</div>
-  <div class="rows"><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-60" target="_blank" rel="noopener"><span class="row-title">既存 start-chrome-cdp.sh(9222)の --remote-a…</span><span class="row-sub">JON-55 の security 審査中に副産物で発見した現稼働中の脆弱性(絶滅職種図鑑と独立)。</span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-60" target="_blank" rel="noopener">View</a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-59" target="_blank" rel="noopener"><span class="row-title">ループ通知</span><span class="row-sub">グロースループの「完了」と「トラブル」をジョニーへ確実に届ける通知配線。現状ギャップ: 汎用基盤(Discord results…</span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-59" target="_blank" rel="noopener">View</a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-54" target="_blank" rel="noopener"><span class="row-title">X コピー A/Bテスト + 計測ループ(素子自律PM)</span><span class="row-sub">固定ツイートのコピーを「机上で当てず、出して計測」する A/B ループ。</span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-54" target="_blank" rel="noopener">View</a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-41" target="_blank" rel="noopener"><span class="row-title">3 役 architecture daemon implementation (…</span><span class="row-sub">ジョニー指示「バックグラウンドで体系ナレッジベース蓄積、『あれどうなった?』に 5 秒で返せる状態」+「他のシステム開発も進めて…</span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-41" target="_blank" rel="noopener">View</a></div></div>
+  <div class="rows"><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-60" target="_blank" rel="noopener"><span class="row-title">システム整備の作業を代行</span><span class="row-meta"><span class="jid-mono">JON-60</span><span class="row-domain">システム整備</span></span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-60" target="_blank" rel="noopener">やって<span class="chev">›</span></a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-59" target="_blank" rel="noopener"><span class="row-title">ループ通知</span><span class="row-meta"><span class="jid-mono">JON-59</span><span class="row-domain">システム整備</span></span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-59" target="_blank" rel="noopener">やって<span class="chev">›</span></a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-54" target="_blank" rel="noopener"><span class="row-title">X コピー A/Bテスト + 計測ループ(素子自律PM)</span><span class="row-meta"><span class="jid-mono">JON-54</span><span class="row-domain">システム整備</span></span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-54" target="_blank" rel="noopener">やって<span class="chev">›</span></a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-41" target="_blank" rel="noopener"><span class="row-title">システム整備の作業を代行</span><span class="row-meta"><span class="jid-mono">JON-41</span><span class="row-domain">システム整備</span></span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-41" target="_blank" rel="noopener">やって<span class="chev">›</span></a></div></div>
 </section>
 
 <section class="section span-all">
@@ -292,7 +315,7 @@
 </main>
 
 <footer style="margin-top:28px;font-size:0.68rem;color:var(--txt-4);padding-left:2px;">
-  更新 2026-06-14 04:22 · Linear OK
+  更新 2026-06-14 04:27 · Linear OK
 </footer>
 
 <script>
