@@ -6,137 +6,193 @@
 <meta name="robots" content="noindex,nofollow">
 <title>スープレス店 損益シミュレーター（draft preview）</title>
 <style>
-  :root{ --ink:#1c1a17; --sub:#6b6358; --paper:#f4efe6; --card:#fffdf8; --rule:#ddd4c4; --shu:#b5462e; --ok:#2f6b3a; --ng:#b5462e; }
+  :root{ --ink:#1c1a17; --sumi:#2c2c2c; --sub:#8a8275; --paper:#f4efe6; --card:#fffdf8; --rule:#ddd4c4; --shu:#b5462e; }
   *{box-sizing:border-box;}
   body{margin:0; background:var(--paper); color:var(--ink); font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; line-height:1.7; -webkit-text-size-adjust:100%;}
-  .wrap{max-width:680px; margin:0 auto; padding:20px 16px 70px;}
-  .banner{background:var(--shu); color:#fff; font-size:11.5px; padding:7px 12px; border-radius:4px; margin-bottom:16px; line-height:1.6;}
-  h1{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:20px; margin:0 0 4px; letter-spacing:.03em;}
-  .lead{font-size:12.5px; color:var(--sub); margin:0 0 18px;}
-  .note{font-size:11.5px; color:var(--sub); background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--shu); border-radius:4px; padding:9px 12px; margin:14px 0; line-height:1.7;}
-  .grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 14px; margin:14px 0;}
-  @media(max-width:480px){ .grid{grid-template-columns:1fr;} }
-  .fld{display:flex; flex-direction:column;}
-  .fld label{font-size:12px; color:var(--sub); margin-bottom:3px;}
-  .fld input{font-size:15px; padding:8px 10px; border:1px solid var(--rule); border-radius:4px; background:#fff; font-family:inherit;}
-  .fld .u{font-size:10.5px; color:var(--sub);}
-  h2{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:15px; border-bottom:1px solid var(--rule); padding-bottom:4px; margin:26px 0 10px;}
-  .verdict{font-size:15px; font-weight:700; padding:13px 15px; border-radius:5px; margin:12px 0; text-align:center;}
-  .verdict.ok{background:#eaf3ec; color:var(--ok); border:1px solid #bcd9c2;}
-  .verdict.ng{background:#f7e9e5; color:var(--ng); border:1px solid #e3c4ba;}
-  .out{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin:10px 0;}
-  @media(max-width:480px){ .out{grid-template-columns:1fr 1fr;} }
-  .ocard{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:10px 12px;}
-  .ocard .k{font-size:11px; color:var(--sub);}
-  .ocard .v{font-size:18px; font-weight:700; font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; margin-top:2px;}
-  .ocard .v small{font-size:11px; font-weight:400; color:var(--sub);}
-  .ocard.hi .v{color:var(--shu);}
-  .formula{font-size:11px; color:var(--sub); background:#f0e8d8; border-radius:4px; padding:9px 12px; margin:12px 0; line-height:1.8; font-family:ui-monospace,monospace;}
-  .foot{margin-top:22px; font-size:11px; color:var(--sub); border-top:1px solid var(--rule); padding-top:12px;}
-  details{margin:12px 0; font-size:12.5px;} summary{cursor:pointer; color:var(--shu); font-weight:700;}
+  .wrap{max-width:680px; margin:0 auto; padding:0 16px 70px;}
+  .banner{background:var(--shu); color:#fff; font-size:11px; padding:6px 12px; border-radius:0 0 4px 4px; line-height:1.55;}
+  /* sticky summary */
+  .sticky{position:sticky; top:0; z-index:100; background:var(--sumi); color:var(--paper); margin:0 -16px 4px; padding:9px 16px; display:flex; gap:14px; justify-content:space-around; box-shadow:0 1px 6px rgba(0,0,0,.15);}
+  .sticky .s{text-align:center; line-height:1.3;}
+  .sticky .s .lab{font-size:10px; color:#bdb5a5;}
+  .sticky .s .val{font-size:16px; font-weight:700; font-family:"Hiragino Mincho ProN","Noto Serif JP",serif;}
+  .sticky .s .val.neg{color:#ff9a7a;}
+  h1{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:19px; margin:18px 0 3px;}
+  .lead{font-size:12px; color:var(--sub); margin:0 0 14px;}
+  .upd{font-size:11px; color:var(--sub); margin:10px 0;}
+  .inputs{display:grid; grid-template-columns:1fr; gap:13px; margin:10px 0;}
+  .sld{}
+  .sld .row{display:flex; justify-content:space-between; align-items:baseline;}
+  .sld label{font-size:12.5px; color:var(--ink);}
+  .sld .cur{font-size:16px; font-weight:700; font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; color:var(--shu);}
+  .sld input[type=range]{width:100%; height:40px; accent-color:var(--shu); margin:2px 0 0;}
+  .nums{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:14px 0 4px;}
+  @media(max-width:480px){ .nums{grid-template-columns:1fr 1fr;} }
+  .nums .fld{display:flex; flex-direction:column;}
+  .nums label{font-size:11.5px; color:var(--sub); margin-bottom:3px;}
+  .nums input{font-size:15px; padding:7px 9px; border:1px solid var(--rule); border-radius:4px; background:#fff; font-family:inherit; width:100%;}
+  h2{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:14px; border-bottom:1px solid var(--rule); padding-bottom:4px; margin:24px 0 6px;}
+  .gwrap{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:10px 8px 6px; margin:10px 0;}
+  .gcap{font-size:11px; color:var(--sub); margin:0 4px 4px;}
+  canvas{width:100%!important;}
+  table{border-collapse:collapse; width:100%; font-size:12.5px; margin:8px 0;}
+  th,td{border:1px solid var(--rule); padding:6px 8px; text-align:right;}
+  th:first-child,td:first-child{text-align:left;}
+  th{background:#efe7d8; font-weight:700;}
+  td.pos{color:var(--sumi);} td.neg{color:var(--shu);}
+  details{margin:14px 0;} summary{cursor:pointer; color:var(--shu); font-weight:700; font-size:13px;}
+  .note{font-size:11px; color:var(--sub); background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--shu); border-radius:4px; padding:8px 11px; margin:12px 0; line-height:1.7;}
+  .foot{margin-top:20px; font-size:10.5px; color:var(--sub); border-top:1px solid var(--rule); padding-top:10px;}
+  details.formula .f{font-size:11px; color:var(--sub); font-family:ui-monospace,monospace; line-height:1.8; background:#f0e8d8; border-radius:4px; padding:8px 11px; margin-top:6px;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="banner">⚠ 社内確認用 draft preview（noindex・未公開）。「スープを炊かない店の損益解剖キット」同梱の損益シミュレーター。数値は ramen-kpi-sim.py の四則演算をそのまま実装（捏造ゼロ）。</div>
+  <div class="banner">⚠ 社内確認用 draft preview（noindex・未公開）。「スープを炊かない店の損益解剖キット」同梱の損益シミュレーター。計算は ramen-kpi-sim.py の四則演算をそのまま実装。</div>
 
-  <h1>あなたの店を計算する ── 損益シミュレーター</h1>
-  <p class="lead">スープレス業態（油そば・まぜそば・担々麺・台湾まぜそば）の開業/改善判断用。数字を入れると損益分岐・営業利益・回収月数が即出ます。</p>
-
-  <div class="note"><b>初期値は「ぶらぶら型 14坪18席モデル」の推計アンカー</b>（official実績への逆算 estimate を含む）。<b>必ず自店の実数に上書きして読むこと。</b>この初期値はあなたの店の数字ではありません。</div>
-
-  <h2>入力（自店の数字に上書き）</h2>
-  <div class="grid">
-    <div class="fld"><label>席数</label><input id="seats" type="number" value="18"><span class="u">物件の平面図から実測</span></div>
-    <div class="fld"><label>1日の回転数</label><input id="turns" type="number" step="0.1" value="8.8"><span class="u">1席が1日に回る客数。周辺競合を実測</span></div>
-    <div class="fld"><label>客単価（円）</label><input id="check" type="number" value="780"><span class="u">トッピング・サイド込みの平均</span></div>
-    <div class="fld"><label>食材原価率 F（%）</label><input id="f" type="number" step="0.1" value="30"><span class="u">試作で単杯原価を実測。実運用30%前後</span></div>
-    <div class="fld"><label>人件費率 L（%）</label><input id="l" type="number" step="0.1" value="20"><span class="u">スープレスは低め。標準20%</span></div>
-    <div class="fld"><label>家賃（万円/月）</label><input id="rent" type="number" value="65"><span class="u">共益費・税込み</span></div>
-    <div class="fld"><label>その他固定費（万円/月）</label><input id="other" type="number" value="33"><span class="u">水光熱固定・通信・消耗・ロイヤリティ等</span></div>
-    <div class="fld"><label>営業日数/月</label><input id="days" type="number" value="26"><span class="u">週6相当</span></div>
-    <div class="fld"><label>初期投資（万円）</label><input id="invest" type="number" value="1313"><span class="u">居抜き800〜スケルトン2000万</span></div>
+  <div class="sticky">
+    <div class="s"><div class="lab">月商</div><div class="val" id="s-sales">—</div></div>
+    <div class="s"><div class="lab">営業利益</div><div class="val" id="s-op">—</div></div>
+    <div class="s"><div class="lab">投資回収</div><div class="val" id="s-pay">—</div></div>
   </div>
 
-  <h2>結果</h2>
-  <div id="verdict" class="verdict">—</div>
-  <div class="out" id="out"></div>
+  <h1>あなたの店を計算する</h1>
+  <p class="lead">スライダーを動かすと、損益分岐・営業利益・回収がリアルタイムで変わります。スープレス業態（油そば・まぜそば・担々麺・台湾まぜそば）の開業/改善判断に。</p>
+  <p class="upd">既定値は「ぶらぶら型 14坪18席モデル」の参考値（official実績への逆算 estimate 含む）。<b>実際の見積もりを入れて読んでください。</b></p>
+
+  <div class="inputs" id="sliders"></div>
+
+  <div class="nums">
+    <div class="fld"><label>家賃（万円/月）</label><input id="rent" type="number" value="65"></div>
+    <div class="fld"><label>その他固定費（万円/月）</label><input id="other" type="number" value="33"></div>
+    <div class="fld"><label>初期投資（万円）</label><input id="invest" type="number" value="1313"></div>
+  </div>
+
+  <h2>損益分岐 ── あと何回転で黒字か</h2>
+  <p class="gcap">墨＝売上、朱＝総費用。2本が交わる回転が損益分岐。破線＝今の回転。</p>
+  <div class="gwrap"><canvas id="chartBE" height="220"></canvas></div>
+
+  <h2>営業利益カーブ ── 回転を上げると利益はどう動くか</h2>
+  <p class="gcap">ゼロ線より上が黒字（墨）、下が赤字（朱）。丸＝今の回転。</p>
+  <div class="gwrap"><canvas id="chartOP" height="220"></canvas></div>
 
   <details>
+    <summary>感応度を開く ── どの一手が一番効くか</summary>
+    <table id="sens"><thead><tr><th>変数</th><th>+10%</th><th>−10%</th></tr></thead><tbody></tbody></table>
+    <p class="note">営業利益への月次インパクト。スライダーを動かすと連動します。一般に「客単価＞回転＞原価率」の順で効きます（低原価業態は原価を削る余地が薄い）。</p>
+  </details>
+
+  <details class="formula">
     <summary>計算式（電卓で追える四則演算）</summary>
-    <div class="formula">
-      限界利益率 = (1 − F) − L<br>
+    <div class="f">
+      限界利益率 = (1 − 原価率F) − 人件費率L<br>
       損益分岐月商 = (家賃 + その他固定費) ÷ 限界利益率<br>
-      損益分岐杯数/日 = 損益分岐月商 ÷ 客単価 ÷ 営業日数<br>
-      必要回転 = 損益分岐杯数/日 ÷ 席数<br>
+      必要回転 = 損益分岐月商 ÷ 客単価 ÷ 営業日数 ÷ 席数<br>
       月商 = 席数 × 回転 × 客単価 × 営業日数<br>
       営業利益 = 月商 − 月商×F − 月商×L − 家賃 − その他固定費<br>
       回収月数 = 初期投資 ÷ 月営業利益
     </div>
   </details>
 
-  <div class="note" id="readnote">読み筋: 入力回転が「必要回転」を上回れば黒字。最悪は「好立地・高家賃・低回転」。回転の利益感応度は家賃より大きい。立地は「この家賃で回転を取れる根拠があるか」で判断する。</div>
-
-  <p class="foot">社内 draft preview。フル版はキット同梱予定。価格・公開はジョニー判断（G5）。<br>tier: 初期値は official実績(ぶらぶら月商320万・営業利益62万)への逆算 estimate。2026-06-14 素子。</p>
+  <p class="foot">社内 draft preview。フル版はキット同梱予定。価格・公開はジョニー判断（G5）。tier: 初期値は official実績(ぶらぶら月商320万・営業利益62万)への逆算 estimate。全数値は四則演算（捏造ゼロ）。</p>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <script>
-  const $ = id => document.getElementById(id);
-  const ids = ['seats','turns','check','f','l','rent','other','days','invest'];
-  const man = y => (y/10000).toLocaleString('ja-JP',{maximumFractionDigits:1}) + '万円';
-  const yen = y => Math.round(y).toLocaleString('ja-JP') + '円';
-  const pct = x => (x*100).toFixed(1) + '%';
+const SHU='#b5462e', SUMI='#2c2c2c', SUB='#8a8275';
+// slider 定義: 検証済モデルの既定値を維持(アンカー整合)、範囲はUX設計準拠
+const SLD = [
+  {id:'seats', label:'席数',        min:4,  max:40,  step:1,  val:18,  unit:'席'},
+  {id:'turns', label:'回転数/日',    min:0.5,max:12,  step:0.1,val:8.8, unit:'回転'},
+  {id:'check', label:'客単価',       min:600,max:2500,step:10, val:780, unit:'円'},
+  {id:'f',     label:'食材原価率 F',  min:15, max:50,  step:0.5,val:30,  unit:'%'},
+  {id:'l',     label:'人件費率 L',    min:10, max:45,  step:0.5,val:20,  unit:'%'},
+  {id:'days',  label:'営業日数/月',   min:20, max:31,  step:1,  val:26,  unit:'日'},
+];
+const $=id=>document.getElementById(id);
+const man=y=>(y/10000).toLocaleString('ja-JP',{maximumFractionDigits:1})+'万';
+const fmtCur=(v,u)=> u==='円'? v.toLocaleString('ja-JP')+'円' : (u==='回転'? v.toFixed(1)+u : v+u);
 
-  function calc(){
-    const seats=+$('seats').value, turns=+$('turns').value, check=+$('check').value;
-    const F=(+$('f').value)/100, L=(+$('l').value)/100;
-    const rent=(+$('rent').value)*10000, other=(+$('other').value)*10000;
-    const days=+$('days').value, invest=(+$('invest').value)*10000;
+// build sliders
+$('sliders').innerHTML = SLD.map(s=>`
+  <div class="sld">
+    <div class="row"><label>${s.label}</label><span class="cur" id="cur-${s.id}"></span></div>
+    <input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.val}">
+  </div>`).join('');
 
-    const grossRate = 1 - F;
-    const grossPerCup = check * grossRate;
-    const contribRate = grossRate - L;            // 限界利益率
-    const fixedExcl = rent + other;
-    const beSales = contribRate > 0 ? fixedExcl / contribRate : Infinity;   // 損益分岐月商
-    const beCupsDay = isFinite(beSales) ? beSales / check / days : Infinity;
-    const beTurns = isFinite(beCupsDay) ? beCupsDay / seats : Infinity;
+function inputs(){
+  const g=id=>+$(id).value;
+  return {seats:g('seats'),turns:g('turns'),check:g('check'),F:g('f')/100,L:g('l')/100,
+          days:g('days'),rent:g('rent')*10000,other:g('other')*10000,invest:g('invest')*10000};
+}
+function opAt(r,i){ const sales=i.seats*r*i.check*i.days; return sales-sales*i.F-sales*i.L-i.rent-i.other; }
+function salesAt(r,i){ return i.seats*r*i.check*i.days; }
+function costAt(r,i){ const sales=salesAt(r,i); return sales*(i.F+i.L)+i.rent+i.other; }
 
-    const salesM = seats * turns * check * days;  // 入力回転での月商
-    const fCost = salesM * F, lCost = salesM * L;
-    const op = salesM - fCost - lCost - rent - other;
-    const opRate = salesM ? op/salesM : 0;
-    const flRate = salesM ? (fCost+lCost)/salesM : 0;
-    const payback = op > 0 ? invest/op : Infinity;
-    const capacityCups = seats * turns;
-    const util = capacityCups ? beCupsDay / capacityCups : Infinity;
+let beChart, opChart;
+function rangeR(i){ return {min:+$('turns').min, max:+$('turns').max}; }
+function series(i, fn){ const out=[]; const {min,max}=rangeR(i); for(let r=min; r<=max+1e-9; r+=0.25){ out.push({x:+r.toFixed(2), y:fn(r,i)}); } return out; }
 
-    // verdict
-    const v = $('verdict');
-    if(op > 0){
-      v.className = 'verdict ok';
-      v.textContent = `黒字 ── 月営業利益 ${man(op)}（利益率 ${pct(opRate)}）`;
-    } else {
-      v.className = 'verdict ng';
-      v.textContent = `赤字 ── 月 ${man(op)}。必要回転 ${isFinite(beTurns)?beTurns.toFixed(1):'∞'} に対し入力 ${turns.toFixed(1)}`;
-    }
+function buildCharts(i){
+  const cont=i.contrib= (1-i.F)-i.L;
+  const fixed=i.rent+i.other;
+  const r_be = cont>0 ? fixed/(i.seats*i.check*i.days*cont) : Infinity;
+  const beValid = isFinite(r_be) && r_be<=+$('turns').max;
 
-    const cards = [
-      ['必要回転（損益分岐）', isFinite(beTurns)? beTurns.toFixed(1)+'<small> 回転/日</small>' : '∞', true],
-      ['損益分岐 杯数/日', isFinite(beCupsDay)? Math.round(beCupsDay)+'<small> 杯</small>' : '∞', false],
-      ['損益分岐 月商', isFinite(beSales)? man(beSales) : '∞', false],
-      ['必要稼働率', isFinite(util)? pct(util) : '∞', false],
-      ['月商（入力回転）', man(salesM), false],
-      ['月 営業利益', man(op), true],
-      ['FL比率', pct(flRate)+'<small>（黒字目安 ≤60%）</small>', false],
-      ['1杯 粗利', yen(grossPerCup), false],
-      ['投資回収', isFinite(payback)? payback.toFixed(1)+'<small> ヶ月（'+(payback/12).toFixed(1)+'年）</small>' : '回収不能', true],
-    ];
-    $('out').innerHTML = cards.map(c =>
-      `<div class="ocard${c[2]?' hi':''}"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`
-    ).join('');
-  }
-  ids.forEach(id => $(id).addEventListener('input', calc));
-  calc();
+  const common={responsive:true, animation:false, plugins:{legend:{display:false}, tooltip:{enabled:false}},
+    layout:{padding:{top:6}}, elements:{point:{radius:0}},
+    scales:{x:{type:'linear', min:rangeR(i).min, max:rangeR(i).max, title:{display:true,text:'回転数/日',font:{size:10},color:SUB}, ticks:{font:{size:10},color:SUB}, grid:{color:'#eee6d6'}},
+            y:{title:{display:true,text:'万円/月',font:{size:10},color:SUB}, ticks:{font:{size:10},color:SUB,callback:v=>v/10000}, grid:{color:'#eee6d6'}}}};
+
+  // BE chart: 売上線 + 総費用線 + 現在地縦線(point2) + 交点
+  const salesD=series(i,salesAt), costD=series(i,costAt);
+  const curX=i.turns;
+  const beData={datasets:[
+    {label:'売上', data:salesD, borderColor:SUMI, borderWidth:2, tension:0},
+    {label:'総費用', data:costD, borderColor:SHU, borderWidth:2, tension:0},
+    {label:'現在地', data:[{x:curX,y:0},{x:curX,y:salesAt(curX,i)}], borderColor:'#999', borderWidth:1, borderDash:[4,3], tension:0},
+    {label:'損益分岐', data: beValid?[{x:r_be,y:salesAt(r_be,i)}]:[], borderColor:SHU, backgroundColor:SHU, pointRadius:5, pointStyle:'circle', showLine:false},
+  ]};
+  if(!beChart){ beChart=new Chart($('chartBE'),{type:'line',data:beData,options:{...common}}); }
+  else { beChart.data=beData; beChart.update('none'); }
+
+  // OP curve: segment color by sign + 現在地 point + zero line
+  const opD=series(i,opAt);
+  const opData={datasets:[
+    {label:'営業利益', data:opD, borderWidth:2, tension:0,
+     segment:{borderColor:ctx=> (ctx.p1.parsed.y<0||ctx.p0.parsed.y<0)? SHU:SUMI}},
+    {label:'現在地', data:[{x:curX,y:opAt(curX,i)}], borderColor:SHU, backgroundColor: opAt(curX,i)<0?SHU:SUMI, pointRadius:6, pointStyle:'circle', showLine:false},
+    {label:'zero', data:[{x:rangeR(i).min,y:0},{x:rangeR(i).max,y:0}], borderColor:'#caa', borderWidth:1, tension:0},
+  ]};
+  if(!opChart){ opChart=new Chart($('chartOP'),{type:'line',data:opData,options:{...common}}); }
+  else { opChart.data=opData; opChart.update('none'); }
+}
+
+function render(){
+  const i=inputs();
+  // slider current値表示
+  SLD.forEach(s=>{ $('cur-'+s.id).textContent=fmtCur(+$(s.id).value, s.unit); });
+  // sticky summary
+  const sales=salesAt(i.turns,i), op=opAt(i.turns,i), pay= op>0? i.invest/op : Infinity;
+  $('s-sales').textContent=man(sales)+'円';
+  const opEl=$('s-op'); opEl.textContent=(op>=0?'+':'−')+man(Math.abs(op))+'円'; opEl.className='val'+(op<0?' neg':'');
+  $('s-pay').textContent= isFinite(pay)? pay.toFixed(0)+'ヶ月' : '回収不能';
+  // 感応度
+  const base=op;
+  const sens=[
+    ['客単価', {...i,check:i.check*1.1}, {...i,check:i.check*0.9}],
+    ['原価率F', {...i,F:i.F*1.1}, {...i,F:i.F*0.9}],
+    ['回転数', {...i,turns:i.turns*1.1}, {...i,turns:i.turns*0.9}],
+  ];
+  $('sens').querySelector('tbody').innerHTML = sens.map(([n,up,dn])=>{
+    const u=opAt(up.turns,up)-base, d=opAt(dn.turns,dn)-base;
+    const c=v=>`<td class="${v>=0?'pos':'neg'}">${v>=0?'+':'−'}${man(Math.abs(v))}円</td>`;
+    return `<tr><td>${n}</td>${c(u)}${c(d)}</tr>`;
+  }).join('');
+  buildCharts(i);
+}
+[...SLD.map(s=>s.id),'rent','other','invest'].forEach(id=>$(id).addEventListener('input',render));
+render();
 </script>
 </body>
 </html>
