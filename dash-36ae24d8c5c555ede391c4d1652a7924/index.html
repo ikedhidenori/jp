@@ -10,211 +10,290 @@
   :root {
     color-scheme: dark;
     --bg: #0a0c10;
-    --card: #161b22;
-    --card-hero: #1c1416;
-    --border: #2a313c;
-    --border-hero: #f85149;
-    --txt: #e6edf3;
-    --txt-dim: #8b949e;
-    --txt-faint: #6e7681;
-    --red: #f85149;
-    --red-deep: #da3633;
-    --amber: #d29922;
-    --blue: #2f81f7;
-    --green: #3fb950;
+    --surface-1: #14171d;     /* base card (warm-neutral 寄り、原則5: 明度段 1) */
+    --surface-2: #1a1d24;     /* elevated focus (原則5: 明度段 2) */
+    --border: #232830;        /* 薄 hairline */
+    --border-soft: #1d2128;
+    --txt: #e8ebf0;           /* タイトル (off-white、純白を避ける) */
+    --txt-2: #aab1bd;         /* 本文 dim */
+    --txt-3: #6b7280;         /* meta / faint */
+    --txt-4: #4d545e;         /* uppercase section label */
+    --red: #f0635a;           /* overdue 専用 (原則2) */
+    --amber: #d6a44c;         /* high / 判断ボール (calm) */
+    --blue: #5a93e6;          /* med / 委任 */
+    --green: #56b87a;         /* 正常 (subtle) */
+    --grey-bar: #3a414c;      /* low / none */
+    --r: 14px;                /* radius 統一 (原則6) */
+    --tap: 44px;              /* タップ域 (原則10) */
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
-    background: var(--bg); color: var(--txt); line-height: 1.5;
-    padding: 16px 14px calc(28px + env(safe-area-inset-bottom)); max-width: 600px; margin: 0 auto;
-    font-size: 16px;
+    background: var(--bg); color: var(--txt);
+    line-height: 1.5; letter-spacing: .005em;
+    /* 8px グリッド: 16/24/32… (原則6)。たっぷり余白 (Sunsama calm)。*/
+    padding: 24px 16px calc(40px + env(safe-area-inset-bottom));
+    max-width: 560px; margin: 0 auto; font-size: 16px;
+    -webkit-font-smoothing: antialiased;
   }
 
-  header { margin-bottom: 18px; padding: 2px; }
-  h1 { font-size: 1.25rem; font-weight: 800; letter-spacing: .01em; }
-  .updated { font-size: 0.72rem; color: var(--txt-faint); margin-top: 3px; }
-
-  /* セクション見出し + 区切り */
-  .section { margin-bottom: 26px; }
-  .section-head {
-    display: flex; align-items: baseline; gap: 8px;
-    font-size: 0.95rem; font-weight: 700; color: var(--txt);
-    padding-bottom: 9px; margin-bottom: 12px;
-    border-bottom: 1px solid var(--border);
+  /* ---------- ヘッダ ---------- */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px;
   }
-  .section-head .emoji { font-size: 1.05rem; }
-  .section-head .sub { font-size: 0.72rem; font-weight: 500; color: var(--txt-faint); margin-left: auto; }
-
-  /* カード共通 */
-  .card {
-    position: relative; display: block; text-decoration: none; color: var(--txt);
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    overflow: hidden;
-  }
-  .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; }
-  .p-urgent-bar { background: var(--red); }
-  .p-high-bar { background: var(--amber); }
-  .p-med-bar { background: var(--blue); }
-  .p-low-bar { background: #3d444d; }
-  .p-none-bar { background: #30363d; }
-  .p-deleg-bar { background: var(--blue); }  /* point 6: 代行カード = blue バー */
-  .card-body { padding: 15px 16px 15px 21px; }
-
-  /* point 6: 代行カードの視覚差別化 (judgment=amber と区別する青系トーン) */
-  .card.compact.delegate {
-    background: linear-gradient(90deg, rgba(47,129,247,.07) 0%, var(--card) 42%);
-    border-color: rgba(47,129,247,.32);
-  }
-  .card.compact.delegate:active { border-color: rgba(47,129,247,.55); }
-
-  /* ヒーロー (今やる #1) */
-  .card.hero {
-    background: linear-gradient(180deg, #1f1417 0%, #181216 100%);
-    border-color: var(--border-hero); border-width: 1.5px;
-    box-shadow: 0 0 0 1px rgba(248,81,73,.12), 0 6px 22px rgba(248,81,73,.10);
-    margin-bottom: 12px;
-  }
-  .card.hero .bar { width: 6px; }
-  .hero-meta {
-    font-size: 0.68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
-    color: var(--red); margin-bottom: 7px;
-  }
-  .hero-title { font-size: 1.28rem; font-weight: 800; line-height: 1.32; margin-bottom: 8px; }
-  .hero-action { font-size: 0.92rem; color: var(--txt-dim); margin-bottom: 15px; }
-
-  /* ボタン */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 5px;
-    font-size: 0.9rem; font-weight: 700; text-decoration: none; border-radius: 10px;
-    min-height: 44px; padding: 0 18px; white-space: nowrap;
-  }
-  .btn:active { transform: scale(.985); }
-  .btn-red {
-    background: var(--red); color: #fff; width: 100%;
-    box-shadow: 0 2px 10px rgba(248,81,73,.30);
-  }
-  .btn-blue {
-    background: rgba(47,129,247,.16); color: #79b8ff; border: 1px solid rgba(47,129,247,.45);
-    min-height: 38px; padding: 0 16px; font-size: 0.84rem;
+  h1 { font-size: 1.15rem; font-weight: 650; letter-spacing: .01em; color: var(--txt); }
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 26px; height: 26px; padding: 0 8px;
+    font-size: 0.8rem; font-weight: 700; color: #1a1408;
+    background: var(--amber); border-radius: 999px;
   }
 
-  /* コピペコマンド box */
+  /* ---------- セクション ---------- */
+  .section { margin-bottom: 28px; }
+  .section:last-child { margin-bottom: 0; }
+  .sec-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--txt-4);
+    margin-bottom: 12px; padding-left: 2px;
+  }
+  .sec-label .ldot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .ldot-today { background: var(--amber); }
+  .ldot-decide { background: var(--amber); }
+  .ldot-deleg { background: var(--blue); }
+  .ldot-health { background: var(--green); }
+
+  /* ---------- TODAY'S FOCUS (calm hero、原則1: 赤なし、amber 細アクセント) ---------- */
+  .focus {
+    position: relative; display: block; overflow: hidden;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: var(--r); text-decoration: none;
+  }
+  .focus-accent {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--amber);
+  }
+  .focus.overdue .focus-accent { background: var(--red); }
+  .focus-body { padding: 18px 18px 16px 21px; }
+  .focus-domain {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: .06em;
+    color: var(--txt-3); margin-bottom: 7px;
+  }
+  .focus-title {
+    font-size: 1.35rem; font-weight: 600; line-height: 1.38;
+    color: var(--txt); margin-bottom: 8px; letter-spacing: .01em;
+  }
+  .focus.overdue .focus-title { color: var(--txt); }
+  .focus-action { font-size: 0.88rem; color: var(--txt-2); line-height: 1.55; margin-bottom: 16px; }
+  .focus-foot { display: flex; align-items: center; }
+  .focus-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 36px; text-decoration: none; color: var(--txt-3);
+  }
+  .focus-link:active { opacity: .6; }
+  .focus-open { font-size: 0.82rem; font-weight: 500; color: var(--txt-2); }
+  .focus-open .chev { margin-left: 3px; color: var(--txt-3); }
+
+  /* D3 (amber テキスト、italic 廃止 = weight 差別化、原則 §5.51/§2-7) */
+  .focus.d3 .focus-title { color: var(--amber); font-weight: 650; }
+
+  /* コマンド box (折りたたみ既定、原則9) */
+  .cmdbox-wrap { margin-top: 14px; }
+  .cmdbox-wrap > summary {
+    list-style: none; cursor: pointer; font-size: 0.74rem; color: var(--txt-3);
+    display: inline-flex; align-items: center; gap: 5px; min-height: 28px;
+  }
+  .cmdbox-wrap > summary::-webkit-details-marker { display: none; }
+  .cmdbox-wrap > summary::before { content: "›"; transition: transform .2s; display: inline-block; }
+  .cmdbox-wrap[open] > summary::before { transform: rotate(90deg); }
   .cmdbox {
     display: flex; align-items: center; gap: 10px; cursor: pointer;
-    margin-top: 11px; padding: 11px 13px;
-    background: #0c0e13; border: 1px solid #2a313c; border-radius: 9px;
+    margin-top: 9px; padding: 11px 13px;
+    background: #0c0e13; border: 1px solid var(--border-soft); border-radius: 9px;
     font-family: "SF Mono", ui-monospace, "Menlo", monospace;
     transition: border-color .15s, background .15s;
   }
-  .cmdbox:active { background: #0a0c10; }
-  .cmdbox code { flex: 1; font-size: 0.78rem; color: #adbac7; overflow-x: auto; white-space: nowrap; }
-  .cmdbox .copyicon { font-size: 1rem; color: var(--txt-faint); flex-shrink: 0; }
+  .cmdbox:active { background: #090a0e; }
+  .cmdbox code { flex: 1; font-size: 0.76rem; color: #9aa3b0; overflow-x: auto; white-space: nowrap; }
+  .cmdbox .copyicon { font-size: 0.7rem; color: var(--txt-4); flex-shrink: 0; letter-spacing: .04em; }
   .cmdbox.copied { border-color: var(--green); }
   .cmdbox.copied .copyicon { color: var(--green); }
-  .cmdbox.copied .copyicon::after { content: " コピー済"; font-size: 0.7rem; font-family: -apple-system, sans-serif; }
+  .cmdbox.copied .copyicon::after { content: " 済"; }
 
-  /* コンパクトカードのリスト */
-  .cardlist { display: flex; flex-direction: column; gap: 9px; }
-  .card.compact {
-    display: flex; align-items: center; gap: 10px;
-    min-height: 56px; padding-right: 13px;
+  /* ---------- 全体感サマリ chip 行 ---------- */
+  .summary {
+    display: flex; align-items: center; gap: 0;
+    margin: 14px 0 4px; padding: 0 2px;
+    font-size: 0.8rem; color: var(--txt-2); font-weight: 500;
   }
-  .card.compact:active { border-color: #3d444d; }
-  .compact-body { flex: 1; padding: 11px 4px 11px 18px; min-width: 0; text-decoration: none; color: var(--txt); }
-  a.compact-body:active { opacity: .65; }
-  .compact-title {
-    display: block; font-size: 0.92rem; font-weight: 600; line-height: 1.35;
+  .schip, .summary .schip { display: inline-flex; align-items: center; gap: 7px; }
+  .summary .schip { padding: 4px 0; }
+  .sdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot-decide { background: var(--amber); }
+  .dot-deleg { background: var(--blue); }
+  .schip-sep { width: 1px; height: 12px; background: var(--border); margin: 0 14px; }
+  .schip-ok { color: var(--green); }
+  .schip-warn { color: var(--amber); }
+
+  /* ---------- row 共通 (8px グリッド、幾何統一、原則6) ---------- */
+  .rows { display: flex; flex-direction: column; gap: 8px; }
+  .row {
+    position: relative; display: flex; align-items: center; gap: 12px;
+    min-height: 56px; padding: 10px 14px 10px 16px;
+    background: var(--surface-1); border: 1px solid var(--border-soft);
+    border-radius: var(--r); text-decoration: none; color: var(--txt);
+    transition: border-color .12s, background .12s;
+  }
+  .row:active { border-color: var(--border); background: var(--surface-2); }
+  .row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .row-title {
+    font-size: 0.95rem; font-weight: 500; line-height: 1.4; color: var(--txt);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .compact-sub {
-    display: block; font-size: 0.76rem; color: var(--txt-dim); line-height: 1.4;
-    margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  .row-sub {
+    font-size: 0.76rem; color: var(--txt-3); line-height: 1.4;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .compact .jid { display: block; font-size: 0.68rem; color: var(--blue); margin-top: 2px; }
-  .card-right { flex-shrink: 0; display: flex; align-items: center; padding-right: 4px; }
-
-  /* 優先度 pill */
-  .pill {
-    font-size: 0.68rem; font-weight: 800; padding: 4px 10px; border-radius: 999px;
-    white-space: nowrap; letter-spacing: .02em;
+  .jid-mono {
+    font-family: "SF Mono", ui-monospace, "Menlo", monospace;
+    font-size: 0.68rem; color: var(--txt-3); letter-spacing: .02em;
   }
-  .p-urgent { background: rgba(248,81,73,.18); color: #ff7b72; border: 1px solid rgba(248,81,73,.4); }
-  .p-high { background: rgba(210,153,34,.16); color: #e3b341; border: 1px solid rgba(210,153,34,.4); }
-  .p-med { background: rgba(47,129,247,.16); color: #79b8ff; border: 1px solid rgba(47,129,247,.4); }
-  .p-low { background: rgba(139,148,158,.14); color: #adbac7; border: 1px solid rgba(139,148,158,.3); }
-  .p-none { background: rgba(110,118,129,.12); color: var(--txt-faint); border: 1px solid #30363d; }
-
-  /* D3 機密 */
-  .card.d3 .compact-title, .card.hero.d3 .hero-title { color: var(--amber); font-style: italic; }
-
-  /* 健全性 chip */
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.76rem; font-weight: 600; color: var(--txt-dim);
-    background: var(--card); border: 1px solid var(--border); border-radius: 999px;
-    padding: 7px 12px;
-  }
-  .chip-ok { color: #aedcb6; }
-  .chip-warn { color: #e3b341; }
+  .row .chev { flex-shrink: 0; color: var(--txt-4); font-size: 1.1rem; line-height: 1; }
   .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-  .dot-ok { background: var(--green); box-shadow: 0 0 6px rgba(63,185,80,.7); }
+  .dot-urgent { background: var(--red); }
+  .dot-high { background: var(--amber); }
+  .dot-med { background: var(--blue); }
+  .dot-low { background: var(--grey-bar); }
+  .dot-none { background: #2c323b; }
+  .dot-ok { background: var(--green); }
   .dot-warn { background: var(--amber); }
-  .dot-info { background: var(--blue); }
 
-  /* 補助テキスト */
-  .collapse { font-size: 0.74rem; color: var(--txt-faint); padding: 11px 2px 0; margin-top: 4px; }
-  .ok { color: var(--green); font-size: 0.88rem; padding: 4px 2px; }
-  .warn { color: var(--amber); font-size: 0.88rem; padding: 4px 2px; }
-  .muted { color: var(--txt-faint); font-size: 0.85rem; padding: 4px 2px; }
-
-  /* point 7: デスクトップ — max-width 760px で黒余白過多を解消 */
-  @media (min-width: 620px) {
-    body { padding: 26px 24px 40px; max-width: 760px; }
-    h1 { font-size: 1.4rem; }
-    .hero-title { font-size: 1.42rem; }
+  /* TODAY = checkbox 風 (read-only なので装飾、原則10) */
+  .today-row .check {
+    width: 19px; height: 19px; border-radius: 6px; flex-shrink: 0;
+    border: 1.5px solid var(--border); background: transparent;
   }
-  /* point 7: 広い画面は 2 カラム (今やる / 健全性 は全幅、判断待ち + 代行 が横並び) */
-  @media (min-width: 900px) {
-    body { max-width: 980px; }
-    .grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px;
-      align-items: start;
+  .today-row .row-main { flex-direction: row; align-items: baseline; gap: 8px; }
+  .today-row .row-title { flex: 1; }
+
+  /* DECISIONS = 判断ボール (calm amber 左アクセント) */
+  .decision-row { padding-left: 16px; }
+  .decision-row .row-accent {
+    position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px;
+    border-radius: 0 2px 2px 0; background: var(--amber);
+  }
+  .decision-row.overdue .row-accent { background: var(--red); }
+  .decision-row .row-main { flex-direction: row; align-items: baseline; gap: 8px; }
+  .decision-row .row-title { flex: 1; }
+
+  /* DELEGATED = 委任 (穏やかな blue View ボタン) */
+  .delegate-row { padding-right: 10px; }
+  .row-main-link { text-decoration: none; color: var(--txt); }
+  .row-main-link:active { opacity: .65; }
+  .view-btn {
+    flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+    min-height: 34px; padding: 0 16px;
+    font-size: 0.8rem; font-weight: 600; text-decoration: none;
+    color: #9cc2f5; background: rgba(90,147,230,.12);
+    border: 1px solid rgba(90,147,230,.28); border-radius: 9px;
+  }
+  .view-btn:active { background: rgba(90,147,230,.2); }
+
+  /* D3 機密タイトル (amber、italic 廃止 → weight 差) */
+  .row.d3 .row-title { color: var(--amber); font-weight: 600; }
+
+  /* Later (折りたたみ残骸、原則8/9) */
+  .later { margin-top: 10px; }
+  .later > summary {
+    list-style: none; cursor: pointer; min-height: 36px;
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.8rem; color: var(--txt-3); padding-left: 2px;
+  }
+  .later > summary::-webkit-details-marker { display: none; }
+  .later > summary .chev { font-size: 1rem; color: var(--txt-4); }
+  .later[open] > summary .chev { transform: rotate(90deg); display: inline-block; }
+  .later-body { font-size: 0.76rem; color: var(--txt-3); padding: 8px 2px 0; line-height: 1.6; }
+
+  /* ---------- HEALTH (小 chip、常時 OK は subtle grey、原則3) ---------- */
+  .hchips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hchip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 0.74rem; font-weight: 500; color: var(--txt-3);
+    background: var(--surface-1); border: 1px solid var(--border-soft);
+    border-radius: 999px; padding: 7px 13px;
+  }
+  .hchip .hstate { color: var(--txt-2); font-weight: 600; }
+  .hchip.warnchip { border-color: rgba(214,164,76,.3); }
+  .hchip.warnchip .hstate { color: var(--amber); }
+  .dot-ok { background: var(--green); }
+  .health-line { font-size: 0.76rem; margin-top: 12px; padding-left: 2px; }
+  .ok-line { color: var(--green); opacity: .8; }
+  .warn-line { color: var(--amber); }
+
+  /* ---------- 状態テキスト ---------- */
+  .empty { color: var(--txt-3); font-size: 0.86rem; padding: 6px 2px; }
+  .warn { color: var(--amber); font-size: 0.86rem; padding: 6px 2px; }
+
+  /* ---------- デスクトップ (黒余白過多を抑える) ---------- */
+  @media (min-width: 620px) {
+    body { padding: 36px 28px 48px; max-width: 680px; }
+    h1 { font-size: 1.28rem; }
+    .focus-title { font-size: 1.5rem; }
+  }
+  @media (min-width: 920px) {
+    body { max-width: 940px; }
+    main {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; align-items: start;
     }
-    .section { margin-bottom: 22px; }
     .span-all { grid-column: 1 / -1; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .focus, .row { animation: rise .4s ease both; }
+    .row { animation-delay: calc(var(--i, 0) * 40ms); }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
   }
 </style>
 </head>
 <body>
 <header>
-  <h1>🏠 ジョニー ダッシュボード</h1>
-  <div class="updated">更新 2026-06-14 04:07 · Linear OK</div>
+  <h1>Johnny OS</h1>
+  <span class="badge">3</span>
 </header>
 
-<main class="grid">
+<main>
 <section class="section span-all">
-  <div class="section-head"><span class="emoji">🔥</span> 今やる <span class="sub">最優先の1手</span></div>
-  <article class="card hero"><div class="bar p-urgent-bar"></div><div class="card-body"><div class="hero-meta">High · システム整備</div><h3 class="hero-title">素子の英語混入（思考レベル）</h3><p class="hero-action">英語混入の恒久修正をテストで検証する</p><a class="btn btn-red" href="https://linear.app/johnny-os/issue/JON-72" target="_blank" rel="noopener">Linearで開く ↗</a></div></article><div class="cardlist"><a class="card compact" href="https://linear.app/johnny-os/issue/JON-53" target="_blank" rel="noopener"><div class="bar p-high-bar"></div><div class="card-body compact-body"><span class="compact-title">絶滅職種図鑑 グロース運用</span><span class="jid">JON-53</span></div><div class="card-right"><span class="pill p-high">High</span></div></a><a class="card compact" href="https://linear.app/johnny-os/issue/JON-55" target="_blank" rel="noopener"><div class="bar p-high-bar"></div><div class="card-body compact-body"><span class="compact-title">自律投稿基盤: ブランド専用Chromeプロファイル + keepalive +…</span><span class="jid">JON-55</span></div><div class="card-right"><span class="pill p-high">High</span></div></a><a class="card compact" href="https://linear.app/johnny-os/issue/JON-60" target="_blank" rel="noopener"><div class="bar p-high-bar"></div><div class="card-body compact-body"><span class="compact-title">既存 start-chrome-cdp.sh(9222)の --remote-a…</span><span class="jid">JON-60</span></div><div class="card-right"><span class="pill p-high">High</span></div></a></div>
-</section>
-
-<section class="section">
-  <div class="section-head"><span class="emoji">🟡</span> 判断待ち <span class="sub">ジョニーボール</span></div>
-  <div class="cardlist"><a class="card compact d3" href="https://linear.app/johnny-os/issue/JON-16" target="_blank" rel="noopener"><div class="bar p-high-bar"></div><div class="card-body compact-body"><span class="compact-title">報酬交渉案件</span><span class="jid">JON-16</span></div><div class="card-right"><span class="pill p-high">High</span></div></a><a class="card compact d3" href="https://linear.app/johnny-os/issue/JON-11" target="_blank" rel="noopener"><div class="bar p-high-bar"></div><div class="card-body compact-body"><span class="compact-title">住居トラブル案件</span><span class="jid">JON-11</span></div><div class="card-right"><span class="pill p-high">High</span></div></a><a class="card compact" href="https://linear.app/johnny-os/issue/JON-14" target="_blank" rel="noopener"><div class="bar p-low-bar"></div><div class="card-body compact-body"><span class="compact-title">MVP launch Meta 広告投下判定</span><span class="jid">JON-14</span></div><div class="card-right"><span class="pill p-low">Low</span></div></a></div><div class="collapse">📄 実体 handoff 1 件 (sec9 で確認) · 🗑 Linear 複製残骸 17 件 (掃除可)</div>
-</section>
-
-<section class="section">
-  <div class="section-head"><span class="emoji">🤖</span> 素子が代行 <span class="sub">「やって」で着手指示</span></div>
-  <div class="cardlist"><div class="card compact delegate"><div class="bar p-deleg-bar"></div><a class="card-body compact-body" href="https://linear.app/johnny-os/issue/JON-59" target="_blank" rel="noopener"><span class="compact-title">ループ通知</span><span class="compact-sub">グロースループの「完了」と「トラブル」をジョニーへ確実に届ける通知配線。現状ギャップ: 汎用基盤(Discord results…</span></a><div class="card-right"><a class="btn btn-blue" href="https://linear.app/johnny-os/issue/JON-59" target="_blank" rel="noopener">やって</a></div></div><div class="card compact delegate"><div class="bar p-deleg-bar"></div><a class="card-body compact-body" href="https://linear.app/johnny-os/issue/JON-54" target="_blank" rel="noopener"><span class="compact-title">X コピー A/Bテスト + 計測ループ(素子自律PM)</span><span class="compact-sub">固定ツイートのコピーを「机上で当てず、出して計測」する A/B ループ。</span></a><div class="card-right"><a class="btn btn-blue" href="https://linear.app/johnny-os/issue/JON-54" target="_blank" rel="noopener">やって</a></div></div><div class="card compact delegate"><div class="bar p-deleg-bar"></div><a class="card-body compact-body" href="https://linear.app/johnny-os/issue/JON-41" target="_blank" rel="noopener"><span class="compact-title">3 役 architecture daemon implementation (…</span><span class="compact-sub">ジョニー指示「バックグラウンドで体系ナレッジベース蓄積、『あれどうなった?』に 5 秒で返せる状態」+「他のシステム開発も進めて…</span></a><div class="card-right"><a class="btn btn-blue" href="https://linear.app/johnny-os/issue/JON-41" target="_blank" rel="noopener">やって</a></div></div><div class="card compact delegate"><div class="bar p-deleg-bar"></div><a class="card-body compact-body" href="https://linear.app/johnny-os/issue/JON-42" target="_blank" rel="noopener"><span class="compact-title">ウチコマ daemon Phase 1-3 (継続 ingest + Profi…</span><span class="compact-sub">CLAUDE.md 「改善役 (ウチコマ)」の実装。Gmail / Google Drive / Slack / Google…</span></a><div class="card-right"><a class="btn btn-blue" href="https://linear.app/johnny-os/issue/JON-42" target="_blank" rel="noopener">やって</a></div></div></div>
+  <div class="sec-label"><span class="ldot ldot-today"></span>Today's Focus</div>
+  <article class="focus"><div class="focus-accent"></div><div class="focus-body"><div class="focus-domain">システム</div><h2 class="focus-title">素子の英語混入（思考レベル）</h2><p class="focus-action">英語混入の恒久修正をテストで検証する</p><div class="focus-foot"><a class="focus-link" href="https://linear.app/johnny-os/issue/JON-72" target="_blank" rel="noopener"><span class="jid-mono">JON-72</span><span class="focus-open">Linearで開く<span class="chev">›</span></span></a></div></div></article>
+  <div class="summary"><span class="schip"><span class="sdot dot-decide"></span>判断 3</span><span class="schip-sep"></span><span class="schip"><span class="sdot dot-deleg"></span>委任 4</span><span class="schip-sep"></span><span class="schip schip-warn"><span class="sdot dot-warn"></span>要確認</span></div>
 </section>
 
 <section class="section span-all">
-  <div class="section-head"><span class="emoji">💓</span> 健全性</div>
-  <div class="chips"><span class="chip chip-ok"><span class="dot dot-ok"></span>daemon 正常</span><span class="chip chip-ok"><span class="dot dot-ok"></span>kill-switch オフ</span><span class="chip chip-warn"><span class="dot dot-warn"></span>監視 多 (19本/1h)</span><span class="chip chip-ok"><span class="dot dot-ok"></span>credit 正常</span></div>
+  <div class="sec-label"><span class="ldot ldot-today"></span>Today</div>
+  <div class="rows"><a class="row today-row" href="https://linear.app/johnny-os/issue/JON-53" target="_blank" rel="noopener"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">絶滅職種図鑑 グロース運用</span><span class="jid-mono">JON-53</span></span><span class="dot dot-high"></span><span class="chev">›</span></a><a class="row today-row" href="https://linear.app/johnny-os/issue/JON-55" target="_blank" rel="noopener"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">自律投稿基盤: ブランド専用Chromeプロファイル + keepalive + ウ…</span><span class="jid-mono">JON-55</span></span><span class="dot dot-high"></span><span class="chev">›</span></a><a class="row today-row" href="https://linear.app/johnny-os/issue/JON-60" target="_blank" rel="noopener"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">既存 start-chrome-cdp.sh(9222)の --remote-all…</span><span class="jid-mono">JON-60</span></span><span class="dot dot-high"></span><span class="chev">›</span></a></div><details class="later"><summary>Later<span class="chev">›</span></summary><div class="later-body">実体 handoff 1 件 (sec9 で確認) · Linear 複製残骸 17 件 (掃除可)</div></details>
+</section>
+
+<section class="section">
+  <div class="sec-label"><span class="ldot ldot-decide"></span>Decisions — Your Turn</div>
+  <div class="rows"><a class="row decision-row d3" href="https://linear.app/johnny-os/issue/JON-16" target="_blank" rel="noopener"><span class="row-accent"></span><span class="row-main"><span class="row-title">報酬交渉案件</span><span class="jid-mono">JON-16</span></span><span class="chev">›</span></a><a class="row decision-row d3" href="https://linear.app/johnny-os/issue/JON-11" target="_blank" rel="noopener"><span class="row-accent"></span><span class="row-main"><span class="row-title">住居トラブル案件</span><span class="jid-mono">JON-11</span></span><span class="chev">›</span></a><a class="row decision-row" href="https://linear.app/johnny-os/issue/JON-14" target="_blank" rel="noopener"><span class="row-accent"></span><span class="row-main"><span class="row-title">MVP launch Meta 広告投下判定</span><span class="jid-mono">JON-14</span></span><span class="chev">›</span></a></div>
+</section>
+
+<section class="section">
+  <div class="sec-label"><span class="ldot ldot-deleg"></span>Delegated — Offloaded</div>
+  <div class="rows"><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-59" target="_blank" rel="noopener"><span class="row-title">ループ通知</span><span class="row-sub">グロースループの「完了」と「トラブル」をジョニーへ確実に届ける通知配線。現状ギャップ: 汎用基盤(Discord results…</span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-59" target="_blank" rel="noopener">View</a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-54" target="_blank" rel="noopener"><span class="row-title">X コピー A/Bテスト + 計測ループ(素子自律PM)</span><span class="row-sub">固定ツイートのコピーを「机上で当てず、出して計測」する A/B ループ。</span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-54" target="_blank" rel="noopener">View</a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-41" target="_blank" rel="noopener"><span class="row-title">3 役 architecture daemon implementation (…</span><span class="row-sub">ジョニー指示「バックグラウンドで体系ナレッジベース蓄積、『あれどうなった?』に 5 秒で返せる状態」+「他のシステム開発も進めて…</span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-41" target="_blank" rel="noopener">View</a></div><div class="row delegate-row"><a class="row-main row-main-link" href="https://linear.app/johnny-os/issue/JON-42" target="_blank" rel="noopener"><span class="row-title">ウチコマ daemon Phase 1-3 (継続 ingest + Profi…</span><span class="row-sub">CLAUDE.md 「改善役 (ウチコマ)」の実装。Gmail / Google Drive / Slack / Google…</span></a><a class="view-btn" href="https://linear.app/johnny-os/issue/JON-42" target="_blank" rel="noopener">View</a></div></div>
+</section>
+
+<section class="section span-all">
+  <div class="sec-label"><span class="ldot ldot-health"></span>Health</div>
+  <div class="hchips"><span class="hchip"><span class="dot dot-ok"></span>daemon<span class="hstate">正常</span></span><span class="hchip"><span class="dot dot-ok"></span>kill-switch<span class="hstate">オフ</span></span><span class="hchip warnchip"><span class="dot dot-warn"></span>監視<span class="hstate">多 21/1h</span></span><span class="hchip"><span class="dot dot-ok"></span>credit<span class="hstate">正常</span></span></div><div class="health-line warn-line">一部 要確認</div>
 </section>
 </main>
+
+<footer style="margin-top:28px;font-size:0.68rem;color:var(--txt-4);padding-left:2px;">
+  更新 2026-06-14 04:12 · Linear OK
+</footer>
 
 <script>
 function copyCmd(el) {
@@ -238,6 +317,10 @@ document.querySelectorAll('.cmdbox').forEach(function(b) {
   b.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyCmd(b); }
   });
+});
+// staggered reveal index (原則10: 穏やかな page load)
+document.querySelectorAll('.rows').forEach(function(list) {
+  Array.prototype.forEach.call(list.children, function(row, i) { row.style.setProperty('--i', i); });
 });
 </script>
 </body>
