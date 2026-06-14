@@ -194,6 +194,24 @@
   }
   .row:hover { border-color: var(--border); background: var(--surface-2); }
   .row:active { border-color: var(--border); background: var(--surface-2); opacity: .85; }
+  /* B1: タップで Linear に飛ばず、その場に要点 (action_line) を展開 (情報ダイエット) */
+  .row-x { display: block; }
+  .row-x > summary { list-style: none; }
+  .row-x > summary::-webkit-details-marker { display: none; }
+  .row-x > summary > .chev { transition: transform .2s; }
+  .row-x[open] > summary { border-radius: 11px 11px 0 0; border-bottom: none; }
+  .row-x[open] > summary > .chev { transform: rotate(90deg); color: var(--txt-3); }
+  .row-detail {
+    padding: 9px 14px 11px 16px;
+    background: var(--surface-1); border: 1px solid var(--border-soft); border-top: none;
+    border-radius: 0 0 11px 11px;
+  }
+  .rd-action { font-size: 0.84rem; color: var(--txt-2); line-height: 1.5; margin-bottom: 7px; }
+  .rd-link {
+    display: inline-flex; align-items: center; gap: 3px; min-height: 28px;
+    font-size: 0.76rem; color: var(--txt-3); text-decoration: none;
+  }
+  .rd-link .chev { color: var(--txt-3); font-size: 0.95rem; }
   .row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
   .row-title {
     font-size: 0.9rem; font-weight: 500; line-height: 1.35; color: var(--txt);
@@ -233,7 +251,7 @@
   .today-row.done .dot { display: none; }
 
   /* DECISIONS = 判断ボール (calm amber 左アクセント) */
-  .decision-row { padding-left: 16px; }
+  .decision-row > summary { padding-left: 16px; }
   .decision-row .row-accent {
     position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px;
     border-radius: 0 2px 2px 0; background: var(--amber);
@@ -342,7 +360,7 @@
 
 <section class="section">
   <div class="sec-label"><span class="ldot ldot-decide"></span>あなた待ち — 判断・返答</div>
-  <div class="rows"><a class="row decision-row d3" href="https://linear.app/johnny-os/issue/JON-16" target="_blank" rel="noopener"><span class="row-accent"></span><span class="row-main"><span class="row-title">報酬交渉案件</span><span class="jid-mono">JON-16</span></span><span class="chev">›</span></a><a class="row decision-row d3" href="https://linear.app/johnny-os/issue/JON-11" target="_blank" rel="noopener"><span class="row-accent"></span><span class="row-main"><span class="row-title">住居トラブル案件</span><span class="jid-mono">JON-11</span></span><span class="chev">›</span></a><a class="row decision-row" href="https://linear.app/johnny-os/issue/JON-14" target="_blank" rel="noopener"><span class="row-accent"></span><span class="row-main"><span class="row-title">MVP launch Meta 広告投下判定</span><span class="jid-mono">JON-14</span></span><span class="chev">›</span></a></div>
+  <div class="rows"><details class="row-x decision-row d3"><summary class="row"><span class="row-accent"></span><span class="row-main"><span class="row-title">報酬交渉案件</span><span class="jid-mono">JON-16</span></span><span class="chev">›</span></summary><div class="row-detail"><p class="rd-action">報酬交渉の現況を確認し、次の一手を決める</p><a class="rd-link" href="https://linear.app/johnny-os/issue/JON-16" target="_blank" rel="noopener">Linear で開く<span class="chev">›</span></a></div></details><details class="row-x decision-row d3"><summary class="row"><span class="row-accent"></span><span class="row-main"><span class="row-title">住居トラブル案件</span><span class="jid-mono">JON-11</span></span><span class="chev">›</span></summary><div class="row-detail"><p class="rd-action">住居案件の判断待ち項目を確認 (詳細はLinear)</p><a class="rd-link" href="https://linear.app/johnny-os/issue/JON-11" target="_blank" rel="noopener">Linear で開く<span class="chev">›</span></a></div></details><details class="row-x decision-row"><summary class="row"><span class="row-accent"></span><span class="row-main"><span class="row-title">MVP launch Meta 広告投下判定</span><span class="jid-mono">JON-14</span></span><span class="chev">›</span></summary><div class="row-detail"><p class="rd-action">🆕 重要発見 (snoopy-rain worker 内): X 広告認証マーク要件 (青/金、新規取得 2-4 週間) = S…</p><a class="rd-link" href="https://linear.app/johnny-os/issue/JON-14" target="_blank" rel="noopener">Linear で開く<span class="chev">›</span></a></div></details></div>
 </section>
 
 <section class="section">
@@ -352,12 +370,12 @@
 
 <details class="more">
   <summary><span class="ldot ldot-today"></span>今日の残り<span class="chev">›</span></summary>
-  <div class="rows"><a class="row today-row" href="https://linear.app/johnny-os/issue/JON-74" target="_blank" rel="noopener"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">宿泊ビジネス図鑑 No.001 グランピング</span><span class="jid-mono">JON-74</span></span><span class="dot dot-high"></span><span class="chev">›</span></a><a class="row today-row" href="https://linear.app/johnny-os/issue/JON-53" target="_blank" rel="noopener"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">絶滅職種図鑑 グロース運用</span><span class="jid-mono">JON-53</span></span><span class="dot dot-high"></span><span class="chev">›</span></a><a class="row today-row" href="https://linear.app/johnny-os/issue/JON-55" target="_blank" rel="noopener"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">自律投稿基盤: ブランド専用Chromeプロファイル + keepalive + ウ…</span><span class="jid-mono">JON-55</span></span><span class="dot dot-high"></span><span class="chev">›</span></a></div><details class="later"><summary>Later<span class="chev">›</span></summary><div class="later-body">実体 handoff 1 件 (sec9 で確認) · Linear 複製残骸 17 件 (掃除可)</div></details>
+  <div class="rows"><details class="row-x today-row"><summary class="row"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">宿泊ビジネス図鑑 No.001 グランピング</span><span class="jid-mono">JON-74</span></span><span class="dot dot-high"></span><span class="chev">›</span></summary><div class="row-detail"><p class="rd-action">縦軸（1業態を深く解剖）派生IP。ラーメン屋図鑑（JON-69）の実証テンプレ（priced specimen 型：無料記事→有…</p><a class="rd-link" href="https://linear.app/johnny-os/issue/JON-74" target="_blank" rel="noopener">Linear で開く<span class="chev">›</span></a></div></details><details class="row-x today-row"><summary class="row"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">絶滅職種図鑑 グロース運用</span><span class="jid-mono">JON-53</span></span><span class="dot dot-high"></span><span class="chev">›</span></summary><div class="row-detail"><p class="rd-action">第1章 note 公開 + X ブランド垢ローンチ完了(2026-06-02)を起点に、絶滅職種図鑑を KPI 駆動の改善ループ…</p><a class="rd-link" href="https://linear.app/johnny-os/issue/JON-53" target="_blank" rel="noopener">Linear で開く<span class="chev">›</span></a></div></details><details class="row-x today-row"><summary class="row"><span class="check" aria-hidden="true"></span><span class="row-main"><span class="row-title">自律投稿基盤: ブランド専用Chromeプロファイル + keepalive + ウ…</span><span class="jid-mono">JON-55</span></span><span class="dot dot-high"></span><span class="chev">›</span></summary><div class="row-detail"><p class="rd-action">素子が「常時いつでも投稿可」になる基盤。security-auditor 審査済(2026-06-02、⚠要修正→GO条件確定)…</p><a class="rd-link" href="https://linear.app/johnny-os/issue/JON-55" target="_blank" rel="noopener">Linear で開く<span class="chev">›</span></a></div></details></div><details class="later"><summary>Later<span class="chev">›</span></summary><div class="later-body">実体 handoff 1 件 (sec9 で確認) · Linear 複製残骸 17 件 (掃除可)</div></details>
 </details>
 </main>
 
 <footer style="margin-top:16px;font-size:0.68rem;color:var(--txt-3);padding-left:2px;">
-  更新 2026-06-14 15:23 · Linear OK
+  更新 2026-06-14 15:28 · Linear OK
 </footer>
 
 <script>
