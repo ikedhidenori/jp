@@ -16,8 +16,8 @@
     --border-soft: #1d2128;
     --txt: #e8ebf0;           /* タイトル (off-white、純白を避ける) */
     --txt-2: #aab1bd;         /* 本文 dim */
-    --txt-3: #6b7280;         /* meta / faint */
-    --txt-4: #4d545e;         /* uppercase section label */
+    --txt-3: #828a99;         /* meta / faint */
+    --txt-4: #626a76;         /* uppercase section label */
     --red: #f0635a;           /* overdue 専用 (原則2) */
     --amber: #d6a44c;         /* high / 判断ボール (calm) */
     --blue: #5a93e6;          /* med / 委任 */
@@ -56,8 +56,8 @@
   .section:last-child { margin-bottom: 0; }
   .sec-label {
     display: flex; align-items: center; gap: 8px;
-    font-size: 0.7rem; font-weight: 700; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--txt-4);
+    font-size: 0.75rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--txt-3);
     margin-bottom: 12px; padding-left: 2px;
   }
   .sec-label .ldot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
@@ -118,7 +118,7 @@
   }
   .cmdbox:active { background: #090a0e; }
   .cmdbox code { flex: 1; font-size: 0.76rem; color: #9aa3b0; overflow-x: auto; white-space: nowrap; }
-  .cmdbox .copyicon { font-size: 0.7rem; color: var(--txt-4); flex-shrink: 0; letter-spacing: .04em; }
+  .cmdbox .copyicon { font-size: 0.7rem; color: var(--txt-3); flex-shrink: 0; letter-spacing: .04em; }
   .cmdbox.copied { border-color: var(--green); }
   .cmdbox.copied .copyicon { color: var(--green); }
   .cmdbox.copied .copyicon::after { content: " 済"; }
@@ -314,8 +314,8 @@
 </section>
 </main>
 
-<footer style="margin-top:28px;font-size:0.68rem;color:var(--txt-4);padding-left:2px;">
-  更新 2026-06-14 12:47 · Linear OK
+<footer style="margin-top:28px;font-size:0.68rem;color:var(--txt-3);padding-left:2px;">
+  更新 2026-06-14 12:52 · Linear OK
 </footer>
 
 <script>
