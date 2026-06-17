@@ -954,7 +954,7 @@ function addImpactVector() {
   sp.scale.set(4.5, 0.85, 1);
   sp.position.set(0.7, 1.5, 0);
   arrowGroup.add(sp);
-  arrowGroup.position.set(-2.0, 0, -0.5);
+  arrowGroup.position.set(-3.247, 0, -2.985);  // V16: 新B位置(衝突点近傍)に追従
   // 衝突瞬間のみ表示するため、初期非表示
   arrowGroup.visible = false;
   scene.add(arrowGroup);
@@ -1068,9 +1068,10 @@ function setCarB(t) {
 // === 視点 ===
 let cameraMode = 'overhead';
 const camPresets = {
-  overhead: { pos: [0, 50, 20], target: [-1, 0, -8] },
-  guide:    { pos: [2.0, 1.7, 2], target: [-1.5, 0.5, -10] },
-  cinema:   { pos: [18, 18, -10], target: [-1, 1, -8] },
+  // V16: 新衝突点 (-0.57, -2.6) に target を追従 (A 右後リアドア下部 = B 左前コーナー)
+  overhead: { pos: [0, 50, 5], target: [-1.5, 0, -2.5] },
+  guide:    { pos: [2.0, 1.7, 5], target: [-1.5, 0.5, -2.5] },
+  cinema:   { pos: [14, 14, 5], target: [-1.5, 1, -2.5] },
 };
 
 function applyPreset(name) {
