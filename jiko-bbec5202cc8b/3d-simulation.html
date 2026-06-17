@@ -59,14 +59,15 @@
 
 <div id="ui">
   <span class="toggle" onclick="document.getElementById('ui').classList.toggle('collapsed')">⊖</span>
-  <h1>事故 3D V11(訂正版)</h1>
+  <h1>事故 3D V12(ドラレコ SSOT)</h1>
   <p style="color:#ffd54f">座標: 35.7879444N, 139.6845833E ✓</p>
   <p>2026-06-11 09:28:18.5 (PCM 飽和 32768)</p>
   <p>本線=南北優先 / 脇道=<strong>西側</strong>(一時停止)</p>
   <p>左側通行: 南行き=<strong>東側</strong>(A 本来=左車線)</p>
-  <p class="stat">★ B は一時停止後 ずっと静止していた</p>
-  <p class="stat">★ A が②交差点 通過中に B が突発右折</p>
-  <p class="stat">★ B フロント右が A 右側面と並行擦り</p>
+  <p class="stat">★ A は終始東側車線(本来車線)で南進、車線変更なし</p>
+  <p class="stat">★ B は脇道で停止 → A が②通過中に突発右折</p>
+  <p class="stat">★ B は衝突瞬間まで両ドラレコ死角(A 右真横)</p>
+  <p class="stat">★ 衝突 t=2.5s (09:28:18.5)、PCM 飽和が唯一の物理証拠</p>
   <p>A: 国産SUV (4.71×1.86m)</p>
   <p>B: 輸入SUV (5.02×2.01m)</p>
   <p class="hint">▼ 緑ボタン=一人称ランスルー / 衝突で自動停止 → ドラッグで視点グリグリ</p>
@@ -857,8 +858,8 @@ function makeStarMarker(x, z, label) {
   sp.renderOrder = 998;
   scene.add(sp);
 }
-// 分析班仕様: 衝突地点 (-0.5, 1.5) 本線中央付近、擦り合い接触
-makeStarMarker(-0.5, 1.5, '★ 衝突 09:28:18.5 (擦り合い)');
+// ドラレコ SSOT: 衝突地点 (2.6, -2.25) 東側車線・②内、A 右側面 (中央〜後部) と B フロント左コーナーが擦り
+makeStarMarker(2.6, -2.25, '★ 衝突 09:28:18.5 (A 右側面 + B フロント左)');
 
 // =========================================================================
 // アニメーション
@@ -867,39 +868,37 @@ function lerp(a, b, t) { return a + (b - a) * t; }
 function smooth(t) { return t * t * (3 - 2 * t); }
 function clamp(t, lo, hi) { return Math.max(lo, Math.min(hi, t)); }
 
-const COLLISION_TIME = 3.1;
+const COLLISION_TIME = 2.5; // ドラレコ SSOT: 09:28:18.5 (before_collision t=0 起点で +2.5s)
 
-// 分析班仕様 JSON のキーフレームを Catmull-Rom curve で滑らかに補間
+// ドラレコ分析班 SSOT: A は終始東側車線、車線変更なし、緩やか減速
 const A_keyframes = [
-  { t: 0.0, x: 1.5,  z: -18.0, heading: 0.0 },
-  { t: 0.5, x: 1.5,  z: -15.9, heading: 0.0 },
-  { t: 1.0, x: 1.3,  z: -13.8, heading: -0.15 },
-  { t: 1.5, x: 0.7,  z: -11.5, heading: -0.30 },
-  { t: 2.0, x: -0.2, z: -9.0,  heading: -0.25 },
-  { t: 2.5, x: -0.9, z: -6.2,  heading: -0.10 },
-  { t: 3.0, x: -1.2, z: -3.0,  heading: 0.0 },
-  { t: 3.1, x: -1.2, z: 1.5,   heading: 0.0 },
-  { t: 4.0, x: -1.2, z: 4.5,   heading: 0.0 },
-  { t: 5.0, x: -1.2, z: 6.0,   heading: 0.0 }
+  { t: 0.0, x: 2.0,  z: -25.0, heading: 0.0 },  // before_collision (09:28:16)
+  { t: 0.5, x: 2.05, z: -20.5, heading: 0.0 },
+  { t: 1.0, x: 2.1,  z: -16.0, heading: 0.0 },
+  { t: 1.5, x: 2.13, z: -12.0, heading: 0.0 },  // 減速開始
+  { t: 2.0, x: 2.17, z: -7.5,  heading: 0.0 },
+  { t: 2.4, x: 2.2,  z: -3.0,  heading: 0.0 },  // right_before (09:28:18.4)
+  { t: 2.5, x: 2.3,  z: -2.0,  heading: 0.0 },  // ★ 衝突 (09:28:18.5)
+  { t: 2.8, x: 2.3,  z: -1.6,  heading: 0.0 },
+  { t: 3.5, x: 2.3,  z: -1.0,  heading: 0.0 },  // stopped (09:28:19.5)
+  { t: 5.0, x: 2.3,  z: 0.0,   heading: 0.0 }
 ];
 
-// B 軌跡 (訂正: 静止していて、A が交差点通過中に突発右折):
-//  t=0.0〜1.8 東進(減速)、t=1.8〜2.7 完全静止、t=2.7〜3.1 突発右折(A 通過中)、t=3.1 衝突
+// B 軌跡 (ドラレコ + ジョニー体験統合): 西脇道で停止 → A 通過中に突発右折 → 東側車線で A 右側面と擦り合い
+//   ドラレコ SSOT: B は衝突瞬間まで両カメラ死角、衝突は t=2.5、A 右側面と並行擦り、B 衝突姿勢 = ほぼ南向き
 const B_keyframes = [
-  { t: 0.0, x: -15.0, z: 0.0, heading: Math.PI / 2 },   // 東向き
-  { t: 0.5, x: -12.5, z: 0.0, heading: Math.PI / 2 },
-  { t: 1.0, x: -9.0,  z: 0.0, heading: Math.PI / 2 },
-  { t: 1.5, x: -5.0,  z: 0.0, heading: Math.PI / 2 },
-  { t: 1.8, x: -3.5,  z: 0.0, heading: Math.PI / 2 },   // 停止線到達、停止
-  { t: 2.0, x: -3.5,  z: 0.0, heading: Math.PI / 2 },   // 静止中 (A 交差点侵入)
-  { t: 2.5, x: -3.5,  z: 0.0, heading: Math.PI / 2 },   // ★ まだ静止 (A が交差点中央通過中)
-  { t: 2.7, x: -3.4,  z: 0.05, heading: 1.45 },         // ★ 突発発進 (A 通過中なのに右折開始)
-  { t: 2.9, x: -2.0,  z: 0.8, heading: 1.0 },           // 急加速右折
-  { t: 3.0, x: -0.8,  z: 1.8, heading: 0.6 },
-  { t: 3.1, x: 0.3,   z: 2.8, heading: 0.2 },           // 衝突: ほぼ南向き、A と並行擦り
-  { t: 3.5, x: 0.8,   z: 4.2, heading: 0.1 },
-  { t: 4.0, x: 1.0,   z: 5.5, heading: 0.05 },
-  { t: 5.0, x: 1.2,   z: 7.0, heading: 0.0 }
+  { t: 0.0, x: -10.0, z: -1.0, heading: Math.PI / 2 },  // 西脇道で東進
+  { t: 0.5, x: -7.5,  z: -1.0, heading: Math.PI / 2 },  // 減速
+  { t: 1.0, x: -5.0,  z: -1.0, heading: Math.PI / 2 },
+  { t: 1.3, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // 停止線到達、完全停止
+  { t: 1.8, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // ★ 静止中 (A 交差点侵入観察)
+  { t: 2.0, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // ★ まだ静止
+  { t: 2.1, x: -3.4,  z: -0.9, heading: 1.45 },         // ★ 突発発進 (A 通過中なのに右折開始)
+  { t: 2.3, x: -1.5,  z: -1.0, heading: 1.0 },          // 急加速右折カーブ
+  { t: 2.5, x: 1.5,   z: -2.0, heading: 0.3 },          // ★ 衝突: A の右側面 (x=2.3) に擦り、ほぼ南向き
+  { t: 2.8, x: 2.0,   z: -1.0, heading: 0.1 },          // 衝突後 A と並走停止へ
+  { t: 3.5, x: 2.2,   z: 0.5,  heading: 0.0 },          // stopped: B は A の真後ろやや右
+  { t: 5.0, x: 2.2,   z: 1.5,  heading: 0.0 }           // identification: ナンバー読める距離
 ];
 
 // キーフレーム間の滑らかな補間 (Catmull-Rom-like、cubic Hermite)
