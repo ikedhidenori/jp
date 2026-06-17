@@ -2,45 +2,55 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>事故 3D シミュレーション V16 — 板橋区坂下3丁目 (ground truth 反映)</title>
 <style>
   :root { color-scheme: dark; }
-  html, body { margin: 0; padding: 0; height: 100%; background: #0a0c10; color: #e8eaed; font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; overflow: hidden; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0a0c10; color: #e8eaed; font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; overflow: hidden; -webkit-text-size-adjust: 100%; }
   #scene { position: fixed; inset: 0; }
-  #ui { position: fixed; top: 12px; left: 12px; background: rgba(0,0,0,.78); padding: 14px 16px; border-radius: 10px; max-width: 380px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 4px 20px rgba(0,0,0,.4); transition: all .3s ease; }
-  #ui.collapsed { max-width: 140px; padding: 8px 12px; }
+  #scene canvas { touch-action: none; -webkit-user-select: none; user-select: none; }
+  #ui { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: calc(12px + env(safe-area-inset-left, 0px)); background: rgba(0,0,0,.78); padding: 14px 16px; border-radius: 10px; max-width: 380px; max-height: 65vh; overflow-y: auto; -webkit-overflow-scrolling: touch; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 4px 20px rgba(0,0,0,.4); transition: all .3s ease; }
+  #ui.collapsed { max-width: 160px; padding: 8px 12px; max-height: none; overflow: visible; }
   #ui.collapsed > *:not(h1):not(.toggle) { display: none; }
-  #ui .toggle { position: absolute; top: 8px; right: 10px; cursor: pointer; color: #ffd54f; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; }
+  #ui .toggle { position: absolute; top: 6px; right: 8px; cursor: pointer; color: #ffd54f; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); padding: 8px 12px; border-radius: 4px; font-size: 16px; font-weight: bold; min-width: 44px; min-height: 36px; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   #ui .toggle:hover { background: rgba(255,255,255,.15); }
-  #ui h1 { font-size: 14px; margin: 0 0 8px; color: #ffd54f; padding-right: 36px; }
+  #ui h1 { font-size: 14px; margin: 0 0 8px; color: #ffd54f; padding-right: 56px; }
   #ui h1 .sub { display: block; font-size: 10px; color: #c5cdd6; font-weight: normal; margin-top: 3px; }
   #ui p { font-size: 11px; margin: 4px 0; line-height: 1.55; color: #c5cdd6; }
   #ui .stat { color: #ff7775; font-weight: bold; }
   #ui .ok { color: #66d9a3; font-weight: bold; }
-  #controls { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.82); padding: 10px 16px; border-radius: 10px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); }
-  button { background: linear-gradient(180deg, #4054b8, #3949ab); color: white; border: 1px solid rgba(255,255,255,.1); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: inherit; transition: all .15s; }
+  #controls { position: fixed; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.82); padding: 10px 16px; border-radius: 10px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); max-width: calc(100vw - 28px); box-sizing: border-box; }
+  button { background: linear-gradient(180deg, #4054b8, #3949ab); color: white; border: 1px solid rgba(255,255,255,.1); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: inherit; transition: all .15s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   button:hover { background: linear-gradient(180deg, #5c6bc0, #4054b8); transform: translateY(-1px); }
   button.active { background: linear-gradient(180deg, #ff7775, #d93025); }
   button.runthrough { background: linear-gradient(180deg, #43a047, #2e7d32); }
   button.runthrough.active { background: linear-gradient(180deg, #ff7775, #d93025); }
   #time { color: #ffd54f; font-size: 12px; min-width: 90px; text-align: center; font-weight: bold; padding: 6px 10px; background: rgba(0,0,0,.5); border-radius: 4px; }
-  #compass { position: fixed; top: 14px; right: 14px; background: rgba(0,0,0,.7); padding: 10px; border-radius: 50%; width: 96px; height: 96px; display: flex; align-items: center; justify-content: center; font-size: 11px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); }
+  #compass { position: fixed; top: calc(14px + env(safe-area-inset-top, 0px)); right: calc(14px + env(safe-area-inset-right, 0px)); background: rgba(0,0,0,.7); padding: 10px; border-radius: 50%; width: 96px; height: 96px; display: flex; align-items: center; justify-content: center; font-size: 11px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); }
   #compass .n { position: absolute; top: 4px; color: #ff7775; font-weight: bold; font-size: 15px; }
   #compass .s { position: absolute; bottom: 4px; color: #bbc; font-weight: bold; font-size: 15px; }
   #compass .w { position: absolute; left: 6px; color: #bbc; font-weight: bold; font-size: 15px; }
   #compass .e { position: absolute; right: 6px; color: #bbc; font-weight: bold; font-size: 15px; }
   #compass .arrow { position: absolute; top: 50%; left: 50%; width: 4px; height: 36px; background: linear-gradient(to bottom, #ff7775 50%, #666 50%); transform: translate(-50%, -50%); border-radius: 2px; }
-  #legend { position: fixed; bottom: 100px; right: 14px; background: rgba(0,0,0,.7); padding: 12px 14px; border-radius: 8px; font-size: 11px; line-height: 1.7; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); transition: all .3s ease; }
-  #legend.collapsed { padding: 6px 10px; }
+  #legend { position: fixed; bottom: calc(100px + env(safe-area-inset-bottom, 0px)); right: calc(14px + env(safe-area-inset-right, 0px)); background: rgba(0,0,0,.7); padding: 12px 14px; border-radius: 8px; font-size: 11px; line-height: 1.7; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); transition: all .3s ease; max-height: 50vh; overflow-y: auto; }
+  #legend.collapsed { padding: 6px 10px; max-height: none; overflow: visible; }
   #legend.collapsed > div:not(.toggle) { display: none; }
-  #legend .toggle { cursor: pointer; color: #ffd54f; padding: 2px 6px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 4px; font-size: 12px; font-weight: bold; text-align: center; margin-bottom: 6px; }
+  #legend .toggle { cursor: pointer; color: #ffd54f; padding: 8px 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 4px; font-size: 14px; font-weight: bold; text-align: center; margin-bottom: 6px; min-height: 36px; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  /* === iPhone / モバイル対応 (Apple HIG タッチターゲット 44pt) === */
   @media (max-width: 720px) {
-    #ui { max-width: 300px; font-size: 11px; }
-    #ui.collapsed { max-width: 110px; }
-    #legend { font-size: 10px; bottom: 110px; }
-    #controls { padding: 8px 10px; gap: 6px; }
-    button { padding: 6px 10px; font-size: 11px; }
+    #ui { max-width: 280px; max-height: 55vh; }
+    #ui.collapsed { max-width: 130px; max-height: none; }
+    #ui h1 { font-size: 15px; padding-right: 60px; }
+    #ui p { font-size: 13px; line-height: 1.5; margin: 5px 0; }
+    #legend { font-size: 12px; bottom: calc(110px + env(safe-area-inset-bottom, 0px)); max-width: 200px; line-height: 1.6; }
+    #controls { padding: 10px 12px; gap: 10px; }
+    button { min-height: 44px; padding: 10px 14px; font-size: 13px; }
+    #time { min-height: 44px; font-size: 13px; min-width: 80px; padding: 10px 10px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
+    #compass { width: 80px; height: 80px; padding: 8px; }
+  }
+  @media (max-width: 720px) and (orientation: landscape) {
+    #ui { max-width: 240px; max-height: 78vh; }
+    #legend { max-height: 60vh; bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
   }
   .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; margin-right: 7px; }
   #collision-banner { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #ff5757, #d93025); color: #fff; padding: 22px 32px; border-radius: 14px; font-size: 20px; font-weight: bold; display: none; z-index: 100; box-shadow: 0 12px 40px rgba(217,48,37,.5); border: 2px solid rgba(255,255,255,.2); }
@@ -1205,13 +1215,33 @@ setTimeout(() => {
   document.getElementById('loading').classList.add('hidden');
 }, 600);
 
+// resize debounce (iOS Safari アドレスバー伸縮ノイズ吸収、150ms)
+let resizeTimer = null;
+let lastResizeW = window.innerWidth;
+let lastResizeH = window.innerHeight;
 window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  composer.setSize(window.innerWidth, window.innerHeight);
-  bloomPass.resolution.set(window.innerWidth, window.innerHeight);
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    // 微小な変化 (アドレスバー伸縮: 幅変化なし + 高さ ≤ 80px) は無視
+    if (Math.abs(w - lastResizeW) < 8 && Math.abs(h - lastResizeH) < 80) return;
+    lastResizeW = w;
+    lastResizeH = h;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+    composer.setSize(w, h);
+    bloomPass.resolution.set(w, h);
+  }, 150);
 });
+
+// モバイル時 UI を初期 collapsed (画面遮蔽を最小化、L181 で setPixelRatio cap 済)
+if (window.innerWidth <= 720) {
+  document.getElementById('ui').classList.add('collapsed');
+  const legend = document.getElementById('legend');
+  if (legend) legend.classList.add('collapsed');
+}
 </script>
 </body>
 </html>
