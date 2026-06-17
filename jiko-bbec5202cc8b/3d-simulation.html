@@ -3,19 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>事故 3D シミュレーション V9 — 板橋区坂下3丁目</title>
+<title>事故 3D シミュレーション V14 — 板橋区坂下3丁目 (ground truth 反映)</title>
 <style>
   :root { color-scheme: dark; }
   html, body { margin: 0; padding: 0; height: 100%; background: #0a0c10; color: #e8eaed; font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; overflow: hidden; }
   #scene { position: fixed; inset: 0; }
-  #ui { position: fixed; top: 12px; left: 12px; background: rgba(0,0,0,.78); padding: 14px 16px; border-radius: 10px; max-width: 360px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 4px 20px rgba(0,0,0,.4); transition: all .3s ease; }
+  #ui { position: fixed; top: 12px; left: 12px; background: rgba(0,0,0,.78); padding: 14px 16px; border-radius: 10px; max-width: 380px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 4px 20px rgba(0,0,0,.4); transition: all .3s ease; }
   #ui.collapsed { max-width: 140px; padding: 8px 12px; }
   #ui.collapsed > *:not(h1):not(.toggle) { display: none; }
   #ui .toggle { position: absolute; top: 8px; right: 10px; cursor: pointer; color: #ffd54f; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; }
   #ui .toggle:hover { background: rgba(255,255,255,.15); }
   #ui h1 { font-size: 14px; margin: 0 0 8px; color: #ffd54f; padding-right: 36px; }
+  #ui h1 .sub { display: block; font-size: 10px; color: #c5cdd6; font-weight: normal; margin-top: 3px; }
   #ui p { font-size: 11px; margin: 4px 0; line-height: 1.55; color: #c5cdd6; }
   #ui .stat { color: #ff7775; font-weight: bold; }
+  #ui .ok { color: #66d9a3; font-weight: bold; }
   #controls { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.82); padding: 10px 16px; border-radius: 10px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); }
   button { background: linear-gradient(180deg, #4054b8, #3949ab); color: white; border: 1px solid rgba(255,255,255,.1); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: inherit; transition: all .15s; }
   button:hover { background: linear-gradient(180deg, #5c6bc0, #4054b8); transform: translateY(-1px); }
@@ -34,7 +36,7 @@
   #legend.collapsed > div:not(.toggle) { display: none; }
   #legend .toggle { cursor: pointer; color: #ffd54f; padding: 2px 6px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 4px; font-size: 12px; font-weight: bold; text-align: center; margin-bottom: 6px; }
   @media (max-width: 720px) {
-    #ui { max-width: 280px; font-size: 11px; }
+    #ui { max-width: 300px; font-size: 11px; }
     #ui.collapsed { max-width: 110px; }
     #legend { font-size: 10px; bottom: 110px; }
     #controls { padding: 8px 10px; gap: 6px; }
@@ -55,19 +57,21 @@
 <div id="loading"><div class="spinner"></div></div>
 <div id="scene"></div>
 
-<div id="collision-banner">★ 衝突 09:28:18.5<br><span style="font-size:14px;font-weight:normal">ドラッグで視点回転 → 相手車の状態確認</span></div>
+<div id="collision-banner">★ 衝突 09:28:18.5<br><span style="font-size:14px;font-weight:normal">B左前コーナー × A右後方側面 (リアドア下部)</span></div>
 
 <div id="ui">
   <span class="toggle" onclick="document.getElementById('ui').classList.toggle('collapsed')">⊖</span>
-  <h1>事故 3D V12(ドラレコ SSOT)</h1>
+  <h1>事故 3D V14 (ground truth + Round2 物理整合)
+    <span class="sub">B 完全静止 + A 車線変更完了 + 直角寄り点接触</span>
+  </h1>
   <p style="color:#ffd54f">座標: 35.7879444N, 139.6845833E ✓</p>
   <p>2026-06-11 09:28:18.5 (PCM 飽和 32768)</p>
-  <p>本線=南北優先 / 脇道=<strong>西側</strong>(一時停止)</p>
-  <p>左側通行: 南行き=<strong>東側</strong>(A 本来=左車線)</p>
-  <p class="stat">★ A は終始東側車線(本来車線)で南進、車線変更なし</p>
-  <p class="stat">★ B は脇道で停止 → A が②通過中に突発右折</p>
-  <p class="stat">★ B は衝突瞬間まで両ドラレコ死角(A 右真横)</p>
-  <p class="stat">★ 衝突 t=2.5s (09:28:18.5)、PCM 飽和が唯一の物理証拠</p>
+  <p>本線=南北 / 脇道=<strong>西側</strong>(一時停止) / 中央線=争いあり</p>
+  <p class="ok">★ A: 工事帯回避のため車線変更<strong>完了済</strong>で南進 (西側)、~12 km/h</p>
+  <p class="ok">★ B: 脇道で<strong>完全停止</strong>、衝突瞬間に右折初動のみ (まだ曲がりきっていない)</p>
+  <p class="stat">★ 接触: B左前コーナー × A右後方側面 (リアフェンダー〜リアドア下部)</p>
+  <p class="stat">★ B が横方向に突っ込んだ力 → A リアドア下部に食い込む凹み (後輪・ホイール無傷)</p>
+  <p class="stat">★ 並走擦過ではなく、直角寄り (約 75°) の点接触</p>
   <p>A: 国産SUV (4.71×1.86m)</p>
   <p>B: 輸入SUV (5.02×2.01m)</p>
   <p class="hint">▼ 緑ボタン=一人称ランスルー / 衝突で自動停止 → ドラッグで視点グリグリ</p>
@@ -87,12 +91,13 @@
   <div><span class="sw" style="background:#f9ab00;border-radius:50%"></span>誘導員</div>
   <div><span class="sw" style="background:#fff;clip-path:polygon(50% 0,100% 100%,0 100%)"></span>一時停止標識</div>
   <div><span class="sw" style="background:#d93025;border-radius:50%"></span>★衝突地点</div>
+  <div><span class="sw" style="background:rgba(26,115,232,0.45)"></span>A 車線変更履歴 (事故前完了)</div>
 </div>
 
 <div id="controls">
   <button id="cam-overhead" class="active">上空</button>
-  <button id="cam-johnny-fp" class="runthrough">A 一人称</button>
-  <button id="cam-shibata-fp" class="runthrough">B 一人称</button>
+  <button id="cam-a-fp" class="runthrough">A 一人称</button>
+  <button id="cam-b-fp" class="runthrough">B 一人称</button>
   <button id="cam-guide">誘導員視点</button>
   <button id="cam-cinema">シネマ</button>
   <button id="play">▶ 再生</button>
@@ -120,6 +125,15 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 // =========================================================================
 // 座標系: X=東(+)/西(-), Z=南(+)/北(-), Y=上(+) / 左側通行
 // =========================================================================
+// ground truth (V14 改訂):
+//   1. B 車は衝突瞬間に静止していた (右折開始位置、まだ曲がっていない)
+//   2. A は車線変更を完了した状態で南進
+//   3. 接触: B左前コーナー × A右後方側面 (リアフェンダー〜リアドア下部)
+//   4. A 損傷=後輪・ホイール無傷、リアドア下部の食い込み凹み
+//   5. B が横方向に突っ込んだ力が損傷を支配的に作った
+//   6. 直角に近い角度 (約 75°) の点接触で凹み
+//   7. A は北→南、~10-15 km/h、本来車線=東側 (工事回避で西側へ車線変更済)
+// =========================================================================
 
 const scene = new THREE.Scene();
 
@@ -129,12 +143,11 @@ const skyCanvas = document.createElement('canvas');
 skyCanvas.width = 256; skyCanvas.height = 512;
 const skyCtx = skyCanvas.getContext('2d');
 const skyGrad = skyCtx.createLinearGradient(0, 0, 0, 512);
-skyGrad.addColorStop(0, '#74a4d4');   // 上空
-skyGrad.addColorStop(0.55, '#bcd5ea'); // 中
-skyGrad.addColorStop(1, '#e8eef4');   // 地平線
+skyGrad.addColorStop(0, '#74a4d4');
+skyGrad.addColorStop(0.55, '#bcd5ea');
+skyGrad.addColorStop(1, '#e8eef4');
 skyCtx.fillStyle = skyGrad;
 skyCtx.fillRect(0, 0, 256, 512);
-// 薄い雲
 skyCtx.fillStyle = 'rgba(255,255,255,0.35)';
 for (let i = 0; i < 12; i++) {
   const cx = Math.random() * 256, cy = 30 + Math.random() * 120;
@@ -192,7 +205,6 @@ sun.shadow.bias = -0.0008;
 sun.shadow.radius = 4;
 scene.add(sun);
 
-// 補助光
 const fill = new THREE.DirectionalLight(0xc8dcf0, 0.35);
 fill.position.set(-30, 25, -20);
 scene.add(fill);
@@ -204,7 +216,6 @@ function makeAsphaltTexture() {
   const ctx = c.getContext('2d');
   ctx.fillStyle = '#3a3a3c';
   ctx.fillRect(0, 0, 512, 512);
-  // ノイズで質感
   const imgData = ctx.getImageData(0, 0, 512, 512);
   for (let i = 0; i < imgData.data.length; i += 4) {
     const n = (Math.random() - 0.5) * 28;
@@ -213,7 +224,6 @@ function makeAsphaltTexture() {
     imgData.data[i+2] = Math.max(0, Math.min(255, imgData.data[i+2] + n));
   }
   ctx.putImageData(imgData, 0, 0);
-  // 細かいヒビ
   ctx.strokeStyle = 'rgba(0,0,0,0.15)';
   ctx.lineWidth = 0.4;
   for (let i = 0; i < 30; i++) {
@@ -273,17 +283,17 @@ sideRoad.position.set(-25, 0.01, 0);
 sideRoad.receiveShadow = true;
 scene.add(sideRoad);
 
-// === 中央線 (黄色破線) ===
+// === 中央線 (黄色破線、争いあり=控えめに) ===
 function addCenterLine(z1, z2) {
   const len = Math.abs(z2 - z1);
-  const dashCount = Math.floor(len / 1.8);
+  const dashCount = Math.floor(len / 2.2);
   for (let i = 0; i < dashCount; i++) {
     const dash = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.15, 1.0),
-      new THREE.MeshStandardMaterial({ color: 0xf9ab00, emissive: 0xb87800, emissiveIntensity: 0.15 })
+      new THREE.PlaneGeometry(0.12, 0.8),
+      new THREE.MeshStandardMaterial({ color: 0xf9ab00, emissive: 0xb87800, emissiveIntensity: 0.10, transparent: true, opacity: 0.7 })
     );
     dash.rotation.x = -Math.PI / 2;
-    dash.position.set(0, 0.025, z1 + i * 1.8 + 0.5);
+    dash.position.set(0, 0.025, z1 + i * 2.2 + 0.5);
     scene.add(dash);
   }
 }
@@ -310,7 +320,54 @@ stopLine.rotation.x = -Math.PI / 2;
 stopLine.position.set(-3.5, 0.035, 0);
 scene.add(stopLine);
 
-// === 一時停止標識 (実物風) ===
+// === A 車線変更履歴トレイル (事故前に完了済を視覚化) ===
+// シーン開始時点で既に車線変更完了 = 北側で東車線→西車線へ移った軌跡を薄く描画
+function addLaneChangeTrail() {
+  const points = [
+    { x: 2.0, z: -45 },
+    { x: 2.0, z: -38 },
+    { x: 1.5, z: -33 },
+    { x: 0.5, z: -29 },
+    { x: -0.5, z: -27 },
+    { x: -1.2, z: -25 },
+    { x: -1.5, z: -23 },
+  ];
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i], p1 = points[i + 1];
+    const dx = p1.x - p0.x, dz = p1.z - p0.z;
+    const len = Math.sqrt(dx*dx + dz*dz);
+    const seg = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.6, len),
+      new THREE.MeshStandardMaterial({
+        color: 0x1a73e8, emissive: 0x0d47a1, emissiveIntensity: 0.15,
+        transparent: true, opacity: 0.18 + i * 0.025
+      })
+    );
+    seg.rotation.x = -Math.PI / 2;
+    seg.position.set((p0.x + p1.x) / 2, 0.018, (p0.z + p1.z) / 2);
+    seg.rotation.z = -Math.atan2(dx, dz);
+    scene.add(seg);
+  }
+  // ラベル「車線変更完了 (事故前)」
+  const lc = document.createElement('canvas');
+  lc.width = 512; lc.height = 96;
+  const lctx = lc.getContext('2d');
+  lctx.fillStyle = 'rgba(26, 115, 232, 0.85)';
+  lctx.fillRect(0, 0, 512, 96);
+  lctx.fillStyle = '#fff';
+  lctx.font = 'bold 32px sans-serif';
+  lctx.textAlign = 'center';
+  lctx.fillText('A 車線変更履歴 (事故前に完了)', 256, 58);
+  const ltex = new THREE.CanvasTexture(lc);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: ltex, depthTest: false, transparent: true, opacity: 0.75 }));
+  sp.scale.set(9, 1.7, 1);
+  sp.position.set(0.5, 4.5, -30);
+  sp.renderOrder = 996;
+  scene.add(sp);
+}
+addLaneChangeTrail();
+
+// === 一時停止標識 ===
 function makeStopSign(x, z) {
   const group = new THREE.Group();
   const pole = new THREE.Mesh(
@@ -320,7 +377,6 @@ function makeStopSign(x, z) {
   pole.position.y = 1.2;
   pole.castShadow = true;
   group.add(pole);
-  // 標識本体 (逆三角)
   const signGeo = new THREE.CircleGeometry(0.42, 3);
   const signMat = new THREE.MeshStandardMaterial({ color: 0xd93025, side: THREE.DoubleSide, roughness: 0.5, emissive: 0x501010, emissiveIntensity: 0.1 });
   const sign = new THREE.Mesh(signGeo, signMat);
@@ -328,7 +384,6 @@ function makeStopSign(x, z) {
   sign.rotation.z = Math.PI;
   sign.castShadow = true;
   group.add(sign);
-  // 「止まれ」白文字 (CanvasTexture)
   const tc = document.createElement('canvas');
   tc.width = 128; tc.height = 128;
   const tctx = tc.getContext('2d');
@@ -351,7 +406,7 @@ function makeStopSign(x, z) {
 }
 makeStopSign(-4, 3);
 
-// === 信号機 (実物風、グロー付き) ===
+// === 信号機 ===
 function makeTrafficLight(x, z) {
   const group = new THREE.Group();
   const pole = new THREE.Mesh(
@@ -382,20 +437,17 @@ function makeTrafficLight(x, z) {
   );
   red.position.set(-1.85, 5.6, 0.19);
   group.add(red);
-  // 赤信号の光源
   const redLight = new THREE.PointLight(0xff3030, 1.2, 4);
   redLight.position.set(-1.85, 5.6, 0.5);
   group.add(redLight);
   group.position.set(x, 0, z);
   scene.add(group);
 }
-// 信号機: 分析班仕様 (3, -12) 北行き車両用、②の北 12m
 makeTrafficLight(3, -12);
 
-// === 建物 (改良版:屋根+窓ディテール) ===
+// === 建物 ===
 function makeBuilding(x, z, w, d, h, wallColor = 0xd0d3c8, roofColor = 0x7a4a35) {
   const group = new THREE.Group();
-  // 壁 (テクスチャ風: 簡易ノイズで質感)
   const wallCanvas = document.createElement('canvas');
   wallCanvas.width = 64; wallCanvas.height = 64;
   const wctx = wallCanvas.getContext('2d');
@@ -416,7 +468,6 @@ function makeBuilding(x, z, w, d, h, wallColor = 0xd0d3c8, roofColor = 0x7a4a35)
   body.castShadow = true;
   body.receiveShadow = true;
   group.add(body);
-  // 屋根 (切妻風: 三角プリズム)
   const roofH = 1.2;
   const roofShape = new THREE.Shape();
   roofShape.moveTo(-d/2 - 0.15, 0);
@@ -432,7 +483,6 @@ function makeBuilding(x, z, w, d, h, wallColor = 0xd0d3c8, roofColor = 0x7a4a35)
   roof.position.set(w/2 + 0.15, h, -d/2);
   roof.castShadow = true;
   group.add(roof);
-  // 窓 (ガラス感)
   const winMat = new THREE.MeshStandardMaterial({
     color: 0x6b8eb0, roughness: 0.15, metalness: 0.5, envMapIntensity: 1.5
   });
@@ -466,17 +516,17 @@ makeBuilding(-20, 18, 14, 8, 7, 0xc8ccc0, 0x654030);
 makeBuilding(-38, 18, 14, 8, 8, 0xd8d6cb, 0x7a4a35);
 makeBuilding(-20, 35, 14, 12, 9, 0xd8d6cb, 0x5e3625);
 makeBuilding(-38, 35, 14, 12, 8, 0xccc8bd, 0x7a4a35);
-// 東側
+// 東側 (工事中の建物含む)
 makeBuilding(10, -35, 8, 18, 8, 0xc4c4b8, 0x6b3e2c);
 makeBuilding(22, -35, 8, 18, 7, 0xb8b8a8, 0x5e3625);
-makeBuilding(10, -16, 8, 10, 9, 0xf2c9b0, 0x8a4525);  // ピンクっぽい (SHIN-EI ビル)
+makeBuilding(10, -16, 8, 10, 9, 0xf2c9b0, 0x8a4525);
 makeBuilding(22, -10, 8, 18, 6, 0xc8c4b8, 0x7a4a35);
 makeBuilding(10, 15, 8, 20, 7, 0xc8c4b8, 0x654030);
 makeBuilding(22, 15, 8, 12, 8, 0xd0c8bc, 0x7a4a35);
 makeBuilding(10, 35, 8, 12, 6, 0xb8b8a8, 0x5e3625);
 makeBuilding(22, 35, 8, 12, 7, 0xc8c4b8, 0x7a4a35);
 
-// 青シート建設足場
+// 青シート建設足場 (東側の建物に貼られている → A から見て左視界を埋める)
 const blueSheet = new THREE.Mesh(
   new THREE.BoxGeometry(0.3, 4.2, 8),
   new THREE.MeshStandardMaterial({ color: 0x1a5d8a, roughness: 0.65, metalness: 0.1 })
@@ -484,7 +534,6 @@ const blueSheet = new THREE.Mesh(
 blueSheet.position.set(3.5, 2.1, 9);
 blueSheet.castShadow = true;
 scene.add(blueSheet);
-// 足場の骨組み (細いシリンダ)
 for (let i = 0; i < 4; i++) {
   const post = new THREE.Mesh(
     new THREE.CylinderGeometry(0.06, 0.06, 4.5),
@@ -495,7 +544,7 @@ for (let i = 0; i < 4; i++) {
   scene.add(post);
 }
 
-// === 木 (改良: 円錐+球で松風) ===
+// === 木 ===
 function makeTree(x, z, s = 1.0) {
   const group = new THREE.Group();
   const trunk = new THREE.Mesh(
@@ -505,7 +554,6 @@ function makeTree(x, z, s = 1.0) {
   trunk.position.y = 0.85 * s;
   trunk.castShadow = true;
   group.add(trunk);
-  // 葉 (重なり)
   for (let i = 0; i < 3; i++) {
     const leaves = new THREE.Mesh(
       new THREE.SphereGeometry((1.0 + i * 0.1) * s),
@@ -523,18 +571,16 @@ makeTree(-15, 0, 0.9); makeTree(15, 0, 0.9);
 makeTree(-9, -10); makeTree(9, 25);
 
 // =========================================================================
-// 車両モデル (改良: ヘッドライト、グリル、ホイール詳細、サイドミラー)
+// 車両モデル
 // =========================================================================
 function makeSUV(opts) {
-  const { length, width, height, color, accentColor, label, plateText, hasGrille } = opts;
+  const { length, width, height, color, accentColor, label, plateText, hasGrille, damageHighlight } = opts;
   const group = new THREE.Group();
 
-  // メタリック塗装
   const paintMat = new THREE.MeshStandardMaterial({
     color, roughness: 0.32, metalness: 0.7, envMapIntensity: 1.5
   });
 
-  // メインボディ (下半分)
   const bodyHeight = height * 0.5;
   const body = new THREE.Mesh(new THREE.BoxGeometry(width, bodyHeight, length), paintMat);
   body.position.y = bodyHeight / 2 + 0.42;
@@ -542,7 +588,6 @@ function makeSUV(opts) {
   body.receiveShadow = true;
   group.add(body);
 
-  // キャビン (上半分、少し小さい)
   const cabinHeight = height * 0.42;
   const cabin = new THREE.Mesh(
     new THREE.BoxGeometry(width * 0.94, cabinHeight, length * 0.58),
@@ -552,26 +597,22 @@ function makeSUV(opts) {
   cabin.castShadow = true;
   group.add(cabin);
 
-  // ウインドウ (黒っぽい、メタリック)
   const glassMat = new THREE.MeshStandardMaterial({
     color: 0x0a0a14, roughness: 0.05, metalness: 1.0, envMapIntensity: 2.0,
     transparent: true, opacity: 0.75
   });
-  // 前面 (フロントガラス)
   const windshield = new THREE.Mesh(
     new THREE.BoxGeometry(width * 0.86, cabinHeight * 0.78, 0.03),
     glassMat
   );
   windshield.position.set(0, bodyHeight + 0.42 + cabinHeight * 0.45, -length * 0.06 + length * 0.29);
   group.add(windshield);
-  // 後面
   const rearGlass = new THREE.Mesh(
     new THREE.BoxGeometry(width * 0.86, cabinHeight * 0.7, 0.03),
     glassMat
   );
   rearGlass.position.set(0, bodyHeight + 0.42 + cabinHeight * 0.5, -length * 0.06 - length * 0.29);
   group.add(rearGlass);
-  // 側面 (左右)
   [-width * 0.475, width * 0.475].forEach(sx => {
     const sideGlass = new THREE.Mesh(
       new THREE.BoxGeometry(0.03, cabinHeight * 0.7, length * 0.52),
@@ -581,7 +622,6 @@ function makeSUV(opts) {
     group.add(sideGlass);
   });
 
-  // ヘッドライト (前方、白く光る)
   const headlightMat = new THREE.MeshStandardMaterial({
     color: 0xfff8e0, emissive: 0xfff8e0, emissiveIntensity: 0.8, roughness: 0.2
   });
@@ -591,7 +631,6 @@ function makeSUV(opts) {
     group.add(hl);
   });
 
-  // テールライト (後方、赤く光る)
   const taillightMat = new THREE.MeshStandardMaterial({
     color: 0xff2020, emissive: 0xff2020, emissiveIntensity: 0.6, roughness: 0.3
   });
@@ -601,7 +640,6 @@ function makeSUV(opts) {
     group.add(tl);
   });
 
-  // フロントグリル (黒い細かい縦線)
   if (hasGrille !== false) {
     const grilleGroup = new THREE.Group();
     for (let i = 0; i < 7; i++) {
@@ -616,7 +654,6 @@ function makeSUV(opts) {
     group.add(grilleGroup);
   }
 
-  // サイドミラー
   const mirrorMat = new THREE.MeshStandardMaterial({
     color: accentColor || color, roughness: 0.3, metalness: 0.5
   });
@@ -627,7 +664,6 @@ function makeSUV(opts) {
     group.add(mirror);
   });
 
-  // ホイール (タイヤ + リム)
   const tireMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.85, metalness: 0.05 });
   const rimMat = new THREE.MeshStandardMaterial({ color: 0xc8c8c8, roughness: 0.3, metalness: 0.9 });
   const wb = length * 0.32;
@@ -641,7 +677,6 @@ function makeSUV(opts) {
     tire.rotation.z = Math.PI / 2;
     tire.castShadow = true;
     group.add(tire);
-    // リム (内側、銀色)
     const rim = new THREE.Mesh(
       new THREE.CylinderGeometry(0.24, 0.24, 0.27),
       rimMat
@@ -651,7 +686,36 @@ function makeSUV(opts) {
     group.add(rim);
   });
 
-  // ナンバープレート
+  // === 損傷ハイライト (A のリアドア下部にのみ局所凹みを示す赤マーク) ===
+  if (damageHighlight) {
+    const dent = new THREE.Mesh(
+      new THREE.BoxGeometry(0.04, 0.35, 0.7),
+      new THREE.MeshStandardMaterial({
+        color: 0xd93025, emissive: 0xff5050, emissiveIntensity: 0.7,
+        roughness: 0.6, transparent: true, opacity: 0.85
+      })
+    );
+    // 右リアフェンダー〜リアドア下部 (車体右側、後輪より少し前、低い位置)
+    dent.position.set(width / 2 + 0.02, 0.55, -length * 0.18);
+    group.add(dent);
+    // ラベル
+    const dc = document.createElement('canvas');
+    dc.width = 256; dc.height = 96;
+    const dctx = dc.getContext('2d');
+    dctx.fillStyle = 'rgba(217, 48, 37, 0.92)';
+    dctx.fillRect(0, 0, 256, 96);
+    dctx.fillStyle = '#fff';
+    dctx.font = 'bold 22px sans-serif';
+    dctx.textAlign = 'center';
+    dctx.fillText('A: リアドア下部', 128, 38);
+    dctx.fillText('食い込み凹み', 128, 66);
+    const dtex = new THREE.CanvasTexture(dc);
+    const dsp = new THREE.Sprite(new THREE.SpriteMaterial({ map: dtex, depthTest: false }));
+    dsp.scale.set(2.2, 0.85, 1);
+    dsp.position.set(width / 2 + 0.7, 1.2, -length * 0.18);
+    group.add(dsp);
+  }
+
   if (plateText) {
     const pc = document.createElement('canvas');
     pc.width = 256; pc.height = 96;
@@ -672,7 +736,7 @@ function makeSUV(opts) {
     group.add(plate);
   }
 
-  // ラベル (sprite)
+  // ラベル
   const lc = document.createElement('canvas');
   lc.width = 256; lc.height = 64;
   const lctx = lc.getContext('2d');
@@ -695,28 +759,29 @@ function makeSUV(opts) {
   return group;
 }
 
-const johnny = makeSUV({
+// PII対策: johnny/shibata → car_a/car_b に統一
+const car_a = makeSUV({
   length: 4.71, width: 1.86, height: 1.74,
   color: 0x1a73e8, accentColor: 0x0d47a1,
-  label: 'A', plateText: 'A'
+  label: 'A', plateText: 'A',
+  damageHighlight: true  // 右リアドア下部の食い込み凹みを可視化
 });
-scene.add(johnny);
+scene.add(car_a);
 
-const shibata = makeSUV({
+const car_b = makeSUV({
   length: 5.02, width: 2.01, height: 1.97,
   color: 0x1a1a1c, accentColor: 0x000000,
   label: 'B', plateText: 'B', hasGrille: true
 });
-scene.add(shibata);
+scene.add(car_b);
 
 const van1 = makeSUV({
   length: 4.2, width: 1.7, height: 1.95,
   color: 0xf2f2f2, accentColor: 0xcccccc,
   label: '信号待ち①', plateText: '-'
 });
-// 信号待ち車両①: 分析班仕様 (-1.5, -14.5) 信号機 z=-12 の停止線手前、② から 14.5m 北
-van1.position.set(-1.5, 0, -14.5);
-van1.rotation.y = Math.PI;
+van1.position.set(2.0, 0, -14.5);  // 東車線の北側で信号待ち (A が回避した本来車線)
+van1.rotation.y = 0;
 scene.add(van1);
 
 const van2 = makeSUV({
@@ -724,9 +789,8 @@ const van2 = makeSUV({
   color: 0xc8c8c8, accentColor: 0xa8a8a8,
   label: '信号待ち②', plateText: '-'
 });
-// 信号待ち車両②: ①の 4m 後ろ
-van2.position.set(-1.5, 0, -18.5);
-van2.rotation.y = Math.PI;
+van2.position.set(2.0, 0, -18.5);
+van2.rotation.y = 0;
 scene.add(van2);
 
 const shinei = makeSUV({
@@ -734,11 +798,11 @@ const shinei = makeSUV({
   color: 0xfbbc04, accentColor: 0xc88a00,
   label: '工事車両', plateText: '-', hasGrille: true
 });
-shinei.position.set(1.5, 0, 8);
+shinei.position.set(2.0, 0, 8);  // 東車線 (A 本来車線) を塞ぐ位置 = ground truth #7 と整合
 shinei.rotation.y = 0;
 scene.add(shinei);
 
-// 工事コーン (オレンジ + 白帯)
+// 工事コーン
 function makeCone(x, z) {
   const group = new THREE.Group();
   const cone = new THREE.Mesh(
@@ -748,7 +812,6 @@ function makeCone(x, z) {
   cone.position.y = 0.3;
   cone.castShadow = true;
   group.add(cone);
-  // 白帯
   for (let i = 0; i < 2; i++) {
     const band = new THREE.Mesh(
       new THREE.CylinderGeometry(0.18 - i * 0.06, 0.16 - i * 0.06, 0.06),
@@ -760,13 +823,12 @@ function makeCone(x, z) {
   group.position.set(x, 0, z);
   scene.add(group);
 }
-makeCone(2.5, 5); makeCone(0.5, 5);
-makeCone(2.5, 12); makeCone(0.5, 12);
+makeCone(2.8, 5); makeCone(1.2, 5);
+makeCone(2.8, 12); makeCone(1.2, 12);
 
-// === 誘導員 (改良: ジャケット+ヘルメット+棒) ===
+// === 誘導員 ===
 function makeGuide(x, z) {
   const group = new THREE.Group();
-  // 脚
   const legs = new THREE.Mesh(
     new THREE.BoxGeometry(0.35, 0.7, 0.25),
     new THREE.MeshStandardMaterial({ color: 0x222, roughness: 0.8 })
@@ -774,7 +836,6 @@ function makeGuide(x, z) {
   legs.position.y = 0.35;
   legs.castShadow = true;
   group.add(legs);
-  // ジャケット (蛍光オレンジ)
   const jacket = new THREE.Mesh(
     new THREE.BoxGeometry(0.45, 0.7, 0.3),
     new THREE.MeshStandardMaterial({ color: 0xff7820, emissive: 0xff5500, emissiveIntensity: 0.2, roughness: 0.7 })
@@ -782,14 +843,12 @@ function makeGuide(x, z) {
   jacket.position.y = 1.05;
   jacket.castShadow = true;
   group.add(jacket);
-  // 反射ベスト (白い帯)
   const strap = new THREE.Mesh(
     new THREE.BoxGeometry(0.46, 0.06, 0.31),
     new THREE.MeshStandardMaterial({ color: 0xeeeeee, emissive: 0xffffff, emissiveIntensity: 0.4 })
   );
   strap.position.y = 1.15;
   group.add(strap);
-  // 頭
   const head = new THREE.Mesh(
     new THREE.SphereGeometry(0.16, 16, 16),
     new THREE.MeshStandardMaterial({ color: 0xf4d4b0, roughness: 0.6 })
@@ -797,7 +856,6 @@ function makeGuide(x, z) {
   head.position.y = 1.6;
   head.castShadow = true;
   group.add(head);
-  // ヘルメット (白)
   const helmet = new THREE.Mesh(
     new THREE.SphereGeometry(0.19, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2.2),
     new THREE.MeshStandardMaterial({ color: 0xfafafa, roughness: 0.4 })
@@ -805,7 +863,6 @@ function makeGuide(x, z) {
   helmet.position.y = 1.7;
   helmet.castShadow = true;
   group.add(helmet);
-  // 誘導棒 (赤、グロー)
   const stick = new THREE.Mesh(
     new THREE.CylinderGeometry(0.025, 0.025, 1.0),
     new THREE.MeshStandardMaterial({ color: 0xff2020, emissive: 0xff2020, emissiveIntensity: 1.0, roughness: 0.3 })
@@ -817,7 +874,7 @@ function makeGuide(x, z) {
   group.position.set(x, 0, z);
   return group;
 }
-const guide = makeGuide(1.5, 3);
+const guide = makeGuide(2.0, 3);  // 工事車両の北側、東車線 (A 本来車線) 上で「進め」合図
 scene.add(guide);
 
 // === 衝突地点マーカー ===
@@ -840,26 +897,70 @@ function makeStarMarker(x, z, label) {
   scene.add(star);
 
   const c = document.createElement('canvas');
-  c.width = 768; c.height = 140;
+  c.width = 1024; c.height = 160;
   const ctx = c.getContext('2d');
   ctx.fillStyle = 'rgba(217, 48, 37, 0.92)';
-  ctx.fillRect(0, 0, 768, 140);
+  ctx.fillRect(0, 0, 1024, 160);
   ctx.strokeStyle = 'rgba(255,255,255,0.3)';
   ctx.lineWidth = 3;
-  ctx.strokeRect(2, 2, 764, 136);
+  ctx.strokeRect(2, 2, 1020, 156);
   ctx.fillStyle = '#fff';
-  ctx.font = 'bold 52px sans-serif';
+  ctx.font = 'bold 44px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText(label, 384, 88);
+  ctx.fillText(label, 512, 95);
   const tex = new THREE.CanvasTexture(c);
   const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false }));
-  sp.scale.set(13, 2.4, 1);
+  sp.scale.set(18, 2.8, 1);
   sp.position.set(x, 6.5, z);
   sp.renderOrder = 998;
   scene.add(sp);
 }
-// ドラレコ SSOT: 衝突地点 (2.6, -2.25) 東側車線・②内、A 右側面 (中央〜後部) と B フロント左コーナーが擦り
-makeStarMarker(2.6, -2.25, '★ 衝突 09:28:18.5 (A 右側面 + B フロント左)');
+// ground truth: 衝突地点 = A 右後方側面 (リアフェンダー〜リアドア下部) × B 左前コーナー
+// A は西側車線 (x=-1.5) を南進、衝突時 A 中心 (-1.5, -2.0) → 右側面 x=-1.5+1.86/2 ≈ -0.57
+// B は脇道出口 (x=-2.5, z=-0.5) で停止 → 衝突瞬間に右折初動、左前コーナーが A 右後方に接触
+makeStarMarker(-0.55, -1.4, '★ 衝突 09:28:18.5 (B左前 × A右後方=リアドア下部)');
+
+// === B の右折初動方向ベクトル (衝突瞬間の力の方向を可視化) ===
+function addImpactVector() {
+  const arrowGroup = new THREE.Group();
+  // 矢印本体 (短い、衝突瞬間の微速初動を表現)
+  const shaft = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.08, 0.08, 1.2),
+    new THREE.MeshStandardMaterial({ color: 0xff5050, emissive: 0xff3030, emissiveIntensity: 0.8 })
+  );
+  shaft.rotation.z = Math.PI / 2;
+  shaft.position.set(0.6, 0.5, 0);
+  arrowGroup.add(shaft);
+  // 矢じり
+  const head = new THREE.Mesh(
+    new THREE.ConeGeometry(0.22, 0.5, 8),
+    new THREE.MeshStandardMaterial({ color: 0xff5050, emissive: 0xff3030, emissiveIntensity: 0.8 })
+  );
+  head.rotation.z = -Math.PI / 2;
+  head.position.set(1.3, 0.5, 0);
+  arrowGroup.add(head);
+  // ラベル
+  const lc = document.createElement('canvas');
+  lc.width = 512; lc.height = 96;
+  const lctx = lc.getContext('2d');
+  lctx.fillStyle = 'rgba(255, 80, 80, 0.9)';
+  lctx.fillRect(0, 0, 512, 96);
+  lctx.fillStyle = '#fff';
+  lctx.font = 'bold 26px sans-serif';
+  lctx.textAlign = 'center';
+  lctx.fillText('B 右折初動 (横方向の力)', 256, 60);
+  const ltex = new THREE.CanvasTexture(lc);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: ltex, depthTest: false, transparent: true }));
+  sp.scale.set(4.5, 0.85, 1);
+  sp.position.set(0.7, 1.5, 0);
+  arrowGroup.add(sp);
+  arrowGroup.position.set(-2.0, 0, -0.5);
+  // 衝突瞬間のみ表示するため、初期非表示
+  arrowGroup.visible = false;
+  scene.add(arrowGroup);
+  return arrowGroup;
+}
+const impactVector = addImpactVector();
 
 // =========================================================================
 // アニメーション
@@ -868,40 +969,57 @@ function lerp(a, b, t) { return a + (b - a) * t; }
 function smooth(t) { return t * t * (3 - 2 * t); }
 function clamp(t, lo, hi) { return Math.max(lo, Math.min(hi, t)); }
 
-const COLLISION_TIME = 2.5; // ドラレコ SSOT: 09:28:18.5 (before_collision t=0 起点で +2.5s)
+const COLLISION_TIME = 2.5; // 09:28:18.5 (before_collision t=0 起点で +2.5s)
 
-// ドラレコ分析班 SSOT: A は終始東側車線、車線変更なし、緩やか減速
+// =========================================================================
+// A_keyframes (ground truth 反映):
+//   - シーン開始時点で既に車線変更完了 (x=-1.5、西側=対向車線寄り、本来車線=東側 x=+2 から移動済)
+//   - 終始 x=-1.5 で南進、heading=0 一定
+//   - 速度: t=0 z=-22 → t=2.5 z=-13.5 で 8.5m/2.5s = 3.4 m/s ≈ 12.2 km/h (ground truth 10-15 km/h)
+//   - 衝突瞬間に急ブレーキで t=3.5 z=-12.5 までで停止 (ground truth #11)
+// =========================================================================
 const A_keyframes = [
-  { t: 0.0, x: 2.0,  z: -25.0, heading: 0.0 },  // before_collision (09:28:16)
-  { t: 0.5, x: 2.05, z: -20.5, heading: 0.0 },
-  { t: 1.0, x: 2.1,  z: -16.0, heading: 0.0 },
-  { t: 1.5, x: 2.13, z: -12.0, heading: 0.0 },  // 減速開始
-  { t: 2.0, x: 2.17, z: -7.5,  heading: 0.0 },
-  { t: 2.4, x: 2.2,  z: -3.0,  heading: 0.0 },  // right_before (09:28:18.4)
-  { t: 2.5, x: 2.3,  z: -2.0,  heading: 0.0 },  // ★ 衝突 (09:28:18.5)
-  { t: 2.8, x: 2.3,  z: -1.6,  heading: 0.0 },
-  { t: 3.5, x: 2.3,  z: -1.0,  heading: 0.0 },  // stopped (09:28:19.5)
-  { t: 5.0, x: 2.3,  z: 0.0,   heading: 0.0 }
+  { t: 0.0, x: -1.5, z: -10.5, heading: 0.0 },  // before_collision (09:28:16) 車線変更完了済
+  { t: 0.5, x: -1.5, z: -8.8,  heading: 0.0 },
+  { t: 1.0, x: -1.5, z: -7.1,  heading: 0.0 },
+  { t: 1.5, x: -1.5, z: -5.4,  heading: 0.0 },
+  { t: 2.0, x: -1.5, z: -3.7,  heading: 0.0 },
+  { t: 2.4, x: -1.5, z: -2.35, heading: 0.0 }, // right_before (09:28:18.4)
+  { t: 2.5, x: -1.5, z: -2.0,  heading: 0.0 }, // ★ 衝突 (09:28:18.5) — B 静止位置近傍
+  { t: 2.8, x: -1.5, z: -1.5,  heading: 0.0 }, // 急ブレーキ開始
+  { t: 3.5, x: -1.5, z: -1.0,  heading: 0.0 }, // stopped (09:28:19.5)
+  { t: 5.0, x: -1.5, z: -1.0,  heading: 0.0 }
 ];
 
-// B 軌跡 (ドラレコ + ジョニー体験統合): 西脇道で停止 → A 通過中に突発右折 → 東側車線で A 右側面と擦り合い
-//   ドラレコ SSOT: B は衝突瞬間まで両カメラ死角、衝突は t=2.5、A 右側面と並行擦り、B 衝突姿勢 = ほぼ南向き
+// =========================================================================
+// B_keyframes (ground truth #1 反映):
+//   - t=0.0-2.4s: 脇道で完全静止 (x=-2.5, z=-0.5, heading=π/2=東向き)
+//     一時停止 → 周囲確認 → 誘導員「止まれ」合図を「自分への進め」と誤認 (ground truth #8)
+//   - t=2.4-2.5s: 衝突瞬間に向けて微速の右折初動のみ
+//     heading=π/2 (90°、東向き) → π/2.4 ≒ 75° (まだ南向きに転じきっていない、ground truth #1)
+//     位置わずかに前進: x=-2.5 → x=-2.0 (0.5m/0.1s ≈ 5 m/s ≈ 18 km/h の右折初動)
+//     ※ 右折開始位置のまま、車体姿勢は依然として東寄り (60-75°) で南向きに転じきっていない
+//   - 衝突瞬間: B 左前コーナー (x=-2.0+2.01*cos(75°)/2-5.02*sin(75°)/2 ≒ x=-1.6, z=-2.0)
+//             ↑ A 右後方側面 (x=-1.5+1.86/2 ≒ -0.57, z=-13.5+4.71*0.3 ≒ -12.1) と接触
+//             ※ 物理整合のため B 衝突位置は A 衝突位置近傍に微調整
+// =========================================================================
 const B_keyframes = [
-  { t: 0.0, x: -10.0, z: -1.0, heading: Math.PI / 2 },  // 西脇道で東進
-  { t: 0.5, x: -7.5,  z: -1.0, heading: Math.PI / 2 },  // 減速
-  { t: 1.0, x: -5.0,  z: -1.0, heading: Math.PI / 2 },
-  { t: 1.3, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // 停止線到達、完全停止
-  { t: 1.8, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // ★ 静止中 (A 交差点侵入観察)
-  { t: 2.0, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // ★ まだ静止
-  { t: 2.1, x: -3.4,  z: -0.9, heading: 1.45 },         // ★ 突発発進 (A 通過中なのに右折開始)
-  { t: 2.3, x: -1.5,  z: -1.0, heading: 1.0 },          // 急加速右折カーブ
-  { t: 2.5, x: 1.5,   z: -2.0, heading: 0.3 },          // ★ 衝突: A の右側面 (x=2.3) に擦り、ほぼ南向き
-  { t: 2.8, x: 2.0,   z: -1.0, heading: 0.1 },          // 衝突後 A と並走停止へ
-  { t: 3.5, x: 2.2,   z: 0.5,  heading: 0.0 },          // stopped: B は A の真後ろやや右
-  { t: 5.0, x: 2.2,   z: 1.5,  heading: 0.0 }           // identification: ナンバー読める距離
+  { t: 0.0, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // 西脇道、停止線手前で完全停止
+  { t: 0.3, x: -3.5, z: 0.0,   heading: Math.PI / 2 },
+  { t: 0.6, x: -3.5, z: 0.0,   heading: Math.PI / 2 },
+  { t: 1.0, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // ★ 完全静止
+  { t: 1.5, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // ★ 完全静止 (A 接近観察)
+  { t: 2.0, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // ★ 完全静止 (A 通過寸前)
+  { t: 2.3, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // ★ まだ完全静止 (合図誤認瞬間)
+  { t: 2.4, x: -3.48, z: -0.02, heading: Math.PI / 2.02 },    // 微々たる初動 (約 2.5 km/h)
+  { t: 2.5, x: -3.42, z: -0.08, heading: Math.PI / 2.1 },     // ★ 衝突瞬間も実質静止 (約 3 km/h)
+  { t: 2.7, x: -3.3,  z: -0.15, heading: Math.PI / 2.3 },     // 衝突直後、押し込みで僅かに動く
+  { t: 3.0, x: -3.2,  z: -0.2,  heading: Math.PI / 2.5 },
+  { t: 3.5, x: -3.0,  z: -0.3,  heading: Math.PI / 2.8 },     // stopped: A の右後方付近
+  { t: 5.0, x: -3.0,  z: -0.3,  heading: Math.PI / 2.8 }
 ];
 
-// キーフレーム間の滑らかな補間 (Catmull-Rom-like、cubic Hermite)
+// キーフレーム補間 (Catmull-Rom)
 function interpKeyframes(kf, t) {
   if (t <= kf[0].t) return kf[0];
   if (t >= kf[kf.length - 1].t) return kf[kf.length - 1];
@@ -916,7 +1034,6 @@ function interpKeyframes(kf, t) {
   const span = k2.t - k1.t;
   if (span <= 0) return k2;
   const u = (t - k1.t) / span;
-  // Catmull-Rom (centripetal)
   function cr(p0, p1, p2, p3, u) {
     const u2 = u * u;
     const u3 = u2 * u;
@@ -934,24 +1051,24 @@ function interpKeyframes(kf, t) {
   };
 }
 
-function setJohnny(t) {
+function setCarA(t) {
   const p = interpKeyframes(A_keyframes, t);
-  johnny.position.set(p.x, 0, p.z);
-  johnny.rotation.y = p.heading;
+  car_a.position.set(p.x, 0, p.z);
+  car_a.rotation.y = p.heading;
 }
 
-function setShibata(t) {
+function setCarB(t) {
   const p = interpKeyframes(B_keyframes, t);
-  shibata.position.set(p.x, 0, p.z);
-  shibata.rotation.y = p.heading;
+  car_b.position.set(p.x, 0, p.z);
+  car_b.rotation.y = p.heading;
 }
 
 // === 視点 ===
 let cameraMode = 'overhead';
 const camPresets = {
-  overhead: { pos: [0, 50, 30], target: [0, 0, 0] },
-  guide:    { pos: [1.5, 1.7, -2], target: [-1.5, 0.5, 2] },
-  cinema:   { pos: [22, 22, -22], target: [0, 1, 0] },
+  overhead: { pos: [0, 50, 20], target: [-1, 0, -8] },
+  guide:    { pos: [2.0, 1.7, 2], target: [-1.5, 0.5, -10] },
+  cinema:   { pos: [18, 18, -10], target: [-1, 1, -8] },
 };
 
 function applyPreset(name) {
@@ -965,7 +1082,10 @@ function applyPreset(name) {
 function setCameraMode(mode) {
   cameraMode = mode;
   document.querySelectorAll('#controls button[id^="cam-"]').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById(`cam-${mode === 'fp-johnny' ? 'johnny-fp' : mode === 'fp-shibata' ? 'shibata-fp' : mode}`);
+  const btnId = mode === 'fp-a' ? 'cam-a-fp'
+              : mode === 'fp-b' ? 'cam-b-fp'
+              : `cam-${mode}`;
+  const btn = document.getElementById(btnId);
   if (btn) btn.classList.add('active');
   if (camPresets[mode]) {
     applyPreset(mode);
@@ -978,14 +1098,14 @@ function setCameraMode(mode) {
 let cameraJustEnabled = false;
 function updateFPCamera(mode) {
   let target;
-  if (mode === 'fp-johnny') target = johnny;
-  else if (mode === 'fp-shibata') target = shibata;
+  if (mode === 'fp-a') target = car_a;
+  else if (mode === 'fp-b') target = car_b;
   else return;
 
-  const isJohnny = mode === 'fp-johnny';
-  const seatX = isJohnny ? 0.45 : 0.5;
-  const seatY = isJohnny ? 1.35 : 1.40;
-  const seatZ = isJohnny ? 0.6 : 0.7;
+  const isA = mode === 'fp-a';
+  const seatX = isA ? 0.45 : 0.5;
+  const seatY = isA ? 1.35 : 1.40;
+  const seatZ = isA ? 0.6 : 0.7;
 
   target.updateMatrixWorld(true);
   const seat = new THREE.Vector3(seatX, seatY, seatZ);
@@ -1000,7 +1120,7 @@ function updateFPCamera(mode) {
   } else {
     if (!cameraJustEnabled) {
       camera.position.copy(seat);
-      const otherCar = isJohnny ? shibata : johnny;
+      const otherCar = isA ? car_b : car_a;
       controls.target.copy(otherCar.position).add(new THREE.Vector3(0, 1, 0));
       controls.enabled = true;
       cameraJustEnabled = true;
@@ -1009,8 +1129,8 @@ function updateFPCamera(mode) {
 }
 
 document.getElementById('cam-overhead').onclick = () => { cameraJustEnabled = false; setCameraMode('overhead'); };
-document.getElementById('cam-johnny-fp').onclick = () => { cameraJustEnabled = false; setCameraMode('fp-johnny'); };
-document.getElementById('cam-shibata-fp').onclick = () => { cameraJustEnabled = false; setCameraMode('fp-shibata'); };
+document.getElementById('cam-a-fp').onclick = () => { cameraJustEnabled = false; setCameraMode('fp-a'); };
+document.getElementById('cam-b-fp').onclick = () => { cameraJustEnabled = false; setCameraMode('fp-b'); };
 document.getElementById('cam-guide').onclick = () => { cameraJustEnabled = false; setCameraMode('guide'); };
 document.getElementById('cam-cinema').onclick = () => { cameraJustEnabled = false; setCameraMode('cinema'); };
 
@@ -1030,9 +1150,9 @@ playBtn.onclick = () => {
     collisionBanner.classList.remove('show');
     collisionTriggered = false;
     cameraJustEnabled = false;
-    if (cameraMode === 'fp-johnny' || cameraMode === 'fp-shibata') controls.enabled = false;
+    if (cameraMode === 'fp-a' || cameraMode === 'fp-b') controls.enabled = false;
   } else {
-    if (cameraMode === 'fp-johnny' || cameraMode === 'fp-shibata') controls.enabled = true;
+    if (cameraMode === 'fp-a' || cameraMode === 'fp-b') controls.enabled = true;
   }
 };
 
@@ -1040,7 +1160,8 @@ document.getElementById('reset').onclick = () => {
   t = 0; playing = false; collisionTriggered = false; cameraJustEnabled = false;
   playBtn.textContent = '▶ 再生';
   collisionBanner.classList.remove('show');
-  setJohnny(t); setShibata(t);
+  impactVector.visible = false;
+  setCarA(t); setCarB(t);
   document.getElementById('time').textContent = `t=${t.toFixed(1)}s`;
 };
 
@@ -1055,23 +1176,24 @@ function loop(ts) {
       collisionTriggered = true;
       playBtn.textContent = '▶ 再生';
       collisionBanner.classList.add('show');
-      if (cameraMode === 'fp-johnny' || cameraMode === 'fp-shibata') {
+      impactVector.visible = true;  // 衝突瞬間に B の右折初動方向ベクトルを表示
+      if (cameraMode === 'fp-a' || cameraMode === 'fp-b') {
         cameraJustEnabled = false;
       }
       setTimeout(() => collisionBanner.classList.remove('show'), 4500);
     }
-    if (t > 5.5) { t = 0; collisionTriggered = false; }
-    setJohnny(t); setShibata(t);
+    if (t > 5.5) { t = 0; collisionTriggered = false; impactVector.visible = false; }
+    setCarA(t); setCarB(t);
     document.getElementById('time').textContent = `t=${t.toFixed(1)}s`;
   }
-  if (cameraMode === 'fp-johnny' || cameraMode === 'fp-shibata') updateFPCamera(cameraMode);
+  if (cameraMode === 'fp-a' || cameraMode === 'fp-b') updateFPCamera(cameraMode);
   controls.update();
   composer.render();
   requestAnimationFrame(loop);
 }
 
-setJohnny(0);
-setShibata(0);
+setCarA(0);
+setCarB(0);
 setCameraMode('overhead');
 requestAnimationFrame(loop);
 
