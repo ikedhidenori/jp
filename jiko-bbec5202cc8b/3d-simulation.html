@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>事故 3D シミュレーション V14 — 板橋区坂下3丁目 (ground truth 反映)</title>
+<title>事故 3D シミュレーション V16 — 板橋区坂下3丁目 (ground truth 反映)</title>
 <style>
   :root { color-scheme: dark; }
   html, body { margin: 0; padding: 0; height: 100%; background: #0a0c10; color: #e8eaed; font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; overflow: hidden; }
@@ -61,7 +61,7 @@
 
 <div id="ui">
   <span class="toggle" onclick="document.getElementById('ui').classList.toggle('collapsed')">⊖</span>
-  <h1>事故 3D V14 (ground truth + Round2 物理整合)
+  <h1>事故 3D V16 (ground truth + Round2 物理整合)
     <span class="sub">B 完全静止 + A 車線変更完了 + 直角寄り点接触</span>
   </h1>
   <p style="color:#ffd54f">座標: 35.7879444N, 139.6845833E ✓</p>
@@ -125,7 +125,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 // =========================================================================
 // 座標系: X=東(+)/西(-), Z=南(+)/北(-), Y=上(+) / 左側通行
 // =========================================================================
-// ground truth (V14 改訂):
+// ground truth (V16 改訂):
 //   1. B 車は衝突瞬間に静止していた (右折開始位置、まだ曲がっていない)
 //   2. A は車線変更を完了した状態で南進
 //   3. 接触: B左前コーナー × A右後方側面 (リアフェンダー〜リアドア下部)
@@ -918,7 +918,7 @@ function makeStarMarker(x, z, label) {
 // ground truth: 衝突地点 = A 右後方側面 (リアフェンダー〜リアドア下部) × B 左前コーナー
 // A は西側車線 (x=-1.5) を南進、衝突時 A 中心 (-1.5, -2.0) → 右側面 x=-1.5+1.86/2 ≈ -0.57
 // B は脇道出口 (x=-2.5, z=-0.5) で停止 → 衝突瞬間に右折初動、左前コーナーが A 右後方に接触
-makeStarMarker(-0.55, -1.4, '★ 衝突 09:28:18.5 (B左前 × A右後方=リアドア下部)');
+makeStarMarker(-0.57, -2.6, '★ 衝突 09:28:18.5 (B左前 × A右後方=リアドア下部)');
 
 // === B の右折初動方向ベクトル (衝突瞬間の力の方向を可視化) ===
 function addImpactVector() {
@@ -1003,20 +1003,22 @@ const A_keyframes = [
 //             ↑ A 右後方側面 (x=-1.5+1.86/2 ≒ -0.57, z=-13.5+4.71*0.3 ≒ -12.1) と接触
 //             ※ 物理整合のため B 衝突位置は A 衝突位置近傍に微調整
 // =========================================================================
+// Round3 V16 60度幾何整合: heading=π/3 (=南北軸から東寄り60°、東西軸から30°=ドラレコ「曲がり始めて1/3進んだ姿勢」)
+// B 中心 (-3.247, -2.985) は独立計算解で B左前 = (-0.57, -2.6) = A右後リアドア下部 と完全一致
 const B_keyframes = [
-  { t: 0.0, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // 西脇道、停止線手前で完全停止
-  { t: 0.3, x: -3.5, z: 0.0,   heading: Math.PI / 2 },
-  { t: 0.6, x: -3.5, z: 0.0,   heading: Math.PI / 2 },
-  { t: 1.0, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // ★ 完全静止
-  { t: 1.5, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // ★ 完全静止 (A 接近観察)
-  { t: 2.0, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // ★ 完全静止 (A 通過寸前)
-  { t: 2.3, x: -3.5, z: 0.0,   heading: Math.PI / 2 },        // ★ まだ完全静止 (合図誤認瞬間)
-  { t: 2.4, x: -3.48, z: -0.02, heading: Math.PI / 2.02 },    // 微々たる初動 (約 2.5 km/h)
-  { t: 2.5, x: -3.42, z: -0.08, heading: Math.PI / 2.1 },     // ★ 衝突瞬間も実質静止 (約 3 km/h)
-  { t: 2.7, x: -3.3,  z: -0.15, heading: Math.PI / 2.3 },     // 衝突直後、押し込みで僅かに動く
-  { t: 3.0, x: -3.2,  z: -0.2,  heading: Math.PI / 2.5 },
-  { t: 3.5, x: -3.0,  z: -0.3,  heading: Math.PI / 2.8 },     // stopped: A の右後方付近
-  { t: 5.0, x: -3.0,  z: -0.3,  heading: Math.PI / 2.8 }
+  { t: 0.0, x: -3.247, z: -2.985, heading: Math.PI / 3 },     // 西脇道入口、右折開始姿勢で完全停止
+  { t: 0.3, x: -3.247, z: -2.985, heading: Math.PI / 3 },
+  { t: 0.6, x: -3.247, z: -2.985, heading: Math.PI / 3 },
+  { t: 1.0, x: -3.247, z: -2.985, heading: Math.PI / 3 },     // ★ 完全静止
+  { t: 1.5, x: -3.247, z: -2.985, heading: Math.PI / 3 },     // ★ 完全静止 (A 接近観察)
+  { t: 2.0, x: -3.247, z: -2.985, heading: Math.PI / 3 },     // ★ 完全静止 (A 通過寸前)
+  { t: 2.3, x: -3.247, z: -2.985, heading: Math.PI / 3 },     // ★ まだ完全静止 (合図誤認瞬間)
+  { t: 2.4, x: -3.247, z: -2.985, heading: Math.PI / 3 },     // ★ 衝突直前も実質静止
+  { t: 2.5, x: -3.247, z: -2.985, heading: Math.PI / 3 },     // ★ 衝突瞬間 (B左前=A右後リアドア下部に幾何整合)
+  { t: 2.7, x: -3.2,   z: -2.95,  heading: Math.PI / 3 },     // 衝突直後、押し込みで僅かに動く
+  { t: 3.0, x: -3.1,   z: -2.9,   heading: Math.PI / 3 },
+  { t: 3.5, x: -3.0,   z: -2.85,  heading: Math.PI / 3 },     // stopped: A の右後方付近
+  { t: 5.0, x: -3.0,   z: -2.85,  heading: Math.PI / 3 }
 ];
 
 // キーフレーム補間 (Catmull-Rom)
