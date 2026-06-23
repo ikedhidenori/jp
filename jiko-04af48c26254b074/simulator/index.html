@@ -56,10 +56,54 @@
       padding: 16px;
     }
     #summary h1 {
-      margin: 0 0 6px;
+      margin: 0;
       font-size: 18px;
       line-height: 1.3;
       font-weight: 700;
+    }
+    .panel-summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .panel-summary::-webkit-details-marker {
+      display: none;
+    }
+    .panel-summary h2 {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .panel-action {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: #dce8f7;
+      background: rgba(255, 255, 255, .08);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    details.panel:not([open]) {
+      max-height: none !important;
+      overflow: visible !important;
+      padding: 10px 12px !important;
+    }
+    details.panel:not([open]) .panel-body {
+      display: none;
+    }
+    details[open] .panel-action::before {
+      content: "閉じる";
+    }
+    details:not([open]) .panel-action::before {
+      content: "開く";
+    }
+    .panel-body {
+      margin-top: 8px;
     }
     #summary .sub {
       color: var(--muted);
@@ -240,7 +284,7 @@
         top: 8px;
         left: 8px;
         width: calc(100vw - 16px);
-        max-height: 31vh;
+        max-height: 44vh;
         padding: 12px;
       }
       #summary h1 { font-size: 15px; }
@@ -249,7 +293,22 @@
       .fact { font-size: 12px; line-height: 1.45; }
       .note { font-size: 11px; }
       #evidence {
-        display: none;
+        display: block;
+        top: 58px;
+        right: 8px;
+        width: min(300px, calc(100vw - 16px));
+        max-height: 42vh;
+        padding: 10px;
+      }
+      #evidence:not([open]) {
+        left: auto;
+        width: auto;
+      }
+      .evidence-grid {
+        grid-template-columns: 1fr;
+      }
+      .legend {
+        grid-template-columns: 1fr;
       }
       #controls {
         left: 8px;
@@ -279,43 +338,53 @@
 <body>
   <canvas id="scene"></canvas>
 
-  <section id="summary" class="panel" aria-label="事故状況の要約">
-    <h1>事故状況 3Dシミュレーター</h1>
-    <p class="sub">2026-06-23版。ドラレコ、現地写真、通話整理、6/23再訪写真から作成した説明補助。寸法・速度は近似であり、鑑定ではありません。</p>
-    <div class="pill-row">
-      <span class="pill ok">確度高: Aは工事回避で進路変更済み</span>
-      <span class="pill ok">確度高: 接触はA右後方側面</span>
-      <span class="pill warn">要評価: 中央線様白線痕跡</span>
-      <span class="pill warn">要評価: 優先道路性</span>
-      <span class="pill danger">争点: Bの確認義務</span>
+  <details id="summary" class="panel" aria-label="事故状況の要約" open>
+    <summary class="panel-summary">
+      <h1>事故状況 3Dシミュレーター</h1>
+      <span class="panel-action" aria-hidden="true"></span>
+    </summary>
+    <div class="panel-body">
+      <p class="sub">2026-06-23版。ドラレコ、現地写真、通話整理、6/23再訪写真から作成した説明補助。寸法・速度は近似であり、鑑定ではありません。</p>
+      <div class="pill-row">
+        <span class="pill ok">確度高: Aは北から南へ進行</span>
+        <span class="pill ok">確度高: 脇道は西側</span>
+        <span class="pill ok">確度高: 接触はA右後方側面</span>
+        <span class="pill warn">要評価: 中央線様白線痕跡</span>
+        <span class="pill danger">争点: Bの確認義務</span>
+      </div>
+      <div class="facts">
+        <div class="fact ok">A車: アウトランダー。広い道路を北側から南側へ進行。工事車両を避けるため、本来車線から反対側寄りへ進路変更。</div>
+        <div class="fact danger">B車: 西側脇道の一時停止付近から右折初動。A車の右後方側面へ、B車左前付近が接触した想定。</div>
+        <div class="fact warn">中央線: 6/23現地写真で交差点内に白線痕跡を確認。優先道路性への影響は弁護士確認事項。</div>
+        <div class="fact">誘導員: 工事車両付近で手振り誘導。A側への進行合図、またはB側への停止合図に見える場面がある。</div>
+      </div>
+      <p class="note">操作: 再生で事故前後を確認。視点ボタンで上空、A視点、B視点、誘導員視点、白線確認へ切替。ドラッグで自由回転。上空視点では北を画面上に固定。</p>
     </div>
-    <div class="facts">
-      <div class="fact ok">A車: アウトランダー。広い道路を北側から南側へ進行。工事車両を避けるため、本来車線から反対側寄りへ進路変更。</div>
-      <div class="fact danger">B車: 脇道側の一時停止付近から右折初動。A車の右後方側面へ、B車左前付近が接触した想定。</div>
-      <div class="fact warn">中央線: 6/23現地写真で交差点内に白線痕跡を確認。優先道路性への影響は弁護士確認事項。</div>
-      <div class="fact">誘導員: 工事車両付近で手振り誘導。A側への進行合図、またはB側への停止合図に見える場面がある。</div>
-    </div>
-    <p class="note">操作: 再生で事故前後を確認。視点ボタンで上空、A視点、B視点、誘導員視点、白線確認へ切替。ドラッグで自由回転。</p>
-  </section>
+  </details>
 
-  <aside id="evidence" class="panel" aria-label="証拠画像">
-    <h2>証拠画像</h2>
-    <div class="evidence-grid">
-      <a class="evidence-item" href="../assets/white-line-wide.jpg" target="_blank"><img src="../assets/white-line-wide.jpg" alt="6月23日現地再訪の広角写真"><span>6/23 現地広角</span></a>
-      <a class="evidence-item" href="../assets/white-line-close.jpg" target="_blank"><img src="../assets/white-line-close.jpg" alt="交差点内の白線痕跡"><span>6/23 白線痕跡</span></a>
-      <a class="evidence-item" href="../assets/right-before.png" target="_blank"><img src="../assets/right-before.png" alt="衝突直前のドラレコフレーム"><span>衝突直前</span></a>
-      <a class="evidence-item" href="../assets/collision.png" target="_blank"><img src="../assets/collision.png" alt="衝突時のドラレコフレーム"><span>接触付近</span></a>
+  <details id="evidence" class="panel" aria-label="証拠画像と凡例" open>
+    <summary class="panel-summary">
+      <h2>証拠画像・凡例</h2>
+      <span class="panel-action" aria-hidden="true"></span>
+    </summary>
+    <div class="panel-body">
+      <div class="evidence-grid">
+        <a class="evidence-item" href="../assets/white-line-wide.jpg" target="_blank"><img src="../assets/white-line-wide.jpg" alt="6月23日現地再訪の広角写真"><span>6/23 現地広角</span></a>
+        <a class="evidence-item" href="../assets/white-line-close.jpg" target="_blank"><img src="../assets/white-line-close.jpg" alt="交差点内の白線痕跡"><span>6/23 白線痕跡</span></a>
+        <a class="evidence-item" href="../assets/right-before.png" target="_blank"><img src="../assets/right-before.png" alt="衝突直前のドラレコフレーム"><span>衝突直前</span></a>
+        <a class="evidence-item" href="../assets/collision.png" target="_blank"><img src="../assets/collision.png" alt="衝突時のドラレコフレーム"><span>接触付近</span></a>
+      </div>
+      <div class="legend">
+        <span style="--swatch:#1f6fbb">A車</span>
+        <span style="--swatch:#111827">B車</span>
+        <span style="--swatch:#f6c744">工事車両</span>
+        <span style="--swatch:#ff7a45">誘導員</span>
+        <span style="--swatch:#ffffff">中央線様痕跡</span>
+        <span style="--swatch:#ff4d4f">接触点</span>
+      </div>
+      <p class="note"><a href="https://drive.google.com/drive/folders/1Q4AwfQUUSoTGjEN2hzO27r70C4RuTnae" target="_blank" rel="noopener">ドラレコ映像をDriveで開く</a></p>
     </div>
-    <div class="legend">
-      <span style="--swatch:#1f6fbb">A車</span>
-      <span style="--swatch:#111827">B車</span>
-      <span style="--swatch:#f6c744">工事車両</span>
-      <span style="--swatch:#ff7a45">誘導員</span>
-      <span style="--swatch:#ffffff">中央線様痕跡</span>
-      <span style="--swatch:#ff4d4f">接触点</span>
-    </div>
-    <p class="note"><a href="https://drive.google.com/drive/folders/1Q4AwfQUUSoTGjEN2hzO27r70C4RuTnae" target="_blank" rel="noopener">ドラレコ映像をDriveで開く</a></p>
-  </aside>
+  </details>
 
   <section id="controls" class="panel" aria-label="シミュレーター操作">
     <div class="control-row">
@@ -359,6 +428,11 @@
     controls.enableDamping = true;
     controls.target.set(-1, 0, 0);
 
+    // Logical coordinates: -X=west, +X=east, +Z=north, -Z=south.
+    // Three.js top camera with north-up otherwise displays west on the right,
+    // so render X is mirrored while labels and facts remain in logical terms.
+    const rx = x => -x;
+
     const hemi = new THREE.HemisphereLight(0xdceaff, 0x344050, 1.45);
     scene.add(hemi);
     const sun = new THREE.DirectionalLight(0xffffff, 2.4);
@@ -391,7 +465,7 @@
     function addPlane(width, height, x, z, material, y = 0.01) {
       const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), material);
       mesh.rotation.x = -Math.PI / 2;
-      mesh.position.set(x, y, z);
+      mesh.position.set(rx(x), y, z);
       mesh.receiveShadow = true;
       scene.add(mesh);
       return mesh;
@@ -399,7 +473,7 @@
 
     function addBox(width, height, depth, x, y, z, material, cast = true) {
       const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
-      mesh.position.set(x, y, z);
+      mesh.position.set(rx(x), y, z);
       mesh.castShadow = cast;
       mesh.receiveShadow = true;
       scene.add(mesh);
@@ -453,12 +527,12 @@
 
     function addLabel(text, x, y, z, color = '#f8fafc') {
       const s = makeTextSprite(text, { color, fontSize: 28, scale: .011, opacity: .86 });
-      s.position.set(x, y, z);
+      s.position.set(rx(x), y, z);
       scene.add(s);
       return s;
     }
 
-    // Ground and road layout. Coordinates are schematic: X=east/west, Z=north/south.
+    // Ground and road layout. Coordinates are schematic: -X=west, +X=east, +Z=north, -Z=south.
     addPlane(96, 86, 0, 0, new THREE.MeshStandardMaterial({ color: 0x1c242c, roughness: .92 }), -0.02);
     addPlane(9.2, 74, 0, 0, materials.asphalt);
     addPlane(31, 5.6, -17.4, .65, materials.asphalt2);
@@ -491,14 +565,17 @@
     }
     // Stop line and side-road markings.
     addPlane(.18, 4.8, -5.25, .65, materials.lane, .055);
-    addLabel('一時停止側', -7.6, 1.2, 2.55, '#ffdad6');
-    addLabel('広い道路側', 2.9, 1.2, -9.4, '#d7ecff');
+    addLabel('西側脇道・一時停止側', -7.8, 1.2, 2.55, '#ffdad6');
+    addLabel('A進行道路: 北 → 南', 2.9, 1.2, -9.4, '#d7ecff');
+    addLabel('北', 5.7, 1.25, 31, '#d7ecff');
+    addLabel('南', 5.7, 1.25, -31, '#d7ecff');
+    addLabel('西', -28, 1.25, 6.0, '#ffdad6');
 
     // Road signs.
     function addPoleSign(x, z, label, color = '#ffffff', bg = 'rgba(150,20,20,.88)') {
       addBox(.08, 1.7, .08, x, .85, z, materials.dark);
       const s = makeTextSprite(label, { color, bg, fontSize: 25, scale: .011, opacity: .88 });
-      s.position.set(x, 1.95, z);
+      s.position.set(rx(x), 1.95, z);
       scene.add(s);
     }
     addPoleSign(-5.7, -2.45, '止まれ', '#ffffff', 'rgba(182,29,29,.92)');
@@ -514,7 +591,7 @@
     truckCab.position.set(0, .95, -2.4);
     truckCab.castShadow = true;
     truck.add(truckCab);
-    truck.position.set(2.0, 0, 7.5);
+    truck.position.set(rx(2.0), 0, 7.5);
     truck.rotation.y = 0;
     scene.add(truck);
     addLabel('工事車両 - A本来車線を塞ぐ', 2.6, 2.6, 10.9, '#fff0b3');
@@ -522,7 +599,7 @@
     // Cones.
     for (let i = 0; i < 7; i++) {
       const cone = new THREE.Mesh(new THREE.ConeGeometry(.24, .62, 20), materials.cone);
-      cone.position.set(3.55, .31, 1.5 + i * 1.8);
+      cone.position.set(rx(3.55), .31, 1.5 + i * 1.8);
       cone.castShadow = true;
       scene.add(cone);
     }
@@ -544,7 +621,7 @@
     rightArm.position.set(.43, 1.12, 0);
     rightArm.rotation.z = -.95;
     guide.add(rightArm);
-    guide.position.set(2.9, 0, 3.0);
+    guide.position.set(rx(2.9), 0, 3.0);
     scene.add(guide);
     addLabel('誘導員', 3.45, 2.25, 2.9, '#ffd6ad');
 
@@ -603,12 +680,12 @@
     const impactLight = new THREE.PointLight(0xff5b5b, 1.8, 8);
     impactLight.position.y = 1.1;
     impactMarker.add(impactLight);
-    impactMarker.position.set(-2.35, 0, -.3);
+    impactMarker.position.set(rx(-2.35), 0, -.3);
     scene.add(impactMarker);
     addLabel('接触点: B左前付近 x A右後方側面', -2.9, 2.0, -1.7, '#ffd2d2');
 
     function addPath(points, color, opacity) {
-      const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(p.x, .08, p.z)));
+      const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(rx(p.x), .08, p.z)));
       const geo = new THREE.TubeGeometry(curve, 80, .045, 8, false);
       const mesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color, transparent: true, opacity }));
       scene.add(mesh);
@@ -626,13 +703,15 @@
 
     // Direction arrows.
     function addArrow(origin, dir, color, label) {
-      const arrow = new THREE.ArrowHelper(dir.clone().normalize(), origin, 3.2, color, .7, .38);
+      const renderOrigin = new THREE.Vector3(rx(origin.x), origin.y, origin.z);
+      const renderDir = new THREE.Vector3(rx(dir.x), dir.y, dir.z);
+      const arrow = new THREE.ArrowHelper(renderDir.clone().normalize(), renderOrigin, 3.2, color, .7, .38);
       scene.add(arrow);
       const s = addLabel(label, origin.x + dir.x * 2.3, 1.4, origin.z + dir.z * 2.3, color === 0x5ab3ff ? '#d7ecff' : '#f0f0f0');
       return { arrow, s };
     }
-    addArrow(new THREE.Vector3(-1.35, .25, 8), new THREE.Vector3(0, 0, -1), 0x5ab3ff, 'A進行');
-    addArrow(new THREE.Vector3(-6.2, .25, .65), new THREE.Vector3(1, 0, -.45), 0xffffff, 'B右折初動');
+    addArrow(new THREE.Vector3(-1.35, .25, 8), new THREE.Vector3(0, 0, -1), 0x5ab3ff, 'A 北→南');
+    addArrow(new THREE.Vector3(-6.2, .25, .65), new THREE.Vector3(1, 0, -.45), 0xffffff, 'B 西側脇道から右折');
 
     const keyA = [
       { t: -4.0, x: 1.55, z: 20.0, h: 0 },
@@ -672,8 +751,8 @@
     }
 
     function setVehiclePose(vehicle, pose) {
-      vehicle.position.set(pose.x, 0, pose.z);
-      vehicle.rotation.y = pose.h;
+      vehicle.position.set(rx(pose.x), 0, pose.z);
+      vehicle.rotation.y = -pose.h;
     }
 
     let simTime = -4;
@@ -701,14 +780,14 @@
     function cameraForMode() {
       if (cameraMode === 'a') {
         const p = interp(keyA, simTime);
-        const rear = new THREE.Vector3(0, 3.4, 7.8).applyAxisAngle(new THREE.Vector3(0, 1, 0), p.h);
-        camera.position.lerp(new THREE.Vector3(p.x + rear.x, rear.y, p.z + rear.z), .12);
-        controls.target.lerp(new THREE.Vector3(p.x, 1, p.z - 5), .12);
+        const rear = new THREE.Vector3(0, 3.4, 7.8).applyAxisAngle(new THREE.Vector3(0, 1, 0), -p.h);
+        camera.position.lerp(new THREE.Vector3(rx(p.x) + rear.x, rear.y, p.z + rear.z), .12);
+        controls.target.lerp(new THREE.Vector3(rx(p.x), 1, p.z - 5), .12);
       } else if (cameraMode === 'b') {
         const p = interp(keyB, simTime);
-        const rear = new THREE.Vector3(0, 3.0, 8.2).applyAxisAngle(new THREE.Vector3(0, 1, 0), p.h);
-        camera.position.lerp(new THREE.Vector3(p.x + rear.x, rear.y, p.z + rear.z), .12);
-        controls.target.lerp(new THREE.Vector3(-2.2, .8, -.8), .12);
+        const rear = new THREE.Vector3(0, 3.0, 8.2).applyAxisAngle(new THREE.Vector3(0, 1, 0), -p.h);
+        camera.position.lerp(new THREE.Vector3(rx(p.x) + rear.x, rear.y, p.z + rear.z), .12);
+        controls.target.lerp(new THREE.Vector3(rx(-2.2), .8, -.8), .12);
       }
     }
 
@@ -716,18 +795,20 @@
       cameraMode = name;
       let pos;
       let target;
+      camera.up.set(0, 1, 0);
       if (name === 'top') {
-        pos = new THREE.Vector3(0, 46, .1);
-        target = new THREE.Vector3(-1.5, 0, .5);
+        camera.up.set(0, 0, 1);
+        pos = new THREE.Vector3(0, 46, .01);
+        target = new THREE.Vector3(rx(-1.5), 0, .5);
       } else if (name === 'guide') {
-        pos = new THREE.Vector3(5.6, 4.0, 7.8);
-        target = new THREE.Vector3(-2.2, .9, -.4);
+        pos = new THREE.Vector3(rx(5.6), 4.0, 7.8);
+        target = new THREE.Vector3(rx(-2.2), .9, -.4);
       } else if (name === 'white') {
-        pos = new THREE.Vector3(-5.4, 4.2, 7.5);
-        target = new THREE.Vector3(.2, .15, .8);
+        pos = new THREE.Vector3(rx(-5.4), 4.2, 7.5);
+        target = new THREE.Vector3(rx(.2), .15, .8);
       } else if (name === 'impact') {
-        pos = new THREE.Vector3(-13.2, 11.0, 13.5);
-        target = new THREE.Vector3(-2.25, .8, -.4);
+        pos = new THREE.Vector3(rx(-13.2), 11.0, 13.5);
+        target = new THREE.Vector3(rx(-2.25), .8, -.4);
       } else if (name === 'a' || name === 'b') {
         return;
       } else {
@@ -779,8 +860,22 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    const smallScreen = window.matchMedia('(max-width: 860px)');
+    const summaryPanel = document.getElementById('summary');
+    const evidencePanel = document.getElementById('evidence');
+    if (smallScreen.matches) {
+      summaryPanel.open = false;
+      evidencePanel.open = false;
+    }
+    summaryPanel.addEventListener('toggle', () => {
+      if (smallScreen.matches && summaryPanel.open) evidencePanel.open = false;
+    });
+    evidencePanel.addEventListener('toggle', () => {
+      if (smallScreen.matches && evidencePanel.open) summaryPanel.open = false;
+    });
+
     applyTime(tMin);
-    setView('impact');
+    setView(smallScreen.matches ? 'top' : 'impact');
     requestAnimationFrame(animate);
   </script>
 </body>
