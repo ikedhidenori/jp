@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="icon" href="data:,">
+  <title>事故状況 3Dシミュレーター - 2026-06-23版</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b0f;
+      --panel: rgba(14, 18, 24, .86);
+      --panel-strong: rgba(12, 15, 20, .96);
+      --line: rgba(255, 255, 255, .16);
+      --text: #eef2f7;
+      --muted: #a8b3c4;
+      --accent: #4aa3ff;
+      --warn: #ffca55;
+      --danger: #ff645f;
+      --ok: #70d59a;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      letter-spacing: 0;
+    }
+    #scene {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #11161d;
+    }
+    .panel {
+      position: fixed;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 52px rgba(0, 0, 0, .36);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+    #summary {
+      left: 16px;
+      top: 16px;
+      width: min(420px, calc(100vw - 32px));
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    #summary h1 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+    #summary .sub {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      margin: 0 0 12px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0 12px;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: #dbe7f5;
+      background: rgba(255, 255, 255, .06);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .pill.ok { border-color: rgba(112, 213, 154, .48); color: #c8f5d9; }
+    .pill.warn { border-color: rgba(255, 202, 85, .55); color: #ffe4a3; }
+    .pill.danger { border-color: rgba(255, 100, 95, .55); color: #ffb5b2; }
+    .facts {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .fact {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 10px;
+      color: #e7edf6;
+      font-size: 13px;
+      line-height: 1.52;
+    }
+    .fact.warn { border-left-color: var(--warn); }
+    .fact.ok { border-left-color: var(--ok); }
+    .fact.danger { border-left-color: var(--danger); }
+    .note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+    }
+    #controls {
+      left: 16px;
+      bottom: 16px;
+      width: min(620px, calc(100vw - 32px));
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    button {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: rgba(255, 255, 255, .08);
+      color: var(--text);
+      border-radius: 6px;
+      min-height: 34px;
+      padding: 7px 10px;
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    button.primary {
+      background: #206db8;
+      border-color: #3387d8;
+    }
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    input[type="range"] {
+      flex: 1 1 180px;
+      min-width: 120px;
+      accent-color: var(--accent);
+    }
+    #timeLabel {
+      width: 84px;
+      color: #d8e7f7;
+      font-size: 12px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    #evidence {
+      right: 16px;
+      top: 16px;
+      width: min(330px, calc(100vw - 32px));
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+      border-radius: 8px;
+      padding: 12px;
+    }
+    #evidence h2 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .evidence-item {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .05);
+    }
+    .evidence-item img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #222;
+    }
+    .evidence-item span {
+      display: block;
+      color: #d9e3ef;
+      font-size: 10px;
+      line-height: 1.35;
+      padding: 6px;
+    }
+    .legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 10px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 8px;
+      border-radius: 2px;
+      margin-right: 5px;
+      vertical-align: -1px;
+      background: var(--swatch);
+    }
+    #impact {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(155, 25, 25, .92);
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 8px;
+      padding: 14px 18px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      z-index: 15;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+      box-shadow: 0 18px 52px rgba(0, 0, 0, .42);
+    }
+    #impact.show { opacity: 1; }
+    a {
+      color: #9bcfff;
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+    @media (max-width: 860px) {
+      #summary {
+        top: 8px;
+        left: 8px;
+        width: calc(100vw - 16px);
+        max-height: 31vh;
+        padding: 12px;
+      }
+      #summary h1 { font-size: 15px; }
+      #summary .sub { font-size: 11px; line-height: 1.45; }
+      .pill { font-size: 10px; padding: 3px 7px; }
+      .fact { font-size: 12px; line-height: 1.45; }
+      .note { font-size: 11px; }
+      #evidence {
+        display: none;
+      }
+      #controls {
+        left: 8px;
+        bottom: 8px;
+        width: calc(100vw - 16px);
+        padding: 10px;
+      }
+      button {
+        min-height: 32px;
+        padding: 6px 8px;
+        font-size: 11px;
+      }
+      #timeLabel {
+        width: 70px;
+      }
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <section id="summary" class="panel" aria-label="事故状況の要約">
+    <h1>事故状況 3Dシミュレーター</h1>
+    <p class="sub">2026-06-23版。ドラレコ、現地写真、通話整理、6/23再訪写真から作成した説明補助。寸法・速度は近似であり、鑑定ではありません。</p>
+    <div class="pill-row">
+      <span class="pill ok">確度高: Aは工事回避で進路変更済み</span>
+      <span class="pill ok">確度高: 接触はA右後方側面</span>
+      <span class="pill warn">要評価: 中央線様白線痕跡</span>
+      <span class="pill warn">要評価: 優先道路性</span>
+      <span class="pill danger">争点: Bの確認義務</span>
+    </div>
+    <div class="facts">
+      <div class="fact ok">A車: アウトランダー。広い道路を北側から南側へ進行。工事車両を避けるため、本来車線から反対側寄りへ進路変更。</div>
+      <div class="fact danger">B車: 脇道側の一時停止付近から右折初動。A車の右後方側面へ、B車左前付近が接触した想定。</div>
+      <div class="fact warn">中央線: 6/23現地写真で交差点内に白線痕跡を確認。優先道路性への影響は弁護士確認事項。</div>
+      <div class="fact">誘導員: 工事車両付近で手振り誘導。A側への進行合図、またはB側への停止合図に見える場面がある。</div>
+    </div>
+    <p class="note">操作: 再生で事故前後を確認。視点ボタンで上空、A視点、B視点、誘導員視点、白線確認へ切替。ドラッグで自由回転。</p>
+  </section>
+
+  <aside id="evidence" class="panel" aria-label="証拠画像">
+    <h2>証拠画像</h2>
+    <div class="evidence-grid">
+      <a class="evidence-item" href="../assets/white-line-wide.jpg" target="_blank"><img src="../assets/white-line-wide.jpg" alt="6月23日現地再訪の広角写真"><span>6/23 現地広角</span></a>
+      <a class="evidence-item" href="../assets/white-line-close.jpg" target="_blank"><img src="../assets/white-line-close.jpg" alt="交差点内の白線痕跡"><span>6/23 白線痕跡</span></a>
+      <a class="evidence-item" href="../assets/right-before.png" target="_blank"><img src="../assets/right-before.png" alt="衝突直前のドラレコフレーム"><span>衝突直前</span></a>
+      <a class="evidence-item" href="../assets/collision.png" target="_blank"><img src="../assets/collision.png" alt="衝突時のドラレコフレーム"><span>接触付近</span></a>
+    </div>
+    <div class="legend">
+      <span style="--swatch:#1f6fbb">A車</span>
+      <span style="--swatch:#111827">B車</span>
+      <span style="--swatch:#f6c744">工事車両</span>
+      <span style="--swatch:#ff7a45">誘導員</span>
+      <span style="--swatch:#ffffff">中央線様痕跡</span>
+      <span style="--swatch:#ff4d4f">接触点</span>
+    </div>
+    <p class="note"><a href="https://drive.google.com/drive/folders/1Q4AwfQUUSoTGjEN2hzO27r70C4RuTnae" target="_blank" rel="noopener">ドラレコ映像をDriveで開く</a></p>
+  </aside>
+
+  <section id="controls" class="panel" aria-label="シミュレーター操作">
+    <div class="control-row">
+      <button class="primary" id="play">再生</button>
+      <button id="reset">リセット</button>
+      <input id="timeline" type="range" min="0" max="1000" value="0" aria-label="時刻">
+      <span id="timeLabel">T-4.0s</span>
+    </div>
+    <div class="control-row" style="margin-top:8px">
+      <button data-view="top">上空</button>
+      <button data-view="a">A視点</button>
+      <button data-view="b">B視点</button>
+      <button data-view="guide">誘導員</button>
+      <button data-view="white">白線確認</button>
+      <button data-view="impact">接触点</button>
+    </div>
+  </section>
+
+  <div id="impact">接触: B左前付近 x A右後方側面</div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const canvas = document.getElementById('scene');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x10151c);
+    scene.fog = new THREE.Fog(0x10151c, 48, 92);
+
+    const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 220);
+    camera.position.set(18, 28, 30);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(-1, 0, 0);
+
+    const hemi = new THREE.HemisphereLight(0xdceaff, 0x344050, 1.45);
+    scene.add(hemi);
+    const sun = new THREE.DirectionalLight(0xffffff, 2.4);
+    sun.position.set(-16, 34, 18);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048);
+    sun.shadow.camera.left = -50;
+    sun.shadow.camera.right = 50;
+    sun.shadow.camera.top = 50;
+    sun.shadow.camera.bottom = -50;
+    scene.add(sun);
+
+    const materials = {
+      asphalt: new THREE.MeshStandardMaterial({ color: 0x343840, roughness: .88, metalness: .02 }),
+      asphalt2: new THREE.MeshStandardMaterial({ color: 0x2c3138, roughness: .9, metalness: .01 }),
+      sidewalk: new THREE.MeshStandardMaterial({ color: 0x6d7075, roughness: .86 }),
+      lane: new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .72, depthWrite: false }),
+      laneFaint: new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .36, depthWrite: false }),
+      yellow: new THREE.MeshStandardMaterial({ color: 0xf6c744, roughness: .7 }),
+      cone: new THREE.MeshStandardMaterial({ color: 0xff7438, roughness: .55 }),
+      red: new THREE.MeshStandardMaterial({ color: 0xff4d4f, emissive: 0x320000, roughness: .42 }),
+      blue: new THREE.MeshStandardMaterial({ color: 0x1f6fbb, roughness: .34, metalness: .18 }),
+      black: new THREE.MeshStandardMaterial({ color: 0x111827, roughness: .32, metalness: .22 }),
+      glass: new THREE.MeshStandardMaterial({ color: 0x9dc7e5, roughness: .08, metalness: .05, transparent: true, opacity: .72 }),
+      white: new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: .4 }),
+      dark: new THREE.MeshStandardMaterial({ color: 0x101010, roughness: .7 }),
+      green: new THREE.MeshStandardMaterial({ color: 0x47b881, roughness: .5 }),
+    };
+
+    function addPlane(width, height, x, z, material, y = 0.01) {
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), material);
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.position.set(x, y, z);
+      mesh.receiveShadow = true;
+      scene.add(mesh);
+      return mesh;
+    }
+
+    function addBox(width, height, depth, x, y, z, material, cast = true) {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
+      mesh.position.set(x, y, z);
+      mesh.castShadow = cast;
+      mesh.receiveShadow = true;
+      scene.add(mesh);
+      return mesh;
+    }
+
+    function makeTextSprite(text, opts = {}) {
+      const fontSize = opts.fontSize || 40;
+      const pad = opts.pad || 16;
+      const canvas2 = document.createElement('canvas');
+      const ctx = canvas2.getContext('2d');
+      ctx.font = `700 ${fontSize}px "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif`;
+      const metrics = ctx.measureText(text);
+      canvas2.width = Math.ceil(metrics.width + pad * 2);
+      canvas2.height = Math.ceil(fontSize * 1.55 + pad * 2);
+      ctx.font = `700 ${fontSize}px "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif`;
+      ctx.fillStyle = opts.bg || 'rgba(10, 13, 18, .78)';
+      roundRect(ctx, 0, 0, canvas2.width, canvas2.height, 12);
+      ctx.fill();
+      ctx.strokeStyle = opts.border || 'rgba(255,255,255,.26)';
+      ctx.lineWidth = 3;
+      roundRect(ctx, 1.5, 1.5, canvas2.width - 3, canvas2.height - 3, 12);
+      ctx.stroke();
+      ctx.fillStyle = opts.color || '#f8fafc';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, canvas2.width / 2, canvas2.height / 2 + 1);
+      const tex = new THREE.CanvasTexture(canvas2);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: tex,
+        transparent: true,
+        opacity: opts.opacity || .9,
+        depthTest: opts.depthTest ?? false,
+      }));
+      const scale = opts.scale || .014;
+      sprite.scale.set(canvas2.width * scale, canvas2.height * scale, 1);
+      sprite.renderOrder = 8;
+      return sprite;
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function addLabel(text, x, y, z, color = '#f8fafc') {
+      const s = makeTextSprite(text, { color, fontSize: 28, scale: .011, opacity: .86 });
+      s.position.set(x, y, z);
+      scene.add(s);
+      return s;
+    }
+
+    // Ground and road layout. Coordinates are schematic: X=east/west, Z=north/south.
+    addPlane(96, 86, 0, 0, new THREE.MeshStandardMaterial({ color: 0x1c242c, roughness: .92 }), -0.02);
+    addPlane(9.2, 74, 0, 0, materials.asphalt);
+    addPlane(31, 5.6, -17.4, .65, materials.asphalt2);
+    addPlane(10.2, 9.2, -1.8, .2, materials.asphalt, .018);
+
+    addPlane(3, 74, 6.4, 0, materials.sidewalk, 0);
+    addPlane(3, 74, -6.4, 0, materials.sidewalk, 0);
+    addPlane(31, 2.3, -17.4, 4.55, materials.sidewalk, 0);
+    addPlane(31, 2.3, -17.4, -3.25, materials.sidewalk, 0);
+
+    // Centerline before/after intersection.
+    for (let z = -34; z <= 34; z += 6) {
+      const inIntersection = z > -4.2 && z < 4.2;
+      const len = inIntersection ? 1.4 : 3.1;
+      const mat = inIntersection ? materials.laneFaint : materials.lane;
+      const line = addPlane(.13, len, 0, z, mat, .045);
+      if (inIntersection) {
+        line.position.x += (Math.random() - .5) * .12;
+        line.rotation.z = (Math.random() - .5) * .035;
+      }
+    }
+    addLabel('中央線様の白線痕跡 - 優先道路性は要評価', 1.8, 1.2, 2.7, '#ffe4a3');
+
+    // Lane edges and crosswalks.
+    addPlane(.12, 74, 4.45, 0, new THREE.MeshBasicMaterial({ color: 0xd8dde6, transparent: true, opacity: .36 }), .04);
+    addPlane(.12, 74, -4.45, 0, new THREE.MeshBasicMaterial({ color: 0xd8dde6, transparent: true, opacity: .36 }), .04);
+    for (let i = -4; i <= 4; i++) {
+      addPlane(.7, 3.6, i * .95, 5.8, materials.lane, .052);
+      addPlane(.7, 3.6, i * .95, -5.4, materials.lane, .052);
+    }
+    // Stop line and side-road markings.
+    addPlane(.18, 4.8, -5.25, .65, materials.lane, .055);
+    addLabel('一時停止側', -7.6, 1.2, 2.55, '#ffdad6');
+    addLabel('広い道路側', 2.9, 1.2, -9.4, '#d7ecff');
+
+    // Road signs.
+    function addPoleSign(x, z, label, color = '#ffffff', bg = 'rgba(150,20,20,.88)') {
+      addBox(.08, 1.7, .08, x, .85, z, materials.dark);
+      const s = makeTextSprite(label, { color, bg, fontSize: 25, scale: .011, opacity: .88 });
+      s.position.set(x, 1.95, z);
+      scene.add(s);
+    }
+    addPoleSign(-5.7, -2.45, '止まれ', '#ffffff', 'rgba(182,29,29,.92)');
+    addPoleSign(-4.6, 3.25, '一方通行出口', '#ffffff', 'rgba(34,72,142,.92)');
+
+    // Construction truck.
+    const truck = new THREE.Group();
+    const truckBody = new THREE.Mesh(new THREE.BoxGeometry(2.35, 1.65, 6.6), materials.yellow);
+    truckBody.position.y = .9;
+    truckBody.castShadow = true;
+    truck.add(truckBody);
+    const truckCab = new THREE.Mesh(new THREE.BoxGeometry(2.2, 1.5, 1.8), new THREE.MeshStandardMaterial({ color: 0xf0f2f5, roughness: .54 }));
+    truckCab.position.set(0, .95, -2.4);
+    truckCab.castShadow = true;
+    truck.add(truckCab);
+    truck.position.set(2.0, 0, 7.5);
+    truck.rotation.y = 0;
+    scene.add(truck);
+    addLabel('工事車両 - A本来車線を塞ぐ', 2.6, 2.6, 10.9, '#fff0b3');
+
+    // Cones.
+    for (let i = 0; i < 7; i++) {
+      const cone = new THREE.Mesh(new THREE.ConeGeometry(.24, .62, 20), materials.cone);
+      cone.position.set(3.55, .31, 1.5 + i * 1.8);
+      cone.castShadow = true;
+      scene.add(cone);
+    }
+
+    // Guide worker.
+    const guide = new THREE.Group();
+    const guideBody = new THREE.Mesh(new THREE.CapsuleGeometry(.22, .75, 6, 16), new THREE.MeshStandardMaterial({ color: 0xff8a3d, roughness: .45 }));
+    guideBody.position.y = .82;
+    guide.add(guideBody);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(.2, 20, 20), new THREE.MeshStandardMaterial({ color: 0xf1c7a1, roughness: .52 }));
+    head.position.y = 1.48;
+    guide.add(head);
+    const armMat = new THREE.MeshStandardMaterial({ color: 0xfff2bf, roughness: .48 });
+    const leftArm = new THREE.Mesh(new THREE.BoxGeometry(.12, .9, .12), armMat);
+    leftArm.position.set(-.43, 1.12, 0);
+    leftArm.rotation.z = .95;
+    guide.add(leftArm);
+    const rightArm = new THREE.Mesh(new THREE.BoxGeometry(.12, .9, .12), armMat);
+    rightArm.position.set(.43, 1.12, 0);
+    rightArm.rotation.z = -.95;
+    guide.add(rightArm);
+    guide.position.set(2.9, 0, 3.0);
+    scene.add(guide);
+    addLabel('誘導員', 3.45, 2.25, 2.9, '#ffd6ad');
+
+    function makeVehicle(name, bodyMat, opts) {
+      const g = new THREE.Group();
+      const { width, length, height, accent } = opts;
+      const body = new THREE.Mesh(new THREE.BoxGeometry(width, height, length), bodyMat);
+      body.position.y = .62;
+      body.castShadow = true;
+      body.receiveShadow = true;
+      g.add(body);
+      const cabin = new THREE.Mesh(new THREE.BoxGeometry(width * .72, height * .62, length * .42), materials.glass);
+      cabin.position.set(0, 1.12, -.25);
+      cabin.castShadow = true;
+      g.add(cabin);
+      const hood = new THREE.Mesh(new THREE.BoxGeometry(width * .82, height * .2, length * .16), new THREE.MeshStandardMaterial({ color: accent, roughness: .32 }));
+      hood.position.set(0, .86, -length * .42);
+      hood.castShadow = true;
+      g.add(hood);
+      const rear = new THREE.Mesh(new THREE.BoxGeometry(width * .82, height * .2, length * .15), new THREE.MeshStandardMaterial({ color: accent, roughness: .32 }));
+      rear.position.set(0, .86, length * .42);
+      rear.castShadow = true;
+      g.add(rear);
+      for (const sx of [-1, 1]) {
+        for (const sz of [-1, 1]) {
+          const wheel = new THREE.Mesh(new THREE.CylinderGeometry(.31, .31, .22, 24), materials.dark);
+          wheel.rotation.z = Math.PI / 2;
+          wheel.position.set(sx * width * .53, .31, sz * length * .34);
+          wheel.castShadow = true;
+          g.add(wheel);
+        }
+      }
+      const label = makeTextSprite(name, { fontSize: 28, scale: .010, bg: 'rgba(8,11,18,.72)', opacity: .82 });
+      label.position.set(0, 2.25, 0);
+      g.add(label);
+      return g;
+    }
+
+    const carA = makeVehicle('A アウトランダー', materials.blue, { width: 1.9, length: 4.7, height: 1.15, accent: 0x56a4e9 });
+    const carB = makeVehicle('B ランドローバー', materials.black, { width: 2.05, length: 5.0, height: 1.22, accent: 0x252b35 });
+    scene.add(carA, carB);
+
+    // Damage/contact highlights.
+    const damageA = new THREE.Mesh(new THREE.BoxGeometry(.12, .58, .9), materials.red);
+    damageA.position.set(-.99, .72, 1.0);
+    carA.add(damageA);
+    const contactB = new THREE.Mesh(new THREE.SphereGeometry(.18, 24, 24), materials.red);
+    contactB.position.set(-.78, .88, -2.18);
+    carB.add(contactB);
+
+    const impactMarker = new THREE.Group();
+    const impactRing = new THREE.Mesh(new THREE.TorusGeometry(.7, .045, 12, 44), new THREE.MeshBasicMaterial({ color: 0xff4d4f }));
+    impactRing.rotation.x = Math.PI / 2;
+    impactRing.position.y = .09;
+    impactMarker.add(impactRing);
+    const impactLight = new THREE.PointLight(0xff5b5b, 1.8, 8);
+    impactLight.position.y = 1.1;
+    impactMarker.add(impactLight);
+    impactMarker.position.set(-2.35, 0, -.3);
+    scene.add(impactMarker);
+    addLabel('接触点: B左前付近 x A右後方側面', -2.9, 2.0, -1.7, '#ffd2d2');
+
+    function addPath(points, color, opacity) {
+      const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(p.x, .08, p.z)));
+      const geo = new THREE.TubeGeometry(curve, 80, .045, 8, false);
+      const mesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color, transparent: true, opacity }));
+      scene.add(mesh);
+      return mesh;
+    }
+
+    addPath([
+      { x: 1.55, z: 20 }, { x: 1.25, z: 15 }, { x: -.4, z: 10 },
+      { x: -1.35, z: 5 }, { x: -1.35, z: -1.4 }, { x: -1.35, z: -8 },
+    ], 0x5ab3ff, .82);
+    addPath([
+      { x: -15, z: .65 }, { x: -8, z: .65 }, { x: -5.4, z: .65 },
+      { x: -3.5, z: -.65 }, { x: -3.05, z: -1.55 },
+    ], 0xffffff, .54);
+
+    // Direction arrows.
+    function addArrow(origin, dir, color, label) {
+      const arrow = new THREE.ArrowHelper(dir.clone().normalize(), origin, 3.2, color, .7, .38);
+      scene.add(arrow);
+      const s = addLabel(label, origin.x + dir.x * 2.3, 1.4, origin.z + dir.z * 2.3, color === 0x5ab3ff ? '#d7ecff' : '#f0f0f0');
+      return { arrow, s };
+    }
+    addArrow(new THREE.Vector3(-1.35, .25, 8), new THREE.Vector3(0, 0, -1), 0x5ab3ff, 'A進行');
+    addArrow(new THREE.Vector3(-6.2, .25, .65), new THREE.Vector3(1, 0, -.45), 0xffffff, 'B右折初動');
+
+    const keyA = [
+      { t: -4.0, x: 1.55, z: 20.0, h: 0 },
+      { t: -2.7, x: .65, z: 13.0, h: -.10 },
+      { t: -1.6, x: -1.35, z: 7.0, h: 0 },
+      { t: 0.0, x: -1.35, z: -1.4, h: 0 },
+      { t: 1.2, x: -1.35, z: -7.8, h: 0 },
+      { t: 2.0, x: -1.35, z: -9.0, h: 0 },
+    ];
+    const keyB = [
+      { t: -4.0, x: -13.5, z: .65, h: -Math.PI / 2 },
+      { t: -2.4, x: -6.2, z: .65, h: -Math.PI / 2 },
+      { t: -.55, x: -5.55, z: .65, h: -Math.PI / 2 },
+      { t: 0.0, x: -3.05, z: -1.55, h: -Math.PI / 2 + .62 },
+      { t: .75, x: -2.95, z: -1.65, h: -Math.PI / 2 + .64 },
+      { t: 2.0, x: -2.95, z: -1.65, h: -Math.PI / 2 + .64 },
+    ];
+
+    function interp(keys, t) {
+      if (t <= keys[0].t) return keys[0];
+      if (t >= keys[keys.length - 1].t) return keys[keys.length - 1];
+      for (let i = 0; i < keys.length - 1; i++) {
+        const a = keys[i];
+        const b = keys[i + 1];
+        if (t >= a.t && t <= b.t) {
+          const k = (t - a.t) / (b.t - a.t);
+          const s = k * k * (3 - 2 * k);
+          return {
+            t,
+            x: THREE.MathUtils.lerp(a.x, b.x, s),
+            z: THREE.MathUtils.lerp(a.z, b.z, s),
+            h: THREE.MathUtils.lerp(a.h, b.h, s),
+          };
+        }
+      }
+      return keys[keys.length - 1];
+    }
+
+    function setVehiclePose(vehicle, pose) {
+      vehicle.position.set(pose.x, 0, pose.z);
+      vehicle.rotation.y = pose.h;
+    }
+
+    let simTime = -4;
+    let playing = false;
+    let last = performance.now();
+    let cameraMode = 'orbit';
+    const tMin = -4;
+    const tMax = 2;
+    const slider = document.getElementById('timeline');
+    const timeLabel = document.getElementById('timeLabel');
+    const impactBanner = document.getElementById('impact');
+
+    function applyTime(t) {
+      simTime = THREE.MathUtils.clamp(t, tMin, tMax);
+      setVehiclePose(carA, interp(keyA, simTime));
+      setVehiclePose(carB, interp(keyB, simTime));
+      impactMarker.visible = simTime >= -.08;
+      impactBanner.classList.toggle('show', simTime >= -.05 && simTime <= .35);
+      const sliderValue = ((simTime - tMin) / (tMax - tMin)) * 1000;
+      slider.value = String(Math.round(sliderValue));
+      const sign = simTime < 0 ? '-' : '+';
+      timeLabel.textContent = `T${sign}${Math.abs(simTime).toFixed(1)}s`;
+    }
+
+    function cameraForMode() {
+      if (cameraMode === 'a') {
+        const p = interp(keyA, simTime);
+        const rear = new THREE.Vector3(0, 3.4, 7.8).applyAxisAngle(new THREE.Vector3(0, 1, 0), p.h);
+        camera.position.lerp(new THREE.Vector3(p.x + rear.x, rear.y, p.z + rear.z), .12);
+        controls.target.lerp(new THREE.Vector3(p.x, 1, p.z - 5), .12);
+      } else if (cameraMode === 'b') {
+        const p = interp(keyB, simTime);
+        const rear = new THREE.Vector3(0, 3.0, 8.2).applyAxisAngle(new THREE.Vector3(0, 1, 0), p.h);
+        camera.position.lerp(new THREE.Vector3(p.x + rear.x, rear.y, p.z + rear.z), .12);
+        controls.target.lerp(new THREE.Vector3(-2.2, .8, -.8), .12);
+      }
+    }
+
+    function setView(name) {
+      cameraMode = name;
+      let pos;
+      let target;
+      if (name === 'top') {
+        pos = new THREE.Vector3(0, 46, .1);
+        target = new THREE.Vector3(-1.5, 0, .5);
+      } else if (name === 'guide') {
+        pos = new THREE.Vector3(5.6, 4.0, 7.8);
+        target = new THREE.Vector3(-2.2, .9, -.4);
+      } else if (name === 'white') {
+        pos = new THREE.Vector3(-5.4, 4.2, 7.5);
+        target = new THREE.Vector3(.2, .15, .8);
+      } else if (name === 'impact') {
+        pos = new THREE.Vector3(-13.2, 11.0, 13.5);
+        target = new THREE.Vector3(-2.25, .8, -.4);
+      } else if (name === 'a' || name === 'b') {
+        return;
+      } else {
+        pos = new THREE.Vector3(18, 28, 30);
+        target = new THREE.Vector3(-1, 0, 0);
+      }
+      camera.position.copy(pos);
+      controls.target.copy(target);
+      controls.update();
+    }
+
+    function animate(now) {
+      const dt = Math.min((now - last) / 1000, .05);
+      last = now;
+      if (playing) {
+        applyTime(simTime + dt * .82);
+        if (simTime >= tMax) playing = false;
+      }
+      cameraForMode();
+      controls.update();
+      renderer.render(scene, camera);
+      window.__simReady = true;
+      requestAnimationFrame(animate);
+    }
+
+    document.getElementById('play').addEventListener('click', () => {
+      if (simTime >= tMax) applyTime(tMin);
+      playing = !playing;
+      document.getElementById('play').textContent = playing ? '停止' : '再生';
+    });
+    document.getElementById('reset').addEventListener('click', () => {
+      playing = false;
+      document.getElementById('play').textContent = '再生';
+      applyTime(tMin);
+      setView('impact');
+    });
+    slider.addEventListener('input', () => {
+      playing = false;
+      document.getElementById('play').textContent = '再生';
+      const v = Number(slider.value) / 1000;
+      applyTime(tMin + (tMax - tMin) * v);
+    });
+    document.querySelectorAll('[data-view]').forEach(btn => {
+      btn.addEventListener('click', () => setView(btn.dataset.view));
+    });
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    applyTime(tMin);
+    setView('impact');
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

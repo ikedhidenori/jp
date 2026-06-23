@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="icon" href="data:,">
+  <title>2026-06-11 交通事故資料 - 弁護士確認用</title>
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --paper: #fffdf8;
+      --ink: #161b22;
+      --muted: #606b78;
+      --line: #d8d0c2;
+      --blue: #1f66a5;
+      --green: #237456;
+      --amber: #9c6615;
+      --red: #9d342d;
+      --shadow: 0 18px 48px rgba(40, 34, 24, .14);
+    }
+    * { box-sizing: border-box; }
+    html {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      letter-spacing: 0;
+    }
+    body {
+      margin: 0;
+      line-height: 1.68;
+      background:
+        linear-gradient(90deg, rgba(22, 27, 34, .045) 1px, transparent 1px) 0 0 / 30px 30px,
+        linear-gradient(rgba(22, 27, 34, .035) 1px, transparent 1px) 0 0 / 30px 30px,
+        var(--bg);
+    }
+    header {
+      background: rgba(255, 253, 248, .92);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+    .bar, main {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .bar {
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 15px;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+    main {
+      padding: 30px 18px 56px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.14fr) minmax(300px, .86fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 16px;
+    }
+    .panel, .card, section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(40, 34, 24, .08);
+    }
+    .panel {
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 52px);
+      line-height: 1.06;
+      letter-spacing: 0;
+    }
+    .lead {
+      margin: 14px 0 0;
+      color: #3d4651;
+      font-size: 15px;
+      max-width: 720px;
+    }
+    .notice {
+      margin-top: 16px;
+      border-left: 4px solid var(--amber);
+      background: #fff7e5;
+      color: #5d4215;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .preview {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+      border-radius: 8px;
+      border: 1px solid rgba(22, 27, 34, .18);
+      box-shadow: var(--shadow);
+      background: #111821;
+      color: #fff;
+      text-decoration: none;
+    }
+    .preview img {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      object-fit: cover;
+      display: block;
+      opacity: .9;
+    }
+    .preview span {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      background: rgba(16, 22, 30, .86);
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .quick {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 24px;
+    }
+    a.tile {
+      min-height: 118px;
+      padding: 15px;
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    a.tile:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .tag {
+      width: fit-content;
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+    .tag.green { background: var(--green); }
+    .tag.amber { background: var(--amber); }
+    .tag.red { background: var(--red); }
+    .tile strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    .tile small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    section {
+      padding: 18px;
+      margin-top: 22px;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .evidence {
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+    }
+    .evidence img {
+      width: 112px;
+      height: 78px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #e6dfd3;
+    }
+    .evidence a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .evidence a:hover { text-decoration: underline; }
+    .evidence p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .video-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(280px, .1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+    iframe {
+      width: 100%;
+      min-height: 360px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .video-note {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fffaf0;
+      color: #533a14;
+      font-size: 13px;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 8px 11px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .fact {
+      border-left: 4px solid var(--blue);
+      background: #f7fbff;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .fact.green { border-left-color: var(--green); background: #f3fbf6; }
+    .fact.amber { border-left-color: var(--amber); background: #fff9ed; }
+    .fact.red { border-left-color: var(--red); background: #fff7f6; }
+    .fineprint {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    @media (max-width: 860px) {
+      .bar { flex-direction: column; align-items: flex-start; }
+      .meta { text-align: left; }
+      main { padding-top: 18px; }
+      .hero, .video-wrap { grid-template-columns: 1fr; }
+      .quick { grid-template-columns: 1fr 1fr; }
+      .grid, .facts { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .quick { grid-template-columns: 1fr; }
+      .panel { padding: 18px; }
+      .evidence { grid-template-columns: 88px minmax(0, 1fr); }
+      .evidence img { width: 88px; height: 66px; }
+      iframe { min-height: 300px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div class="brand">2026-06-11 交通事故資料</div>
+      <div class="meta">弁護士確認用 / noindex / URL共有者のみ閲覧想定</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="panel">
+        <h1>事故状況資料<br>ワンリンク版</h1>
+        <p class="lead">事故状況、6/23現地再訪の白線写真、ドラレコ重要フレーム、3Dシミュレーター、ドラレコ映像リンクを1ページにまとめています。</p>
+        <div class="notice">このページ自体は推測困難URLですが、完全な認証付きページではありません。転送・再共有は必要最小限にしてください。医療/保険チャット画像は公開版から除外しています。</div>
+      </div>
+      <a class="preview" href="simulator/index.html">
+        <img src="output/sim-desktop-collision.png" alt="3Dシミュレーターの接触時点">
+        <span>3Dシミュレーターを開く</span>
+      </a>
+    </div>
+
+    <div class="quick">
+      <a class="tile card" href="output/lawyer-brief-2026-06-23.pdf">
+        <span class="tag green">PDF</span>
+        <strong>事故状況ブリーフ</strong>
+        <small>公開版PDF。医療・保険支払い詳細は除外。</small>
+      </a>
+      <a class="tile card" href="simulator/index.html">
+        <span class="tag">3D</span>
+        <strong>3Dシミュレーター</strong>
+        <small>空間関係の説明補助。PC推奨。</small>
+      </a>
+      <a class="tile card" href="#dashcam">
+        <span class="tag amber">動画</span>
+        <strong>ドラレコ生映像</strong>
+        <small>Google Driveの限定共有で確認。</small>
+      </a>
+      <a class="tile card" href="report-print.html">
+        <span class="tag red">HTML</span>
+        <strong>印刷用HTML</strong>
+        <small>PDFの元ページ。ブラウザ確認用。</small>
+      </a>
+    </div>
+
+    <section>
+      <h2>事故状況の要点</h2>
+      <div class="facts">
+        <div class="fact green">A車は広い道路を進行中、工事車両を避けるため進路変更済みだった。</div>
+        <div class="fact red">B車は一時停止側の脇道から右折初動で出て、A車右後方側面へ接触したと見られる。</div>
+        <div class="fact amber">6/23現地再訪で交差点内に中央線様の白線痕跡を撮影。優先道路性は弁護士確認事項。</div>
+      </div>
+    </section>
+
+    <section id="dashcam">
+      <h2>ドラレコ生映像</h2>
+      <div class="video-wrap">
+        <iframe src="https://drive.google.com/embeddedfolderview?id=1Q4AwfQUUSoTGjEN2hzO27r70C4RuTnae#grid" title="ドラレコ映像 Google Drive"></iframe>
+        <div class="video-note">
+          <strong>Drive側の権限が必要です。</strong><br>
+          Google Driveにログインした状態で開いてください。見られない場合は、送付元にDriveフォルダの閲覧権限付与を依頼してください。
+          <br>
+          <a class="button" href="https://drive.google.com/drive/folders/1Q4AwfQUUSoTGjEN2hzO27r70C4RuTnae" target="_blank" rel="noopener">Driveで開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>重要画像</h2>
+      <div class="grid">
+        <div class="evidence card">
+          <img src="assets/white-line-wide.jpg" alt="6/23現地広角">
+          <div><a href="assets/white-line-wide.jpg">6/23 現地広角</a><p>交差点と道路形状。白線痕跡の位置関係確認。</p></div>
+        </div>
+        <div class="evidence card">
+          <img src="assets/white-line-close.jpg" alt="中央線様白線痕跡">
+          <div><a href="assets/white-line-close.jpg">6/23 白線痕跡</a><p>交差点内に残る中央線様の白線痕跡。</p></div>
+        </div>
+        <div class="evidence card">
+          <img src="assets/right-before.png" alt="衝突直前">
+          <div><a href="assets/right-before.png">衝突直前フレーム</a><p>工事車両、誘導員、交差点進入状況。</p></div>
+        </div>
+        <div class="evidence card">
+          <img src="assets/collision.png" alt="接触付近">
+          <div><a href="assets/collision.png">接触付近フレーム</a><p>A右後方側面とB左前付近の接触関係。</p></div>
+        </div>
+        <div class="evidence card">
+          <img src="assets/stopped.png" alt="停止付近">
+          <div><a href="assets/stopped.png">事故後停止付近</a><p>事故後の位置関係確認用。</p></div>
+        </div>
+        <div class="evidence card">
+          <img src="output/sim-mobile.png" alt="スマホ向け3D代替画像">
+          <div><a href="output/sim-mobile.png">3D代替スクリーンショット</a><p>3Dが動かない環境向け。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <p class="fineprint">3Dシミュレーターは法的評価・鑑定ではなく、ドラレコと写真から把握できる空間関係の説明補助です。白線痕跡が優先道路性を確定させるものとは断定していません。</p>
+  </main>
+</body>
+</html>
