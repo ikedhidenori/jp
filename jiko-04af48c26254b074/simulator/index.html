@@ -349,14 +349,17 @@
         <span class="pill ok">確度高: Aは北から南へ進行</span>
         <span class="pill ok">確度高: 脇道は西側</span>
         <span class="pill ok">確度高: 接触はA右後方側面</span>
+        <span class="pill ok">確度高: 横断歩道は脇道側</span>
         <span class="pill warn">要評価: 中央線様白線痕跡</span>
+        <span class="pill warn">要検証: 信号待ち2台とB左方視界</span>
         <span class="pill danger">争点: Bの確認義務</span>
       </div>
       <div class="facts">
-        <div class="fact ok">A車: アウトランダー。北側から南側へ進行。工事車両はAから見て交差点を越えた直後の本来車線上にあり、Aは交差点内で反対側寄りへ進路変更を強いられた。</div>
-        <div class="fact danger">B車: 西側脇道の一時停止付近から右折初動。A車の右後方側面へ、B車左前付近が接触した想定。</div>
+        <div class="fact ok">A車: アウトランダー。北側から南側へ進行。A進行方向上に横断歩道は置かず、横断歩道は西側脇道側に配置。工事車両はAから見て交差点を越えた直後の本来車線上にあり、Aは交差点内で反対側寄りへ進路変更を強いられた。</div>
+        <div class="fact danger">B車: 西側脇道の奥まった停止線付近から右折初動。A車の右後方側面へ、B車左前付近が接触した想定。</div>
         <div class="fact warn">中央線: 6/23現地写真で交差点内に白線痕跡を確認。優先道路性への影響は弁護士確認事項。</div>
-        <div class="fact">誘導員: 工事車両付近で手振り誘導。危険性の高い交差点状況で誘導の重要性が高かった。B側が誘導を誤解した可能性、右折開始時の前方確認が十分だったかが確認事項。</div>
+        <div class="fact warn">信号待ち停車: 北側に2台の停車車両があり、B側から見た左方視界を制約した可能性がある。一方でA側からB停止を確認できており、Bが左方確認を行った場合の視認可能時点・停止可能性が確認事項。</div>
+        <div class="fact">誘導員: 工事車両付近で手振り誘導。危険性の高い交差点状況で誘導の重要性が高かった。B側が誘導を誤解した可能性、右折開始時の左方確認・前方注視が十分だったかが確認事項。</div>
       </div>
       <p class="note">操作: 再生で事故前後を確認。視点ボタンで上空、A視点、B視点、誘導員視点、白線確認へ切替。ドラッグで自由回転。上空視点では北を画面上に固定。</p>
     </div>
@@ -371,12 +374,14 @@
       <div class="evidence-grid">
         <a class="evidence-item" href="../assets/white-line-wide.jpg" target="_blank"><img src="../assets/white-line-wide.jpg" alt="6月23日現地再訪の広角写真"><span>6/23 現地広角</span></a>
         <a class="evidence-item" href="../assets/white-line-close.jpg" target="_blank"><img src="../assets/white-line-close.jpg" alt="交差点内の白線痕跡"><span>6/23 白線痕跡</span></a>
+        <a class="evidence-item" href="../assets/map-satellite-reference.jpg" target="_blank"><img src="../assets/map-satellite-reference.jpg" alt="地図スクリーンショット"><span>地図スクショ</span></a>
         <a class="evidence-item" href="../assets/right-before.png" target="_blank"><img src="../assets/right-before.png" alt="衝突直前のドラレコフレーム"><span>衝突直前</span></a>
         <a class="evidence-item" href="../assets/collision.png" target="_blank"><img src="../assets/collision.png" alt="衝突時のドラレコフレーム"><span>接触付近</span></a>
       </div>
       <div class="legend">
         <span style="--swatch:#1f6fbb">A車</span>
-        <span style="--swatch:#111827">B車</span>
+        <span style="--swatch:#ff4d4f">B車</span>
+        <span style="--swatch:#e5e7eb">信号待ち2台</span>
         <span style="--swatch:#f6c744">工事車両</span>
         <span style="--swatch:#ff7a45">誘導員</span>
         <span style="--swatch:#ffffff">中央線様痕跡</span>
@@ -556,16 +561,19 @@
     }
     addLabel('中央線様の白線痕跡 - 優先道路性は要評価', 1.8, 1.2, 2.7, '#ffe4a3');
 
-    // Lane edges and crosswalks.
+    // Lane edges and side-road crosswalk.
     addPlane(.12, 74, 4.45, 0, new THREE.MeshBasicMaterial({ color: 0xd8dde6, transparent: true, opacity: .36 }), .04);
     addPlane(.12, 74, -4.45, 0, new THREE.MeshBasicMaterial({ color: 0xd8dde6, transparent: true, opacity: .36 }), .04);
-    for (let i = -4; i <= 4; i++) {
-      addPlane(.7, 3.6, i * .95, 5.8, materials.lane, .052);
-      addPlane(.7, 3.6, i * .95, -5.4, materials.lane, .052);
+    // User correction: there is no crosswalk across A's north-south path.
+    // The crosswalk belongs to the west side road and the side-road stop line is set back.
+    for (let i = 0; i < 7; i++) {
+      addPlane(.46, 4.65, -8.0 + i * .62, .65, materials.lane, .052);
     }
+    addLabel('横断歩道は脇道側（A進行方向上ではない）', -6.35, 1.3, 3.75, '#f0f0f0');
     // Stop line and side-road markings.
-    addPlane(.18, 4.8, -5.25, .65, materials.lane, .055);
-    addLabel('西側脇道・一時停止側', -7.8, 1.2, 2.55, '#ffdad6');
+    addPlane(.18, 4.8, -9.15, .65, materials.lane, .055);
+    addLabel('脇道停止線は奥まった位置', -9.65, 1.2, -2.35, '#ffdad6');
+    addLabel('西側脇道・一時停止側', -12.0, 1.2, 2.55, '#ffdad6');
     addLabel('A進行道路: 北 → 南', 2.9, 1.2, -9.4, '#d7ecff');
     addLabel('北', 5.7, 1.25, 31, '#d7ecff');
     addLabel('南', 5.7, 1.25, -31, '#d7ecff');
@@ -578,7 +586,7 @@
       s.position.set(rx(x), 1.95, z);
       scene.add(s);
     }
-    addPoleSign(-5.7, -2.45, '止まれ', '#ffffff', 'rgba(182,29,29,.92)');
+    addPoleSign(-9.75, -2.45, '止まれ', '#ffffff', 'rgba(182,29,29,.92)');
     addPoleSign(-4.6, 3.25, '一方通行出口', '#ffffff', 'rgba(34,72,142,.92)');
 
     // Construction truck.
@@ -609,9 +617,23 @@
     const guideBody = new THREE.Mesh(new THREE.CapsuleGeometry(.22, .75, 6, 16), new THREE.MeshStandardMaterial({ color: 0xff8a3d, roughness: .45 }));
     guideBody.position.y = .82;
     guide.add(guideBody);
+    const guideVest = new THREE.Mesh(new THREE.BoxGeometry(.5, .38, .09), new THREE.MeshBasicMaterial({ color: 0xd7ff3f }));
+    guideVest.position.set(0, .92, -.18);
+    guide.add(guideVest);
+    const guideStripe1 = new THREE.Mesh(new THREE.BoxGeometry(.06, .42, .1), materials.lane);
+    guideStripe1.position.set(-.13, .93, -.235);
+    guideStripe1.rotation.z = -.36;
+    guide.add(guideStripe1);
+    const guideStripe2 = new THREE.Mesh(new THREE.BoxGeometry(.06, .42, .1), materials.lane);
+    guideStripe2.position.set(.13, .93, -.235);
+    guideStripe2.rotation.z = .36;
+    guide.add(guideStripe2);
     const head = new THREE.Mesh(new THREE.SphereGeometry(.2, 20, 20), new THREE.MeshStandardMaterial({ color: 0xf1c7a1, roughness: .52 }));
     head.position.y = 1.48;
     guide.add(head);
+    const helmet = new THREE.Mesh(new THREE.SphereGeometry(.22, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .42 }));
+    helmet.position.y = 1.58;
+    guide.add(helmet);
     const armMat = new THREE.MeshStandardMaterial({ color: 0xfff2bf, roughness: .48 });
     const leftArm = new THREE.Mesh(new THREE.BoxGeometry(.12, .9, .12), armMat);
     leftArm.position.set(-.43, 1.12, 0);
@@ -621,9 +643,17 @@
     rightArm.position.set(.43, 1.12, 0);
     rightArm.rotation.z = -.95;
     guide.add(rightArm);
+    const baton = new THREE.Mesh(new THREE.CylinderGeometry(.035, .035, .92, 16), new THREE.MeshBasicMaterial({ color: 0xfff4a3 }));
+    baton.position.set(.86, 1.36, 0);
+    baton.rotation.z = -.95;
+    guide.add(baton);
+    const guideHalo = new THREE.Mesh(new THREE.RingGeometry(.48, .56, 40), new THREE.MeshBasicMaterial({ color: 0xff8a3d, transparent: true, opacity: .64, side: THREE.DoubleSide }));
+    guideHalo.rotation.x = -Math.PI / 2;
+    guideHalo.position.y = .035;
+    guide.add(guideHalo);
     guide.position.set(rx(2.9), 0, -1.8);
     scene.add(guide);
-    addLabel('誘導員 - 交差点内進路変更の安全確保が重要', 3.45, 2.25, -1.8, '#ffd6ad');
+    addLabel('誘導員（手振り合図）', 3.45, 2.25, -1.8, '#ffd6ad');
 
     function makeVehicle(name, bodyMat, opts) {
       const g = new THREE.Group();
@@ -660,8 +690,19 @@
       return g;
     }
 
+    const stoppedMat1 = new THREE.MeshStandardMaterial({ color: 0xf4f5f7, roughness: .45, metalness: .05 });
+    const stoppedMat2 = new THREE.MeshStandardMaterial({ color: 0xc9ced6, roughness: .5, metalness: .04 });
+    const stopped1 = makeVehicle('信号待ち①', stoppedMat1, { width: 1.75, length: 4.2, height: 1.08, accent: 0xffffff });
+    stopped1.position.set(rx(-1.45), 0, 9.4);
+    stopped1.rotation.y = Math.PI;
+    const stopped2 = makeVehicle('信号待ち②', stoppedMat2, { width: 1.8, length: 4.45, height: 1.12, accent: 0xe5e7eb });
+    stopped2.position.set(rx(-1.45), 0, 14.3);
+    stopped2.rotation.y = Math.PI;
+    scene.add(stopped1, stopped2);
+    addLabel('信号待ち停車2台 - B左方視界を制約し得る', -2.75, 2.35, 12.0, '#f8fafc');
+
     const carA = makeVehicle('A アウトランダー', materials.blue, { width: 1.9, length: 4.7, height: 1.15, accent: 0x56a4e9 });
-    const carB = makeVehicle('B ランドローバー', materials.black, { width: 2.05, length: 5.0, height: 1.22, accent: 0x252b35 });
+    const carB = makeVehicle('B ランドローバー', materials.red, { width: 2.05, length: 5.0, height: 1.22, accent: 0xffb0b0 });
     scene.add(carA, carB);
 
     // Damage/contact highlights.
@@ -697,9 +738,13 @@
       { x: .15, z: 1.4 }, { x: -1.35, z: -.7 }, { x: -1.35, z: -8 },
     ], 0x5ab3ff, .82);
     addPath([
-      { x: -15, z: .65 }, { x: -8, z: .65 }, { x: -5.4, z: .65 },
-      { x: -3.5, z: -.65 }, { x: -3.05, z: -1.55 },
-    ], 0xffffff, .54);
+      { x: -15, z: .65 }, { x: -10.3, z: .65 }, { x: -9.15, z: .65 },
+      { x: -6.0, z: .25 }, { x: -3.05, z: -1.55 },
+    ], 0xff4d4f, .62);
+    addPath([
+      { x: -9.15, z: .65 }, { x: -4.0, z: 5.8 }, { x: -1.55, z: 12.8 },
+    ], 0xffd166, .36);
+    addLabel('B左方視界: 停車2台で制約の可能性', -5.25, 1.8, 6.55, '#ffe5a8');
 
     // Direction arrows.
     function addArrow(origin, dir, color, label) {
@@ -707,11 +752,12 @@
       const renderDir = new THREE.Vector3(rx(dir.x), dir.y, dir.z);
       const arrow = new THREE.ArrowHelper(renderDir.clone().normalize(), renderOrigin, 3.2, color, .7, .38);
       scene.add(arrow);
-      const s = addLabel(label, origin.x + dir.x * 2.3, 1.4, origin.z + dir.z * 2.3, color === 0x5ab3ff ? '#d7ecff' : '#f0f0f0');
+      const labelColor = color === 0x5ab3ff ? '#d7ecff' : color === 0xff4d4f ? '#ffd2d2' : '#f0f0f0';
+      const s = addLabel(label, origin.x + dir.x * 2.3, 1.4, origin.z + dir.z * 2.3, labelColor);
       return { arrow, s };
     }
     addArrow(new THREE.Vector3(1.35, .25, 5.2), new THREE.Vector3(-.7, 0, -1), 0x5ab3ff, 'A 交差点内で反対側へ');
-    addArrow(new THREE.Vector3(-6.2, .25, .65), new THREE.Vector3(1, 0, -.45), 0xffffff, 'B 西側脇道から右折');
+    addArrow(new THREE.Vector3(-9.15, .25, .65), new THREE.Vector3(1.25, 0, -.32), 0xff4d4f, 'B 奥まった停止線から右折');
 
     const keyA = [
       { t: -4.0, x: 1.55, z: 20.0, h: 0 },
@@ -724,8 +770,9 @@
     ];
     const keyB = [
       { t: -4.0, x: -13.5, z: .65, h: -Math.PI / 2 },
-      { t: -2.4, x: -6.2, z: .65, h: -Math.PI / 2 },
-      { t: -.55, x: -5.55, z: .65, h: -Math.PI / 2 },
+      { t: -2.4, x: -9.15, z: .65, h: -Math.PI / 2 },
+      { t: -.55, x: -9.05, z: .65, h: -Math.PI / 2 },
+      { t: -.18, x: -5.25, z: .05, h: -Math.PI / 2 + .34 },
       { t: 0.0, x: -3.05, z: -1.55, h: -Math.PI / 2 + .62 },
       { t: .75, x: -2.95, z: -1.65, h: -Math.PI / 2 + .64 },
       { t: 2.0, x: -2.95, z: -1.65, h: -Math.PI / 2 + .64 },
