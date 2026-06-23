@@ -353,10 +353,10 @@
         <span class="pill danger">争点: Bの確認義務</span>
       </div>
       <div class="facts">
-        <div class="fact ok">A車: アウトランダー。広い道路を北側から南側へ進行。工事車両を避けるため、本来車線から反対側寄りへ進路変更。</div>
+        <div class="fact ok">A車: アウトランダー。北側から南側へ進行。工事車両はAから見て交差点を越えた直後の本来車線上にあり、Aは交差点内で反対側寄りへ進路変更を強いられた。</div>
         <div class="fact danger">B車: 西側脇道の一時停止付近から右折初動。A車の右後方側面へ、B車左前付近が接触した想定。</div>
         <div class="fact warn">中央線: 6/23現地写真で交差点内に白線痕跡を確認。優先道路性への影響は弁護士確認事項。</div>
-        <div class="fact">誘導員: 工事車両付近で手振り誘導。A側への進行合図、またはB側への停止合図に見える場面がある。</div>
+        <div class="fact">誘導員: 工事車両付近で手振り誘導。危険性の高い交差点状況で誘導の重要性が高かった。B側が誘導を誤解した可能性、右折開始時の前方確認が十分だったかが確認事項。</div>
       </div>
       <p class="note">操作: 再生で事故前後を確認。視点ボタンで上空、A視点、B視点、誘導員視点、白線確認へ切替。ドラッグで自由回転。上空視点では北を画面上に固定。</p>
     </div>
@@ -591,15 +591,15 @@
     truckCab.position.set(0, .95, -2.4);
     truckCab.castShadow = true;
     truck.add(truckCab);
-    truck.position.set(rx(2.0), 0, 7.5);
+    truck.position.set(rx(2.0), 0, -8.2);
     truck.rotation.y = 0;
     scene.add(truck);
-    addLabel('工事車両 - A本来車線を塞ぐ', 2.6, 2.6, 10.9, '#fff0b3');
+    addLabel('工事車両 - 交差点通過直後のA本来車線を塞ぐ', 2.6, 2.6, -4.6, '#fff0b3');
 
     // Cones.
     for (let i = 0; i < 7; i++) {
       const cone = new THREE.Mesh(new THREE.ConeGeometry(.24, .62, 20), materials.cone);
-      cone.position.set(rx(3.55), .31, 1.5 + i * 1.8);
+      cone.position.set(rx(3.55), .31, -13.6 + i * 1.8);
       cone.castShadow = true;
       scene.add(cone);
     }
@@ -621,9 +621,9 @@
     rightArm.position.set(.43, 1.12, 0);
     rightArm.rotation.z = -.95;
     guide.add(rightArm);
-    guide.position.set(rx(2.9), 0, 3.0);
+    guide.position.set(rx(2.9), 0, -1.8);
     scene.add(guide);
-    addLabel('誘導員', 3.45, 2.25, 2.9, '#ffd6ad');
+    addLabel('誘導員 - 交差点内進路変更の安全確保が重要', 3.45, 2.25, -1.8, '#ffd6ad');
 
     function makeVehicle(name, bodyMat, opts) {
       const g = new THREE.Group();
@@ -693,8 +693,8 @@
     }
 
     addPath([
-      { x: 1.55, z: 20 }, { x: 1.25, z: 15 }, { x: -.4, z: 10 },
-      { x: -1.35, z: 5 }, { x: -1.35, z: -1.4 }, { x: -1.35, z: -8 },
+      { x: 1.55, z: 20 }, { x: 1.55, z: 10 }, { x: 1.2, z: 4.2 },
+      { x: .15, z: 1.4 }, { x: -1.35, z: -.7 }, { x: -1.35, z: -8 },
     ], 0x5ab3ff, .82);
     addPath([
       { x: -15, z: .65 }, { x: -8, z: .65 }, { x: -5.4, z: .65 },
@@ -710,13 +710,14 @@
       const s = addLabel(label, origin.x + dir.x * 2.3, 1.4, origin.z + dir.z * 2.3, color === 0x5ab3ff ? '#d7ecff' : '#f0f0f0');
       return { arrow, s };
     }
-    addArrow(new THREE.Vector3(-1.35, .25, 8), new THREE.Vector3(0, 0, -1), 0x5ab3ff, 'A 北→南');
+    addArrow(new THREE.Vector3(1.35, .25, 5.2), new THREE.Vector3(-.7, 0, -1), 0x5ab3ff, 'A 交差点内で反対側へ');
     addArrow(new THREE.Vector3(-6.2, .25, .65), new THREE.Vector3(1, 0, -.45), 0xffffff, 'B 西側脇道から右折');
 
     const keyA = [
       { t: -4.0, x: 1.55, z: 20.0, h: 0 },
-      { t: -2.7, x: .65, z: 13.0, h: -.10 },
-      { t: -1.6, x: -1.35, z: 7.0, h: 0 },
+      { t: -2.7, x: 1.55, z: 11.0, h: 0 },
+      { t: -1.45, x: .7, z: 3.8, h: -.10 },
+      { t: -.55, x: -1.15, z: .45, h: -.06 },
       { t: 0.0, x: -1.35, z: -1.4, h: 0 },
       { t: 1.2, x: -1.35, z: -7.8, h: 0 },
       { t: 2.0, x: -1.35, z: -9.0, h: 0 },
