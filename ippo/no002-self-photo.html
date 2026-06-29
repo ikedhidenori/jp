@@ -12,7 +12,7 @@
   Type    : 見出し=Noto Serif JP / 本文・数値=Noto Sans JP
   SVG rule: 1図1メッセージ / 高データインク比 / 直接ラベル / 色=意味 / 出典明記 / AIスロップ回避
   SVG type-scale: 値=22-24 / 主要ラベル=17 / 軸・補助=16 (モバイル可読性 floor) / 長文は figcaption へ退避
-  ── No.002 = No.001 装丁踏襲 (2026-06-13 design-apply)。本文テキストは v1.1 + ¥54 統一版を逐語維持、装丁・構造マークアップのみ適用。CTA は href="#" ダミー (メール基盤確定待ち)。
+  ── No.002 = No.001 装丁踏襲 (2026-06-13 design-apply)。本文テキストは v1.1 + ¥54 統一版を逐語維持、装丁・構造マークアップのみ適用。CTA は note フォローURLへ暫定配線済み（メール配布フォームは Kit action URL 待ち）。
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -289,11 +289,18 @@ figcaption b{color:var(--ink);}
     <p class="secprose">次に街角でカーテンの引かれた小さな箱を見かけたら、その15分が、誰の何を残しているのかを、少しだけ数えてみてほしい。</p>
   </section>
 
-  <!-- ============ CTA(末尾) ============ -->
+  <!-- ============ Kit メール登録フォーム ============ -->
+  <div class="cta-box">
+    <h3 style="margin:0 0 0.5em;font-size:1rem;font-weight:700;">📨 メールで新作を受け取る</h3>
+    <p style="margin:0 0 1em;font-size:0.9rem;line-height:1.6;">絶滅職種図鑑・一坪ビジネス図鑑など、新作公開時にメールでお知らせします</p>
+    <script async data-uid="ffea50add4" src="https://zukan-jp.kit.com/ffea50add4/index.js"></script>
+  </div>
+
+  <!-- ============ CTA(末尾) — note リンク維持 / Kit form 配線済 ============ -->
   <div class="cta-box">
     <div class="ct">この図鑑を、続けて受け取る</div>
     <div class="cd">次号の通知は、noteのフォローで届きます。<br>「一坪ビジネス原価ブック（PDF）」の無料配布は、メール便の準備が整い次第はじめます。<br>煽りません。街角の商いを、数字で記録します。</div>
-    <a class="cbtn" href="#">note でフォローして受け取る</a>
+    <a class="cbtn" href="https://note.com/zukan_jp">note でフォローして受け取る</a>
   </div>
 
   <!-- ============ SERIES / FOOTER ============ -->
