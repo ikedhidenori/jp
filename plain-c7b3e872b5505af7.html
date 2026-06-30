@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water Dashboard 現在地マップ</title>
+<style>
+  :root { color-scheme: light; --ink:#172033; --muted:#657085; --bg:#f6f7fb; --line:#dfe5ef; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif; }
+  header { padding:28px 18px 18px; max-width:1120px; margin:0 auto; }
+  h1 { font-size:clamp(28px,7vw,54px); line-height:1.08; margin:0 0 12px; letter-spacing:0; }
+  p { margin:0; color:var(--muted); font-weight:650; line-height:1.65; font-size:16px; }
+  main { max-width:1120px; margin:0 auto; padding:0 12px 32px; }
+  .figure { background:#fff; border:1px solid var(--line); border-radius:22px; padding:14px; margin:16px 0 26px; box-shadow:0 12px 30px rgba(23,32,51,.08); }
+  h2 { font-size:20px; margin:4px 4px 12px; }
+  .svgwrap { width:100%; overflow:auto; border-radius:16px; background:#f6f7fb; -webkit-overflow-scrolling:touch; }
+  .svgwrap svg { display:block; width:100%; height:auto; min-width:920px; }
+  .note { background:#eef2f8; border:1px solid var(--line); border-radius:18px; padding:14px 16px; margin:0 0 24px; }
+  footer { max-width:1120px; margin:0 auto; padding:0 18px 32px; color:var(--muted); font-size:13px; line-height:1.6; }
+  @media (max-width: 640px) {
+    header { padding-top:22px; }
+    main { padding-left:8px; padding-right:8px; }
+    .figure { padding:10px; border-radius:18px; }
+    .svgwrap svg { min-width:980px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Water Dashboard 現在地マップ</h1>
+  <p>出先のiPhoneで見る用。上が全体像、下が次に何をするかの実行地図です。</p>
+</header>
+<main>
+  <div class="note"><p>スキル化はまだしません。このページは一時共有用で、72時間後に削除対象です。</p></div>
+  <section class="figure"><h2>Project Map</h2><div class="svgwrap"><svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1500" viewBox="0 0 1500 1500" role="img" aria-labelledby="title desc">
+  <title id="title">Water Dashboard Project Map</title>
+  <desc id="desc">水ダッシュボードの全体像、現在地、詰まりを一枚で示す編集済みSVG図解。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f6f7fb}
+      .ink{fill:#172033}
+      .muted{fill:#657085}
+      .card{fill:#fff;stroke:#dfe5ef;stroke-width:2}
+      .source{fill:#eef7ff;stroke:#86bef4;stroke-width:3}
+      .ok{fill:#effaf3;stroke:#75ca89;stroke-width:3}
+      .wait{fill:#fff8e8;stroke:#e7b93d;stroke-width:3}
+      .block{fill:#fff1ef;stroke:#e98175;stroke-width:3}
+      .soft{fill:#f2f5f9;stroke:#c8d0dc;stroke-width:2}
+      .title{font:800 46px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .h{font:800 30px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .b{font:650 24px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .s{font:560 19px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .xs{font:520 16px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .line{stroke:#8995a8;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .line2{stroke:#b6c0cf;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .dash{stroke-dasharray:10 10}
+      .badgeText{font:800 18px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .num{font:900 30px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;fill:#fff}
+    </style>
+    <marker id="arrow" markerWidth="16" markerHeight="16" refX="12" refY="8" orient="auto">
+      <path d="M1,1 L15,8 L1,15 Z" fill="#8995a8"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#182235" flood-opacity=".11"/>
+    </filter>
+  </defs>
+
+  <rect class="bg" width="1500" height="1500"/>
+
+  <rect x="70" y="50" width="1360" height="130" rx="30" class="card" filter="url(#shadow)"/>
+  <text x="110" y="112" class="title ink">Water Dashboard 現在地マップ</text>
+  <text x="112" y="153" class="b muted">現場データを集める → 形をそろえる → 画面に出す → INNFRAメンバーへ共有する</text>
+
+  <g transform="translate(90 210)">
+    <rect width="1320" height="54" rx="27" fill="#edf1f7"/>
+    <rect x="35" y="14" width="26" height="26" rx="7" class="ok"/><text x="75" y="35" class="s muted">実装・確認済み</text>
+    <rect x="290" y="14" width="26" height="26" rx="7" class="wait"/><text x="330" y="35" class="s muted">人間判断 / 通信許可</text>
+    <rect x="610" y="14" width="26" height="26" rx="7" class="block"/><text x="650" y="35" class="s muted">外部認証が必要</text>
+    <text x="960" y="35" class="s muted">証拠: preflight / clasp deployments</text>
+  </g>
+
+  <!-- Main map -->
+  <g filter="url(#shadow)">
+    <rect x="95" y="330" width="260" height="190" rx="26" class="source"/>
+    <text x="130" y="384" class="h ink">現場設備</text>
+    <text x="130" y="428" class="b ink">PLC / GW / SD</text>
+    <text x="130" y="467" class="s muted">1分CSVの源泉</text>
+    <text x="130" y="496" class="s muted">現地通信が必要</text>
+  </g>
+
+  <path d="M355 425 H430" class="line" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="430" y="310" width="310" height="230" rx="28" class="ok"/>
+    <text x="470" y="368" class="h ink">取得する係</text>
+    <text x="470" y="414" class="b ink">1分CSVを安全に取る</text>
+    <text x="470" y="452" class="s muted">通常追従: 実装あり</text>
+    <text x="470" y="482" class="s muted">SD過去分: 仕様あり / 未実行</text>
+    <rect x="470" y="500" width="190" height="34" rx="17" class="wait"/>
+    <text x="492" y="523" class="badgeText ink">SIM/VPN許可待ち</text>
+  </g>
+
+  <path d="M740 425 H815" class="line" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="815" y="330" width="260" height="190" rx="26" class="card"/>
+    <text x="855" y="384" class="h ink">保管庫</text>
+    <text x="855" y="430" class="b ink">local-logs</text>
+    <text x="855" y="468" class="s muted">取得した1分データを保存</text>
+    <text x="855" y="497" class="s muted">削除禁止の保管場所</text>
+  </g>
+
+  <path d="M1075 425 H1150" class="line" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="1150" y="310" width="260" height="230" rx="28" class="ok"/>
+    <text x="1188" y="368" class="h ink">整える係</text>
+    <text x="1188" y="414" class="b ink">pipeline.py</text>
+    <text x="1188" y="452" class="s muted">5分Sheets + 1分CSV</text>
+    <text x="1188" y="482" class="s muted">画面用データへ変換</text>
+    <rect x="1188" y="500" width="164" height="34" rx="17" class="ok"/>
+    <text x="1210" y="523" class="badgeText ink">local処理OK</text>
+  </g>
+
+  <!-- Outputs -->
+  <path d="M1280 540 C1280 625 1030 640 905 690" class="line" marker-end="url(#arrow)"/>
+  <path d="M1280 540 C1280 610 1280 620 1280 690" class="line dash" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="155" y="680" width="400" height="180" rx="28" class="ok"/>
+    <text x="198" y="738" class="h ink">ローカル詳細画面</text>
+    <text x="198" y="783" class="b ink">s9 / 詳細分析</text>
+    <text x="198" y="821" class="s muted">ジョニーが深掘りする画面</text>
+    <rect x="198" y="836" width="160" height="34" rx="17" class="ok"/>
+    <text x="220" y="859" class="badgeText ink">実装・検証済み</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="630" y="680" width="360" height="180" rx="28" class="block"/>
+    <text x="673" y="738" class="h ink">Team用データ</text>
+    <text x="673" y="783" class="b ink">Google Drive JSON</text>
+    <text x="673" y="821" class="s muted">INNFRA共有用に軽くする</text>
+    <rect x="673" y="836" width="192" height="34" rx="17" class="block"/>
+    <text x="694" y="859" class="badgeText ink">Google再認証待ち</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1080" y="680" width="330" height="180" rx="28" class="wait"/>
+    <text x="1125" y="738" class="h ink">本番Webアプリ</text>
+    <text x="1125" y="783" class="b ink">INNFRAメンバー向け</text>
+    <text x="1125" y="821" class="s muted">確認上 deployment は @45</text>
+    <rect x="1125" y="836" width="128" height="34" rx="17" class="wait"/>
+    <text x="1148" y="859" class="badgeText ink">deploy保留</text>
+  </g>
+
+  <path d="M990 770 H1080" class="line dash" marker-end="url(#arrow)"/>
+
+  <!-- Blockers -->
+  <rect x="80" y="930" width="1340" height="390" rx="32" class="card" filter="url(#shadow)"/>
+  <text x="120" y="990" class="h ink">いま詰まっている場所</text>
+
+  <g transform="translate(120 1030)">
+    <rect width="390" height="220" rx="24" class="block"/>
+    <circle cx="42" cy="48" r="25" fill="#d9665c"/><text x="34" y="58" class="num">1</text>
+    <text x="82" y="48" class="h ink">Drive再認証</text>
+    <text x="82" y="88" class="s muted">team用データを書き込む許可が足りない</text>
+    <text x="82" y="120" class="s muted">preflight表示:</text>
+    <text x="82" y="150" class="b ink">Drive scope不足</text>
+    <text x="82" y="187" class="s muted">次: python3 reauth_drive.py</text>
+  </g>
+
+  <g transform="translate(555 1030)">
+    <rect width="390" height="220" rx="24" class="wait"/>
+    <circle cx="42" cy="48" r="25" fill="#d1a21c"/><text x="33" y="58" class="num">2</text>
+    <text x="82" y="48" class="h ink">本番deploy保留</text>
+    <text x="82" y="88" class="s muted">最新コードはローカルにある</text>
+    <text x="82" y="120" class="s muted">共有Webアプリは確認上:</text>
+    <text x="82" y="150" class="b ink">deployment @45</text>
+    <text x="82" y="187" class="s muted">次: 明示許可後に deploy</text>
+  </g>
+
+  <g transform="translate(990 1030)">
+    <rect width="390" height="220" rx="24" class="wait"/>
+    <circle cx="42" cy="48" r="25" fill="#d1a21c"/><text x="33" y="58" class="num">3</text>
+    <text x="82" y="48" class="h ink">SD実取得未実行</text>
+    <text x="82" y="88" class="s muted">仕様は実装済み</text>
+    <text x="82" y="120" class="s muted">ただし現場通信が必要</text>
+    <text x="82" y="150" class="b ink">POLL → TRANSFER</text>
+    <text x="82" y="187" class="s muted">次: 許可後に小窓取得</text>
+  </g>
+
+  <rect x="80" y="1350" width="1340" height="88" rx="24" class="soft"/>
+  <text x="120" y="1386" class="b ink">ひとことで言うと</text>
+  <text x="120" y="1420" class="s muted">「仕組みはかなり作った。止まっているのは、Googleの許可・本番反映の許可・現場通信の許可。」</text>
+  <text x="92" y="1472" class="xs muted">作成: 2026-06-30 / D3・secretsは参照せず、README・Plan・preflight・clasp出力から作図</text>
+</svg>
+</div></section>
+<section class="figure"><h2>Execution Map</h2><div class="svgwrap"><svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1500" viewBox="0 0 1500 1500" role="img" aria-labelledby="title desc">
+  <title id="title">Water Dashboard Execution Map</title>
+  <desc id="desc">水ダッシュボードの再開手順、本番最新化、SDカード1分値取得、後片付けを示す編集済みSVG図解。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f6f7fb}
+      .ink{fill:#172033}
+      .muted{fill:#657085}
+      .card{fill:#fff;stroke:#dfe5ef;stroke-width:2}
+      .ok{fill:#effaf3;stroke:#75ca89;stroke-width:3}
+      .now{fill:#eef7ff;stroke:#76b9f3;stroke-width:3}
+      .wait{fill:#fff8e8;stroke:#e7b93d;stroke-width:3}
+      .block{fill:#fff1ef;stroke:#e98175;stroke-width:3}
+      .future{fill:#f2f5f9;stroke:#c8d0dc;stroke-width:2}
+      .title{font:800 46px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .h{font:800 30px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .b{font:650 24px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .s{font:560 19px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .xs{font:520 16px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+      .mono{font:700 19px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+      .line{stroke:#8995a8;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .dash{stroke-dasharray:10 10}
+      .num{font:900 29px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;fill:#fff}
+      .laneTitle{font:900 38px -apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;fill:#172033}
+    </style>
+    <marker id="arrow" markerWidth="16" markerHeight="16" refX="12" refY="8" orient="auto">
+      <path d="M1,1 L15,8 L1,15 Z" fill="#8995a8"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#182235" flood-opacity=".11"/>
+    </filter>
+  </defs>
+
+  <rect class="bg" width="1500" height="1500"/>
+  <rect x="70" y="50" width="1360" height="130" rx="30" class="card" filter="url(#shadow)"/>
+  <text x="110" y="112" class="title ink">Execution Map: 次に何をするか</text>
+  <text x="112" y="153" class="b muted">左の大項目から順に進む。赤は外部認証、黄は人間判断/通信許可、青が現在地。</text>
+
+  <g transform="translate(90 210)">
+    <rect width="1320" height="54" rx="27" fill="#edf1f7"/>
+    <rect x="35" y="14" width="26" height="26" rx="7" class="ok"/><text x="75" y="35" class="s muted">確認済み</text>
+    <rect x="210" y="14" width="26" height="26" rx="7" class="now"/><text x="250" y="35" class="s muted">現在地</text>
+    <rect x="365" y="14" width="26" height="26" rx="7" class="wait"/><text x="405" y="35" class="s muted">許可待ち</text>
+    <rect x="555" y="14" width="26" height="26" rx="7" class="block"/><text x="595" y="35" class="s muted">認証待ち</text>
+    <text x="930" y="35" class="s muted">本番反映とSD通信は未実行</text>
+  </g>
+
+  <!-- Lane A -->
+  <rect x="80" y="300" width="1340" height="300" rx="30" class="card" filter="url(#shadow)"/>
+  <text x="120" y="360" class="laneTitle">A. 共有Webアプリを最新にする</text>
+  <text x="120" y="398" class="s muted">INNFRAメンバーが見る画面へ、ローカル実装済みの変更を出す道。</text>
+
+  <g transform="translate(120 430)">
+    <rect width="285" height="120" rx="22" class="now"/>
+    <circle cx="34" cy="38" r="23" fill="#519bd8"/><text x="25" y="48" class="num">0</text>
+    <text x="75" y="42" class="h ink">現在地</text>
+    <text x="75" y="78" class="s muted">ローカル実装あり</text>
+    <text x="75" y="104" class="s muted">本番は確認上 @45</text>
+  </g>
+  <path d="M405 490 H470" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(470 430)">
+    <rect width="285" height="120" rx="22" class="block"/>
+    <circle cx="34" cy="38" r="23" fill="#d9665c"/><text x="27" y="48" class="num">1</text>
+    <text x="75" y="42" class="h ink">Drive再認証</text>
+    <text x="75" y="78" class="s muted">teamデータ書込の許可</text>
+    <text x="75" y="104" class="mono muted">reauth_drive.py</text>
+  </g>
+  <path d="M755 490 H820" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(820 430)">
+    <rect width="285" height="120" rx="22" class="wait"/>
+    <circle cx="34" cy="38" r="23" fill="#d1a21c"/><text x="26" y="48" class="num">2</text>
+    <text x="75" y="42" class="h ink">teamデータ更新</text>
+    <text x="75" y="78" class="s muted">Drive JSONへ反映</text>
+    <text x="75" y="104" class="mono muted">--require-team-export</text>
+  </g>
+  <path d="M1105 490 H1170" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(1170 430)">
+    <rect width="210" height="120" rx="22" class="wait"/>
+    <circle cx="34" cy="38" r="23" fill="#d1a21c"/><text x="25" y="48" class="num">3</text>
+    <text x="75" y="42" class="h ink">deploy</text>
+    <text x="75" y="78" class="s muted">許可後のみ</text>
+    <text x="75" y="104" class="mono muted">clasp</text>
+  </g>
+
+  <!-- Lane B -->
+  <rect x="80" y="640" width="1340" height="300" rx="30" class="card" filter="url(#shadow)"/>
+  <text x="120" y="700" class="laneTitle">B. SDカードの過去1分値を取る</text>
+  <text x="120" y="738" class="s muted">仕様はできている。実データ取得はSIM/VPN通信を伴うため、確認だけ→小窓取得の順。</text>
+
+  <g transform="translate(120 770)">
+    <rect width="285" height="120" rx="22" class="ok"/>
+    <circle cx="34" cy="38" r="23" fill="#62b976"/><text x="27" y="48" class="num">0</text>
+    <text x="75" y="42" class="h ink">仕様あり</text>
+    <text x="75" y="78" class="s muted">小窓backfill実装</text>
+    <text x="75" y="104" class="s muted">転送上限あり</text>
+  </g>
+  <path d="M405 830 H470" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(470 770)">
+    <rect width="285" height="120" rx="22" class="wait"/>
+    <circle cx="34" cy="38" r="23" fill="#d1a21c"/><text x="27" y="48" class="num">1</text>
+    <text x="75" y="42" class="h ink">範囲確認</text>
+    <text x="75" y="78" class="s muted">転送なし / 通信あり</text>
+    <text x="75" y="104" class="mono muted">POLL=1</text>
+  </g>
+  <path d="M755 830 H820" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(820 770)">
+    <rect width="285" height="120" rx="22" class="wait"/>
+    <circle cx="34" cy="38" r="23" fill="#d1a21c"/><text x="26" y="48" class="num">2</text>
+    <text x="75" y="42" class="h ink">小窓取得</text>
+    <text x="75" y="78" class="s muted">1時間窓ずつ</text>
+    <text x="75" y="104" class="mono muted">TRANSFER=1</text>
+  </g>
+  <path d="M1105 830 H1170" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(1170 770)">
+    <rect width="210" height="120" rx="22" class="future"/>
+    <circle cx="34" cy="38" r="23" fill="#94a0b2"/><text x="25" y="48" class="num">3</text>
+    <text x="75" y="42" class="h ink">反映</text>
+    <text x="75" y="78" class="s muted">local-logsへ</text>
+    <text x="75" y="104" class="s muted">蓄積</text>
+  </g>
+
+  <!-- Lane C -->
+  <rect x="80" y="980" width="1340" height="270" rx="30" class="card" filter="url(#shadow)"/>
+  <text x="120" y="1040" class="laneTitle">C. 安全確認と後片付け</text>
+  <text x="120" y="1078" class="s muted">本番に出す前後で、見る・確認する・掃除する。スキル化するならこの型を保存する。</text>
+
+  <g transform="translate(120 1110)">
+    <rect width="285" height="100" rx="22" class="ok"/>
+    <text x="35" y="42" class="h ink">preflight</text>
+    <text x="35" y="75" class="mono muted">--local-only</text>
+  </g>
+  <path d="M405 1160 H470" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(470 1110)">
+    <rect width="285" height="100" rx="22" class="wait"/>
+    <text x="35" y="42" class="h ink">ジョニー目視</text>
+    <text x="35" y="75" class="s muted">詳細分析UIを確認</text>
+  </g>
+  <path d="M755 1160 H820" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(820 1110)">
+    <rect width="285" height="100" rx="22" class="future"/>
+    <text x="35" y="42" class="h ink">.bak掃除</text>
+    <text x="35" y="75" class="s muted">OK後だけ削除</text>
+  </g>
+  <path d="M1105 1160 H1170" class="line" marker-end="url(#arrow)"/>
+  <g transform="translate(1170 1110)">
+    <rect width="210" height="100" rx="22" class="future"/>
+    <text x="35" y="42" class="h ink">型化</text>
+    <text x="35" y="75" class="s muted">スキル化</text>
+  </g>
+
+  <!-- Commands -->
+  <rect x="80" y="1290" width="1340" height="145" rx="30" class="card" filter="url(#shadow)"/>
+  <text x="120" y="1335" class="h ink">再開時の最短コマンド列</text>
+  <text x="120" y="1375" class="mono muted">1. ./ops_preflight.sh --local-only</text>
+  <text x="120" y="1405" class="mono muted">2. python3 reauth_drive.py  →  3. python3 pipeline.py --require-team-export</text>
+  <text x="120" y="1435" class="mono muted">4. 許可後のみ clasp deploy  /  5. 許可後のみ SD backfill</text>
+
+  <text x="92" y="1472" class="xs muted">作成: 2026-06-30 / 「確認済み」と「未実行」を分けて表示</text>
+</svg>
+</div></section>
+</main>
+<footer>
+  公開ID: c7b3e872b5505af7<br>
+  作成: 2026-06-30 13:20 JST / 自動削除予定: 2026-07-03 13:20 JST<br>
+  D3・secretsは含めず、図解SVGのみを埋め込んでいます。
+</footer>
+</body>
+</html>
