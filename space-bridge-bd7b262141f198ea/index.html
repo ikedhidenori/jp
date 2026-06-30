@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>バンライフは宇宙の一歩手前 | 渡鳥ジョニー / INNFRA</title>
+  <meta name="description" content="渡鳥ジョニーのバンライフ、JAXA実証文脈、INNFRAの地上実装をつなぐ会話用ミニポートフォリオ。">
+  <style>
+    :root {
+      --ink: #151515;
+      --paper: #f7f4eb;
+      --soft: #ece6d8;
+      --line: rgba(21,21,21,.16);
+      --yellow: #f2d14b;
+      --blue: #2e5f8f;
+      --green: #4f7a57;
+      --red: #a33a2a;
+      --white: #fffdf6;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Avenir Next", "Hiragino Sans", "Yu Gothic", sans-serif;
+      line-height: 1.7;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    .hero {
+      min-height: 92svh;
+      position: relative;
+      display: grid;
+      align-items: end;
+      padding: 28px 18px 34px;
+      overflow: hidden;
+      color: var(--white);
+      background: #111;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.16) 0%, rgba(0,0,0,.36) 52%, rgba(0,0,0,.82) 100%),
+        url("assets/van-album-window-wide.jpg") center / cover;
+      transform: scale(1.02);
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 1060px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 16px;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--yellow);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 980px;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(43px, 10vw, 112px);
+      line-height: .94;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 24px 0 0;
+      font-size: clamp(16px, 3.8vw, 24px);
+      line-height: 1.65;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,.34);
+      padding: 10px 14px;
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      backdrop-filter: blur(12px);
+    }
+
+    .button.primary {
+      border-color: var(--yellow);
+      background: var(--yellow);
+      color: #17140a;
+    }
+
+    .section {
+      padding: 56px 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .wrap {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .kicker {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      max-width: 840px;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(31px, 7vw, 64px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .body-copy {
+      margin: 0;
+      max-width: 760px;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .photo {
+      position: relative;
+      min-height: 250px;
+      border: 1px solid var(--line);
+      background: #ddd;
+      overflow: hidden;
+    }
+
+    .photo.tall { min-height: 420px; }
+
+    .caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px;
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.72));
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--white);
+      padding: 18px;
+      min-height: 150px;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .quote {
+      margin: 0;
+      padding: 28px 0;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(28px, 7vw, 58px);
+      line-height: 1.12;
+      font-weight: 900;
+      border-top: 4px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .strip {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .strip .kicker { color: var(--yellow); }
+    .strip .card {
+      background: #222;
+      border-color: rgba(255,255,255,.14);
+    }
+
+    .talk {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .talk-line {
+      border-left: 6px solid var(--yellow);
+      background: var(--white);
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.6;
+    }
+
+    .strip .talk-line {
+      background: #222;
+    }
+
+    .small {
+      font-size: 12px;
+      line-height: 1.6;
+      opacity: .76;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .footer {
+      padding: 30px 18px 50px;
+      background: #0f0f0f;
+      color: var(--white);
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    .footer p {
+      max-width: 900px;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      opacity: .76;
+    }
+
+    @media (max-width: 760px) {
+      .hero { min-height: 88svh; padding-bottom: 28px; }
+      .photo-grid,
+      .cards,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+      .photo,
+      .photo.tall {
+        min-height: 260px;
+      }
+      .button {
+        width: 100%;
+      }
+      .section {
+        padding: 42px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Wataridori Johnny / INNFRA</p>
+      <h1>バンライフは、宇宙の一歩手前。</h1>
+      <p class="lead">動く家、閉鎖環境、自律滞在、オフグリッド、水。宇宙側の技術を、地上の暮らし・地域インフラ・防災拠点へ翻訳するための会話用ミニポートフォリオ。</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#talk">このまま話す</a>
+        <a class="button" href="#jaxa">JAXA実証を見る</a>
+        <a class="button" href="#innfra">INNFRA Labを見る</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Premise</span>
+          <h2>宇宙を、宇宙だけで終わらせない。</h2>
+          <p class="body-copy">渡鳥ジョニーの関心は、月や衛星そのものだけではなく、その手前にある「地上の暮らしの再設計」。車中泊、移動する住居、遠隔地滞在、インフラのない場所での生活実験を、社会実装の入口として扱ってきた。</p>
+        </div>
+        <blockquote class="quote">停まった場所が、家になる。<br>その延長に、宇宙がある。</blockquote>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Vanlife / VANLDK</span>
+          <h2>移動する居住空間を、自分で実験していた。</h2>
+        </div>
+        <div class="photo-grid">
+          <figure class="photo tall">
+            <img src="assets/van-album-forest.jpg" alt="森の中に停まる渡鳥ジョニーのバン">
+            <figcaption class="caption">#バンLDK / 森の中に置いた、移動する住居。</figcaption>
+          </figure>
+          <div class="grid">
+            <figure class="photo">
+              <img src="assets/van-album-window-mist.jpg" alt="バンの窓から見える霧の山">
+              <figcaption class="caption">車内から見える山。閉じた居住空間から外界を見る。</figcaption>
+            </figure>
+            <figure class="photo">
+              <img src="assets/van-album-window-wide.jpg" alt="バンの横長窓から見える山並み">
+              <figcaption class="caption">停泊地ごとに窓の外が変わる。住居と移動体の境界を実験。</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <strong>閉鎖環境</strong>
+            <p>狭い空間で寝る、働く、整える。宇宙居住と同じく、制約が設計を sharpen する。</p>
+          </article>
+          <article class="card">
+            <strong>自律生活</strong>
+            <p>電気・水・風呂・洗濯・食事を、外部インフラとの関係から組み直す。</p>
+          </article>
+          <article class="card">
+            <strong>社会実装</strong>
+            <p>個人の生活実験を、企業・自治体・研究開発の実証テーマへ変換する。</p>
+          </article>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="https://photos.google.com/share/AF1QipMypMeG3MtXqcvHXJDWxQlSW3ntMT_Opv90mOGbnzHTooCHDSIZtR8dkUSUhdBScQ?key=SVFfaTR2Y1VrTmdvamhzTGJaYkJHYTNzbHlMY3NB" target="_blank" rel="noreferrer">バンライフアルバムを開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="jaxa" class="section strip">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">JAXA / LAC Context</span>
+          <h2>つくばVAN泊、JAXA実証、宇宙と暮らしの接続。</h2>
+          <p class="body-copy">LAC時代に、移動・滞在・暮らしの文脈から宇宙領域に接続する実証に関わった。公開会話では、提携や案件化を断定せず「宇宙と地上のあいだを翻訳する経験」として話す。</p>
+        </div>
+        <div class="photo-grid">
+          <figure class="photo tall">
+            <img src="assets/jaxa-field-habitat.jpg" alt="JAXA実証文脈の屋外滞在環境">
+            <figcaption class="caption">JAXA実証文脈 / 地上の滞在環境を宇宙視点で見る。</figcaption>
+          </figure>
+          <div class="grid">
+            <figure class="photo">
+              <img src="assets/jaxa-field-suits.jpg" alt="JAXA実証文脈のフィールド写真">
+              <figcaption class="caption">つくばVAN泊にもつながる、閉鎖環境・遠隔地滞在・生活実験。</figcaption>
+            </figure>
+            <figure class="photo">
+              <img src="assets/jaxa-session-screen.jpg" alt="JAXA実証文脈のセッション風景">
+              <figcaption class="caption">実証後に必要なのは、現場課題の翻訳と運用設計。</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="https://photos.google.com/share/AF1QipPSxN9AWVYhqAsGHB3pK_zgnb5GvhVW1Rp2mPeW0roBsfosJZVFZgu_7334e3X7ug?key=bHotM0JHTU43OTNqeG5oWlNaMFVSSzd0d3UzWUtB" target="_blank" rel="noreferrer">JAXA実証アルバムを開く</a>
+        </div>
+        <p class="small">注: このページは会話用の公開サマリ。非公開の紹介経路や個別案件の詳細は掲載していません。</p>
+      </div>
+    </section>
+
+    <section id="innfra" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">INNFRA</span>
+          <h2>宇宙側の技術を、地上側の運用へ落とす。</h2>
+          <p class="body-copy">INNFRAでは、地域インフラ、オフグリッド、水循環、施設運用、現場実装を扱う。宇宙技術を「使える地上インフラ」に変換するなら、課題発見、PoC設計、運用設計、ダッシュボード化が接点になる。</p>
+        </div>
+        <div class="photo-grid">
+          <figure class="photo tall">
+            <img src="assets/innfra-base.jpg" alt="INNFRAのコンテナ型設備">
+            <figcaption class="caption">INNFRA Base / 遠隔地・防災・一時滞在の地上実装。</figcaption>
+          </figure>
+          <figure class="photo tall">
+            <img src="assets/innfra-water-flow.jpg" alt="INNFRA Waterのフロー図">
+            <figcaption class="caption">INNFRA Water / 水を遠隔監視しながら循環・処理する。</figcaption>
+          </figure>
+        </div>
+        <div class="photo-grid" style="margin-top: 12px;">
+          <figure class="photo tall">
+            <img src="assets/innfra-lab-snow.jpg" alt="雪の中のINNFRAラボ外観">
+            <figcaption class="caption">INNFRA Lab / 季節・地域・環境条件の中で運用する小さな居住拠点。</figcaption>
+          </figure>
+          <div class="grid">
+            <figure class="photo">
+              <img src="assets/innfra-lab-lounge.jpg" alt="INNFRAラボのラウンジ空間">
+              <figcaption class="caption">室内環境 / 断熱、照明、家具、滞在品質を含めて設計する。</figcaption>
+            </figure>
+            <figure class="photo">
+              <img src="assets/innfra-lab-interior.jpg" alt="INNFRAラボの室内">
+              <figcaption class="caption">地上の「閉鎖環境」を、快適性と運用の両面から見る。</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="https://photos.google.com/share/AF1QipNSFXfnTu-2aP7haYroKU7Zl7gxZmDiluj7sq93a4RPYnBVoBPKvmq8ztUjFIGLNA?key=WlRWYkZLb2JSam42Vi1xcW8zbVVLcFFEN1pzVzBR" target="_blank" rel="noreferrer">INNFRA Labアルバムを開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="talk" class="section strip">
+      <div class="wrap two-col">
+        <div>
+          <span class="kicker">Talk Script</span>
+          <h2>その場で話すなら、この順番。</h2>
+        </div>
+        <div class="talk">
+          <div class="talk-line">以前、LAC時代にJAXA/LIFULL/J-SPARC周辺の文脈で、暮らし・移動・滞在と宇宙の接点になる実証に関わっていました。</div>
+          <div class="talk-line">当時から「バンライフは宇宙の一歩手前」だと思っていて、閉鎖環境、自律生活、遠隔地滞在、オフグリッドは宇宙と地上インフラのあいだにあるテーマだと見ています。</div>
+          <div class="talk-line">今はINNFRAで、地域インフラ、水循環、施設運用、現場実装のプロデュースをしています。宇宙技術を地上の暮らし・防災・地域課題に翻訳する接点を探しています。</div>
+          <div class="talk-line">今日聞きたいのは、衛星データ、宇宙デジタルツイン、遠隔地滞在、防災拠点、人材育成のうち、異業種が最初に入るならどこが現実的か、です。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>公開会話用: 非公開情報や個人情報は載せず、懇親会で会話を始めるための概要だけに絞っています。写真は本人アーカイブ・ユーザー提供アルバム・INNFRA公開会話用素材から軽量化し、EXIF/位置情報を除去した派生画像を使用しています。</p>
+    </div>
+  </footer>
+</body>
+</html>
