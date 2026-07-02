@@ -188,6 +188,13 @@ h3 {
   color: var(--paper);
 }
 
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
 .specimen-wall {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
