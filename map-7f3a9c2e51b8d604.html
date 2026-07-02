@@ -175,6 +175,28 @@ header .io button:hover{color:var(--ink);}
 #intro .fine{font-size:10.5px;color:var(--sub);margin-top:10px;text-align:center;}
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12px;padding:8px 18px;border-radius:100px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;}
 #toast.show{opacity:.95;}
+/* new custom node */
+.node.isnew .dot{border-style:solid;box-shadow:inset 0 0 0 2px rgba(31,78,121,.25);}
+.node.isnew .tag::before{content:"NEW ";font-size:8px;color:var(--accent);letter-spacing:.1em;}
+/* fermi cells */
+.tss .cell b{font-size:12.5px;}
+.tss .cell .fnote{display:block;font-size:9px;color:var(--sub);margin-top:2px;line-height:1.4;}
+/* ---------- 岩崎ファネル ---------- */
+#view-funnel{padding:24px 0 80px;overflow:auto;}
+.fn{max-width:880px;margin:0 auto;padding:0 30px;}
+.fn h2{font-size:14px;font-weight:600;letter-spacing:.06em;margin-bottom:2px;}
+.fn .src{font-size:10.5px;color:var(--sub);margin-bottom:16px;line-height:1.6;}
+.fn .venn{border:1px solid var(--hair);background:var(--surface);border-radius:10px;padding:13px 17px;font-size:12px;line-height:1.8;margin-bottom:20px;}
+.fband{margin:0 auto 10px;border-radius:10px;padding:13px 18px;border:1.5px solid;position:relative;animation:cardin .4s ease backwards;}
+.fband .fl{font-size:22px;font-weight:700;position:absolute;left:18px;top:12px;opacity:.85;}
+.fband .fh{margin-left:42px;font-size:13px;font-weight:600;}
+.fband .fs{margin-left:42px;font-size:10.5px;color:var(--sub);margin-bottom:5px;}
+.fband .fx{margin-left:42px;font-size:11.5px;line-height:1.75;}
+.fband .ftag{position:absolute;right:14px;top:12px;font-size:9.5px;border:1px solid;border-radius:100px;padding:2px 10px;letter-spacing:.05em;}
+.fnote2{border:1px solid var(--hair);background:var(--surface);border-radius:10px;padding:13px 17px;font-size:11.5px;line-height:1.75;margin:14px 0;}
+.fnote2 b{font-weight:600;}
+.fthread{border-left:3px solid var(--hair);padding:4px 14px;margin:14px 0;font-size:11.5px;line-height:1.8;color:var(--sub);}
+.fthread b{color:var(--ink);font-weight:600;}
 @media(max-width:760px){
   header{padding:8px 12px;} #askbar{padding:6px 12px;} #reading{display:none;}
   #panel.open{position:absolute;right:0;top:0;bottom:0;width:90%;z-index:20;box-shadow:-8px 0 30px rgba(0,0,0,.15);}
@@ -194,9 +216,11 @@ header .io button:hover{color:var(--ink);}
   <div class="tabs">
     <button id="tab-map" class="on" onclick="showView('map')">仮説マップ</button>
     <button id="tab-board" onclick="showView('board')">描ける世界ボード</button>
+    <button id="tab-funnel" onclick="showView('funnel')">岩崎ファネル</button>
     <button id="tab-tree" onclick="showView('tree')">議論の系譜</button>
   </div>
   <div class="io">
+    <button onclick="addHypothesis()" style="color:var(--accent);border-color:var(--accent)">＋仮説を追加</button>
     <button onclick="exportJSON()">書き出し</button>
     <button onclick="resetAll()">リセット</button>
   </div>
@@ -238,6 +262,23 @@ header .io button:hover{color:var(--ink);}
         </div>
         <svg id="boardgrid"></svg>
         <div id="board"></div>
+      </div>
+    </div>
+    <div class="altview" id="view-funnel">
+      <div class="fn">
+        <h2>岩崎ファネル — Must（必然性）ステップ A→E と「陰謀」の接点</h2>
+        <div class="src">出典: 岩崎さん 図解2.0（Slack #経営_事業戦略 2026-06-30 07:39投稿）を再現。Must は論点の一つ — Will（やりたい）・Can（できる）は別軸。右上のタグ＝ティール『Zero to One』の「秘密」との対応。<b>下へ行くほど必然性が高く、本命に近い。</b></div>
+        <div class="venn"><b>Will ＝ やりたい（特に重要）／ Can ＝ できる ／ Must ＝ やるべき（必然性）</b><br>3つの重なり（★）は理想だが、今すぐそこを目指さなくてよい。この図は Must を A→E に分解する。<b>妄想＝A ／ 陰謀が宿る＝D ／ 自分たちの秘密＝E</b></div>
+        <div class="fband" style="width:100%;background:#faf0ee;border-color:#c98d84;animation-delay:.05s"><span class="fl" style="color:#a8443a">A</span><span class="ftag" style="color:#a8443a;border-color:#c98d84">妄想＝偽の秘密</span><div class="fh">「これ作れば売れるのでは？」</div><div class="fs">目的の必然性すら無い（供給プッシュ）</div><div class="fx">オフグリッドトレーラーハウス（無印・ミサワ・JIBUN）／防災ランドリー（大吉丸・阿部 他）／ユニットハウス・ハウスメーカー（ナイス・デザインアーク）／清水建設（海上・浮体式）</div></div>
+        <div class="fband" style="width:92%;background:#faf3f1;border-color:#d4a49c;animation-delay:.12s"><span class="fl" style="color:#b06158">B</span><div class="fh">「オフグリッド使えるのでは？」</div><div class="fs">目的は所与だがオフグリッドは不要（代替で足りる）</div><div class="fx">三菱地所・名鉄ほか電鉄系（遊休地）／サウナ・宿泊（sanu・earthboat・blanc・nomad・the scene・このほし 等）／観光（富士急・山中湖ビートルズ・三宅島）／被災者・富裕層・思想系（死にたくない市場＝未検証の仮説）</div></div>
+        <div class="fband" style="width:84%;background:#faf4e0;border-color:#cfae53;animation-delay:.19s"><span class="fl" style="color:#8a6d1f">C</span><span class="ftag" style="color:#8a6d1f;border-color:#cfae53">C→D ＝ 時機の秘密</span><div class="fh">「オフグリッド必要だけど今はまだ…」</div><div class="fs">必然性あり・時機待ち（育てる）</div><div class="fx">行政（水道リプレイス＝国交省／珠洲市でwota実証中）／東急不動産（過疎化で将来必然・今は喫緊でない）／自治体防災 フェーズ1-2（約7割）</div></div>
+        <div class="fband" style="width:76%;background:#e9f4ec;border-color:#4e9a6f;animation-delay:.26s"><span class="fl" style="color:#2e7d4f">D</span><span class="ftag" style="color:#2e7d4f;border-color:#4e9a6f">陰謀が宿る ＝ 本物の秘密</span><div class="fh">「オフグリッドが要る・今求めている」◎本命</div><div class="fs">オフグリッドの必然性が高い ※当社の解・価格までフィットするとは限らない</div><div class="fx">自衛隊（実需検証中／支払意志 高）／ゆたかけあ＝片岡さん（井戸不可・当事者が認識／WTP低）／自治体防災 フェーズ3（約3割・着手層）※INNFRAの解が現状マッチせず（大型・平時利用前提）・wota導入の切迫感は要検証</div></div>
+        <div class="fband" style="width:68%;background:#e9f0f8;border-color:#5b84ad;animation-delay:.33s"><span class="fl" style="color:#1f4e79">E</span><span class="ftag" style="color:#1f4e79;border-color:#5b84ad">自分たちについての秘密</span><div class="fh">「他社製品でなく、INNFRAの製品で」</div><div class="fs">INNFRAの製品である必然性（競争優位）＝Can に接続</div><div class="fx">D を通過した主体が、最後に問われる関門。どう優位を築くかは別途検討</div></div>
+        <div class="fnote2"><b>今すぐ三つ全ての重なりを目指さなくてよい</b> — Must×Will なら長期の本命でなくてもチャレンジしてよい／Must×Can なら目指す姿と違っても現時点で取り組む選択もあり。ただし <b>Will＝「何を目指したいか」は特に重要</b>で、この Must 分析とは別軸として意思決定が必要（A・Bは Will/Can はあっても Must が無い領域）。</div>
+        <div class="fnote2"><b>自治体防災のグラデーション</b> — フェーズ1: 食料・ペットボトル水のローリングストックで精一杯／フェーズ2: トイレ・オムツ・ミルク等を備蓄中（1+2で約7割＝C「育てる」）／<b>フェーズ3: 生活用水手当・暑さ寒さ対策・避難所プライバシー等に着手（約3割・増加中＝D「本命」）</b>。注: フェーズ3でもINNFRAの解が現状マッチせず（小型化・平時利用設計が突破口）。</div>
+        <div class="fnote2"><b>陰謀（＝ティールの「秘密」）との接点</b> — 妄想(A)＝必然性も裏付けも無いのに「実はこれが真実だ」と唱えるだけ／陰謀(D)＝世間が A/B/C と切り捨てた中の「見落とされた実需」（+C→Dの早すぎる転換）。<b>ただし「陰謀」は実在の N=1（ファクト）で裏付けて初めて陰謀になる。裏付け前は A（妄想）と区別できない</b>／E＝「なぜINNFRAの製品か」＝自分たちについての秘密（競争優位）。</div>
+        <div class="fthread"><b>スレッドでの応酬（6/30）</b><br><b>相馬:</b>「これを見るとA、Bは優先度低い、という判断ですか？ 企業自体がPoC・顧客検証をしている段階のものを妄想と位置付けてしまうのは、少し時期尚早かなと思いました」<br><b>岩崎:</b>「A・Bに一切取り組まないという意味では全くないが、優先度はEと比べると低い。『妄想』という表現は早とちりでした。ただ資金調達を見据えて選択と集中が求められる時期であることに鑑みると、ニーズ検証中の相手にリソースを割くよりは、<b>オフグリッドの必然性があって現時点でニーズのある主体を見つけて、自社のソリューションを磨き込んでいく方が優先度が高い</b>」</div>
+        <div class="note">読み方: 仮説マップの各ノードは、このA→Eの必然性軸で格付けして読む（D=本命、A/Bで戦わない）。仮説マップの「ビジョン整合」軸がWill、「実行しやすさ」軸がCanに概ね対応する。</div>
       </div>
     </div>
   </div>
@@ -388,6 +429,22 @@ const NODES = [
   refs:["MUJI HOUSE","ミサワホーム/OIST","戸田市・富士川町"],
   next:"運用品質の安定化（信頼の源泉として維持）", links:[]},
 ];
+/* フェルミ推定データ（sonnet推定→素子検証。全て〔フェルミ仮・要検証〕） */
+const FERMI = {
+ jieitai:{tam:"≈50億/年",sam:"≈10億/年",som:"≈2億",formula:"陸自駐屯地・分屯地160+訓練場等40≈200拠点×1,500万",target:"防衛装備庁・陸自需品部門／DMAT／ゼネコン安全担当",pain:"訓練・被災地で洗濯シャワー衛生設備が水源制約で確保できない",insight:"自衛隊は「困っている」と言わない。需要は実在するが、前例のない調達を通す政治コストを組織が負いたくないだけ",wtp:"500-2,000万/ユニット、レンタル月50-100万〔実自衛官の声ゼロ・要検証〕"},
+ fugoso:{tam:"≈80億/年",sam:"≈15億/年",som:"≈1億",formula:"金融資産1億以上148万世帯×導入率0.05%×1,000万",target:"新築注文の超富裕層・高級EV既保有層",pain:"表向きは防災意識・エネルギー自給への関心",insight:"オフグリッドが欲しいのではなく、最先端で自立した生き方をしている自分を可視化する記号が欲しい（テスラと同型）",wtp:"1,000万〜（菊永氏・中野氏の実例。市場規模は未検証）"},
+ extstay:{tam:"≈80億/年",sam:"≈8億/年",som:"≈8,000万",formula:"場所3条件充足の候補地10-15拠点×年50-80組×18万/組",target:"富裕層・アドベンチャートラベラー、特別な体験に払う層",pain:"秘境に泊まりたいが安全・快適のインフラがない",insight:"絶景を見たいのではなく「そこに到達した物語」を語りたい。倍率100倍＝選ばれし者の証明そのものが商品",wtp:"12-18万/泊仮説（WEAZER参考）。無料倍率100倍のみ、有料WTP未検証"},
+ bosai:{tam:"≈50億(一巡)",sam:"≈3億/年",som:"≈4,000万/年",formula:"道の駅1,224駅×フェーズフリー化対象20%×1,600-2,000万",target:"市町村防災担当課・道の駅運営・商社10社弱",pain:"災害時の断水・生活用水確保ができない",insight:"防災を買いたいのではなく「備えている」という説明責任を住民・議会に果たしたい（実際の優先順位はトイレ・ミルクより下）",wtp:"1,600-2,000万（見積実績）。ただし心理的天井は1,000万台前半の可能性"},
+ shukuhaku:{tam:"≈1,000億/年(参考桁)",sam:"棄却",som:"棄却",formula:"全国グランピング≈2,000施設×年商5,000万 — ただし必然性ゼロで対象外",target:"（棄却）一般グランピング事業者",pain:"絶景立地でやりたいが上下水道がない",insight:"本音は絶景で商売したいだけ。水道が引ければ即乗り換える＝技術差別化に金を払う理由がない",wtp:"0円（水道接続コストと比較され常に負ける）"},
+ tosho:{tam:"≈40億/年",sam:"≈8億/年",som:"≈7,000万",formula:"有人離島416のうち観光開発余地50島×年間予算8,000万",target:"離島自治体・観光協会・デベロッパー",pain:"観光開発したいがインフラ未整備で建てられない",insight:"実需ではなく「うちも何かやらないと」という機会損失回避。島への思い入れよりポートフォリオの一項目",wtp:"数千万/島の案件ベース〔三宅島予算不合＝価格感度高い〕"},
+ jutaku:{tam:"≈150億/年",sam:"≈15億/年",som:"≈5,000万",formula:"注文住宅22万戸/年の1%(過疎・未整備地)×水設備上乗せ700万",target:"過疎地自治体・移住支援・トレーラーハウスメーカー(OEM)",pain:"上下水道未整備地に住宅を供給できない",insight:"行政は「移住施策のやってる感」、移住者は「自立した暮らしの証明」が欲しい。住宅はその器",wtp:"本体300-800万＋水インフラ数百万上乗せ〔未検証〕"},
+ shelter:{tam:"≈80億(一巡)",sam:"≈8億/年",som:"≈5,000万",formula:"被災リスクエリア富裕層数十万世帯×導入率0.1%×500万",target:"リスクエリア富裕層・災害トラウマ経験者・自己完結志向層",pain:"大災害時に生き延びられる自宅の備えがない",insight:"確率への合理的備えではなく「自分だけは大丈夫にしたい」実存的不安の解消。500万は保険でなくコントロール感の購入",wtp:"500万（検証中・9月投資判断）"},
+ jichi:{tam:"≈5億/年",sam:"≈1億/年",som:"<1,000万",formula:"コミュニティ型PJ全国20-30件×事業規模2,000万",target:"コミュニティ運営団体・NPO・インパクト投資家",pain:"水・電気の重いインフラを自給したいが技術と資金がない",insight:"ROIではなく「依存からの自由」という自己効力感＝思想の証明を買いたい。だからVC調達と相性が悪い",wtp:"極めて低い。補助金・クラファン依存（数百万規模）"},
+ kaijo:{tam:"≈20億/年",sam:"≈2億/年",som:"≈1,000万",formula:"ゼネコンR&D予算の海上構造物枠×3カ年実証",target:"大手ゼネコンR&D部門・国交省港湾局",pain:"海上構造物に水・エネルギーを供給する技術がない",insight:"技術でなく「次世代インフラのフロントランナー」という研究ポートフォリオのアリバイが欲しい（実ユーザー不在のまま供給側同士で盛り上がる構造）",wtp:"研究委託で数百万〜数千万/年。事業採算には遠い"},
+ replace:{tam:"≈700億/年(2040年代)",sam:"≈3億/年(現在)",som:"0-2,000万",formula:"水道事業者1,300のうち廃止危機400×更新投資1.7億/事業体",target:"水道維持不能の小規模自治体・国交省/厚労省",pain:"人口減少で水道料金収入が維持コストを下回る",insight:"技術ではなく「水道事業廃止という政治的に言えない決断を回避できる代替」が欲しい。「継続」に見える建付けが必須",wtp:"現行水道料金相当以下でないと政治的に通らない〔未検証〕"},
+ mobile:{tam:"≈200億/年",sam:"≈20億/年",som:"≈3,000万-1億",formula:"単身+DINKs2,000万世帯×多拠点関心0.1%×月8万×12",target:"家賃高騰に疲れた都市部単身/DINKs・リモートワーカー",pain:"家賃が高い・一箇所に縛られたくない",insight:"月額住居ではなく「どこでも生きていける」という所属からの自由を買いたい。実利用より『逃げられる』オプション価値",wtp:"月8万（3万/10万/20万グレード仮説）"},
+};
+NODES.forEach(n=>{if(FERMI[n.id])Object.assign(n,FERMI[n.id]);});
 const EDGE_PAIRS = (()=>{const s=new Set();NODES.forEach(n=>(n.links||[]).forEach(t=>{const k=[n.id,t].sort().join("|");s.add(k);}));return [...s].map(k=>k.split("|"));})();
 /* board axis presets */
 const BAX = {
@@ -439,6 +496,19 @@ try{const old=JSON.parse(localStorage.getItem("innfra-map-v2")||"{}");
 }catch(e){}
 function persist(){localStorage.setItem(LS,JSON.stringify(store));}
 function applyStore(){NODES.forEach(n=>{const o=store.nodes&&store.nodes[n.id];if(o){if(o.ax)Object.assign(n.ax,o.ax);if(o.state)n.state=o.state;n._edited=true;}});}
+/* custom nodes (＋仮説を追加) */
+(store.custom||[]).forEach(c=>{NODES.push(Object.assign({layer:"L2 市場仮説（新規）",state:"idle",size:2,phase:0,ev:["本日の議論で追加"],refs:[],next:"—",links:[],isnew:true,_edited:true,
+ ax:{phase:10,vision:50,wallet:50,horizon:50,feas:50,market:50}},c));});
+function addHypothesis(){
+  const name=prompt("新しい仮説の名前（例: ○○向け△△）");
+  if(!name)return;
+  const hyp=prompt("仮説文（誰の・どんな課題に・何が売れる？）")||"（会議で言語化する）";
+  const c={id:"nx"+Date.now(),name,hyp,ax:{phase:10,vision:55,wallet:50,horizon:55,feas:50,market:50}};
+  store.custom=store.custom||[];store.custom.push(c);persist();
+  NODES.push(Object.assign({layer:"L2 市場仮説（新規）",state:"idle",size:2,phase:0,ev:["本日の議論で追加"],refs:[],next:"—",links:[],isnew:true,_edited:true},JSON.parse(JSON.stringify(c))));
+  if(view!=="map")showView("map"); else layout();
+  toast(`仮説「${name}」を追加しました（ドラッグで配置）`);
+}
 let CARDS=(store.cards&&store.cards.length)?store.cards:JSON.parse(JSON.stringify(CARDS_INIT));
 let boardPreset=store.boardPreset||"p1";
 if(store.baxCustom)Object.assign(BAX.p3,store.baxCustom);
@@ -463,7 +533,7 @@ function nodeEl(n,idx){
   if(!el){
     el=document.createElement("div");
     const isCase=n.layer.startsWith("L3");
-    el.id="nd-"+n.id; el.className="node "+n.state+(n._edited?" isedited":"")+(isCase?" l3":"");
+    el.id="nd-"+n.id; el.className="node "+n.state+(n._edited?" isedited":"")+(isCase?" l3":"")+(n.isnew?" isnew":"");
     const d=isCase?(6+n.size*4):(8+n.size*7);
     el.innerHTML=`<div class="dot" style="width:${d*2}px;height:${d*2}px;"><span class="edited"></span></div><div class="tag">${n.name}</div>`;
     if(firstLayout){el.classList.add("enter");el.style.animationDelay=(idx*45)+"ms";}
@@ -602,8 +672,12 @@ function select(id){
     <div class="stsw">${Object.entries(STATES).map(([k,v])=>`<button data-s="${k}" class="${n.state===k?"on":""}" onclick="setState('${id}','${k}')">${v}</button>`).join("")}</div>
     <h3>仮説</h3><p>${n.hyp}</p>
     <h3>検証フェーズ</h3>${phasebar(n)}
-    ${isCase?"":`<h3>市場の器〔会議で埋める枠〕</h3>
-    <div class="tss"><div class="cell"><b>—</b><span>TAM</span></div><div class="cell"><b>—</b><span>SAM</span></div><div class="cell"><b>—</b><span>SOM</span></div></div>`}
+    ${n.target?`<h3>ターゲットと課題</h3><p><b>誰:</b> ${n.target}<br><b>表面の課題:</b> ${n.pain}</p>
+    <h3>インサイト（潜在ニーズ）</h3><p style="border-left:3px solid var(--accent);padding-left:10px;">${n.insight}</p>
+    <h3>WTP仮説</h3><p>${n.wtp}</p>`:""}
+    ${isCase?"":`<h3>市場の器〔フェルミ仮・要検証〕</h3>
+    <div class="tss"><div class="cell"><b>${n.tam||"—"}</b><span>TAM</span></div><div class="cell"><b>${n.sam||"—"}</b><span>SAM</span></div><div class="cell"><b>${n.som||"—"}</b><span>SOM</span></div></div>
+    ${n.formula?`<div class="note">式: ${n.formula}</div>`:""}`}
     <h3>根拠・現状</h3><ul>${n.ev.map(e=>`<li>${e}</li>`).join("")}</ul>
     <h3>類似・参考</h3><div class="chips">${n.refs.map(r=>`<span class="chip">${r}</span>`).join("")}</div>
     <h3>次の一手</h3><p>${n.next}</p>
@@ -771,9 +845,10 @@ function buildTree(){
 /* ================= views ================= */
 function showView(v){
   view=v;
-  ["map","board","tree"].forEach(k=>document.getElementById("tab-"+k).classList.toggle("on",v===k));
+  ["map","board","funnel","tree"].forEach(k=>document.getElementById("tab-"+k).classList.toggle("on",v===k));
   document.getElementById("view-tree").classList.toggle("on",v==="tree");
   document.getElementById("view-board").classList.toggle("on",v==="board");
+  document.getElementById("view-funnel").classList.toggle("on",v==="funnel");
   document.getElementById("askbar").style.display=(v==="map")?"flex":"none";
   if(v==="map")layout();
   if(v==="board")setTimeout(buildBoard,30);
