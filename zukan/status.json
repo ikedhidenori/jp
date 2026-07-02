@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T06:33:24+0900",
+  "generated_at": "2026-07-03T06:36:24+0900",
   "status": "public_surface_live_waiting_for_dedicated_x",
   "public_url": "https://ikedhidenori.github.io/jp/zukan/",
   "canonical_domain": "zukan.page",
@@ -14,6 +14,7 @@
     "ready_public_surface": true,
     "hub": 200,
     "note": 200,
+    "note_magazines": 200,
     "kit": 200,
     "ippo_no001": 200,
     "ippo_no002": 200,
@@ -66,6 +67,24 @@
       "ippo",
       "factful"
     ]
+  },
+  "note_magazines": {
+    "extinct": {
+      "magazine_name": "絶滅職種図鑑",
+      "observed_public": false
+    },
+    "ippo": {
+      "magazine_name": "一坪ビジネス図鑑",
+      "observed_public": false
+    },
+    "ramen": {
+      "magazine_name": "ラーメンビジネス図鑑",
+      "observed_public": false
+    },
+    "factful": {
+      "magazine_name": "ファクトフル図鑑",
+      "observed_public": false
+    }
   },
   "safety": "public reads only; no secrets, cookies, tokens, OTP, 2FA, passwords, or private browser state"
 }
