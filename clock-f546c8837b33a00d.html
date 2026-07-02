@@ -187,6 +187,54 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
 }
 .hr-row .hr-sep{font-size:11.5px;color:var(--text-faint);flex:none}
 
+/* meal log */
+#mealBtn{
+  width:100%;background:var(--surface-2);border:1px solid var(--accent);
+  border-radius:10px;min-height:var(--tap);margin-top:10px;
+  color:var(--accent);font-size:14px;font-weight:600;letter-spacing:.02em;
+}
+#mealBtn:active{background:var(--accent-soft)}
+.meal-opts{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.meal-opt{
+  width:100%;border:1px solid var(--line);background:var(--surface-2);border-radius:12px;
+  min-height:56px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;
+  font-size:15px;color:var(--text);text-align:left;transition:transform .06s ease;
+}
+.meal-opt:active{transform:scale(.97)}
+.meal-opt .mo-d{font-size:14px;font-weight:600}
+.meal-opt.pos{border-color:var(--plus)} .meal-opt.pos .mo-d{color:var(--plus)}
+.meal-opt.zero .mo-d{color:var(--text-dim)}
+.meal-opt.neg{border-color:var(--minus)} .meal-opt.neg .mo-d{color:var(--minus)}
+
+/* Health setup guide (collapsible) */
+.guide{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);overflow:hidden}
+.guide>summary{
+  list-style:none;cursor:pointer;padding:11px 12px;font-size:12.5px;color:var(--text-dim);
+  display:flex;align-items:center;gap:6px;min-height:var(--tap);
+}
+.guide>summary::-webkit-details-marker{display:none}
+.guide>summary::before{content:'▸';color:var(--text-faint);font-size:11px}
+.guide[open]>summary::before{content:'▾'}
+.guide .guide-body{padding:0 12px 12px;font-size:12px;color:var(--text-dim);line-height:1.65}
+.guide ol{margin:0 0 8px 18px;padding:0}
+.guide li{margin-bottom:7px}
+.guide code{
+  display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:5px;
+  padding:1px 5px;font-size:11px;word-break:break-all;
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;color:var(--text);
+}
+.guide .url-box{display:flex;gap:6px;align-items:center;margin:6px 0 2px}
+.guide .url-box .u-val{
+  flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:6px;
+  padding:7px 8px;font-size:11px;color:var(--text);word-break:break-all;
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;
+}
+.guide .url-box button{
+  flex:none;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);
+  border-radius:6px;padding:0 10px;min-height:36px;font-size:12px;
+}
+.guide .guide-note{font-size:11px;color:var(--text-faint);margin-top:6px;line-height:1.45}
+
 /* sync toast */
 #toast{
   position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));
@@ -232,6 +280,7 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
   <section class="card">
     <h2>行動 <span class="stat" id="statLine">今日 — / 今週 —</span></h2>
     <div class="acts" id="acts"></div>
+    <button id="mealBtn" type="button">🍽 食事を記録</button>
     <div class="acts-foot" id="syncFoot" style="justify-content:flex-start;margin-top:8px;display:none">
       <span id="syncLine"></span>
     </div>
@@ -313,6 +362,24 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
       <div class="field" style="margin-bottom:0">
         <div class="hint">iOS ショートカットが毎朝、睡眠・歩数・運動を自動で記帳します。閾値と増減時間を編集できます。</div>
       </div>
+
+      <details class="guide">
+        <summary>📱 iPhoneショートカットの設定手順（連携を始める）</summary>
+        <div class="guide-body">
+          <ol>
+            <li>ショートカットApp で「新規ショートカット」を作成します。</li>
+            <li>「ヘルスケアサンプルを検索」を3つ追加：<br>① 睡眠分析（期間＝昨夜／結果＝時間の合計）<br>② 歩数（期間＝昨日／計算＝合計）<br>③ エクササイズ時間（期間＝昨日／計算＝分の合計）</li>
+            <li>「テキスト」アクションで次のJSONを作成（数値を①②③の結果に差し替え）：<br><code>{"date":"昨日のYYYY-MM-DD","sleepHours":睡眠,"steps":歩数,"exerciseMin":運動分}</code></li>
+            <li>「URLをエンコード」→「URLを開く」を追加し、開くURLを <code>このページのURL#sync=エンコード済みテキスト</code> の形にします。</li>
+            <li>このページのURL：
+              <div class="url-box"><span class="u-val" id="pageUrl">…</span><button type="button" id="copyUrlBtn">URLをコピー</button></div>
+            </li>
+            <li>「オートメーション」→「時刻」（毎朝7時など）で上のショートカットを実行 →「実行の前に尋ねない」をONにします。</li>
+            <li>毎朝Safariで開かれ、記帳トーストが出れば成功です。URLは自動で消えます。</li>
+          </ol>
+          <div class="guide-note">base64エンコードは不要です。URLエンコードしたJSONをそのまま <code>#sync=</code> に渡せます。</div>
+        </div>
+      </details>
     </div>
 
     <button class="primary" id="saveBtn">保存</button>
@@ -320,6 +387,23 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
     <div id="dangerZone" style="display:none;text-align:center;margin-top:14px">
       <button class="danger" id="resetBtn">すべてのデータを削除</button>
     </div>
+  </div>
+</div>
+
+<!-- ===================== Meal log modal ===================== -->
+<div class="overlay" id="mealOverlay">
+  <div class="sheet">
+    <h2>食事を記録</h2>
+    <p class="sub">今の食事はどうでしたか？ひとつ選ぶと記録します。</p>
+    <div class="field" style="margin-bottom:0">
+      <input id="mealText" type="text" placeholder="何を食べた？（任意）" maxlength="60" enterkeyhint="done">
+    </div>
+    <div class="meal-opts">
+      <button class="meal-opt pos"  type="button" data-d="2"><span>良い食事</span><span class="mo-d">+2h</span></button>
+      <button class="meal-opt zero" type="button" data-d="0"><span>ふつう</span><span class="mo-d">±0</span></button>
+      <button class="meal-opt neg"  type="button" data-d="-4"><span>乱れた</span><span class="mo-d">−4h</span></button>
+    </div>
+    <button class="ghost" id="mealCancel" type="button">閉じる</button>
   </div>
 </div>
 
@@ -719,10 +803,15 @@ function parseSyncFragment(hash){
   if(!m) return undefined;
   var enc = m[1];
   try{ enc = decodeURIComponent(enc); }catch(e){}
+  var obj = null;
+  // 1) try base64url payload (existing behaviour)
   var json = b64urlDecode(enc);
-  if(json == null) return null;
-  try{ var obj = JSON.parse(json); return (obj && typeof obj==='object') ? obj : null; }
-  catch(e){ return null; }
+  if(json != null){ try{ obj = JSON.parse(json); }catch(e){ obj = null; } }
+  // 2) fall back to plain URL-encoded JSON (shortcut needs no base64)
+  if(!obj || typeof obj!=='object'){
+    try{ var obj2 = JSON.parse(enc); if(obj2 && typeof obj2==='object') obj = obj2; }catch(e){}
+  }
+  return (obj && typeof obj==='object') ? obj : null;
 }
 
 function clearSyncHash(){
@@ -836,11 +925,55 @@ function openModal(isSettings){
   document.getElementById('adjVal').textContent = adj.toFixed(1)+' 年';
   document.getElementById('adjNote').value = S ? (S.adjNote||'') : '';
   document.getElementById('focusBonus').value = S ? (S.focusBonus!=null?S.focusBonus:2) : 2;
-  if(isSettings){ renderPresetEditor(); renderHealthRules(); }
+  if(isSettings){ renderPresetEditor(); renderHealthRules(); fillPageUrl(); }
   document.getElementById('birthErr').classList.remove('show');
   ov.classList.add('show');
 }
 function closeModal(){ document.getElementById('overlay').classList.remove('show'); }
+
+/* ---------- meal log (dedicated sheet) ---------- */
+function openMeal(){
+  var inp=document.getElementById('mealText'); if(inp) inp.value='';
+  document.getElementById('mealOverlay').classList.add('show');
+}
+function closeMeal(){ document.getElementById('mealOverlay').classList.remove('show'); }
+function recordMeal(delta){
+  if(!S) return;
+  var kind = delta>0 ? '良い' : (delta<0 ? '乱れた' : 'ふつう');
+  var t = document.getElementById('mealText').value.trim();
+  // raw text stored; esc() is applied wherever it is later rendered via innerHTML
+  S.actions.push({ ts:Date.now(), label:'食事: '+(t||'記録')+' ('+kind+')', deltaHours:delta, source:'meal' });
+  save(); closeMeal(); renderAll(); refreshWarn();
+}
+
+/* ---------- Health setup guide: live page URL + copy ---------- */
+function liveUrl(){
+  var u = (location.origin && location.origin!=='null') ? (location.origin + location.pathname) : '';
+  if(!u || location.protocol==='file:'){
+    u = 'https://ikedhidenori.github.io/jp/clock-f546c8837b33a00d.html';
+  }
+  return u;
+}
+function fillPageUrl(){
+  var el=document.getElementById('pageUrl'); if(el) el.textContent = liveUrl();
+}
+function execCopy(txt, ok){
+  try{
+    var ta=document.createElement('textarea');
+    ta.value=txt; ta.setAttribute('readonly','');
+    ta.style.position='fixed'; ta.style.top='0'; ta.style.left='0'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    var done=document.execCommand('copy'); ta.remove();
+    if(done && ok) ok();
+  }catch(e){}
+}
+function copyPageUrl(){
+  var txt=liveUrl();
+  function ok(){ showToast('コピーしました', txt); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok, function(){ execCopy(txt, ok); });
+  }else{ execCopy(txt, ok); }
+}
 
 function renderPresetEditor(){
   var list=document.getElementById('presetsList');
@@ -949,6 +1082,14 @@ function init(){
     }
   });
   document.getElementById('undoBtn').addEventListener('click', undoLast);
+  // meal log
+  document.getElementById('mealBtn').addEventListener('click', openMeal);
+  document.getElementById('mealCancel').addEventListener('click', closeMeal);
+  Array.prototype.forEach.call(document.querySelectorAll('#mealOverlay .meal-opt'), function(b){
+    b.addEventListener('click', function(){ recordMeal(parseFloat(b.getAttribute('data-d'))||0); });
+  });
+  // Health guide: copy page URL
+  document.getElementById('copyUrlBtn').addEventListener('click', copyPageUrl);
   document.getElementById('focusAddBtn').addEventListener('click', addFocus);
   document.getElementById('focusInput').addEventListener('keydown', function(e){ if(e.key==='Enter') addFocus(); });
   document.getElementById('exportBtn').addEventListener('click', exportData);
