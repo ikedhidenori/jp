@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>ZUKAN.PAGE Status</title>
+  <style>
+    :root {
+      --ink: #17140f;
+      --paper: #f3efe5;
+      --line: #2d2518;
+      --muted: #766f62;
+      --red: #a43d2c;
+      --green: #3d6145;
+      --white: #fffaf0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(23, 20, 15, .045) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(0deg, rgba(23, 20, 15, .035) 1px, transparent 1px) 0 0 / 28px 28px,
+        var(--paper);
+      color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      letter-spacing: 0;
+    }
+    main {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 42px 0 60px;
+    }
+    a { color: inherit; }
+    .kicker {
+      color: var(--red);
+      font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 8px 0 20px;
+      font-size: clamp(44px, 8vw, 92px);
+      line-height: .94;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 28px 0 34px;
+      min-width: 0;
+    }
+    .tile {
+      min-height: 112px;
+      border: 2px solid var(--line);
+      background: var(--white);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--line);
+      min-width: 0;
+    }
+    .tile strong {
+      display: block;
+      font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    .tile span {
+      display: block;
+      margin-top: 12px;
+      font-size: 22px;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    section {
+      margin-top: 24px;
+      border: 2px solid var(--line);
+      background: rgba(255, 250, 240, .62);
+    }
+    h2 {
+      margin: 0;
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--line);
+      font-size: 26px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(45, 37, 24, .28);
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    tr:last-child th, tr:last-child td { border-bottom: 0; }
+    .notice {
+      margin-top: 24px;
+      padding: 16px;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--line);
+      background: var(--white);
+      padding: 10px 14px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 3px 3px 0 var(--line);
+    }
+    @media (max-width: 780px) {
+      .summary { grid-template-columns: 1fr; }
+      th, td { display: block; width: 100%; }
+      td { padding-top: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="kicker">public status / generated 2026-07-03T06:28:46+0900</p>
+    <h1>ZUKAN.PAGE Status</h1>
+    <div class="summary" aria-label="status summary">
+      <div class="tile"><strong>Status</strong><span>public_surface_live_waiting_for_dedicated_x</span></div>
+      <div class="tile"><strong>Surface</strong><span>yes</span></div>
+      <div class="tile"><strong>Custom Domain</strong><span>no</span></div>
+      <div class="tile"><strong>Posting</strong><span>0/9</span></div>
+    </div>
+
+    <section>
+      <h2>Surface</h2>
+      <table><tr><th>ready_public_surface</th><td>True</td></tr>
+<tr><th>hub</th><td>200</td></tr>
+<tr><th>note</th><td>200</td></tr>
+<tr><th>kit</th><td>200</td></tr>
+<tr><th>ippo_no001</th><td>200</td></tr>
+<tr><th>ippo_no002</th><td>200</td></tr>
+<tr><th>ramen_no001</th><td>200</td></tr>
+<tr><th>ramen_simulator</th><td>200</td></tr></table>
+    </section>
+
+    <section>
+      <h2>X</h2>
+      <table>
+        <tr><th>series</th><th>handle</th><th>exists</th><th>status</th><th>followers</th><th>tweets</th></tr>
+        <tr><th>ramen</th><td>@ramen_zukan_jp</td><td>no</td><td>404</td><td></td><td></td></tr>
+<tr><th>ippo</th><td>@1tsubo_zukan</td><td>no</td><td>404</td><td></td><td></td></tr>
+<tr><th>factful</th><td>@factful_zukan</td><td>no</td><td>404</td><td></td><td></td></tr>
+<tr><th>umbrella</th><td>@zukan_jp</td><td>yes</td><td>200</td><td></td><td></td></tr>
+<tr><th>extinct</th><td>@zetsumetsuzukan</td><td>yes</td><td>200</td><td>2</td><td>4</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Gates</h2>
+      <table>
+        <tr><th>safe_to_add_cname</th><td>no</td></tr>
+        <tr><th>apex_ready</th><td>no</td></tr>
+        <tr><th>www_ready</th><td>no</td></tr>
+        <tr><th>dedicated_x_missing</th><td>ramen, ippo, factful</td></tr>
+        <tr><th>can_post_now</th><td>no</td></tr>
+      </table>
+    </section>
+
+    <div class="actions">
+      <a class="button" href="./">Hub</a>
+      <a class="button" href="./status.json">status.json</a>
+      <a class="button" href="https://note.com/zukan_jp">note</a>
+      <a class="button" href="https://zukan-jp.kit.com/ffea50add4">Kit</a>
+    </div>
+
+    <div class="notice">public reads only; no secrets, cookies, tokens, OTP, 2FA, passwords, or private browser state</div>
+  </main>
+</body>
+</html>

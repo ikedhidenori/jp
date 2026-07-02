@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-07-03T06:28:46+0900",
+  "status": "public_surface_live_waiting_for_dedicated_x",
+  "public_url": "https://ikedhidenori.github.io/jp/zukan/",
+  "canonical_domain": "zukan.page",
+  "domain": {
+    "direct_ready": true,
+    "custom_ready": false,
+    "safe_to_add_cname": false,
+    "apex_ready": false,
+    "www_ready": false
+  },
+  "surface": {
+    "ready_public_surface": true,
+    "hub": 200,
+    "note": 200,
+    "kit": 200,
+    "ippo_no001": 200,
+    "ippo_no002": 200,
+    "ramen_no001": 200,
+    "ramen_simulator": 200
+  },
+  "x": {
+    "ramen": {
+      "handle": "@ramen_zukan_jp",
+      "exists": false,
+      "status": 404,
+      "followers": null,
+      "tweets": null
+    },
+    "ippo": {
+      "handle": "@1tsubo_zukan",
+      "exists": false,
+      "status": 404,
+      "followers": null,
+      "tweets": null
+    },
+    "factful": {
+      "handle": "@factful_zukan",
+      "exists": false,
+      "status": 404,
+      "followers": null,
+      "tweets": null
+    },
+    "umbrella": {
+      "handle": "@zukan_jp",
+      "exists": true,
+      "status": 200,
+      "followers": 0,
+      "tweets": 0
+    },
+    "extinct": {
+      "handle": "@zetsumetsuzukan",
+      "exists": true,
+      "status": 200,
+      "followers": 2,
+      "tweets": 4
+    }
+  },
+  "posting": {
+    "can_post_now": false,
+    "posted": 0,
+    "pending_g5": 9,
+    "dedicated_x_missing": [
+      "ramen",
+      "ippo",
+      "factful"
+    ]
+  },
+  "safety": "public reads only; no secrets, cookies, tokens, OTP, 2FA, passwords, or private browser state"
+}
