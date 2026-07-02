@@ -67,6 +67,33 @@ www CNAME ikedhidenori.github.io
 
 Keep existing MX records for Porkbun email forwarding.
 
+Official GitHub Pages references:
+
+- https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
+- https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https
+
+## Local Cutover Checker
+
+Run from `/Users/hi/gits-system`:
+
+```bash
+python3 data/zukan-engine/zukan-domain-cutover-check.py --write
+```
+
+Only add the root `CNAME` file after this checker reports:
+
+```text
+status=dns_ready_add_cname_and_enable_https
+safe_to_add_cname=True
+```
+
+Current expected pre-DNS status:
+
+```text
+status=github_pages_direct_ready_dns_not_ready
+safe_to_add_cname=False
+```
+
 ## Verification After Publish
 
 ```bash
