@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INNFRA 仮説検証マップ</title>
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --ink:#16150f; --sub:#6d6a60; --hair:#e3e1d8;
+  --alive:#2e7d4f; --testing:#c99b2e; --dead:#a8443a; --idle:#a3a094; --stuck:#c07338;
+  --accent:#1f4e79; --ev:#b9834f;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;background:var(--bg);color:var(--ink);overflow:hidden;font-feature-settings:"palt";-webkit-tap-highlight-color:transparent;}
+button{font-family:inherit;}
+/* ---------- header ---------- */
+header{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--hair);background:var(--bg);flex-wrap:wrap;}
+header h1{font-size:14.5px;font-weight:600;letter-spacing:.08em;}
+header .help{border:1px solid var(--hair);background:var(--surface);width:22px;height:22px;border-radius:50%;font-size:12px;color:var(--sub);cursor:pointer;}
+header .tabs{margin-left:auto;display:flex;gap:2px;background:#ecebe4;border-radius:8px;padding:3px;}
+header .tabs button{border:0;background:transparent;padding:5px 13px;font-size:12px;border-radius:6px;cursor:pointer;color:var(--sub);letter-spacing:.05em;}
+header .tabs button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08);}
+header .io{display:flex;gap:6px;}
+header .io button{border:1px solid var(--hair);background:var(--surface);font-size:10.5px;padding:4px 10px;border-radius:6px;cursor:pointer;color:var(--sub);}
+header .io button:hover{color:var(--ink);}
+/* ---------- 問いプリセット ---------- */
+#askbar{display:flex;align-items:center;gap:8px;padding:8px 20px;border-bottom:1px solid var(--hair);background:var(--surface);}
+#askbar .q{font-size:10.5px;color:var(--sub);letter-spacing:.15em;font-weight:600;}
+#askbar .qs{display:flex;gap:6px;flex-wrap:wrap;}
+#askbar .qs button{border:1px solid var(--hair);background:var(--bg);font-size:12px;padding:5px 14px;border-radius:100px;cursor:pointer;color:var(--ink);transition:all .15s;}
+#askbar .qs button.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+#reading{font-size:11.5px;color:var(--sub);margin-left:auto;max-width:38%;line-height:1.5;transition:opacity .3s;}
+#reading b{color:var(--ink);}
+/* ---------- layout ---------- */
+#stage{position:relative;height:calc(100% - 88px);display:flex;}
+#plotwrap{flex:1;position:relative;overflow:hidden;}
+/* ---------- axis controls ---------- */
+.axisbar{position:absolute;z-index:5;display:flex;gap:6px;align-items:center;font-size:11px;color:var(--sub);}
+.axisbar.xbar{left:50%;transform:translateX(-50%);bottom:10px;}
+.axisbar.ybar{left:12px;top:50%;transform:translate(0,-50%) rotate(180deg);writing-mode:vertical-rl;}
+.axisbar .lbl{letter-spacing:.15em;font-weight:600;}
+.seg{display:flex;gap:1px;background:#ecebe4;border-radius:7px;padding:2px;}
+.ybar .seg{flex-direction:column;}
+.seg button{border:0;background:transparent;font-size:10.5px;padding:4px 9px;border-radius:5px;cursor:pointer;color:var(--sub);white-space:nowrap;}
+.ybar .seg button{writing-mode:vertical-rl;padding:9px 4px;}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.07);}
+/* ---------- plot ---------- */
+#plot{position:absolute;inset:34px 40px 72px 92px;}
+#gridlines{position:absolute;inset:0;width:100%;height:100%;}
+.gline{stroke:var(--hair);stroke-width:1;}
+.glabel{fill:#b9b6aa;font-size:10px;letter-spacing:.08em;}
+@keyframes popin{0%{opacity:0;transform:translate(-50%,-50%) scale(.4);}70%{transform:translate(-50%,-50%) scale(1.06);}100%{opacity:1;transform:translate(-50%,-50%) scale(1);}}
+.node{position:absolute;transform:translate(-50%,-50%);transition:left .8s cubic-bezier(.4,.05,.2,1), top .8s cubic-bezier(.4,.05,.2,1),opacity .4s;cursor:grab;text-align:center;touch-action:none;user-select:none;-webkit-user-select:none;}
+.node.enter{animation:popin .55s cubic-bezier(.34,1.4,.5,1) backwards;}
+.node.dragging{transition:none;cursor:grabbing;z-index:15;}
+.node .dot{border-radius:50%;margin:0 auto;position:relative;transition:box-shadow .2s,transform .18s;background:var(--surface);}
+.node:hover .dot{transform:scale(1.1);}
+.node .dot::after{content:"";position:absolute;inset:3px;border-radius:inherit;opacity:.16;}
+.node.alive .dot{border:2px solid var(--alive);} .node.alive .dot::after{background:var(--alive);}
+.node.testing .dot{border:2px solid var(--testing);} .node.testing .dot::after{background:var(--testing);}
+.node.dead .dot{border:2px dashed var(--dead);} .node.dead .dot::after{background:var(--dead);opacity:.08;}
+.node.idle .dot{border:2px solid var(--idle);} .node.idle .dot::after{background:var(--idle);opacity:.10;}
+.node.stuck .dot{border:2px solid var(--stuck);} .node.stuck .dot::after{background:var(--stuck);}
+.node.dead{opacity:.6;}
+/* L3 案件 = 小さな菱形・従属 */
+.node.l3 .dot{border-radius:18%;transform:rotate(45deg);}
+.node.l3:hover .dot{transform:rotate(45deg) scale(1.12);}
+.node.l3 .tag{font-size:9px;color:var(--sub);width:96px;margin-left:-48px;}
+.node.l3.hidden{opacity:0;pointer-events:none;}
+.node .tag{font-size:10.5px;margin-top:5px;color:var(--ink);letter-spacing:.01em;line-height:1.3;width:112px;margin-left:-56px;position:relative;left:50%;text-shadow:0 0 4px var(--bg),0 0 4px var(--bg),0 0 4px var(--bg);}
+.node.dead .tag{color:var(--sub);text-decoration:line-through 1px rgba(168,68,58,.45);}
+.node.sel .dot{box-shadow:0 0 0 5px rgba(31,78,121,.18);}
+.node .edited{position:absolute;top:-3px;left:-3px;width:7px;height:7px;border-radius:50%;background:var(--accent);display:none;}
+.node.isedited .edited{display:block;}
+/* ---------- edges ---------- */
+#edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+#edges path{stroke:var(--accent);stroke-width:1.2;fill:none;opacity:0;transition:opacity .3s;}
+#edges path.show{opacity:.38;stroke-dasharray:6 4;animation:edgeflow 1.2s linear infinite;}
+@keyframes edgeflow{to{stroke-dashoffset:-10;}}
+/* ---------- panel ---------- */
+#panel{width:0;transition:width .28s;background:var(--surface);border-left:1px solid var(--hair);overflow:hidden;}
+#panel.open{width:392px;}
+#panel .inner{width:392px;height:100%;overflow-y:auto;padding:22px 24px 60px;}
+#panel h2{font-size:16px;font-weight:600;line-height:1.4;margin-bottom:2px;}
+#panel .meta{font-size:11px;color:var(--sub);margin-bottom:10px;letter-spacing:.04em;}
+#panel .close{float:right;border:0;background:none;font-size:18px;color:var(--sub);cursor:pointer;padding:2px 6px;}
+#panel h3{font-size:10.5px;letter-spacing:.2em;color:var(--sub);margin:18px 0 7px;font-weight:600;}
+#panel p,#panel li{font-size:13px;line-height:1.8;}
+#panel ul{padding-left:18px;}
+#panel .chips{display:flex;flex-wrap:wrap;gap:6px;}
+#panel .chip{font-size:11px;border:1px solid var(--hair);border-radius:100px;padding:3px 10px;color:var(--ink);background:var(--bg);}
+#panel .link{font-size:12px;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+.stsw{display:flex;gap:4px;flex-wrap:wrap;}
+.stsw button{border:1px solid var(--hair);background:var(--bg);font-size:11px;padding:4px 10px;border-radius:100px;cursor:pointer;color:var(--sub);}
+.stsw button.on{color:#fff;border-color:transparent;}
+.stsw button[data-s="alive"].on{background:var(--alive);}
+.stsw button[data-s="testing"].on{background:var(--testing);}
+.stsw button[data-s="dead"].on{background:var(--dead);}
+.stsw button[data-s="stuck"].on{background:var(--stuck);}
+.stsw button[data-s="idle"].on{background:var(--idle);}
+.tss{display:flex;gap:8px;}
+.tss .cell{flex:1;border:1px dashed var(--hair);border-radius:8px;padding:8px 10px;text-align:center;}
+.tss .cell b{font-size:14px;display:block;}
+.tss .cell span{font-size:9.5px;color:var(--sub);letter-spacing:.1em;}
+.phasebar{display:flex;align-items:center;margin:6px 0 2px;}
+.phasebar .st{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;}
+.phasebar .st::before{content:"";position:absolute;top:5px;left:-50%;width:100%;height:1.5px;background:var(--hair);}
+.phasebar .st:first-child::before{display:none;}
+.phasebar .pt{width:11px;height:11px;border-radius:50%;border:2px solid var(--hair);background:var(--surface);z-index:1;}
+.phasebar .st.done .pt{background:var(--ink);border-color:var(--ink);}
+.phasebar .st.here .pt{background:var(--surface);border-color:var(--accent);box-shadow:0 0 0 3px rgba(31,78,121,.2);}
+.phasebar .st.killed .pt{background:var(--dead);border-color:var(--dead);}
+.phasebar .st span{font-size:9.5px;color:var(--sub);letter-spacing:.03em;}
+.note{font-size:11px;color:var(--sub);margin-top:6px;line-height:1.6;}
+/* ---------- legend ---------- */
+#legend{position:absolute;top:8px;right:14px;z-index:5;display:flex;gap:11px;font-size:10px;color:var(--sub);background:rgba(247,246,242,.92);padding:5px 10px;border-radius:8px;flex-wrap:wrap;align-items:center;}
+#legend .k{display:flex;align-items:center;gap:4px;}
+#legend .sw{width:9px;height:9px;border-radius:50%;border:2px solid;}
+#legend label{display:flex;align-items:center;gap:4px;cursor:pointer;}
+/* ---------- 系譜 (横タイムライン) ---------- */
+.altview{display:none;position:absolute;inset:0;overflow:hidden;background:var(--bg);z-index:8;}
+.altview.on{display:block;}
+#view-tree .tlhead{padding:16px 40px 6px;display:flex;align-items:baseline;gap:14px;}
+#view-tree .tlhead h2{font-size:13px;font-weight:600;letter-spacing:.06em;}
+#view-tree .tlhead .hint{font-size:11px;color:var(--sub);}
+#htl{display:flex;gap:0;overflow-x:auto;padding:18px 40px 10px;scroll-snap-type:x proximity;}
+.hcol{min-width:250px;max-width:250px;scroll-snap-align:start;position:relative;padding:0 14px 0 0;}
+.hcol::before{content:"";position:absolute;top:7px;left:0;right:0;height:2px;background:var(--hair);}
+.hcol .dotm{position:absolute;top:1px;left:0;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--ink);z-index:1;}
+.hcol.today .dotm{border-color:var(--accent);box-shadow:0 0 0 4px rgba(31,78,121,.15);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(31,78,121,.15);}50%{box-shadow:0 0 0 8px rgba(31,78,121,.06);}}
+.hcol .hd{font-size:11px;color:var(--sub);letter-spacing:.05em;margin:24px 0 6px;}
+.hcol .hcard{background:var(--surface);border:1px solid var(--hair);border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.7;box-shadow:0 1px 3px rgba(0,0,0,.05);min-height:170px;transition:transform .2s,box-shadow .2s;}
+.hcol .hcard:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.08);}
+.hcol .hcard b{font-weight:600;display:block;margin-bottom:4px;font-size:12.5px;}
+.hcol.today .hcard{border-color:var(--accent);border-width:1.5px;}
+#loops{padding:8px 40px 40px;}
+#loops h2{font-size:12px;letter-spacing:.2em;color:var(--sub);margin:10px 0 10px;font-weight:600;}
+#loops .row{display:flex;gap:10px;overflow-x:auto;padding-bottom:14px;}
+#loops .loop{min-width:230px;max-width:230px;border:1px solid var(--hair);border-top:3px solid var(--stuck);background:var(--surface);border-radius:9px;padding:11px 14px;font-size:11.5px;line-height:1.65;flex-shrink:0;}
+#loops .loop b{font-weight:600;display:block;margin-bottom:3px;font-size:12px;}
+/* ---------- L1 board ---------- */
+#boardwrap{position:relative;width:100%;height:100%;min-height:520px;}
+#board{position:absolute;inset:88px 40px 60px 60px;}
+#boardgrid{position:absolute;inset:0;width:100%;height:100%;}
+@keyframes cardin{from{opacity:0;transform:translate(-50%,-46%) scale(.85);}to{opacity:1;transform:translate(-50%,-50%) scale(1);}}
+.card{position:absolute;transform:translate(-50%,-50%);background:var(--surface);border:1px solid var(--hair);border-radius:9px;padding:9px 13px;font-size:12px;line-height:1.5;max-width:172px;box-shadow:0 1px 3px rgba(0,0,0,.06);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s;animation:cardin .4s ease backwards;}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.card.dragging{cursor:grabbing;z-index:15;box-shadow:0 6px 18px rgba(0,0,0,.15);transition:none;animation:none;}
+.card .src{display:block;font-size:9.5px;color:var(--sub);margin-top:3px;letter-spacing:.04em;}
+.card.new{border-left:3px solid var(--accent);}
+#boardhead{position:absolute;top:10px;left:60px;right:40px;display:flex;align-items:center;gap:12px;z-index:3;flex-wrap:wrap;}
+#boardhead h2{font-size:13px;font-weight:600;letter-spacing:.06em;}
+#boardhead .hint{font-size:11px;color:var(--sub);}
+#boardhead .bax{display:flex;gap:4px;margin-left:auto;}
+#boardhead .bax button{border:1px solid var(--hair);background:var(--surface);font-size:11px;padding:4px 11px;border-radius:100px;cursor:pointer;color:var(--sub);}
+#boardhead .bax button.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+#boardhead .addbtn{border:1px solid var(--hair);background:var(--surface);font-size:11px;padding:4px 12px;border-radius:100px;cursor:pointer;color:var(--ink);}
+/* card menu */
+#cardmenu{position:fixed;background:var(--surface);border:1px solid var(--hair);border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.14);z-index:40;display:none;overflow:hidden;}
+#cardmenu button{display:block;width:100%;border:0;background:none;font-size:12.5px;padding:9px 22px;cursor:pointer;text-align:left;color:var(--ink);}
+#cardmenu button:hover{background:var(--bg);}
+#cardmenu button.del{color:var(--dead);}
+/* ---------- intro / help ---------- */
+#intro{position:fixed;inset:0;background:rgba(22,21,15,.5);z-index:90;display:none;align-items:center;justify-content:center;backdrop-filter:blur(2px);}
+#intro.show{display:flex;}
+#intro .box{background:var(--surface);border-radius:14px;max-width:520px;width:92%;padding:30px 34px;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:cardin .35s ease;}
+#intro h2{font-size:17px;font-weight:600;margin-bottom:4px;}
+#intro .lead{font-size:12px;color:var(--sub);margin-bottom:16px;line-height:1.7;}
+#intro ol{padding-left:20px;}
+#intro li{font-size:13px;line-height:1.9;margin-bottom:8px;}
+#intro li b{font-weight:600;}
+#intro .go{margin-top:18px;width:100%;border:0;background:var(--ink);color:#fff;font-size:13px;padding:11px;border-radius:9px;cursor:pointer;letter-spacing:.1em;}
+#intro .fine{font-size:10.5px;color:var(--sub);margin-top:10px;text-align:center;}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12px;padding:8px 18px;border-radius:100px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;}
+#toast.show{opacity:.95;}
+@media(max-width:760px){
+  header{padding:8px 12px;} #askbar{padding:6px 12px;} #reading{display:none;}
+  #panel.open{position:absolute;right:0;top:0;bottom:0;width:90%;z-index:20;box-shadow:-8px 0 30px rgba(0,0,0,.15);}
+  #panel.open .inner{width:100%;}
+  .node .tag{width:86px;margin-left:-43px;font-size:9.5px;}
+  #plot{inset:30px 16px 92px 54px;}
+  .ybar{left:2px;}
+  #board{inset:120px 14px 70px 30px;}
+  #view-tree .tlhead{padding:12px 16px 4px;} #htl{padding:14px 16px 8px;} #loops{padding:6px 16px 30px;}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>INNFRA 仮説検証マップ</h1>
+  <button class="help" onclick="showIntro()">?</button>
+  <div class="tabs">
+    <button id="tab-map" class="on" onclick="showView('map')">仮説マップ</button>
+    <button id="tab-board" onclick="showView('board')">描ける世界ボード</button>
+    <button id="tab-tree" onclick="showView('tree')">議論の系譜</button>
+  </div>
+  <div class="io">
+    <button onclick="exportJSON()">書き出し</button>
+    <button onclick="resetAll()">リセット</button>
+  </div>
+</header>
+<div id="askbar">
+  <span class="q">問い</span>
+  <div class="qs" id="qbtns"></div>
+  <div id="reading"></div>
+</div>
+<div id="stage">
+  <div id="plotwrap">
+    <div id="legend">
+      <div class="k"><span class="sw" style="border-color:var(--alive)"></span>生存</div>
+      <div class="k"><span class="sw" style="border-color:var(--testing)"></span>検証中</div>
+      <div class="k"><span class="sw" style="border-color:var(--dead);border-style:dashed"></span>棄却</div>
+      <div class="k"><span class="sw" style="border-color:var(--stuck)"></span>スタック</div>
+      <div class="k"><span class="sw" style="border-color:var(--idle)"></span>未着手</div>
+      <div class="k">●=市場仮説（大きさ=市場の桁感〔仮〕）</div>
+      <div class="k">◆=案件・実証（仮説を確かめる現場）</div>
+      <label><input type="checkbox" id="l3toggle" checked onchange="toggleL3(this.checked)">案件を重ねる</label>
+    </div>
+    <svg id="edges"></svg>
+    <svg id="gridlines"></svg>
+    <div id="plot"></div>
+    <div class="axisbar xbar"><span class="lbl">X</span><div class="seg" id="xseg"></div></div>
+    <div class="axisbar ybar"><span class="lbl">Y</span><div class="seg" id="yseg"></div></div>
+    <div class="altview" id="view-tree">
+      <div class="tlhead"><h2>議論の系譜 — 2025-02から今日まで、何が決まり何が流れたか</h2><span class="hint">横にスクロール →</span></div>
+      <div id="htl"></div>
+      <div id="loops"></div>
+    </div>
+    <div class="altview" id="view-board">
+      <div id="boardwrap">
+        <div id="boardhead">
+          <h2>描ける世界ボード</h2>
+          <span class="hint">ビジョンの一歩手前を、みんなで置く。カード=20ヶ月分の候補。ドラッグ移動・タップで編集/削除・追加可</span>
+          <div class="bax" id="baxbtns"></div>
+          <button class="addbtn" onclick="addCard()">＋ 追加</button>
+        </div>
+        <svg id="boardgrid"></svg>
+        <div id="board"></div>
+      </div>
+    </div>
+  </div>
+  <div id="panel"><div class="inner" id="panelInner"></div></div>
+</div>
+<div id="cardmenu"></div>
+<div id="intro"><div class="box">
+  <h2>INNFRA 仮説検証マップ</h2>
+  <div class="lead">20ヶ月の議論を1枚にした、<b>動かせる地図</b>。納品物ではなく、議論のための道具です。ここでの操作＝議論の記録になります。</div>
+  <ol>
+    <li><b>問いを選ぶ</b> — 上の「どこで勝つか」等を押すと、仮説が並び替わり読み方が出ます</li>
+    <li><b>タップして中を見る</b> — 仮説の根拠・検証フェーズ・類似サービス・次の一手</li>
+    <li><b>違うと思ったらドラッグ</b> — 位置＝評価。動かした結果は自動保存されます</li>
+    <li><b>「描ける世界ボード」</b> — 今日の主戦場。過去の候補カードを置き直し、新しい言葉を足す</li>
+  </ol>
+  <button class="go" onclick="hideIntro()">はじめる</button>
+  <div class="fine">変更は端末に自動保存 →「書き出し」でJSON化 → 素子が議論SSoTに反映して地図が育ちます ／ D2 internal</div>
+</div></div>
+<div id="toast"></div>
+<script>
+/* ================= data ================= */
+const AXES = {
+  phase:  {label:"検証フェーズ", ticks:["着想","課題実証","WTP実証","PMF","事業化"]},
+  vision: {label:"ビジョン整合", ticks:["低","","","","高"]},
+  wallet: {label:"財布の確度",   ticks:["不明","","補助金","","民間実費"]},
+  horizon:{label:"時間軸",       ticks:["10年先","","3年","","今すぐ"]},
+  feas:   {label:"実行しやすさ", ticks:["難","","","","易"]},
+  market: {label:"市場規模〔仮〕", ticks:["小","","中","","大"]},
+};
+const PHASES = ["着想","課題実証","WTP実証","PMF","事業化"];
+const QUESTIONS = [
+ {id:"win",  label:"どこで勝つか", x:"market", y:"wallet",
+  read:"<b>右上</b>＝市場が大きく財布が確か。今そこに居るのは？ — 空いていれば「勝ち筋の空白」"},
+ {id:"stall",label:"何が動き何が死んだか", x:"phase", y:"vision",
+  read:"<b>右</b>ほど検証が進んだ。<b>上</b>ほどビジョンに近い。左上の渋滞＝「やりたいのに検証していない」"},
+ {id:"now",  label:"今すぐ vs 未来", x:"horizon", y:"market",
+  read:"<b>右</b>＝今すぐ売れる、<b>上</b>＝市場が大きい。◆＝外部イベント。<b>追い風が来る前に張れているか</b>"},
+ {id:"free", label:"自由に", x:null, y:null, read:"下と左の軸ボタンで自由に組み替え"},
+];
+const EVENTS = [
+ {t:95, label:"屋久島 開発・不動産高騰／建設人材不足（進行中）"},
+ {t:88, label:"全国 水道料金の値上げ拡大（進行中）"},
+ {t:82, label:"南海トラフ／首都直下（30年内70-80%＝常時）"},
+ {t:74, label:"'27-28 GREEN×EXPO 横浜園芸博"},
+ {t:62, label:"'29-30 分散型水道の制度化節目〔仮〕"},
+ {t:54, label:"2030 社内売上目標237億／SDGs期限"},
+ {t:44, label:"2030s 気温+1.5℃超え・猛暑常態化"},
+ {t:32, label:"'30s半ば 生産年齢人口の急減"},
+ {t:20, label:"〜10年 羽田-屋久島直行便（菊永情報）"},
+ {t:10, label:"2040 水道事業の広域赤字・維持限界"},
+ {t:4,  label:"2050 CN／地上居住限界の議論"},
+];
+const NODES = [
+ {id:"jieitai", name:"自衛隊（洗濯・シャワー）", layer:"L2 市場仮説", state:"testing", size:3, phase:1,
+  ax:{phase:38,vision:55,wallet:78,horizon:80,feas:60,market:55},
+  hyp:"訓練場・被災地で自隊の衣類洗濯とシャワーに実需がある。wotaが「需要はあるがコストで断念」を先に証明済み＝課題は実証されている。",
+  ev:["岩崎6/27棚卸しで唯一の実需合格","新陽経由・需品学校ルート、富士川視察で好印象","10月展示会出展予定","未検証: 実ユーザー（自衛官）の声・wota撤退の詳細"],
+  refs:["wota（先行撤退＝需要の証明）","DMAT・災害派遣部隊（横展開先）","インフラ無し工事現場（横展開先）"],
+  next:"実自衛官／wota研究部隊のヒアリング（フェーズ2へ進む鍵）", links:["bosai","fugoso"]},
+ {id:"fugoso", name:"都市富裕層の顕示的消費", layer:"L2 市場仮説", state:"testing", size:3, phase:1,
+  ax:{phase:30,vision:80,wallet:60,horizon:65,feas:55,market:60},
+  hyp:"オフグリッドは地方でなく都市富裕層から普及する。インフラを自宅で完結できること自体がステータスになる（テスラ型: 高級ニッチ→大衆化）。",
+  ev:["菊永氏・中野氏が「1,000万ならポンと出す」実例","ブランドとデザインが最重要（Zero to One 4要素）","岩崎5/18「陰謀」投稿が原典"],
+  refs:["テスラ Roadster→Model 3","NOT A HOTEL（富裕層×別荘×会員）","富裕層シェルター・ゲーテッドコミュニティ潮流"],
+  next:"富裕層WTPの定性検証（菊永氏・中野氏の周辺から）", links:["extstay","jutaku","shelter"]},
+ {id:"extstay", name:"エクストリームステイ", layer:"L2 市場仮説", state:"testing", size:2, phase:1,
+  ax:{phase:42,vision:85,wallet:45,horizon:70,feas:45,market:40},
+  hyp:"場所3条件（正統性/特権性 × インフラ不在 × 技術で突破）を満たす場所の独占体験＝「冒険家のみが知る価値の民主化」に高いWTPがある。",
+  ev:["中城実証: 応募約100組・倍率≈100倍（無料・需要シグナル）","4K定義v1.2＋場所3条件がSSoT確定済み","有料WTPは未検証（Dr松井: 価値定義→アンケートが未着手）"],
+  refs:["WEAZER西伊豆（1棟1億・12-16万/泊・完全オフグリッド）","グランピング相場3-8万/泊","海外エクストリームロッジ 5-30万/泊"],
+  next:"PMF Phase 0: コンセプトボード＋定性インタビュー＋OGR400名（4週間・50万以内）", links:["nakagusuku","yunoko","yakushima","fugoso","shukuhaku"]},
+ {id:"bosai", name:"防災B2G（自治体）", layer:"L2 市場仮説", state:"stuck", size:3, phase:2,
+  ax:{phase:55,vision:60,wallet:40,horizon:75,feas:50,market:55},
+  hyp:"自治体の防災予算で「稼げる防災／フェーズフリー」ユニットが売れる。",
+  ev:["インフラベース第1号機（富士川）稼働・売上あり","商社10社弱と自治体提案調整中","岩崎6/27: 生活用水の優先順位が低くスタック、2,000万前後は売りづらい","「それだけに貼らない」は株主とも合意済み"],
+  refs:["ラップポン（袋圧着型＝業界の主流解）","washpeaks / OKULAB（売りたい側）"],
+  next:"平時利用とセットの提案型に絞る／単価と補助金スキームの再設計", links:["jieitai"]},
+ {id:"shukuhaku", name:"宿泊×オフグリッド一般", layer:"L2 市場仮説", state:"dead", size:2, phase:1, killedAt:1,
+  ax:{phase:25,vision:40,wallet:30,horizon:60,feas:55,market:45},
+  hyp:"絶景地の宿泊施設にオフグリッドインフラが売れる（場所3条件を満たさない一般立地）。",
+  ev:["棄却理由（岩崎6/27）: 結局水道を引いた方が安い。引けない場所でも他でやる選択肢がある＝オフグリッドの必然性がない","この棄却がエクストの「場所3条件」の必要性を裏から証明"],
+  refs:["SANU","earthboat","blanc","nomad","the scene","このほし"],
+  next:"—（棄却として保存。3条件を満たす案件のみエクストへ）", links:["extstay"]},
+ {id:"tosho", name:"島嶼・観光・遊休地", layer:"L2 市場仮説", state:"stuck", size:2, phase:1,
+  ax:{phase:30,vision:55,wallet:35,horizon:60,feas:40,market:40},
+  hyp:"インフラ制約のある離島・文化資産・遊休地に宿泊化ソリューションが売れる。",
+  ev:["引き合いは多い（屋久島・八丈島・三宅島・奄美 等）が「その場所じゃなくてもいい」問題","三菱地所・電鉄系は意見交換止まり／三宅島は予算不合","6/9アクセラ文書では対外的に「島嶼需要は顕在化」と説明済み（整合注意）"],
+  refs:["富士急（雲上閣・ぐりんぱ）","ビートルズ山中湖（音信不通）"],
+  next:"「なぜその場所か」を場所3条件で選別してからのみ前進", links:["extstay","yakushima"]},
+ {id:"jutaku", name:"住宅・居住（オフグリッド住宅）", layer:"L2 市場仮説", state:"idle", size:4, phase:0,
+  ax:{phase:12,vision:75,wallet:45,horizon:45,feas:40,market:80},
+  hyp:"住宅不足地域・富裕層自宅・新興国で、オフグリッド住宅（インフラゼロハウス系）に居住需要がある。",
+  ev:["ジョニー6/29提起（宿泊だけでなく住宅用途）","トレーラーハウス系メーカーは「作りたい」ベース（岩崎評）","富裕層文脈と接続すると「自宅オフグリッド」仮説になる"],
+  refs:["MUJI HOUSE（インフラゼロハウス・Forbes受賞）","ミサワホーム","JIBUN HAUS","LIFULL instant house"],
+  next:"富裕層自宅×オフグリッドの1件目を検証（陰謀仮説と合流）", links:["fugoso","mobile"]},
+ {id:"shelter", name:"死なないシェルター／レジリエンス", layer:"L2 市場仮説", state:"testing", size:3, phase:1,
+  ax:{phase:35,vision:70,wallet:55,horizon:55,feas:45,market:55},
+  hyp:"「コントローラビリティ（水・食料・電気を自己管理）」に富裕層・災害トラウマ層が金を払う。",
+  ev:["2026-05-20に新コア価値仮説として採用","500万円の金額感をユーザーヒアリングで検証中（9月投資判断）","岩崎: あり得るが客観的蓋然性はまだ示せない"],
+  refs:["隠れシェルター事例（山中掘削等）","臓器ストック・ノアの箱舟型集落（富裕層トレンド）","宇宙船的タイニーハウス再定義"],
+  next:"ヒアリング完遂→9月投資判断", links:["fugoso","jichi"]},
+ {id:"jichi", name:"共同体自治・社会的共通資本", layer:"L2 市場仮説", state:"idle", size:2, phase:0,
+  ax:{phase:8,vision:85,wallet:15,horizon:30,feas:30,market:35},
+  hyp:"インフラを市場にも行政にも丸投げせず住民が自治する地域に、自給自足インフラの需要がある。",
+  ev:["岩崎の個人的関心として6/27に表明（入社動機と地続き）","WTPは本人も懐疑的・VC調達と相性が悪い自覚","土屋モデル（2025-10）と同系"],
+  refs:["宇沢弘文・社会的共通資本","ぶんじ寮／ぶんじキャピタルマーケット","稲とアガベ","横浜GRID（地域通貨×独立インフラ）"],
+  next:"「小さくアナーキー」でなくスタートアップとして扱えるかの検討のみ（急がない）", links:["shelter","mobile"]},
+ {id:"kaijo", name:"海上開発", layer:"L2 市場仮説", state:"stuck", size:3, phase:0,
+  ax:{phase:18,vision:65,wallet:30,horizon:25,feas:20,market:60},
+  hyp:"海水淡水化＋風力/潮流で自立する海上建築が、用地希少化するデベロッパーに売れる。",
+  ev:["3カ年計画・申請コスト200-300万・原氏回答待ち","岩崎6/27: 清水建設は水循環の「利用者」ではない＝使うユーザーを別で探す必要"],
+  refs:["清水建設（東京湾補助金アプライ）","海ぶどう養殖（規制回避の文脈装置）"],
+  next:"エンドユーザー（誰が住む/泊まる/払う）の特定が先", links:[]},
+ {id:"replace", name:"インフラリプレイス（地方水道）", layer:"L2 市場仮説", state:"idle", size:4, phase:1,
+  ax:{phase:25,vision:90,wallet:35,horizon:15,feas:25,market:90},
+  hyp:"人口減少で維持不能になる地方の上下水道を、分散型・循環型で置き換える（創業構想の最終到達点）。",
+  ev:["国交省で分散型水道の議論開始・珠洲でwota実証","国の文書でも「循環型は実証中」＝導入はまだ先","重要だが緊急でない（東急不動産も返信なし）"],
+  refs:["wota珠洲実証","国交省分散型水道議論","U3Iブレイクスルーリビング産業ロードマップ"],
+  next:"待ち箇所の明確化（規制/コスト/実証実績のどれがボトルネックか）", links:[]},
+ {id:"mobile", name:"モバイル住居・多拠点居住", layer:"L2 市場仮説", state:"idle", size:3, phase:0,
+  ax:{phase:15,vision:70,wallet:40,horizon:50,feas:50,market:60},
+  hyp:"生活消費全体をアンバンドル→リバンドルした月額8万円の住居パッケージ（モバイルハウス＋外部サービス提携）に需要がある。",
+  ev:["2026-04-26会議: モバイルハウス＋エニタイム提携＝「正解」合意","水インフラの安心感が最大障壁（太陽光蓄電レベルの安心を水で）","「なぜ今か」不明確と自認・競合マッピング未着手"],
+  refs:["ADDress","SANU 2nd Home","HafH","YADOKARI","カプセル/シェアハウス系"],
+  next:"競合マッピング＋「なぜ今か」の言語化（A2未着手）", links:["jutaku","jichi"]},
+ {id:"nakagusuku", name:"中城城 実証（済）", layer:"L3 案件・実証", state:"alive", size:1, phase:2,
+  ax:{phase:58,vision:85,wallet:50,horizon:90,feas:70,market:20},
+  hyp:"世界遺産×営業時間外の独占×開放感で、エクスト4Kが成立することの実証。",
+  ev:["応募約100組・倍率≈100倍（需要シグナル）","事後アンケート: 水回り80%が快適","4K定義v1.2を生んだ会社最強の「体現」実績"],
+  refs:["PR TIMES掲載・応募387組データ"],
+  next:"参加者の生声を有料WTP検証に接続（沖縄実証の資産化）", links:["extstay"]},
+ {id:"yunoko", name:"ゆのこの湯 公園（屋久島）", layer:"L3 案件・実証", state:"dead", size:1, phase:0, killedAt:0,
+  ax:{phase:10,vision:30,wallet:35,horizon:70,feas:35,market:15},
+  hyp:"閉鎖された町営温泉跡の公園にエクストの宿を作る。",
+  ev:["場所3条件で判定: 特徴なし・閉鎖済（＝人気がない）・インフラ既設・低日照 → エクスト立地としては不成立","※町との関係資産としては別評価（転換候補: 実証・納品先／居住実証）"],
+  refs:["屋久島町 民間提案制度","屋久島パイン（運営名義）"],
+  next:"「エクストの場所」としては棄却。座組の転換先を会議で決める", links:["extstay","yakushima"]},
+ {id:"yakushima", name:"屋久島（島として）", layer:"L3 案件・実証", state:"testing", size:2, phase:0,
+  ax:{phase:22,vision:70,wallet:40,horizon:55,feas:40,market:30},
+  hyp:"国内最多級の降水量×循環技術の親和性＋世界遺産ブランドで「なぜ屋久島か」が成立する場所がある。",
+  ev:["第二の宮古島期待・羽田直行便（〜10年）","「なぜ屋久島か」は未回答のまま","菊永氏（不動産業）に場所3条件適合地を出し直させる選択肢","7/9視察・9月民間提案が予定済み → ゲート設計が今日のDP"],
+  refs:["日産EV給電連携〔未裏付け〕","霧島アートホテル（比較事例）"],
+  next:"7/9視察を「候補地探索」へスコープ拡張＋判断ゲート設定", links:["extstay","yunoko","tosho"]},
+ {id:"saiko", name:"彩湖・富士川・OIST・白浜", layer:"L3 案件・実証", state:"alive", size:2, phase:3,
+  ax:{phase:78,vision:65,wallet:70,horizon:92,feas:65,market:30},
+  hyp:"（稼働中の実売ライン）Water/ゼロハウス/ベースの商用運用。",
+  ev:["売上あり・運用中（RO不具合対応は継続）","9/2 埼玉県知事視察予定（彩湖）","「自ら実践する」バリューの現在形"],
+  refs:["MUJI HOUSE","ミサワホーム/OIST","戸田市・富士川町"],
+  next:"運用品質の安定化（信頼の源泉として維持）", links:[]},
+];
+const EDGE_PAIRS = (()=>{const s=new Set();NODES.forEach(n=>(n.links||[]).forEach(t=>{const k=[n.id,t].sort().join("|");s.add(k);}));return [...s].map(k=>k.split("|"));})();
+/* board axis presets */
+const BAX = {
+ p1:{label:"生存×社会", x:["サバイバル（死なない）","ウェルビーイング（豊かさ・自由）"], y:["個人・暮らし","社会・コミュニティ"]},
+ p2:{label:"地理×時間", x:["国内","地球・グローバル"], y:["いま","2050"]},
+ p3:{label:"カスタム", x:["（左）","（右）"], y:["（下）","（上）"], custom:true},
+};
+const CARDS_INIT = [
+ {id:"c1", t:"サバイバル&ウェルビーイング", s:"2025-02 集中討議", pos:{p1:{bx:50,by:52},p2:{bx:42,by:50}}},
+ {id:"c2", t:"パンとバラ", s:"2025-02 集中討議", pos:{p1:{bx:55,by:34},p2:{bx:45,by:30}}},
+ {id:"c3", t:"インフラ起点のライフスタイルクリエイター", s:"2025-02 集中討議", pos:{p1:{bx:72,by:60},p2:{bx:50,by:44}}},
+ {id:"c4", t:"死なない保証・安心安全で生きる世界", s:"2025-11 ビジョン会議#1", pos:{p1:{bx:16,by:40},p2:{bx:30,by:36}}},
+ {id:"c5", t:"VLDK／TOUCH（生活者視点・コントローラブル・アフォーダブル）", s:"2026-04 ブレストDAY", pos:{p1:{bx:68,by:26},p2:{bx:44,by:24}}},
+ {id:"c6", t:"ネオ・オフグリッド", s:"2026-05-14 株主定例", pos:{p1:{bx:30,by:68},p2:{bx:36,by:56}}},
+ {id:"c7", t:"死なないシェルター", s:"2026-05-20 打合せ", pos:{p1:{bx:12,by:24},p2:{bx:26,by:28}}},
+ {id:"c8", t:"生存圏の拡大", s:"2026-06-04 ビジョン討議", pos:{p1:{bx:24,by:86},p2:{bx:80,by:86}}},
+ {id:"c9", t:"共同体自治・社会的共通資本", s:"2026-06-27 岩崎", pos:{p1:{bx:76,by:84},p2:{bx:30,by:64}}},
+ {id:"c10", t:"ブレイクスルーリビング", s:"U3I時代（系譜の源流）", pos:{p1:{bx:60,by:74},p2:{bx:62,by:70}}},
+];
+const TIMELINE = [
+ ["2025-02〜03","ビジョン・ミッション集中討議","キーワード噴出: 自由・パンとバラ・体現する・可能性にコミット・「インフラ起点のライフスタイルクリエイター」・<b>サバイバル&ウェルビーイング</b>。「3月中に明文化」を決定"],
+ ["2025-05-08","春合宿＠神田（VMV最終化）","Vision 4案を比較の上 <b>「地球のすべての夜に灯りと潤いを」を採用</b>。Mission「日本発のインフラ革新でくらしを自在にする」も最終化"],
+ ["2025-10-29","モグラ号合宿","<b>ビジョナリードリブン vs 実践からのビジョン構築</b>。「豊かさドリブンへの転換」提起。防災市場の現実。土屋モデル vs MUJIモデル"],
+ ["2025-11-18","ビジョン会議#1","「ビジョンと戦略は別物」の切り分け。「目指す像がわからない」「ライフスタイルはまだ<b>絵が見えない</b>」。<b>宿題: 絵として共有できる言語化→以後未消化</b>"],
+ ["2026-04-21/22","屋久島ビレッジ ブレストDAY","VLDK論（箱→プロトコル）。<b>判断軸3点合意: 生活者視点・コントローラブル・アフォーダブル</b>（→TOUCH）。屋久島フォーカスは時間切れ"],
+ ["2026-04-26","モバイル住居 構想会議","アンバンドル→リバンドル月8万パッケージ。水の安心感が最大障壁。<b>A1「議論をマップ形式で蓄積」→未着手のまま</b>（本マップの前身要求）"],
+ ["2026-05-14","株主定例（4h55m）","<b>「ネオ・オフグリッド」採用</b>。主戦場=「インフラが整っていない場所の隠れたニーズ」。<b>「1対9で陰謀にリソースを張る」</b>"],
+ ["2026-05-20","菊永提案 社内打合せ","<b>「オフグリッドという手法にこだわらず課題を再設定」合意</b>。新コア価値仮説=「死なないシェルター」→検証フェーズへ"],
+ ["2026-05-28〜06-03","中城debrief／Dr松井","<b>4K定義v1.2＋場所3条件が確定</b>。Dr松井「価値定義/PMFを先に固めろ」→アクション未着手"],
+ ["2026-02〜06-30","Slack 経営_事業戦略","5/18「<b>陰謀: 都市富裕層から普及</b>」→6/27棚卸し「<b>実需があるのは自衛隊のみ</b>」→6/30ファネル図修正中"],
+ ["2026-06-04","株主定例＋ビジョン討議","株主「<b>どの市場で圧倒的に勝つか、北極星から逆算せよ</b>」。8末〜10月事業計画リバイス・シリーズA"],
+ ["2026-06-29","株主定例FB＋菊永面談","「POCの域を出ない・収益責任を」「選択と集中」。<b>ソリューションプロバイダー転換に合意</b>。7/24までにKPI整理"],
+ ["2026-07-03","本日 13:00 会議","<b>この地図のどこを動かすか</b>: ①描ける世界ボードを埋め始める ②仮説の格付け（二本柱と配分） ③屋久島のゲート設計 ④堂々巡りを地図で封じる"],
+];
+const LOOPS = [
+ ["R1 課題解決 vs 豊かさ","5回再浮上。毎回「両方やる」で収束するが、配分と語りを決めないため案件ごとに再燃"],
+ ["R2 描ける世界／地図の不在","宿題化されるが担当と締切が毎回消える。地図の要求自体も4/26のA1で流れていた"],
+ ["R3 場所の必然性","中城（有）→三宅島・山中湖（消）→ゆのこの湯（無）。場所3条件が選定ゲートとして未運用"],
+ ["R4 オフグリッドは目的か手段か","「こだわらない」合意後も、社名・特許・原体験が紐づき実務で戻る"],
+ ["R5 「実践」の定義のズレ","創業原体験 vs 商用検証データ — 腹落ちの通貨が違うまま同じ言葉で話している"],
+];
+/* ================= persistence ================= */
+const LS="innfra-map-v3";
+let store=JSON.parse(localStorage.getItem(LS)||"{}");
+/* migrate v2 */
+try{const old=JSON.parse(localStorage.getItem("innfra-map-v2")||"{}");
+ if(!store.nodes&&old.nodes)store.nodes=old.nodes;
+ if(!store.cards&&old.cards)store.cards=old.cards.map(c=>({id:c.id,t:c.t,s:c.s,new:c.new,pos:{p1:{bx:c.bx,by:c.by}}}));
+}catch(e){}
+function persist(){localStorage.setItem(LS,JSON.stringify(store));}
+function applyStore(){NODES.forEach(n=>{const o=store.nodes&&store.nodes[n.id];if(o){if(o.ax)Object.assign(n.ax,o.ax);if(o.state)n.state=o.state;n._edited=true;}});}
+let CARDS=(store.cards&&store.cards.length)?store.cards:JSON.parse(JSON.stringify(CARDS_INIT));
+let boardPreset=store.boardPreset||"p1";
+if(store.baxCustom)Object.assign(BAX.p3,store.baxCustom);
+applyStore();
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),1700);}
+function exportJSON(){
+  const data={exported_at:new Date().toISOString(),node_overrides:store.nodes||{},cards:CARDS,boardPreset};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="innfra-map-session.json";a.click();
+  toast("変更をJSONで書き出しました（SSoT反映は素子へ）");
+}
+function resetAll(){if(!confirm("ドラッグ・状態変更・カード編集を全てリセットしますか？"))return;localStorage.removeItem(LS);localStorage.removeItem("innfra-map-v2");location.reload();}
+/* intro */
+function showIntro(){document.getElementById("intro").classList.add("show");}
+function hideIntro(){document.getElementById("intro").classList.remove("show");store.introSeen=true;persist();}
+if(!store.introSeen)showIntro();
+/* ================= scatter ================= */
+let curX="market", curY="wallet", sel=null, view="map", l3on=true, firstLayout=true;
+const plot=document.getElementById("plot");
+function nodeEl(n,idx){
+  let el=document.getElementById("nd-"+n.id);
+  if(!el){
+    el=document.createElement("div");
+    const isCase=n.layer.startsWith("L3");
+    el.id="nd-"+n.id; el.className="node "+n.state+(n._edited?" isedited":"")+(isCase?" l3":"");
+    const d=isCase?(6+n.size*4):(8+n.size*7);
+    el.innerHTML=`<div class="dot" style="width:${d*2}px;height:${d*2}px;"><span class="edited"></span></div><div class="tag">${n.name}</div>`;
+    if(firstLayout){el.classList.add("enter");el.style.animationDelay=(idx*45)+"ms";}
+    attachDrag(el,n);
+    plot.appendChild(el);
+  }
+  return el;
+}
+function attachDrag(el,n){
+  let sx,sy,ox,oy,moved,pid;
+  el.addEventListener("pointerdown",e=>{
+    pid=e.pointerId;el.setPointerCapture(pid);
+    sx=e.clientX;sy=e.clientY;moved=false;
+    ox=parseFloat(el.style.left);oy=parseFloat(el.style.top);
+    el.classList.add("dragging");e.preventDefault();
+  });
+  el.addEventListener("pointermove",e=>{
+    if(e.pointerId!==pid||sx===undefined)return;
+    const dx=e.clientX-sx,dy=e.clientY-sy;
+    if(Math.abs(dx)+Math.abs(dy)>6)moved=true;
+    if(moved){el.style.left=(ox+dx)+"px";el.style.top=(oy+dy)+"px";}
+  });
+  el.addEventListener("pointerup",e=>{
+    if(e.pointerId!==pid)return;
+    el.classList.remove("dragging");
+    if(!moved){select(n.id);}
+    else{
+      const W=plot.clientWidth,H=plot.clientHeight;
+      const x=Math.min(Math.max(parseFloat(el.style.left),0),W);
+      const y=Math.min(Math.max(parseFloat(el.style.top),0),H);
+      n.ax[curX]=Math.round(x/W*100);
+      n.ax[curY]=Math.round((H-y)/H*100);
+      n._edited=true;el.classList.add("isedited");
+      store.nodes=store.nodes||{};store.nodes[n.id]=store.nodes[n.id]||{};
+      store.nodes[n.id].ax=Object.assign(store.nodes[n.id].ax||{},{[curX]:n.ax[curX],[curY]:n.ax[curY]});
+      persist();drawEdges();
+      toast(`「${n.name}」を移動（${AXES[curX].label} ${n.ax[curX]} / ${AXES[curY].label} ${n.ax[curY]}）`);
+    }
+    sx=undefined;
+  });
+}
+function layout(){
+  const W=plot.clientWidth,H=plot.clientHeight;
+  NODES.forEach((n,i)=>{
+    const el=nodeEl(n,i);
+    el.style.left=(n.ax[curX]/100)*W+"px";
+    el.style.top=(H-(n.ax[curY]/100)*H)+"px";
+  });
+  firstLayout=false;
+  setTimeout(drawEdges,820);
+  drawGrid();
+}
+function toggleL3(on){
+  l3on=on;
+  document.querySelectorAll(".node.l3").forEach(e=>e.classList.toggle("hidden",!on));
+  drawEdges();
+}
+function drawGrid(){
+  const svg=document.getElementById("gridlines");
+  const wrap=document.getElementById("plotwrap");
+  const W=wrap.clientWidth,H=wrap.clientHeight;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const p=plot.getBoundingClientRect(),w=wrap.getBoundingClientRect();
+  const ox=p.left-w.left,oy=p.top-w.top,pw=p.width,ph=p.height;
+  let s="";
+  const xt=AXES[curX].ticks,yt=AXES[curY].ticks;
+  xt.forEach((t,i)=>{const x=ox+pw*i/(xt.length-1);
+    s+=`<line class="gline" x1="${x}" y1="${oy}" x2="${x}" y2="${oy+ph}"/>`;
+    if(t)s+=`<text class="glabel" x="${x}" y="${oy+ph+16}" text-anchor="middle">${t}</text>`;});
+  yt.forEach((t,i)=>{const y=oy+ph-ph*i/(yt.length-1);
+    s+=`<line class="gline" x1="${ox}" y1="${y}" x2="${ox+pw}" y2="${y}"/>`;
+    if(t)s+=`<text class="glabel" x="${ox-8}" y="${y+3}" text-anchor="end">${t}</text>`;});
+  if(curX==="horizon"){
+    EVENTS.forEach((ev,i)=>{
+      const x=ox+pw*ev.t/100,row=i%3,ty=oy+14+row*15;
+      s+=`<line x1="${x}" y1="${ty+4}" x2="${x}" y2="${oy+ph}" stroke="var(--ev)" stroke-width="1" stroke-dasharray="2 5" opacity=".45"/>`;
+      s+=`<path d="M${x},${ty-8} l4,5 l-4,5 l-4,-5 z" fill="var(--ev)" opacity=".8"/>`;
+      s+=`<text x="${x+7}" y="${ty+2}" fill="#a2743f" font-size="9.5" letter-spacing=".02em">${ev.label}</text>`;
+    });
+  } else if(curY==="horizon"){
+    EVENTS.forEach((ev,i)=>{
+      const y=oy+ph-ph*ev.t/100;
+      s+=`<line x1="${ox}" y1="${y}" x2="${ox+pw}" y2="${y}" stroke="var(--ev)" stroke-width="1" stroke-dasharray="2 5" opacity=".4"/>`;
+      s+=`<text x="${ox+pw-4}" y="${y-4}" fill="#a2743f" font-size="9.5" text-anchor="end">${ev.label}</text>`;
+    });
+  }
+  svg.innerHTML=s;
+}
+function drawEdges(){
+  const svg=document.getElementById("edges");
+  const wrap=document.getElementById("plotwrap");
+  svg.setAttribute("viewBox",`0 0 ${wrap.clientWidth} ${wrap.clientHeight}`);
+  const w=wrap.getBoundingClientRect();
+  let s="";
+  EDGE_PAIRS.forEach(([a,b])=>{
+    const na=NODES.find(x=>x.id===a),nb=NODES.find(x=>x.id===b);
+    if(!l3on&&(na.layer.startsWith("L3")||nb.layer.startsWith("L3")))return;
+    const ea=document.getElementById("nd-"+a),eb=document.getElementById("nd-"+b);
+    if(!ea||!eb)return;
+    const ra=ea.getBoundingClientRect(),rb=eb.getBoundingClientRect();
+    const x1=ra.left+ra.width/2-w.left,y1=ra.top+18-w.top,x2=rb.left+rb.width/2-w.left,y2=rb.top+18-w.top;
+    const mx=(x1+x2)/2,my=Math.min(y1,y2)-30;
+    const show=sel&&(a===sel||b===sel)?"show":"";
+    s+=`<path class="${show}" d="M${x1},${y1} Q${mx},${my} ${x2},${y2}"/>`;
+  });
+  svg.innerHTML=s;
+}
+function phasebar(n){
+  return `<div class="phasebar">`+PHASES.map((p,i)=>{
+    let c="";
+    if(i<n.phase)c="done"; else if(i===n.phase)c=(n.killedAt!==undefined)?"killed":"here";
+    return `<div class="st ${c}"><div class="pt"></div><span>${p}</span></div>`;
+  }).join("")+`</div><div class="note">${n.killedAt!==undefined?`フェーズ「${PHASES[n.killedAt]}」で棄却（記録として保存）`:`現在フェーズ: ${PHASES[n.phase]}`}</div>`;
+}
+const STATES={alive:"生存",testing:"検証中",dead:"棄却",stuck:"スタック",idle:"未着手"};
+function setState(id,st){
+  const n=NODES.find(x=>x.id===id);
+  const el=document.getElementById("nd-"+id);
+  el.classList.remove(n.state);n.state=st;el.classList.add(st);
+  n._edited=true;el.classList.add("isedited");
+  store.nodes=store.nodes||{};store.nodes[id]=store.nodes[id]||{};store.nodes[id].state=st;persist();
+  sel=null;select(id);
+  toast(`「${n.name}」→ ${STATES[st]}`);
+}
+function select(id){
+  sel=(sel===id)?null:id;
+  document.querySelectorAll(".node").forEach(e=>e.classList.remove("sel"));
+  const panel=document.getElementById("panel");
+  if(!sel){panel.classList.remove("open");drawEdges();return;}
+  document.getElementById("nd-"+id).classList.add("sel");
+  const n=NODES.find(x=>x.id===id);
+  const isCase=n.layer.startsWith("L3");
+  document.getElementById("panelInner").innerHTML=`
+    <button class="close" onclick="select('${id}')">×</button>
+    <h2>${n.name}</h2><div class="meta">${isCase?"◆ 案件・実証 — 市場仮説を確かめる現場":"● 市場仮説"} ／ ドラッグで位置＝評価を動かせます</div>
+    <div class="stsw">${Object.entries(STATES).map(([k,v])=>`<button data-s="${k}" class="${n.state===k?"on":""}" onclick="setState('${id}','${k}')">${v}</button>`).join("")}</div>
+    <h3>仮説</h3><p>${n.hyp}</p>
+    <h3>検証フェーズ</h3>${phasebar(n)}
+    ${isCase?"":`<h3>市場の器〔会議で埋める枠〕</h3>
+    <div class="tss"><div class="cell"><b>—</b><span>TAM</span></div><div class="cell"><b>—</b><span>SAM</span></div><div class="cell"><b>—</b><span>SOM</span></div></div>`}
+    <h3>根拠・現状</h3><ul>${n.ev.map(e=>`<li>${e}</li>`).join("")}</ul>
+    <h3>類似・参考</h3><div class="chips">${n.refs.map(r=>`<span class="chip">${r}</span>`).join("")}</div>
+    <h3>次の一手</h3><p>${n.next}</p>
+    ${n.links&&n.links.length?`<h3>つながり</h3><p>${n.links.map(l=>{const t=NODES.find(x=>x.id===l);return t?`<span class="link" onclick="select('${l}')">${t.name}</span>`:""}).join(" ／ ")}</p>`:""}`;
+  panel.classList.add("open");
+  drawEdges();
+}
+/* axis controls + questions */
+function segBtns(containerId,isX){
+  const c=document.getElementById(containerId);
+  Object.entries(AXES).forEach(([k,v])=>{
+    const b=document.createElement("button");
+    b.textContent=v.label;b.dataset.k=k;
+    if((isX&&k===curX)||(!isX&&k===curY))b.classList.add("on");
+    b.onclick=()=>{if(isX)curX=k;else curY=k;syncSeg();
+      document.querySelectorAll("#qbtns button").forEach(x=>x.classList.remove("on"));
+      document.querySelector('#qbtns button[data-q="free"]').classList.add("on");
+      setReading(QUESTIONS.find(q=>q.id==="free").read);
+      document.getElementById("edges").innerHTML="";layout();};
+    c.appendChild(b);
+  });
+}
+function syncSeg(){
+  document.querySelectorAll("#xseg button").forEach(b=>b.classList.toggle("on",b.dataset.k===curX));
+  document.querySelectorAll("#yseg button").forEach(b=>b.classList.toggle("on",b.dataset.k===curY));
+}
+function setReading(html){const r=document.getElementById("reading");r.style.opacity=0;setTimeout(()=>{r.innerHTML=html;r.style.opacity=1;},250);}
+function qBtns(){
+  const c=document.getElementById("qbtns");
+  QUESTIONS.forEach((q,i)=>{
+    const b=document.createElement("button");
+    b.textContent=q.label;b.dataset.q=q.id;
+    if(i===0)b.classList.add("on");
+    b.onclick=()=>{
+      document.querySelectorAll("#qbtns button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+      if(q.x){curX=q.x;curY=q.y;syncSeg();document.getElementById("edges").innerHTML="";layout();}
+      setReading(q.read);
+    };
+    c.appendChild(b);
+  });
+  document.getElementById("reading").innerHTML=QUESTIONS[0].read;
+}
+/* ================= L1 board ================= */
+function cardPos(c){
+  if(!c.pos)c.pos={};
+  if(!c.pos[boardPreset])c.pos[boardPreset]={bx:44+Math.round(Math.random()*12),by:44+Math.round(Math.random()*12)};
+  return c.pos[boardPreset];
+}
+function buildBoard(){
+  const bd=document.getElementById("board");
+  bd.innerHTML="";
+  CARDS.forEach((c,i)=>{
+    const el=document.createElement("div");
+    el.className="card"+(c.new?" new":"");el.id="cd-"+c.id;
+    el.style.animationDelay=(i*35)+"ms";
+    el.innerHTML=`${c.t}<span class="src">${c.s||""}</span>`;
+    bd.appendChild(el);
+    const p=cardPos(c);
+    el.style.left=p.bx+"%";el.style.top=(100-p.by)+"%";
+    attachCardDrag(el,c);
+  });
+  buildBaxBtns();
+  drawBoardGrid();
+}
+function attachCardDrag(el,c){
+  let sx,sy,ox,oy,moved,pid;
+  el.addEventListener("pointerdown",e=>{
+    pid=e.pointerId;el.setPointerCapture(pid);
+    sx=e.clientX;sy=e.clientY;moved=false;
+    ox=el.offsetLeft;oy=el.offsetTop;
+    el.classList.add("dragging");e.preventDefault();
+  });
+  el.addEventListener("pointermove",e=>{
+    if(e.pointerId!==pid||sx===undefined)return;
+    const dx=e.clientX-sx,dy=e.clientY-sy;
+    if(Math.abs(dx)+Math.abs(dy)>6)moved=true;
+    if(moved){el.style.left=(ox+dx)+"px";el.style.top=(oy+dy)+"px";}
+  });
+  el.addEventListener("pointerup",e=>{
+    if(e.pointerId!==pid)return;
+    el.classList.remove("dragging");
+    if(moved){
+      const bd=document.getElementById("board");
+      const p=cardPos(c);
+      p.bx=Math.round(Math.min(Math.max(el.offsetLeft/bd.clientWidth*100,0),100));
+      p.by=Math.round(100-Math.min(Math.max(el.offsetTop/bd.clientHeight*100,0),100));
+      store.cards=CARDS;persist();
+    } else {
+      cardMenu(e.clientX,e.clientY,c);
+    }
+    sx=undefined;
+  });
+}
+function cardMenu(x,y,c){
+  const m=document.getElementById("cardmenu");
+  m.innerHTML=`
+    <button onclick="editCard('${c.id}')">✎ 文言を編集</button>
+    <button onclick="editCardSrc('${c.id}')">出典を編集</button>
+    <button class="del" onclick="delCard('${c.id}')">削除</button>
+    <button onclick="hideCardMenu()">閉じる</button>`;
+  m.style.display="block";
+  m.style.left=Math.min(x,window.innerWidth-180)+"px";
+  m.style.top=Math.min(y,window.innerHeight-170)+"px";
+}
+function hideCardMenu(){document.getElementById("cardmenu").style.display="none";}
+document.addEventListener("pointerdown",e=>{if(!e.target.closest("#cardmenu")&&!e.target.closest(".card"))hideCardMenu();});
+function editCard(id){hideCardMenu();const c=CARDS.find(x=>x.id===id);const t=prompt("カードの文言",c.t);if(t){c.t=t;store.cards=CARDS;persist();buildBoard();}}
+function editCardSrc(id){hideCardMenu();const c=CARDS.find(x=>x.id===id);const s=prompt("出典・メモ",c.s||"");if(s!==null){c.s=s;store.cards=CARDS;persist();buildBoard();}}
+function delCard(id){hideCardMenu();const c=CARDS.find(x=>x.id===id);if(!confirm(`「${c.t}」を削除しますか？`))return;CARDS=CARDS.filter(x=>x.id!==id);store.cards=CARDS;persist();buildBoard();toast("カードを削除しました");}
+function addCard(){
+  const t=prompt("カードの文言（描ける世界の候補・発想・ロジック）");
+  if(!t)return;
+  const c={id:"c"+Date.now(),t:t,s:"本日の議論",new:true,pos:{}};
+  CARDS.push(c);store.cards=CARDS;persist();buildBoard();
+  toast("カードを追加しました（ドラッグで配置・タップで編集）");
+}
+function buildBaxBtns(){
+  const c=document.getElementById("baxbtns");c.innerHTML="";
+  Object.entries(BAX).forEach(([k,v])=>{
+    const b=document.createElement("button");
+    b.textContent=v.label;
+    if(k===boardPreset)b.classList.add("on");
+    b.onclick=()=>{
+      if(v.custom){
+        const xl=prompt("横軸・左端のラベル",BAX.p3.x[0]),xr=xl!==null?prompt("横軸・右端のラベル",BAX.p3.x[1]):null;
+        const yb=xr!==null?prompt("縦軸・下端のラベル",BAX.p3.y[0]):null,ytp=yb!==null?prompt("縦軸・上端のラベル",BAX.p3.y[1]):null;
+        if(ytp===null)return;
+        BAX.p3.x=[xl,xr];BAX.p3.y=[yb,ytp];
+        store.baxCustom={x:BAX.p3.x,y:BAX.p3.y};
+      }
+      boardPreset=k;store.boardPreset=k;persist();buildBoard();
+      toast(`ボード軸: ${v.label}（カード位置は軸セットごとに保存）`);
+    };
+    c.appendChild(b);
+  });
+}
+function drawBoardGrid(){
+  const svg=document.getElementById("boardgrid");
+  const wrap=document.getElementById("boardwrap");
+  const W=wrap.clientWidth,H=wrap.clientHeight;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const b=document.getElementById("board").getBoundingClientRect();
+  const w=wrap.getBoundingClientRect();
+  const ox=b.left-w.left,oy=b.top-w.top,pw=b.width,ph=b.height;
+  const cx=ox+pw/2,cy=oy+ph/2;
+  const A=BAX[boardPreset];
+  svg.innerHTML=`
+   <line class="gline" x1="${ox}" y1="${cy}" x2="${ox+pw}" y2="${cy}" stroke-dasharray="4 5"/>
+   <line class="gline" x1="${cx}" y1="${oy}" x2="${cx}" y2="${oy+ph}" stroke-dasharray="4 5"/>
+   <text class="glabel" x="${ox}" y="${cy-8}" text-anchor="start">${A.x[0]}</text>
+   <text class="glabel" x="${ox+pw}" y="${cy-8}" text-anchor="end">${A.x[1]}</text>
+   <text class="glabel" x="${cx+8}" y="${oy+ph-6}" text-anchor="start">${A.y[0]}</text>
+   <text class="glabel" x="${cx+8}" y="${oy+12}" text-anchor="start">${A.y[1]}</text>`;
+}
+/* ================= tree (horizontal) ================= */
+function buildTree(){
+  document.getElementById("htl").innerHTML=TIMELINE.map(([d,ti,b],i)=>{
+    const today=(i===TIMELINE.length-1);
+    return `<div class="hcol${today?" today":""}"><span class="dotm"></span><div class="hd">${d}</div><div class="hcard"><b>${ti}</b>${b}</div></div>`;
+  }).join("");
+  document.getElementById("loops").innerHTML=`<h2>堂々巡りウォッチ — 再浮上して未決着の論点（今日、地図で封じる）</h2>
+   <div class="row">${LOOPS.map(([ti,b])=>`<div class="loop"><b>${ti}</b>${b}</div>`).join("")}</div>
+   <div class="note">話者帰属は推定を含む（単独収録ボイスメモ由来）。データSSoT: innfra-hypothesis-map.md</div>`;
+}
+/* ================= views ================= */
+function showView(v){
+  view=v;
+  ["map","board","tree"].forEach(k=>document.getElementById("tab-"+k).classList.toggle("on",v===k));
+  document.getElementById("view-tree").classList.toggle("on",v==="tree");
+  document.getElementById("view-board").classList.toggle("on",v==="board");
+  document.getElementById("askbar").style.display=(v==="map")?"flex":"none";
+  if(v==="map")layout();
+  if(v==="board")setTimeout(buildBoard,30);
+}
+/* init */
+segBtns("xseg",true);segBtns("yseg",false);qBtns();buildTree();layout();
+window.addEventListener("resize",()=>{document.getElementById("edges").innerHTML="";if(view==="map")layout();if(view==="board")buildBoard();});
+</script>
+</body>
+</html>
