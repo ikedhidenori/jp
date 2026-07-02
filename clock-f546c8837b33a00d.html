@@ -627,12 +627,14 @@ var DEFAULT_PRESETS = [
 
 /* fixed 3-tier structure; edited in settings */
 var DEFAULT_HEALTH_RULES = {
-  sleep:    { hi:{min:7,     d:3},  mid:{min:6,    d:1},   low:{d:-2} },
-  steps:    { hi:{min:10000, d:3},  mid:{min:7000, d:1.5}, low:{max:3000, d:-1} },
-  exercise: { hi:{min:30,    d:3},  mid:{min:15,   d:1.5} }
+  sleep:      { hi:{min:7,     d:3},  mid:{min:6,    d:1},   low:{d:-2} },
+  steps:      { hi:{min:10000, d:3},  mid:{min:7000, d:1.5}, low:{max:3000, d:-1} },
+  exercise:   { hi:{min:30,    d:3},  mid:{min:15,   d:1.5} },
+  activeKcal: { hi:{min:500,   d:2},  mid:{min:300,  d:1},   low:{max:150,  d:-1} },
+  standMin:   { hi:{min:600,   d:1},  mid:{min:360,  d:0},   low:{max:240,  d:-1} }
 };
-var HEALTH_METRICS = ['sleep','steps','exercise'];
-var HEALTH_LABEL = { sleep:'睡眠', steps:'歩数', exercise:'運動' };
+var HEALTH_METRICS = ['sleep','steps','exercise','activeKcal','standMin'];
+var HEALTH_LABEL = { sleep:'睡眠', steps:'歩数', exercise:'運動', activeKcal:'アクティブカロリー', standMin:'スタンド時間' };
 
 /* ---------- state ---------- */
 var S = null;      // in-memory model
@@ -1036,7 +1038,7 @@ function refreshWarn(){
 }
 
 /* ---------- Apple Health sync (URL fragment) ---------- */
-var HEALTH_FIELD = { sleep:'sleepHours', steps:'steps', exercise:'exerciseMin' };
+var HEALTH_FIELD = { sleep:'sleepHours', steps:'steps', exercise:'exerciseMin', activeKcal:'activeKcal', standMin:'standMin' };
 
 function fnum(x){ return (typeof x==='number' && isFinite(x)) ? x : 0; }
 
@@ -1054,8 +1056,10 @@ function computeHealthDelta(metric, value, rules){
 }
 
 function healthEntryLabel(metric, value){
-  if(metric==='sleep')    return 'Health: 睡眠 '+value+'h';
-  if(metric==='steps')    return 'Health: 歩数 '+Number(value).toLocaleString('en-US');
+  if(metric==='sleep')      return 'Health: 睡眠 '+value+'h';
+  if(metric==='steps')      return 'Health: 歩数 '+Number(value).toLocaleString('en-US');
+  if(metric==='activeKcal') return 'Health: カロリー '+value+'kcal';
+  if(metric==='standMin')   return 'Health: スタンド '+(Number(value)/60).toFixed(1)+'h';
   return 'Health: 運動 '+value+'分';
 }
 
@@ -1111,6 +1115,24 @@ function b64urlDecode(str){
   }catch(e){ return null; }
 }
 
+/* A colon followed by only whitespace and then a value terminator ( , } ] )
+   is an empty numeric slot. The health-sync shortcut builds its JSON from
+   Statistics(Sum)/Math magic variables; on a device with no samples for a
+   metric (e.g. an iPhone-only user with no Exercise Minutes / Active Calories
+   / Stand time), Statistics over an empty list can resolve to an empty string,
+   emitting invalid JSON like {"exerciseMin":,"activeKcal":}. Coerce those empty
+   slots to 0 so the whole day is still recorded instead of being dropped. */
+function coerceEmptyNums(s){ return String(s).replace(/:\s*([,}\]])/g, ':0$1'); }
+
+/* Strict parse first (well-formed payloads are never modified); only on
+   failure retry with empty numeric slots coerced to 0. Returns object or null. */
+function tryParseJson(s){
+  if(s == null) return null;
+  try{ return JSON.parse(s); }catch(e){}
+  try{ return JSON.parse(coerceEmptyNums(s)); }catch(e){}
+  return null;
+}
+
 /* returns object (valid), null (present but invalid), or undefined (no #sync=) */
 function parseSyncFragment(hash){
   // On the initial load use the hash captured synchronously before scrub;
@@ -1124,10 +1146,10 @@ function parseSyncFragment(hash){
   var obj = null;
   // 1) try base64url payload (existing behaviour)
   var json = b64urlDecode(enc);
-  if(json != null){ try{ obj = JSON.parse(json); }catch(e){ obj = null; } }
+  if(json != null){ var o1 = tryParseJson(json); if(o1 && typeof o1==='object') obj = o1; }
   // 2) fall back to plain URL-encoded JSON (shortcut needs no base64)
   if(!obj || typeof obj!=='object'){
-    try{ var obj2 = JSON.parse(enc); if(obj2 && typeof obj2==='object') obj = obj2; }catch(e){}
+    var o2 = tryParseJson(enc); if(o2 && typeof o2==='object') obj = o2;
   }
   return (obj && typeof obj==='object') ? obj : null;
 }
@@ -1386,10 +1408,13 @@ function demoState(){
     /* -1 */
     { ts: now - D - 1*H, label:'Health: 睡眠 7.5h',   deltaHours:3, source:'health', dayKey:dayKeyOf(now-D), metric:'sleep' },
     { ts: now - D - 1*H, label:'Health: 歩数 11,200', deltaHours:3, source:'health', dayKey:dayKeyOf(now-D), metric:'steps' },
+    { ts: now - D - 1*H, label:'Health: カロリー 512kcal', deltaHours:2, source:'health', dayKey:dayKeyOf(now-D), metric:'activeKcal' },
+    { ts: now - D - 1*H, label:'Health: スタンド 12.0h',   deltaHours:1, source:'health', dayKey:dayKeyOf(now-D), metric:'standMin' },
     { ts: now - D - 3*H, label:'夜更かし',            deltaHours:-3 },
     /* -2 */
     { ts: now - 2*D,      label:'集中タスク完遂',       deltaHours:2 },
     { ts: now - 2*D - 1*H, label:'Health: 運動 42分',  deltaHours:3, source:'health', dayKey:dayKeyOf(now-2*D), metric:'exercise' },
+    { ts: now - 2*D - 1*H, label:'Health: カロリー 360kcal', deltaHours:1, source:'health', dayKey:dayKeyOf(now-2*D), metric:'activeKcal' },
     /* -3 */
     { ts: now - 3*D,      label:'暴飲暴食',            deltaHours:-6 },
     { ts: now - 3*D - 2*H, label:'散歩・瞑想',         deltaHours:1 },
