@@ -1039,6 +1039,10 @@ function refreshWarn(){
 
 /* ---------- Apple Health sync (URL fragment) ---------- */
 var HEALTH_FIELD = { sleep:'sleepHours', steps:'steps', exercise:'exerciseMin', activeKcal:'activeKcal', standMin:'standMin' };
+/* info metrics: recorded for the log but carry no life-hour delta (never shown
+   in the healthRules editor; deltaHours is always 0). */
+var INFO_METRICS = ['weight','restingHR'];
+var INFO_FIELD   = { weight:'weightKg', restingHR:'restingBpm' };
 
 function fnum(x){ return (typeof x==='number' && isFinite(x)) ? x : 0; }
 
@@ -1063,6 +1067,19 @@ function healthEntryLabel(metric, value){
   return 'Health: 運動 '+value+'分';
 }
 
+/* weight: 1 decimal only when fractional (72 -> "72", 72.4 -> "72.4") */
+function fmtWeight(v){ v=Number(v); return v===Math.round(v) ? String(v) : v.toFixed(1); }
+/* info-metric log label (no delta) */
+function infoEntryLabel(metric, value){
+  if(metric==='weight') return 'Health: 体重 '+fmtWeight(value)+'kg';
+  return 'Health: 安静時心拍 '+Math.round(value)+'bpm';
+}
+/* info-metric toast fragment: value only, no ± sign */
+function infoToastPart(metric, value){
+  if(metric==='weight') return '体重 '+fmtWeight(value)+'kg';
+  return '心拍 '+Math.round(value)+'bpm';
+}
+
 function isDayKey(s){ return typeof s==='string' && /^\d{4}-\d{2}-\d{2}$/.test(s); }
 
 /* apply one day; replaces existing health entries with same dayKey+metric */
@@ -1085,6 +1102,22 @@ function applyHealthDay(day){
       deltaHours: delta, source:'health', dayKey:dayKey, metric:metric
     });
     applied.push({ metric:metric, delta:delta });
+  });
+  INFO_METRICS.forEach(function(metric){
+    var raw = day[INFO_FIELD[metric]];
+    if(raw == null) return;                 // metric absent -> leave existing untouched
+    var value = Number(raw);
+    if(!isFinite(value)) return;            // invalid value -> skip this metric
+    // remove any prior health entry for this day+metric (no double counting)
+    S.actions = S.actions.filter(function(a){
+      return !(a && a.source==='health' && a.dayKey===dayKey && a.metric===metric);
+    });
+    // info metric: no delta, but ALWAYS record (explicit exception to the delta===0 skip)
+    S.actions.push({
+      ts: Date.now(), label: infoEntryLabel(metric, value),
+      deltaHours: 0, source:'health', dayKey:dayKey, metric:metric
+    });
+    applied.push({ metric:metric, delta:0, info:true, value:value });
   });
   return applied;
 }
@@ -1187,7 +1220,9 @@ function showSyncToast(res){
   if(res.dayCount>1){
     body = res.dayCount+'日分を記帳しました';
   }else{
-    var parts = res.applied.map(function(x){ return HEALTH_LABEL[x.metric]+signH(x.delta); });
+    var parts = res.applied.map(function(x){
+      return x.info ? infoToastPart(x.metric, x.value) : HEALTH_LABEL[x.metric]+signH(x.delta);
+    });
     body = (res.latestDayKey?mdOf(res.latestDayKey)+': ':'') + parts.join(' · ');
   }
   showToast('Health 同期', body);
@@ -1410,6 +1445,8 @@ function demoState(){
     { ts: now - D - 1*H, label:'Health: 歩数 11,200', deltaHours:3, source:'health', dayKey:dayKeyOf(now-D), metric:'steps' },
     { ts: now - D - 1*H, label:'Health: カロリー 512kcal', deltaHours:2, source:'health', dayKey:dayKeyOf(now-D), metric:'activeKcal' },
     { ts: now - D - 1*H, label:'Health: スタンド 12.0h',   deltaHours:1, source:'health', dayKey:dayKeyOf(now-D), metric:'standMin' },
+    { ts: now - D - 1*H, label:'Health: 体重 72.4kg',      deltaHours:0, source:'health', dayKey:dayKeyOf(now-D), metric:'weight' },
+    { ts: now - D - 1*H, label:'Health: 安静時心拍 58bpm', deltaHours:0, source:'health', dayKey:dayKeyOf(now-D), metric:'restingHR' },
     { ts: now - D - 3*H, label:'夜更かし',            deltaHours:-3 },
     /* -2 */
     { ts: now - 2*D,      label:'集中タスク完遂',       deltaHours:2 },
