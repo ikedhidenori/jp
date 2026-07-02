@@ -175,6 +175,29 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
 .danger{color:var(--minus);font-size:12.5px;text-decoration:underline;background:none;min-height:40px}
 .err{color:var(--minus);font-size:12px;margin-top:6px;display:none}
 .err.show{display:block}
+
+/* Health sync rule editor */
+.hr-group{margin-bottom:12px}
+.hr-group>.hr-label{font-size:12px;color:var(--text-dim);margin-bottom:6px}
+.hr-row{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.hr-row .hr-cap{flex:none;width:34px;font-size:11.5px;color:var(--text-faint)}
+.hr-row input.hr-th,.hr-row input.hr-d{
+  width:72px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;
+  color:var(--text);padding:8px;font-size:13px;text-align:center;min-height:40px;
+}
+.hr-row .hr-sep{font-size:11.5px;color:var(--text-faint);flex:none}
+
+/* sync toast */
+#toast{
+  position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(12px);
+  background:var(--surface-2);color:var(--text);border:1px solid var(--accent);
+  border-radius:12px;padding:11px 16px;font-size:13px;line-height:1.45;
+  max-width:calc(100% - 32px);box-shadow:0 6px 24px rgba(0,0,0,.4);
+  opacity:0;pointer-events:none;z-index:80;transition:opacity .25s ease,transform .25s ease;
+}
+#toast .t-head{color:var(--accent);font-size:11.5px;letter-spacing:.04em;margin-bottom:2px}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
@@ -209,6 +232,9 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
   <section class="card">
     <h2>行動 <span class="stat" id="statLine">今日 — / 今週 —</span></h2>
     <div class="acts" id="acts"></div>
+    <div class="acts-foot" id="syncFoot" style="justify-content:flex-start;margin-top:8px;display:none">
+      <span id="syncLine"></span>
+    </div>
     <div class="acts-foot">
       <span id="balanceLine">残高 —</span>
       <button id="undoBtn" disabled>元に戻す</button>
@@ -237,6 +263,9 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
     <input id="importFile" type="file" accept="application/json,.json" style="display:none">
   </section>
 </div>
+
+<!-- sync toast -->
+<div id="toast" role="status" aria-live="polite"></div>
 
 <!-- ===================== Setup / Settings modal ===================== -->
 <div class="overlay" id="overlay">
@@ -278,6 +307,12 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
           <span class="p-unit">時間 / 件</span>
         </div>
       </div>
+
+      <div class="sec-label">Health 同期ルール</div>
+      <div id="healthRules"></div>
+      <div class="field" style="margin-bottom:0">
+        <div class="hint">iOS ショートカットが毎朝、睡眠・歩数・運動を自動で記帳します。閾値と増減時間を編集できます。</div>
+      </div>
     </div>
 
     <button class="primary" id="saveBtn">保存</button>
@@ -296,6 +331,21 @@ button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:n
    ============================================================ */
 (function(){
 'use strict';
+
+/* ── Apple Health sync fragment: capture & scrub URL synchronously ──
+   Runs before DOMContentLoaded so the #sync= payload is stripped from the
+   address bar / history in the same synchronous tick the page loads,
+   minimizing the window in which iCloud Safari tab-sync could cache it.
+   (security-auditor MEDIUM #1) */
+var _syncHashAtLoad = '';
+(function(){
+  var h = (typeof location !== 'undefined' && location.hash) ? location.hash : '';
+  if(h && /[#&]sync=/.test(h)){
+    _syncHashAtLoad = h;
+    try{ history.replaceState(null, '', location.pathname + location.search); }
+    catch(e){ try{ location.hash = ''; }catch(e2){} }
+  }
+})();
 
 var KEY = 'lifeclock.v1';
 var MS_HOUR = 3600e3, MS_DAY = 864e5, MS_YEAR = 365.2425 * MS_DAY;
@@ -317,9 +367,20 @@ var DEFAULT_PRESETS = [
   {label:'ダラダラSNS',   h:-1}
 ];
 
+/* fixed 3-tier structure; edited in settings */
+var DEFAULT_HEALTH_RULES = {
+  sleep:    { hi:{min:7,     d:3},  mid:{min:6,    d:1},   low:{d:-2} },
+  steps:    { hi:{min:10000, d:3},  mid:{min:7000, d:1.5}, low:{max:3000, d:-1} },
+  exercise: { hi:{min:30,    d:3},  mid:{min:15,   d:1.5} }
+};
+var HEALTH_METRICS = ['sleep','steps','exercise'];
+var HEALTH_LABEL = { sleep:'睡眠', steps:'歩数', exercise:'運動' };
+
 /* ---------- state ---------- */
 var S = null;      // in-memory model
 var tickTimer = null;
+var pendingSync = null;   // health payload received before birth is set
+var toastTimer = null;
 
 /* ---------- storage ---------- */
 function load(){
@@ -433,11 +494,19 @@ function doAction(pr, btn){
 
 function undoLast(){
   if(!S.actions.length) return;
-  S.actions.pop();
-  save(); fmtCountdown(); renderStats(); updateUndo();
+  // undo only the most recent manual entry; never pop auto health entries
+  for(var i=S.actions.length-1;i>=0;i--){
+    if(S.actions[i].source!=='health'){
+      S.actions.splice(i,1);
+      save(); fmtCountdown(); renderStats(); updateUndo();
+      return;
+    }
+  }
 }
 function updateUndo(){
-  document.getElementById('undoBtn').disabled = S.actions.length === 0;
+  var hasManual=false;
+  for(var i=0;i<S.actions.length;i++){ if(S.actions[i].source!=='health'){ hasManual=true; break; } }
+  document.getElementById('undoBtn').disabled = !hasManual;
 }
 
 function startOfDay(d){ var x=new Date(d); x.setHours(0,0,0,0); return x.getTime(); }
@@ -564,6 +633,191 @@ function refreshWarn(){
   }else bar.classList.remove('show');
 }
 
+/* ---------- Apple Health sync (URL fragment) ---------- */
+var HEALTH_FIELD = { sleep:'sleepHours', steps:'steps', exercise:'exerciseMin' };
+
+function fnum(x){ return (typeof x==='number' && isFinite(x)) ? x : 0; }
+
+/* fixed 3-tier evaluation: hi.min -> mid.min -> low(max or catch-all) */
+function computeHealthDelta(metric, value, rules){
+  var r = rules && rules[metric];
+  if(!r) return 0;
+  if(r.hi && typeof r.hi.min==='number' && value >= r.hi.min) return fnum(r.hi.d);
+  if(r.mid && typeof r.mid.min==='number' && value >= r.mid.min) return fnum(r.mid.d);
+  if(r.low){
+    if(typeof r.low.max==='number') return value < r.low.max ? fnum(r.low.d) : 0;
+    return fnum(r.low.d); // catch-all below mid
+  }
+  return 0;
+}
+
+function healthEntryLabel(metric, value){
+  if(metric==='sleep')    return 'Health: 睡眠 '+value+'h';
+  if(metric==='steps')    return 'Health: 歩数 '+Number(value).toLocaleString('en-US');
+  return 'Health: 運動 '+value+'分';
+}
+
+function isDayKey(s){ return typeof s==='string' && /^\d{4}-\d{2}-\d{2}$/.test(s); }
+
+/* apply one day; replaces existing health entries with same dayKey+metric */
+function applyHealthDay(day){
+  if(!day || typeof day!=='object' || !isDayKey(day.date)) return [];
+  var dayKey = day.date, applied = [];
+  HEALTH_METRICS.forEach(function(metric){
+    var raw = day[HEALTH_FIELD[metric]];
+    if(raw == null) return;                 // metric absent -> leave existing untouched
+    var value = Number(raw);
+    if(!isFinite(value)) return;            // invalid value -> skip this metric
+    var delta = computeHealthDelta(metric, value, S.healthRules);
+    // remove any prior health entry for this day+metric (no double counting)
+    S.actions = S.actions.filter(function(a){
+      return !(a && a.source==='health' && a.dayKey===dayKey && a.metric===metric);
+    });
+    if(delta === 0) return;                 // don't record 0 (prior removed above)
+    S.actions.push({
+      ts: Date.now(), label: healthEntryLabel(metric, value),
+      deltaHours: delta, source:'health', dayKey:dayKey, metric:metric
+    });
+    applied.push({ metric:metric, delta:delta });
+  });
+  return applied;
+}
+
+function applyHealthPayload(payload){
+  if(!payload || typeof payload!=='object') return null;
+  var days = Array.isArray(payload.days) ? payload.days : [payload];
+  var applied = [], latest = null;
+  days.forEach(function(day){
+    var ap = applyHealthDay(day);
+    if(day && isDayKey(day.date) && (!latest || day.date > latest)) latest = day.date;
+    applied = applied.concat(ap);
+  });
+  return { applied:applied, latestDayKey:latest, dayCount:days.length };
+}
+
+/* decode base64url (URL-encoding tolerated) to a UTF-8 string */
+function b64urlDecode(str){
+  try{
+    str = String(str).replace(/-/g,'+').replace(/_/g,'/');
+    var pad = str.length % 4; if(pad) str += '===='.slice(pad);
+    var bin = atob(str);
+    try{
+      return decodeURIComponent(bin.split('').map(function(c){
+        return '%'+('00'+c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+    }catch(e){ return bin; }
+  }catch(e){ return null; }
+}
+
+/* returns object (valid), null (present but invalid), or undefined (no #sync=) */
+function parseSyncFragment(hash){
+  // On the initial load use the hash captured synchronously before scrub;
+  // for later hashchange events _syncHashAtLoad is already consumed (''),
+  // so we fall through to the live location.hash.
+  hash = (hash!=null ? hash : (_syncHashAtLoad || location.hash || ''));
+  var m = String(hash).match(/[#&]sync=([^&]*)/);
+  if(!m) return undefined;
+  var enc = m[1];
+  try{ enc = decodeURIComponent(enc); }catch(e){}
+  var json = b64urlDecode(enc);
+  if(json == null) return null;
+  try{ var obj = JSON.parse(json); return (obj && typeof obj==='object') ? obj : null; }
+  catch(e){ return null; }
+}
+
+function clearSyncHash(){
+  try{ history.replaceState(null,'',location.pathname+location.search); }
+  catch(e){ try{ location.hash=''; }catch(e2){} }
+}
+
+function handleSync(){
+  var payload = parseSyncFragment();
+  _syncHashAtLoad = '';                     // one-shot: later hashchange uses live hash
+  if(payload === undefined) return;         // nothing to do
+  clearSyncHash();                          // never leave #sync in url/history
+  if(payload === null){ console.warn('lifeclock: invalid sync payload, ignored'); return; }
+  if(!S || !S.birth){ pendingSync = payload; return; }  // apply after first-run setup
+  applyAndReport(payload);
+}
+
+function applyAndReport(payload){
+  var res = applyHealthPayload(payload);
+  if(!res) return;
+  S.lastSync = Date.now();
+  save(); renderAll(); refreshWarn();
+  if(res.applied.length) showSyncToast(res);
+}
+
+function mdOf(dayKey){
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dayKey||'');
+  return m ? (parseInt(m[2],10)+'/'+parseInt(m[3],10)) : (dayKey||'');
+}
+
+function showSyncToast(res){
+  var body;
+  if(res.dayCount>1){
+    body = res.dayCount+'日分を記帳しました';
+  }else{
+    var parts = res.applied.map(function(x){ return HEALTH_LABEL[x.metric]+signH(x.delta); });
+    body = (res.latestDayKey?mdOf(res.latestDayKey)+': ':'') + parts.join(' · ');
+  }
+  showToast('Health 同期', body);
+}
+
+function showToast(head, body){
+  var el = document.getElementById('toast'); if(!el) return;
+  el.innerHTML = '<div class="t-head">'+esc(head)+'</div>'+esc(body);
+  el.classList.add('show');
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 3000);
+}
+
+function renderSyncLine(){
+  var foot=document.getElementById('syncFoot'), line=document.getElementById('syncLine');
+  if(!foot||!line) return;
+  if(S && S.lastSync){
+    var d=new Date(S.lastSync);
+    line.textContent='最終同期 '+(d.getMonth()+1)+'/'+d.getDate()+' '+p2(d.getHours())+':'+p2(d.getMinutes());
+    foot.style.display='flex';
+  }else{ foot.style.display='none'; }
+}
+
+function renderHealthRules(){
+  var wrap=document.getElementById('healthRules'); if(!wrap) return;
+  wrap.innerHTML='';
+  var capName={hi:'高',mid:'中',low:'低'};
+  HEALTH_METRICS.forEach(function(metric){
+    var rules=S.healthRules[metric];
+    var g=document.createElement('div'); g.className='hr-group';
+    var html='<div class="hr-label">'+HEALTH_LABEL[metric]+'</div>';
+    ['hi','mid','low'].forEach(function(tier){
+      var t=rules[tier]; if(!t) return;
+      var thKey = ('min' in t) ? 'min' : (('max' in t) ? 'max' : null);
+      html+='<div class="hr-row" data-m="'+metric+'" data-t="'+tier+'">';
+      html+='<span class="hr-cap">'+capName[tier]+'</span>';
+      if(thKey){
+        html+='<span class="hr-sep">'+(thKey==='min'?'≥':'<')+'</span>';
+        html+='<input class="hr-th mono" type="number" step="any" inputmode="decimal" data-k="'+thKey+'" value="'+t[thKey]+'">';
+      }else{
+        html+='<span class="hr-sep">その他</span>';
+      }
+      html+='<span class="hr-sep">→</span>';
+      html+='<input class="hr-d mono" type="number" step="0.5" inputmode="decimal" data-k="d" value="'+t.d+'">';
+      html+='<span class="hr-sep">h</span></div>';
+    });
+    g.innerHTML=html; wrap.appendChild(g);
+  });
+  Array.prototype.forEach.call(wrap.querySelectorAll('.hr-row'), function(row){
+    var m=row.getAttribute('data-m'), tier=row.getAttribute('data-t');
+    Array.prototype.forEach.call(row.querySelectorAll('input'), function(inp){
+      inp.addEventListener('input', function(){
+        var k=inp.getAttribute('data-k'), v=parseFloat(inp.value);
+        if(isFinite(v) && S.healthRules[m] && S.healthRules[m][tier]) S.healthRules[m][tier][k]=v;
+      });
+    });
+  });
+}
+
 /* ---------- modal (setup + settings) ---------- */
 function openModal(isSettings){
   var ov=document.getElementById('overlay');
@@ -582,7 +836,7 @@ function openModal(isSettings){
   document.getElementById('adjVal').textContent = adj.toFixed(1)+' 年';
   document.getElementById('adjNote').value = S ? (S.adjNote||'') : '';
   document.getElementById('focusBonus').value = S ? (S.focusBonus!=null?S.focusBonus:2) : 2;
-  if(isSettings) renderPresetEditor();
+  if(isSettings){ renderPresetEditor(); renderHealthRules(); }
   document.getElementById('birthErr').classList.remove('show');
   ov.classList.add('show');
 }
@@ -617,16 +871,37 @@ function saveFromModal(){
   // presets edited live; drop empty-named rows
   S.presets = S.presets.filter(function(p){ return (p.label||'').trim().length; });
   if(!S.presets.length) S.presets = DEFAULT_PRESETS.slice();
+  S.healthRules = normalizeHealthRules(S.healthRules);
   save(); closeModal(); renderAll(); refreshWarn();
+  // apply any Health payload received before birth was set
+  if(pendingSync){ var p=pendingSync; pendingSync=null; applyAndReport(p); }
 }
 
 /* ---------- defaults / normalize ---------- */
+function cloneHealthRules(){ return JSON.parse(JSON.stringify(DEFAULT_HEALTH_RULES)); }
+/* merge stored rules over defaults, keeping only numeric overrides (non-破壊) */
+function normalizeHealthRules(o){
+  var r = cloneHealthRules();
+  if(!o || typeof o!=='object') return r;
+  HEALTH_METRICS.forEach(function(m){
+    if(!o[m] || typeof o[m]!=='object') return;
+    ['hi','mid','low'].forEach(function(tier){
+      if(!r[m][tier] || !o[m][tier] || typeof o[m][tier]!=='object') return;
+      ['min','max','d'].forEach(function(k){
+        if(k in r[m][tier] && typeof o[m][tier][k]==='number' && isFinite(o[m][tier][k])){
+          r[m][tier][k] = o[m][tier][k];
+        }
+      });
+    });
+  });
+  return r;
+}
 function defaults(){
   return { birth:'', adjYears:0, adjNote:'', focusBonus:2,
-    presets:DEFAULT_PRESETS.slice(), actions:[], focus:[], lastExport:null };
+    presets:DEFAULT_PRESETS.slice(), actions:[], focus:[],
+    healthRules:cloneHealthRules(), lastSync:null, lastExport:null };
 }
 function normalize(o){
-  var d=defaults();
   return {
     birth: o.birth||'',
     adjYears: typeof o.adjYears==='number'?o.adjYears:0,
@@ -635,6 +910,8 @@ function normalize(o){
     presets: Array.isArray(o.presets)&&o.presets.length?o.presets.map(function(p){return {label:String(p.label||''),h:Number(p.h)||0};}):DEFAULT_PRESETS.slice(),
     actions: Array.isArray(o.actions)?o.actions.filter(function(a){return a&&typeof a.deltaHours==='number';}):[],
     focus: Array.isArray(o.focus)?o.focus:[],
+    healthRules: normalizeHealthRules(o.healthRules),
+    lastSync: typeof o.lastSync==='number'?o.lastSync:null,
     lastExport: o.lastExport||null
   };
 }
@@ -644,7 +921,7 @@ function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&a
 
 /* ---------- render all ---------- */
 function renderAll(){
-  renderActs(); renderFocus(); updateUndo(); fmtCountdown();
+  renderActs(); renderFocus(); updateUndo(); fmtCountdown(); renderSyncLine();
 }
 
 /* ---------- ticking ---------- */
@@ -685,6 +962,8 @@ function init(){
   document.addEventListener('visibilitychange', function(){
     if(!document.hidden && S){ renderFocus(); fmtCountdown(); renderStats(); }
   });
+  // Apple Health auto-sync arrives as a #sync= fragment (shortcut opens the url)
+  window.addEventListener('hashchange', handleSync);
 
   // boot
   S = load();
@@ -697,6 +976,7 @@ function init(){
   }
   startTick();
   refreshWarn();
+  handleSync();   // process any #sync= present on load
 }
 
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
