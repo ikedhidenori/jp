@@ -4,9 +4,14 @@ Status: local staging ready / external publish not performed.
 
 ## Current Files
 
-- `CNAME` -> `zukan.page`
 - `zukan/index.html`
 - `zukan/styles.css`
+- `zukan/DEPLOY.md`
+
+`CNAME` is intentionally not active yet. It briefly caused GitHub Pages to
+redirect `ikedhidenori.github.io/jp/zukan/` to `zukan.page/zukan/` while DNS
+was still pointed at Porkbun default hosting. Add root `CNAME` only in the same
+deployment window as the DNS change.
 
 ## Current External State
 
@@ -35,9 +40,10 @@ Keep the existing repository root `index.html` unchanged.
 
 Required external changes:
 
-1. Commit and push only `CNAME` and `zukan/`.
+1. Keep `zukan/` published on GitHub Pages.
 2. Point DNS to GitHub Pages.
-3. Enable GitHub Pages custom domain `zukan.page` and Enforce HTTPS.
+3. Add root `CNAME` with `zukan.page`, then enable GitHub Pages custom domain
+   `zukan.page` and Enforce HTTPS.
 
 ### Option B: Canonical root
 
@@ -77,3 +83,8 @@ https://zukan.page/zukan/ -> 200
 https://zukan.page/ -> existing root page or redirect, depending on later choice
 ```
 
+Until DNS and CNAME are applied together, use:
+
+```text
+https://ikedhidenori.github.io/jp/zukan/
+```
