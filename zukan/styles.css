@@ -107,6 +107,7 @@ a {
 }
 
 .hero-copy {
+  min-width: 0;
   max-width: 780px;
 }
 
@@ -186,6 +187,18 @@ h3 {
 .button.primary {
   background: var(--ink);
   color: var(--paper);
+}
+
+.button.disabled {
+  cursor: not-allowed;
+  background: var(--paper-2);
+  color: var(--muted);
+  box-shadow: none;
+}
+
+.button.disabled:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .button-row {
@@ -334,6 +347,22 @@ dt {
 dd {
   margin: 0;
   font-weight: 800;
+}
+
+.state {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.state.waiting {
+  background: #f8dfb6;
+  color: #4c3212;
 }
 
 .entries {
@@ -504,6 +533,11 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  h1 {
+    font-size: 40px;
+    line-height: 1.02;
+  }
+
   .specimen.tall {
     transform: none;
   }
@@ -518,6 +552,12 @@ dd {
 
   .series-card p:not(.series-no) {
     min-height: auto;
+  }
+
+  .hero-actions .button,
+  .button-row .button,
+  .button-row .button.disabled {
+    width: 100%;
   }
 
   .magazine-table div,

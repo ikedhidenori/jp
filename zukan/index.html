@@ -26,7 +26,7 @@
     <nav class="nav" aria-label="ページ内ナビゲーション">
       <a href="#series">シリーズ</a>
       <a href="#entries">標本</a>
-      <a href="#magazines">note</a>
+      <a href="#magazines">受け取り</a>
       <a href="#setup">設定</a>
       <a href="./status.html">Status</a>
     </nav>
@@ -70,7 +70,7 @@
       </div>
       <div>
         <span class="metric">Kit</span>
-        <span>メール取得の本体</span>
+        <span>受け取り導線の本体</span>
       </div>
     </section>
 
@@ -85,8 +85,8 @@
           <h3>ラーメンビジネス図鑑</h3>
           <p>ラーメン店を、味ではなく原価・工程・回転・撤退ラインで見る経済図鑑。</p>
           <dl>
-            <div><dt>X</dt><dd>@ramen_zukan_jp</dd></div>
-            <div><dt>note</dt><dd>ラーメンビジネス図鑑</dd></div>
+            <div><dt>X</dt><dd><span class="state waiting">@ramen_zukan_jp 作成待ち</span></dd></div>
+            <div><dt>note</dt><dd><span class="state waiting">マガジン作成待ち</span></dd></div>
             <div><dt>Gate</dt><dd>G5 required</dd></div>
           </dl>
         </article>
@@ -95,8 +95,8 @@
           <h3>一坪ビジネス図鑑</h3>
           <p>小さな商いを、開業条件と撤退条件の両方から標本化する図鑑。</p>
           <dl>
-            <div><dt>X</dt><dd>@1tsubo_zukan</dd></div>
-            <div><dt>note</dt><dd>一坪ビジネス図鑑</dd></div>
+            <div><dt>X</dt><dd><span class="state waiting">@1tsubo_zukan 作成待ち</span></dd></div>
+            <div><dt>note</dt><dd><span class="state waiting">マガジン作成待ち</span></dd></div>
             <div><dt>Gate</dt><dd>G5 required</dd></div>
           </dl>
         </article>
@@ -105,8 +105,8 @@
           <h3>ファクトフル図鑑</h3>
           <p>強い通説や体感を、公的データで開いて見る図鑑。単一犯人にしない。</p>
           <dl>
-            <div><dt>X</dt><dd>@factful_zukan</dd></div>
-            <div><dt>note</dt><dd>ファクトフル図鑑</dd></div>
+            <div><dt>X</dt><dd><span class="state waiting">@factful_zukan 作成待ち</span></dd></div>
+            <div><dt>note</dt><dd><span class="state waiting">マガジン作成待ち</span></dd></div>
             <div><dt>Gate</dt><dd>Public GO pending</dd></div>
           </dl>
         </article>
@@ -144,15 +144,16 @@
 
     <section id="magazines" class="section magazine-section" aria-labelledby="magazines-title">
       <div class="section-head">
-        <p class="kicker">note Magazine</p>
-        <h2 id="magazines-title">note は1アカウント複数マガジン</h2>
+        <p class="kicker">Receive Updates</p>
+        <h2 id="magazines-title">いま受け取れる導線</h2>
       </div>
       <div class="magazine-layout">
         <div class="magazine-copy">
-          <p>note は <strong>zukan_jp</strong> に集約し、図鑑ごとにマガジンを分ける。X は発見、LP は文脈、Kit は所有リスト、note は読ませ面と課金面を担当する。</p>
+          <p>現時点で更新を受け取れる本線は <strong>Kit</strong> です。note は <strong>zukan_jp</strong> に集約予定ですが、図鑑別マガジンがまだ公開確認できていないため、フォローCTAとしては出していません。</p>
           <div class="button-row">
-            <a class="button primary" href="https://note.com/zukan_jp">note.com/zukan_jp</a>
-            <a class="button" href="https://zukan-jp.kit.com/ffea50add4">Kitで更新を受け取る</a>
+            <a class="button primary" href="https://zukan-jp.kit.com/ffea50add4">Kitで更新を受け取る</a>
+            <a class="button" href="./status.html">準備状況を見る</a>
+            <span class="button disabled" aria-disabled="true">noteマガジン準備中</span>
           </div>
         </div>
         <div class="magazine-table" role="table" aria-label="noteマガジン案">
@@ -177,13 +178,14 @@
             <li><b>note</b><span>zukan_jp 公開ページ</span></li>
             <li><b>Kit</b><span>メール取得フォーム</span></li>
             <li><b>Articles</b><span>一坪2本 / ラーメン1本</span></li>
+            <li><b>X observed</b><span><a href="https://x.com/zetsumetsuzukan">@zetsumetsuzukan</a> / <a href="https://x.com/zukan_jp">@zukan_jp</a></span></li>
           </ul>
         </article>
         <article>
           <h3>Waiting gate</h3>
           <ul class="check-list">
             <li><b>zukan.page</b><span>DNS / HTTPS 切替待ち</span></li>
-            <li><b>X dedicated</b><span>ramen / ippo / factful 作成待ち</span></li>
+            <li><b>X dedicated</b><span>@ramen_zukan_jp / @1tsubo_zukan / @factful_zukan 作成待ち</span></li>
             <li><b>note magazines</b><span>作成確定待ち</span></li>
             <li><b>Posting</b><span>外部投稿 0/9</span></li>
           </ul>
