@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0c10">
+<meta name="robots" content="noindex, nofollow">
+<title>Johnny OS — 見える化</title>
+<style>
+:root{color-scheme:dark;
+--bg:#0a0c10;--surface-1:#14171d;--surface-2:#1a1d24;--border:#232830;--border-soft:#1d2128;
+--txt:#e8ebf0;--txt-2:#aab1bd;--txt-3:#828a99;--txt-4:#626a76;
+--red:#f0635a;--amber:#d6a44c;--blue:#5a93e6;--green:#56b87a;--grey:#3a414c;
+--r:14px;--tap:44px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+background:var(--bg);color:var(--txt);line-height:1.5;letter-spacing:.005em;
+padding:18px 16px calc(28px + env(safe-area-inset-bottom));max-width:620px;margin:0 auto;
+font-size:15px;-webkit-font-smoothing:antialiased;}
+header{margin-bottom:16px;}
+h1{font-size:1.15rem;font-weight:680;letter-spacing:.01em;}
+.sub{font-size:.72rem;color:var(--txt-3);margin-top:3px;}
+.hero{display:flex;align-items:center;gap:12px;background:var(--surface-1);
+border:1px solid var(--border-soft);border-radius:16px;padding:16px 18px;margin-bottom:18px;}
+.hero .big{font-size:2.1rem;font-weight:720;line-height:1;font-variant-numeric:tabular-nums;}
+.hero .lbl{font-size:.74rem;color:var(--txt-3);text-transform:uppercase;letter-spacing:.11em;margin-bottom:5px;}
+.hero .dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+.sec-label{font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+color:var(--txt-3);margin:22px 2px 9px;}
+.subgrp{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+color:var(--txt-3);padding:9px 15px 5px;background:var(--surface-2);}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.card{background:var(--surface-1);border:1px solid var(--border-soft);border-radius:var(--r);
+padding:13px 14px;min-height:78px;display:flex;flex-direction:column;justify-content:space-between;}
+.card .k{font-size:.7rem;color:var(--txt-3);letter-spacing:.03em;line-height:1.35;}
+.card .row{display:flex;align-items:baseline;gap:7px;margin-top:8px;}
+.card .v{font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;}
+.card .u{font-size:.72rem;color:var(--txt-3);}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:.66rem;font-weight:640;
+padding:2px 8px;border-radius:999px;letter-spacing:.02em;}
+.ok{color:var(--green);} .ok .dot,.pill.ok{background:rgba(86,184,122,.13);}
+.warn{color:var(--amber);} .warn .dot,.pill.warn{background:rgba(214,164,76,.14);}
+.bad{color:var(--red);} .bad .dot,.pill.bad{background:rgba(240,99,90,.13);}
+.dotc{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.d-ok{background:var(--green);} .d-warn{background:var(--amber);} .d-bad{background:var(--red);}
+.d-mute{background:var(--grey);}
+.plans{background:var(--surface-1);border:1px solid var(--border-soft);border-radius:var(--r);overflow:hidden;}
+.plans .hd{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;
+border-bottom:1px solid var(--border-soft);}
+.plans .hd .t{font-size:.86rem;font-weight:660;}
+.plans .hd .c{font-size:.72rem;color:var(--txt-3);}
+.prow{display:flex;align-items:center;gap:10px;padding:9px 15px;border-bottom:1px solid var(--border-soft);}
+.prow:last-child{border-bottom:none;}
+.prow .name{flex:1;min-width:0;font-size:.82rem;color:var(--txt-2);
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.prow .age{font-size:.74rem;font-variant-numeric:tabular-nums;font-weight:640;flex-shrink:0;
+min-width:56px;text-align:right;}
+.note{font-size:.68rem;color:var(--txt-3);line-height:1.55;margin:10px 3px 0;}
+details.more{margin-top:6px;}
+details.more>summary{list-style:none;cursor:pointer;font-size:.74rem;color:var(--txt-3);
+padding:9px 15px;min-height:var(--tap);display:flex;align-items:center;gap:6px;}
+details.more>summary::-webkit-details-marker{display:none;}
+footer{margin-top:26px;text-align:center;font-size:.66rem;color:var(--txt-3);line-height:1.6;}
+@media (min-width:620px){body{max-width:680px;padding:22px 20px calc(32px + env(safe-area-inset-bottom));}}
+@media (min-width:920px){body{max-width:720px;padding:26px 24px calc(36px + env(safe-area-inset-bottom));}
+.grid{gap:11px;}}
+</style>
+</head><body>
+<header>
+  <h1>Johnny OS <span style="color:var(--txt-3);font-weight:500">見える化</span></h1>
+  <div class="sub">最終更新 2026-07-07 03:14 JST · 毎朝 07:30 自動再生成</div>
+</header>
+
+<div class="hero warn">
+  <span class="dot d-warn"></span>
+  <div style="flex:1">
+    <div class="lbl">システム健全度</div>
+    <div style="display:flex;align-items:baseline;gap:9px">
+      <span class="big">4/6</span>
+      <span style="font-size:.82rem;font-weight:600">2 系統に注意</span>
+    </div>
+  </div>
+</div>
+
+<div class="sec-label">スコアボード (S1–S5)</div>
+<div class="grid">
+<div class="card">
+  <div class="k">○×ボード 未回答</div>
+  <div>
+    <div class="row"><span class="v">3</span><span class="u">件</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill ok"><span class="dotc d-ok"></span>正常</span><span class="pill" style="color:var(--txt-3)">しきい値 10</span></div>
+  </div>
+</div>
+<div class="card">
+  <div class="k">キュー完了率 (7日)</div>
+  <div>
+    <div class="row"><span class="v">69</span><span class="u">%</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill warn"><span class="dotc d-warn"></span>注意</span><span class="pill" style="color:var(--txt-3)">完了 11 / 失敗 3</span></div>
+  </div>
+</div>
+<div class="card">
+  <div class="k">自動処理 新鮮度</div>
+  <div>
+    <div class="row"><span class="v">5</span><span class="u">/ 5</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill ok"><span class="dotc d-ok"></span>正常</span><span class="pill" style="color:var(--txt-3)">100.0% が最新出力あり</span></div>
+  </div>
+</div>
+<div class="card">
+  <div class="k">言い直し検知</div>
+  <div>
+    <div class="row"><span class="v">26</span><span class="u">件</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill warn"><span class="dotc d-warn"></span>注意</span><span class="pill" style="color:var(--txt-3)">WATCH (観測窓)</span></div>
+  </div>
+</div>
+<div class="card">
+  <div class="k">未検証で完了扱い</div>
+  <div>
+    <div class="row"><span class="v">0</span><span class="u">件</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill ok"><span class="dotc d-ok"></span>正常</span><span class="pill" style="color:var(--txt-3)">検品ゲート漏れ</span></div>
+  </div>
+</div>
+<div class="card">
+  <div class="k">停滞中の作業 (&gt;7日)</div>
+  <div>
+    <div class="row"><span class="v">0</span><span class="u">件</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill ok"><span class="dotc d-ok"></span>正常</span><span class="pill" style="color:var(--txt-3)">着手中のまま放置</span></div>
+  </div>
+</div>
+</div>
+
+<div class="sec-label">仕事の流れ (キュー)</div>
+<div class="grid">
+<div class="card">
+  <div class="k">着手中</div>
+  <div>
+    <div class="row"><span class="v">5</span><span class="u">件</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill" style="color:var(--txt-3)">in-progress</span></div>
+  </div>
+</div>
+<div class="card">
+  <div class="k">順番待ち</div>
+  <div>
+    <div class="row"><span class="v">5</span><span class="u">件</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill" style="color:var(--txt-3)">pending</span></div>
+  </div>
+</div>
+<div class="card">
+  <div class="k">判断待ち</div>
+  <div>
+    <div class="row"><span class="v">0</span><span class="u">件</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill" style="color:var(--txt-3)">awaiting-judgment</span></div>
+  </div>
+</div>
+<div class="card">
+  <div class="k">○×ボード 総件数</div>
+  <div>
+    <div class="row"><span class="v">22</span><span class="u">件</span></div>
+    <div class="row" style="margin-top:7px;gap:6px"><span class="pill" style="color:var(--txt-3)">回答済 20</span></div>
+  </div>
+</div>
+</div>
+<details class="more plans" style="margin-top:9px"><summary>着手中テーマ 5 件を表示 ▸</summary><div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">accounting-northstar-impl</span></div>
+<div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">dashboard-visibility</span></div>
+<div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">minutes-pipeline-s1</span></div>
+<div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">slide-quality</span></div>
+<div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">zukan-ch23-quality-fix</span></div></details>
+
+<div class="sec-label">やりたいこと在庫 (プラン)</div>
+<div class="plans">
+  <div class="hd">
+    <span class="t">プラン 27 件</span>
+    <span class="c">停滞 (14日+) 20 件 · 停滞日数順</span>
+  </div>
+  <div class="subgrp" style="color:var(--red)">21日+ 停滞 · 棚卸し候補</div>
+<div class="prow"><span class="dotc d-bad"></span><span class="name">tachikoma-uiux-redesign-2026-06-08</span><span class="age bad">28日</span></div>
+<div class="prow"><span class="dotc d-bad"></span><span class="name">ahun-autonomy-loop-2026-06-09</span><span class="age bad">28日</span></div>
+<div class="prow"><span class="dotc d-bad"></span><span class="name">logikoma-daemon-2026-05-30</span><span class="age bad">27日</span></div>
+<div class="prow"><span class="dotc d-bad"></span><span class="name">2-codex-1-glimmering-lemon</span><span class="age bad">24日</span></div>
+<div class="prow"><span class="dotc d-bad"></span><span class="name">cc-codex-redundancy-2026-06-13</span><span class="age bad">23日</span></div>
+<div class="prow"><span class="dotc d-bad"></span><span class="name">dashboard-b2-write-completion-2026-06-14</span><span class="age bad">22日</span></div>
+<div class="prow"><span class="dotc d-bad"></span><span class="name">system-reminder-message-sent-at-sun-vectorized-reef</span><span class="age bad">22日</span></div>
+<div class="subgrp" style="color:var(--amber)">14–20日 停滞</div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-typed-thompson</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-cached-pony</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">broken-daemon-remediation-2026-06-16</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">system-meta-redesign-2026-06-16</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">extinct-jobs-bible-mvp-launch-2026-05-22</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-cheeky-dusk</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-reactive-stonebraker</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">gdocs-beta-hybrid-2026-06-04</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-expressive-tulip</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-goofy-kite</span><span class="age warn">20日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">account-crystalline-cook</span><span class="age warn">17日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">account-sequential-haven</span><span class="age warn">17日</span></div>
+<div class="prow"><span class="dotc d-warn"></span><span class="name">water-dashboard-redesign-2026-06-19</span><span class="age warn">17日</span></div>
+<details class="more"><summary>直近更新 7 件を表示 ▸</summary><div class="prow"><span class="dotc d-mute"></span><span class="name">business-context-distillation-2026-06-19</span><span class="age ">10日</span></div>
+<div class="prow"><span class="dotc d-mute"></span><span class="name">water-dashboard-refactor-2026-06-28</span><span class="age ">8日</span></div>
+<div class="prow"><span class="dotc d-ok"></span><span class="name">water-dashboard-uiux-proposal-2026-06-29</span><span class="age ">6日</span></div>
+<div class="prow"><span class="dotc d-ok"></span><span class="name">water-dashboard-refactor-executor-handoff-2026-07-02</span><span class="age ">4日</span></div>
+<div class="prow"><span class="dotc d-ok"></span><span class="name">swift-questing-moler</span><span class="age ">4日</span></div>
+<div class="prow"><span class="dotc d-ok"></span><span class="name">accounting-system-asset-design-2026-06-27</span><span class="age ">1日</span></div>
+<div class="prow"><span class="dotc d-ok"></span><span class="name">innfra-minutes-pipeline-2026-06-26</span><span class="age ">0日</span></div></details>
+</div>
+<div class="note">
+  「やりたいこと」が報告から静かに消えないための在庫ビュー。
+  停滞日数 = 最終更新からの経過。<span style="color:var(--amber)">14日+</span> /
+  <span style="color:var(--red)">21日+</span> は棚卸し候補。
+</div>
+
+<footer>
+  数値は集計 metric のみ (件名・金額・人名は非掲載)。<br>
+  URL は非公開リンク · noindex。
+</footer>
+</body></html>
