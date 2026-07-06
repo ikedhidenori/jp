@@ -4,211 +4,138 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a0c10">
 <meta name="robots" content="noindex, nofollow">
-<title>Johnny OS — 見える化</title>
+<title>きょうの地図 — ジョニーの見える化</title>
 <style>
 :root{color-scheme:dark;
---bg:#0a0c10;--surface-1:#14171d;--surface-2:#1a1d24;--border:#232830;--border-soft:#1d2128;
---txt:#e8ebf0;--txt-2:#aab1bd;--txt-3:#828a99;--txt-4:#626a76;
---red:#f0635a;--amber:#d6a44c;--blue:#5a93e6;--green:#56b87a;--grey:#3a414c;
+--bg:#0a0c10;--s1:#14171d;--s2:#1a1d24;--bd:#232830;--bds:#1d2128;
+--tx:#e8ebf0;--tx2:#aab1bd;--tx3:#828a99;
+--red:#f0635a;--amber:#d6a44c;--blue:#5a93e6;--green:#56b87a;--grey:#39414c;
 --r:14px;--tap:44px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{-webkit-text-size-adjust:100%;}
 body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-background:var(--bg);color:var(--txt);line-height:1.5;letter-spacing:.005em;
-padding:18px 16px calc(28px + env(safe-area-inset-bottom));max-width:620px;margin:0 auto;
+background:var(--bg);color:var(--tx);line-height:1.55;letter-spacing:.005em;
+padding:18px 15px calc(30px + env(safe-area-inset-bottom));max-width:600px;margin:0 auto;
 font-size:15px;-webkit-font-smoothing:antialiased;}
-header{margin-bottom:16px;}
-h1{font-size:1.15rem;font-weight:680;letter-spacing:.01em;}
-.sub{font-size:.72rem;color:var(--txt-3);margin-top:3px;}
-.hero{display:flex;align-items:center;gap:12px;background:var(--surface-1);
-border:1px solid var(--border-soft);border-radius:16px;padding:16px 18px;margin-bottom:18px;}
-.hero .big{font-size:2.1rem;font-weight:720;line-height:1;font-variant-numeric:tabular-nums;}
-.hero .lbl{font-size:.74rem;color:var(--txt-3);text-transform:uppercase;letter-spacing:.11em;margin-bottom:5px;}
-.hero .dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
-.sec-label{font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
-color:var(--txt-3);margin:22px 2px 9px;}
-.subgrp{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-color:var(--txt-3);padding:9px 15px 5px;background:var(--surface-2);}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
-.card{background:var(--surface-1);border:1px solid var(--border-soft);border-radius:var(--r);
-padding:13px 14px;min-height:78px;display:flex;flex-direction:column;justify-content:space-between;}
-.card .k{font-size:.7rem;color:var(--txt-3);letter-spacing:.03em;line-height:1.35;}
-.card .row{display:flex;align-items:baseline;gap:7px;margin-top:8px;}
-.card .v{font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;}
-.card .u{font-size:.72rem;color:var(--txt-3);}
-.pill{display:inline-flex;align-items:center;gap:5px;font-size:.66rem;font-weight:640;
-padding:2px 8px;border-radius:999px;letter-spacing:.02em;}
-.ok{color:var(--green);} .ok .dot,.pill.ok{background:rgba(86,184,122,.13);}
-.warn{color:var(--amber);} .warn .dot,.pill.warn{background:rgba(214,164,76,.14);}
-.bad{color:var(--red);} .bad .dot,.pill.bad{background:rgba(240,99,90,.13);}
-.dotc{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.d-ok{background:var(--green);} .d-warn{background:var(--amber);} .d-bad{background:var(--red);}
-.d-mute{background:var(--grey);}
-.plans{background:var(--surface-1);border:1px solid var(--border-soft);border-radius:var(--r);overflow:hidden;}
-.plans .hd{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;
-border-bottom:1px solid var(--border-soft);}
-.plans .hd .t{font-size:.86rem;font-weight:660;}
-.plans .hd .c{font-size:.72rem;color:var(--txt-3);}
-.prow{display:flex;align-items:center;gap:10px;padding:9px 15px;border-bottom:1px solid var(--border-soft);}
-.prow:last-child{border-bottom:none;}
-.prow .name{flex:1;min-width:0;font-size:.82rem;color:var(--txt-2);
-white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.prow .age{font-size:.74rem;font-variant-numeric:tabular-nums;font-weight:640;flex-shrink:0;
-min-width:56px;text-align:right;}
-.note{font-size:.68rem;color:var(--txt-3);line-height:1.55;margin:10px 3px 0;}
-details.more{margin-top:6px;}
-details.more>summary{list-style:none;cursor:pointer;font-size:.74rem;color:var(--txt-3);
-padding:9px 15px;min-height:var(--tap);display:flex;align-items:center;gap:6px;}
-details.more>summary::-webkit-details-marker{display:none;}
-footer{margin-top:26px;text-align:center;font-size:.66rem;color:var(--txt-3);line-height:1.6;}
-@media (min-width:620px){body{max-width:680px;padding:22px 20px calc(32px + env(safe-area-inset-bottom));}}
-@media (min-width:920px){body{max-width:720px;padding:26px 24px calc(36px + env(safe-area-inset-bottom));}
-.grid{gap:11px;}}
+header{margin-bottom:6px;}
+h1{font-size:1.18rem;font-weight:700;letter-spacing:.01em;}
+.sub{font-size:.72rem;color:var(--tx3);margin-top:3px;}
+.sec{font-size:.94rem;font-weight:720;margin:26px 2px 11px;display:flex;align-items:center;gap:8px;}
+.sec .n{font-size:.68rem;font-weight:700;color:var(--tx3);background:var(--s2);
+border:1px solid var(--bd);border-radius:999px;min-width:20px;height:20px;
+display:inline-flex;align-items:center;justify-content:center;padding:0 6px;}
+.lead{font-size:.74rem;color:var(--tx3);margin:-6px 3px 11px;line-height:1.5;}
+
+/* ---- 今の1手 ---- */
+.move{background:var(--s1);border:1px solid var(--bd);border-radius:16px;
+padding:16px 16px 14px;margin-bottom:12px;position:relative;overflow:hidden;}
+.move::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue);}
+.move.hero{border-color:#2c3a52;background:linear-gradient(180deg,#16202e,#14171d);}
+.move .tag{font-size:.66rem;font-weight:700;color:var(--blue);letter-spacing:.04em;
+margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.move .exp{color:var(--amber);}
+.move .q{font-size:.98rem;font-weight:650;line-height:1.5;margin-bottom:4px;}
+.move .qs{font-size:.9rem;font-weight:600;line-height:1.5;color:var(--tx);
+padding:8px 0 8px 16px;position:relative;border-top:1px solid var(--bds);}
+.move .qs:first-of-type{border-top:none;}
+.move .qs::before{content:"○×";position:absolute;left:0;top:8px;font-size:.66rem;
+font-weight:700;color:var(--tx3);}
+.move .rec{color:var(--green);font-size:.7rem;font-weight:700;margin-left:8px;}
+.move .eff{display:flex;gap:10px;margin-top:12px;padding-top:11px;border-top:1px solid var(--bds);}
+.move .eff .col{flex:1;min-width:0;}
+.move .eff .lb{font-size:.62rem;font-weight:700;letter-spacing:.06em;color:var(--tx3);
+text-transform:none;margin-bottom:3px;}
+.move .eff .go{color:var(--green);} .move .eff .stop{color:var(--red);}
+.move .eff .v{font-size:.78rem;line-height:1.45;color:var(--tx2);}
+.move .lane-link{margin-top:10px;font-size:.7rem;color:var(--tx3);}
+.move .lane-link b{color:var(--blue);font-weight:650;}
+.calm{background:var(--s1);border:1px solid var(--bds);border-radius:14px;
+padding:15px 16px;color:var(--tx2);font-size:.86rem;text-align:center;}
+
+/* ---- 今日やること ---- */
+.todo{background:var(--s1);border:1px solid var(--bds);border-radius:var(--r);overflow:hidden;}
+.trow{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border-top:1px solid var(--bds);}
+.trow:first-child{border-top:none;}
+.trow .when{font-size:.72rem;font-weight:700;color:var(--blue);flex-shrink:0;
+min-width:74px;padding-top:1px;}
+.trow .body{flex:1;min-width:0;}
+.trow .nm{font-size:.84rem;font-weight:600;line-height:1.4;}
+.trow .ds{font-size:.7rem;color:var(--tx3);margin-top:2px;line-height:1.4;}
+
+/* ---- 全体の地図 ---- */
+.pillar{margin-top:16px;}
+.pillar .ph{display:flex;align-items:baseline;gap:8px;margin:0 2px 8px;}
+.pillar .ph .pl{font-size:.82rem;font-weight:720;}
+.pillar .ph .ps{font-size:.66rem;color:var(--tx3);}
+.lane{background:var(--s1);border:1px solid var(--bds);border-radius:12px;
+padding:12px 13px;margin-bottom:8px;}
+.lane .lh{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap;}
+.lane .lh .ln{font-size:.86rem;font-weight:650;}
+.lane .lh .bdg{font-size:.64rem;font-weight:700;padding:2px 7px;border-radius:999px;letter-spacing:.02em;}
+.bdg.act{color:var(--amber);background:rgba(214,164,76,.14);}
+.bdg.ask{color:var(--blue);background:rgba(90,147,230,.15);}
+.bar{display:flex;gap:4px;}
+.bar .seg{flex:1;height:26px;border-radius:6px;background:var(--s2);
+border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;
+font-size:.66rem;color:var(--tx3);font-weight:600;position:relative;}
+.bar .seg.done{background:rgba(86,184,122,.16);border-color:rgba(86,184,122,.4);color:var(--green);}
+.bar .seg.now{background:var(--blue);border-color:var(--blue);color:#08101c;font-weight:700;}
+.bar .seg.now::after{content:"今ここ";position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+font-size:.6rem;font-weight:700;color:var(--blue);white-space:nowrap;}
+.lane .lnote{font-size:.72rem;color:var(--tx3);margin-top:13px;line-height:1.45;}
+
+/* ---- 走行中 ---- */
+.work{background:var(--s1);border:1px solid var(--bds);border-radius:var(--r);overflow:hidden;}
+.wrow{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--bds);}
+.wrow:first-child{border-top:none;}
+.wrow .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0;}
+.wrow .nm{flex:1;min-width:0;font-size:.84rem;color:var(--tx);}
+.wrow .st{font-size:.68rem;color:var(--tx3);flex-shrink:0;}
+
+/* ---- 健康メーター (最下段・小) ---- */
+.meter{margin-top:26px;background:var(--s1);border:1px solid var(--bds);
+border-radius:12px;padding:12px 14px;}
+.meter .mh{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.meter .mh .dot{width:10px;height:10px;border-radius:50%;}
+.meter .mh .big{font-size:1.1rem;font-weight:720;font-variant-numeric:tabular-nums;}
+.meter .mh .lb{font-size:.72rem;color:var(--tx3);}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;}
+.mitem{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--tx3);}
+.mitem .d{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.d-ok{background:var(--green);} .d-warn{background:var(--amber);}
+footer{margin-top:22px;text-align:center;font-size:.64rem;color:var(--tx3);line-height:1.7;}
+@media (min-width:600px){body{max-width:660px;padding:22px 20px calc(34px + env(safe-area-inset-bottom));}
+.mgrid{gap:6px 16px;}}
 </style>
 </head><body>
 <header>
-  <h1>Johnny OS <span style="color:var(--txt-3);font-weight:500">見える化</span></h1>
-  <div class="sub">最終更新 2026-07-07 03:14 JST · 毎朝 07:30 自動再生成</div>
+  <h1>きょうの地図 <span style="color:var(--tx3);font-weight:500">— ジョニー</span></h1>
+  <div class="sub">最終更新 2026-07-07 06:04・上から順に読むだけでOK</div>
 </header>
 
-<div class="hero warn">
-  <span class="dot d-warn"></span>
-  <div style="flex:1">
-    <div class="lbl">システム健全度</div>
-    <div style="display:flex;align-items:baseline;gap:9px">
-      <span class="big">4/6</span>
-      <span style="font-size:.82rem;font-weight:600">2 系統に注意</span>
-    </div>
-  </div>
-</div>
+<div class="sec"><span class="n">1</span>あなたの、いまの一手</div>
+<div class="lead">あなたが○か×を答えると、下の地図のどこかが一段すすみます。</div>
+<div class="move hero"><div class="tag">▶ あなたの答え待ち・4件まとめて<span class="exp">・期限あと6日</span></div><div class="qs">宿泊キットの値段は、ラーメンより高めの （価格） でスタートしますか? (宿泊は開業に（金額）かかるので、単価を上げても割安に感じてもらえる想定です)<span class="rec">おすすめ ○</span></div><div class="qs">グランピングの稼働率など、国の統計が無い項目は「推計」と正直に明記したまま売り出してOK ですか? (追加で取材すると発売が数週間延びます)<span class="rec">おすすめ ○</span></div><div class="qs">販売は note（記事販売） の有料記事だけで完結させてOK ですか? (シミュレーターや地図はGoogleドライブの限定共有で渡します)<span class="rec">おすすめ ○</span></div><div class="qs">無料記事 (業態の見取り図+簡易診断) は、お客さんを呼び込むために全文無料で公開してOK ですか?<span class="rec">おすすめ ○</span></div><div class="eff"><div class="col"><div class="lb go">答えると動くもの</div><div class="v">宿泊図鑑を売り出せる（副業の収入源が1つ増える）</div></div><div class="col"><div class="lb stop">これが止めているもの</div><div class="v">図鑑の発売そのもの</div></div></div><div class="lane-link">地図では <b>図鑑・宿泊編</b>（収入の柱② 副業）を進めます</div></div>
+<div class="move "><div class="tag">▶ あなたの答え待ち</div><div class="qs">「見える化ページ」を毎朝の成績表づくりの後に自動で作り直して公開する仕組みを、常時ONにしていい? (公開ページは今できていて手動更新なら動く。今回はそれを毎朝自動更新にするだけ。載せるのは件数・状態の数字のみで、案件名や金額は載せない)<span class="rec">おすすめ ○</span></div><div class="eff"><div class="col"><div class="lb go">答えると動くもの</div><div class="v">このページが毎朝ひとりでに最新になる</div></div><div class="col"><div class="lb stop">これが止めているもの</div><div class="v">今は手で更新している状態</div></div></div><div class="lane-link">地図では <b>この見える化ページ</b>（ぜんぶの土台 システム）を進めます</div></div>
 
-<div class="sec-label">スコアボード (S1–S5)</div>
-<div class="grid">
-<div class="card">
-  <div class="k">○×ボード 未回答</div>
-  <div>
-    <div class="row"><span class="v">3</span><span class="u">件</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill ok"><span class="dotc d-ok"></span>正常</span><span class="pill" style="color:var(--txt-3)">しきい値 10</span></div>
-  </div>
-</div>
-<div class="card">
-  <div class="k">キュー完了率 (7日)</div>
-  <div>
-    <div class="row"><span class="v">69</span><span class="u">%</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill warn"><span class="dotc d-warn"></span>注意</span><span class="pill" style="color:var(--txt-3)">完了 11 / 失敗 3</span></div>
-  </div>
-</div>
-<div class="card">
-  <div class="k">自動処理 新鮮度</div>
-  <div>
-    <div class="row"><span class="v">5</span><span class="u">/ 5</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill ok"><span class="dotc d-ok"></span>正常</span><span class="pill" style="color:var(--txt-3)">100.0% が最新出力あり</span></div>
-  </div>
-</div>
-<div class="card">
-  <div class="k">言い直し検知</div>
-  <div>
-    <div class="row"><span class="v">26</span><span class="u">件</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill warn"><span class="dotc d-warn"></span>注意</span><span class="pill" style="color:var(--txt-3)">WATCH (観測窓)</span></div>
-  </div>
-</div>
-<div class="card">
-  <div class="k">未検証で完了扱い</div>
-  <div>
-    <div class="row"><span class="v">0</span><span class="u">件</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill ok"><span class="dotc d-ok"></span>正常</span><span class="pill" style="color:var(--txt-3)">検品ゲート漏れ</span></div>
-  </div>
-</div>
-<div class="card">
-  <div class="k">停滞中の作業 (&gt;7日)</div>
-  <div>
-    <div class="row"><span class="v">0</span><span class="u">件</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill ok"><span class="dotc d-ok"></span>正常</span><span class="pill" style="color:var(--txt-3)">着手中のまま放置</span></div>
-  </div>
-</div>
-</div>
+<div class="sec"><span class="n">2</span>きょう、ひとりでに動くこと</div>
+<div class="lead">あなたが寝ていても、この時間割で仕組みが回っています。</div>
+<div class="todo"><div class="trow"><span class="when">毎朝 07:30</span><span class="body"><span class="nm">きょうの成績表づくり</span><span class="ds">システムの調子を数字にまとめる</span></span></div><div class="trow"><span class="when">30分ごと</span><span class="body"><span class="nm">たまった仕事を作業係にふり分ける</span><span class="ds">順番待ちの仕事があれば自動で着手させる</span></span></div><div class="trow"><span class="when">30分ごと</span><span class="body"><span class="nm">○×ボードを見回り、まとめて通知</span><span class="ds">答え待ちの質問を一日一回あなたに届ける</span></span></div><div class="trow"><span class="when">30分ごと</span><span class="body"><span class="nm">システムの見張りと自動手当て</span><span class="ds">止まった自動処理を見つけて立て直す</span></span></div><div class="trow"><span class="when">30分ごと</span><span class="body"><span class="nm">設定の変化を見張る</span><span class="ds">設定が勝手に書き換わっていないか確認</span></span></div><div class="trow"><span class="when">1分ごと</span><span class="body"><span class="nm">非常停止スイッチの見張り</span><span class="ds">「全部止めて」の合図をいつでも拾える</span></span></div><div class="trow"><span class="when">12時間ごと</span><span class="body"><span class="nm">新しい発表の巡回チェック</span><span class="ds">使っている道具の新機能を取りこぼさない</span></span></div></div>
 
-<div class="sec-label">仕事の流れ (キュー)</div>
-<div class="grid">
-<div class="card">
-  <div class="k">着手中</div>
-  <div>
-    <div class="row"><span class="v">5</span><span class="u">件</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill" style="color:var(--txt-3)">in-progress</span></div>
-  </div>
-</div>
-<div class="card">
-  <div class="k">順番待ち</div>
-  <div>
-    <div class="row"><span class="v">5</span><span class="u">件</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill" style="color:var(--txt-3)">pending</span></div>
-  </div>
-</div>
-<div class="card">
-  <div class="k">判断待ち</div>
-  <div>
-    <div class="row"><span class="v">0</span><span class="u">件</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill" style="color:var(--txt-3)">awaiting-judgment</span></div>
-  </div>
-</div>
-<div class="card">
-  <div class="k">○×ボード 総件数</div>
-  <div>
-    <div class="row"><span class="v">22</span><span class="u">件</span></div>
-    <div class="row" style="margin-top:7px;gap:6px"><span class="pill" style="color:var(--txt-3)">回答済 20</span></div>
-  </div>
-</div>
-</div>
-<details class="more plans" style="margin-top:9px"><summary>着手中テーマ 5 件を表示 ▸</summary><div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">accounting-northstar-impl</span></div>
-<div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">dashboard-visibility</span></div>
-<div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">minutes-pipeline-s1</span></div>
-<div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">slide-quality</span></div>
-<div class="prow"><span class="dotc d-blue" style="background:var(--blue)"></span><span class="name">zukan-ch23-quality-fix</span></div></details>
+<div class="sec"><span class="n">3</span>ぜんぶの地図（今どこ？）</div>
+<div class="lead">目標は収入の3本柱＋その土台。各レーンが「構想→製作→検証→稼働」のどこにいるか。</div>
+<div class="pillar"><div class="ph"><span class="pl">収入の柱① 本業</span><span class="ps">毎月の仕事を自動で回す</span></div><div class="lane"><div class="lh"><span class="ln">経理の自動化</span><span class="bdg act">作業中</span></div><div class="bar"><div class="seg done">構想</div><div class="seg done">製作</div><div class="seg now">検証</div><div class="seg ">稼働・販売</div></div><div class="lnote">請求や仕訳を自動で。明日、月次のおさらい本番</div></div><div class="lane"><div class="lh"><span class="ln">議事録の自動化</span><span class="bdg act">作業中</span></div><div class="bar"><div class="seg done">構想</div><div class="seg now">製作</div><div class="seg ">検証</div><div class="seg ">稼働・販売</div></div><div class="lnote">打ち合わせの録音から議事録を自動で。今つくっている最中</div></div></div>
+<div class="pillar"><div class="ph"><span class="pl">収入の柱② 副業</span><span class="ps">「逃げていい」＋AI活用＋図鑑シリーズ</span></div><div class="lane"><div class="lh"><span class="ln">図鑑・ラーメン編</span><span class="bdg act">作業中</span></div><div class="bar"><div class="seg done">構想</div><div class="seg done">製作</div><div class="seg done">検証</div><div class="seg now">稼働・販売</div></div><div class="lnote">ほぼ仕上がり。売り出しの最終調整</div></div><div class="lane"><div class="lh"><span class="ln">図鑑・宿泊編</span><span class="bdg ask">あなたの答え待ち</span><span class="bdg act">作業中</span></div><div class="bar"><div class="seg done">構想</div><div class="seg now">製作</div><div class="seg ">検証</div><div class="seg ">稼働・販売</div></div><div class="lnote">値段と売り方を今決めている。あなたの答え待ち</div></div></div>
+<div class="pillar"><div class="ph"><span class="pl">収入の柱③ 新しい事業</span><span class="ps">地方移住と場づくり</span></div><div class="lane"><div class="lh"><span class="ln">移住と場づくり</span></div><div class="bar"><div class="seg now">構想</div><div class="seg ">製作</div><div class="seg ">検証</div><div class="seg ">稼働・販売</div></div><div class="lnote">まだ構想。焦らず候補地とコンセプトを深掘り</div></div></div>
+<div class="pillar"><div class="ph"><span class="pl">ぜんぶの土台 システム</span><span class="ps">ひとりでに回る仕組み</span></div><div class="lane"><div class="lh"><span class="ln">システムの引っ越し</span><span class="bdg act">作業中</span></div><div class="bar"><div class="seg done">構想</div><div class="seg done">製作</div><div class="seg now">検証</div><div class="seg ">稼働・販売</div></div><div class="lnote">新しい土台へ移行中。今週末に締めの見極め</div></div><div class="lane"><div class="lh"><span class="ln">この見える化ページ</span><span class="bdg ask">あなたの答え待ち</span></div><div class="bar"><div class="seg done">構想</div><div class="seg done">製作</div><div class="seg now">検証</div><div class="seg ">稼働・販売</div></div><div class="lnote">今まさに作り直している。毎朝の自動更新はあなたの答え待ち</div></div><div class="lane"><div class="lh"><span class="ln">提案スライドの品質</span></div><div class="bar"><div class="seg now">構想</div><div class="seg ">製作</div><div class="seg ">検証</div><div class="seg ">稼働・販売</div></div><div class="lnote">資料の質をもう一段上げる準備</div></div></div>
 
-<div class="sec-label">やりたいこと在庫 (プラン)</div>
-<div class="plans">
-  <div class="hd">
-    <span class="t">プラン 27 件</span>
-    <span class="c">停滞 (14日+) 20 件 · 停滞日数順</span>
-  </div>
-  <div class="subgrp" style="color:var(--red)">21日+ 停滞 · 棚卸し候補</div>
-<div class="prow"><span class="dotc d-bad"></span><span class="name">tachikoma-uiux-redesign-2026-06-08</span><span class="age bad">28日</span></div>
-<div class="prow"><span class="dotc d-bad"></span><span class="name">ahun-autonomy-loop-2026-06-09</span><span class="age bad">28日</span></div>
-<div class="prow"><span class="dotc d-bad"></span><span class="name">logikoma-daemon-2026-05-30</span><span class="age bad">27日</span></div>
-<div class="prow"><span class="dotc d-bad"></span><span class="name">2-codex-1-glimmering-lemon</span><span class="age bad">24日</span></div>
-<div class="prow"><span class="dotc d-bad"></span><span class="name">cc-codex-redundancy-2026-06-13</span><span class="age bad">23日</span></div>
-<div class="prow"><span class="dotc d-bad"></span><span class="name">dashboard-b2-write-completion-2026-06-14</span><span class="age bad">22日</span></div>
-<div class="prow"><span class="dotc d-bad"></span><span class="name">system-reminder-message-sent-at-sun-vectorized-reef</span><span class="age bad">22日</span></div>
-<div class="subgrp" style="color:var(--amber)">14–20日 停滞</div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-typed-thompson</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-cached-pony</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">broken-daemon-remediation-2026-06-16</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">system-meta-redesign-2026-06-16</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">extinct-jobs-bible-mvp-launch-2026-05-22</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-cheeky-dusk</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-reactive-stonebraker</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">gdocs-beta-hybrid-2026-06-04</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-expressive-tulip</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">you-are-logikoma-pm-goofy-kite</span><span class="age warn">20日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">account-crystalline-cook</span><span class="age warn">17日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">account-sequential-haven</span><span class="age warn">17日</span></div>
-<div class="prow"><span class="dotc d-warn"></span><span class="name">water-dashboard-redesign-2026-06-19</span><span class="age warn">17日</span></div>
-<details class="more"><summary>直近更新 7 件を表示 ▸</summary><div class="prow"><span class="dotc d-mute"></span><span class="name">business-context-distillation-2026-06-19</span><span class="age ">10日</span></div>
-<div class="prow"><span class="dotc d-mute"></span><span class="name">water-dashboard-refactor-2026-06-28</span><span class="age ">8日</span></div>
-<div class="prow"><span class="dotc d-ok"></span><span class="name">water-dashboard-uiux-proposal-2026-06-29</span><span class="age ">6日</span></div>
-<div class="prow"><span class="dotc d-ok"></span><span class="name">water-dashboard-refactor-executor-handoff-2026-07-02</span><span class="age ">4日</span></div>
-<div class="prow"><span class="dotc d-ok"></span><span class="name">swift-questing-moler</span><span class="age ">4日</span></div>
-<div class="prow"><span class="dotc d-ok"></span><span class="name">accounting-system-asset-design-2026-06-27</span><span class="age ">1日</span></div>
-<div class="prow"><span class="dotc d-ok"></span><span class="name">innfra-minutes-pipeline-2026-06-26</span><span class="age ">0日</span></div></details>
-</div>
-<div class="note">
-  「やりたいこと」が報告から静かに消えないための在庫ビュー。
-  停滞日数 = 最終更新からの経過。<span style="color:var(--amber)">14日+</span> /
-  <span style="color:var(--red)">21日+</span> は棚卸し候補。
-</div>
+<div class="sec"><span class="n">4</span>いま走っている作業</div>
+<div class="work"><div class="wrow"><span class="dot"></span><span class="nm">経理の自動化</span><span class="st">きょう着手</span></div><div class="wrow"><span class="dot"></span><span class="nm">システムの引っ越し</span><span class="st">きょう着手</span></div><div class="wrow"><span class="dot"></span><span class="nm">図鑑・宿泊編</span><span class="st">きょう着手</span></div><div class="wrow"><span class="dot"></span><span class="nm">議事録の自動化</span><span class="st">きょう着手</span></div><div class="wrow"><span class="dot"></span><span class="nm">図鑑・ラーメン編</span><span class="st">きょう着手</span></div><div class="wrow"><span class="dot"></span><span class="nm">図鑑 第23 品質 手直し</span><span class="st">着手して1日目</span></div></div>
+<div class="lead" style="margin-top:9px">このほかに順番待ちが 2 件。上の「ふり分け係」が手が空きしだい着手します。</div>
 
+<div class="meter"><div class="mh"><span class="dot d-warn"></span><span class="big">5/7</span><span class="lb">2か所に注意</span></div><div class="mgrid"><div class="mitem"><span class="d d-ok"></span>答え待ちの数</div><div class="mitem"><span class="d d-warn"></span>仕事の片付き</div><div class="mitem"><span class="d d-warn"></span>やり直しの少なさ</div><div class="mitem"><span class="d d-ok"></span>自動処理の元気</div><div class="mitem"><span class="d d-ok"></span>検品もれ</div><div class="mitem"><span class="d d-ok"></span>受信の仕分け</div><div class="mitem"><span class="d d-ok"></span>塩漬けの作業</div></div></div>
 <footer>
-  数値は集計 metric のみ (件名・金額・人名は非掲載)。<br>
-  URL は非公開リンク · noindex。
+  数字と状態だけを表示（案件名・金額・人名は載せません）。<br>
+  非公開リンク・検索よけ設定ずみ。
 </footer>
 </body></html>
