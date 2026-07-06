@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-label="制作から市場到達までの漏斗: 86職種から0投稿へ">
+  <text x="0" y="22" fill="#cdbd9e" font-size="16" font-family="sans-serif">制作 → 市場到達の漏斗 (職種・本・件)</text>
+  <g font-family="sans-serif" font-size="17" fill="#16120e" font-weight="700">
+    <rect x="0" y="40"  width="500" height="42" fill="#d99a3f"/><text x="250" y="67" text-anchor="middle">エントリ整理  86</text>
+    <rect x="70" y="94" width="360" height="42" fill="#cdbd9e"/><text x="250" y="121" text-anchor="middle">フル記事化  3</text>
+    <rect x="150" y="148" width="200" height="42" fill="#a99a7d"/><text x="250" y="175" text-anchor="middle" fill="#16120e">note 公開  1</text>
+    <rect x="205" y="202" width="90" height="42" fill="#c0472e"/><text x="250" y="229" text-anchor="middle" fill="#f5efe0">収益検証投稿  0</text>
+  </g>
+  <text x="0" y="278" fill="#a99a7d" font-size="14" font-family="sans-serif">出典: zukan-private-strategy-dashboard-20260703 (posted 0/9)</text>
+</svg>

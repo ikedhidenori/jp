@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" role="img" aria-label="経済解剖図鑑の系統樹: ラーメンが実証、宿泊が並走準備、焼肉・パン等が横展開候補">
+  <defs><style>.n{font-family:sans-serif;font-weight:700} .s{font-family:sans-serif;fill:#a99a7d;font-size:14px}</style></defs>
+  <rect x="360" y="16" width="280" height="56" rx="4" fill="#d99a3f"/>
+  <text x="500" y="42" text-anchor="middle" class="n" font-size="20" fill="#16120e">経済解剖図鑑</text>
+  <text x="500" y="62" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#3a2a12">物差し = 原価 / 損益分岐 / 撤退</text>
+  <line x1="500" y1="72" x2="500" y2="96" stroke="#34291d" stroke-width="2"/>
+  <line x1="180" y1="96" x2="820" y2="96" stroke="#34291d" stroke-width="2"/>
+  <g>
+    <line x1="180" y1="96" x2="180" y2="120" stroke="#34291d" stroke-width="2"/>
+    <rect x="60" y="120" width="240" height="70" rx="4" fill="#201a13" stroke="#86a86e" stroke-width="2"/>
+    <text x="180" y="150" text-anchor="middle" class="n" font-size="18" fill="#f0e8d6">ラーメン (No.001)</text>
+    <text x="180" y="174" text-anchor="middle" class="s" fill="#86a86e">記事live・キット完成 / 型を実証</text>
+  </g>
+  <g>
+    <line x1="500" y1="96" x2="500" y2="120" stroke="#34291d" stroke-width="2"/>
+    <rect x="380" y="120" width="240" height="70" rx="4" fill="#201a13" stroke="#d99a3f" stroke-width="2"/>
+    <text x="500" y="150" text-anchor="middle" class="n" font-size="18" fill="#f0e8d6">宿泊 (draft)</text>
+    <text x="500" y="174" text-anchor="middle" class="s" fill="#d99a3f">法区分×投資が物差し / 6判断ゲート</text>
+  </g>
+  <g>
+    <line x1="820" y1="96" x2="820" y2="120" stroke="#34291d" stroke-width="2"/>
+    <rect x="700" y="120" width="240" height="70" rx="4" fill="#201a13" stroke="#34291d" stroke-width="2"/>
+    <text x="820" y="150" text-anchor="middle" class="n" font-size="18" fill="#cdbd9e">横展開候補</text>
+    <text x="820" y="174" text-anchor="middle" class="s">焼肉 / パン … 検証OKまで凍結</text>
+  </g>
+  <text x="500" y="248" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#cdbd9e">昇格基準 = <tspan fill="#d99a3f" font-weight="700">事業軸 (損益構造の質的差)</tspan>。1巻がPMF検証されるまで次の巻を増やさない</text>
+  <text x="500" y="286" text-anchor="middle" class="s">批判レビュー §1-4: 全シリーズ収益0で5シリーズ並走 = 検証前の水平展開。凍結が正解</text>
+</svg>
