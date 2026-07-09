@@ -1,0 +1,1313 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>INNFRA 市場仮説集中討議ボード 2026-07-09</title>
+  <style>
+    :root {
+      --paper: #f4f2ec;
+      --sheet: #fbfaf6;
+      --ink: #191814;
+      --muted: #68645c;
+      --line: #d8d3c8;
+      --heavy: #2e2a24;
+      --blue: #23506d;
+      --green: #2f6f52;
+      --amber: #a56d1a;
+      --red: #91403b;
+      --cyan: #3b7780;
+      --violet: #64577a;
+      --shadow: rgba(25, 24, 20, .09);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(46, 42, 36, .035) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(46, 42, 36, .035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 22px 22px;
+      color: var(--ink);
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+      font-feature-settings: "palt";
+      letter-spacing: 0;
+      line-height: 1.72;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100vw - 28px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(244, 242, 236, .94);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar .shell {
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .brand {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      white-space: nowrap;
+    }
+
+    .mark {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--heavy);
+      position: relative;
+    }
+
+    .mark::before,
+    .mark::after {
+      content: "";
+      position: absolute;
+      background: var(--heavy);
+    }
+
+    .mark::before {
+      width: 8px;
+      height: 2px;
+      left: 3px;
+      top: 7px;
+    }
+
+    .mark::after {
+      width: 2px;
+      height: 8px;
+      left: 7px;
+      top: 3px;
+    }
+
+    .nav {
+      flex: 1 1 auto;
+      display: flex;
+      gap: 4px;
+      min-width: max-content;
+    }
+
+    .nav a,
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 5px 12px;
+      color: var(--muted);
+      background: transparent;
+      text-decoration: none;
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav a:hover,
+    .tool-btn:hover {
+      color: var(--ink);
+      border-color: var(--line);
+      background: var(--sheet);
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr);
+      gap: 28px;
+      align-items: end;
+    }
+
+    .kicker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 11px;
+      background: rgba(251, 250, 246, .78);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 880px;
+      font-size: clamp(34px, 6vw, 74px);
+      line-height: .98;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    .lead {
+      margin-top: 18px;
+      max-width: 780px;
+      color: var(--muted);
+      font-size: clamp(15px, 1.7vw, 19px);
+    }
+
+    .decision-box {
+      border: 2px solid var(--heavy);
+      background: var(--sheet);
+      padding: 18px 18px 16px;
+      box-shadow: 8px 8px 0 var(--heavy);
+    }
+
+    .decision-box .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    .decision-box .question {
+      margin-top: 8px;
+      font-size: 22px;
+      font-weight: 850;
+      line-height: 1.36;
+    }
+
+    .decision-box .small {
+      margin-top: 11px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .main {
+      padding: 28px 0 76px;
+    }
+
+    .section {
+      scroll-margin-top: 74px;
+      margin-top: 30px;
+      padding-top: 4px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, .42fr);
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: clamp(22px, 2.5vw, 34px);
+      line-height: 1.16;
+      font-weight: 850;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 13px;
+      border-left: 3px solid var(--heavy);
+      padding-left: 12px;
+      min-height: 36px;
+    }
+
+    .band {
+      border: 1px solid var(--line);
+      background: rgba(251, 250, 246, .84);
+      padding: 18px;
+      border-radius: var(--radius);
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .output-item {
+      min-height: 136px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--heavy);
+      background: var(--sheet);
+      border-radius: var(--radius);
+    }
+
+    .num {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      margin-bottom: 12px;
+      border: 1px solid var(--heavy);
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .output-item b {
+      display: block;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .output-item span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .layer-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .layer {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) minmax(230px, .48fr);
+      gap: 14px;
+      align-items: stretch;
+      border: 1px solid var(--line);
+      background: var(--sheet);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .layer .code {
+      display: grid;
+      place-items: center;
+      background: var(--heavy);
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    .layer .body {
+      padding: 14px 0;
+    }
+
+    .layer h3 {
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .layer p {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .layer .action {
+      padding: 14px;
+      border-left: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      background: rgba(216, 211, 200, .18);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .agenda {
+      border: 1px solid var(--line);
+      background: var(--sheet);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .agenda-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 54px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--heavy);
+      color: #fff;
+    }
+
+    .agenda-title h3 {
+      font-size: 18px;
+    }
+
+    .agenda-title span {
+      color: rgba(255, 255, 255, .72);
+      font-size: 12px;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .steps li:last-child {
+      border-bottom: 0;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .matrix-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+    }
+
+    table {
+      width: 100%;
+      min-width: 1040px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: 0;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    th {
+      position: sticky;
+      top: 54px;
+      z-index: 2;
+      background: #ebe6d9;
+      color: var(--heavy);
+      font-size: 11px;
+      letter-spacing: .08em;
+      line-height: 1.45;
+    }
+
+    td strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 23px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .s-spine { background: var(--green); }
+    .s-vision { background: var(--blue); }
+    .s-proof { background: var(--cyan); }
+    .s-hold { background: var(--amber); }
+    .s-kill { background: var(--red); }
+
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .frame-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+      padding: 16px;
+      min-height: 206px;
+    }
+
+    .frame-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 19px;
+      line-height: 1.25;
+    }
+
+    .frame-card .letter {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--heavy);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .frame-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .frame-card ul,
+    .gate ul,
+    .notes-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .frame-card li,
+    .gate li,
+    .notes-list li {
+      margin: 4px 0;
+      font-size: 13px;
+    }
+
+    .split-board {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .lane {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+      overflow: hidden;
+    }
+
+    .lane h3 {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      color: #fff;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .lane.spine h3 { background: var(--green); }
+    .lane.vision h3 { background: var(--blue); }
+    .lane.proof h3 { background: var(--cyan); }
+    .lane.kill h3 { background: var(--red); }
+
+    .lane ul {
+      margin: 0;
+      padding: 10px 14px 14px 28px;
+    }
+
+    .lane li {
+      margin: 7px 0;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .gate-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .gate {
+      min-height: 196px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+      padding: 12px;
+    }
+
+    .gate h3 {
+      min-height: 46px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .gate p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .issue-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .issue {
+      border: 2px solid var(--heavy);
+      background: var(--sheet);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .issue h3 {
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: .12em;
+      margin-bottom: 8px;
+    }
+
+    .issue p {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .issue .body {
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .worksheet-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .worksheet {
+      border: 1px solid var(--line);
+      background: var(--sheet);
+      border-radius: var(--radius);
+      overflow: hidden;
+      break-inside: avoid;
+    }
+
+    .worksheet h3 {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #ebe6d9;
+      font-size: 15px;
+    }
+
+    .fields {
+      display: grid;
+    }
+
+    .field {
+      min-height: 54px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .field:last-child {
+      border-bottom: 0;
+    }
+
+    .field b {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .1em;
+    }
+
+    .field span {
+      display: block;
+      margin-top: 6px;
+      color: #a19a8d;
+      font-size: 13px;
+    }
+
+    .source {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .source a,
+    .source span {
+      display: block;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+      color: var(--muted);
+      font-size: 12px;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .source a:hover {
+      color: var(--ink);
+      border-color: var(--heavy);
+    }
+
+    .notice {
+      border-left: 5px solid var(--amber);
+      background: rgba(165, 109, 26, .08);
+      padding: 13px 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .print-only {
+      display: none;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .section-head,
+      .two-col,
+      .issue-box,
+      .worksheet-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .output-grid,
+      .framework-grid,
+      .split-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gate-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .layer {
+        grid-template-columns: 70px minmax(0, 1fr);
+      }
+
+      .layer .action {
+        grid-column: 1 / -1;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100vw - 20px, 1180px);
+      }
+
+      .hero {
+        padding-top: 22px;
+      }
+
+      .decision-box {
+        box-shadow: 5px 5px 0 var(--heavy);
+      }
+
+      .output-grid,
+      .framework-grid,
+      .split-board,
+      .gate-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .layer {
+        grid-template-columns: 1fr;
+      }
+
+      .layer .code {
+        min-height: 40px;
+      }
+
+      th {
+        top: 0;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: #000;
+      }
+
+      .topbar,
+      .tool-btn {
+        display: none;
+      }
+
+      .shell {
+        width: 100%;
+      }
+
+      .hero {
+        padding-top: 0;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+
+      .band,
+      .output-item,
+      .agenda,
+      .frame-card,
+      .lane,
+      .gate,
+      .issue,
+      .worksheet,
+      .source a,
+      .source span {
+        background: white;
+        box-shadow: none;
+      }
+
+      .decision-box {
+        box-shadow: none;
+      }
+
+      .matrix-wrap {
+        overflow: visible;
+      }
+
+      table {
+        min-width: 0;
+        font-size: 10px;
+      }
+
+      th {
+        position: static;
+      }
+
+      .print-only {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar" role="banner">
+    <div class="shell">
+      <div class="brand"><span class="mark" aria-hidden="true"></span>INNFRA STRATEGY BOARD</div>
+      <div class="nav" role="navigation" aria-label="ページ内ナビゲーション">
+        <a href="#outputs">成果物</a>
+        <a href="#layers">4層</a>
+        <a href="#agenda">2日間</a>
+        <a href="#scorecard">仮説評価</a>
+        <a href="#portfolio">配分</a>
+        <a href="#extreme">エクスト</a>
+        <a href="#issue">問い</a>
+        <a href="#worksheets">ワークシート</a>
+      </div>
+      <button class="tool-btn" type="button" onclick="window.print()">印刷</button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <div class="kicker">
+          <span class="pill">2026-07-09</span>
+          <span class="pill">Public preview</span>
+          <span class="pill">市場仮説集中討議</span>
+          <span class="pill">Standalone HTML / no external assets</span>
+        </div>
+        <h1>市場仮説を、事業戦略に変換する。</h1>
+        <p class="lead">
+          このボードは、INNFRAの市場仮説を「収益スパイン」「ビジョン装置」「実証資産」「棄却候補」に分け、2日間で採用仮説・検証計画・対外説明向けストーリーへ落とすための討議資料。
+        </p>
+      </div>
+      <div class="decision-box" role="complementary" aria-label="中心問い">
+        <div class="label">CENTER ISSUE</div>
+        <p class="question">
+          INNFRAは、どの市場のどの切実さに刺して、最初の圧倒的勝ち筋を作るのか。
+        </p>
+        <p class="small">
+          目的はアイデア拡散ではなく、採用・保留・棄却・次の証拠を決めること。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell main" role="main">
+    <div class="section" id="outputs">
+      <div class="section-head">
+        <h2>0. 2日後に残す成果物</h2>
+        <p class="section-note">議論の出口を固定する。ここに残らない話題は、探索メモに戻す。</p>
+      </div>
+      <div class="output-grid">
+        <div class="output-item">
+          <span class="num">1</span>
+          <b>L1世界観、1文</b>
+          <span>ビジョンの再定義ではなく、ビジョンの一歩手前にある具体的な社会像。</span>
+        </div>
+        <div class="output-item">
+          <span class="num">2</span>
+          <b>採用市場仮説、最大3本</b>
+          <span>収益を作る仮説と、物語を作る仮説を混ぜずに選ぶ。</span>
+        </div>
+        <div class="output-item">
+          <span class="num">3</span>
+          <b>捨てる仮説</b>
+          <span>未練を残す仮説ほど、棄却理由を明文化して保存する。</span>
+        </div>
+        <div class="output-item">
+          <span class="num">4</span>
+          <b>検証計画</b>
+          <span>初回顧客、初回証拠、反証条件、判定期限を決める。</span>
+        </div>
+        <div class="output-item">
+          <span class="num">5</span>
+          <b>次回説明ストーリー</b>
+          <span>北極星から逆算したロードマップとKPI骨子へ変換する。</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="layers">
+      <div class="section-head">
+        <h2>1. 議論の4層</h2>
+        <p class="section-note">L0/L1/L2/L3を混ぜると堂々巡りになる。今日はL1を決め、L2を格付けし、L3を証拠として使う。</p>
+      </div>
+      <div class="layer-stack">
+        <div class="layer">
+          <div class="code">L0</div>
+          <div class="body">
+            <h3>Vision / Mission</h3>
+            <p>「地球のすべての夜に灯りと潤いを」「日本発のインフラ革新でくらしを自在にする」</p>
+          </div>
+          <div class="action">扱い: いじらない。再定義議論に戻さない。</div>
+        </div>
+        <div class="layer">
+          <div class="code">L1</div>
+          <div class="body">
+            <h3>描ける世界</h3>
+            <p>例: 水・電力・住環境の制約がある場所を、日常利用できる生存圏に変える。</p>
+          </div>
+          <div class="action">扱い: 今日の主戦場。1文にする。</div>
+        </div>
+        <div class="layer">
+          <div class="code">L2</div>
+          <div class="body">
+            <h3>市場仮説</h3>
+            <p>公共・災害対応組織、防災B2G、水信頼性B2B、エクストリームステイ、富裕層、島嶼、住宅、シェルター。</p>
+          </div>
+          <div class="action">扱い: Must / Will / Can と証拠で格付けする。</div>
+        </div>
+        <div class="layer">
+          <div class="code">L3</div>
+          <div class="body">
+            <h3>実証・案件</h3>
+            <p>体験実証A、水運用実証A、納品実証A、施設実証A、施設実証B、パートナー検証A、エネルギー連携先、特定地域。</p>
+          </div>
+          <div class="action">扱い: 戦略そのものではなく、仮説を支える証拠として使う。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="agenda">
+      <div class="section-head">
+        <h2>2. 2日間のアジェンダ</h2>
+        <p class="section-note">Day 1で問いを決める。Day 2で戦略に落とす。</p>
+      </div>
+      <div class="two-col">
+        <div class="agenda">
+          <div class="agenda-title">
+            <h3>Day 1: 問いを決める</h3>
+            <span>L1 / L2 / 棄却</span>
+          </div>
+          <ol class="steps">
+            <li>L1世界観を1文にする。</li>
+            <li>市場仮説を全部出す。</li>
+            <li>各仮説を Must / Will / Can で格付けする。</li>
+            <li>収益スパインとビジョン装置に分ける。</li>
+            <li>捨てる仮説を明示する。</li>
+          </ol>
+        </div>
+        <div class="agenda">
+          <div class="agenda-title">
+            <h3>Day 2: 戦略に落とす</h3>
+            <span>検証 / KPI / 対外説明</span>
+          </div>
+          <ol class="steps">
+            <li>採用市場を最大3本に絞る。</li>
+            <li>各市場の初回顧客・初回証拠を決める。</li>
+            <li>直近、次回説明、中期マイルストーンのゲートを置く。</li>
+            <li>KPIを決める。</li>
+            <li>対外説明向けストーリーに変換する。</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="scorecard">
+      <div class="section-head">
+        <h2>3. 市場仮説スコアカード</h2>
+        <p class="section-note">市場規模・WTP・競合優位は、未確認なら「要検証」と明記する。強い言葉ほど証拠を要求する。</p>
+      </div>
+      <div class="matrix-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>仮説</th>
+              <th>暫定役割</th>
+              <th>課題</th>
+              <th>WTP</th>
+              <th>市場</th>
+              <th>INNFRA wedge</th>
+              <th>既存シグナル</th>
+              <th>最大リスク</th>
+              <th>次の証拠</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>水信頼性B2B</strong>施設・現場・パートナー向け</td>
+              <td><span class="status s-spine">収益スパイン候補</span></td>
+              <td>水処理、電源、運用、保守、責任分界が絡む。</td>
+              <td>要検証</td>
+              <td>要検証</td>
+              <td>現場で水を動かし切る仕様・運用知。</td>
+              <td>複数の実証・商談文脈。</td>
+              <td>案件ごとに個別対応化し、再現性が出ない。</td>
+              <td>標準仕様、価格帯、初回顧客の購買理由。</td>
+            </tr>
+            <tr>
+              <td><strong>公共・災害対応現場の衛生/生活水</strong></td>
+              <td><span class="status s-spine">収益スパイン候補</span></td>
+              <td>展開先での衛生・水・洗濯の不足。</td>
+              <td>要検証</td>
+              <td>要検証</td>
+              <td>可搬水循環と現場運用。</td>
+              <td>既存SSoT上では実需シグナルが強い。</td>
+              <td>調達構造、価格、競合撤退理由が未確認。</td>
+              <td>実ユーザー、調達側、競合・先行事例の撤退理由のヒアリング。</td>
+            </tr>
+            <tr>
+              <td><strong>防災B2G・自治体</strong></td>
+              <td><span class="status s-hold">短期売上 / 要選別</span></td>
+              <td>災害時の水・生活インフラ。</td>
+              <td>補助金・予算化は要検証。</td>
+              <td>要検証</td>
+              <td>フェーズフリーな日常利用と災害利用の接続。</td>
+              <td>既存の納品・実証ライン。</td>
+              <td>生活用水の優先順位が低く、提案が止まる。</td>
+              <td>フェーズ3自治体、日常価値、予算科目の特定。</td>
+            </tr>
+            <tr>
+              <td><strong>エクストリームステイ</strong></td>
+              <td><span class="status s-vision">ビジョン装置候補</span></td>
+              <td>冒険家だけが得ていた開放感・独占体験の民主化。</td>
+              <td>有料WTPは要検証。</td>
+              <td>要検証</td>
+              <td>インフラ不在地を体験価値に変える。</td>
+              <td>既存の体験実証、4K、場所3条件。</td>
+              <td>宿泊事業化すると許認可・投資回収・運営負担が重い。</td>
+              <td>有料顧客WTP、許認可、回収試算、PMF Phase 0。</td>
+            </tr>
+            <tr>
+              <td><strong>都市富裕層・顕示的オフグリッド</strong></td>
+              <td><span class="status s-vision">ビジョン装置 / 要検証</span></td>
+              <td>ステータス、独自性、先進的ライフスタイルの欲求。</td>
+              <td>要検証</td>
+              <td>要検証</td>
+              <td>見せられる水・電力・住環境の技術体験。</td>
+              <td>既存SSoT上の仮説と周辺事例。</td>
+              <td>実需ではなく憧れ消費で終わる。</td>
+              <td>富裕層定性、価格帯、購入トリガー。</td>
+            </tr>
+            <tr>
+              <td><strong>島嶼・観光・遊休地</strong></td>
+              <td><span class="status s-hold">保留 / 要選別</span></td>
+              <td>水・電力・施工・運営の制約。</td>
+              <td>要検証</td>
+              <td>要検証</td>
+              <td>制約地の開発を可能にする。</td>
+              <td>引き合いはあるが、供給側都合が混じる。</td>
+              <td>「水道を引けばよい」「別の場所でよい」に負ける。</td>
+              <td>3条件を満たす場所だけに絞った案件棚卸し。</td>
+            </tr>
+            <tr>
+              <td><strong>3条件を満たさない一般宿泊オフグリッド</strong></td>
+              <td><span class="status s-kill">棄却候補</span></td>
+              <td>差別化が宿泊体験側に寄る。</td>
+              <td>要検証</td>
+              <td>要検証</td>
+              <td>弱い。通常インフラ代替に負けやすい。</td>
+              <td>既存SSoT上では棄却理由が明確。</td>
+              <td>INNFRAがやる必然性がない。</td>
+              <td>例外条件が出ない限り、再浮上させない。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section" id="frameworks">
+      <div class="section-head">
+        <h2>4. 評価フレームワーク</h2>
+        <p class="section-note">市場仮説は「良さそう」では採用しない。採用条件と反証条件を同時に置く。</p>
+      </div>
+      <div class="framework-grid">
+        <div class="frame-card">
+          <h3><span class="letter">M</span>Must</h3>
+          <p>顧客が本当に解決を必要としているか。</p>
+          <ul>
+            <li>困っている本人がいる</li>
+            <li>既存代替に不満がある</li>
+            <li>先送りできない理由がある</li>
+          </ul>
+        </div>
+        <div class="frame-card">
+          <h3><span class="letter">W</span>Will</h3>
+          <p>市場・制度・社会環境がそちらへ動くか。</p>
+          <ul>
+            <li>なぜ今かが説明できる</li>
+            <li>予算・政策・需要が動く</li>
+            <li>投資家に時間軸を示せる</li>
+          </ul>
+        </div>
+        <div class="frame-card">
+          <h3><span class="letter">C</span>Can</h3>
+          <p>INNFRAが他社より勝てるか。</p>
+          <ul>
+            <li>水・電力・住環境の統合が効く</li>
+            <li>現場運用が競争優位になる</li>
+            <li>標準化できる</li>
+          </ul>
+        </div>
+      </div>
+      <div class="band" style="margin-top: 14px;">
+        <strong>採用条件:</strong>
+        Must / Will / Can のうち1つでも欠けた仮説は、事業本体ではなく「検証待ち」「ビジョン装置」「保留」「棄却」のいずれかに落とす。
+      </div>
+    </div>
+
+    <div class="section" id="portfolio">
+      <div class="section-head">
+        <h2>5. 仮説ポートフォリオ</h2>
+        <p class="section-note">収益を作る仮説と、世界観を見せる仮説を混ぜない。</p>
+      </div>
+      <div class="split-board">
+        <div class="lane spine">
+          <h3>収益スパイン</h3>
+          <ul>
+            <li>水信頼性B2B</li>
+            <li>公共・災害対応現場の衛生/生活水</li>
+            <li>フェーズフリー施設</li>
+            <li>行政・法人向けパッケージ</li>
+          </ul>
+        </div>
+        <div class="lane vision">
+          <h3>ビジョン装置</h3>
+          <ul>
+            <li>エクストリームステイ</li>
+            <li>候補地の再定義</li>
+            <li>EV/エネルギー連携</li>
+            <li>都市富裕層向け体験</li>
+          </ul>
+        </div>
+        <div class="lane proof">
+          <h3>実証資産</h3>
+          <ul>
+            <li>体験実証A</li>
+            <li>水運用実証A</li>
+            <li>納品実証A</li>
+            <li>施設実証A</li>
+            <li>施設実証B</li>
+            <li>パートナー検証A</li>
+          </ul>
+        </div>
+        <div class="lane kill">
+          <h3>棄却 / 保留</h3>
+          <ul>
+            <li>3条件を満たさない一般宿泊オフグリッド</li>
+            <li>特定候補地の単体Go</li>
+            <li>供給側都合だけの島嶼案件</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="extreme">
+      <div class="section-head">
+        <h2>6. エクストリームステイ専用ゲート</h2>
+        <p class="section-note">宿泊事業に引っ張られないための判定軸。全部を同時に満たせないなら、事業本体ではなくビジョン装置に置く。</p>
+      </div>
+      <div class="gate-grid">
+        <div class="gate">
+          <h3>場所の正統性 / 特権性</h3>
+          <p>その場所でしか成立しないか。</p>
+        </div>
+        <div class="gate">
+          <h3>インフラ不在</h3>
+          <p>通常インフラでは解けない制約があるか。</p>
+        </div>
+        <div class="gate">
+          <h3>技術突破</h3>
+          <p>INNFRAの水・電力・循環が体験価値に直結するか。</p>
+        </div>
+        <div class="gate">
+          <h3>PMF</h3>
+          <p>顧客が金を払ってでも行きたいか。</p>
+        </div>
+        <div class="gate">
+          <h3>許認可</h3>
+          <p>旅館業、建築、水処理、自然公園等のANDゲートを越えられるか。</p>
+        </div>
+        <div class="gate">
+          <h3>ユニットエコノミクス</h3>
+          <p>投資回収の筋があるか。</p>
+        </div>
+        <div class="gate">
+          <h3>戦略貢献</h3>
+          <p>営業、採用、調達、対外説明に効くか。</p>
+        </div>
+      </div>
+      <div class="notice" style="margin-top: 14px;">
+        特定候補地は、このゲートでは弱い。特定地域は「島として」水・雨・レジリエンス実証地へ再定義する余地がある。
+      </div>
+    </div>
+
+    <div class="section" id="issue">
+      <div class="section-head">
+        <h2>7. 今日の最重要イシュー</h2>
+        <p class="section-note">問いは意思決定を動かす形にする。仮説と反証条件をセットで扱う。</p>
+      </div>
+      <div class="issue-box">
+        <div class="issue">
+          <h3>ISSUE</h3>
+          <p>INNFRAは、短期収益を作る水信頼性B2Bを主戦場にし、エクストリームステイをビジョン装置に分離すべきか。</p>
+        </div>
+        <div class="issue">
+          <h3>HYPOTHESIS</h3>
+          <p class="body">
+            水信頼性B2Bは既存案件とINNFRA wedgeが揃っているため収益スパインに置き、エクストリームステイはPMFと許認可が未検証だから、事業本体ではなくビジョン装置として扱うべきである。
+          </p>
+        </div>
+      </div>
+      <div class="band" style="margin-top: 14px;">
+        <strong>反証条件:</strong>
+        エクストリームステイで有料顧客の強いWTP、許認可の現実性、投資回収可能性が短期に確認できた場合、この分離方針を撤回する。
+      </div>
+    </div>
+
+    <div class="section" id="worksheets">
+      <div class="section-head">
+        <h2>8. ワークシート</h2>
+        <p class="section-note">会議中にこのまま埋めるための型。印刷して手書きでも使える。</p>
+      </div>
+      <div class="worksheet-grid">
+        <div class="worksheet">
+          <h3>L1 世界観シート</h3>
+          <div class="fields">
+            <div class="field"><b>誰にとって</b><span>例: 水・電力・住環境に制約がある生活者 / 事業者</span></div>
+            <div class="field"><b>どんな制約を</b><span>水、電力、衛生、居住、移動、災害、許認可</span></div>
+            <div class="field"><b>どう変えるか</b><span>日常利用できる生存圏に変える</span></div>
+            <div class="field"><b>言わないこと</b><span>宿泊会社 / 防災備品会社 / 単なるオフグリッド</span></div>
+          </div>
+        </div>
+        <div class="worksheet">
+          <h3>市場仮説シート</h3>
+          <div class="fields">
+            <div class="field"><b>顧客</b><span>誰が困っているか</span></div>
+            <div class="field"><b>課題</b><span>何が切実か</span></div>
+            <div class="field"><b>支払者 / WTP</b><span>誰が、何の予算で、いくら払うか</span></div>
+            <div class="field"><b>Why now</b><span>なぜ今立ち上がるか</span></div>
+            <div class="field"><b>INNFRA wedge</b><span>なぜINNFRAが勝てるか</span></div>
+            <div class="field"><b>反証条件</b><span>何が出たら捨てるか</span></div>
+          </div>
+        </div>
+        <div class="worksheet">
+          <h3>検証計画シート</h3>
+          <div class="fields">
+            <div class="field"><b>最初に会う人</b><span>実ユーザー / 支払者 / 調達者 / 競合経験者</span></div>
+            <div class="field"><b>聞く問い</b><span>困りごと、代替手段、予算、意思決定、導入条件</span></div>
+            <div class="field"><b>必要な証拠</b><span>N=1発話、見積、LOI、現地検証、許認可回答</span></div>
+            <div class="field"><b>判定期限</b><span>次回説明 / 中期マイルストーンのどこで決めるか</span></div>
+          </div>
+        </div>
+        <div class="worksheet">
+          <h3>説明先ストーリーシート</h3>
+          <div class="fields">
+            <div class="field"><b>北極星</b><span>L0とL1をつなぐ1文</span></div>
+            <div class="field"><b>主戦場</b><span>最初に勝つ市場</span></div>
+            <div class="field"><b>証拠</b><span>既存実証と次の検証計画</span></div>
+            <div class="field"><b>KPI</b><span>顧客数、売上、検証件数、標準仕様化、パートナー</span></div>
+            <div class="field"><b>資金使途</b><span>何を加速するための資本か</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="sources">
+      <div class="section-head">
+        <h2>9. 参照した中核SSoT</h2>
+        <p class="section-note">このHTMLは直前の討議資料をHTML化したもの。市場規模・WTP・競合優位は、未確認なら要検証として扱う。</p>
+      </div>
+      <div class="source">
+        <span>内部SSoTを基に作成。公開版では出典リンク・具体案件名を省略。</span>
+        <span>公開版では内部出典リンク・案件名を省略。元資料はローカルSSoTを参照。</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
