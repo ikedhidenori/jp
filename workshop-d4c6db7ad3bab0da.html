@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>AI以降のワクワク未来を描く SFプロトタイピングWS</title>
+  <title>AGI以降の当事者世界線を読む SFプロトタイピングWS</title>
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -172,21 +172,20 @@
   </style>
   <style>
   :root{
-    --bg:#f7f5ed;
-    --paper:#fffdfa;
-    --ink:#202525;
-    --muted:#65706f;
-    --line:#d9d5c9;
-    --green:#21745d;
+    --bg:#f7f3ea;
+    --paper:#fffdf8;
+    --ink:#1f2525;
+    --muted:#66706d;
+    --line:#d9d1c2;
+    --green:#1f7562;
     --blue:#315f9f;
-    --red:#c95c45;
-    --yellow:#d9a72f;
-    --lav:#6a5aa9;
-    --soft-green:#e5f2ea;
-    --soft-blue:#e6eef8;
-    --soft-red:#f8e4de;
-    --soft-yellow:#fff1bf;
-    --shadow:0 18px 44px rgba(35,40,36,.10);
+    --red:#bf5a43;
+    --gold:#c7922f;
+    --soft-green:#e3f0e9;
+    --soft-blue:#e7eef8;
+    --soft-red:#f7e2dc;
+    --soft-gold:#fff0c2;
+    --shadow:0 18px 44px rgba(38,33,24,.11);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -195,109 +194,126 @@
     max-width:none;
     padding:0;
     background:
-      linear-gradient(90deg,rgba(33,116,93,.045) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(31,117,98,.05) 1px,transparent 1px),
       linear-gradient(0deg,rgba(49,95,159,.045) 1px,transparent 1px),
       var(--bg);
     background-size:28px 28px;
     color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP",Meiryo,sans-serif;
-    line-height:1.72;
+    line-height:1.74;
     letter-spacing:0;
     overflow-x:hidden;
-    overflow-wrap:anywhere;
   }
-  body>header,body>nav,body>section,body>main,body>footer{
+  body>header,body>nav,body>section,body>footer{
     width:min(1120px,calc(100% - 28px));
     margin-inline:auto;
   }
-  body>section{margin-top:26px}
+  #title-block-header{display:none}
   body>header{
-    min-height:70svh;
+    min-height:76svh;
     display:grid;
     align-items:end;
-    padding:42px 0 30px;
-    border-bottom:1px solid var(--line);
+    padding:32px 0 28px;
     position:relative;
   }
-  #title-block-header{display:none}
-  body>header:before{
+  .hero{
+    position:relative;
+    min-height:64svh;
+    display:grid;
+    align-items:end;
+    overflow:hidden;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.45);
+    box-shadow:var(--shadow);
+    background:#18211f;
+  }
+  .hero img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:saturate(.98) contrast(.98);
+  }
+  .hero:after{
     content:"";
     position:absolute;
-    inset:0 calc(50% - 50vw);
-    z-index:-1;
-    background:
-      linear-gradient(132deg,rgba(247,245,237,.98),rgba(247,245,237,.84) 47%,rgba(229,242,234,.78)),
-      repeating-linear-gradient(135deg,rgba(32,37,37,.08) 0 1px,transparent 1px 18px);
+    inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.14),rgba(0,0,0,.18) 36%,rgba(0,0,0,.72));
+  }
+  .hero-copy{
+    position:relative;
+    z-index:1;
+    padding:28px;
+    color:white;
+    max-width:880px;
   }
   .eyebrow{
     display:inline-flex;
     align-items:center;
     gap:10px;
     margin-bottom:14px;
-    color:var(--green);
+    color:#dff7ef;
     font-size:.78rem;
     font-weight:800;
     letter-spacing:.08em;
     text-transform:uppercase;
-    max-width:100%;
   }
-  .eyebrow:before{content:"";width:36px;height:2px;background:var(--green)}
+  .eyebrow:before{content:"";width:36px;height:2px;background:#dff7ef}
   h1{
-    max-width:930px;
     margin:.1em 0 .22em;
-    font-size:5.1rem;
+    font-size:4.65rem;
     line-height:1.02;
     letter-spacing:0;
     overflow-wrap:anywhere;
   }
   .mobile-title{display:none}
   header p{
-    max-width:770px;
-    color:#334140;
+    max-width:760px;
+    margin:0;
+    color:#f3f7f5;
     font-size:1.16rem;
   }
   .hero-grid{
     display:grid;
     grid-template-columns:repeat(3,minmax(0,1fr));
     gap:12px;
-    margin-top:24px;
+    margin-top:18px;
   }
   .hero-card{
-    border:1px solid var(--line);
-    border-top:6px solid var(--green);
+    border:1px solid rgba(255,255,255,.24);
+    border-top:5px solid #91ddc6;
     border-radius:8px;
-    background:rgba(255,253,250,.9);
-    padding:16px;
-    min-height:110px;
+    background:rgba(0,0,0,.28);
+    backdrop-filter:blur(5px);
+    padding:13px;
+    min-height:92px;
+    color:#fff;
   }
-  .hero-card:nth-child(2){border-top-color:var(--red)}
-  .hero-card:nth-child(3){border-top-color:var(--blue)}
-  .hero-card b{display:block;font-size:1.05rem;margin-bottom:4px}
+  .hero-card:nth-child(2){border-top-color:#f0a083}
+  .hero-card:nth-child(3){border-top-color:#91b7f0}
+  .hero-card b{display:block;font-size:1.02rem;margin-bottom:3px}
   nav#TOC{
-    margin:24px auto 30px;
+    margin:10px auto 28px;
     padding:16px 18px;
     border:1px solid var(--line);
     border-radius:8px;
-    background:rgba(255,253,250,.92);
+    background:rgba(255,253,248,.94);
     box-shadow:var(--shadow);
   }
   nav#TOC h2{margin:0 0 10px;font-size:1.05rem;color:var(--green)}
   nav#TOC ul{margin:0;padding-left:20px;columns:2}
   nav#TOC li{break-inside:avoid;margin:4px 0}
-  nav#TOC a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(33,116,93,.25)}
-  body>main{
-    display:grid;
-    gap:26px;
-    padding-bottom:72px;
-  }
-  section.level1,section.level2{
+  nav#TOC a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(31,117,98,.24)}
+  body>section{
+    margin-top:24px;
     padding:24px;
     border:1px solid var(--line);
     border-radius:8px;
-    background:rgba(255,253,250,.94);
+    background:rgba(255,253,248,.95);
     box-shadow:var(--shadow);
   }
-  section.level3{
+  section.level2,section.level3{
     margin:18px 0 0;
     padding:18px;
     border:1px solid var(--line);
@@ -307,6 +323,7 @@
   }
   section.level3:nth-of-type(2n){border-left-color:var(--red)}
   section.level3:nth-of-type(3n){border-left-color:var(--blue)}
+  h1,h2,h3,p,li,.card,.slot,.question-card{overflow-wrap:anywhere}
   h2{
     margin:0 0 14px;
     font-size:2.05rem;
@@ -315,12 +332,11 @@
   }
   h3{
     margin:0 0 10px;
-    font-size:1.13rem;
+    font-size:1.15rem;
     line-height:1.35;
     letter-spacing:0;
   }
-  p{margin:10px 0;color:#303b3b}
-  h1,h2,h3,p,li,.hero-card,.case-card,.slot,.question-card{overflow-wrap:anywhere}
+  p{margin:10px 0;color:#303a38}
   ul,ol{padding-left:1.25em}
   li{margin:6px 0}
   strong{font-weight:800}
@@ -333,69 +349,36 @@
     background:var(--soft-red);
     color:#2f3737;
   }
-  code{
-    padding:.1em .34em;
-    border:1px solid var(--line);
-    border-radius:6px;
-    background:#f1eee4;
-    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  }
-  .lead{
-    font-size:1.08rem;
-    color:#283333;
-  }
+  .lead{font-size:1.08rem;color:#283333}
   .callout{
     margin:16px 0;
     padding:16px 18px;
     border:1px solid #d7bc65;
     border-radius:8px;
-    background:var(--soft-yellow);
+    background:var(--soft-gold);
   }
-  .warn{
-    border-color:#d4a399;
-    background:var(--soft-red);
-  }
-  .flow{
-    display:grid;
-    grid-template-columns:repeat(5,minmax(0,1fr));
-    gap:10px;
-    margin:16px 0;
-  }
-  .flow-step{
-    min-height:122px;
-    padding:14px;
-    border:1px solid var(--line);
-    border-radius:8px;
-    background:var(--paper);
-    position:relative;
-  }
-  .flow-step:after{
-    content:"→";
-    position:absolute;
-    right:-14px;
-    top:45%;
-    color:var(--muted);
-    font-weight:800;
-  }
-  .flow-step:last-child:after{content:""}
-  .flow-step b{display:block;color:var(--green);font-size:.96rem}
-  .case-grid{
+  .warn{border-color:#d4a399;background:var(--soft-red)}
+  .grid-3,.question-grid{
     display:grid;
     grid-template-columns:repeat(3,minmax(0,1fr));
     gap:12px;
-    margin:16px 0 4px;
+    margin:16px 0;
   }
-  .case-card{
+  .grid-2{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    margin:16px 0;
+  }
+  .card,.question-card{
+    padding:15px;
     border:1px solid var(--line);
-    border-top:6px solid var(--blue);
     border-radius:8px;
     background:var(--paper);
-    padding:15px;
-    min-height:205px;
   }
-  .case-card:nth-child(3n+1){border-top-color:var(--green)}
-  .case-card:nth-child(3n+2){border-top-color:var(--red)}
-  .case-card h3{font-size:1rem}
+  .card{border-top:6px solid var(--green)}
+  .card:nth-child(2n){border-top-color:var(--red)}
+  .card:nth-child(3n){border-top-color:var(--blue)}
   .tag{
     display:inline-block;
     margin:0 6px 8px 0;
@@ -406,23 +389,6 @@
     font-size:.78rem;
     font-weight:700;
   }
-  .matrix{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin:16px 0;
-  }
-  .matrix-cell{
-    min-height:150px;
-    padding:16px;
-    border:1px solid var(--line);
-    border-radius:8px;
-    background:var(--paper);
-  }
-  .matrix-cell:nth-child(1){background:var(--soft-blue)}
-  .matrix-cell:nth-child(2){background:var(--soft-green)}
-  .matrix-cell:nth-child(3){background:var(--soft-yellow)}
-  .matrix-cell:nth-child(4){background:var(--soft-red)}
   .timeline{
     display:grid;
     gap:10px;
@@ -438,11 +404,7 @@
     border-radius:8px;
     background:var(--paper);
   }
-  .slot time{
-    color:var(--green);
-    font-weight:800;
-    white-space:nowrap;
-  }
+  .slot time{color:var(--green);font-weight:800;white-space:nowrap}
   .story{
     padding:22px;
     border:1px solid var(--line);
@@ -450,77 +412,66 @@
     background:#fffef9;
     box-shadow:0 8px 22px rgba(32,37,37,.06);
   }
-  .story h3{font-size:1.3rem}
+  .story h3{font-size:1.35rem}
   .story p{
     max-width:820px;
     font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
-    line-height:1.9;
+    line-height:1.92;
     color:#202525;
-  }
-  .question-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
-    margin:16px 0;
-  }
-  .question-card{
-    padding:14px;
-    border:1px solid var(--line);
-    border-radius:8px;
-    background:var(--paper);
   }
   footer{
     color:var(--muted);
     font-size:.9rem;
     border-top:1px solid var(--line);
     padding:18px 0 36px;
+    margin-top:28px;
   }
   @media(max-width:820px){
-    body>header,body>nav,body>section,body>main,body>footer{width:min(100% - 20px,1120px)}
-    body>header{min-height:auto;padding:32px 0 22px}
+    body>header,body>nav,body>section,body>footer{width:min(100% - 20px,1120px)}
+    body>header{min-height:auto;padding:16px 0 18px}
+    .hero{min-height:70svh}
+    .hero-copy{padding:20px 16px}
+    .hero-grid,.grid-2,.grid-3,.question-grid{grid-template-columns:1fr}
     nav#TOC ul{columns:1}
-    .hero-grid,.case-grid,.flow,.matrix,.question-grid{grid-template-columns:1fr}
-    .flow-step:after{content:"↓";right:16px;top:auto;bottom:-21px}
-    .flow-step:last-child:after{content:""}
     .slot{grid-template-columns:1fr}
-    section.level1,section.level2{padding:18px}
-    .story{padding:18px}
-    h1{font-size:1.65rem;line-height:1.15}
+    h1{font-size:1.82rem;line-height:1.15}
     h2{font-size:1.5rem}
     header p{font-size:1rem}
     .desktop-title{display:none}
     .mobile-title{display:inline}
-    .eyebrow{font-size:.68rem;flex-wrap:wrap}
     body *{max-width:100%;white-space:normal;overflow-wrap:anywhere;word-break:break-all;line-break:anywhere}
   }
   </style>
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">AI以降のワクワク未来を描く SFプロトタイピングWS</h1>
+<h1 class="title">AGI以降の当事者世界線を読む SFプロトタイピングWS</h1>
 </header>
 <header>
-<div>
+<div class="hero">
+<img src="sf-workshop-cover-d4c6db7ad3bab0da.png" alt="海沿いの市場と山あいの生活ノードが光でつながる、AGI以降の当事者世界線を描いた表紙絵">
+<div class="hero-copy">
 <div class="eyebrow">
-SF Prototyping WS
+SF Prototyping WS / 2026-07-10
 </div>
 <h1>
 <span
-class="desktop-title">AI以降のワクワク未来を描く<br>SFプロトタイピングWS</span><span
-class="mobile-title">AI以降の<br>ワクワク未来を<br>描く<br>SFプロトタイピング<br>WS</span>
+class="desktop-title">AGI以降の<br>当事者世界線を読む<br>SFプロトタイピング</span><span
+class="mobile-title">AGI以降の<br>当事者世界線を読む<br>SFプロトタイピング</span>
 </h1>
 <p>
-「2035年のAI社会を想像してください」から始めない。短編を読み、世界のルール・欲望・未来の証拠品を取り出す。
+「僕らの事業」から始めない。遠くの課題を抱える当事者の生活、制約、マインドセットに入り、その世界で自然に滲み出る課題と希望を掘る。
 </p>
 <div class="hero-grid">
 <div class="hero-card">
-<b>Core</b>物語から始める。
+<b>Subject</b>主語は僕らではなく、彼ら。
 </div>
 <div class="hero-card">
-<b>Tone</b>課題から一度離れる。
+<b>World</b>インフラ・社会・マインドを先に描く。
 </div>
 <div class="hero-card">
-<b>Output</b>証拠品と事業の種。
+<b>Hope</b>課題が消える話ではなく、選べる幅が増える話。
+</div>
 </div>
 </div>
 </div>
@@ -531,541 +482,411 @@ class="mobile-title">AI以降の<br>ワクワク未来を<br>描く<br>SFプロ�
 </h2>
 <ul>
 <li>
-<a href="#まず前提を直す">まず前提を直す</a>
+<a href="#今回の修正">今回の修正</a>
 </li>
 <li>
-<a href="#sfプロトの基本型">SFプロトの基本型</a>
+<a href="#世界線の読み方">世界線の読み方</a>
 </li>
 <li>
-<a href="#海外国内事例マップ">海外・国内事例マップ</a>
+<a href="#推奨アジェンダ">推奨アジェンダ</a>
 </li>
 <li>
-<a href="#明日のws設計">明日のWS設計</a>
+<a href="#scenario-1">シナリオ1: 影を売らない日</a>
 </li>
 <li>
-<a href="#sf短編ドラフト-1">SF短編ドラフト 1</a>
+<a href="#scenario-2">シナリオ2: 灯りを招く家</a>
 </li>
 <li>
-<a href="#sf短編ドラフト-2">SF短編ドラフト 2</a>
-</li>
-<li>
-<a href="#ワークシート">ワークシート</a>
+<a href="#問いカード">問いカード</a>
 </li>
 <li>
 <a href="#参考リンク">参考リンク</a>
 </li>
 </ul>
 </nav>
-<section id="まず前提を直す" class="level1">
-<h1>まず前提を直す</h1>
+<section id="今回の修正" class="level1">
+<h1>今回の修正</h1>
 <div class="callout warn">
-<p>前回版の「2035年、AIが生活に自然に溶け込んだ世界で最高の朝は？」という入り方は弱い。参加者がその世界を描けないから、SFプロトタイピングを使う。明日は、白紙の未来想像ではなく、物語を読んでから始める。</p>
+<p>前回版の弱さは、主語がまだ「僕ら」側に寄っていたこと。小さなインフラ会社、提供者、事業者、政策側の都合から始めると、SFプロトの読み手は当事者の世界に入れない。</p>
 </div>
-<p>SFプロトタイピングは、未来予測を当てる作業ではない。科学・技術・社会変化をもとに、まだ存在しない生活・制度・サービス・葛藤を<strong>物語として仮実装</strong>し、その物語を起点に議論する方法。</p>
-<p><a href="https://creative-science.org/methodologies/sfp/">Creative
-Science Foundation</a>
-は、SFPを「新しい概念・サービス・製品・事業・政治システムなどをSFストーリーで具体化する方法」と説明している。重要なのは、予測精度よりも、信じられる人物・場所・感情・葛藤を通じて、未来を議論できる状態にすること。</p>
-<section id="明日の合言葉" class="level2">
-<h2>明日の合言葉</h2>
+<p>今回の資料は、以下に絞る。</p>
 <ul>
-<li>未来を説明しない。まず読ませる。</li>
-<li>AI機能を議論しない。人間の一日を読む。</li>
-<li>課題を探さない。まず「その未来、見たいか」を話す。</li>
-<li>プロダクト名を急がない。未来の証拠品をつくる。</li>
-<li>最後だけ事業に戻す。</li>
+<li>最初の1ページに、僕らの会社・サービス・事業を出さない。</li>
+<li>主人公は、遠くの課題を生活として受けている当事者にする。</li>
+<li>課題説明から始めず、その人の普通の予定、欲望、迷いから始める。</li>
+<li>技術は救世主ではなく、当事者が使いこなす道具にする。</li>
+<li>希望は「問題が解決した」ではなく、「昔なら諦めていた選択を、今日は選べる」こととして描く。</li>
 </ul>
-</section>
-</section>
-<section id="sfプロトの基本型" class="level1">
-<h1>SFプロトの基本型</h1>
-<div class="flow">
-<div class="flow-step">
-<b>1.
-兆し</b>AI、人口、地域、仕事、身体感覚など、現在から伸びる変化を選ぶ。
-</div>
-<div class="flow-step">
-<b>2. 物語</b>人物・場所・出来事・葛藤のある短編として読む。
-</div>
-<div class="flow-step">
-<b>3.
-具現化</b>広告、求人、通知、契約書、日記、ログなど未来の証拠品を作る。
-</div>
-<div class="flow-step">
-<b>4. 対話</b>その世界のルール、欲望、違和感、倫理、事業機会を抽出する。
-</div>
-<div class="flow-step">
-<b>5. 逆算</b>今できる小さな実験、誰に見せるか、何を確かめるかに落とす。
-</div>
-</div>
-<p>Brian David Johnson /
-Intel系の事例でも一貫しているのは、技術そのものではなく、技術が人の欲望・仕事・家族・移動・信頼にどう入り込むかを描くこと。<a
-href="https://www.intel.com/content/dam/www/public/us/en/documents/technology-briefs/intel-labs-tomorrow-project-complete-brief.pdf">Intel
-Tomorrow Project</a>
-は、Intelの研究技術に基づくSFを使いながらも、中心は「技術」ではなく「人々の複雑な生活」に置いている。</p>
-</section>
-<section id="海外国内事例マップ" class="level1">
-<h1>海外・国内事例マップ</h1>
-<div class="case-grid">
-<div class="case-card">
-<span class="tag">企業R&amp;D</span>
-<h3>
-<a href="https://www.intel.com/content/dam/www/public/us/en/documents/technology-briefs/intel-labs-tomorrow-project-complete-brief.pdf">Intel
-/ The Tomorrow Project</a>
-</h3>
-<p>
-Intel
-Labsの研究技術を題材に、作家が近未来の生活を描いたアンソロジー。技術紹介ではなく、人間ドラマを通じて機会と危険を考える。
-</p>
-<p>
-<strong>使える示唆:</strong>
-AI以降の生活も、仕様ではなく「誰のどんな一日が変わるか」で描く。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">教育・市民参加</span>
-<h3>
-<a href="https://www.intel.com/content/dam/www/public/us/en/documents/technology-briefs/intel-labs-tomorrow-project-anthology-brief.pdf">Intel
-/ UW Robot Futures</a>
-</h3>
-<p>
-2030年のロボット社会をテーマに、学生・作家が実在技術をもとに短編を制作。人間とロボットの葛藤から倫理や社会影響を議論する。
-</p>
-<p>
-<strong>使える示唆:</strong>
-参加者に「AIの未来」ではなく「AIと人間の衝突シーン」を見せる。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">小売・顧客体験</span>
-<h3>
-<a href="https://corporate.lowes.com/newsroom/press-releases/science-fiction-inspires-lowes-holoroom-and-home-improvement-innovation-06-11-14">Lowe’s
-Holoroom</a>
-</h3>
-<p>
-SciFuturesとのSFプロトタイピングから、リフォーム空間をAR/3Dで体験する
-Holoroom 構想へ接続。
-</p>
-<p>
-<strong>使える示唆:</strong>
-物語を読んだあと、すぐ「未来の店舗・LP・体験導線」に変換する。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">脅威分析</span>
-<h3>
-<a href="https://threatcasting.asu.edu/scifi-prototypes">ASU
-Threatcasting</a>
-</h3>
-<p>
-デジタル/サイバー能力の未来を、短編・グラフィックノベル・モーションコミックで具体化。倫理、文化、政策、安全保障への影響を議論する。
-</p>
-<p>
-<strong>使える示唆:</strong>
-抽象論を避けるため、未来を「読める・見える」形にする。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">仕事の未来</span>
-<h3>
-<a href="https://threatcasting.asu.edu/graphic-novella/future-work">ASU
-/ Cisco Future of Work</a>
-</h3>
-<p>
-未来の仕事をコミック形式で描き、長期トレンドを地に足のついた絵として共有。そこからイノベーション領域を見つける。
-</p>
-<p>
-<strong>使える示唆:</strong>
-「働き方が変わる」ではなく、未来の会議、上司、求人、失敗を描く。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">安全保障</span>
-<h3>
-<a href="https://www.nato.int/en/news-and-events/articles/news/2024/07/18/nato-2099-graphic-novel-imagines-the-future-of-the-alliance">NATO
-2099</a>
-</h3>
-<p>
-NATOの未来をSFアンソロジー/グラフィックノベルで描く。防衛領域でも、予測レポートでは届かない視点を物語で得る。
-</p>
-<p>
-<strong>使える示唆:</strong>
-重いテーマでも、希望や選びたい未来を含められる。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">体験型未来</span>
-<h3>
-<a href="https://superflux.in/index.php/work/mitigation-of-shock/">Superflux
-/ Mitigation of Shock</a>
-</h3>
-<p>
-2050年の気候変動下のロンドン住宅を、実際に入れる未来の部屋として展示。データを生活空間に翻訳するデザインフィクション。
-</p>
-<p>
-<strong>使える示唆:</strong>
-未来は資料より、部屋・匂い・食べ物・道具で伝わる。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">高齢者・IoT批評</span>
-<h3>
-<a href="https://superflux.in/index.php/work/uninvited-guests/">Superflux
-/ Uninvited Guests</a>
-</h3>
-<p>
-離れて暮らす家族から送られるスマートケア機器が、高齢者の自律性と衝突する未来を描く。
-</p>
-<p>
-<strong>使える示唆:</strong>
-「便利なAI」ほど、人間の誇り・習慣・余白とぶつかる。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">国内・デザイン</span>
-<h3>
-<a href="https://www.sony.com/ja/SonyInfo/design/stories/sci-fi_prototyping/">Sony
-/ ONE DAY, 2050</a>
-</h3>
-<p>
-デザイナーとSF作家が協働し、2050年の東京を短編小説とデザインプロトタイプで表現。
-</p>
-<p>
-<strong>使える示唆:</strong>
-短編だけで終えず、触れる/見えるプロトタイプへ接続する。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">国内・移動/まち</span>
-<h3>
-<a href="https://www.nissan-global.com/JP/INNOVATION/TECHNOLOGY/NRC/FIELDS_SD/SOCIAL_RESEARCH/FUTURE_SKETCH/detail_06.html">日産総合研究所
-/ 未来のまち</a>
-</h3>
-<p>
-少子高齢化に直面するまちと人々の関係をSF小説で描き、価値観・課題・ニーズを議論。
-</p>
-<p>
-<strong>使える示唆:</strong>
-移動や都市は、機能ではなく「人とまちの関係」の物語になる。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">国内・ウェルビーイング</span>
-<h3>
-<a href="https://www.nissan-global.com/JP/INNOVATION/TECHNOLOGY/NRC/FIELDS_SD/SOCIAL_RESEARCH/FUTURE_SKETCH/detail_08.html">日産総合研究所
-/ Well-being</a>
-</h3>
-<p>
-技術が行き渡った社会で、人が何を大切にし、何に戸惑うかを短編で描き、商品・サービスの議論につなげる。
-</p>
-<p>
-<strong>使える示唆:</strong>
-ワクワクだけでなく、戸惑いも残すと議論が深くなる。
-</p>
-</div>
-<div class="case-card">
-<span class="tag">国内・金融</span>
-<h3>
-<a href="https://wisdom.nec.com/ja/feature/digitalfinance/2023121801/index.html">セブン銀行
-× NEC</a>
-</h3>
-<p>
-2050年のATMを題材に、未来の言葉、未来のガジェット、人物、トラブル、解決方法を考えるワークショップ。
-</p>
-<p>
-<strong>使える示唆:</strong>
-「変な未来語」から入ると、参加者が常識を外しやすい。
-</p>
-</div>
-</div>
-<section id="事例からの学び" class="level2">
-<h2>事例からの学び</h2>
+<section id="明日のゴール" class="level2">
+<h2>明日のゴール</h2>
+<p>完成した事業戦略を作る場ではない。まず、2030-2040年の世界線に入り、その時代の当事者が感じる制約・諦め・欲望・小さな希望を共有する。</p>
+<p>明日の成果物:</p>
 <ol type="1">
-<li>強いSFプロトは、技術紹介ではなく生活の摩擦を描く。</li>
-<li>物語の中に、便利さだけでなく葛藤を入れる。</li>
-<li>小説だけで終わらせず、未来の証拠品や体験プロトタイプに変換する。</li>
-<li>ディストピア一辺倒にしない。希望・美しさ・遊びを入れる。</li>
-<li>参加者に白紙で未来を想像させず、最初に読む/見る/触るものを置く。</li>
+<li>当事者世界線から見える「その時代の当たり前」</li>
+<li>生活・仕事・地域に滲み出る課題</li>
+<li>その世界でも賭けたくなる希望</li>
+<li>未来の証拠品:
+通知、申請文、貼り紙、台帳、会話ログ、生活ノードの案内</li>
+<li>最後にだけ、今の自分たちが試せる小さな実験</li>
 </ol>
 </section>
 </section>
-<section id="明日のws設計" class="level1">
-<h1>明日のWS設計</h1>
-<section id="基本方針" class="level2">
-<h2>基本方針</h2>
-<p>明日は、現在の課題や防災文脈から入らない。今日の議論は「あとで戻す箱」に入れる。AI以降の社会を直接予測するのではなく、SFショートストーリーを読み、そこに含まれる未来の生活・欲望・違和感・事業機会を取り出す。</p>
+<section id="世界線の読み方" class="level1">
+<h1>世界線の読み方</h1>
+<section id="sfプロトで見る順番" class="level2">
+<h2>SFプロトで見る順番</h2>
+<div class="grid-3">
+<div class="card">
+<span class="tag">1</span>
+<h3>
+その時代の当たり前
+</h3>
+<p>
+水、電気、移動、冷却、通信、信用、家族、教育、ケア、仕事はどう変わっているか。
+</p>
+</div>
+<div class="card">
+<span class="tag">2</span>
+<h3>
+当事者のマインド
+</h3>
+<p>
+何に慣れ、何を諦め、何を守ろうとし、何に少しだけ賭けたくなっているか。
+</p>
+</div>
+<div class="card">
+<span class="tag">3</span>
+<h3>
+滲み出る課題と希望
+</h3>
+<p>
+課題は先に探さない。物語に入った後で、自然に出てくる摩擦と希望を拾う。
+</p>
+</div>
+</div>
 </section>
-<section id="使う世界観の4象限" class="level2">
-<h2>使う世界観の4象限</h2>
-<div class="matrix">
-<div class="matrix-cell">
+<section id="見るべき制約" class="level2">
+<h2>見るべき制約</h2>
+<div class="grid-2">
+<div class="card">
 <h3>
-個人 × ウェルビーイング
+AGI以降の制約
 </h3>
-<p>
-<strong>パンとバラの生活OS</strong><br>最低限の生活運用は静かに整い、人は美しさ、余白、創作、関係性に時間を使う。
-</p>
+<ul>
+<li>
+AIは速く正しいが、責任は人間に残る。
+</li>
+<li>
+顧客、行政、学校、家族もAIを使う。
+</li>
+<li>
+データ履歴が薄い人は、配分の外へ落ちやすい。
+</li>
+<li>
+判断は速くなるが、物理世界の最後の1メートルは遅い。
+</li>
+</ul>
 </div>
-<div class="matrix-cell">
+<div class="card">
 <h3>
-共同体 × ウェルビーイング
+インフラの制約
 </h3>
-<p>
-<strong>まちの余白編集室</strong><br>住民、店、AI、地域の場所がつながり、まちの一日をみんなで編集する。
-</p>
-</div>
-<div class="matrix-cell">
-<h3>
-個人 × サバイバル
-</h3>
-<p>
-<strong>ネオ・オフグリッド</strong><br>場所に縛られず、生活インフラを持ち運びながら自由に暮らす。
-</p>
-</div>
-<div class="matrix-cell">
-<h3>
-共同体 × サバイバル
-</h3>
-<p>
-<strong>生存圏の拡張</strong><br>都市、島、山、廃線、港、公園の端まで、人が気持ちよく滞在できる場所に変える。
-</p>
+<ul>
+<li>
+水、電気、冷却、移動、住まい、ケアは地域差が大きい。
+</li>
+<li>
+足りないものは「量」だけでなく「届く時間」と「使える権利」。
+</li>
+<li>
+古い公共施設、空き家、市場、路地が新しい生活基盤になる。
+</li>
+<li>
+効率化だけでは、尊厳や居場所は増えない。
+</li>
+</ul>
 </div>
 </div>
-<p>ただし明日は、左下の「防災/サバイバル」から始めない。<strong>右上のウェルビーイング、余白、美しさ、遊び、共同体編集</strong>を厚くする。</p>
 </section>
-<section id="推奨アジェンダ-1300-1700" class="level2">
-<h2>推奨アジェンダ 13:00-17:00</h2>
+<section id="その時代のマインドセット" class="level2">
+<h2>その時代のマインドセット</h2>
+<ul>
+<li>「AIがそう言うのはわかった。で、誰が最後に決めるのか」</li>
+<li>「速いこと」自体にはもう価値がない。</li>
+<li>「何を任せないか」が、個人や地域の誇りになる。</li>
+<li>信用はお金だけでなく、履歴、世話、場所への関与、招ける余白で作られる。</li>
+<li>希望は、全部が解決することではなく、選択肢が一つ増えること。</li>
+</ul>
+</section>
+</section>
+<section id="推奨アジェンダ" class="level1">
+<h1>推奨アジェンダ</h1>
 <div class="timeline">
 <div class="slot">
 <time>13:00</time>
 <div>
-<strong>リセット宣言</strong><br>昨日の課題文脈を箱にしまう。今日は「未来を当てる」場ではなく「未来を読んで、具現化して、選びたい未来を話す」場だと合意する。
+<strong>リセット</strong><br>昨日の課題起点を箱にしまう。今日は提供者視点ではなく、当事者の世界線を読む。
 </div>
 </div>
 <div class="slot">
-<time>13:08</time>
+<time>13:10</time>
 <div>
-<strong>SF短編を読む</strong><br>全員で同じ短編を黙読。気になった箇所に印をつける。印の種類は「ワクワク」「違和感」「AIの役割」「人間が残したいもの」「事業の匂い」。
+<strong>短編1を読む</strong><br>グローバルサウスの当事者世界線。「欲望」「制約」「信用」「希望」に線を引く。
 </div>
 </div>
 <div class="slot">
-<time>13:25</time>
+<time>13:35</time>
 <div>
-<strong>物語を分解する</strong><br>登場人物、場所、AI、制度、仕事、お金、所有、関係性、気持ちを付箋に分解する。
+<strong>世界のルールを抽出</strong><br>この世界では何が当たり前か。何が不公平か。何が誇りか。
 </div>
 </div>
 <div class="slot">
-<time>13:45</time>
+<time>14:05</time>
 <div>
-<strong>世界のルールを抽出</strong><br>「この世界では何が当たり前か」「何が禁止/嫌われるか」「何がステータスか」を出す。
+<strong>未来の証拠品</strong><br>申請文、スコア通知、台帳、貼り紙、マーケット案内などを作る。
 </div>
 </div>
 <div class="slot">
-<time>14:10</time>
+<time>14:40</time>
 <div>
-<strong>未来の証拠品を作る</strong><br>広告、求人票、利用規約、自治体通知、AIログ、店頭POP、日記、クレーム、レシートから1つ選び、手書きで作る。
-</div>
-</div>
-<div class="slot">
-<time>14:45</time>
-<div>
-<strong>共有と問い</strong><br>各チーム2分共有。「この未来は見たいか」「何が怖いか」「誰が一番嬉しいか」を話す。
+<strong>短編2を読む</strong><br>2040年日本の希望ある世界線。昔なら諦めた選択を今日は選べる瞬間を読む。
 </div>
 </div>
 <div class="slot">
 <time>15:10</time>
 <div>
-<strong>2本目の短編または別世界カード</strong><br>時間があれば別の短編を読む。1本目と価値観が違う未来をぶつける。
+<strong>当事者の課題を掘る</strong><br>困りごとではなく、諦め・怒り・誇り・小さな希望から課題を出す。
 </div>
 </div>
 <div class="slot">
-<time>15:35</time>
+<time>16:00</time>
 <div>
-<strong>自分たちの短編の骨子</strong><br>主人公、場所、日常、AI、葛藤、決断、最後の一文を作る。
-</div>
-</div>
-<div class="slot">
-<time>16:10</time>
-<div>
-<strong>事業の種へ翻訳</strong><br>短編から、まだないサービス、場所、仕事、制度、体験を抽出。ここで初めて事業仮説に近づける。
+<strong>ワクワクに張る</strong><br>この世界線で賭けるなら、どの希望か。誰の選択肢を増やすのか。
 </div>
 </div>
 <div class="slot">
 <time>16:40</time>
 <div>
-<strong>次の実験</strong><br>来週できる小さな検証を1つ決める。LP、体験会、インタビュー、模型、動画、未来広告のどれか。
+<strong>いまへ戻す</strong><br>最後だけ、今できる小さな実験、見せる相手、作る証拠品に戻す。
 </div>
 </div>
 </div>
 </section>
-<section id="冒頭で読む台本" class="level2">
-<h2>冒頭で読む台本</h2>
-<blockquote>
-<p>今日は昨日の議論をいったん箱にしまいます。昨日は現実の課題や防災文脈に立脚した、とても大事な議論でした。ただ、今日は同じ場所から始めません。</p>
-<p>今日は、AI以降の社会をいきなり想像するのではなく、まず短いSFを読みます。そこに出てくる暮らし、仕事、まち、AI、違和感、欲望をみんなで分解します。</p>
-<p>目的は、正しい未来予測をすることではありません。「この未来は見てみたい」「これは嫌だ」「この体験は作りたい」と思える素材を取り出すことです。</p>
-<p>前半は、実現性、市場性、誰が払うかを急がないでください。最後にだけ、いまの自分たちが何を試せるかに戻します。</p>
-</blockquote>
-</section>
-</section>
-<section id="sf短編ドラフト-1" class="level1">
-<h1>SF短編ドラフト 1</h1>
+<section id="scenario-1" class="level1">
+<h1>Scenario 1</h1>
 <div class="story">
 <h3>
-縁側のパン、川のバラ
+影を売らない日
 </h3>
-<p>2036年五月、旧駅舎を改装した「森前コモンズ」では、朝六時になるとパン窯がひとりで目を覚ます。火加減を見るのは職人ではなく、集落AIのミナトだ。けれど最後に塩をひとつまみ足すのは、必ず梶芽衣、二十七歳。彼女は元・都市型広告会社の企画職で、今はこの小さな谷で、パン屋と場所づくり会社の共同代表をしている。</p>
-<p>森前は、電力の七割を屋根と水路と薪の発電でまかなう「ネオ・オフグリッド区」だ。完全な自給ではない。足りないものは借り、余ったものは贈る。その記録をミナトがつける。電気、米粉、配送車、空き時間、子守り、演奏、沈黙まで、すべてが町の共有帳簿にゆるく結ばれていた。</p>
-<p>その日、年に一度の「パンとバラ市」が開かれる。午前は仕事の交換会、午後は庭と川辺の祝祭。芽衣のチームは五人だけだ。パンを焼く人、屋根を直す人、森の香りを採る人、子ども向けに古い地図を読む人、そして人間の会議で黙っていることを担当するミナト。ミナトは発言権を持たないが、沈黙の長さと視線の揺れから、次に必要な休憩や問いを提案する。</p>
-<p>昼前、町外から来た企業の一団が、森前を「暮らしのOS実証地」として買収したいと言い出した。提示額は大きい。全員に数年分の生活費が渡り、パン窯も森も温泉跡地も、より美しく管理されるという。会場に甘い匂いが満ち、焼き上がった丸パンの表面が小さく割れた。</p>
-<p>ミナトが初めて、予定にない音を鳴らした。駅舎の古い発車ベルだった。</p>
-<p>スクリーンには、帳簿には載っていない価値が並んだ。川霧を見に来る独居老人の足跡。学校へ行かない子が毎週水曜だけ焼く焦げた菓子パン。夜勤明けの看護師がバラの世話をする三十四分。誰も所有していないはずのものが、確かに誰かを生かしていた。</p>
-<p>けれど最後の一行だけ、全員が息をのんだ。</p>
-<p>「この町は、三年後、外部資本を受け入れた場合の幸福度が七％上昇する」</p>
-<p>ざわめきの中で、芽衣はミナトの端末を閉じた。予測は便利だ。便利すぎる。未来が数字になった瞬間、人は少しだけ自分の手を離してしまう。</p>
-<p>午後、川辺で投票ではなく「持ち寄り」が行われた。金額、条件、残したい匂い、変えたい働き方、手放してもよい建物。子どもたちはバラの花びらを水に流し、大人たちはパンを割って、まだ決まらない未来を食べた。</p>
-<p>夕方、企業の代表が帰る前に言った。</p>
-<p>「結論は？」</p>
-<p>芽衣は答えた。</p>
-<p>「今日は出ません。かわりに、来月からあなたたちも一日だけ、ここの共有帳簿に入ってください。買う前に、借りる側になってください」</p>
-<p>その夜、ミナトは町の照明をいつもより少し暗くした。星が濃くなり、川の音が近づいた。画面には短い通知が残っていた。</p>
-<p>「未確定の未来を保存しました」</p>
-<p>芽衣は笑ったが、少し怖かった。未来まで保存できるなら、消せるのは誰なのだろう。パン窯の余熱の中で、バラはまだ香っていた。</p>
+<p>2032年、南の沿岸国サナラでは、昼の予定を立てる前に、まず影を探す。</p>
+<p>十九歳のライラは、朝六時に屋上へ上がった。港の方から湿った風が来ていたが、涼しいのはあと一時間だけだ。太陽が高くなると、通りの露店は布を張り、学校は午後の授業を閉じ、市場の奥にある冷却ベンチは予約で埋まる。</p>
+<p>ライラの端末には、今日の「影スコア」が表示されていた。</p>
+<p>水、充電、移動、冷却席。<br />
+どれも足りないわけではない。ただ、必要な時間に、必要な人へ届くとは限らない。</p>
+<p>ライラは母の食堂を継ぐつもりがなかった。彼女がやりたいのは、夜の音楽配信だった。港町の若者たちは、夕方になると古い倉庫に集まり、発電の余りでスピーカーを鳴らす。AIは歌詞を三つの言語に訳してくれる。けれど、最後に踊るかどうかは人間が決める。</p>
+<p>その日、ライラは倉庫の影スロットを持っていた。夜の配信に必要な、冷却と電力の枠だ。</p>
+<p>だが昼前、祖母の市場区画が赤く表示された。</p>
+<p>「本日、冷却優先度: 低」</p>
+<p>祖母の店は古い。現金の客も多い。新しい信用台帳に十分な履歴がない。向かいの輸入雑貨店は、購買AIとの取引履歴がきれいに残っているので、午後の影を取れた。</p>
+<p>祖母は言った。</p>
+<p>「昔は、影は年寄りと子どものものだった」</p>
+<p>ライラは答えなかった。昔の話をされるのが嫌いだった。昔には戻れない。戻れないから、彼女たちは端末を持ち、充電を分け合い、壊れたポンプの部品番号をAIに読ませている。</p>
+<p>市場の組合長は、ライラに言った。</p>
+<p>「若い人の倉庫スロットを、今日は市場に回せ。音楽は夜でもできる」</p>
+<p>倉庫の仲間は反対した。</p>
+<p>「また年寄りに取られる。いつもそうだ。俺たちの場所はいつまで仮のままなんだ」</p>
+<p>ライラは端末を閉じた。</p>
+<p>午後二時、彼女は倉庫のスロットを売らなかった。祖母にも渡さなかった。かわりに、市場と倉庫の間にある細い路地を予約した。誰も使いたがらない、風だけはよく通る場所だ。</p>
+<p>彼女は仲間に言った。</p>
+<p>「今日は配信じゃない。市場の音を録る」</p>
+<p>野菜を切る音。値切る声。冷却ファンの低い唸り。水スタンドの通知音。祖母が客に笑う声。子どもが暑さで黙る瞬間。ライラたちはそれを集め、AIに地図へ変換させた。どこで人が止まり、どこで会話が消え、どこで商売が途切れるのか。</p>
+<p>夕方、路地に小さな灯りがついた。音楽は派手ではなかった。けれど市場の人たちは足を止めた。組合長も、倉庫の若者たちも、祖母もいた。</p>
+<p>画面には、新しい申請文が映っていた。</p>
+<p>「この路地を、冷却インフラではなく、夜市の学習区画として登録する」</p>
+<p>組合長は眉をひそめた。</p>
+<p>「そんな区分はない」</p>
+<p>ライラは言った。</p>
+<p>「だから作る。昼の影は足りない。でも夜なら、私たちが増やせる」</p>
+<p>祖母は、初めて端末に親指を置いた。古い市場の信用が、若者の音楽台帳に一行だけ接続された。</p>
+<p>翌朝、ライラの影スコアは少しだけ上がっていた。大きな変化ではない。水も電気も、まだ足りない。祖母の店も、来週また赤くなるかもしれない。</p>
+<p>けれど、路地の名前は変わっていた。</p>
+<p>「夜の市場、仮登録」</p>
+<p>ライラは笑った。<br />
+影は、予約するものだけではなかった。<br />
+作るものにも、なり始めていた。</p>
 </div>
-<section id="この短編で拾う問い" class="level2">
-<h2>この短編で拾う問い</h2>
+<section id="シナリオ1で拾う問い" class="level2">
+<h2>シナリオ1で拾う問い</h2>
 <div class="question-grid">
 <div class="question-card">
-共有帳簿は、何を記録すべきで、何を記録しないほうがよいか。
+AIが資源配分を最適化する時代に、信用履歴が薄い人はどう扱われるか。
 </div>
 <div class="question-card">
-AIミナトに発言権を与えない設計は、安心か、不自然か。
+水、電気、冷却、通信は、所有物か、共同資本か。
 </div>
 <div class="question-card">
-外部資本を「買う側」ではなく「借りる側」にする条件設計は、事業として成立するか。
+若者文化は、インフラ不足の中でどんな社会機能を持つか。
 </div>
 <div class="question-card">
-「パンとバラ」は、2030年代の仕事と暮らしで何を象徴しているか。
+希望は「外から助けが来ること」ではなく、何を自分たちで再定義できることか。
 </div>
 <div class="question-card">
-AIが幸福度を予測できる社会で、人間が未確定のまま残すべき領域はどこか。
+この世界の未来の証拠品は、影スコア通知、路地の仮登録申請、夜市の音地図、信用台帳。
 </div>
 <div class="question-card">
-この世界から作れる未来の証拠品は、共有帳簿、町の利用規約、パンとバラ市の広告、AIログ、投資提案書。
+この話でワクワクに張るなら、誰のどんな選択肢を増やすことか。
 </div>
 </div>
 </section>
 </section>
-<section id="sf短編ドラフト-2" class="level1">
-<h1>SF短編ドラフト 2</h1>
+<section id="scenario-2" class="level1">
+<h1>Scenario 2</h1>
 <div class="story">
 <h3>
-待てる街
+灯りを招く家
 </h3>
-<p>2041年、鹿ノ浦市では、バス停が先に老いた。</p>
-<p>正確に言えば、バス停はもう停留所ではなかった。柱の中には地域OS「まちの余白」が入り、誰がどこへ行きたいか、誰が今日は外に出ないほうがいいか、どの道が暑すぎるかを、ゆっくり計算していた。</p>
-<p>市役所の移動福祉係にいる未央は、朝いちばんに警告を見た。</p>
-<p>「八十七歳、田辺修。外出予定を三回キャンセル。会話量、前週比マイナス六十二パーセント」</p>
-<p>AIは提案した。自動運転ポッドを玄関前に寄せ、商店街の診療所まで連れていく。効率は高い。転倒リスクも低い。予算説明にも使いやすい。</p>
-<p>けれど未央は、承認ボタンを押せなかった。</p>
-<p>田辺は去年まで、港行きの古いバスに毎週乗っていた。目的地は病院ではない。港のベンチだった。そこで彼は、いつも三十分だけ待った。来るはずのない妻を待っているのだと、近所の人は言った。</p>
-<p>「移動目的が不明です」とAIは表示した。</p>
-<p>「じゃあ、目的を作ればいい」と未央はつぶやいた。</p>
-<p>彼女はポッドを呼ばず、港線の廃止された時刻表を復元した。実際に走るのは一台だけ。八人乗りの小さな車両で、乗客がいなければ遠回りする。停留所で五分、何もしない時間を置く。効率評価は下がった。</p>
-<p>翌週、田辺は家を出た。杖をつき、古い停留所の前に立った。</p>
-<p>車両が来るまでの五分間、通学中の子どもが「まだ来ないの」と聞いた。</p>
-<p>田辺は少し考え、「待ってるんだよ」と答えた。</p>
-<p>その日から、AIは新しい項目を覚えた。</p>
-<p>移動目的：未確定。<br />
-社会的効果：会話一件。<br />
-都市機能：待つこと。</p>
-<p>未央の端末には、赤字でこう出た。</p>
-<p>「この運行は最適ではありません」</p>
-<p>彼女は承認ボタンを押した。</p>
+<p>2040年、日本の山あいにある三瀬町では、夜になると家の灯りが地図に浮かぶ。</p>
+<p>人口は昔の半分になった。小学校は閉じ、商店街のシャッターは増えた。病院までは遠く、冬の雪は重い。けれど町の地図から、灯りが消えたわけではない。</p>
+<p>七十六歳の春子は、一人暮らしだ。息子は東京にいて、毎朝AI越しに体調を聞いてくる。冷蔵庫も薬箱も、春子のことをよく知っている。よく知りすぎている。</p>
+<p>「今日は旧小学校ノードへの移動を推奨します」</p>
+<p>端末が言った。</p>
+<p>旧小学校は、いまは生活ノードになっている。共同台所、風呂、遠隔診療、洗濯、蓄電池、配送ロッカー、子どもの学習室。昔の公共施設よりも、ずっと生活に近い。</p>
+<p>春子は行かないつもりだった。見守られる側になるのが嫌だった。</p>
+<p>その日、町では「夜の開校日」があった。閉じたはずの小学校を、月に一度だけ開く。授業ではない。町に残っている人、離れて暮らす家族、三日だけ滞在する親子、オンラインで学ぶ子どもたちが、それぞれ何かを持ち寄る。</p>
+<p>春子の持ち寄り欄は空白だった。</p>
+<p>昔なら、彼女は料理を持って行った。裁縫も教えた。祭りの浴衣も直した。けれど今は、膝が痛い。目も疲れる。誰かに何かを教えるより、教えられる側に回る年齢だと、自分でも思っていた。</p>
+<p>夕方、隣の空き家に灯りがついた。</p>
+<p>滞在登録の通知が来る。<br />
+東京から来た母親と、十二歳の娘。娘の探究テーマは「町はどう終わるのか」。</p>
+<p>春子は少し腹が立った。終わると決めて見に来るのか。</p>
+<p>旧小学校の体育館には、いろんな人がいた。遠隔診療を受ける老人。共同台所でカレーを作る高校生。空き家の雨漏りをAIに相談する若者。都市の会社の会議に、校長室から出ている母親。</p>
+<p>十二歳の娘は、春子に聞いた。</p>
+<p>「この町は、いつなくなるんですか」</p>
+<p>春子は答えなかった。かわりに、家庭科室の奥から古い箱を出した。中には、祭りの布が入っていた。もう担ぐ人がいなくなった山車の飾り布だ。</p>
+<p>「これ、直せる人がいないんですか」</p>
+<p>「いるよ」</p>
+<p>春子は言ってから、自分で驚いた。</p>
+<p>端末が小さく震えた。</p>
+<p>「作業時間は十五分以内を推奨します」</p>
+<p>春子は無視した。娘に針を渡す。AIが布の傷みを拡大し、縫い目の順番を示す。春子はその表示を見ながら、指の置き方だけを教えた。</p>
+<p>「画面は見る。でも布は引っ張りすぎない」</p>
+<p>娘は黙ってうなずいた。</p>
+<p>夜八時、体育館の照明が少し落ちた。町の灯り地図が壁に映る。余った電力を出せる家、誰かを夕食に呼べる家、洗濯機を貸せる家、話し相手になれる家。灯りは、ただの消費量ではなく、招ける余白を示していた。</p>
+<p>春子の家は、ずっと灰色だった。見守られる家。訪問される家。助けてもらう家。</p>
+<p>帰り際、十二歳の娘が言った。</p>
+<p>「明日、続きをしてもいいですか」</p>
+<p>春子は端末を開いた。<br />
+登録画面には「受け入れ側になる」と書かれていた。</p>
+<p>AIが注意を出す。</p>
+<p>「転倒リスク、疲労リスク、責任範囲の確認が必要です」</p>
+<p>春子は少し笑った。</p>
+<p>「確認する。でも、やめない」</p>
+<p>翌朝、町の地図に新しい灯りが一つ増えた。</p>
+<p>春子の家。<br />
+分類は、見守り対象ではなく、「縁側席」。</p>
+<p>十二歳の娘の探究テーマも変わっていた。</p>
+<p>「町はどう終わるのか」<br />
+から、<br />
+「町は何を分けられると続くのか」<br />
+へ。</p>
+<p>春子は窓を開けた。山の朝は、まだ少し寒い。問題は何も消えていない。病院は遠いし、雪は重いし、商店街は戻らない。</p>
+<p>それでも今日は、誰かが来る。<br />
+春子は、待つ側ではなく、招く側だった。</p>
 </div>
-<section id="この短編で拾う問い-1" class="level2">
-<h2>この短編で拾う問い</h2>
+<section id="シナリオ2で拾う問い" class="level2">
+<h2>シナリオ2で拾う問い</h2>
 <div class="question-grid">
 <div class="question-card">
-AIが「目的不明」と判断した行動に、人間はどんな価値を見出せるか。
+2040年の日本で、インフラは「所有するもの」から「分け合う余白」になるか。
 </div>
 <div class="question-card">
-地域交通や福祉のKPIに、「待つこと」「寄り道」「会話一件」は入るか。
+高齢者を管理するAIと、尊厳を増やすAIは何が違うか。
 </div>
 <div class="question-card">
-効率が下がるのに豊かになるサービスは、どう価格化・制度化できるか。
+空き家、旧学校、公民館は、生活機能だけでなく何を受け止める場所になるか。
 </div>
 <div class="question-card">
-AIが地域の余白を守るなら、どんなUIや権限設計が必要か。
+希望とは、課題が消えることではなく、どんな選択が増えることか。
 </div>
 <div class="question-card">
-この世界で作れる未来の証拠品は、運行ログ、予算説明資料、住民向け通知、求人票、バス停の貼り紙。
+この世界の未来の証拠品は、灯り地図、縁側席の登録画面、夜の開校日案内、探究テーマの記録。
 </div>
 <div class="question-card">
-「最適ではないが承認する」判断を、人間側に残すべき領域はどこか。
+この話でワクワクに張るなら、誰が「受け取る側」から「招く側」へ移れることか。
 </div>
 </div>
 </section>
 </section>
-<section id="明日使うならどちらか" class="level1">
-<h1>明日使うならどちらか</h1>
-<p>最初の1本としては、<strong>「待てる街」</strong>の方が使いやすい。短く、AIの最適化と人間の豊かさの衝突が明確で、参加者がすぐ議論に入れる。</p>
-<p>2本目として、<strong>「縁側のパン、川のバラ」</strong>を使うとよい。こちらは、パンとバラ、ネオ・オフグリッド、共同体自治、外部資本、幸福度予測という、今回のINNFRA文脈に近い論点を自然に含む。</p>
-</section>
-<section id="ワークシート" class="level1">
-<h1>ワークシート</h1>
-<section id="物語分解カード" class="level2">
-<h2>物語分解カード</h2>
+<section id="問いカード" class="level1">
+<h1>問いカード</h1>
+<section id="物語を読むときの線引き" class="level2">
+<h2>物語を読むときの線引き</h2>
 <ul>
-<li>主人公:</li>
-<li>主人公が大切にしているもの:</li>
-<li>AIの名前/役割:</li>
-<li>場所:</li>
-<li>未来の制度:</li>
-<li>未来の仕事:</li>
-<li>未来のお金/所有/共有:</li>
-<li>ワクワクしたところ:</li>
-<li>違和感があったところ:</li>
-<li>この世界で人間があえて残していること:</li>
-<li>この世界でAIに任せていること:</li>
+<li>その人が本当に欲しいもの</li>
+<li>その人が諦めかけているもの</li>
+<li>その世界のインフラ制約</li>
+<li>AIができること / できないこと</li>
+<li>不公平が生まれる場所</li>
+<li>希望が生まれる瞬間</li>
+<li>未来の証拠品にできそうなもの</li>
 </ul>
 </section>
-<section id="未来の証拠品カード" class="level2">
-<h2>未来の証拠品カード</h2>
+<section id="深掘り問い" class="level2">
+<h2>深掘り問い</h2>
+<div class="grid-2">
+<div class="card">
+<h3>
+課題を掘る
+</h3>
 <ul>
-<li>証拠品の種類: 広告 / 求人 / 利用規約 / 通知 / AIログ / 日記 /
-クレーム / レシート / 契約書</li>
-<li>2030年代の世界名:</li>
-<li>誰に届くものか:</li>
+<li>
+この人は、何に困っているというより、何を失いかけているのか。
+</li>
+<li>
+その時代の「当たり前」が、誰を外側に置いているか。
+</li>
+<li>
+AIが正しくなるほど、人間に残る痛みは何か。
+</li>
+<li>
+物理インフラの最後の1メートルは、どこに残るか。
+</li>
+</ul>
+</div>
+<div class="card">
+<h3>
+希望に張る
+</h3>
+<ul>
+<li>
+昔なら諦めた選択を、今日は選べる瞬間はどこか。
+</li>
+<li>
+その希望は、誰の尊厳・自由・関係性を増やすか。
+</li>
+<li>
+外から届く支援ではなく、当事者が再定義できるものは何か。
+</li>
+<li>
+この未来を現実に近づける小さな実験は何か。
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="未来の証拠品テンプレート" class="level2">
+<h2>未来の証拠品テンプレート</h2>
+<ul>
+<li>種類: 通知 / 申請文 / 台帳 / 貼り紙 / 地図 / 会話ログ / 利用規約 /
+招待状</li>
+<li>誰の手元に届くか:</li>
 <li>そこに書かれている一文:</li>
-<li>この証拠品からわかる新しい常識:</li>
-<li>この証拠品から見える事業機会:</li>
-<li>逆に怖いこと:</li>
+<li>それが示す新しい当たり前:</li>
+<li>それによって外側に置かれる人:</li>
+<li>それでも増える選択肢:</li>
+<li>いま試すなら何を作るか:</li>
 </ul>
 </section>
-<section id="事業の種カード" class="level2">
-<h2>事業の種カード</h2>
-<ul>
-<li>未来の生活変化:</li>
-<li>それによって嬉しくなる人:</li>
-<li>その人が今あきらめていること:</li>
-<li>未来で当たり前になる行動:</li>
-<li>事業にするとしたら何を提供するか:</li>
-<li>最初に見せる相手:</li>
-<li>来週できる小さな実験:</li>
-</ul>
-</section>
-</section>
-<section id="ファシリテーション注意" class="level1">
-<h1>ファシリテーション注意</h1>
-<ul>
-<li>参加者が「それ実現できるの？」と言ったら、「今日は実装ではなく、その未来を見たいかを話しましょう」と戻す。</li>
-<li>「誰が払うの？」は16時以降まで封印する。</li>
-<li>防災・現在課題に戻りそうになったら、「それはあとで戻す箱へ」と言う。</li>
-<li>AIの機能説明が長くなったら、「それで人間の一日はどう変わる？」と聞く。</li>
-<li>未来が暗くなりすぎたら、「それでも人が嬉しくなる瞬間はどこ？」と聞く。</li>
-<li>無難なアイデアに寄ったら、「その世界でいちばん変な貼り紙は何？」と聞く。</li>
-<li>きれいにまとめすぎない。違和感が議論の燃料になる。</li>
-</ul>
 </section>
 <section id="参考リンク" class="level1">
 <h1>参考リンク</h1>
@@ -1104,13 +925,10 @@ href="https://www.nissan-global.com/JP/INNOVATION/TECHNOLOGY/NRC/FIELDS_SD/SOCIA
 <li><a
 href="https://wisdom.nec.com/ja/feature/digitalfinance/2023121801/index.html">セブン銀行
 × NEC / 2050年の金融</a></li>
-<li><a
-href="https://www.shimztechnonews.com/topics/sf/index.html">清水建設 /
-建設的な未来</a></li>
 </ul>
 <footer>
-このページは限定共有用の一時プレビューです。Generated 2026-07-10 JST.
-Sources checked 2026-07-10 JST.
+限定共有用の一時プレビュー。実施予定: 2026-07-10 13:00 JST。Generated
+2026-07-10 JST.
 </footer>
 </section>
 </body>
