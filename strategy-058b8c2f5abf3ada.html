@@ -425,6 +425,255 @@
       background: var(--sheet);
     }
 
+    .visual-board {
+      display: grid;
+      grid-template-columns: minmax(0, .86fr) minmax(320px, 1.14fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 34px 1fr 34px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .flow-card {
+      min-height: 210px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+      padding: 15px;
+    }
+
+    .flow-card h3,
+    .funnel h3,
+    .cluster-map h3 {
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    .flow-card p,
+    .funnel p,
+    .cluster-map p {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .flow-card ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .arrow {
+      display: grid;
+      place-items: center;
+      min-height: 42px;
+      color: var(--heavy);
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .funnel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+      padding: 15px;
+    }
+
+    .funnel-bars {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .bar {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) 96px;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .bar .rank {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--heavy);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .bar .track {
+      position: relative;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      background: #ece7dc;
+    }
+
+    .bar .fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+    }
+
+    .bar:nth-child(2) .fill { background: linear-gradient(90deg, var(--green), var(--blue)); }
+    .bar:nth-child(3) .fill { background: linear-gradient(90deg, var(--cyan), var(--blue)); }
+    .bar:nth-child(4) .fill { background: linear-gradient(90deg, var(--amber), var(--green)); }
+    .bar:nth-child(5) .fill { background: linear-gradient(90deg, var(--amber), var(--violet)); }
+    .bar:nth-child(6) .fill { background: linear-gradient(90deg, var(--red), var(--amber)); }
+
+    .bar .track span {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .bar .tag {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .cluster-map {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+      padding: 15px;
+    }
+
+    .map-canvas {
+      position: relative;
+      min-height: 430px;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, transparent 49.7%, rgba(46, 42, 36, .18) 49.7%, rgba(46, 42, 36, .18) 50.3%, transparent 50.3%),
+        linear-gradient(0deg, transparent 49.7%, rgba(46, 42, 36, .18) 49.7%, rgba(46, 42, 36, .18) 50.3%, transparent 50.3%),
+        #f8f5ed;
+      overflow: hidden;
+    }
+
+    .axis-label {
+      position: absolute;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .axis-label.x-l { left: 12px; bottom: 10px; }
+    .axis-label.x-r { right: 12px; bottom: 10px; }
+    .axis-label.y-t { left: 12px; top: 10px; }
+    .axis-label.y-b { left: 12px; bottom: 34px; }
+
+    .node-chip {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      max-width: 176px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius);
+      background: rgba(251, 250, 246, .96);
+      padding: 9px 10px;
+      box-shadow: 0 5px 16px var(--shadow);
+      font-size: 12px;
+      line-height: 1.38;
+    }
+
+    .node-chip b {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 12px;
+    }
+
+    .node-chip span {
+      color: var(--muted);
+      font-size: 10.5px;
+    }
+
+    .node-chip.green { border-left-color: var(--green); }
+    .node-chip.amber { border-left-color: var(--amber); }
+    .node-chip.red { border-left-color: var(--red); }
+    .node-chip.cyan { border-left-color: var(--cyan); }
+    .node-chip.violet { border-left-color: var(--violet); }
+
+    .cluster-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .cluster-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--sheet);
+      padding: 14px;
+      min-height: 220px;
+    }
+
+    .cluster-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .cluster-card .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex: 0 0 auto;
+    }
+
+    .cluster-card.green .dot { background: var(--green); }
+    .cluster-card.amber .dot { background: var(--amber); }
+    .cluster-card.red .dot { background: var(--red); }
+    .cluster-card.cyan .dot { background: var(--cyan); }
+    .cluster-card.violet .dot { background: var(--violet); }
+
+    .cluster-card p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .mini-list span {
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 8px;
+      background: rgba(216, 211, 200, .16);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
     table {
       width: 100%;
       min-width: 1040px;
@@ -725,13 +974,16 @@
       .section-head,
       .two-col,
       .issue-box,
-      .worksheet-grid {
+      .worksheet-grid,
+      .visual-board,
+      .flow {
         grid-template-columns: 1fr;
       }
 
       .output-grid,
       .framework-grid,
-      .split-board {
+      .split-board,
+      .cluster-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -747,6 +999,11 @@
         grid-column: 1 / -1;
         border-left: 0;
         border-top: 1px solid var(--line);
+      }
+
+      .arrow {
+        min-height: 26px;
+        transform: rotate(90deg);
       }
     }
 
@@ -766,7 +1023,8 @@
       .output-grid,
       .framework-grid,
       .split-board,
-      .gate-grid {
+      .gate-grid,
+      .cluster-grid {
         grid-template-columns: 1fr;
       }
 
@@ -780,6 +1038,22 @@
 
       th {
         top: 0;
+      }
+
+      .bar {
+        grid-template-columns: 34px minmax(0, 1fr);
+      }
+
+      .bar .tag {
+        grid-column: 2;
+      }
+
+      .map-canvas {
+        min-height: 560px;
+      }
+
+      .node-chip {
+        max-width: 142px;
       }
     }
 
@@ -851,6 +1125,8 @@
         <a href="#outputs">成果物</a>
         <a href="#layers">4層</a>
         <a href="#agenda">2日間</a>
+        <a href="#visuals">図解</a>
+        <a href="#clusters">クラスタ</a>
         <a href="#scorecard">仮説評価</a>
         <a href="#portfolio">配分</a>
         <a href="#extreme">エクスト</a>
@@ -916,7 +1192,7 @@
         </div>
         <div class="output-item">
           <span class="num">5</span>
-          <b>次回説明ストーリー</b>
+          <b>次回説明説明先ストーリー</b>
           <span>北極星から逆算したロードマップとKPI骨子へ変換する。</span>
         </div>
       </div>
@@ -956,7 +1232,7 @@
           <div class="code">L3</div>
           <div class="body">
             <h3>実証・案件</h3>
-            <p>体験実証A、水運用実証A、納品実証A、施設実証A、施設実証B、パートナー検証A、エネルギー連携先、特定地域。</p>
+            <p>体験実証A、公共空間実証A、拠点実証A、施設実証A、施設実証B、パートナー検証A、エネルギー連携先、特定地域。</p>
           </div>
           <div class="action">扱い: 戦略そのものではなく、仮説を支える証拠として使う。</div>
         </div>
@@ -998,9 +1274,161 @@
       </div>
     </div>
 
+    <div class="section" id="visuals">
+      <div class="section-head">
+        <h2>3. 内部整理の読み方</h2>
+        <p class="section-note">シートの芯は「接点先の羅列」ではなく、固有案件から発火条件を抽出し、同型市場へ横展開するための変換装置。</p>
+      </div>
+      <div class="visual-board">
+        <div class="flow">
+          <div class="flow-card">
+            <h3>1. 固有接点を5W1Hで固定</h3>
+            <p>Who / Job / Where / When / Why / Howを、まず固有名詞のまま書く。ここで抽象化しすぎない。</p>
+            <ul>
+              <li>例: 公共・災害対応組織、福祉拠点A、拠点実証A、公共空間実証A</li>
+              <li>何を、どこで、いつ、なぜ、どう手当てしているか</li>
+              <li>バーニング評価を付ける</li>
+            </ul>
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-card">
+            <h3>2. 一段抽象化した要件へ上げる</h3>
+            <p>市場名ではなく「なぜ水・電力・住環境の制約が購買理由になるのか」を要件化する。</p>
+            <ul>
+              <li>任務遂行に生活維持が直結</li>
+              <li>平時収益と災害時機能が両立</li>
+              <li>上下水が来ない公共空間で運営</li>
+            </ul>
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-card">
+            <h3>3. 同じ要件の主体へ横展開</h3>
+            <p>最初の顧客を業界で閉じず、同じ発火条件を持つ別主体へ展開する。</p>
+            <ul>
+              <li>広域応援・医療派遣・観測隊</li>
+              <li>道の駅・SA/PA・物流拠点・公園</li>
+              <li>福祉避難所・団地自治会・指定管理者</li>
+            </ul>
+          </div>
+        </div>
+        <div class="funnel">
+          <h3>発火条件ファネル</h3>
+          <p>上ほど「今すぐ切実」、下ほど「思想・将来性・供給起点」。採用市場は上段から探し、下段は物語・長期探索に分ける。</p>
+          <div class="funnel-bars">
+            <div class="bar">
+              <span class="rank">1</span>
+              <div class="track"><div class="fill" style="width: 96%;"></div><span>無インフラ現場で任務継続</span></div>
+              <div class="tag">本命候補</div>
+            </div>
+            <div class="bar">
+              <span class="rank">2</span>
+              <div class="track"><div class="fill" style="width: 88%;"></div><span>平時収益 × 災害時機能</span></div>
+              <div class="tag">実績化済み</div>
+            </div>
+            <div class="bar">
+              <span class="rank">3</span>
+              <div class="track"><div class="fill" style="width: 78%;"></div><span>上下水が来ない公共空間</span></div>
+              <div class="tag">再現余地</div>
+            </div>
+            <div class="bar">
+              <span class="rank">4</span>
+              <div class="track"><div class="fill" style="width: 64%;"></div><span>福祉・ケア拠点の質と防災</span></div>
+              <div class="tag">低WTP注意</div>
+            </div>
+            <div class="bar">
+              <span class="rank">5</span>
+              <div class="track"><div class="fill" style="width: 46%;"></div><span>民間エリア・地方水道リプレイス</span></div>
+              <div class="tag">時機待ち</div>
+            </div>
+            <div class="bar">
+              <span class="rank">6</span>
+              <div class="track"><div class="fill" style="width: 30%;"></div><span>供給起点の宿泊・観光・住宅</span></div>
+              <div class="tag">原則保留</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="clusters">
+      <div class="section-head">
+        <h2>4. 市場クラスタ地図</h2>
+        <p class="section-note">業界名ではなく「INNFRAの必然性」と「予算・WTPの近さ」で置く。右上を短期戦略、左上を補助設計、右下を長期探索として扱う。</p>
+      </div>
+      <div class="cluster-map">
+        <h3>課題の必然性 × 予算/WTPの近さ</h3>
+        <p>配置は内部整理シートのバーニング評価と既存実証からの暫定。事実断定ではなく、討議のたたき台。</p>
+        <div class="map-canvas" aria-label="市場クラスタの2軸図">
+          <div class="axis-label y-t">INNFRA必然性 高</div>
+          <div class="axis-label y-b">INNFRA必然性 低</div>
+          <div class="axis-label x-l">WTP/予算 遠い</div>
+          <div class="axis-label x-r">WTP/予算 近い</div>
+
+          <div class="node-chip green" style="left: 72%; top: 20%;">
+            <b>任務継続現場</b>
+            <span>公共・災害対応組織・広域応援・医療派遣・遠隔保守</span>
+          </div>
+          <div class="node-chip green" style="left: 70%; top: 38%;">
+            <b>平時収益×防災拠点</b>
+            <span>道の駅・SA/PA・物流・商業・スタジアム</span>
+          </div>
+          <div class="node-chip cyan" style="left: 52%; top: 28%;">
+            <b>上下水なし公共空間</b>
+            <span>河川敷・公園・海水浴場・指定管理</span>
+          </div>
+          <div class="node-chip amber" style="left: 31%; top: 25%;">
+            <b>福祉・ケア拠点</b>
+            <span>デイサービス・福祉避難所・団地自治会</span>
+          </div>
+          <div class="node-chip violet" style="left: 36%; top: 63%;">
+            <b>地方水道リプレイス</b>
+            <span>行政水道・民間エリア・別荘地管理</span>
+          </div>
+          <div class="node-chip violet" style="left: 62%; top: 64%;">
+            <b>富裕層自律インフラ</b>
+            <span>邸宅・別荘・シェルター・建築家経由</span>
+          </div>
+          <div class="node-chip red" style="left: 72%; top: 82%;">
+            <b>供給起点の宿泊・観光</b>
+            <span>場所の必然性がなければ代替に負ける</span>
+          </div>
+          <div class="node-chip red" style="left: 34%; top: 83%;">
+            <b>メーカー商品化</b>
+            <span>背後の買い手ニーズ確認が先</span>
+          </div>
+        </div>
+      </div>
+      <div class="cluster-grid" style="margin-top: 14px;">
+        <div class="cluster-card green">
+          <h3><span class="dot"></span>短期の主戦場候補</h3>
+          <p>無インフラ現場で活動継続が任務に直結する組織。最初の実ユーザー発話と調達ルートを取りに行く。</p>
+          <div class="mini-list">
+            <span>初回証拠: 現場の既存代替、衛生/生活用水の優先順位</span>
+            <span>反証: コスト・運用・調達で先行例と同じ壁に当たる</span>
+          </div>
+        </div>
+        <div class="cluster-card cyan">
+          <h3><span class="dot"></span>実績を横展開する市場</h3>
+          <p>平時に使われ、災害時にも効く拠点。拠点実証A・公共空間実証Aの学びを標準仕様に変える。</p>
+          <div class="mini-list">
+            <span>初回証拠: 平時収益、災害協定、日常運用データ</span>
+            <span>反証: 防災だけで止まり、平時利用が作れない</span>
+          </div>
+        </div>
+        <div class="cluster-card amber">
+          <h3><span class="dot"></span>必然性は強いが設計が必要</h3>
+          <p>福祉・ケア領域は課題が濃い一方、WTPが低い。補助金、リース、自治会、福祉避難所との束ね方が鍵。</p>
+          <div class="mini-list">
+            <span>初回証拠: 支払者と補助制度、メンテ許容度</span>
+            <span>反証: 現場意欲は高いが支払者が存在しない</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="section" id="scorecard">
       <div class="section-head">
-        <h2>3. 市場仮説スコアカード</h2>
+        <h2>5. 市場仮説スコアカード</h2>
         <p class="section-note">市場規模・WTP・競合優位は、未確認なら「要検証」と明記する。強い言葉ほど証拠を要求する。</p>
       </div>
       <div class="matrix-wrap">
@@ -1020,81 +1448,81 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>水信頼性B2B</strong>施設・現場・パートナー向け</td>
+              <td><strong>無インフラ現場で任務継続</strong>公共・災害対応組織から同型主体へ</td>
               <td><span class="status s-spine">収益スパイン候補</span></td>
-              <td>水処理、電源、運用、保守、責任分界が絡む。</td>
+              <td>訓練場・被災地・遠隔現場で生活維持が任務遂行に直結する。</td>
               <td>要検証</td>
               <td>要検証</td>
-              <td>現場で水を動かし切る仕様・運用知。</td>
-              <td>複数の実証・商談文脈。</td>
-              <td>案件ごとに個別対応化し、再現性が出ない。</td>
-              <td>標準仕様、価格帯、初回顧客の購買理由。</td>
+              <td>可搬水循環、現場運用、生活用水/衛生をまとめて扱う仕様。</td>
+              <td>公共・災害対応組織、販売パートナー、訓練機関、接点あり。</td>
+              <td>既存代替、調達単位、ランニングコストで先行例と同じ壁に当たる。</td>
+              <td>実ユーザー、調達側、先行競合の撤退理由を聞く。</td>
             </tr>
             <tr>
-              <td><strong>公共・災害対応現場の衛生/生活水</strong></td>
+              <td><strong>平時収益×災害時機能の拠点</strong>道の駅・公共/準公共</td>
               <td><span class="status s-spine">収益スパイン候補</span></td>
-              <td>展開先での衛生・水・洗濯の不足。</td>
+              <td>平時に使われる施設が、災害時には生活用水・衛生拠点になる。</td>
               <td>要検証</td>
               <td>要検証</td>
-              <td>可搬水循環と現場運用。</td>
-              <td>既存SSoT上では実需シグナルが強い。</td>
-              <td>調達構造、価格、競合撤退理由が未確認。</td>
-              <td>実ユーザー、調達側、競合・先行事例の撤退理由のヒアリング。</td>
+              <td>平時利用の売上/運用データと、災害時のレジリエンスを同じ設備で示せる。</td>
+              <td>平時収益型防災拠点A、運営パートナー、地域行政A、防災道の駅文脈。</td>
+              <td>防災だけで語ると優先順位が下がり、保管設備で止まる。</td>
+              <td>平時収益、災害協定、自治体/施設側の予算科目を確認する。</td>
             </tr>
             <tr>
-              <td><strong>防災B2G・自治体</strong></td>
-              <td><span class="status s-hold">短期売上 / 要選別</span></td>
-              <td>災害時の水・生活インフラ。</td>
-              <td>補助金・予算化は要検証。</td>
+              <td><strong>上下水が来ない公共空間</strong>河川敷・公園・指定管理</td>
+              <td><span class="status s-spine">横展開候補</span></td>
+              <td>建築・上下水制約がある公共空間で、シャワー/水利用施設を運営したい。</td>
               <td>要検証</td>
-              <td>フェーズフリーな日常利用と災害利用の接続。</td>
-              <td>既存の納品・実証ライン。</td>
-              <td>生活用水の優先順位が低く、提案が止まる。</td>
-              <td>フェーズ3自治体、日常価値、予算科目の特定。</td>
+              <td>要検証</td>
+              <td>上下水なし・建築不可でも日常利用可能な水設備を成立させる。</td>
+              <td>公共空間水利用実証A、公共公園A、河川敷、キャンプ利用者向けシャワー。</td>
+              <td>想定外排水・電源・運用が崩れると標準化できない。</td>
+              <td>指定管理者、河川空間活用、キャンプ/BBQ場で同型案件を探す。</td>
             </tr>
             <tr>
-              <td><strong>エクストリームステイ</strong></td>
-              <td><span class="status s-vision">ビジョン装置候補</span></td>
-              <td>冒険家だけが得ていた開放感・独占体験の民主化。</td>
-              <td>有料WTPは要検証。</td>
+              <td><strong>福祉・ケア拠点の質と防災</strong>小規模ケア/地域避難</td>
+              <td><span class="status s-hold">要設計</span></td>
+              <td>人間らしい入浴/生活水と、災害時避難拠点化を同時に求める。</td>
+              <td>低め。補助金/リース要検証</td>
               <td>要検証</td>
-              <td>インフラ不在地を体験価値に変える。</td>
-              <td>既存の体験実証、4K、場所3条件。</td>
-              <td>宿泊事業化すると許認可・投資回収・運営負担が重い。</td>
-              <td>有料顧客WTP、許認可、回収試算、PMF Phase 0。</td>
+              <td>井戸・受水槽が置けない借室でも、平時の質と災害時レジリエンスを両立。</td>
+              <td>福祉拠点A、現場責任者、集合住宅内拠点、入浴設備、地域防災組織文脈。</td>
+              <td>現場意欲は高いが、支払者と予算が薄い。</td>
+              <td>補助制度、福祉避難所、自治会、リース可能性を確認する。</td>
             </tr>
             <tr>
-              <td><strong>都市富裕層・顕示的オフグリッド</strong></td>
+              <td><strong>民間エリアの上下水更新</strong>リゾート・別荘地・大規模管理</td>
+              <td><span class="status s-hold">時機待ち</span></td>
+              <td>過疎化・老朽化で、集約型上下水の維持更新が負担になる。</td>
+              <td>要検証</td>
+              <td>要検証</td>
+              <td>分散型水処理と運用を、エリア維持コストの代替案にする。</td>
+              <td>民間エリア運営者A、保有リゾートA、自社上下水道運営文脈。</td>
+              <td>重要だが緊急でなく、意思決定が先送りされる。</td>
+              <td>更新期限、更新費、管理組合/運営者の意思決定時期を確認する。</td>
+            </tr>
+            <tr>
+              <td><strong>富裕層の自律インフラ</strong>邸宅・別荘・シェルター</td>
               <td><span class="status s-vision">ビジョン装置 / 要検証</span></td>
-              <td>ステータス、独自性、先進的ライフスタイルの欲求。</td>
+              <td>社会不安やステータスを背景に、自宅インフラまで管理・防衛したい。</td>
               <td>要検証</td>
               <td>要検証</td>
-              <td>見せられる水・電力・住環境の技術体験。</td>
-              <td>既存SSoT上の仮説と周辺事例。</td>
-              <td>実需ではなく憧れ消費で終わる。</td>
-              <td>富裕層定性、価格帯、購入トリガー。</td>
+              <td>見せられる水・電力・住環境の技術体験。エクストと接続可能。</td>
+              <td>富裕層仮説、高所得層周辺、シェルター/別荘文脈。</td>
+              <td>憧れ・思想で終わり、購入トリガーがない。</td>
+              <td>富裕層定性、建築家/PB経由、価格帯と購入理由を確認する。</td>
             </tr>
             <tr>
-              <td><strong>島嶼・観光・遊休地</strong></td>
-              <td><span class="status s-hold">保留 / 要選別</span></td>
-              <td>水・電力・施工・運営の制約。</td>
-              <td>要検証</td>
-              <td>要検証</td>
-              <td>制約地の開発を可能にする。</td>
-              <td>引き合いはあるが、供給側都合が混じる。</td>
-              <td>「水道を引けばよい」「別の場所でよい」に負ける。</td>
-              <td>3条件を満たす場所だけに絞った案件棚卸し。</td>
-            </tr>
-            <tr>
-              <td><strong>3条件を満たさない一般宿泊オフグリッド</strong></td>
+              <td><strong>供給起点の宿泊・観光・住宅</strong>場所3条件なし</td>
               <td><span class="status s-kill">棄却候補</span></td>
-              <td>差別化が宿泊体験側に寄る。</td>
+              <td>絶景・宿泊・サウナ・住宅商品化など、作りたい側の都合が先行する。</td>
               <td>要検証</td>
               <td>要検証</td>
-              <td>弱い。通常インフラ代替に負けやすい。</td>
-              <td>既存SSoT上では棄却理由が明確。</td>
-              <td>INNFRAがやる必然性がない。</td>
-              <td>例外条件が出ない限り、再浮上させない。</td>
+              <td>場所3条件を満たす場合のみ、インフラ不在を体験価値へ転換できる。</td>
+              <td>宿泊・サウナ事業者群の観察、住宅メーカーA、住宅メーカー接点。</td>
+              <td>水道を引く/別の場所でやる/背後の買い手不在に負ける。</td>
+              <td>正統性or特権性×インフラ不在×技術突破が揃う例外だけ残す。</td>
             </tr>
           </tbody>
         </table>
@@ -1103,7 +1531,7 @@
 
     <div class="section" id="frameworks">
       <div class="section-head">
-        <h2>4. 評価フレームワーク</h2>
+        <h2>6. 評価フレームワーク</h2>
         <p class="section-note">市場仮説は「良さそう」では採用しない。採用条件と反証条件を同時に置く。</p>
       </div>
       <div class="framework-grid">
@@ -1143,34 +1571,35 @@
 
     <div class="section" id="portfolio">
       <div class="section-head">
-        <h2>5. 仮説ポートフォリオ</h2>
+        <h2>7. 仮説ポートフォリオ</h2>
         <p class="section-note">収益を作る仮説と、世界観を見せる仮説を混ぜない。</p>
       </div>
       <div class="split-board">
         <div class="lane spine">
           <h3>収益スパイン</h3>
           <ul>
-            <li>水信頼性B2B</li>
-            <li>公共・災害対応現場の衛生/生活水</li>
-            <li>フェーズフリー施設</li>
-            <li>行政・法人向けパッケージ</li>
+            <li>無インフラ現場で任務継続する組織</li>
+            <li>平時収益×災害時機能の公共/準公共拠点</li>
+            <li>上下水が来ない公共空間の水利用施設</li>
+            <li>水信頼性B2Bの標準仕様化</li>
           </ul>
         </div>
         <div class="lane vision">
           <h3>ビジョン装置</h3>
           <ul>
             <li>エクストリームステイ</li>
-            <li>候補地の再定義</li>
+            <li>富裕層の自律インフラ体験</li>
             <li>EV/エネルギー連携</li>
-            <li>都市富裕層向け体験</li>
+            <li>共同体自治・社会的共通資本の物語</li>
           </ul>
         </div>
         <div class="lane proof">
           <h3>実証資産</h3>
           <ul>
             <li>体験実証A</li>
-            <li>水運用実証A</li>
-            <li>納品実証A</li>
+            <li>公共空間実証A</li>
+            <li>拠点実証A</li>
+            <li>福祉拠点A</li>
             <li>施設実証A</li>
             <li>施設実証B</li>
             <li>パートナー検証A</li>
@@ -1179,9 +1608,10 @@
         <div class="lane kill">
           <h3>棄却 / 保留</h3>
           <ul>
-            <li>3条件を満たさない一般宿泊オフグリッド</li>
-            <li>特定候補地の単体Go</li>
-            <li>供給側都合だけの島嶼案件</li>
+            <li>場所3条件を満たさない一般宿泊オフグリッド</li>
+            <li>特定候補地単体Go</li>
+            <li>背後の買い手が未確認のメーカー商品化</li>
+            <li>供給側都合だけの観光・島嶼案件</li>
           </ul>
         </div>
       </div>
@@ -1189,7 +1619,7 @@
 
     <div class="section" id="extreme">
       <div class="section-head">
-        <h2>6. エクストリームステイ専用ゲート</h2>
+        <h2>8. エクストリームステイ専用ゲート</h2>
         <p class="section-note">宿泊事業に引っ張られないための判定軸。全部を同時に満たせないなら、事業本体ではなくビジョン装置に置く。</p>
       </div>
       <div class="gate-grid">
@@ -1229,30 +1659,30 @@
 
     <div class="section" id="issue">
       <div class="section-head">
-        <h2>7. 今日の最重要イシュー</h2>
+        <h2>9. 今日の最重要イシュー</h2>
         <p class="section-note">問いは意思決定を動かす形にする。仮説と反証条件をセットで扱う。</p>
       </div>
       <div class="issue-box">
         <div class="issue">
           <h3>ISSUE</h3>
-          <p>INNFRAは、短期収益を作る水信頼性B2Bを主戦場にし、エクストリームステイをビジョン装置に分離すべきか。</p>
+          <p>INNFRAは、業界名ではなく「無インフラ現場で生活維持が任務・事業継続に直結する」という発火条件を主戦場にすべきか。</p>
         </div>
         <div class="issue">
           <h3>HYPOTHESIS</h3>
           <p class="body">
-            水信頼性B2Bは既存案件とINNFRA wedgeが揃っているため収益スパインに置き、エクストリームステイはPMFと許認可が未検証だから、事業本体ではなくビジョン装置として扱うべきである。
+            内部整理では、強い接点は業界ではなく発火条件で共通している。したがって、最初の収益スパインは「無インフラ現場で活動継続する主体」と「平時収益×災害時機能の拠点」に置き、宿泊・観光・住宅は場所3条件または背後の買い手が確認できるまで保留すべきである。
           </p>
         </div>
       </div>
       <div class="band" style="margin-top: 14px;">
         <strong>反証条件:</strong>
-        エクストリームステイで有料顧客の強いWTP、許認可の現実性、投資回収可能性が短期に確認できた場合、この分離方針を撤回する。
+        宿泊・観光・住宅側で、場所3条件、明確な支払者、通常インフラ代替に勝つ理由、短期の投資回収が同時に確認できた場合、この優先順位を撤回する。
       </div>
     </div>
 
     <div class="section" id="worksheets">
       <div class="section-head">
-        <h2>8. ワークシート</h2>
+        <h2>10. ワークシート</h2>
         <p class="section-note">会議中にこのまま埋めるための型。印刷して手書きでも使える。</p>
       </div>
       <div class="worksheet-grid">
@@ -1300,12 +1730,13 @@
 
     <div class="section" id="sources">
       <div class="section-head">
-        <h2>9. 参照した中核SSoT</h2>
-        <p class="section-note">このHTMLは直前の討議資料をHTML化したもの。市場規模・WTP・競合優位は、未確認なら要検証として扱う。</p>
+        <h2>11. 参照した中核SSoT</h2>
+        <p class="section-note">このHTMLは直前の討議資料と内部整理シートを統合したもの。市場規模・WTP・競合優位は、未確認なら要検証として扱う。</p>
       </div>
       <div class="source">
+        <span>内部整理シートを基に作成。公開版では固有名詞・内部リンク・具体接点情報を抽象化。</span>
         <span>内部SSoTを基に作成。公開版では出典リンク・具体案件名を省略。</span>
-        <span>公開版では内部出典リンク・案件名を省略。元資料はローカルSSoTを参照。</span>
+        <span>関連: wiki/10-projects/innfra/meetings/2026-07-03-extreme-stay-meeting-memo.md / review-panel.md</span>
       </div>
     </div>
   </div>
