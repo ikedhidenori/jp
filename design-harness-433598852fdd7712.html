@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>デザインハーネスで、デザイン作業はどう変わるか</title>
+  <style>
+    :root {
+      --ink: #1d211f;
+      --muted: #626b67;
+      --paper: #f8f6ef;
+      --panel: #ffffff;
+      --line: #d9d4c5;
+      --green: #145c43;
+      --cobalt: #2257a5;
+      --coral: #c94f3d;
+      --amber: #e2aa2f;
+      --mint: #d9eadf;
+      --bluewash: #dce7f8;
+      --shadow: 0 18px 40px rgba(29, 33, 31, .12);
+      --radius: 8px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(20,92,67,.055) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(34,87,165,.045) 1px, transparent 1px),
+        var(--paper);
+      background-size: 42px 42px;
+      color: var(--ink);
+      font-family: "Avenir Next", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.75;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: rgba(34,87,165,.38);
+      text-underline-offset: .18em;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: relative;
+      padding: 56px 0 30px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(248,246,239,.86);
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 8px;
+      background: linear-gradient(90deg, var(--green), var(--cobalt) 38%, var(--coral) 72%, var(--amber));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin: 0 0 18px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--green);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 920px;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(40px, 7vw, 88px);
+      line-height: 1.03;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 24px 0 0;
+      max-width: 800px;
+      color: #333a36;
+      font-size: clamp(17px, 2vw, 23px);
+      line-height: 1.72;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .meta span {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.62);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(248,246,239,.94);
+      backdrop-filter: blur(12px);
+    }
+
+    nav .wrap {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    nav a {
+      flex: 0 0 auto;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+
+    nav a:hover {
+      border-color: var(--line);
+      background: var(--panel);
+    }
+
+    main {
+      padding: 42px 0 64px;
+    }
+
+    section {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child {
+      border-bottom: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+
+    .kicker {
+      color: var(--coral);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    .summary-band {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+    }
+
+    .statement {
+      min-height: 320px;
+      padding: 28px;
+      color: #f7faf5;
+      background: var(--green);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .statement strong {
+      display: block;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(30px, 4.8vw, 58px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .statement p {
+      margin: 22px 0 0;
+      max-width: 700px;
+      color: rgba(247,250,245,.88);
+      font-size: 17px;
+    }
+
+    .mini-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini {
+      padding: 18px;
+      border-radius: var(--radius);
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+
+    .mini b {
+      color: var(--cobalt);
+    }
+
+    .change-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .compare {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .compare h3 {
+      margin: 0;
+      padding: 14px 18px;
+      color: #fff;
+      background: var(--ink);
+    }
+
+    .compare.after h3 {
+      background: var(--cobalt);
+    }
+
+    .compare ul {
+      margin: 0;
+      padding: 18px 22px 22px 38px;
+    }
+
+    .compare li {
+      margin: 10px 0;
+    }
+
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .artifact {
+      min-height: 210px;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .artifact::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 5px;
+      background: var(--accent, var(--green));
+    }
+
+    .artifact small {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .artifact p {
+      color: #3b423e;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .flow {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+    }
+
+    .flow-item {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.82);
+    }
+
+    .flow-item::before {
+      content: counter(step, decimal-leading-zero);
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      color: #fff;
+      background: var(--green);
+      border-radius: 50%;
+      font-weight: 900;
+    }
+
+    .flow-item:nth-child(3n+2)::before { background: var(--cobalt); }
+    .flow-item:nth-child(3n)::before { background: var(--coral); }
+
+    .map {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--panel);
+    }
+
+    .map div {
+      min-height: 180px;
+      padding: 18px;
+      border-right: 1px solid var(--line);
+    }
+
+    .map div:last-child {
+      border-right: 0;
+    }
+
+    .map strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--green);
+      font-size: 15px;
+    }
+
+    .map p {
+      color: #3b423e;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .callout {
+      padding: 24px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--mint), var(--bluewash));
+      border: 1px solid rgba(20,92,67,.18);
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .check {
+      display: flex;
+      gap: 12px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      min-height: 82px;
+    }
+
+    .box {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--green);
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .source-list a {
+      display: block;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.7);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 28px 0 52px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 860px) {
+      header {
+        padding-top: 46px;
+      }
+
+      .section-head,
+      .summary-band,
+      .change-grid,
+      .artifact-grid,
+      .map,
+      .checklist,
+      .source-list {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        gap: 8px;
+      }
+
+      .map div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        min-height: auto;
+      }
+
+      .map div:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(100% - 22px, var(--max));
+      }
+
+      section {
+        padding: 38px 0;
+      }
+
+      .statement {
+        min-height: 260px;
+        padding: 20px;
+      }
+
+      .flow-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="eyebrow">Design Harness Field Note</p>
+      <h1>デザイン作業は、AIに頼む作業から、AIが外れない環境を作る作業へ変わる。</h1>
+      <p class="lead">公開されたデザインハーネス関連の6本の投稿・資料から、デザイン実務がどう変わるのか、何がすでに変わったのか、次のワークをどう進めるべきかを整理した。</p>
+      <div class="meta">
+        <span>作成日: 2026-07-10</span>
+        <span>対象: UI / LP / プロトタイプ / ブランドガイド</span>
+        <span>公開版: 未公開案件情報なし</span>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="wrap">
+      <a href="#answer">結論</a>
+      <a href="#change">変化</a>
+      <a href="#assets">6つの材料</a>
+      <a href="#workflow">進め方</a>
+      <a href="#map">成果物地図</a>
+      <a href="#next">次回テンプレ</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="answer">
+      <div class="wrap">
+        <div class="summary-band">
+          <div class="statement">
+            <strong>速くなるのは、制作そのものよりも「外れ方を早く見つける力」。</strong>
+            <p>デザインハーネスがあると、AIの出力を見てから人間が全部直すのではなく、出力前に文脈・制約・検証・フィードバックを置ける。つまり、デザイン作業は「依頼する」から「収束させる」へ変わる。</p>
+          </div>
+          <div class="mini-stack">
+            <div class="mini"><b>1. 判断は渡さない。</b><br>AIには作業・探索・検証補助を渡す。最後の良し悪し、意味から形への変換、ブランドの引力は人間が持つ。</div>
+            <div class="mini"><b>2. 斥力は書ける。</b><br>凡庸な方向、禁止事項、競合に置き換えて成立する表現、token外の逸脱はルール化できる。</div>
+            <div class="mini"><b>3. フィードバックが資産になる。</b><br>レビューで直した内容を次のルール、例、検証手続きへ戻すことで、同じ指摘の再発を減らす。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="change">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Before / After</div>
+          <h2>変わるのは、デザイナーの仕事量ではなく、仕事の置き場所。</h2>
+        </div>
+        <div class="change-grid">
+          <div class="compare">
+            <h3>従来のAIデザイン作業</h3>
+            <ul>
+              <li>毎回プロンプトで雰囲気を説明する。</li>
+              <li>参考画像や既存画面の読み取りが属人的になる。</li>
+              <li>AIが「それっぽい」平均値へ寄り、レビューで大量に戻す。</li>
+              <li>良し悪しの理由が残らず、次の制作に学習されない。</li>
+              <li>デザイナーが最後の修正係になりやすい。</li>
+            </ul>
+          </div>
+          <div class="compare after">
+            <h3>ハーネス後のデザイン作業</h3>
+            <ul>
+              <li>正本、AI向け要約、禁止事項、参照例を分けて渡す。</li>
+              <li>token、component、pattern、既存画面をコンテキストにする。</li>
+              <li>lint、スクショ、アクセシビリティ、差分レビューで逸脱を見つける。</li>
+              <li>レビュー差分をDecision Recordやrecipesへ戻す。</li>
+              <li>人間は最後の「引力」と採用判断に集中する。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="assets">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Source Set</div>
+          <h2>6本の成果物は、それぞれ違う役割を持つ。</h2>
+        </div>
+        <div class="artifact-grid">
+          <article class="artifact" style="--accent:#145c43">
+            <small>@tsubotax</small>
+            <h3>AIが迷えない環境</h3>
+            <p>デザインシステム、AI向け翻訳、検証、レビュー差分のルール化をつなぎ、非デザイナーでも一定範囲のUIへ収束できる運用として捉える。</p>
+          </article>
+          <article class="artifact" style="--accent:#2257a5">
+            <small>@haruruuun0405</small>
+            <h3>組織に配る導入設計</h3>
+            <p>Skill、評価Skill、フィードバックフォーム、導入事例をセットにし、ハーネスを個人技ではなく使われる業務部品にする。</p>
+          </article>
+          <article class="artifact" style="--accent:#c94f3d">
+            <small>@ry0_kaga</small>
+            <h3>Offloading != Surrender</h3>
+            <p>作り方はAIに渡しても、何を作るか、どこまで許すか、何を採用するかの判断は人間とハーネス側に残す。</p>
+          </article>
+          <article class="artifact" style="--accent:#e2aa2f">
+            <small>@NishaMe1024</small>
+            <h3>少人数チームの探索速度</h3>
+            <p>ユーザーストーリー、参照実装、制約、スクショ確認を渡せると、UIフローの検討と改善が速くなる。粗い依頼ではAI-Slopが再発する。</p>
+          </article>
+          <article class="artifact" style="--accent:#5d3f8c">
+            <small>@MLBear2</small>
+            <h3>計算的センサー</h3>
+            <p>DESIGN.mdだけでは足りない。rules.json、patterns.json、recipes、Storybook、lintでAIが自分の逸脱に気づけるようにする。</p>
+          </article>
+          <article class="artifact" style="--accent:#2a766f">
+            <small>@enhanced_jp</small>
+            <h3>斥力と引力</h3>
+            <p>禁止事項や棄却条件は書ける。一方、最後に良い一点へ引き寄せる審美判断は人間が持つ。AI-Readyガイドラインはこの境界を明確にする。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Workflow</div>
+          <h2>次のデザインワークは、この順番で進める。</h2>
+        </div>
+        <div class="flow">
+          <div class="flow-item">
+            <div>
+              <h3>用途を決める</h3>
+              <p>UI、LP、提案資料、ブランドガイド、プロトタイプのどれかを先に決める。用途が違えば必要な文脈、制約、検証が変わる。</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div>
+              <h3>コンテキストパックを作る</h3>
+              <p>目的、対象ユーザー、既存画面、参考事例、使ってよい素材、避けたい方向を1つの束にする。ここが薄いとAIは平均へ戻る。</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div>
+              <h3>斥力を明文化する</h3>
+              <p>「どこかで見たような」「競合に置き換えて成立する」「token外」「高級感という曖昧語」など、捨てる条件を書く。</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div>
+              <h3>2-3案だけ生成する</h3>
+              <p>大量生成で迷わない。方向性の違う案を少数出し、どの制約を守れているか、どの体験が強いかを比較する。</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div>
+              <h3>機械検証を通す</h3>
+              <p>色、余白、コンポーネント、アクセシビリティ、レスポンシブ、スクショ差分を確認する。人間の目は最後の判断に温存する。</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div>
+              <h3>人間が引力を判定する</h3>
+              <p>美しさ、緊張感、らしさ、記憶される形、長期使用への耐性は人間が見る。ここをAIの言葉で追認しない。</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div>
+              <h3>判断を残す</h3>
+              <p>採用案だけでなく、捨てた方向、直した理由、次に禁止することを残す。ここから次回のハーネスが強くなる。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="map">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Artifact Map</div>
+          <h2>作るべき成果物は、1枚のガイドラインではない。</h2>
+        </div>
+        <div class="map">
+          <div>
+            <strong>正本</strong>
+            <p>ブランド原則、設計思想、Design token、component、決定済みの制約。ここをSSOTにする。</p>
+          </div>
+          <div>
+            <strong>投影形式</strong>
+            <p>DESIGN.md、BRAND.md、PDF、実装者向けメモ、AI向け参照文。用途別に粒度を変える。</p>
+          </div>
+          <div>
+            <strong>検証装置</strong>
+            <p>rules.json、patterns.json、lint、Storybook、スクショ確認、アクセシビリティ評価。</p>
+          </div>
+          <div>
+            <strong>判断ログ</strong>
+            <p>Design Decision Record、Rejected Direction Archive、Critique Log、次回への禁止事項。</p>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:18px">
+          <p><strong>重要:</strong> DESIGN.mdやBRAND.mdは便利だが、それ自体を唯一の正本にすると破綻しやすい。AI、人間、実装者、クライアント、将来の担当者では必要な情報の粒度が違う。正本から用途別に投影する設計が必要になる。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="next">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Next Work</div>
+          <h2>次回からの依頼テンプレート。</h2>
+        </div>
+        <p>デザイン作業を依頼するときは、以下を最初に埋める。全部を美しく書く必要はない。空欄がある場所が、そのまま人間が先に考えるべき場所になる。</p>
+        <div class="checklist">
+          <div class="check"><span class="box"></span><div><strong>目的</strong><br>何を達成したい画面・資料・ブランド表現なのか。</div></div>
+          <div class="check"><span class="box"></span><div><strong>対象者</strong><br>誰が見て、何を判断し、次に何をするのか。</div></div>
+          <div class="check"><span class="box"></span><div><strong>既存資産</strong><br>使ってよい色、書体、component、既存画面、参考資料。</div></div>
+          <div class="check"><span class="box"></span><div><strong>斥力</strong><br>避けたい表現、凡庸な方向、競合に寄る表現。</div></div>
+          <div class="check"><span class="box"></span><div><strong>検証方法</strong><br>何を見れば「外れていない」と言えるか。</div></div>
+          <div class="check"><span class="box"></span><div><strong>人間の判断点</strong><br>AIに任せず、最後に人間が見るポイント。</div></div>
+        </div>
+        <div class="callout" style="margin-top:22px">
+          <p><strong>30日でやるなら:</strong> まず1つのLPかUI画面に限定し、正本、AI向け投影、禁止条件、スクショ確認、レビュー差分ログだけを作る。最初から全社共通デザインシステムを作らない。小さく使い、外れ方を観察し、次のルールに戻す。</p>
+        </div>
+
+        <div class="source-list">
+          <a href="https://x.com/tsubotax/status/2075161777823007202">坪田 朋さんの投稿</a>
+          <a href="https://x.com/haruruuun0405/status/2075153486019473552">Haruka Shimizuさんの投稿</a>
+          <a href="https://x.com/ry0_kaga/status/2075168467247047008">r.kagayaさんの投稿</a>
+          <a href="https://x.com/nishame1024/status/2075179146238693831">にしゃみーさんの投稿</a>
+          <a href="https://x.com/mlbear2/status/2075232943614947356">ML_Bearさんの投稿</a>
+          <a href="https://x.com/enhanced_jp/status/2075362405513900335">hiromi maeoさんの投稿</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>このページは公開済みのX投稿・登壇資料由来の要約をもとに作成した公開版メモです。未公開案件情報、契約情報、個人情報、内部システムの詳細は含めていません。公開URLは一時共有用途です。</p>
+    </div>
+  </footer>
+</body>
+</html>
