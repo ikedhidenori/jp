@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="color-scheme" content="light dark">
+  <title>不労所得の本体は「支配点」にある</title>
+  <style>
+    :root {
+      --paper: #f4f0e7;
+      --surface: #fffdf8;
+      --ink: #1c2421;
+      --muted: #626862;
+      --line: #d8d1c3;
+      --accent: #762713;
+      --accent-soft: #f1d7ca;
+      --green: #244f43;
+      --green-soft: #d7e4dd;
+      --gold: #634500;
+      --shadow: 0 18px 48px rgba(42, 38, 30, .08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #171b19;
+        --surface: #202522;
+        --ink: #edf0eb;
+        --muted: #b4bbb5;
+        --line: #3e4540;
+        --accent: #ffb197;
+        --accent-soft: #2b1b16;
+        --green: #9fc9b8;
+        --green-soft: #263e35;
+        --gold: #f0cc73;
+        --shadow: none;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, transparent 49.8%, rgba(120,110,90,.035) 50%, transparent 50.2%),
+        var(--paper);
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.9;
+      letter-spacing: .015em;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "palt" 1;
+      line-break: strict;
+      overflow-x: hidden;
+    }
+    p, li, figcaption { overflow-wrap: anywhere; }
+    a { color: inherit; text-underline-offset: .18em; }
+    .page { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      grid-template-columns: 1.18fr .82fr;
+      gap: 64px;
+      align-items: center;
+      padding: 96px 0 72px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero > * { min-width: 0; }
+    .eyebrow { margin: 0 0 20px; color: var(--accent); font-size: .76rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    h1, h2, h3 { line-height: 1.35; letter-spacing: -.035em; font-feature-settings: "palt" 1; line-break: strict; }
+    h1 { margin: 0; font-size: clamp(3rem, 7vw, 6.6rem); font-weight: 800; }
+    h1 .quiet { display: block; color: var(--muted); font-size: .45em; font-weight: 500; letter-spacing: -.015em; margin-top: .35em; }
+    .lead { max-width: 40em; margin: 32px 0 0; font-size: clamp(1.05rem, 1.8vw, 1.35rem); }
+    .source { margin-top: 30px; color: var(--muted); font-size: .83rem; }
+    .orbit {
+      aspect-ratio: 1;
+      position: relative;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--surface) 0 28%, transparent 29%);
+    }
+    .orbit::before, .orbit::after { content: ""; position: absolute; border: 1px solid var(--line); border-radius: 50%; }
+    .orbit::before { inset: 16%; }
+    .orbit::after { inset: 32%; }
+    .orbit strong { z-index: 2; width: 7em; text-align: center; font-size: 1.35rem; line-height: 1.35; }
+    .orbit span { position: absolute; z-index: 2; padding: 5px 10px; background: var(--paper); border-radius: 999px; color: var(--muted); font-size: .78rem; }
+    .o1 { top: 5%; } .o2 { right: -2%; top: 45%; } .o3 { bottom: 7%; } .o4 { left: -3%; top: 45%; }
+    section { padding: 96px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: .42fr 1fr; gap: 48px; align-items: start; margin-bottom: 44px; }
+    .section-no { color: var(--accent); font-size: .75rem; font-weight: 700; letter-spacing: .14em; }
+    h2 { margin: 0; font-size: clamp(2rem, 4.1vw, 3.55rem); }
+    .thesis-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .thesis-step { min-height: 215px; padding: 26px; background: var(--surface); display: flex; flex-direction: column; }
+    .thesis-step b { color: var(--accent); font-size: 2rem; font-weight: 500; }
+    .thesis-step h3 { margin: auto 0 8px; font-size: 1.15rem; }
+    .thesis-step p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.65; }
+    .pullquote { margin: 48px 0 0; padding-left: 24px; border-left: 4px solid var(--accent); font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; font-size: clamp(1.35rem, 2.8vw, 2.2rem); line-height: 1.55; }
+    figure { margin: 0; }
+    figcaption { margin-top: 18px; color: var(--muted); font-size: .78rem; line-height: 1.65; text-align: right; }
+    .arguments { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .argument { position: relative; min-height: 280px; padding: 30px; border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
+    .argument.wide { grid-column: 1 / -1; min-height: auto; display: grid; grid-template-columns: .72fr 1fr; gap: 36px; }
+    .argument .tag { display: inline-block; margin-bottom: 46px; padding: 4px 9px; border: 1px solid currentColor; color: var(--accent); font-size: .7rem; font-weight: 700; letter-spacing: .08em; }
+    .argument h3 { margin: 0 0 16px; font-size: 1.45rem; }
+    .argument p { margin: 0; color: var(--muted); }
+    .meter { align-self: center; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .meter div { min-height: 96px; padding: 16px; display: grid; place-items: center; text-align: center; font-weight: 700; }
+    .meter .small { background: var(--green-soft); color: var(--green); }
+    .meter .large { background: var(--accent-soft); color: var(--accent); }
+    .duality { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 42px; align-items: stretch; }
+    .duality .rule { background: var(--line); }
+    .position { padding: 30px; }
+    .position .mark { width: 52px; height: 52px; display: grid; place-items: center; margin-bottom: 24px; border: 1px solid var(--line); border-radius: 50%; font-size: 1.3rem; }
+    .position h3 { margin: 0 0 12px; font-size: 1.55rem; }
+    .position p { color: var(--muted); }
+    .position ul { margin: 22px 0 0; padding: 0; list-style: none; }
+    .position li { padding: 10px 0; border-top: 1px solid var(--line); }
+    .fork { display: grid; grid-template-columns: 1fr 120px 1fr; align-items: stretch; }
+    .future { padding: 34px; border: 1px solid var(--line); background: var(--surface); }
+    .future h3 { font-size: 1.6rem; }
+    .future p { color: var(--muted); }
+    .future.utopia { border-top: 5px solid var(--green); }
+    .future.dystopia { border-top: 5px solid var(--accent); }
+    .fork-center { position: relative; display: grid; place-items: center; color: var(--muted); font-size: .75rem; text-align: center; }
+    .fork-center::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--line); }
+    .fork-center span { z-index: 1; padding: 8px; background: var(--paper); }
+    .ownership { margin-top: 30px; text-align: center; color: var(--muted); font-size: .9rem; }
+    .strategy { counter-reset: strategy; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .strategy article { counter-increment: strategy; min-height: 310px; padding: 24px; border-top: 4px solid var(--gold); background: var(--surface); }
+    .strategy article::before { content: "0" counter(strategy); color: var(--gold); font-size: .78rem; font-weight: 700; }
+    .strategy h3 { margin: 70px 0 12px; font-size: 1.45rem; }
+    .strategy p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .closing { padding: 110px 0 70px; text-align: center; border-bottom: 0; }
+    .closing p { width: min(750px, 100%); margin: 0 auto; font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; font-size: clamp(1.5rem, 3vw, 2.6rem); line-height: 1.6; }
+    .closing small { display: block; margin-top: 52px; color: var(--muted); font-family: inherit; font-size: .78rem; }
+    .ttl { padding: 22px 0 38px; color: var(--muted); text-align: center; font-size: .72rem; }
+    @media (max-width: 900px) {
+      .page { width: min(100% - 36px, 760px); }
+      .hero { grid-template-columns: 1fr; gap: 46px; padding-top: 70px; }
+      .orbit { width: min(440px, 88vw); justify-self: center; }
+      .section-head { grid-template-columns: 1fr; gap: 12px; }
+      .thesis-grid, .strategy { grid-template-columns: repeat(2, 1fr); }
+      .argument.wide { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      body { font-size: 16px; line-height: 1.8; }
+      .page { width: min(100% - 28px, 560px); }
+      .hero { min-height: auto; padding: 54px 0 48px; }
+      h1 { font-size: clamp(2.75rem, 16vw, 4.5rem); }
+      section { padding: 66px 0; }
+      .thesis-grid, .arguments, .strategy, .duality, .fork { grid-template-columns: 1fr; }
+      .thesis-step { min-height: 180px; }
+      .argument.wide { grid-column: auto; }
+      .duality .rule { height: 1px; }
+      .fork-center { min-height: 78px; }
+      .fork-center::before { left: 0; right: 0; top: 50%; bottom: auto; width: auto; height: 1px; }
+      .strategy article { min-height: 240px; }
+      .strategy h3 { margin-top: 44px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Rojiura Index / Thinking Map</p>
+        <h1>不労所得<span class="quiet">の本体は「支配点」にある</span></h1>
+        <p class="lead">働くか、働かないか。その二択では見えないものがある。価値を作る人、顧客との接点を持つ人、そして分配率を決める人。議論の中心は、いつの間にか「誰が土地を持つのか」へ移っていく。</p>
+        <p class="source">Source: NewsPicks「路地裏インデックス」追加編集版<br><a href="https://www.youtube.com/watch?v=pEiW865JEM0" rel="noopener noreferrer">YouTubeで元動画を見る</a></p>
+      </div>
+      <div class="orbit" aria-label="支配点を中心とした所有構造の図">
+        <strong>分配率を<br>決める場所</strong>
+        <span class="o1">流通</span><span class="o2">決済</span><span class="o3">顧客接点</span><span class="o4">インフラ</span>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-head"><span class="section-no">01 / THESIS</span><h2>過去の労働が、地代に変わるまで</h2></div>
+      <figure>
+      <div class="thesis-grid">
+        <article class="thesis-step"><b>1</b><h3>つくる</h3><p>作品、顧客、フォロワー。最初は労働から始まる。</p></article>
+        <article class="thesis-step"><b>2</b><h3>貯まる</h3><p>アーカイブと関係性が、繰り返し価値を生む。</p></article>
+        <article class="thesis-step"><b>3</b><h3>流れる</h3><p>仲介、決済、発見性を持つ場所へ収益が集まる。</p></article>
+        <article class="thesis-step"><b>4</b><h3>支配する</h3><p>ルールと取り分を決める側が、最大の地代を得る。</p></article>
+      </div>
+      <figcaption>価値を生む行為から、分配条件を支配する場所へ。収益の重心は右へ移っていく。</figcaption>
+      </figure>
+      <p class="pullquote">不労かどうかより、誰が分配条件を決めているか。</p>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">02 / ARGUMENTS</span><h2>議論を動かす、5つの論点</h2></div>
+      <figure>
+      <div class="arguments">
+        <article class="argument"><span class="tag">LOW-COST ENTRY</span><h3>起業の低コスト化</h3><p>SNSや動画配信は挑戦を民主化した。同時に、売上の入口と発見性をプラットフォームへ預ける人も増やした。</p></article>
+        <article class="argument"><span class="tag">DIGITAL LANDLORD</span><h3>現代の地主</h3><p>土地だけではない。流通、決済、検索、配信の支配点を持つ企業が、デジタル空間の地代を取る。</p></article>
+        <article class="argument"><span class="tag">DOUBLE TRUTH</span><h3>格差は縮むのか</h3><p>個人が小さな地代を得やすくなることと、巨大な所有者へ富が集中することは、同時に起こりうる。</p></article>
+        <article class="argument"><span class="tag">PHYSICAL EXIT</span><h3>物理へ着地する</h3><p>店舗、場所、体験、関係性。自分で持てる接点は、オンラインの規約変更に対する逃げ道になる。</p></article>
+        <article class="argument wide">
+          <div><span class="tag">POWER ASYMMETRY</span><h3>小さな地主と、大きな地主</h3><p>過去コンテンツが回り続ければ、個人も小さな地代を得られる。しかし、その土地自体が借り物なら、最終決定権は別の場所にある。</p></div>
+          <div class="meter" aria-label="個人とプラットフォームの取り分構造"><div class="small">個人<br>アーカイブ収益</div><div class="large">PF<br>全参加者から徴収</div></div>
+        </article>
+      </div>
+      <figcaption>入口の民主化と所有の集中は、同じプラットフォーム上で同時に進む。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">03 / INEQUALITY</span><h2>民主化と集中は、矛盾しない</h2></div>
+      <figure>
+      <div class="duality">
+        <article class="position"><div class="mark">＋</div><h3>小さな地代の民主化</h3><p>投資、コンテンツ、SNS。以前より少ない元手で、個人が資産型収入へ参加できる。</p><ul><li>失敗コストが下がる</li><li>学生でも試せる</li><li>蓄積が収益へ変わる</li></ul></article>
+        <div class="rule"></div>
+        <article class="position"><div class="mark">×</div><h3>巨大地代への集中</h3><p>所有者は参加者全体から徴収できる。個人の副収入が増えても、集中率がそれ以上に高まる可能性がある。</p><ul><li>手数料を決められない</li><li>規約変更を拒めない</li><li>退出すると顧客を失う</li></ul></article>
+      </div>
+      <figcaption>参加者が増えるほど、小さな収益機会と巨大な徴収基盤の両方が育つ。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">04 / AI FUTURE</span><h2>AIが作るのは、楽園か王国か</h2></div>
+      <figure>
+      <div class="fork">
+        <article class="future utopia"><h3>AIに養われる社会</h3><p>必要労働をAIとロボットが担い、人間は創作や楽しみに時間を使う。技術進歩の果実が広く分配される未来。</p></article>
+        <div class="fork-center"><span>分岐点<br><b>所有と分配</b></span></div>
+        <article class="future dystopia"><h3>AI企業の国民になる社会</h3><p>モデル、通信、計算資源、決済を私企業が握る。国家より強い私的インフラの中で暮らす未来。</p></article>
+      </div>
+      <figcaption>同じ技術でも、所有と分配の設計が違えば、到着する社会は反転する。</figcaption>
+      </figure>
+      <p class="ownership">能力の問題ではない。技術の果実を誰が所有し、どう分けるか。</p>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">05 / PRACTICE</span><h2>借り物の土地から、自分の資産へ</h2></div>
+      <figure>
+      <div class="strategy">
+        <article><h3>借りる</h3><p>プラットフォームの発見性を使い、素早く試す。最初から自前主義に閉じない。</p></article>
+        <article><h3>貯める</h3><p>コンテンツ、顧客理解、ブランド、再利用できる知識を、自分側にも残す。</p></article>
+        <article><h3>逃がす</h3><p>規約変更が起きても、別の経路へ移せるようにSSoTと顧客接点を分散する。</p></article>
+        <article><h3>着地させる</h3><p>商品、コミュニティ、店舗、イベント。自分が分配条件を決められる場所へ変える。</p></article>
+      </div>
+      <figcaption>プラットフォームを拒むのではなく、借りた力を自分側の資産へ変換していく。</figcaption>
+      </figure>
+    </section>
+
+    <section class="closing">
+      <p>最後に残る問いは、どれだけ楽に稼げるかではない。<br>自分が耕している土地を、誰が持っているか。</p>
+      <small>NewsPicks「路地裏インデックス」追加編集版からの思考接続マップ</small>
+    </section>
+  </main>
+  <footer class="ttl">このページは 2026年7月14日 02:37 JST に自動削除されます</footer>
+</body>
+</html>
