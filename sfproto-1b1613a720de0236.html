@@ -252,6 +252,18 @@
   .diff th,.diff td{border-top:1px solid var(--line);padding:8px 8px;text-align:left;vertical-align:top;line-height:1.6}
   .diff thead th{border-top:none;color:var(--slate);font-size:.74rem;letter-spacing:.06em;padding-top:0}
   .diff td:first-child{color:var(--ink-soft);width:42%}
+
+  /* ---------- ワールドガイド ---------- */
+  .infra{border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px 18px;margin:12px 0;box-shadow:var(--shadow)}
+  .infra b.t{display:block;font-size:1rem;margin-bottom:6px}
+  .infra .now{font-size:.9rem;margin:0 0 8px}
+  .infra .why{font-size:.86rem;color:var(--ink-soft);border-left:3px solid var(--lamp);padding:6px 12px;background:var(--paper-2);border-radius:0 8px 8px 0;margin:0}
+  .infra .why b{font-size:.72rem;letter-spacing:.1em;color:var(--slate);display:block;margin-bottom:2px}
+  .flow{margin:14px 0 4px}
+  .flow .fstep{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 14px;font-size:.88rem}
+  .flow .fstep b{display:block;font-size:.78rem;color:var(--slate);letter-spacing:.08em;margin-bottom:2px}
+  .flow .farrow{text-align:center;color:var(--slate);padding:3px 0;font-size:.85rem;line-height:1}
+  .flow-note{font-size:.8rem;color:var(--ink-soft);margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
 </style>
 </head>
 <body>
@@ -293,6 +305,7 @@
       <li><a href="#q1">①の問いカード</a></li>
       <li><a href="#story2">ショート小説② 2040年の日本の山あい ＋ 解説</a></li>
       <li><a href="#q2">②の問いカード</a></li>
+      <li><a href="#world">この世界のしくみ (タイムライン・インフラ図鑑)</a></li>
       <li><a href="#evidence">未来の証拠品テンプレート</a></li>
       <li><a href="#links">参考リンク</a></li>
       <li><a href="#opening">ホストが冒頭で言うべき一言</a></li>
@@ -748,9 +761,121 @@
   </div>
 </section>
 
+<!-- ============ WORLD GUIDE ============ -->
+<section id="world">
+  <div class="sec-num">08 / WORLD SYSTEMS</div>
+  <h2>この世界のしくみ<span class="en">INFRASTRUCTURE GUIDE 2026 → 2040</span></h2>
+  <p>2つの物語は<b>同じ世界線</b>の話です。物語①は2030年代後半のグローバルサウス、物語②は2040年の日本——同じ歴史の、違う場所での現れです。ここでは「なぜ水が配給制なのか」「移動できないとはどういうことか」「遠隔身体はどう動いているのか」を、制度の因果ごと解説します。</p>
+
+  <h3>変化のタイムライン 2026 → 2040</h3>
+  <div class="tl">
+    <div class="tl-row">
+      <div class="tl-time">2026–28</div>
+      <div class="tl-body"><b>AIの常用化と、暑さの常態化</b><span>生成AIが事務・開発・接客を再編。40℃の夏が「異常」から「毎年」になる。保険会社が熱リスクの再計算を始める——のちの全変化の起点は、この地味な再計算だった。</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">2029–31</div>
+      <div class="tl-body"><b>AGI級が「裏方」に入る</b><span>行政・電力網・保険・物流の最適化にAGI級システムが導入される。誰も「社会が変わった」と宣言しなかったが、電気と水の料金表がリスク連動に変わった。BMIは医療で保険適用に (脳梗塞リハビリ・てんかん・うつ)。</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">2032–34</div>
+      <div class="tl-body"><b>渇水と熱の三年、制度の転換</b><span>連続大渇水と電力逼迫。水利権の投機で価格が暴騰し都市機能が麻痺しかけた反省から、「市場」でなく「配分」へ——貯水の格付けと分単位配水が導入される。熱中症死の急増でWBGT移動制限が法制化。北の労働力不足と南の移動制限が噛み合い、遠隔身体労働市場が成立。</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">2035–37</div>
+      <div class="tl-body"><b>内面が商品になる</b><span>BMIが医療から労働・教育へ滲み出す。注意ログ・恐怖反応の売買市場が成立し、悪用も始まる。経歴も映像も偽造可能になり機械的な個人信用スコアが崩壊 → 顔の見える共同保証が復権。日本では消滅集落の再編が進み、旧校舎を生活ノード化する制度ができる。</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">2038–40</div>
+      <div class="tl-body"><b>対抗する権利の発明</b><span>「手だけ契約」「呼び出さないでおく権利」「灯りの地図の反転運用」——技術は変わらないまま、使い方の作法が発明され始める。2つの物語は、この時代の話。</span></div>
+    </div>
+  </div>
+
+  <h3>インフラ図鑑 — 何が、なぜ、そうなったか</h3>
+
+  <div class="infra">
+    <b class="t">⚡ 電気 — 大きなグリッドから、近所のグリッドの束へ</b>
+    <p class="now">集中送電網は補助線に退き、主役は屋上ソーラー+塩水バッテリー (安価・不燃・重い=定置向き) のマイクログリッド。ピーク時間帯の冷房需要は<b>冷却クレジット</b>として権利化され、AIが分単位で需給を裁く。涼しさに残高と利率がある。</p>
+    <p class="why"><b>なぜ</b>熱波ピークのたびに集中グリッドが輪番停電を繰り返し、「遠くから送る」より「近くで作って貯める」が安くなった。冷房が生存必需になった結果、涼しさは配分の対象になった。</p>
+  </div>
+
+  <div class="infra">
+    <b class="t">💧 水 — 定額使い放題から、分単位の公共配分へ</b>
+    <p class="now">都市の貯水・地下水をAIが常時格付けし (残量・水質・回復速度)、世帯構成・医療必要度を加味して翌日の割当を計算。末端の<b>スマートバルブ</b>が指定時刻に指定量だけ開く。飲用水は絞られるが、再利用水 (中水) は比較的自由。</p>
+    <p class="why"><b>なぜ</b>2032–34年の連続渇水で水利権の投機と価格暴騰が起き、都市が麻痺しかけた。その反省で「払える人が使う」市場から「必要な人に届く」配分へ舵を切った。アディサの家の受け口は、この公共配分の末端装置。</p>
+    <div class="flow">
+      <div class="fstep"><b>STEP 1｜毎晩</b>貯水の格付け更新 — ダム・地下水・再生水の残量と回復速度をAIが評価</div>
+      <div class="farrow">▼</div>
+      <div class="fstep"><b>STEP 2</b>需給予測 — 明日の気温・人口・医療需要から都市全体の必要量を計算</div>
+      <div class="farrow">▼</div>
+      <div class="fstep"><b>STEP 3</b>世帯別割当 — 人数・医療必要度 (透析等は優先バッファ)・共同保証グループの信用状態で分単位に配分</div>
+      <div class="farrow">▼</div>
+      <div class="fstep"><b>STEP 4｜翌朝 5:47</b>スマートバルブが開く — 決められた時刻に、決められた量だけ。家の甕へ</div>
+    </div>
+    <p class="flow-note">図解A: 水が届くまで。「配給制」というより「AIが裁く予約制」。量は制約されるが、水質と公平性は市場時代より上がった——それでも「一分削られる」不安は毎朝ある。</p>
+  </div>
+
+  <div class="infra">
+    <b class="t">🚶 移動・物流 — 「昼の4時間」が消えた</b>
+    <p class="now">WBGT (暑さ指数) 連動の移動制限が11:00–15:00に発動。人の移動は朝夕に圧縮され、物流は夜間シフト+自動搬送+屋根付き回廊。学校や市場の営業時間も朝夕二部制。</p>
+    <p class="why"><b>なぜ</b>「移動できない」は物理的な禁止ではない。①歩けば実際に倒れる ②その時間帯の屋外事故は保険が効かない ③共同保証グループ全体の利率に跳ねる——の三重で、経済的・社会的に「動けない」。禁止ではなく、動くと高くつく構造。</p>
+  </div>
+
+  <div class="infra">
+    <b class="t">🦾 遠隔身体 — 「手袋を200キロ延ばす」技術</b>
+    <p class="now">フルダイブではない。意識は移動しない。視覚は目の前の投影、手の感覚だけがロボットと繋がる。技能は本人のもので、疲労も本人に来る。だから「労働」として成立し、賃金が払われる。</p>
+    <p class="why"><b>なぜ</b>北の国々の労働力不足と、南の移動制限が噛み合った。身体を運ぶ移民より、技能だけを送る遠隔労働のほうが、双方の政府にとって政治的に安上がりだった——これが公正かどうかは、今日の論点のひとつ。</p>
+    <div class="flow">
+      <div class="fstep"><b>STEP 1｜読む</b>首の後ろの神経パッチが「手の運動意図」を読む (筋電+運動皮質信号の粗い束。思考は読めない、読むのは手の意図だけ)</div>
+      <div class="farrow">▼</div>
+      <div class="fstep"><b>STEP 2｜補う</b>AI代理人が意図を平滑化・先読みし、通信遅延 (~0.3秒) を予測で隠す</div>
+      <div class="farrow">▼</div>
+      <div class="fstep"><b>STEP 3｜動く</b>北の倉庫のロボットアームが実行。彼女の手癖まで再現される</div>
+      <div class="farrow">▼</div>
+      <div class="fstep"><b>STEP 4｜返る</b>触覚・温度・重さの「要約」が振動と圧として手に返る。棚がぐらつけば、背筋も冷える</div>
+    </div>
+    <p class="flow-note">図解B: 遠隔身体のしくみ。オプション契約で「注意ログ」(どこで集中したか) と「恐怖反応」(何にひやりとしたか) を同時記録して売れる——手の仕事より内側が高く売れる構造が、物語①の争点。</p>
+  </div>
+
+  <div class="infra">
+    <b class="t">📡 通信 — 画面から、体感へ</b>
+    <p class="now">スマホの画面はほぼ消え、AI代理人が全ての通知・契約・支払いを仲介する。本人に届くのは体温の変化のような合図だけ。オフラインはソフトの設定でなく<b>物理の蓋</b> (パッチに貼る織り布) で作る。</p>
+    <p class="why"><b>なぜ</b>情報量と広告が人間の注意の限界を超え、注意そのものが売買される市場ができた。その防御装置として代理人が標準装備になった。「ソフトの設定は信用できない、塞ぐなら物理」が、この世界の若者の常識。</p>
+  </div>
+
+  <div class="infra">
+    <b class="t">🔐 セキュリティ・信用 — スコアから、連帯へ</b>
+    <p class="now">個人信用スコアは崩壊済み。主流は<b>共同保証</b>——顔の見える数世帯が束になって信用を担保し、誰かの失敗が全員の利率に跳ねる。脳データが高値なのは「偽造できない最後の担保」だから。</p>
+    <p class="why"><b>なぜ</b>AGI以降、経歴・実績・映像・声のすべてが安価に偽造可能になり、機械が読む個人スコアは担保として死んだ。最も偽造しにくいのは「長年おなじ路地で暮らしてきた五世帯の相互観察」だった。古い仕組みの復権——ただし、個人の「断る自由」が共同体のコストになる副作用ごと。</p>
+  </div>
+
+  <div class="infra">
+    <b class="t">🏥 医療 — 診断はただ同然、治療はインフラ次第</b>
+    <p class="now">診断AIは安く速く正確。しかし薬・透析・手術は物理のままで、水と電気に依存する。つまり<b>インフラ格差がそのまま健康格差</b>。BMIは脳梗塞リハビリ・てんかん・うつの治療から保険適用で普及し、記憶補助・感覚補助へ広がった。</p>
+    <p class="why"><b>なぜ医療から</b>効果測定がしやすく、規制の入口が医療だったから。「生活への滲み出し」は誰かが決めたのではなく、退院後もパッチを外す理由がなかった——アディサの母の薬が「利率の上で回っている」のは、この構造の末端。</p>
+  </div>
+
+  <div class="infra">
+    <b class="t">🎓 教育・技能 — 知識はただ、手は宝</b>
+    <p class="now">AI個別学習で知識の伝達はほぼ無料化。価値が残ったのは「手の技能」と「人から人への伝承」。履歴書より<b>手の履歴</b> (実際に何を直し、何を作ったか) が信用される。</p>
+    <p class="why"><b>なぜ</b>知識で差がつかない世界では、身体化された技能と、記録に残らない信頼関係が希少になった。アディサが16で学校を出ても屋台で立てるのも、84歳の澄江の「教える」が価値を持ち続けるのも、同じ理由。</p>
+  </div>
+
+  <div class="infra">
+    <b class="t">🎭 エンタメ — 無限のコンテンツと、希少な沈黙</b>
+    <p class="now">生成コンテンツは無限でほぼ無料。希少になったのは「記録されない時間」「生身の同席」「自分の注意を売らない時間」。楽器、味噌づくり、唱歌、機械の修理——注意を取り戻す体験が贅沢品になった。</p>
+    <p class="why"><b>なぜ</b>無限に供給されるものの価値はゼロに近づき、注意が commodity になった世界では「注意を自分のためだけに使う時間」が最も高価になった。澄江の縁側の予約が埋まるのは、この経済の裏返し。</p>
+  </div>
+
+  <div class="callout slate">
+    <span class="lbl">議論で使うとき</span>
+    <p>この図鑑は「正解の未来予測」ではなく、物語の世界を支える<b>因果の仮説</b>です。「この因果はおかしい」という反論は大歓迎——それこそが「この世界の制約」の発見です。15:45の蓋然性チェックで使ってください。</p>
+  </div>
+</section>
+
 <!-- ============ EVIDENCE TEMPLATE ============ -->
 <section id="evidence">
-  <div class="sec-num">08 / ARTIFACT</div>
+  <div class="sec-num">09 / ARTIFACT</div>
   <h2>未来の証拠品テンプレート<span class="en">EVIDENCE FROM THE FUTURE</span></h2>
   <p>議論を抽象のまま終わらせないために、その世界に<b>物として存在するはずのもの</b>を1枚つくります。画面、カード、音声、匂い、契約書、レシート——手に取れる形にした途端、制度と希望は急に具体的になります。</p>
   <figure class="fig"><img src="sfproto-1b1613a720de0236-artifact-v2.jpg" alt="未来の証拠品の例: 手のひらの上の同意カード。内面のデータは契約の外に置かれている" loading="lazy"><figcaption>証拠品の例——「手だけ契約」の同意カード。手の仕事は差し出す、内側は売らない。</figcaption></figure>
@@ -771,7 +896,7 @@
 
 <!-- ============ LINKS ============ -->
 <section id="links">
-  <div class="sec-num">09 / REFERENCES</div>
+  <div class="sec-num">10 / REFERENCES</div>
   <h2>参考リンク<span class="en">FOR CONTEXT, NOT FOR CITATION</span></h2>
   <p>議論の前提を厚くするための背景です。今日は<b>要約や引用の読み上げはしません</b>。休憩や事後に各自で。</p>
   <div class="linklist">
@@ -795,7 +920,7 @@
 
 <!-- ============ OPENING WORD ============ -->
 <section id="opening">
-  <div class="sec-num">10 / OPENING</div>
+  <div class="sec-num">11 / OPENING</div>
   <h2>ホストが冒頭で言うべき一言<span class="en">SAY THIS FIRST</span></h2>
   <div class="callout moss">
     <p>「今日は、『AIで便利になる未来』の話はしません。</p>
@@ -808,7 +933,7 @@
 
 <!-- ============ NOTES ============ -->
 <section id="notes">
-  <div class="sec-num">11 / FACILITATION</div>
+  <div class="sec-num">12 / FACILITATION</div>
   <h2>当日の注意点<span class="en">KEEP THE ROOM SAFE & ALIVE</span></h2>
   <div class="grid two">
     <div class="card">
