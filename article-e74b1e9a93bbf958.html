@@ -225,6 +225,23 @@
     .profile-side li { margin-block: 9px; }
     .profile-use { padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
 
+    .application-kit { background: var(--ink); color: var(--paper); }
+    .application-kit .kicker { color: var(--sun); }
+    .application-kit .section-lead { color: #bcc5bf; }
+    .copy-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .copy-card { grid-column: span 4; min-height: 310px; display: flex; flex-direction: column; padding: 25px; border: 1px solid rgba(255,255,255,.23); border-radius: var(--radius); background: rgba(255,255,255,.04); }
+    .copy-card.wide { grid-column: span 8; }
+    .copy-card small { color: var(--sun); font-weight: 800; letter-spacing: .12em; }
+    .copy-card h3 { margin: 18px 0; font-size: clamp(22px, 2.4vw, 31px); }
+    .copy-text { margin: 0; color: #d7dfda; line-height: 1.8; }
+    .copy-action { min-height: 44px; margin-top: auto; align-self: flex-start; padding: 10px 18px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; color: var(--paper); background: transparent; cursor: pointer; font-weight: 800; }
+    .copy-action:hover, .copy-action:focus-visible { color: var(--ink); border-color: var(--sun); background: var(--sun); }
+    .copy-action.copied { color: var(--ink); border-color: var(--sun); background: var(--sun); }
+    .offer-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .offer-mini div { padding: 18px; border-top: 1px solid rgba(255,255,255,.22); }
+    .offer-mini b { color: var(--sun); }
+    .offer-mini p { margin: 8px 0 0; color: #bcc5bf; font-size: 13px; }
+
     .offers { background: var(--paper); }
     .offer-track { display: grid; grid-template-columns: repeat(5, minmax(210px, 1fr)); gap: 14px; overflow-x: auto; padding: 8px 4px 30px; }
     .offer { min-height: 410px; padding: 24px; border: 1px solid var(--line); background: var(--white); position: relative; }
@@ -287,6 +304,7 @@
       .market-lanes { grid-template-columns: 1fr; }
       .profile-panel.active { grid-template-columns: 1fr; }
       .profile-side { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+      .copy-card, .copy-card.wide { grid-column: span 6; }
       .system-bridge { writing-mode: horizontal-tb; }
     }
     @media (max-width: 620px) {
@@ -302,6 +320,8 @@
       .market-stat:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line); }
       .profile-tabs { grid-template-columns: 1fr; }
       .profile-panel { min-height: 0; padding: 26px 20px; border-radius: 18px; }
+      .copy-card, .copy-card.wide { grid-column: 1 / -1; min-height: 280px; }
+      .offer-mini { grid-template-columns: 1fr; }
       .case-card, .case-card:nth-child(5n+1), .case-card:nth-child(5n+2) { grid-column: 1 / -1; min-height: 280px; }
       .route-panel.active { grid-template-columns: 1fr; }
       .route-panel .big { grid-column: 1; }
@@ -316,7 +336,7 @@
   <header class="topbar">
     <div class="wordmark">JOHNNY / WORK ATLAS</div>
     <nav aria-label="ページ内ナビゲーション">
-      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#profiles">プロフィール</a><a href="#questions">未確認</a>
+      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#profiles">プロフィール</a><a href="#kit">応募素材</a><a href="#questions">未確認</a>
     </nav>
   </header>
 
@@ -535,8 +555,39 @@
       </div>
     </section>
 
+    <section class="application-kit" id="kit">
+      <p class="kicker">07 / Ready-to-use application kit</p>
+      <h2>説明する前に、<br>使える文章にする。</h2>
+      <p class="section-lead">確認済みの事実だけで作った初稿。各ボタンからコピーし、Wantedly、登録面談、既存関係者への相談に使える。</p>
+      <div class="copy-grid reveal">
+        <article class="copy-card">
+          <small>80 CHARACTERS / HEADLINE</small>
+          <h3>プロフィール見出し</h3>
+          <p class="copy-text" id="copy-headline">生活者の未言語化ニーズを、企業・技術・地域とつなぎ、体験プロトタイプと実証へ変える0→1プロデューサー。</p>
+          <button class="copy-action" type="button" data-copy-target="copy-headline">文章をコピー</button>
+        </article>
+        <article class="copy-card wide">
+          <small>200 CHARACTERS / SUMMARY</small>
+          <h3>応募プロフィール</h3>
+          <p class="copy-text" id="copy-summary">生活者の未言語化ニーズを見つけ、企業・技術・地域をつなぎ、体験できるプロトタイプと実証へ変える0→1プロデューサー。FAB CAR、LivingAnywhere Commons八ヶ岳北杜、オフグリッド住宅、水循環製品、世界遺産での滞在実証などを推進。課題設定、体験コンセプト、共創体制、最初の実装を横断して進める。</p>
+          <button class="copy-action" type="button" data-copy-target="copy-summary">文章をコピー</button>
+        </article>
+        <article class="copy-card wide">
+          <small>INTRODUCTION REQUEST</small>
+          <h3>既存関係者への相談文</h3>
+          <p class="copy-text" id="copy-intro">いま、これまでの仕事を「曖昧な構想を体験プロトタイプへ変える0→1伴走」として整理しています。案件紹介をお願いする前に、あなたから見て、どんな停滞のときに僕を呼ぶと価値が出るかを30分だけ聞かせてもらえませんか。言葉が市場に通じるかを確かめたいです。</p>
+          <button class="copy-action" type="button" data-copy-target="copy-intro">文章をコピー</button>
+        </article>
+        <article class="copy-card">
+          <small>FIRST TWO OFFERS</small>
+          <h3>業務委託の入口</h3>
+          <div class="offer-mini"><div><b>Reframe Sprint</b><p>1–2週間。発散した課題を、核心課題・利用場面・優先仮説・次の検証へ。</p></div><div><b>Concept-to-Prototype</b><p>4–8週間。アイデアを、体験コンセプト・試作品・実証計画へ。</p></div></div>
+        </article>
+      </div>
+    </section>
+
     <section class="offers">
-      <p class="kicker">07 / Offer hypotheses</p>
+      <p class="kicker">08 / Offer hypotheses</p>
       <h2>「何でもできます」を、<br>5つの発注単位へ。</h2>
       <p class="section-lead">価格を決める前の市場テスト案。開始状態と到達状態を示し、既存関係者がどれに相談料を払うかを見る。</p>
       <figure class="evidence-figure reveal">
@@ -559,7 +610,7 @@
     </section>
 
     <section class="system">
-      <p class="kicker">08 / Collaboration system</p>
+      <p class="kicker">09 / Collaboration system</p>
       <h2>弱点を消すのではなく、<br>分業できる形にする。</h2>
       <p class="section-lead">本人の強さが出る工程と、AI・運用担当へ渡す工程を混ぜない。生き生きする条件を、仕事選びと日々の協業システムの両方へ反映する。</p>
       <figure class="evidence-figure reveal">
@@ -578,7 +629,7 @@
     </section>
 
     <section class="questions" id="questions">
-      <p class="kicker">09 / Evidence gaps</p>
+      <p class="kicker">10 / Evidence gaps</p>
       <h2>公開資料では埋まらない、<br>次の問い。</h2>
       <p class="section-lead">ここから先は、ジョニー本人との一問一答でしか進まない。回答済みにした項目は、この端末内だけで記憶される。</p>
       <figure class="evidence-figure reveal">
@@ -689,6 +740,40 @@
         event.preventDefault();
         selectProfile(profileTabs[next]);
         profileTabs[next].focus();
+      });
+    });
+
+    const copyText = async text => {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand('copy');
+      area.remove();
+    };
+    document.querySelectorAll('.copy-action').forEach(button => {
+      button.addEventListener('click', async () => {
+        const target = document.getElementById(button.dataset.copyTarget);
+        if (!target) return;
+        const original = button.textContent;
+        try {
+          await copyText(target.textContent.trim());
+          button.textContent = 'コピーしました';
+          button.classList.add('copied');
+        } catch {
+          button.textContent = 'コピーできませんでした';
+        }
+        setTimeout(() => {
+          button.textContent = original;
+          button.classList.remove('copied');
+        }, 1800);
       });
     });
 
