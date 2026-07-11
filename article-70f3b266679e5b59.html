@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="color-scheme" content="light dark">
+  <title>HTML報告とセッション命名の標準化</title>
+  <style>
+    :root {
+      --bg:#f3f1eb; --paper:#fffefa; --ink:#18201d; --muted:#626a65;
+      --line:#d7d6cf; --green:#175a46; --green-soft:#dcebe4;
+      --blue:#254f78; --blue-soft:#dde8f1; --orange:#91462b;
+      --shadow:0 18px 48px rgba(28,39,34,.08);
+    }
+    @media(prefers-color-scheme:dark){:root{
+      --bg:#131816; --paper:#1c2320; --ink:#eef2ef; --muted:#b5bdb8;
+      --line:#3b4540; --green:#9bd8bf; --green-soft:#233d33;
+      --blue:#a8cbee; --blue-soft:#25384a; --orange:#f0a281; --shadow:none;
+    }}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;font-feature-settings:"palt" 1;line-break:strict;line-height:1.8;overflow-x:hidden}
+    p,li,figcaption{overflow-wrap:anywhere}
+    .wrap{width:min(1080px,calc(100% - 40px));margin:auto}
+    header{padding:88px 0 64px;border-bottom:1px solid var(--line)}
+    .kicker{color:var(--orange);font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+    h1,h2,h3{line-height:1.32;letter-spacing:-.035em;margin-top:0}
+    h1{font-size:clamp(2.7rem,7vw,6rem);max-width:9em;margin:22px 0 28px}
+    .lead{max-width:42em;font-size:clamp(1.05rem,2vw,1.35rem);color:var(--muted)}
+    .status{display:inline-flex;align-items:center;gap:10px;margin-top:24px;padding:8px 12px;border:1px solid var(--green);color:var(--green);font-size:.82rem;font-weight:700}
+    .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+    section{padding:82px 0;border-bottom:1px solid var(--line)}
+    .head{display:grid;grid-template-columns:150px 1fr;gap:36px;align-items:start;margin-bottom:38px}
+    .num{color:var(--orange);font-size:.76rem;font-weight:700;letter-spacing:.12em}
+    h2{font-size:clamp(2rem,4.5vw,3.55rem);margin:0}
+    figure{margin:0} figcaption{margin-top:15px;text-align:right;color:var(--muted);font-size:.78rem}
+    .standards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .standard{min-height:360px;padding:32px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .standard.delivery{border-top:5px solid var(--green)} .standard.title{border-top:5px solid var(--blue)}
+    .label{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--muted)}
+    .standard h3{font-size:1.7rem;margin:70px 0 14px}
+    .standard p{color:var(--muted);margin:0 0 20px}
+    .standard strong{margin-top:auto;font-size:1.05rem}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+    .step{background:var(--paper);padding:24px;min-height:200px;display:flex;flex-direction:column}
+    .step b{font-size:1.8rem;font-weight:500;color:var(--blue)}
+    .step h3{margin:auto 0 8px;font-size:1.12rem}
+    .step p{font-size:.86rem;color:var(--muted);margin:0}
+    .once{margin:34px 0 0;padding:24px;border-left:4px solid var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:700;font-size:1.05rem}
+    .matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .level{padding:26px;border:1px solid var(--line);background:var(--paper)}
+    .level span{display:inline-block;padding:3px 8px;margin-bottom:28px;border:1px solid currentColor;font-size:.72rem;font-weight:700}
+    .level h3{font-size:1.35rem;margin-bottom:10px}.level p{color:var(--muted);margin:0;font-size:.9rem}
+    .level.safe span{color:var(--green)}.level.check span{color:var(--orange)}.level.stop span{color:#9b2f2f}
+    .tests{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+    .test-list,.title-card{padding:30px;background:var(--paper);border:1px solid var(--line)}
+    .test-list ul{list-style:none;padding:0;margin:18px 0 0}
+    .test-list li{display:flex;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+    .check{color:var(--green);font-weight:800}
+    .title-card{display:flex;flex-direction:column;justify-content:center;text-align:center;background:var(--green-soft);color:var(--green)}
+    .title-card small{font-weight:700;letter-spacing:.08em}.title-card strong{font-size:clamp(1.35rem,3vw,2rem);line-height:1.5;margin-top:18px}
+    .future{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+    .future article{background:var(--paper);padding:30px;min-height:190px}
+    .future h3{font-size:1.35rem}.future p{color:var(--muted);margin:0}
+    footer{padding:42px 20px;text-align:center;color:var(--muted);font-size:.75rem}
+    @media(max-width:760px){
+      .wrap{width:min(620px,calc(100% - 28px))} header{padding:58px 0 44px} section{padding:60px 0}
+      .head{grid-template-columns:1fr;gap:8px}.standards,.matrix,.tests,.future{grid-template-columns:1fr}
+      .flow{grid-template-columns:1fr 1fr}.standard{min-height:300px}.standard h3{margin-top:46px}
+    }
+    @media(max-width:420px){
+      h1{font-size:2.75rem}.flow{grid-template-columns:1fr}.step{min-height:165px}
+      .standard,.level,.test-list,.title-card,.future article{padding:22px}
+    }
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <div class="kicker">Johnny × Codex / Delivery Standard</div>
+    <h1>読み方と探し方を、標準化しました。</h1>
+    <p class="lead">これからは、読むための成果物をMarkdownのまま渡しません。内容に合わせてHTMLとして設計し、どこからでも開けるURLを第一の受け渡しにします。会話のタイトルも、話題が見えた時点で一度だけ整えます。</p>
+    <div class="status"><span class="dot"></span>新しい標準仕様を初回適用</div>
+  </div></header>
+
+  <main class="wrap">
+    <section>
+      <div class="head"><div class="num">01 / TWO RULES</div><h2>二つの迷子を、別々に解く</h2></div>
+      <figure>
+        <div class="standards">
+          <article class="standard delivery"><div class="label">DOCUMENT DELIVERY</div><h3>読む迷子をなくす</h3><p>レポート、分析、提案、議事録などは、内容に合わせたレスポンシブHTMLへ。Markdownは内部の保存形式に退きます。</p><strong>第一handoff = 読みやすいHTML + URL</strong></article>
+          <article class="standard title"><div class="label">SESSION TITLE</div><h3>探す迷子をなくす</h3><p>URLだけで始まった会話でも、二往復目以降に本当の話題が見えたら、人間が探せる日本語タイトルへ。</p><strong>自動変更 = 一会話につき一回だけ</strong></article>
+        </div>
+        <figcaption>文書の届け方と会話の見つけ方は、発火時期が違うため独立した仕組みにした。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="head"><div class="num">02 / TITLE FLOW</div><h2>タイトルは、急がず、一度だけ</h2></div>
+      <figure>
+        <div class="flow">
+          <article class="step"><b>1</b><h3>初回は待つ</h3><p>URLや添付だけでは改名しない。</p></article>
+          <article class="step"><b>2</b><h3>話題を見る</h3><p>二回目の人間発話で意味が固まったか判定。</p></article>
+          <article class="step"><b>3</b><h3>一度だけ変更</h3><p>汎用名を、内容の分かる日本語名へ。</p></article>
+          <article class="step"><b>4</b><h3>固定する</h3><p>話題が移っても再変更せず、手動名を優先。</p></article>
+        </div>
+        <figcaption>完璧な名前を追い続けるより、十分に意味のある名前を一度だけ付ける。</figcaption>
+      </figure>
+      <div class="once">失敗時も無限再試行しない。二回失敗したら止め、会話の安定を優先する。</div>
+    </section>
+
+    <section>
+      <div class="head"><div class="num">03 / PRIVACY</div><h2>「公開URL」は、公開できる内容だけ</h2></div>
+      <figure>
+        <div class="matrix">
+          <article class="level safe"><span>D1</span><h3>そのまま公開</h3><p>公開情報として安全な文書は、通常の事前確認後にHTML化する。</p></article>
+          <article class="level check"><span>D2</span><h3>無害化か承認</h3><p>内部情報は公開版へ編集するか、最終payloadの明示承認を取る。</p></article>
+          <article class="level stop"><span>D3+</span><h3>公開を止める</h3><p>個人情報、クライアント情報、契約金額、秘密情報はpublic repoへ出さない。</p></article>
+        </div>
+        <figcaption>「必ずURL」は、機密境界を越える命令ではない。安全な形で届けられる時にだけ公開する。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="head"><div class="num">04 / VERIFIED</div><h2>言葉ではなく、実機で確認</h2></div>
+      <figure>
+        <div class="tests">
+          <article class="test-list"><h3>今回通した検証</h3><ul>
+            <li><span class="check">✓</span><span>2つのスキル構文検証</span></li>
+            <li><span class="check">✓</span><span>one-shot ledgerと二回失敗停止</span></li>
+            <li><span class="check">✓</span><span>手動タイトル保護と話題転換後の固定</span></li>
+            <li><span class="check">✓</span><span>Codexのスキル発見経路</span></li>
+            <li><span class="check">✓</span><span>公式app-serverによるタイトル変更</span></li>
+          </ul></article>
+          <article class="title-card"><small>CURRENT SESSION</small><strong>HTML報告標準化と<br>セッション名改善</strong></article>
+        </div>
+        <figcaption>この会話そのものを、最初のE2Eテストに使った。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="head"><div class="num">05 / FROM NOW</div><h2>これからの受け渡し</h2></div>
+      <figure>
+        <div class="future">
+          <article><h3>普段の短い会話</h3><p>今までどおり、チャットで短く答える。何でもHTMLにはしない。</p></article>
+          <article><h3>読むための成果物</h3><p>内容に合わせてHTMLを設計し、モバイル表示とlive artifactを検証してURLを渡す。</p></article>
+        </div>
+        <figcaption>標準化の目的は出力を増やすことではなく、ジョニーが読む・探す手間を減らすこと。</figcaption>
+      </figure>
+    </section>
+  </main>
+  <footer>このページは 2026年7月14日 15:50 JST に自動削除されます</footer>
+</body>
+</html>
