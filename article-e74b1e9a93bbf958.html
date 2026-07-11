@@ -210,6 +210,21 @@
     .market-note { margin-top: 30px; padding: 22px 24px; border-left: 4px solid var(--signal); background: var(--paper-2); color: var(--muted); }
     .market-note strong { color: var(--ink); }
 
+    .profiles { background: var(--paper-2); }
+    .profile-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+    .profile-tab { min-height: 58px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: transparent; cursor: pointer; font-weight: 800; }
+    .profile-tab[aria-selected="true"] { color: var(--white); border-color: var(--signal); background: var(--signal); }
+    .profile-panel { display: none; min-height: 440px; grid-template-columns: minmax(0, 1.5fr) minmax(250px, .5fr); gap: clamp(28px, 6vw, 80px); padding: clamp(28px, 5vw, 58px); border: 1px solid var(--line); border-radius: 28px; background: var(--white); animation: rise .35s ease both; }
+    .profile-panel.active { display: grid; }
+    .profile-panel small { color: var(--signal); font-weight: 800; letter-spacing: .13em; }
+    .profile-panel h3 { max-width: 760px; margin: 18px 0 26px; font-size: clamp(28px, 4vw, 48px); }
+    .profile-copy { max-width: 760px; color: var(--muted); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.9; }
+    .profile-side { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; padding-left: 28px; border-left: 1px solid var(--line); }
+    .profile-side b { color: var(--moss); }
+    .profile-side ol { margin: 18px 0 30px; padding-left: 1.25em; color: var(--muted); }
+    .profile-side li { margin-block: 9px; }
+    .profile-use { padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+
     .offers { background: var(--paper); }
     .offer-track { display: grid; grid-template-columns: repeat(5, minmax(210px, 1fr)); gap: 14px; overflow-x: auto; padding: 8px 4px 30px; }
     .offer { min-height: 410px; padding: 24px; border: 1px solid var(--line); background: var(--white); position: relative; }
@@ -270,6 +285,8 @@
       .route-tabs { flex-direction: row; overflow-x: auto; }
       .route-tab { min-width: 150px; }
       .market-lanes { grid-template-columns: 1fr; }
+      .profile-panel.active { grid-template-columns: 1fr; }
+      .profile-side { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
       .system-bridge { writing-mode: horizontal-tb; }
     }
     @media (max-width: 620px) {
@@ -283,6 +300,8 @@
       .market-summary { grid-template-columns: 1fr 1fr; }
       .market-stat:nth-child(2) { border-right: 0; }
       .market-stat:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line); }
+      .profile-tabs { grid-template-columns: 1fr; }
+      .profile-panel { min-height: 0; padding: 26px 20px; border-radius: 18px; }
       .case-card, .case-card:nth-child(5n+1), .case-card:nth-child(5n+2) { grid-column: 1 / -1; min-height: 280px; }
       .route-panel.active { grid-template-columns: 1fr; }
       .route-panel .big { grid-column: 1; }
@@ -297,7 +316,7 @@
   <header class="topbar">
     <div class="wordmark">JOHNNY / WORK ATLAS</div>
     <nav aria-label="ページ内ナビゲーション">
-      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#questions">未確認</a>
+      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#profiles">プロフィール</a><a href="#questions">未確認</a>
     </nav>
   </header>
 
@@ -491,8 +510,33 @@
       <div class="market-note reveal"><strong>削った候補も証拠。</strong> アクセンチュアの共有求人は個別ページが検索画面へ転送され、パナソニックの共有求人はライブURLが404だった。検索インデックスに本文が残っていても、現行候補には数えていない。</div>
     </section>
 
+    <section class="profiles" id="profiles">
+      <p class="kicker">06 / Buyer-specific profiles</p>
+      <h2>経歴は変えない。<br>買い手の入口を変える。</h2>
+      <p class="section-lead">一つの万能プロフィールで全部を説明しない。同じ仕事の核を、相手が抱える停滞と、最初に見たい証拠に合わせて3つの入口へ翻訳する。</p>
+      <div class="profile-tabs reveal" role="tablist" aria-label="仕事獲得用プロフィール">
+        <button class="profile-tab" id="profile-tab-rd" type="button" role="tab" aria-selected="true" aria-controls="profile-panel-rd" data-profile="rd">大企業R&amp;D・新規事業</button>
+        <button class="profile-tab" id="profile-tab-regional" type="button" role="tab" aria-selected="false" aria-controls="profile-panel-regional" data-profile="regional" tabindex="-1">地域・Living Lab</button>
+        <button class="profile-tab" id="profile-tab-ai" type="button" role="tab" aria-selected="false" aria-controls="profile-panel-ai" data-profile="ai" tabindex="-1">AI協業・知的生産</button>
+      </div>
+      <div class="reveal">
+        <article class="profile-panel active" id="profile-panel-rd" role="tabpanel" aria-labelledby="profile-tab-rd" data-profile-panel="rd">
+          <div><small>SERVICE / VENTURE PRODUCER</small><h3>技術や構想を、生活者が体験できる事業仮説へ。</h3><p class="profile-copy">技術や構想はあるが、誰のどんな体験にするか決まらない段階から入り、生活者視点で問いを再設定し、社内外の専門家を束ね、コンセプト、試作品、実証まで進めます。FAB CAR、オフグリッド住宅、水循環システム、地域・観光・防災実証など、デジタル、空間、製品、サービスを横断して0→1を推進してきました。</p></div>
+          <aside class="profile-side"><div><b>証拠の見せ順</b><ol><li>FAB CAR</li><li>オフグリッド住宅</li><li>INNFRA／中城</li><li>LAC八ヶ岳</li></ol></div><p class="profile-use">転職、サービスデザイン、新規事業、R&amp;D共創の応募に使う。</p></aside>
+        </article>
+        <article class="profile-panel" id="profile-panel-regional" role="tabpanel" aria-labelledby="profile-tab-regional" data-profile-panel="regional" hidden>
+          <div><small>REGIONAL / LIVING LAB PRODUCER</small><h3>地域資源と技術を、訪れ、暮らし、参加できる実証へ。</h3><p class="profile-copy">地域にある場所、文化、技術、事業者を、参加できる体験と実証へ束ねます。LivingAnywhere Commons八ヶ岳北杜、オフグリッド・リビングラボ八ヶ岳、自治体との移動・観光実証、世界遺産での滞在実証を経験。現地調査、コンセプト、場、参加者、協働体制、発信を分断せず設計することが強みです。</p></div>
+          <aside class="profile-side"><div><b>証拠の見せ順</b><ol><li>LAC八ヶ岳</li><li>中城城跡実証</li><li>Living Lab</li><li>自治体実証群</li></ol></div><p class="profile-use">地域企業、自治体連携、観光、防災、場づくりの相談に使う。</p></aside>
+        </article>
+        <article class="profile-panel" id="profile-panel-ai" role="tabpanel" aria-labelledby="profile-tab-ai" data-profile-panel="ai" hidden>
+          <div><small>COLLABORATION OS DESIGNER</small><h3>構想する人の強みを残し、調査・記録・完遂をAIへ。</h3><p class="profile-copy">企画者や小チームの知識仕事を棚卸しし、人が担う核心判断と、AIへ渡す調査・記録・比較・定型運用を分けます。公開資料、SNS、会議記録を横断する証拠台帳や、調査から文書公開までの実運用を構築中。AI導入ではなく、役割境界と証拠が残る仕事の仕組みを設計します。</p></div>
+          <aside class="profile-side"><div><b>最初の導入範囲</b><ol><li>仕事と情報源の棚卸し</li><li>人／AI／運用の責任分界</li><li>優先フロー3本の実装</li><li>導入前後の比較</li></ol></div><p class="profile-use">市場検証前の仮説。まず2〜4週間の小規模導入で証拠を作る。</p></aside>
+        </article>
+      </div>
+    </section>
+
     <section class="offers">
-      <p class="kicker">06 / Offer hypotheses</p>
+      <p class="kicker">07 / Offer hypotheses</p>
       <h2>「何でもできます」を、<br>5つの発注単位へ。</h2>
       <p class="section-lead">価格を決める前の市場テスト案。開始状態と到達状態を示し、既存関係者がどれに相談料を払うかを見る。</p>
       <figure class="evidence-figure reveal">
@@ -515,7 +559,7 @@
     </section>
 
     <section class="system">
-      <p class="kicker">07 / Collaboration system</p>
+      <p class="kicker">08 / Collaboration system</p>
       <h2>弱点を消すのではなく、<br>分業できる形にする。</h2>
       <p class="section-lead">本人の強さが出る工程と、AI・運用担当へ渡す工程を混ぜない。生き生きする条件を、仕事選びと日々の協業システムの両方へ反映する。</p>
       <figure class="evidence-figure reveal">
@@ -534,7 +578,7 @@
     </section>
 
     <section class="questions" id="questions">
-      <p class="kicker">08 / Evidence gaps</p>
+      <p class="kicker">09 / Evidence gaps</p>
       <h2>公開資料では埋まらない、<br>次の問い。</h2>
       <p class="section-lead">ここから先は、ジョニー本人との一問一答でしか進まない。回答済みにした項目は、この端末内だけで記憶される。</p>
       <figure class="evidence-figure reveal">
@@ -617,6 +661,34 @@
         event.preventDefault();
         selectRoute(routeTabs[next]);
         routeTabs[next].focus();
+      });
+    });
+
+    const profileTabs = [...document.querySelectorAll('.profile-tab')];
+    const selectProfile = tab => {
+      profileTabs.forEach(t => {
+        const selected = t === tab;
+        t.setAttribute('aria-selected', String(selected));
+        t.tabIndex = selected ? 0 : -1;
+      });
+      document.querySelectorAll('.profile-panel').forEach(panel => {
+        const active = panel.dataset.profilePanel === tab.dataset.profile;
+        panel.classList.toggle('active', active);
+        panel.hidden = !active;
+      });
+    };
+    profileTabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectProfile(tab));
+      tab.addEventListener('keydown', event => {
+        let next = index;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % profileTabs.length;
+        else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + profileTabs.length) % profileTabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = profileTabs.length - 1;
+        else return;
+        event.preventDefault();
+        selectProfile(profileTabs[next]);
+        profileTabs[next].focus();
       });
     });
 
