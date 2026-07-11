@@ -76,6 +76,11 @@ footer{text-align:center;color:var(--slate);font-size:.76rem;padding:26px 20px 5
   .pm-leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
 
   .tamfig{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  .gap-hint{font-size:.82rem;color:var(--ink-soft);background:var(--paper-2);border-radius:8px;padding:9px 12px;margin-bottom:10px}
+  .gap-ctl{display:flex;align-items:center;gap:10px;margin-top:10px}
+  .gap-ctl button{font-size:.9rem;font-weight:700;padding:7px 16px;border-radius:8px;border:1px solid var(--line);background:var(--moss);color:#fff;cursor:pointer}
+  .gap-ctl input[type=range]{flex:1;accent-color:var(--moss)}
+  .gap-ctl span{font-size:.9rem;font-weight:700;color:var(--slate);min-width:74px;text-align:right;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -110,6 +115,111 @@ footer{text-align:center;color:var(--slate);font-size:.76rem;padding:26px 20px 5
 <ul><li>世界水ビジネス市場約 91.4 兆円 (2022年度) に対し、日本企業 66 社の海外売上合計は <b>3,653 億円、世界シェア 0.40%</b> (<a href="https://www.meti.go.jp/meti_lib/report/2023FY/000036.pdf" target="_blank" rel="noopener">経産省</a>【検証済】)。中身は薬品・部材・機器中心で O&amp;M サービスはごく僅か</li><li>一方、部材ではRO膜で日本勢が世界シェア5割超 (東レ単体30%以上 <a href="https://business.nikkei.com/atcl/gen/19/00877/052600004/" target="_blank" rel="noopener">日経ビジネス</a>、確度中)、クボタの液中膜は世界2位。<b>「部材で強く、運営で不在」— 運営層こそ空白であり参入余地</b></li></ul>
 </section>
 <section id="sec3"><h2>2. 地域別ディープダイブ</h2>
+<div class="figc">
+  <div class="fh">図D 国別の当たりマップ 2000 → 2050 ── 横: 支払能力 (1人あたりGDP, log) / 縦: 衛生アクセス率 / 円: 人口</div>
+  <div class="gap-hint">▶ を押すと 50 年が動きます。円をタップで国名表示。<b>左上にいる大きな円ほど「課題が大きく人口も多い」= 市場。右へ動く国は支払能力が育っている。</b>2025 年以降は外挿予測 (円が破線になります)。</div>
+  <svg id="gapsvg" viewBox="0 0 500 430" style="width:100%;height:auto;display:block;background:#fff;border:1px solid var(--line);border-radius:10px"></svg>
+  <div class="gap-ctl">
+    <button id="gapplay" type="button">▶ 再生</button>
+    <input type="range" id="gapyear" min="2000" max="2050" step="1" value="2000">
+    <span id="gapyearlabel">2000</span>
+  </div>
+  <div class="pm-leg"><span><i style="background:#2f8561"></i> 東南アジア</span><span><i style="background:#c9a227"></i> 南アジア</span><span><i style="background:#b5541f"></i> アフリカ</span><span><i style="background:#4a7dd1"></i> 先進国</span><span><i style="background:#2e9db8"></i> 島嶼</span><span><i style="background:#6f7787"></i> 日本</span></div>
+  <div class="fnote">【出典と外挿ルール】全て World Bank API から実データ取得 (取得 2026-07-11、WDI last updated 2026-07-01)。■GDP per capita (current USD): 2000-2020 は WDI NY.GDP.PCAP.CD 実測値。2025-2050 は 2024 実測値を起点に、実質1人当たりGDP (NY.GDP.PCAP.KD) の直近10年CAGR (2014→2024) を2025年の成長率とし、2050年に 2.0%/年へ線形減衰させつつ毎年複利で外挿 (為替・インフレ不変仮定の illustrative 値)。各国の起点成長率: JPN 0.8% / PHL 3.5% / IDN 3.3% / VNM 5.1% / THA 1.8% / MYS 2.4% / IND 4.8% / BGD 5.3% / KEN 2.5% / NGA -1.1% / USA 1.9% / AUS 0.8% / FJI 2.0%。⚠ 日本の歴史値の凹凸 (2010&gt;2015) とナイジェリアの 2020→2025 急落 (2,800→1,070) は実データ由来 (円安・ナイラ切下げによる current USD 換算の影響)。NGA は負成長起点のため 2030年代まで微減→回復の軌道。■Sanitation: WHO/UNICEF JMP 由来の WDI SH.STA.SMSS.ZS (safely managed)。IDN のみ JMP に safely managed が無いため at least basic (SH.STA.BASS.ZS) を使用 — 他国より定義が緩く高めに出る点に注意。タイの低値 (~26%) は JMP safely managed 定義 (安全処理まで要求) による実態で、at least basic なら ~99%。2025-2050 は 2000-2023 実測の OLS 線形トレンド外挿、上限 99% cap (IDN は 2030 以降、IND は 2040 以降 cap 到達)。負トレンド時は最終実測値で固定するルール (今回該当なし、USA はほぼ横ばい 97%)。■Population: 2000-2020 は WDI SP.POP.TOTL、2025-2050 は World Bank Population Estimates and Projections データベース (source=40、UN WPP 2024 medium variant 準拠 — NGA 2050=359M / IND 2050=1,680M / JPN 2050=105M は WPP medium と一致確認済)。■丸め: GDP 3有効数字 / sanitation 整数 / population 0.1M 単位。精度目標は概数用途 (±15%)、2025 以降は全て illustrative な外挿値。</div>
+</div>
+<script>
+(function() {
+  const DATA = {"years": [2000, 2005, 2010, 2015, 2020, 2025, 2030, 2035, 2040, 2045, 2050], "countries": [{"code": "JPN", "name": "日本", "color": "#6f7787", "gdp": [39800, 38200, 45400, 35700, 41100, 34100, 35700, 37900, 40700, 44300, 48600], "san": [96, 97, 98, 99, 99, 99, 99, 99, 99, 99, 99], "pop": [126.8, 127.8, 128.1, 127.1, 126.3, 123.4, 119.3, 115.2, 111.6, 108.4, 105.1], "lbl": 1}, {"code": "PHL", "name": "フィリピン", "color": "#2f8561", "gdp": [1050, 1220, 2160, 2910, 3230, 4130, 4860, 5650, 6460, 7280, 8090], "san": [47, 49, 53, 57, 60, 63, 66, 70, 73, 77, 80], "pop": [79.6, 88, 96.3, 105.3, 112.1, 116.8, 121.4, 125.7, 129.5, 132.5, 134.4], "lbl": 1}, {"code": "IDN", "name": "インドネシア", "color": "#2f8561", "gdp": [764, 1240, 3070, 3290, 3850, 5090, 5930, 6820, 7760, 8710, 9670], "san": [42, 51, 62, 72, 82, 91, 99, 99, 99, 99, 99], "pop": [216.1, 230.9, 246.3, 261.8, 274.8, 285.7, 295.9, 304.6, 311.8, 317.2, 320.7], "lbl": 1}, {"code": "VNM", "name": "ベトナム", "color": "#2f8561", "gdp": [404, 711, 1680, 2580, 3530, 4960, 6250, 7640, 9070, 10400, 11700], "san": [31, 35, 38, 40, 43, 45, 48, 51, 54, 56, 59], "pop": [77.2, 81.1, 87.5, 92.8, 98.1, 101.6, 104.3, 106.5, 108.4, 109.7, 110], "lbl": 0}, {"code": "THA", "name": "タイ", "color": "#2f8561", "gdp": [2010, 2870, 4970, 5690, 6980, 7520, 8230, 9020, 9910, 10900, 12000], "san": [19, 20, 22, 24, 25, 27, 29, 30, 32, 33, 35], "pop": [63, 66, 68.6, 70.5, 71.6, 71.6, 71.2, 70.5, 69.5, 68.2, 66.4], "lbl": 0}, {"code": "MYS", "name": "マレーシア", "color": "#2f8561", "gdp": [4080, 5560, 8900, 9650, 9960, 12200, 13700, 15300, 17100, 19000, 21000], "san": [76, 77, 79, 81, 84, 86, 88, 91, 93, 95, 97], "pop": [23, 25.8, 28.7, 31.2, 33.9, 36, 38, 39.8, 41.5, 43, 44.3], "lbl": 0}, {"code": "IND", "name": "インド", "color": "#c9a227", "gdp": [443, 710, 1350, 1580, 1910, 2720, 3380, 4080, 4810, 5520, 6160], "san": [9, 19, 31, 42, 54, 65, 77, 88, 99, 99, 99], "pop": [1057.9, 1154.7, 1243.5, 1328, 1402.6, 1463.9, 1525.1, 1578.7, 1622.6, 1656.1, 1679.6], "lbl": 1}, {"code": "BGD", "name": "バングラデシュ", "color": "#c9a227", "gdp": [397, 480, 757, 1220, 2250, 2730, 3470, 4270, 5090, 5870, 6570], "san": [11, 15, 20, 25, 32, 38, 44, 49, 54, 60, 65], "pop": [134.5, 144.7, 152.2, 159.4, 166.3, 175.7, 186.1, 195.1, 202.6, 209, 214.7], "lbl": 0}, {"code": "KEN", "name": "ケニア", "color": "#b5541f", "gdp": [415, 523, 1090, 1490, 1930, 2190, 2470, 2770, 3100, 3440, 3810], "san": [20, 23, 27, 30, 33, 37, 40, 43, 46, 50, 53], "pop": [30.6, 35.8, 41.6, 47.1, 52.2, 57.5, 63.1, 68.7, 74.1, 79.1, 83.6], "lbl": 0}, {"code": "NGA", "name": "ナイジェリア", "color": "#b5541f", "gdp": [547, 1210, 2200, 2590, 2800, 1070, 1040, 1030, 1060, 1120, 1220], "san": [20, 22, 24, 27, 30, 33, 36, 38, 41, 44, 46], "pop": [126.4, 145, 166.6, 190.7, 214, 237.5, 262.4, 287.7, 312.7, 336.7, 359.2], "lbl": 1}, {"code": "USA", "name": "米国", "color": "#4a7dd1", "gdp": [36300, 44100, 48600, 56800, 64500, 87800, 96300, 106000, 116000, 128000, 141000], "san": [97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97], "pop": [282.2, 295.5, 309.4, 321.8, 331.6, 341.8, 349.4, 356.3, 362.5, 368.1, 373.1], "lbl": 1}, {"code": "AUS", "name": "オーストラリア", "color": "#4a7dd1", "gdp": [21900, 34500, 52300, 57000, 52000, 65200, 68400, 72600, 78000, 84800, 93200], "san": [94, 94, 95, 95, 95, 96, 96, 97, 97, 98, 98], "pop": [19, 20.2, 22, 23.8, 25.6, 27.6, 28.8, 29.8, 30.8, 31.9, 32.9], "lbl": 0}, {"code": "FJI", "name": "フィジー", "color": "#2e9db8", "gdp": [2000, 3380, 3450, 5100, 4620, 6550, 7220, 7970, 8790, 9700, 10700], "san": [43, 45, 46, 48, 49, 49, 51, 52, 54, 55, 57], "pop": [0.8, 0.9, 0.9, 0.9, 0.9, 0.9, 1, 1, 1, 1, 1], "lbl": 0}]};
+  const svg = document.getElementById('gapsvg');
+  const NS = 'http://www.w3.org/2000/svg';
+  const W = 500, H = 430, L = 56, R = 16, T = 26, B = 46;
+  const GMIN = Math.log10(300), GMAX = Math.log10(150000);
+  const xs = g => L + (Math.log10(Math.max(300, g)) - GMIN) / (GMAX - GMIN) * (W - L - R);
+  const ys = s => T + (100 - s) / 100 * (H - T - B);
+  const rs = p => Math.max(4, Math.min(46, 1.1 * Math.sqrt(p)));
+  const YEARS = DATA.years;
+  function interp(arr, yf) {
+    if (yf <= YEARS[0]) return arr[0];
+    if (yf >= YEARS[YEARS.length-1]) return arr[arr.length-1];
+    for (let i = 0; i < YEARS.length - 1; i++) {
+      if (yf >= YEARS[i] && yf <= YEARS[i+1]) {
+        const t = (yf - YEARS[i]) / (YEARS[i+1] - YEARS[i]);
+        return arr[i] + t * (arr[i+1] - arr[i]);
+      }
+    }
+    return arr[arr.length-1];
+  }
+  // static: axes
+  function el(tag, attrs, parent) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(e); return e;
+  }
+  el('line', {x1:L, y1:H-B, x2:W-R, y2:H-B, stroke:'#d9d2c4'});
+  el('line', {x1:L, y1:T, x2:L, y2:H-B, stroke:'#d9d2c4'});
+  [1000,10000,100000].forEach(g => {
+    el('text', {x:xs(g), y:H-B+16, 'text-anchor':'middle','font-size':10, fill:'#8a8f9c'}).textContent = '$' + (g>=1000? (g/1000)+'k' : g);
+    el('line', {x1:xs(g), y1:H-B, x2:xs(g), y2:H-B+4, stroke:'#d9d2c4'});
+  });
+  [0,25,50,75,100].forEach(s => {
+    el('text', {x:L-8, y:ys(s)+3, 'text-anchor':'end','font-size':10, fill:'#8a8f9c'}).textContent = s + '%';
+  });
+  el('text', {x:(W)/2, y:H-8, 'text-anchor':'middle','font-size':10.5, fill:'#6f7787'}).textContent = '1人あたりGDP (USD, log) →';
+  el('text', {x:14, y:T-8, 'font-size':10.5, fill:'#6f7787'}).textContent = '↑ 安全な衛生アクセス率';
+  const yearBg = el('text', {x:W-R-8, y:T+64, 'text-anchor':'end','font-size':58,'font-weight':800, fill:'#efeadf'});
+  const predBadge = el('text', {x:W-R-8, y:T+84, 'text-anchor':'end','font-size':12,'font-weight':700, fill:'#c98a2b'});
+  const gMarks = el('g', {});
+  // per-country groups
+  const nodes = DATA.countries.map(c => {
+    const g = el('g', {style:'cursor:pointer'}, gMarks);
+    const circ = el('circle', {fill:c.color,'fill-opacity':0.82, stroke:'#fff','stroke-width':1.5}, g);
+    const lab = el('text', {'font-size':10.5,'font-weight':700, fill:'#3a3e48','text-anchor':'middle'}, g);
+    lab.textContent = c.name;
+    lab.style.display = c.lbl ? '' : 'none';
+    g.addEventListener('click', () => { lab.style.display = lab.style.display === 'none' ? '' : 'none'; });
+    return {c, circ, lab};
+  });
+  let year = 2000, playing = false, raf = null;
+  const slider = document.getElementById('gapyear');
+  const ylabel = document.getElementById('gapyearlabel');
+  const btn = document.getElementById('gapplay');
+  function render() {
+    // 大きい円を下に (毎フレーム簡易 z-sort)
+    const order = nodes.map(n => {
+      n._r = rs(interp(n.c.pop, year)); return n;
+    }).sort((a,b) => b._r - a._r);
+    order.forEach(n => gMarks.appendChild(n.circ.parentNode));
+    nodes.forEach(n => {
+      const g = interp(n.c.gdp, year), s = interp(n.c.san, year), r = n._r;
+      const x = xs(g), y = ys(s);
+      n.circ.setAttribute('cx', x); n.circ.setAttribute('cy', y); n.circ.setAttribute('r', r);
+      n.circ.setAttribute('stroke-dasharray', year > 2024 ? '4 3' : '');
+      n.lab.setAttribute('x', x); n.lab.setAttribute('y', y - r - 4);
+    });
+    yearBg.textContent = Math.round(year);
+    predBadge.textContent = year > 2024 ? '(外挿予測)' : '';
+    ylabel.textContent = Math.round(year) + (year > 2024 ? ' 予測' : '');
+    slider.value = Math.round(year);
+  }
+  function tick() {
+    year += 0.16;
+    if (year >= 2050) { year = 2050; stop(); }
+    render();
+    if (playing) raf = requestAnimationFrame(tick);
+  }
+  function stop() { playing = false; btn.textContent = '▶ 再生'; if (raf) cancelAnimationFrame(raf); }
+  btn.addEventListener('click', () => {
+    if (playing) { stop(); return; }
+    if (year >= 2049.5) year = 2000;
+    playing = true; btn.textContent = '⏸ 停止'; raf = requestAnimationFrame(tick);
+  });
+  slider.addEventListener('input', () => { stop(); year = +slider.value; render(); });
+  render();
+})();
+</script><div class="figc"><div class="fh">図E 国別スコアカード ── どこに当たりをつけるか (1〜5、緑が濃いほど良い)</div><div class="tw"><table><thead><tr><th>国 / 当たり所見</th><th>市場</th><th>規制の追い風</th><th>支払能力</th><th>競合の空白</th><th>日系の足場</th><th>参入容易</th><th>計</th></tr></thead><tbody><tr><td><b>フィリピン</b><br><span style="font-size:.72rem;color:#6f7787">浄化槽義務化条例×JICA足場が揃う本命。水道区経由のO&amp;M契約が現実的</span></td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.87);color:#fff;text-align:center;font-weight:700">5</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="text-align:center;font-weight:800">23</td></tr><tr><td><b>ベトナム</b><br><span style="font-size:.72rem;color:#6f7787">浄化槽1,325基の実績地。制度未整備が残る分、遠隔監視で先行余地</span></td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.87);color:#fff;text-align:center;font-weight:700">5</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="text-align:center;font-weight:800">21</td></tr><tr><td><b>インドネシア</b><br><span style="font-size:.72rem;color:#6f7787">SANIMAS共同処理槽のO&amp;M崩壊=課題そのもの。JICA下水道案件に相乗り</span></td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.87);color:#fff;text-align:center;font-weight:700">5</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="text-align:center;font-weight:800">19</td></tr><tr><td><b>オーストラリア</b><br><span style="font-size:.72rem;color:#6f7787">AWTS定期保守契約が法定化済み。高支払能力×遠隔監視のニッチ勝負</span></td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.87);color:#fff;text-align:center;font-weight:700">5</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="text-align:center;font-weight:800">19</td></tr><tr><td><b>タイ</b><br><span style="font-size:.72rem;color:#6f7787">日系5千社の工場・施設向けB2Bが入口。家庭用オンサイトは制度空白</span></td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="text-align:center;font-weight:800">19</td></tr><tr><td><b>米国</b><br><span style="font-size:.72rem;color:#6f7787">6千万人が浄化槽依存の巨大市場だが競合過密、日系の優位性が効かない</span></td><td style="background:rgba(47,133,97,0.87);color:#fff;text-align:center;font-weight:700">5</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.87);color:#fff;text-align:center;font-weight:700">5</td><td style="background:rgba(47,133,97,0.12);color:#1a1c22;text-align:center;font-weight:700">1</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="text-align:center;font-weight:800">19</td></tr><tr><td><b>インド</b><br><span style="font-size:.72rem;color:#6f7787">FSTP1,500基超の爆発成長も価格競争苛烈、小規模単独参入は消耗戦</span></td><td style="background:rgba(47,133,97,0.87);color:#fff;text-align:center;font-weight:700">5</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.12);color:#1a1c22;text-align:center;font-weight:700">1</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="text-align:center;font-weight:800">18</td></tr><tr><td><b>ケニア</b><br><span style="font-size:.72rem;color:#6f7787">NRW45%・未規制小事業者280万人。監視は刺さるが支払原資が細い</span></td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="text-align:center;font-weight:800">17</td></tr><tr><td><b>フィジー</b><br><span style="font-size:.72rem;color:#6f7787">ADB主導DBO案件への個社食い込みが唯一の径路。市場絶対値が小さい</span></td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="text-align:center;font-weight:800">16</td></tr><tr><td><b>バングラデシュ</b><br><span style="font-size:.72rem;color:#6f7787">FSM制度は紙上に存在、実装ほぼゼロ。JICA最大級だが商業性は遠い</span></td><td style="background:rgba(47,133,97,0.49);color:#1a1c22;text-align:center;font-weight:700">3</td><td style="background:rgba(47,133,97,0.31);color:#1a1c22;text-align:center;font-weight:700">2</td><td style="background:rgba(47,133,97,0.12);color:#1a1c22;text-align:center;font-weight:700">1</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.68);color:#fff;text-align:center;font-weight:700">4</td><td style="background:rgba(47,133,97,0.12);color:#1a1c22;text-align:center;font-weight:700">1</td><td style="text-align:center;font-weight:800">15</td></tr></tbody></table></div><div class="fnote">前提: 小規模日系の分散型水インフラO&amp;M・遠隔監視事業者 (多拠点モニタリング+異常検知が強み) を想定。6軸合計 (満点30) = 比 23/21/19/19/19/19/18/17/16/15。19点同点4カ国 (インドネシア/豪/タイ/米) は「小規模日系プレイヤー適合度」(jp_foothold×競合空白×制度追い風) でタイブレーク。
+
+【主要根拠 (Web検索で確認した一次事実)】
+■フィリピン(1位): Clean Water Act 2004 (RA9275)+国家下水・汚泥管理計画(NSSMP)。Marikina/Dumaguete等のLGU条例が「5年毎の汲取り義務化」をモデル化、Marikinaは水道料金10%サーチャージで55,547基の汚泥引抜を資金化 (RTI septage guide / EMB)。JICAはODA受入上位国でLWUA経由の水道区向け転貸ス</div></div><div class="figc"><div class="fh">図F 制度の波 2024 → 2037 ── いつ、どこに規制需要が立つか</div><div class="tl2c"><div class="tlr"><div class="tlt">2024</div><div class="tlb"><b>EU 都市排水指令 改正採択</b><span>個別システム (浄化槽等) の登録・リスクベース点検を加盟国に義務づけ</span></div></div><div class="tlr"><div class="tlt">2026.1</div><div class="tlb"><b>フィリピン・バギオ実証 本格運転</b><span>フジクリーン×JICA。維持管理モデル確立が検証項目 — 相乗りの入口</span></div></div><div class="tlr"><div class="tlt">2026.4</div><div class="tlb"><b>World Bank「Water Forward」発足</b><span>10億人への水・衛生アクセス目標。成果連動資金の拡大局面</span></div></div><div class="tlr"><div class="tlt">2027.7</div><div class="tlb"><b>EU 指令の国内法化期限</b><span>欧州で「登録・点検」の制度市場が一斉に立ち上がる</span></div></div><div class="tlr"><div class="tlt">2028–30</div><div class="tlb"><b>尼 LLTT 拡大 / 印 FSTP 整備の山</b><span>ADB CWIS 実行期 + インド FSTP 2,000ヶ所の O&amp;M 発注が本格化</span></div></div><div class="tlr"><div class="tlt">2037</div><div class="tlb"><b>フィリピン 100% カバー期限</b><span>最高裁命令の最終期限。手前 5 年が受注のピークになる読み</span></div></div></div></div>
 <h3>東南アジア (最有力)</h3>
 <div class="concl"><b>結論: 「トイレはある、下水道はない、浄化槽は埋めたら放置」の三重構造。規制執行が先に届く商業施設・公共施設向けの大型浄化槽O&amp;Mと、定期汲み取り制度化 (LLTT) の波が入口。国別ではフィリピンが規制ドリブンで最もホット。</b></div>
 <ul><li><b>下水道の実態</b>: 都市住民の 85-90% がセプティックタンク/ピット依存、集中処理場に届く汚水は 10% 未満 (<a href="https://www.worldbank.org/content/dam/Worldbank/document/EAP/region/eap-urban-sanitation-review-full-report.pdf" target="_blank" rel="noopener">World Bank EAP</a>)。フィリピンは全国の下水道接続 10% 未満・マニラ首都圏でも約 30% (<a href="https://www.jica.go.jp/activities/schemes/priv_partner/sdgs/2025/20260205_01.html" target="_blank" rel="noopener">JICA 2026-02</a>【検証済】)。インドネシアは 330 都市中、下水道が部分的にでもあるのは 11 都市のみで、下水道カバーは都市人口の <b>1% 未満</b> (<a href="https://www.adb.org/sites/default/files/institutional-document/33808/files/indonesia-water-supply-sector-assessment.pdf" target="_blank" rel="noopener">ADB</a>。※「約2%」という流通値は検証で否定 — §7)。ベトナムは都市汚水の処理率 17% (2022, MoC)、世帯の 90% がセプティックタンク使用で汚泥の適正処理はわずか 4% (<a href="https://www.worldbank.org/en/country/vietnam/publication/vietnam-urban-wastewater-review" target="_blank" rel="noopener">World Bank</a>)</li><li><b>維持管理の空白が商機の正体</b>: ジャカルタで定期汲み取りを実施する世帯は 22% のみ (<a href="https://ibima.org/accepted-paper/faecal-sludge-management-through-monitoring-the-septic-tank-desludging-period-case-study-kelurahan-pademangan-barat-north-jakarta/" target="_blank" rel="noopener">IBIMA</a>)。「汲み取るより新しいタンクを掘る」行動すら報告される。例外はマレーシア — IWK が定期汲み取りを公共サービス化 (RM192/24ヶ月 <a href="https://www.iwk.com.my/charges-domestic-desludging" target="_blank" rel="noopener">IWK</a>)。<b>この「IWK型の制度化」を他国が追う流れ (インドネシア LLTT 等) が、O&amp;Mオペレーターの制度需要を生む</b></li><li><b>規制</b>: フィリピンは最高裁が水道会社2社に罰金+2037年100%下水道カバーを命令 (<a href="https://elibrary.judiciary.gov.ph/thebookshelf/showdocs/1/65416" target="_blank" rel="noopener">最高裁判例</a>)、両社で約 20 億ドル規模の投資計画 (<a href="https://www.adb.org/features/promoting-wastewater-revolution-asia-adbs-plans-progress-and-initiatives" target="_blank" rel="noopener">ADB</a>)。インドネシアは排水基準 (PermenLHK 68/2016) + SNI が 2-5 年毎の汲み取りを規定するが執行が弱い</li><li><b>資金</b>: ADB がインドネシア CWIS (Citywide Inclusive Sanitation) に 4.196 億ドル融資 (<a href="https://www.adb.org/news/adb-strengthens-sanitation-system-indonesia-419-million-loan" target="_blank" rel="noopener">ADB</a>)、CWIS 累計 26.2 億ドル。<b>「下水道+非下水道の併用」に公式に資金が付く枠組みが既にある</b></li><li><b>日本勢の现在地</b>: フジクリーンがフィリピン・バギオ市で JICA 実証を 2026 年 1 月本格運転開始 — 検証項目自体が「維持管理モデルの確立」(<a href="https://www.jica.go.jp/activities/schemes/priv_partner/sdgs/2025/20260205_01.html" target="_blank" rel="noopener">JICA</a>)。ダイキアクシスはインドネシア現地生産 (年 250-300 基) + 代理店網 (<a href="https://www.fisco.co.jp/wordpress/wp-content/uploads/FISCO/daiki-axis20250424.pdf" target="_blank" rel="noopener">FISCO</a>)。両社とも東南アジアは<b>大型 (施設・集合向け) 中心</b> — 戸建ては現地簡易バイオタンク (2万〜35万円 <a href="https://bioseptictank.co.id/harga-bio-septic-tank-2019/" target="_blank" rel="noopener">現地価格</a>) との価格差で当面勝負にならない</li></ul>
