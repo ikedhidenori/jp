@@ -189,6 +189,27 @@
     .route-box b { display: block; margin-bottom: 7px; color: var(--sun); }
     .route-box p { margin: 0; color: #d7dfda; }
 
+    .market { background: var(--paper); }
+    .market-summary { display: grid; grid-template-columns: 1fr 1fr 2fr; border-block: 1px solid var(--line); margin-bottom: 46px; }
+    .market-stat { min-height: 150px; padding: 24px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
+    .market-stat:last-child { border-right: 0; }
+    .market-stat b { font-family: var(--display); font-size: clamp(44px, 6vw, 70px); font-weight: 500; line-height: 1; }
+    .market-stat span { color: var(--muted); font-size: 13px; }
+    .market-stat p { margin: 0; font-family: var(--display); font-size: clamp(19px, 2.2vw, 27px); line-height: 1.5; }
+    .market-lanes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .market-lane { min-width: 0; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+    .market-lane > small { color: var(--signal); font-weight: 800; letter-spacing: .12em; }
+    .market-lane h3 { min-height: 72px; margin: 15px 0 24px; font-size: clamp(23px, 2.4vw, 31px); }
+    .opportunity { display: grid; grid-template-columns: 34px 1fr 54px; gap: 10px; align-items: center; min-height: 70px; padding-block: 12px; border-top: 1px solid var(--line); }
+    .opportunity:first-of-type { border-top: 0; }
+    .opportunity .rank { color: var(--signal); font-family: var(--display); font-size: 20px; }
+    .opportunity a { display: inline-flex; min-height: 44px; align-items: center; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .opportunity em { display: flex; min-height: 44px; flex-direction: column; align-items: flex-end; justify-content: center; color: var(--moss); font-style: normal; font-weight: 800; text-align: right; }
+    .opportunity em::before { content: attr(data-kind); color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .08em; line-height: 1.2; }
+    .market-lane p { color: var(--muted); font-size: 13px; }
+    .market-note { margin-top: 30px; padding: 22px 24px; border-left: 4px solid var(--signal); background: var(--paper-2); color: var(--muted); }
+    .market-note strong { color: var(--ink); }
+
     .offers { background: var(--paper); }
     .offer-track { display: grid; grid-template-columns: repeat(5, minmax(210px, 1fr)); gap: 14px; overflow-x: auto; padding: 8px 4px 30px; }
     .offer { min-height: 410px; padding: 24px; border: 1px solid var(--line); background: var(--white); position: relative; }
@@ -248,6 +269,7 @@
       .case-card, .case-card:nth-child(5n+1), .case-card:nth-child(5n+2) { grid-column: span 6; }
       .route-tabs { flex-direction: row; overflow-x: auto; }
       .route-tab { min-width: 150px; }
+      .market-lanes { grid-template-columns: 1fr; }
       .system-bridge { writing-mode: horizontal-tb; }
     }
     @media (max-width: 620px) {
@@ -258,6 +280,9 @@
       .thesis { font-size: 21px; }
       .hero-bottom { gap: 28px; }
       .metric { min-height: 145px; padding: 22px 18px; }
+      .market-summary { grid-template-columns: 1fr 1fr; }
+      .market-stat:nth-child(2) { border-right: 0; }
+      .market-stat:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line); }
       .case-card, .case-card:nth-child(5n+1), .case-card:nth-child(5n+2) { grid-column: 1 / -1; min-height: 280px; }
       .route-panel.active { grid-template-columns: 1fr; }
       .route-panel .big { grid-column: 1; }
@@ -272,7 +297,7 @@
   <header class="topbar">
     <div class="wordmark">JOHNNY / WORK ATLAS</div>
     <nav aria-label="ページ内ナビゲーション">
-      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#routes">市場</a><a href="#questions">未確認</a>
+      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#questions">未確認</a>
     </nav>
   </header>
 
@@ -412,8 +437,62 @@
       </div>
     </section>
 
+    <section class="market" id="market">
+      <p class="kicker">05 / Live market — checked 2026.07.12</p>
+      <h2>相性のよさと、<br>仕事への近さは違う。</h2>
+      <p class="section-lead">Exaで200件を確認し、52候補を51の固有入口へ統合。仕事内容だけでなく、応募可能性、報酬、必要証拠、機会費用まで含めて再評価した。</p>
+      <figure class="evidence-figure reveal">
+        <svg viewBox="0 0 1000 210" role="img" aria-labelledby="market-fig-title market-fig-desc">
+          <title id="market-fig-title">51の市場入口を3つの目的へ分離</title><desc id="market-fig-desc">個人収入を早く検証する入口、転職の本命、法人の事業共創を別のレーンとして扱う。</desc>
+          <path d="M100 98H880" stroke="#b8b09f" stroke-width="2"/>
+          <g font-family="sans-serif" text-anchor="middle">
+            <circle cx="175" cy="98" r="62" fill="#ad3218"/><text x="175" y="88" fill="#fffdf7" font-size="17">個人収入</text><text x="175" y="114" fill="#fffdf7" font-size="13">副業・委託・相談</text>
+            <circle cx="500" cy="98" r="62" fill="#315c4f"/><text x="500" y="88" fill="#fffdf7" font-size="17">転職</text><text x="500" y="114" fill="#fffdf7" font-size="13">役割と裁量</text>
+            <circle cx="825" cy="98" r="62" fill="#f0c75e"/><text x="825" y="88" fill="#18201e" font-size="17">法人事業</text><text x="825" y="114" fill="#18201e" font-size="13">実証・共創公募</text>
+            <text x="175" y="188" fill="#5d6761" font-size="13">今すぐ市場反応を測る</text><text x="500" y="188" fill="#5d6761" font-size="13">ケースで選考を通す</text><text x="825" y="188" fill="#5d6761" font-size="13">本人の仕事と混ぜない</text>
+          </g>
+        </svg>
+        <figcaption>同じ「相性が高い」でも購買者が違う。個人の収入、雇用、会社の事業開発を一つのランキングにしない。</figcaption>
+      </figure>
+      <div class="market-summary reveal">
+        <div class="market-stat"><b>200</b><span>Exaで確認した検索結果</span></div>
+        <div class="market-stat"><b>51</b><span>重複除去後の市場入口</span></div>
+        <div class="market-stat"><p>最初の一手は、転職応募より先に、btraxの業務委託枠でサービスデザイン市場との適合を測ること。</p></div>
+      </div>
+      <div class="market-lanes reveal">
+        <article class="market-lane">
+          <small>PERSONAL INCOME</small>
+          <h3>早く、低コストで<br>市場反応を測る</h3>
+          <div class="opportunity"><span class="rank">01</span><a href="https://btrax.com/jp/careers/service-designer">btrax<br>Service Designer</a><em data-kind="適合点">88</em></div>
+          <div class="opportunity"><span class="rank">02</span><a href="https://expert.visasq.com/">ビザスクexpert</a><em data-kind="適合点">83</em></div>
+          <div class="opportunity"><span class="rank">03</span><a href="https://prosharing.bizlink.io/">Bizlink</a><em data-kind="適合点">80</em></div>
+          <div class="opportunity"><span class="rank">04</span><a href="https://circu.co.jp/pro-sharing/professional/">ProSharing</a><em data-kind="適合点">78</em></div>
+          <p>点数は成約確率ではなく、現在の証拠と働き方を含めた優先度。</p>
+        </article>
+        <article class="market-lane">
+          <small>EMPLOYMENT</small>
+          <h3>役割と裁量を<br>買ってもらう</h3>
+          <div class="opportunity"><span class="rank">01</span><a href="https://btrax.com/jp/careers/service-designer">btrax<br>Service Designer</a><em data-kind="適合点">88</em></div>
+          <div class="opportunity"><span class="rank">02</span><a href="https://herp.careers/v1/digitalsaiyo/qLsVlRv1pUIS">デジタル庁<br>Service Designer</a><em data-kind="適合点">85</em></div>
+          <div class="opportunity"><span class="rank">03</span><a href="https://btrax.com/jp/careers/business-producer">btrax<br>Business Producer</a><em data-kind="適合点">79</em></div>
+          <div class="opportunity"><span class="rank">04</span><a href="https://recruit.kpmg-consulting.jp/job-description/1004">KPMG<br>Business Innovation</a><em data-kind="適合点">74</em></div>
+          <p>C05・C08・C09を、調査→発見→判断→試作→検証の形式へ変える必要がある。</p>
+        </article>
+        <article class="market-lane">
+          <small>COMPANY PIPELINE</small>
+          <h3>法人の事業開発として<br>別に扱う</h3>
+          <div class="opportunity"><span class="rank">01</span><a href="https://www.city.shizuoka.lg.jp/s2432/s009040.html">静岡市<br>上下水道実証</a><em data-kind="締切">8/7</em></div>
+          <div class="opportunity"><span class="rank">02</span><a href="https://www.keikyu.co.jp/report/2026/report2026060901.html">KEIKYU × 横須賀</a><em data-kind="締切">8/24</em></div>
+          <div class="opportunity"><span class="rank">03</span><a href="https://startups.pref.kanagawa.jp/program/bak-yak/bak-2026/">BAK / YAK 2026</a><em data-kind="締切">8/17</em></div>
+          <div class="opportunity"><span class="rank">04</span><a href="https://vlag.yokohama/mebuku3/">MEBUKU</a><em data-kind="締切">7/19</em></div>
+          <p>採択や共創は本人収入を保証しない。INNFRA等で応募する場合、本人の担当と契約を先に分ける。</p>
+        </article>
+      </div>
+      <div class="market-note reveal"><strong>削った候補も証拠。</strong> アクセンチュアの共有求人は個別ページが検索画面へ転送され、パナソニックの共有求人はライブURLが404だった。検索インデックスに本文が残っていても、現行候補には数えていない。</div>
+    </section>
+
     <section class="offers">
-      <p class="kicker">05 / Offer hypotheses</p>
+      <p class="kicker">06 / Offer hypotheses</p>
       <h2>「何でもできます」を、<br>5つの発注単位へ。</h2>
       <p class="section-lead">価格を決める前の市場テスト案。開始状態と到達状態を示し、既存関係者がどれに相談料を払うかを見る。</p>
       <figure class="evidence-figure reveal">
@@ -436,7 +515,7 @@
     </section>
 
     <section class="system">
-      <p class="kicker">06 / Collaboration system</p>
+      <p class="kicker">07 / Collaboration system</p>
       <h2>弱点を消すのではなく、<br>分業できる形にする。</h2>
       <p class="section-lead">本人の強さが出る工程と、AI・運用担当へ渡す工程を混ぜない。生き生きする条件を、仕事選びと日々の協業システムの両方へ反映する。</p>
       <figure class="evidence-figure reveal">
@@ -455,7 +534,7 @@
     </section>
 
     <section class="questions" id="questions">
-      <p class="kicker">07 / Evidence gaps</p>
+      <p class="kicker">08 / Evidence gaps</p>
       <h2>公開資料では埋まらない、<br>次の問い。</h2>
       <p class="section-lead">ここから先は、ジョニー本人との一問一答でしか進まない。回答済みにした項目は、この端末内だけで記憶される。</p>
       <figure class="evidence-figure reveal">
@@ -468,7 +547,7 @@
         <figcaption>公開記事が増えても、この六つは埋まらない。市場での再現性を証明するには、本人の記憶と手元資料が必要になる。</figcaption>
       </figure>
       <div class="question-list reveal">
-        <div class="question" data-q="revenue"><p>これまでで、単発または累計の受取金額が最も大きかった仕事は何か。</p><button type="button">回答済みにする</button></div>
+        <div class="question" data-q="nakagusuku-output"><p>中城の「設計・実装」で、自分が実際に決めた／作った成果物を3つ挙げると何か。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="fabcar"><p>FAB CARの「チルアウト茶室」で、自分が決めた体験上の核心は何か。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="lac"><p>LAC八ヶ岳で、自分がいなければ実現しなかったものは何か。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="offgrid"><p>技術側の案を、暮らす人の視点から変更した具体的な判断は何か。</p><button type="button">回答済みにする</button></div>
