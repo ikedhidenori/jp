@@ -331,6 +331,19 @@
     .system .billing-evidence > p { color: var(--muted); }
     .system .billing-clusters span { border-color: var(--line); color: var(--ink); }
 
+    .gates { background: var(--paper); }
+    .gate-list { border-top: 1px solid var(--line); }
+    .gate { display: grid; grid-template-columns: minmax(190px, .55fr) minmax(0, 1.45fr); gap: 28px; margin: 0; padding: 25px 0; border: 0; border-bottom: 1px solid var(--line); }
+    .gate legend { padding: 0; font-family: var(--display); font-size: clamp(20px, 2.2vw, 29px); font-weight: 600; }
+    .gate-options { display: flex; flex-wrap: wrap; gap: 9px; }
+    .gate-option { min-height: 44px; padding: 9px 15px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--white); cursor: pointer; }
+    .gate-option[aria-pressed="true"] { color: var(--white); border-color: var(--moss); background: var(--moss); }
+    .gate-output { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: end; margin-top: 28px; padding: 24px; border-left: 4px solid var(--signal); background: var(--paper-2); }
+    .gate-output small { display: block; margin-bottom: 8px; color: var(--signal); font-weight: 800; letter-spacing: .1em; }
+    .gate-summary { margin: 0; color: var(--ink); white-space: pre-line; }
+    .gate-copy { color: var(--ink); border-color: var(--line); }
+    .gate-copy:hover, .gate-copy:focus-visible { color: var(--white); border-color: var(--moss); background: var(--moss); }
+
     .questions { background: var(--ink); color: var(--paper); }
     .questions .kicker { color: var(--sun); }
     .questions .section-lead { color: #bcc5bf; }
@@ -364,6 +377,7 @@
     @media print { .reveal { opacity: 1 !important; transform: none !important; transition: none !important; } .topbar, .reading-progress { display: none; } }
     @media (max-width: 900px) {
       .hero-bottom, .route-layout, .system-grid, .coverage-grid, .commercial-grid { grid-template-columns: 1fr; }
+      .gate { grid-template-columns: 1fr; gap: 14px; }
       .metric-grid { grid-template-columns: repeat(2, 1fr); }
       .metric:nth-child(2) { border-right: 0; }
       .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -408,6 +422,7 @@
       .route-panel .big { grid-column: 1; }
       .question { grid-template-columns: 40px 1fr; }
       .question button { grid-column: 2; justify-self: start; }
+      .gate-output { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -417,7 +432,7 @@
   <header class="topbar">
     <div class="wordmark">JOHNNY / WORK ATLAS</div>
     <nav aria-label="ページ内ナビゲーション">
-      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#commercial">商業証拠</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#sprint">14日</a><a href="#profiles">プロフィール</a><a href="#kit">応募素材</a><a href="#questions">未確認</a>
+      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#commercial">商業証拠</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#sprint">14日</a><a href="#profiles">プロフィール</a><a href="#kit">応募素材</a><a href="#gates">条件</a><a href="#questions">未確認</a>
     </nav>
   </header>
 
@@ -778,8 +793,22 @@
       <aside class="billing-evidence reveal"><small>CURRENT OPERATING ROLE / INNFRA</small><h3>構想だけでなく、顧客・商務・現場まで横断する。</h3><p>公開プロフィールと内部記録から、提案、再ヒアリング、自治体・パートナー調整、見積、現場課題対応、広報を案件横断で反復していることを確認した。担当タスクは役割の証拠として扱い、完了・採用・成約は別に裏づける。</p><div class="billing-clusters"><span>構想・顧客開発</span><span>商務・調整</span><span>実装後の現場対応</span></div></aside>
     </section>
 
+    <section class="gates" id="gates">
+      <p class="kicker">10 / Personal market gates</p>
+      <h2>資料は揃った。<br>次は、出せる条件を決める。</h2>
+      <p class="section-lead">選択内容はこの端末のブラウザ内だけに保存され、外部送信されない。迷う項目は「未確定」を選べる。</p>
+      <div class="gate-list reveal">
+        <fieldset class="gate" data-gate="priority"><legend>最初に試す経路</legend><div class="gate-options"><button class="gate-option" type="button" data-value="転職">転職</button><button class="gate-option" type="button" data-value="副業・業務委託">副業・業務委託</button><button class="gate-option" type="button" data-value="スポット相談">スポット相談</button><button class="gate-option" type="button" data-value="未確定">未確定</button></div></fieldset>
+        <fieldset class="gate" data-gate="hours"><legend>週に確保できる時間</legend><div class="gate-options"><button class="gate-option" type="button" data-value="週2〜4時間">2〜4時間</button><button class="gate-option" type="button" data-value="週5〜10時間">5〜10時間</button><button class="gate-option" type="button" data-value="週11〜20時間">11〜20時間</button><button class="gate-option" type="button" data-value="週20時間超">20時間超</button><button class="gate-option" type="button" data-value="未確定">未確定</button></div></fieldset>
+        <fieldset class="gate" data-gate="onsite"><legend>東京などでの対面頻度</legend><div class="gate-options"><button class="gate-option" type="button" data-value="週1回以上">週1回以上</button><button class="gate-option" type="button" data-value="月1〜2回">月1〜2回</button><button class="gate-option" type="button" data-value="必要時のみ">必要時のみ</button><button class="gate-option" type="button" data-value="対面は難しい">難しい</button><button class="gate-option" type="button" data-value="未確定">未確定</button></div></fieldset>
+        <fieldset class="gate" data-gate="english"><legend>英語での実務</legend><div class="gate-options"><button class="gate-option" type="button" data-value="会議・資料とも対応可能">会議・資料とも可能</button><button class="gate-option" type="button" data-value="支援があれば会議・資料に対応">支援があれば可能</button><button class="gate-option" type="button" data-value="読み書き中心">読み書き中心</button><button class="gate-option" type="button" data-value="現状は難しい">現状は難しい</button><button class="gate-option" type="button" data-value="未確定">未確定</button></div></fieldset>
+        <fieldset class="gate" data-gate="conflict"><legend>副業規定・利益相反</legend><div class="gate-options"><button class="gate-option" type="button" data-value="確認済み・問題なし">確認済み</button><button class="gate-option" type="button" data-value="テーマを限定すれば可能">テーマ限定で可能</button><button class="gate-option" type="button" data-value="確認が必要">確認が必要</button><button class="gate-option" type="button" data-value="現状は難しい">現状は難しい</button></div></fieldset>
+      </div>
+      <div class="gate-output reveal"><div><small>YOUR MARKET GATES</small><p class="gate-summary" id="gate-summary">まだ選択されていません。</p></div><button class="copy-action gate-copy" type="button" data-copy-target="gate-summary">回答をコピー</button></div>
+    </section>
+
     <section class="questions" id="questions">
-      <p class="kicker">10 / Evidence gaps</p>
+      <p class="kicker">11 / Evidence gaps</p>
       <h2>公開資料では埋まらない、<br>次の問い。</h2>
       <p class="section-lead">ここから先は、ジョニー本人との一問一答でしか進まない。回答済みにした項目は、この端末内だけで記憶される。</p>
       <figure class="evidence-figure reveal">
@@ -932,6 +961,31 @@
         }, 1800);
       });
     });
+
+    const gateStorageKey = 'johnny-career-market-gates';
+    let gateState = {};
+    try { gateState = JSON.parse(localStorage.getItem(gateStorageKey) || '{}'); } catch { gateState = {}; }
+    const gateGroups = [...document.querySelectorAll('.gate')];
+    const gateSummary = document.getElementById('gate-summary');
+    const updateGateSummary = () => {
+      const lines = gateGroups.map(group => {
+        const label = group.querySelector('legend').textContent.trim();
+        return `${label}：${gateState[group.dataset.gate] || '未選択'}`;
+      });
+      gateSummary.textContent = lines.join('\n');
+    };
+    gateGroups.forEach(group => {
+      const options = [...group.querySelectorAll('.gate-option')];
+      const sync = () => options.forEach(option => option.setAttribute('aria-pressed', String(gateState[group.dataset.gate] === option.dataset.value)));
+      sync();
+      options.forEach(option => option.addEventListener('click', () => {
+        gateState[group.dataset.gate] = option.dataset.value;
+        localStorage.setItem(gateStorageKey, JSON.stringify(gateState));
+        sync();
+        updateGateSummary();
+      }));
+    });
+    updateGateSummary();
 
     const saved = JSON.parse(localStorage.getItem('johnny-career-questions') || '{}');
     document.querySelectorAll('.question').forEach(item => {
