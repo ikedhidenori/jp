@@ -114,6 +114,26 @@
     .metric b { font-family: var(--display); font-size: clamp(48px, 6vw, 78px); font-weight: 500; line-height: 1; }
     .metric span { color: var(--muted); font-size: 13px; }
 
+    .coverage { padding-block: clamp(54px, 7vw, 88px); background: var(--white); }
+    .coverage-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: clamp(30px, 6vw, 80px); align-items: end; }
+    .coverage h2 { font-size: clamp(30px, 4.2vw, 52px); }
+    .coverage-track { display: flex; height: 22px; margin: 28px 0 18px; overflow: hidden; border-radius: 999px; background: var(--paper-2); }
+    .coverage-track span { min-width: 3px; }
+    .coverage-track .confirmed { flex: 34; background: var(--moss); }
+    .coverage-track .candidate { flex: 16; background: var(--sun); }
+    .coverage-track .source-only { flex: 5; background: var(--signal); }
+    .coverage-track .merged { flex: 2; background: var(--line); }
+    .coverage-key { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; color: var(--muted); font-size: 13px; }
+    .coverage-key span { display: flex; align-items: center; gap: 9px; }
+    .coverage-key i { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 50%; background: var(--moss); }
+    .coverage-key span:nth-child(2) i { background: var(--sun); }
+    .coverage-key span:nth-child(3) i { background: var(--signal); }
+    .coverage-key span:nth-child(4) i { background: var(--line); }
+    .coverage-insight { padding: 26px; border-left: 4px solid var(--signal); background: var(--paper); }
+    .coverage-insight small { color: var(--signal); font-weight: 800; letter-spacing: .14em; }
+    .coverage-insight h3 { margin: 10px 0 12px; font-size: clamp(22px, 2.5vw, 31px); }
+    .coverage-insight p { margin: 0; color: var(--muted); }
+
     .career-river { background: var(--ink); color: var(--paper); }
     .career-river .kicker { color: var(--sun); }
     .career-river .section-lead { color: #bcc5bf; }
@@ -290,6 +310,9 @@
     .system-side h3 { margin-top: 0; }
     .system-side ul { padding-left: 1.1em; color: var(--muted); }
     .system-bridge { display: grid; place-items: center; color: var(--signal); font-family: var(--display); font-size: 42px; writing-mode: vertical-rl; }
+    .system .billing-evidence { border-color: var(--line); background: rgba(255,253,247,.72); }
+    .system .billing-evidence > p { color: var(--muted); }
+    .system .billing-clusters span { border-color: var(--line); color: var(--ink); }
 
     .questions { background: var(--ink); color: var(--paper); }
     .questions .kicker { color: var(--sun); }
@@ -323,7 +346,7 @@
     }
     @media print { .reveal { opacity: 1 !important; transform: none !important; transition: none !important; } .topbar, .reading-progress { display: none; } }
     @media (max-width: 900px) {
-      .hero-bottom, .route-layout, .system-grid { grid-template-columns: 1fr; }
+      .hero-bottom, .route-layout, .system-grid, .coverage-grid { grid-template-columns: 1fr; }
       .metric-grid { grid-template-columns: repeat(2, 1fr); }
       .metric:nth-child(2) { border-right: 0; }
       .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -389,16 +412,32 @@
       </div>
       <div class="hero-bottom">
         <p class="thesis">まだ名前も仕様もない生活者の欲求を発見し、企業・技術・地域をつなぎ、体験できるプロトタイプとして社会に出す。</p>
-        <div class="legend"><strong>渡鳥ジョニー キャリア棚卸し</strong>公開資料と本人資料から復元した作業仮説。共同成果と本人寄与を分離し、確認できないことは断定していない。</div>
+        <div class="legend"><strong>渡鳥ジョニー キャリア棚卸し</strong>親仕事57件・子活動19件を復元した作業版。共同成果と本人寄与を分離し、確認できないことは断定していない。</div>
       </div>
     </section>
 
     <section class="metrics" aria-label="棚卸しの現在地">
       <div class="metric-grid">
-        <div class="metric"><b>57</b><span>調査対象ID<br>隣接・除外候補を含む</span></div>
-        <div class="metric"><b>6</b><span>再現可能な仕事の型</span></div>
-        <div class="metric"><b>11</b><span>ケーススタディ候補</span></div>
-        <div class="metric"><b>63</b><span>整理したメディア記録</span></div>
+        <div class="metric"><b>57</b><span>親仕事ID<br>仕事・共同制作・事業を含む</span></div>
+        <div class="metric"><b>34</b><span>存在・役割を確認済み</span></div>
+        <div class="metric"><b>16</b><span>個人寄与・結果の確認待ち</span></div>
+        <div class="metric"><b>7</b><span>公開証拠で8 / 8の代表ケース</span></div>
+      </div>
+    </section>
+
+    <section class="coverage" id="coverage">
+      <div class="coverage-grid reveal">
+        <div>
+          <p class="kicker">Inventory coverage / 2026.07.13</p>
+          <h2>事例の数は足りた。<br>次は、事業成果を掘る。</h2>
+          <div class="coverage-track" role="img" aria-label="親仕事57件の内訳。役割確認済み34件、候補16件、本人資料のみ5件、統合または除外2件"><span class="confirmed"></span><span class="candidate"></span><span class="source-only"></span><span class="merged"></span></div>
+          <div class="coverage-key"><span><i></i>役割確認済み 34</span><span><i></i>候補 16</span><span><i></i>本人資料のみ 5</span><span><i></i>統合・除外 2</span></div>
+        </div>
+        <aside class="coverage-insight">
+          <small>NEXT EVIDENCE</small>
+          <h3>売上・継続・再依頼・運用改善</h3>
+          <p>公開ケースを増やすより、非公開の有償案件と現在の事業から、相手の判断が変わった瞬間、採用・成約、導入後の変化を一つずつ回収する方が市場価値を上げる。</p>
+        </aside>
       </div>
     </section>
 
@@ -480,7 +519,7 @@
         <article class="case-card" data-tags="narrative concept"><div class="case-head"><span class="case-id">C01</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>Googleマイマップ奇食旅</h3><p>Round 1〜22へ出演・一部構成編集。撮影交渉、投票反映、現場での構成変更まで同時代資料で確認。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="concept narrative place implementation"><div class="case-head"><span class="case-id">C02</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>暮らしかた冒険家／hey, sapporo</h3><p>生活実験を、空間、参加、Web、展示、映像、出版制作へ横断展開。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="concept narrative prototype"><div class="case-head"><span class="case-id">C03</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>VLDK</h3><p>生活仮説を約1年検証し、Web、有料公開イベント、企業媒体へ展開。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="place concept implementation"><div class="case-head"><span class="case-id">C04</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>LAC八ヶ岳</h3><p>実験場の原構想を、場、文化、共創運営へ具体化。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
+        <article class="case-card" data-tags="place concept implementation"><div class="case-head"><span class="case-id">C04</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>LAC八ヶ岳</h3><p>実験場を場・文化・共創運営へ具体化。フェスは拠点側で共同準備し、滞在制作型Makers-in-Residenceを構想・募集。正式なフェス企画運営は他者。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="prototype implementation"><div class="case-head"><span class="case-id">C05</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>オフグリッド住宅</h3><p>技術実証を、都心並みに快適な生活実証へ翻訳。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="implementation place concept narrative"><div class="case-head"><span class="case-id">C06</span><span class="readiness" aria-label="準備度7/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><h3>中城城跡滞在実証</h3><p>実証・宿泊体験、空間、運営、発信を統合し、専門担当と分業して実装。</p><span class="case-tag">7 / 8 — ADOPTION EVIDENCE</span></article>
         <article class="case-card" data-tags="concept implementation"><div class="case-head"><span class="case-id">C07</span><span class="readiness" aria-label="準備度0/8"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><h3>企業R&amp;D調査・助言候補</h3><p>本人作成一覧に5件。課題、助言、成果物、相手の判断変化は未確認。</p><span class="case-tag">SOURCE CLAIM ONLY — 0 / 8</span></article>
@@ -694,6 +733,7 @@
         <div class="system-bridge">⇄</div>
         <div class="system-side"><h3>AI + Operator / 収束と反復</h3><ul><li>記録・検索・比較を継続する</li><li>タスク・期限・証拠を追跡する</li><li>提案書とケースへ構造化する</li><li>定型連絡と運用を自動化する</li><li>完了条件と数字を回収する</li></ul></div>
       </div>
+      <aside class="billing-evidence reveal"><small>CURRENT OPERATING ROLE / INNFRA</small><h3>構想だけでなく、顧客・商務・現場まで横断する。</h3><p>公開プロフィールと内部記録から、提案、再ヒアリング、自治体・パートナー調整、見積、現場課題対応、広報を案件横断で反復していることを確認した。担当タスクは役割の証拠として扱い、完了・採用・成約は別に裏づける。</p><div class="billing-clusters"><span>構想・顧客開発</span><span>商務・調整</span><span>実装後の現場対応</span></div></aside>
     </section>
 
     <section class="questions" id="questions">
@@ -710,6 +750,9 @@
         <figcaption>公開記事が増えても、この六つは埋まらない。市場での再現性を証明するには、本人の記憶と手元資料が必要になる。</figcaption>
       </figure>
       <div class="question-list reveal">
+        <div class="question" data-q="makers-in-residence-outcome"><p>シェア工房／Makers-in-Residenceで、実際の滞在制作者、作品、試作品、事業化は生まれたか。募集まで、利用少数、実例あり、覚えていない、のどれか。</p><button type="button">回答済みにする</button></div>
+        <div class="question" data-q="kasegu-bousai-origin"><p>「稼ぐ防災」を最初に提示した資料、または命名者として確認できる関係者は誰か。</p><button type="button">回答済みにする</button></div>
+        <div class="question" data-q="infra-zero-spec-change"><p>インフラゼロハウスで、水循環を住宅へ内蔵する際に、自分の提案で変わった仕様は何か。技術チームの担当との境界はどこか。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="nakagusuku-decision-adoption"><p>中城で、自分の提案・判断によって当初案から最も大きく変更・追加され、最終案へ採用されたものは何か。変更前後はどう違ったか。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="early-digital-impact"><p>2009〜2010年の匿名9案件のうち、自分の提案や実装で相手の判断・体験・成果が最も変わったと覚えているものはどれか。該当なしでもよい。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="advisory"><p>大企業5社の新規事業リサーチ／助言で、相手の判断や次の行動が変わったと覚え、資料か相手の証言で確認できそうな案件はあるか。該当なしでもよい。</p><button type="button">回答済みにする</button></div>
@@ -723,7 +766,7 @@
     </section>
 
     <section class="closing">
-      <div><blockquote>面白い経歴を説明するのではない。<br>次の相手に、何を再現できるかを示す。</blockquote><p>57件は、隣接実績や除外候補も含む調査対象IDであり、確定した仕事数ではない。本人の判断、数字、他者の証言が加わるたび、仕事を得るための証拠へ変わっていく。</p></div>
+      <div><blockquote>面白い経歴を説明するのではない。<br>次の相手に、何を再現できるかを示す。</blockquote><p>親仕事57件のうち34件は存在・役割を確認したが、すべてが独立した有償仕事ではない。本人の判断、数字、採用・成約、他者の証言が加わるたび、仕事を得るための証拠へ変わっていく。</p></div>
     </section>
   </main>
   <footer>Working edition — public-evidence layer / last structured 2026.07.13</footer>
