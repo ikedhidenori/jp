@@ -97,6 +97,7 @@
     .thesis { margin: 0; font-family: var(--display); font-size: clamp(23px, 3vw, 39px); line-height: 1.55; }
     .identity { margin-top: 32px; padding-left: 25px; border-left: 1px solid var(--line); color: var(--muted); font-size: 13px; }
     .identity b { display: block; margin-bottom: 6px; color: var(--ink); font-size: 16px; }
+    .commercial-line { display: block; margin-top: 12px; color: var(--moss); font-weight: 800; }
     .hero-paths { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
     .hero-paths a { min-height: 44px; display: inline-flex; align-items: center; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; color: var(--moss); background: rgba(255,253,248,.45); font-size: 12px; font-weight: 800; text-decoration: none; }
     .hero-paths a:hover { color: var(--white); border-color: var(--moss); background: var(--moss); }
@@ -111,8 +112,8 @@
     .proof { background: var(--white); }
     .proof-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
     .case {
-      grid-column: span 4;
-      min-height: 560px;
+      grid-column: span 6;
+      min-height: 520px;
       display: flex;
       flex-direction: column;
       padding: 28px;
@@ -121,9 +122,8 @@
       background: var(--paper);
       transition: transform .25s ease, box-shadow .25s ease;
     }
-    .case:nth-child(2) { transform: translateY(42px); background: var(--paper-deep); }
+    .case:nth-child(even) { background: var(--paper-deep); }
     .case:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(21,28,26,.12); }
-    .case:nth-child(2):hover { transform: translateY(36px); }
     .case-no { color: var(--signal); font-family: var(--display); font-size: 24px; font-variant-numeric: tabular-nums; }
     .case h3 { margin: 42px 0 18px; }
     .case p { color: var(--muted); font-size: 14px; }
@@ -183,9 +183,6 @@
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
       .case { grid-column: span 6; min-height: 500px; }
-      .case:nth-child(2) { transform: none; }
-      .case:nth-child(2):hover { transform: translateY(-4px); }
-      .case:last-child { grid-column: 2 / span 10; }
       .mode { grid-template-columns: 60px 1fr; gap: 16px 24px; }
       .mode p, .mode strong { grid-column: 2; }
       .offer-grid { grid-template-columns: 1fr; }
@@ -197,7 +194,7 @@
       h1 { font-size: clamp(38px, 12vw, 54px); }
       .thesis { font-size: 22px; }
       .identity { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); }
-      .case, .case:last-child { grid-column: 1 / -1; min-height: 0; }
+      .case { grid-column: 1 / -1; min-height: 0; }
       .mode { grid-template-columns: 45px 1fr; min-height: 0; }
       .offer { min-height: 0; padding: 28px 22px; }
       .offer dl { grid-template-columns: 1fr; gap: 2px 0; }
@@ -225,31 +222,38 @@
           <p class="thesis">生活者の一次情報から問いを組み直し、企業・技術者・地域をつなぎ、コンセプト、試作品、実証まで進めます。</p>
           <div class="hero-paths" aria-label="想定する仕事の入口"><a href="#modes">転職・事業開発</a><a href="#offers">副業・業務委託</a><a href="#modes">専門家インタビュー</a></div>
         </div>
-        <div class="identity"><b>池田秀紀｜渡鳥ジョニー</b>Web、写真、移動生活、場、地域、オフグリッドへ媒体を広げながら、曖昧な構想を触れられる形へ変える仕事を続けてきました。</div>
+        <div class="identity"><b>池田秀紀｜渡鳥ジョニー</b>Web、写真、移動生活、場、地域、オフグリッドへ媒体を広げながら、曖昧な構想を触れられる形へ変える仕事を続けてきました。<span class="commercial-line">20年以上、商用制作から複数年のクライアント支援、現在の事業・製品開発まで、対価を伴う責任を継続。</span></div>
       </div>
     </section>
 
     <section class="proof" id="proof">
       <p class="kicker">01 / Selected evidence</p>
-      <h2>三つの代表作。</h2>
-      <p class="lead">公開資料で本人の役割、判断、協働境界、完成物まで確認できるケースだけを掲載しています。</p>
+      <h2>四つの代表作。</h2>
+      <p class="lead">現在の地域実証から、車、住宅、Living Labまで。公開資料と本人確認を分け、本人の役割、協働境界、完成物を説明できるケースだけを掲載しています。</p>
       <div class="proof-grid reveal">
         <article class="case">
           <span class="case-no">CASE 01</span>
+          <h3>中城城跡<br>ポップアップリゾート実証</h3>
+          <div class="case-change"><b>CHANGE</b><p>大規模開発や上下水道接続が難しい文化財保護環境に、営業時間外の世界遺産を滞在・水辺体験へ変える仮設拠点を構成。会社公表値で4枠に387組が応募しました。</p></div>
+          <div class="case-role"><b>ROLE / BOUNDARY</b><p>実証・宿泊体験のコンセプト、企画、会場配置・設営計画、全体ディレクション、現場運営、インテリア調達・設営、撮影ディレクション、Instagram動画制作。設備専門設計、施工実務、行政・調達の実務調整、最終決裁は各担当者と分業。</p></div>
+          <div class="case-proof"><a href="https://innfra.jp/posts/press-20251202">INNFRA公式 ↗</a><a href="https://prtimes.jp/main/html/rd/p/000000009.000133786.html">実証発表 ↗</a><a href="https://www.wantedly.com/portfolio/projects/74916">完成写真 ↗</a></div>
+        </article>
+        <article class="case">
+          <span class="case-no">CASE 02</span>
           <h3>FAB CAR</h3>
           <div class="case-change"><b>CHANGE</b><p>普通乗用車を、約1.5畳の移動する「チルアウト茶室」へ。移動生活の仮説を、デジタルファブリケーションによる共同開発と実物プロトタイプへ変えました。</p></div>
           <div class="case-role"><b>ROLE / BOUNDARY</b><p>企画プロデュース、体験コンセプト、スケッチ・世界観、全体ディレクション。モデリング、設計、施工はVUILDが担当。</p></div>
           <div class="case-proof"><a href="https://note.com/lacommons/n/n877e8d8e012e">LAC公式 ↗</a><a href="https://note.com/vuild/n/n91029a29a59a">VUILD公式 ↗</a></div>
         </article>
         <article class="case">
-          <span class="case-no">CASE 02</span>
+          <span class="case-no">CASE 03</span>
           <h3>オフグリッド・<br>リビングラボ八ヶ岳</h3>
           <div class="case-change"><b>CHANGE</b><p>太陽光、蓄電、水循環等の技術実証を、料理、仕事、入浴、睡眠まで行える生活実証へ。「我慢するエコ」ではなく、快適さから選びたくなる体験へ再定義しました。</p></div>
           <div class="case-role"><b>ROLE / BOUNDARY</b><p>本人は内装・インテリアを含むライフスタイルプロデュースと居住検証を担当。設備の基本設計・整備・運用は技術側、建物はLIFULL ArchiTechが担当。</p></div>
           <div class="case-proof"><a href="https://lifull.com/news/34469/">LIFULL公式 ↗</a><a href="https://slowinternet.jp/article/20220630/">第三者取材 ↗</a><a href="https://house.muji.com/life/clmn/zero/sumai_240517/">MUJI HOUSE ↗</a></div>
         </article>
         <article class="case">
-          <span class="case-no">CASE 03</span>
+          <span class="case-no">CASE 04</span>
           <h3>LivingAnywhere Commons<br>八ヶ岳北杜</h3>
           <div class="case-change"><b>CHANGE</b><p>企業の保養施設を、完成した宿ではなく、暮らし・仕事・遊び・学びを試すLiving Labへ。屋外と利用者の実践を価値の中心に置きました。</p></div>
           <div class="case-role"><b>ROLE / BOUNDARY</b><p>本人はプロデューサー兼コミュニティマネージャーとして構想と立ち上げを推進。運営主体はLIFULL。建築・施工、個々の設備・企画は利用者、専門家、パートナーと分業。</p></div>
