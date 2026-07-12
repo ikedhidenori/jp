@@ -220,6 +220,8 @@
     .profile-panel small { color: var(--signal); font-weight: 800; letter-spacing: .13em; }
     .profile-panel h3 { max-width: 760px; margin: 18px 0 26px; font-size: clamp(28px, 4vw, 48px); }
     .profile-copy { max-width: 760px; color: var(--muted); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.9; }
+    .profile-evidence-note { margin: 16px 0 0; color: var(--muted); font-size: 12px; }
+    .phrase { display: inline-block; white-space: nowrap; }
     .profile-side { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; padding-left: 28px; border-left: 1px solid var(--line); }
     .profile-side b { color: var(--moss); }
     .profile-side ol { margin: 18px 0 30px; padding-left: 1.25em; color: var(--muted); }
@@ -421,9 +423,9 @@
         <svg viewBox="0 0 1000 150" role="img" aria-labelledby="case-fig-title case-fig-desc">
           <title id="case-fig-title">11ケースの準備度</title><desc id="case-fig-desc">8項目中の公開証拠と整理済み項目数をケースごとの棒で示す。暮らしかた冒険家／hey, sapporo、VLDK、FAB CAR、LAC八ヶ岳、オフグリッド住宅は8項目すべてが揃った。</desc>
           <g fill="#d8d1c3"><rect x="34" y="55" width="58" height="18"/><rect x="122" y="55" width="58" height="18"/><rect x="210" y="55" width="58" height="18"/><rect x="298" y="55" width="58" height="18"/><rect x="386" y="55" width="58" height="18"/><rect x="474" y="55" width="58" height="18"/><rect x="562" y="55" width="58" height="18"/><rect x="650" y="55" width="58" height="18"/><rect x="738" y="55" width="58" height="18"/><rect x="826" y="55" width="58" height="18"/><rect x="914" y="55" width="58" height="18"/></g>
-          <g fill="#315c4f"><rect x="34" y="55" width="51" height="18"/><rect x="122" y="55" width="58" height="18" fill="#ad3218"/><rect x="210" y="55" width="58" height="18" fill="#ad3218"/><rect x="298" y="55" width="58" height="18" fill="#ad3218"/><rect x="386" y="55" width="58" height="18" fill="#ad3218"/><rect x="474" y="55" width="36" height="18"/><rect x="562" y="55" width="0" height="18"/><rect x="650" y="55" width="58" height="18" fill="#ad3218"/><rect x="738" y="55" width="44" height="18"/><rect x="826" y="55" width="51" height="18"/><rect x="914" y="55" width="7" height="18"/></g>
+          <g fill="#315c4f"><rect x="34" y="55" width="51" height="18"/><rect x="122" y="55" width="58" height="18" fill="#ad3218"/><rect x="210" y="55" width="58" height="18" fill="#ad3218"/><rect x="298" y="55" width="58" height="18" fill="#ad3218"/><rect x="386" y="55" width="58" height="18" fill="#ad3218"/><rect x="474" y="55" width="51" height="18"/><rect x="562" y="55" width="0" height="18"/><rect x="650" y="55" width="58" height="18" fill="#ad3218"/><rect x="738" y="55" width="44" height="18"/><rect x="826" y="55" width="51" height="18"/><rect x="914" y="55" width="7" height="18"/></g>
           <g fill="#18201e" font-family="sans-serif" font-size="13" text-anchor="middle"><text x="63" y="35">C01</text><text x="151" y="35">C02</text><text x="239" y="35">C03</text><text x="327" y="35">C04</text><text x="415" y="35">C05</text><text x="503" y="35">C06</text><text x="591" y="35">C07</text><text x="679" y="35">C08</text><text x="767" y="35">C09</text><text x="855" y="35">C10</text><text x="943" y="35">C11</text></g>
-          <g fill="#5d6761" font-family="sans-serif" font-size="12" text-anchor="middle"><text x="63" y="105">7/8</text><text x="151" y="105" fill="#ad3218">8/8</text><text x="239" y="105" fill="#ad3218">8/8</text><text x="327" y="105" fill="#ad3218">8/8</text><text x="415" y="105" fill="#ad3218">8/8</text><text x="503" y="105">5/8</text><text x="591" y="105">0/8</text><text x="679" y="105" fill="#ad3218">8/8</text><text x="767" y="105">6/8</text><text x="855" y="105">7/8</text><text x="943" y="105">1/8</text></g>
+          <g fill="#5d6761" font-family="sans-serif" font-size="12" text-anchor="middle"><text x="63" y="105">7/8</text><text x="151" y="105" fill="#ad3218">8/8</text><text x="239" y="105" fill="#ad3218">8/8</text><text x="327" y="105" fill="#ad3218">8/8</text><text x="415" y="105" fill="#ad3218">8/8</text><text x="503" y="105">7/8</text><text x="591" y="105">0/8</text><text x="679" y="105" fill="#ad3218">8/8</text><text x="767" y="105">6/8</text><text x="855" y="105">7/8</text><text x="943" y="105">1/8</text></g>
         </svg>
         <figcaption>ケースの数は足りている。次に必要なのは追加収集よりも、本人の判断と結果を一つずつ確定すること。</figcaption>
       </figure>
@@ -441,7 +443,7 @@
         <article class="case-card" data-tags="concept narrative prototype"><div class="case-head"><span class="case-id">C03</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>VLDK</h3><p>住居機能をVANと都市へ分散し、新しい生活カテゴリーとして検証。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="place concept implementation"><div class="case-head"><span class="case-id">C04</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>LAC八ヶ岳</h3><p>実験場の原構想を、場、文化、共創運営へ具体化。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="prototype implementation"><div class="case-head"><span class="case-id">C05</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>オフグリッド住宅</h3><p>技術実証を、都心並みに快適な生活実証へ翻訳。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="implementation place"><div class="case-head"><span class="case-id">C06</span><span class="readiness" aria-label="準備度5/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></div><h3>地域社会実装</h3><p>行政・地域・企業・技術をつなぎ、導入へ進める。</p><span class="case-tag">PERSONAL OUTCOME 要確認</span></article>
+        <article class="case-card" data-tags="implementation place concept narrative"><div class="case-head"><span class="case-id">C06</span><span class="readiness" aria-label="準備度7/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><h3>中城城跡滞在実証</h3><p>実証・宿泊体験、空間、運営、発信を統合し、専門担当と分業して実装。</p><span class="case-tag">7 / 8 — ADOPTION EVIDENCE</span></article>
         <article class="case-card" data-tags="concept implementation"><div class="case-head"><span class="case-id">C07</span><span class="readiness" aria-label="準備度0/8"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><h3>企業R&amp;D伴走</h3><p>曖昧な事業テーマを、生活者視点の仮説へ変換。</p><span class="case-tag">ANONYMOUS CASE 要作成</span></article>
         <article class="case-card" data-tags="prototype concept"><div class="case-head"><span class="case-id">C08</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>FAB CAR</h3><p>移動生活の知見とデジタル製造を、普通車の試作品へ。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="place implementation narrative"><div class="case-head"><span class="case-id">C09</span><span class="readiness" aria-label="準備度6/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div><h3>自治体・地域実証</h3><p>俵ヶ浦の「移動する宿」を代表ケースに分解。</p><span class="case-tag">DECISION / ADOPTION 要確認</span></article>
@@ -516,7 +518,7 @@
           <div class="opportunity"><span class="rank">02</span><a href="https://herp.careers/v1/digitalsaiyo/qLsVlRv1pUIS">デジタル庁<br>Service Designer</a><em data-kind="適合点">85</em></div>
           <div class="opportunity"><span class="rank">03</span><a href="https://btrax.com/jp/careers/business-producer">btrax<br>Business Producer</a><em data-kind="適合点">79</em></div>
           <div class="opportunity"><span class="rank">04</span><a href="https://recruit.kpmg-consulting.jp/job-description/1004">KPMG<br>Business Innovation</a><em data-kind="適合点">74</em></div>
-          <p>C02・C03・C04・C05・C08はケース化済み。次はC09・C06を、調査→発見→判断→試作→検証の形式へ変える。</p>
+          <p>C06-A中城は7/8まで進み、役割と協働境界が明確になった。次は本人判断が最終案へ採用された変更前後を加える。</p>
         </article>
         <article class="market-lane">
           <small>COMPANY PIPELINE</small>
@@ -546,7 +548,7 @@
           <aside class="profile-side"><div><b>証拠の見せ順</b><ol><li>FAB CAR</li><li>オフグリッド住宅</li><li>INNFRA／中城</li><li>LAC八ヶ岳</li></ol></div><p class="profile-use">転職、サービスデザイン、新規事業、R&amp;D共創の応募に使う。</p></aside>
         </article>
         <article class="profile-panel" id="profile-panel-regional" role="tabpanel" aria-labelledby="profile-tab-regional" data-profile-panel="regional" hidden>
-          <div><small>REGIONAL / LIVING LAB PRODUCER</small><h3>地域資源と技術を、訪れ、暮らし、参加できる実証へ。</h3><p class="profile-copy">地域にある場所、文化、技術、事業者を、参加できる体験と実証へ束ねます。中城城跡では、空間・体験設計、設備配置、運営、広報まで実証全体を横断的に推進。現地調査、コンセプト、場、参加者、協働体制、発信を分断せず設計することが強みです。</p></div>
+          <div><small>REGIONAL / LIVING LAB PRODUCER</small><h3><span class="phrase">地域資源と技術を、</span> <span class="phrase">訪れ、暮らし、</span> <span class="phrase">参加できる実証へ。</span></h3><p class="profile-copy">地域にある場所、文化、技術、事業者を、参加できる体験と実証へ束ねます。中城城跡では、実証・宿泊体験のコンセプトと企画、空間・体験・現地配置の設計、全体ディレクション、現場運営、インテリア調達・設営、広報撮影の手配・ディレクション、Instagram動画制作を担当。設備専門設計、施工実務、行政・調達調整、最終決裁は各担当者と分業しました。</p><p class="profile-evidence-note">役割分担の詳細は本人確認によるものです。</p></div>
           <aside class="profile-side"><div><b>証拠の見せ順</b><ol><li>LAC八ヶ岳</li><li>中城城跡実証</li><li>Living Lab</li><li>自治体実証群</li></ol></div><p class="profile-use">地域企業、自治体連携、観光、防災、場づくりの相談に使う。</p></aside>
         </article>
         <article class="profile-panel" id="profile-panel-ai" role="tabpanel" aria-labelledby="profile-tab-ai" data-profile-panel="ai" hidden>
@@ -643,7 +645,7 @@
         <figcaption>公開記事が増えても、この六つは埋まらない。市場での再現性を証明するには、本人の記憶と手元資料が必要になる。</figcaption>
       </figure>
       <div class="question-list reveal">
-        <div class="question" data-q="nakagusuku-boundary"><p>逆に、中城実証で「自分ではなく他の人・会社が主に決めた／作ったもの」は何か。</p><button type="button">回答済みにする</button></div>
+        <div class="question" data-q="nakagusuku-decision-adoption"><p>中城で、自分の提案・判断によって当初案から最も大きく変更・追加され、最終案へ採用されたものは何か。変更前後はどう違ったか。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="early-digital-impact"><p>2009〜2010年の匿名9案件のうち、自分の提案や実装で相手の判断・体験・成果が最も変わったと覚えているものはどれか。該当なしでもよい。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="advisory"><p>大企業5社の新規事業リサーチ／助言で、相手の判断や次の行動が変わったと覚え、資料か相手の証言で確認できそうな案件はあるか。該当なしでもよい。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="tawaragaura-decision-adoption"><p>俵ヶ浦「移動する宿」で、自分が決めた具体案と、その後に採用・実装されたものは何か。</p><button type="button">回答済みにする</button></div>
