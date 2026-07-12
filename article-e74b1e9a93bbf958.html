@@ -120,8 +120,8 @@
     .coverage-track { display: flex; height: 22px; margin: 28px 0 18px; overflow: hidden; border-radius: 999px; background: var(--paper-2); }
     .coverage-track span { min-width: 3px; }
     .coverage-track .confirmed { flex: 49; background: var(--moss); }
-    .coverage-track .candidate { flex: 17; background: var(--sun); }
-    .coverage-track .source-only { flex: 4; background: var(--signal); }
+    .coverage-track .candidate { flex: 21; background: var(--sun); }
+    .coverage-track .source-only { flex: 0; min-width: 0; background: var(--signal); }
     .coverage-track .merged { flex: 3; background: var(--line); }
     .coverage-key { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; color: var(--muted); font-size: 13px; }
     .coverage-key span { display: flex; align-items: center; gap: 9px; }
@@ -420,7 +420,7 @@
       <div class="metric-grid">
         <div class="metric"><b>73</b><span>親仕事ID<br>仕事・共同制作・事業を含む</span></div>
         <div class="metric"><b>49</b><span>存在・役割を確認済み</span></div>
-        <div class="metric"><b>17</b><span>個人寄与・結果の確認待ち</span></div>
+        <div class="metric"><b>21</b><span>個人寄与・結果の確認待ち</span></div>
         <div class="metric"><b>7</b><span>公開証拠で8 / 8の代表ケース</span></div>
       </div>
     </section>
@@ -430,8 +430,8 @@
         <div>
           <p class="kicker">Inventory coverage / 2026.07.13</p>
           <h2>事例の数は足りた。<br>次は、事業成果を掘る。</h2>
-          <div class="coverage-track" role="img" aria-label="親仕事73件の内訳。役割確認済み49件、候補17件、本人資料のみ4件、統合または除外3件"><span class="confirmed"></span><span class="candidate"></span><span class="source-only"></span><span class="merged"></span></div>
-          <div class="coverage-key"><span><i></i>役割確認済み 49</span><span><i></i>候補 17</span><span><i></i>本人資料のみ 4</span><span><i></i>統合・除外 3</span></div>
+          <div class="coverage-track" role="img" aria-label="親仕事73件の内訳。役割確認済み49件、候補21件、本人資料のみ0件、統合または除外3件"><span class="confirmed"></span><span class="candidate"></span><span class="source-only"></span><span class="merged"></span></div>
+          <div class="coverage-key"><span><i></i>役割確認済み 49</span><span><i></i>候補 21</span><span><i></i>本人資料のみ 0</span><span><i></i>統合・除外 3</span></div>
         </div>
         <aside class="coverage-insight">
           <small>NEXT EVIDENCE</small>
@@ -522,7 +522,7 @@
         <article class="case-card" data-tags="place concept implementation"><div class="case-head"><span class="case-id">C04</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>LAC八ヶ岳</h3><p>実験場を場・文化・共創運営へ具体化。滞在制作型Makers-in-Residenceを構想・募集し、工房利用まで確認。2022年8月には別主体の2泊3日制作企画で8組が完成品を制作したが、本人構想との継承関係と本人関与は未確認。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="prototype implementation"><div class="case-head"><span class="case-id">C05</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>オフグリッド住宅</h3><p>技術実証を、都心並みに快適な生活実証へ翻訳。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="implementation place concept narrative"><div class="case-head"><span class="case-id">C06</span><span class="readiness" aria-label="準備度7/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><h3>中城城跡滞在実証</h3><p>実証・宿泊体験、空間、運営、発信を統合し、専門担当と分業して実装。</p><span class="case-tag">7 / 8 — ADOPTION EVIDENCE</span></article>
-        <article class="case-card" data-tags="concept implementation"><div class="case-head"><span class="case-id">C07</span><span class="readiness" aria-label="準備度0/8"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><h3>企業R&amp;D調査・助言候補</h3><p>本人作成一覧に5件。うち1件は後続文書候補を確認したが、課題、助言、成果物、相手の判断変化は未確認。</p><span class="case-tag">ARTIFACT CANDIDATE — 0 / 8</span></article>
+        <article class="case-card" data-tags="concept implementation"><div class="case-head"><span class="case-id">C07</span><span class="readiness" aria-label="準備度0/8"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><h3>企業R&amp;D調査・助言候補</h3><p>本人作成一覧の5件すべてで、企業名入りカレンダー予定を照合。研修・インタビュー形式も一部確認したが、本人役割、課題、助言、成果物、相手の判断変化は未確認。</p><span class="case-tag">CALENDAR-CORROBORATED — 0 / 8</span></article>
         <article class="case-card" data-tags="prototype concept"><div class="case-head"><span class="case-id">C08</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>FAB CAR</h3><p>移動生活の知見とデジタル製造を、普通車の試作品へ。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="place implementation narrative"><div class="case-head"><span class="case-id">C09</span><span class="readiness" aria-label="準備度6/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div><h3>自治体・地域実証</h3><p>俵ヶ浦の「移動する宿」を代表ケースに分解。</p><span class="case-tag">DECISION / ADOPTION 要確認</span></article>
         <article class="case-card" data-tags="narrative"><div class="case-head"><span class="case-id">C10</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>ノマドランド</h3><p>実践知を5論点へ翻訳し、映画の発売記念コンテンツとして少なくとも2媒体へ展開。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
