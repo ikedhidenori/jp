@@ -202,6 +202,23 @@
     .case-card p { margin: 0; color: var(--muted); }
     .case-tag { margin-top: 22px; color: var(--moss); font-size: 12px; font-weight: 800; }
 
+    .commercial { background: #efe5d2; }
+    .commercial-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(30px, 6vw, 84px); align-items: stretch; }
+    .proof-stack { border-block: 1px solid #b7aa91; }
+    .proof-step { display: grid; grid-template-columns: 54px 1fr; gap: 18px; align-items: start; padding: 21px 0; border-top: 1px solid #cfc3ad; }
+    .proof-step:first-child { border-top: 0; }
+    .proof-step b { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; color: var(--white); background: var(--signal); font-family: var(--display); font-size: 21px; font-weight: 500; }
+    .proof-step h3 { margin: 1px 0 5px; font-size: clamp(20px, 2vw, 26px); }
+    .proof-step p { margin: 0; color: var(--muted); font-size: 14px; }
+    .commercial-thesis { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; padding: clamp(28px, 5vw, 54px); border-radius: 26px; color: var(--paper); background: var(--ink); }
+    .commercial-thesis small { color: var(--sun); font-weight: 800; letter-spacing: .14em; }
+    .commercial-thesis blockquote { margin: 28px 0; font-family: var(--display); font-size: clamp(27px, 4vw, 46px); line-height: 1.35; }
+    .commercial-thesis dl { display: grid; grid-template-columns: auto 1fr; gap: 12px 18px; margin: 0; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.24); }
+    .commercial-thesis dt { color: var(--sun); font-weight: 800; }
+    .commercial-thesis dd { margin: 0; color: #d7dfda; }
+    .proof-boundary { margin-top: 30px; padding: 20px 24px; border-left: 4px solid var(--signal); background: rgba(255,255,255,.42); color: var(--muted); }
+    .proof-boundary strong { color: var(--ink); }
+
     .routes { background: var(--moss); color: var(--white); }
     .routes .kicker { color: var(--sun); }
     .routes .section-lead { color: #d7dfda; }
@@ -346,7 +363,7 @@
     }
     @media print { .reveal { opacity: 1 !important; transform: none !important; transition: none !important; } .topbar, .reading-progress { display: none; } }
     @media (max-width: 900px) {
-      .hero-bottom, .route-layout, .system-grid, .coverage-grid { grid-template-columns: 1fr; }
+      .hero-bottom, .route-layout, .system-grid, .coverage-grid, .commercial-grid { grid-template-columns: 1fr; }
       .metric-grid { grid-template-columns: repeat(2, 1fr); }
       .metric:nth-child(2) { border-right: 0; }
       .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -400,7 +417,7 @@
   <header class="topbar">
     <div class="wordmark">JOHNNY / WORK ATLAS</div>
     <nav aria-label="ページ内ナビゲーション">
-      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#sprint">14日</a><a href="#profiles">プロフィール</a><a href="#kit">応募素材</a><a href="#questions">未確認</a>
+      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#commercial">商業証拠</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#sprint">14日</a><a href="#profiles">プロフィール</a><a href="#kit">応募素材</a><a href="#questions">未確認</a>
     </nav>
   </header>
 
@@ -527,6 +544,31 @@
         <article class="case-card" data-tags="place implementation narrative"><div class="case-head"><span class="case-id">C09</span><span class="readiness" aria-label="準備度6/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div><h3>自治体・地域実証</h3><p>俵ヶ浦の「移動する宿」を代表ケースに分解。</p><span class="case-tag">DECISION / ADOPTION 要確認</span></article>
         <article class="case-card" data-tags="narrative"><div class="case-head"><span class="case-id">C10</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>ノマドランド</h3><p>実践知を5論点へ翻訳し、映画の発売記念コンテンツとして少なくとも2媒体へ展開。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
         <article class="case-card" data-tags="place prototype"><div class="case-head"><span class="case-id">C11</span><span class="readiness" aria-label="準備度1/8"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><h3>本人名義サウナ事業登録</h3><p>県パートナー一覧への表示は2022年から確認。独立した営業・提供実績ではない。</p><span class="case-tag">SERVICE EXISTENCE 要確認</span></article>
+      </div>
+    </section>
+
+    <section class="commercial" id="commercial">
+      <p class="kicker">03B / Commercial proof</p>
+      <h2>仕事として売れてきた。<br>次に証明するのは、なぜ続いたか。</h2>
+      <p class="section-lead">商業実績が存在しないわけではない。安全に確認できる四つの層と、まだ回収できていない顧客価値の因果を分ける。</p>
+      <div class="commercial-grid reveal">
+        <div>
+          <div class="proof-stack" aria-label="現在確認できる商業証拠の四層">
+            <article class="proof-step"><b>1</b><div><h3>長期の有償関係</h3><p>複数年のクライアント支援と、現在まで続く事業・製品開発の契約。</p></div></article>
+            <article class="proof-step"><b>2</b><div><h3>商用の請求記録</h3><p>Web、広告、CMS、SNS、UI、APIディレクション等を商用制作として請求。</p></div></article>
+            <article class="proof-step"><b>3</b><div><h3>非金銭の価値交換</h3><p>制作と継続的な農産物提供を交換し、一部の対価受領を確認。</p></div></article>
+            <article class="proof-step"><b>4</b><div><h3>販売可能な導線</h3><p>有料イベント、宿泊、仕事依頼、ECを価格・申込・購入経路のある形で公開。</p></div></article>
+          </div>
+          <p class="proof-boundary"><strong>証拠の境界：</strong>請求記録は入金・検収を、価格や予約導線は実売上を、契約条件の改定は成果評価を、それぞれ単独では証明しない。</p>
+        </div>
+        <aside class="commercial-thesis">
+          <div><small>REAL GAP</small><blockquote>不足しているのは<br>「売れた事実」ではなく、<br>「選ばれ続けた理由」。</blockquote></div>
+          <dl>
+            <dt>確認済み</dt><dd>対価を伴う責任、長期関係、商用制作、販売導線。</dd>
+            <dt>次に回収</dt><dd>更新・条件改定の理由、顧客のBefore / After、再依頼、運用改善。</dd>
+            <dt>市場での意味</dt><dd>単発のアイデアマンではなく、継続責任を担える人として説明できる。</dd>
+          </dl>
+        </aside>
       </div>
     </section>
 
