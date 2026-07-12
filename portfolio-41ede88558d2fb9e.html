@@ -135,6 +135,15 @@
     .case-proof { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 22px; }
     .case-proof a { min-height: 44px; display: inline-flex; align-items: center; color: var(--signal); font-size: 12px; font-weight: 800; }
 
+    .career { background: var(--paper-deep); }
+    .career-note { max-width: 760px; margin: -20px 0 42px; color: var(--muted); font-size: 13px; }
+    .timeline { border-top: 1px solid var(--line); }
+    .timeline-row { display: grid; grid-template-columns: 160px minmax(220px, .72fr) minmax(300px, 1.28fr); gap: 26px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+    .timeline-date { color: var(--signal); font-family: var(--display); font-size: 18px; font-variant-numeric: tabular-nums; }
+    .timeline-row h3 { margin: 0; font-size: clamp(21px, 2.2vw, 29px); }
+    .timeline-row h3 small { display: block; margin-top: 7px; color: var(--moss); font-family: var(--body); font-size: 11px; font-weight: 900; letter-spacing: .08em; }
+    .timeline-row p { margin: 0; color: var(--muted); font-size: 14px; }
+
     .modes { background: var(--paper-deep); }
     .mode-list { border-top: 1px solid var(--line); }
     .mode {
@@ -185,7 +194,11 @@
       .case { grid-column: span 6; min-height: 500px; }
       .mode { grid-template-columns: 60px 1fr; gap: 16px 24px; }
       .mode p, .mode strong { grid-column: 2; }
+      .timeline-row { grid-template-columns: 130px minmax(200px, .7fr) minmax(260px, 1.3fr); gap: 22px; }
       .offer-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .timeline-row { grid-template-columns: 1fr; gap: 7px; }
     }
     @media (max-width: 620px) {
       .topbar nav { display: none; }
@@ -195,6 +208,7 @@
       .thesis { font-size: 22px; }
       .identity { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); }
       .case { grid-column: 1 / -1; min-height: 0; }
+      .timeline-row { grid-template-columns: 1fr; gap: 7px; padding: 24px 0; }
       .mode { grid-template-columns: 45px 1fr; min-height: 0; }
       .offer { min-height: 0; padding: 28px 22px; }
       .offer dl { grid-template-columns: 1fr; gap: 2px 0; }
@@ -207,7 +221,7 @@
   <header class="topbar">
     <div class="name">HIDENORI IKEDA / PORTFOLIO</div>
     <nav aria-label="ページ内ナビゲーション">
-      <a href="#proof">代表作</a><a href="#method">仕事の型</a><a href="#modes">働き方</a><a href="#offers">相談メニュー</a>
+      <a href="#proof">代表作</a><a href="#career">経歴</a><a href="#method">仕事の型</a><a href="#modes">働き方</a><a href="#offers">相談メニュー</a>
     </nav>
   </header>
 
@@ -262,8 +276,23 @@
       </div>
     </section>
 
+    <section class="career" id="career">
+      <p class="kicker">02 / Career context</p>
+      <h2>媒体が変わっても、<br>仕事の核は変わらない。</h2>
+      <p class="lead">Web制作から、自分の暮らし、移動、場、住宅、地域実証へ。扱う対象と関係者の範囲を広げてきました。</p>
+      <p class="career-note">複数の契約、共同活動、自主事業が並行したため期間は重複します。未確認の雇用形態を職歴として断定していません。</p>
+      <div class="timeline reveal">
+        <article class="timeline-row"><div class="timeline-date">2023.10—現在</div><h3>INNFRA<small>創業メンバー／事業・製品開発</small></h3><p>水・電力の自律分散インフラを、住宅、トレーラー、地域・防災の実証へ。製品コンセプト、初期設計ディレクション、体験設計、マーケティング概念、広報を案件ごとに横断。</p></article>
+        <article class="timeline-row"><div class="timeline-date">2021.01—2023.10</div><h3>U3関連プロジェクト<small>オフグリッド生活実証</small></h3><p>太陽光、蓄電、水循環を備えた生活実証拠点を開発。内装・インテリアを含むライフスタイルプロデュースと、自ら居住する検証を担当。</p></article>
+        <article class="timeline-row"><div class="timeline-date">2020—2022</div><h3>LivingAnywhere Commons 八ヶ岳北杜<small>プロデュース／コミュニティ運営</small></h3><p>保養施設を、暮らし・仕事・遊び・学びを試すLiving Labへ再定義。屋外、利用者の実践、共創型の場づくりを中心に立ち上げと運営を推進。</p></article>
+        <article class="timeline-row"><div class="timeline-date">2018—2021頃</div><h3>LESSMORE／VLDK<small>自主事業・カテゴリー開発</small></h3><p>都市生活と車中生活を組み合わせたVLDKを実践し、車両、Web、写真、映像、イベント、企業媒体を横断して都市型バンライフを提示。</p></article>
+        <article class="timeline-row"><div class="timeline-date">2010—2018頃</div><h3>暮らしかた冒険家<small>共同ユニット／公開型生活実験</small></h3><p>Web制作の技術を、自宅改修、物技交換、公開生活実験、展示、映像、出版制作へ拡張。共同成果と本人のWeb・制作役割を分離して記録。</p></article>
+        <article class="timeline-row"><div class="timeline-date">2004—2010頃</div><h3>Web／インタラクションの基盤<small>広告・研究・フリーランス</small></h3><p>外資系広告代理店、インタラクション研究、独立Web developerを経て、Web、広告、SNS連動、UI、APIディレクション等の商用制作へ展開。個別案件の契約・成果は確認済み範囲だけを使用。</p></article>
+      </div>
+    </section>
+
     <section class="method" id="method">
-      <p class="kicker">02 / How I work</p>
+      <p class="kicker">03 / How I work</p>
       <h2>作るものより、<br>変える状態で説明する。</h2>
       <p class="lead">画面、空間、車、住宅、コミュニティ。成果物は違っても、仕事の進め方は同じです。</p>
       <figure class="method-map reveal">
@@ -285,7 +314,7 @@
     </section>
 
     <section class="modes" id="modes">
-      <p class="kicker">03 / Ways to work together</p>
+      <p class="kicker">04 / Ways to work together</p>
       <h2>同じ能力を、<br>三つの契約単位へ。</h2>
       <p class="lead">経歴を別人格にせず、相手が買う責任範囲に合わせて入口を変えます。</p>
       <div class="mode-list reveal">
@@ -296,7 +325,7 @@
     </section>
 
     <section class="offers" id="offers">
-      <p class="kicker">04 / Project entry hypotheses</p>
+      <p class="kicker">05 / Project entry hypotheses</p>
       <h2>最初に相談できる、<br>二つの開始状態。</h2>
       <p class="lead">支援範囲の初期仮説です。副業・業務委託では、広い肩書ではなく、開始状態と到達状態を合意します。</p>
       <div class="offer-grid reveal">
