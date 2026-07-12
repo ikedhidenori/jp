@@ -121,6 +121,12 @@
     .river-map svg { display: block; min-width: 960px; width: 100%; height: auto; }
     .river-map text { font-family: var(--body); }
     .river-caption { max-width: 820px; margin: 28px 0 0 auto; color: #bcc5bf; font-size: 14px; }
+    .billing-evidence { margin-top: 34px; padding: 24px; border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius); background: rgba(255,255,255,.04); }
+    .billing-evidence small { color: var(--sun); font-weight: 800; letter-spacing: .12em; }
+    .billing-evidence h3 { margin: 12px 0 8px; font-size: clamp(23px, 3vw, 34px); }
+    .billing-evidence > p { max-width: 850px; margin: 0; color: #bcc5bf; }
+    .billing-clusters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .billing-clusters span { padding: 15px; border-top: 1px solid rgba(255,255,255,.2); color: var(--paper); font-weight: 800; }
 
     .patterns { background: var(--paper-2); }
     .pattern-stack { border-top: 1px solid var(--line); }
@@ -306,6 +312,7 @@
       .route-tabs { flex-direction: row; overflow-x: auto; }
       .route-tab { min-width: 150px; }
       .market-lanes { grid-template-columns: 1fr; }
+      .billing-clusters { grid-template-columns: 1fr; }
       .profile-panel.active { grid-template-columns: 1fr; }
       .profile-side { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
       .copy-card, .copy-card.wide { grid-column: span 6; }
@@ -379,7 +386,7 @@
             <circle cx="85" cy="192" r="9"/><circle cx="275" cy="273" r="9"/><circle cx="480" cy="162" r="9"/><circle cx="680" cy="137" r="9"/><circle cx="880" cy="265" r="9"/><circle cx="1090" cy="220" r="9"/>
           </g>
           <g font-size="13" fill="#bcc5bf">
-            <text x="42" y="120">PHASE 1</text><text x="42" y="143" fill="#f3efe5" font-size="21">デジタルで編集</text><text x="42" y="166">Web / Google / 動画</text>
+            <text x="42" y="120">PHASE 1</text><text x="42" y="143" fill="#f3efe5" font-size="21">デジタルで編集</text><text x="42" y="166">Web / 広告 / Interactive</text>
             <text x="220" y="326">PHASE 2</text><text x="220" y="349" fill="#f3efe5" font-size="21">暮らしを試作</text><text x="220" y="372">DIY / 展示 / 出版</text>
             <text x="430" y="80">PHASE 3</text><text x="430" y="103" fill="#f3efe5" font-size="21">概念を社会へ</text><text x="430" y="126">VLDK / Van à Table</text>
             <text x="625" y="286">PHASE 4</text><text x="625" y="309" fill="#f3efe5" font-size="21">企業・地域と共創</text><text x="625" y="332">LAC / FAB CAR</text>
@@ -389,6 +396,7 @@
         </svg>
       </figure>
       <p class="river-caption">個人の一次体験から始まり、扱う関係者と実装範囲が徐々に広がっている。これは転職回数ではなく、同じ問いをより大きな単位で扱えるようになった軌跡として説明できる。</p>
+      <aside class="billing-evidence reveal"><small>2009–2010 / BILLING RECORDS</small><h3>初期商用制作は、3つの群で見せる。</h3><p>複数の請求記録に制作項目が残る。これは請求範囲の証拠であり、本人が全項目を実装・完遂したこと、検収、入金、成果を示すものではない。</p><div class="billing-clusters"><span>反復型デジタル広告制作</span><span>インタラクティブサイト／アプリ開発</span><span>社会・ブランド系コンテンツ制作</span></div></aside>
     </section>
 
     <section class="patterns" id="patterns">
