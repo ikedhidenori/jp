@@ -240,13 +240,14 @@
     .copy-action { min-height: 44px; margin-top: auto; align-self: flex-start; padding: 10px 18px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; color: var(--paper); background: transparent; cursor: pointer; font-weight: 800; }
     .copy-action:hover, .copy-action:focus-visible { color: var(--ink); border-color: var(--sun); background: var(--sun); }
     .copy-action.copied { color: var(--ink); border-color: var(--sun); background: var(--sun); }
-    .offer-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .offer-mini { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 16px; }
     .offer-mini div { padding: 18px; border-top: 1px solid rgba(255,255,255,.22); }
     .offer-mini b { color: var(--sun); }
     .offer-mini p { margin: 8px 0 0; color: #bcc5bf; font-size: 13px; }
 
     .offers { background: var(--paper); }
-    .offer-track { display: grid; grid-template-columns: repeat(5, minmax(210px, 1fr)); gap: 14px; overflow-x: auto; padding: 8px 4px 30px; }
+    .offer-scroll-hint { margin: -14px 0 8px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .04em; text-align: right; }
+    .offer-track { display: grid; grid-template-columns: repeat(6, minmax(210px, 1fr)); gap: 14px; overflow-x: auto; padding: 8px 4px 30px; }
     .offer { min-height: 410px; padding: 24px; border: 1px solid var(--line); background: var(--white); position: relative; }
     .offer::after { content: attr(data-step); position: absolute; right: 18px; bottom: 10px; color: var(--paper-2); font-family: var(--display); font-size: 82px; line-height: 1; z-index: 0; }
     .offer > * { position: relative; z-index: 1; }
@@ -473,7 +474,7 @@
         </div>
         <div>
           <div class="route-panel active" id="route-panel-job" role="tabpanel" aria-labelledby="route-tab-job" data-panel="job"><p class="big">新規事業・サービスデザインの<br>0→1プロデューサー</p><div class="route-box"><b>相手の停滞</b><p>技術や構想はあるが、誰のどんな体験にするか決まらない。</p></div><div class="route-box"><b>見せる順</b><p>FAB CAR → オフグリッド住宅 → 地域社会実装 → LAC</p></div></div>
-          <div class="route-panel" id="route-panel-side" role="tabpanel" aria-labelledby="route-tab-side" data-panel="side" hidden><p class="big">曖昧な構想を、検証できる形へ。<br>Concept-to-Prototype伴走</p><div class="route-box"><b>買い手</b><p>新規事業責任者、R&amp;D、地域企業、施設運営者、官民連携チーム。</p></div><div class="route-box"><b>最初の売り方</b><p>期間、成果物、到達状態を固定した短期スプリントとして試す。</p></div></div>
+          <div class="route-panel" id="route-panel-side" role="tabpanel" aria-labelledby="route-tab-side" data-panel="side" hidden><p class="big">曖昧な構想を、検証できる形へ。<br>Concept-to-Prototype伴走</p><div class="route-box"><b>買い手</b><p>新規事業責任者、R&amp;D、地域企業、施設運営者、小規模事業者。</p></div><div class="route-box"><b>二つの入口</b><p>試作品まで進める伴走と、提供メニュー・価格仮説・依頼／予約導線を作るOffer Architectureを短期スプリントで試す。</p></div></div>
           <div class="route-panel" id="route-panel-advisor" role="tabpanel" aria-labelledby="route-tab-advisor" data-panel="advisor" hidden><p class="big">狭い専門知で入り、<br>問い直しと実証伴走へ広げる。</p><div class="route-box"><b>入口テーマ</b><p>移動生活、オフグリッド、Living Lab、地域・観光・防災。</p></div><div class="route-box"><b>継続価値</b><p>知識の回答ではなく、関係者形成と次の実証判断まで支援する。</p></div></div>
         </div>
       </div>
@@ -582,33 +583,35 @@
           <button class="copy-action" type="button" data-copy-target="copy-intro">文章をコピー</button>
         </article>
         <article class="copy-card">
-          <small>FIRST TWO OFFERS</small>
+          <small>FIRST THREE OFFERS</small>
           <h3>業務委託の入口</h3>
-          <div class="offer-mini"><div><b>Reframe Sprint</b><p>1–2週間。発散した課題を、核心課題・利用場面・優先仮説・次の検証へ。</p></div><div><b>Concept-to-Prototype</b><p>4–8週間。アイデアを、体験コンセプト・試作品・実証計画へ。</p></div></div>
+          <div class="offer-mini"><div><b>Reframe Sprint</b><p>1–2週間。発散した課題を、核心課題・利用場面・優先仮説・次の検証へ。</p></div><div><b>Offer Architecture</b><p>2–4週間。活動・技術・場所を、提供メニュー・価格仮説・依頼／予約導線へ。受注成果はこれから検証。</p></div><div><b>Concept-to-Prototype</b><p>4–8週間。アイデアを、体験コンセプト・試作品・実証計画へ。</p></div></div>
         </article>
       </div>
     </section>
 
     <section class="offers">
       <p class="kicker">08 / Offer hypotheses</p>
-      <h2>「何でもできます」を、<br>5つの発注単位へ。</h2>
+      <h2>「何でもできます」を、<br>6つの発注単位へ。</h2>
       <p class="section-lead">価格を決める前の市場テスト案。開始状態と到達状態を示し、既存関係者がどれに相談料を払うかを見る。</p>
       <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 170" role="img" aria-labelledby="offer-fig-title offer-fig-desc">
-          <title id="offer-fig-title">5つの商品仮説の期間と到達状態</title><desc id="offer-fig-desc">Reframeは1から2週、AI Collaborationは2から4週、Concept-to-Prototypeは4から8週、Living LabとRegional Pilotは2から3か月を想定する。</desc>
+        <svg viewBox="0 0 1000 200" role="img" aria-labelledby="offer-fig-title offer-fig-desc">
+          <title id="offer-fig-title">6つの商品仮説の期間と到達状態</title><desc id="offer-fig-desc">Reframeは1から2週、Offer ArchitectureとAI Collaborationは2から4週、Concept-to-Prototypeは4から8週、Living LabとRegional Pilotは2から3か月を想定する。</desc>
           <line x1="190" y1="18" x2="950" y2="18" stroke="#b8b09f"/><g fill="#5d6761" font-family="sans-serif" font-size="11"><text x="190" y="12">短い</text><text x="920" y="12">長い</text></g>
-          <g font-family="sans-serif" font-size="13" fill="#18201e"><text x="20" y="45">Reframe</text><text x="20" y="72">AI Collaboration</text><text x="20" y="99">Concept-to-Prototype</text><text x="20" y="126">Living Lab</text><text x="20" y="153">Regional Pilot</text></g>
-          <g fill="#315c4f"><rect x="190" y="31" width="130" height="16"/><rect x="190" y="58" width="210" height="16"/><rect x="190" y="85" width="420" height="16"/><rect x="190" y="112" width="710" height="16"/><rect x="190" y="139" width="710" height="16"/></g>
-          <g fill="#5d6761" font-family="sans-serif" font-size="12"><text x="330" y="44">1–2週</text><text x="410" y="71">2–4週</text><text x="620" y="98">4–8週</text><text x="910" y="125">2–3か月</text><text x="910" y="152">2–3か月</text></g>
+          <g font-family="sans-serif" font-size="13" fill="#18201e"><text x="20" y="45">Reframe</text><text x="20" y="72">Offer Architecture</text><text x="20" y="99">AI Collaboration</text><text x="20" y="126">Concept-to-Prototype</text><text x="20" y="153">Living Lab</text><text x="20" y="180">Regional Pilot</text></g>
+          <g fill="#315c4f"><rect x="190" y="31" width="130" height="16"/><rect x="190" y="58" width="210" height="16"/><rect x="190" y="85" width="210" height="16"/><rect x="190" y="112" width="420" height="16"/><rect x="190" y="139" width="710" height="16"/><rect x="190" y="166" width="710" height="16"/></g>
+          <g fill="#5d6761" font-family="sans-serif" font-size="12"><text x="330" y="44">1–2週</text><text x="410" y="71">2–4週</text><text x="410" y="98">2–4週</text><text x="620" y="125">4–8週</text><text x="910" y="152">2–3か月</text><text x="910" y="179">2–3か月</text></g>
         </svg>
         <figcaption>短期商品は問いと検証を売り、長期商品は場・関係者・運用まで扱う。価格は期間ではなく到達状態への反応を見て決める。</figcaption>
       </figure>
+      <p class="offer-scroll-hint" aria-hidden="true">横にスクロールして6商品を見る →</p>
       <div class="offer-track reveal">
         <article class="offer" data-step="1"><small>1–2 WEEKS</small><h3>Reframe Sprint</h3><p>会議が発散し、顧客も課題も広すぎる状態から始める。</p><strong>核心課題・利用場面・検証仮説へ</strong></article>
-        <article class="offer" data-step="2"><small>4–8 WEEKS</small><h3>Concept-to-Prototype</h3><p>アイデアはあるが、触れるものも検証方法もない。</p><strong>体験コンセプト・試作品・検証計画へ</strong></article>
-        <article class="offer" data-step="3"><small>2–3 MONTHS</small><h3>Living Lab Design</h3><p>技術実証が機器の性能評価だけで終わっている。</p><strong>暮らし・場・参加者・評価の設計へ</strong></article>
-        <article class="offer" data-step="4"><small>2–3 MONTHS</small><h3>Regional Pilot</h3><p>地域資源はあるが、関係者の目的が揃わず動けない。</p><strong>現地調査・共通テーマ・実証・次期提案へ</strong></article>
-        <article class="offer" data-step="5"><small>2–4 WEEKS</small><h3>AI<br>Collaboration<br>OS</h3><p>個人や小チームの知識仕事が散乱し、反復できない。</p><strong>仕事棚卸し・AI分担・運用フローへ</strong></article>
+        <article class="offer" data-step="2"><small>2–4 WEEKS</small><h3>Offer Architecture</h3><p>活動や技術はあるが、誰へ何をどう売るか決まっていない。</p><strong>提供メニュー・価格仮説・依頼／予約導線へ</strong></article>
+        <article class="offer" data-step="3"><small>4–8 WEEKS</small><h3>Concept-to-Prototype</h3><p>アイデアはあるが、触れるものも検証方法もない。</p><strong>体験コンセプト・試作品・検証計画へ</strong></article>
+        <article class="offer" data-step="4"><small>2–3 MONTHS</small><h3>Living Lab Design</h3><p>技術実証が機器の性能評価だけで終わっている。</p><strong>暮らし・場・参加者・評価の設計へ</strong></article>
+        <article class="offer" data-step="5"><small>2–3 MONTHS</small><h3>Regional Pilot</h3><p>地域資源はあるが、関係者の目的が揃わず動けない。</p><strong>現地調査・共通テーマ・実証・次期提案へ</strong></article>
+        <article class="offer" data-step="6"><small>2–4 WEEKS</small><h3>AI<br>Collaboration<br>OS</h3><p>個人や小チームの知識仕事が散乱し、反復できない。</p><strong>仕事棚卸し・AI分担・運用フローへ</strong></article>
       </div>
     </section>
 
