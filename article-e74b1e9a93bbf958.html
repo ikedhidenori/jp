@@ -355,6 +355,27 @@
     .questions { background: var(--ink); color: var(--paper); }
     .questions .kicker { color: var(--sun); }
     .questions .section-lead { color: #bcc5bf; }
+    .evidence-interview { margin: 38px 0 28px; border: 1px solid rgba(255,255,255,.24); background: rgba(255,255,255,.045); }
+    .interview-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(190px, .32fr); gap: 30px; align-items: end; padding: clamp(24px, 4vw, 38px); border-bottom: 1px solid rgba(255,255,255,.2); }
+    .interview-head small, .interview-output small { color: var(--sun); font-weight: 800; letter-spacing: .11em; }
+    .interview-head h3 { max-width: 760px; margin: 12px 0; font-size: clamp(27px, 3.5vw, 44px); }
+    .interview-head p { max-width: 760px; margin: 0; color: #bcc5bf; }
+    .interview-meter { align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end; }
+    .interview-meter b { color: var(--sun); font-family: var(--display); font-size: clamp(42px, 5vw, 66px); font-weight: 500; line-height: 1; }
+    .interview-meter span { margin-top: 8px; color: #bcc5bf; font-size: 12px; }
+    .interview-meter-track { height: 4px; margin-top: 13px; background: rgba(255,255,255,.16); }
+    .interview-meter-fill { width: 0; height: 100%; background: var(--sun); transition: width .25s ease; }
+    .interview-steps { display: grid; }
+    .interview-step { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(230px, auto); gap: 20px; align-items: center; padding: 24px clamp(20px, 3vw, 34px); border-bottom: 1px solid rgba(255,255,255,.16); }
+    .interview-step > b { color: var(--sun); font-family: var(--display); font-size: 28px; font-weight: 500; }
+    .interview-step small { color: #89958e; font-weight: 800; letter-spacing: .08em; }
+    .interview-step p { margin: 7px 0 0; color: #e2e7e4; line-height: 1.7; }
+    .interview-state { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+    .interview-state button { min-height: 44px; padding: 8px 12px; border: 1px solid rgba(255,255,255,.27); border-radius: 999px; color: #bcc5bf; background: transparent; cursor: pointer; }
+    .interview-state button[aria-pressed="true"] { color: var(--ink); border-color: var(--sun); background: var(--sun); }
+    .interview-output { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; padding: clamp(22px, 3vw, 32px); background: rgba(240,199,94,.07); }
+    .interview-output p { margin: 9px 0 0; color: #d7dfda; white-space: pre-line; }
+    .interview-privacy { margin: 0; padding: 0 clamp(20px, 3vw, 34px) 24px; color: #89958e; font-size: 12px; }
     .question-list { counter-reset: q; display: grid; gap: 12px; }
     .question {
       counter-increment: q;
@@ -403,6 +424,9 @@
       .profile-side { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
       .copy-card, .copy-card.wide { grid-column: span 6; }
       .copy-card.reference-card { grid-column: 1 / -1; }
+      .interview-head, .interview-step, .interview-output { grid-template-columns: 1fr; }
+      .interview-meter { min-height: 110px; }
+      .interview-state { justify-content: flex-start; }
       .system-bridge { writing-mode: horizontal-tb; }
     }
     @media (max-width: 620px) {
@@ -433,6 +457,8 @@
       .route-panel .big { grid-column: 1; }
       .question { grid-template-columns: 40px 1fr; }
       .question button { grid-column: 2; justify-self: start; }
+      .interview-state { display: grid; grid-template-columns: 1fr; }
+      .interview-state button { width: 100%; text-align: left; }
       .gate-output { grid-template-columns: 1fr; }
     }
   </style>
@@ -853,6 +879,37 @@
         </svg>
         <figcaption>公開記事が増えても、この六つは埋まらない。市場での再現性を証明するには、本人の記憶と手元資料が必要になる。</figcaption>
       </figure>
+      <div class="evidence-interview reveal" id="commercial-interview">
+        <div class="interview-head">
+          <div><small>ONE ANONYMOUS CASE / FOUR QUESTIONS</small><h3>一件だけ深く掘れば、<br>商業証拠はまとめて埋まる。</h3><p>社名・金額は不要。最も状態を変えた非公開仕事を匿名で一件選び、同じ案件について順番に答える。回答本文はこのページへ入力・保存しない。</p></div>
+          <div class="interview-meter" aria-live="polite"><b id="interview-count">0 / 4</b><span>回答済み。保留は未完了として残す。</span><div class="interview-meter-track" aria-hidden="true"><div class="interview-meter-fill" id="interview-meter-fill"></div></div></div>
+        </div>
+        <div class="interview-steps">
+          <article class="interview-step" data-interview-q="q1"><b>01</b><div><small>BEFORE / AFTER</small><p>顧客や組織の状態を最も変えた非公開仕事を匿名で一件。開始前に何が止まり、何を任され、終了後に何が変わった？</p></div><div class="interview-state" role="group" aria-label="質問1の状態"><button type="button" data-state="未回答" aria-pressed="true">未回答</button><button type="button" data-state="回答済み" aria-pressed="false">回答済み</button><button type="button" data-state="保留" aria-pressed="false">保留</button></div></article>
+          <article class="interview-step" data-interview-q="q2"><b>02</b><div><small>ORIGIN / REPEAT</small><p>どう始まり、誰の課題をどう発見し、どの提案が採用され、なぜ継続・再依頼された？</p></div><div class="interview-state" role="group" aria-label="質問2の状態"><button type="button" data-state="未回答" aria-pressed="true">未回答</button><button type="button" data-state="回答済み" aria-pressed="false">回答済み</button><button type="button" data-state="保留" aria-pressed="false">保留</button></div></article>
+          <article class="interview-step" data-interview-q="q3"><b>03</b><div><small>COMMERCIAL BOUNDARY</small><p>価格・見積・契約・予算・売上・粗利・追加提案について、自分は何を決定／提案／管理し、何に関与しなかった？</p></div><div class="interview-state" role="group" aria-label="質問3の状態"><button type="button" data-state="未回答" aria-pressed="true">未回答</button><button type="button" data-state="回答済み" aria-pressed="false">回答済み</button><button type="button" data-state="保留" aria-pressed="false">保留</button></div></article>
+          <article class="interview-step" data-interview-q="q4"><b>04</b><div><small>1→10 / EVIDENCE</small><p>初回実装後に何をどれくらい運用し、利用・時間・品質・費用・売上の何が変化した？　何で確認でき、どこまで公開可能？</p></div><div class="interview-state" role="group" aria-label="質問4の状態"><button type="button" data-state="未回答" aria-pressed="true">未回答</button><button type="button" data-state="回答済み" aria-pressed="false">回答済み</button><button type="button" data-state="保留" aria-pressed="false">保留</button></div></article>
+        </div>
+        <div class="interview-output"><div><small>PASTE BACK INTO THIS CONVERSATION</small><p id="commercial-interview-summary">4問と回答欄をコピーし、この会話へ貼り付けて回答できます。現在 0 / 4 問が回答済みです。</p><pre class="sr-only" id="commercial-interview-copy">匿名の非公開仕事を一件だけ選んで答えます。
+
+Q1 Before / After［状態：未回答］
+顧客や組織の状態を最も変えた非公開仕事を匿名で一件。開始前に何が止まり、何を任され、終了後に何が変わった？
+回答：
+
+Q2 始まり・採用・継続理由［状態：未回答］
+その仕事はどう始まり、誰の課題をどう発見し、どの提案が採用され、なぜ継続・再依頼された？
+回答：
+
+Q3 収益責任の境界［状態：未回答］
+価格・見積・契約・予算・売上・粗利・追加提案について、自分は何を決定／提案／管理し、何に関与しなかった？
+回答：
+
+Q4 運用結果・証拠・公開範囲［状態：未回答］
+初回実装後に何をどれくらい運用し、利用・時間・品質・費用・売上の何が変化した？　何で確認でき、どこまで公開可能？
+回答：</pre></div><button class="copy-action" type="button" data-copy-target="commercial-interview-copy">4問をコピー</button></div>
+        <p class="interview-privacy">この端末に保存するのは各問の「未回答／回答済み／保留」だけ。自由記述、社名、金額、連絡先は保存・送信しない。</p>
+      </div>
+      <p class="section-lead">以下は案件固有の追加キュー。上の一件を4問で掘った後、必要なものだけ進める。</p>
       <div class="question-list reveal">
         <div class="question" data-q="makers-in-residence-outcome"><p>2022年8月に同拠点で行われた「2泊3日のキャンプギアづくり」は、本人のMakers-in-Residence構想を直接引き継いだ企画か。直接継承、発想は近い別企画、本人関与なし、覚えていない、のどれか。</p><button type="button">回答済みにする</button></div>
         <div class="question" data-q="kasegu-bousai-origin"><p>「稼ぐ防災」という完全一致の言葉を最終決定した経緯と、共同で磨いた関係者を確認する。</p><button type="button">回答済みにする</button></div>
@@ -1074,6 +1131,46 @@
         sync();
       });
     });
+
+    const interviewStorageKey = 'johnny-career-commercial-interview-v1';
+    let interviewState = {};
+    try { interviewState = JSON.parse(localStorage.getItem(interviewStorageKey) || '{}'); } catch { interviewState = {}; }
+    const interviewQuestions = [...document.querySelectorAll('.interview-step')];
+    const interviewCount = document.getElementById('interview-count');
+    const interviewMeterFill = document.getElementById('interview-meter-fill');
+    const interviewCopy = document.getElementById('commercial-interview-copy');
+    const interviewSummary = document.getElementById('commercial-interview-summary');
+    const interviewPrompts = {
+      q1: { label: 'Q1 Before / After', prompt: '顧客や組織の状態を最も変えた非公開仕事を匿名で一件。開始前に何が止まり、何を任され、終了後に何が変わった？' },
+      q2: { label: 'Q2 始まり・採用・継続理由', prompt: 'その仕事はどう始まり、誰の課題をどう発見し、どの提案が採用され、なぜ継続・再依頼された？' },
+      q3: { label: 'Q3 収益責任の境界', prompt: '価格・見積・契約・予算・売上・粗利・追加提案について、自分は何を決定／提案／管理し、何に関与しなかった？' },
+      q4: { label: 'Q4 運用結果・証拠・公開範囲', prompt: '初回実装後に何をどれくらい運用し、利用・時間・品質・費用・売上の何が変化した？　何で確認でき、どこまで公開可能？' }
+    };
+    const updateInterview = () => {
+      const answered = interviewQuestions.filter(item => interviewState[item.dataset.interviewQ] === '回答済み').length;
+      interviewCount.textContent = `${answered} / 4`;
+      interviewMeterFill.style.width = `${answered * 25}%`;
+      interviewSummary.textContent = `4問と回答欄をコピーし、この会話へ貼り付けて回答できます。現在 ${answered} / 4 問が回答済みです。`;
+      const blocks = interviewQuestions.map(item => {
+        const itemPrompt = interviewPrompts[item.dataset.interviewQ];
+        const itemState = interviewState[item.dataset.interviewQ] || '未回答';
+        return `${itemPrompt.label}［状態：${itemState}］\n${itemPrompt.prompt}\n回答：`;
+      });
+      interviewCopy.textContent = ['匿名の非公開仕事を一件だけ選んで答えます。', ...blocks].join('\n\n');
+    };
+    interviewQuestions.forEach(item => {
+      const key = item.dataset.interviewQ;
+      const buttons = [...item.querySelectorAll('[data-state]')];
+      const sync = () => buttons.forEach(button => button.setAttribute('aria-pressed', String((interviewState[key] || '未回答') === button.dataset.state)));
+      sync();
+      buttons.forEach(button => button.addEventListener('click', () => {
+        interviewState[key] = button.dataset.state;
+        try { localStorage.setItem(interviewStorageKey, JSON.stringify(interviewState)); } catch { /* status remains usable without persistence */ }
+        sync();
+        updateInterview();
+      }));
+    });
+    updateInterview();
   </script>
 </body>
 </html>
