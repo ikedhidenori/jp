@@ -135,6 +135,18 @@
     .case-proof { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 22px; }
     .case-proof a { min-height: 44px; display: inline-flex; align-items: center; color: var(--signal); font-size: 12px; font-weight: 800; }
 
+    .lineage { color: var(--white); background: var(--moss); }
+    .lineage .kicker { color: var(--sun); }
+    .lineage .lead { color: #d5dfd9; }
+    .lineage-track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 48px; }
+    .lineage-step { min-height: 350px; display: flex; flex-direction: column; padding: 24px 20px; border: 1px solid rgba(255,255,255,.25); border-radius: 22px; background: rgba(255,255,255,.045); }
+    .lineage-year { color: var(--sun); font-family: var(--display); font-size: 16px; font-variant-numeric: tabular-nums; }
+    .lineage-step h3 { margin: 48px 0 14px; font-size: clamp(23px, 2.7vw, 34px); }
+    .lineage-step p { margin: 0; color: #d5dfd9; font-size: 13px; }
+    .lineage-proof { margin-top: auto; padding-top: 22px; }
+    .lineage-proof a { min-height: 44px; display: inline-flex; align-items: center; color: var(--sun); font-size: 11px; font-weight: 900; }
+    .lineage-boundary { max-width: 900px; margin: 28px 0 0 auto; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.22); color: #bdc9c2; font-size: 12px; }
+
     .career { background: var(--paper-deep); }
     .career-note { max-width: 760px; margin: -20px 0 42px; color: var(--muted); font-size: 13px; }
     .timeline { border-top: 1px solid var(--line); }
@@ -192,6 +204,7 @@
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
       .case { grid-column: span 6; min-height: 500px; }
+      .lineage-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .mode { grid-template-columns: 60px 1fr; gap: 16px 24px; }
       .mode p, .mode strong { grid-column: 2; }
       .timeline-row { grid-template-columns: 130px minmax(200px, .7fr) minmax(260px, 1.3fr); gap: 22px; }
@@ -208,6 +221,8 @@
       .thesis { font-size: 22px; }
       .identity { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); }
       .case { grid-column: 1 / -1; min-height: 0; }
+      .lineage-track { grid-template-columns: 1fr; }
+      .lineage-step { min-height: 0; }
       .timeline-row { grid-template-columns: 1fr; gap: 7px; padding: 24px 0; }
       .mode { grid-template-columns: 45px 1fr; min-height: 0; }
       .offer { min-height: 0; padding: 28px 22px; }
@@ -221,7 +236,7 @@
   <header class="topbar">
     <div class="name">HIDENORI IKEDA / PORTFOLIO</div>
     <nav aria-label="ページ内ナビゲーション">
-      <a href="#proof">代表作</a><a href="#career">経歴</a><a href="#method">仕事の型</a><a href="#modes">働き方</a><a href="#offers">相談メニュー</a>
+      <a href="#proof">代表作</a><a href="#lineage">参加の系譜</a><a href="#career">経歴</a><a href="#method">仕事の型</a><a href="#modes">働き方</a><a href="#offers">相談メニュー</a>
     </nav>
   </header>
 
@@ -234,7 +249,7 @@
       <div class="hero-bottom">
         <div>
           <p class="thesis">生活者の一次情報から問いを組み直し、企業・技術者・地域をつなぎ、コンセプト、試作品、実証まで進めます。</p>
-          <div class="hero-paths" aria-label="想定する仕事の入口"><a href="#modes">転職・事業開発</a><a href="#offers">副業・業務委託</a><a href="#modes">専門家インタビュー</a></div>
+          <div class="hero-paths" aria-label="想定する仕事の入口"><a href="#lineage">共創プロジェクト</a><a href="#modes">転職・事業開発</a><a href="#offers">副業・業務委託</a><a href="#modes">専門家インタビュー</a></div>
         </div>
         <div class="identity"><b>池田秀紀｜渡鳥ジョニー</b>Web、写真、移動生活、場、地域、オフグリッドへ媒体を広げながら、曖昧な構想を触れられる形へ変える仕事を続けてきました。<span class="commercial-line">20年以上、商用制作から複数年のクライアント支援、現在の事業・製品開発まで、対価を伴う責任を継続。</span></div>
       </div>
@@ -276,8 +291,22 @@
       </div>
     </section>
 
+    <section class="lineage" id="lineage">
+      <p class="kicker">02 / Participation lineage</p>
+      <h2>観客を、<br>参加者へ。</h2>
+      <p class="lead">媒体はWebから場、地域実証へ変わりましたが、人が見るだけで終わらず、投稿し、主催し、共につくり、暮らして検証できる参加の形に関わってきました。</p>
+      <div class="lineage-track reveal">
+        <article class="lineage-step"><span class="lineage-year">2008</span><h3>投稿を<br>現地体験へ</h3><p>GoogleマイマップEXPOの投稿地図を、レポーターとして現地で試す連作へ。出演、店舗交渉、一部動画構成・編集への関与を確認。</p><div class="lineage-proof"><a href="https://mymapsexpo.blogspot.com/">連動企画 ↗</a></div></article>
+        <article class="lineage-step"><span class="lineage-year">2010—11</span><h3>観客から<br>各地の主催者へ</h3><p>Candle Night、skmtSocial、FISHMANS+のWeb制作に参加。FISHMANS+では、サイト上で確認できる51会場、会場登録、地図、主催ガイドを備えた参加基盤に、共同Web Productionとして関与。</p><div class="lineage-proof"><a href="https://web.archive.org/web/20110429191459id_/http://www.fishmansplus.com/">FISHMANS+ ↗</a></div></article>
+        <article class="lineage-step"><span class="lineage-year">2012</span><h3>場所を<br>共同地図へ</h3><p>ZERO PUBLICで、候補地を共同地図へ登録し、住居・食糧地・土地に分類して共有するWebのデザイン・開発に共同ユニットとして参加。</p><div class="lineage-proof"><a href="https://web.archive.org/web/20120128063142id_/http://www.zero-public.com/">ZERO PUBLIC ↗</a></div></article>
+        <article class="lineage-step"><span class="lineage-year">2014</span><h3>暮らしを<br>公開制作へ</h3><p>共同ユニットとして、札幌国際芸術祭のhey, sapporoで改修途中の住まいを開き、物・技能交換や来訪者との制作を日常生活へ組み込んだ。</p><div class="lineage-proof"><a href="https://siaf.jp/2014/programs/%E6%9A%AE%E3%82%89%E3%81%97%E3%81%8B%E3%81%9F%E5%86%92%E9%99%BA%E5%AE%B6%E3%80%90hey-sapporo%E3%80%91/">SIAF公式 ↗</a></div></article>
+        <article class="lineage-step"><span class="lineage-year">2020—26</span><h3>暮らしで<br>検証する場へ</h3><p>LACは構想・立ち上げ・コミュニティ運営、オフグリッド生活実証はライフスタイルプロデュースと居住検証、中城は実証・宿泊体験企画、会場設計、現場運営を担当。</p><div class="lineage-proof"><a href="https://note.com/lacommons/n/n6e87f40d3f3b">LAC公式 ↗</a></div></article>
+      </div>
+      <p class="lineage-boundary">これは各プロジェクト全体の単独発案・運営を本人へ帰属させるものではありません。Google企画全体、FISHMANS+の51会場・視聴規模、配信・映像、ZERO PUBLICの構想とgraphics、hey, sapporoの共同著作、各施設の専門設計・施工は、プロジェクト全体の成果または他者との分業です。本人の公開クレジットまたは確認済み役割から、「参加の形を実装する仕事への反復的な関与」だけを示しています。</p>
+    </section>
+
     <section class="career" id="career">
-      <p class="kicker">02 / Career context</p>
+      <p class="kicker">03 / Career context</p>
       <h2>媒体が変わっても、<br>仕事の核は変わらない。</h2>
       <p class="lead">Web制作から、自分の暮らし、移動、場、住宅、地域実証へ。扱う対象と関係者の範囲を広げてきました。</p>
       <p class="career-note">複数の契約、共同活動、自主事業が並行したため期間は重複します。未確認の雇用形態を職歴として断定していません。</p>
@@ -292,7 +321,7 @@
     </section>
 
     <section class="method" id="method">
-      <p class="kicker">03 / How I work</p>
+      <p class="kicker">04 / How I work</p>
       <h2>作るものより、<br>変える状態で説明する。</h2>
       <p class="lead">画面、空間、車、住宅、コミュニティ。成果物は違っても、仕事の進め方は同じです。</p>
       <figure class="method-map reveal">
@@ -314,18 +343,18 @@
     </section>
 
     <section class="modes" id="modes">
-      <p class="kicker">04 / Ways to work together</p>
+      <p class="kicker">05 / Ways to work together</p>
       <h2>同じ能力を、<br>三つの契約単位へ。</h2>
       <p class="lead">経歴を別人格にせず、相手が買う責任範囲に合わせて入口を変えます。</p>
       <div class="mode-list reveal">
-        <article class="mode"><span class="mode-no">01</span><h3>転職・事業開発</h3><p>新規事業、サービスデザイン、R&amp;D共創で、課題設定から体験プロトタイプ、実証までを担う。</p><strong>Service / Venture Producer</strong></article>
+        <article class="mode"><span class="mode-no">01</span><h3>転職・共創事業</h3><p>共創プロジェクト、新規事業、サービスデザイン、R&amp;Dで、課題設定から参加設計、体験プロトタイプ、実証までを担う。</p><strong>Co-creation / Service Producer</strong></article>
         <article class="mode"><span class="mode-no">02</span><h3>副業・業務委託</h3><p>曖昧な課題を短期間で問い直す、または技術・アイデアを触れられる試作品へ進める。</p><strong>1–8 weeks</strong></article>
         <article class="mode"><span class="mode-no">03</span><h3>専門家インタビュー</h3><p>移動生活、オフグリッド住宅、Living Labについて、実践者・生活者の視点から回答する。</p><strong>Focused expertise</strong></article>
       </div>
     </section>
 
     <section class="offers" id="offers">
-      <p class="kicker">05 / Project entry hypotheses</p>
+      <p class="kicker">06 / Project entry hypotheses</p>
       <h2>最初に相談できる、<br>二つの開始状態。</h2>
       <p class="lead">支援範囲の初期仮説です。副業・業務委託では、広い肩書ではなく、開始状態と到達状態を合意します。</p>
       <div class="offer-grid reveal">
