@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-gnQXGZrIsND6iNCu6AP/uLSZ1AZROzNIH7IDYzYn6eU='; script-src-attr 'none'; img-src data:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>全タスク棚卸し — 公開版</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #20221e;
+      --muted: #62665d;
+      --paper: #f2eee3;
+      --paper-hi: #fbf8ef;
+      --line: #c9c2b3;
+      --line-strong: #8f8a7e;
+      --red: #c23e2a;
+      --red-dark: #8c281c;
+      --green: #176b52;
+      --blue: #245f86;
+      --gold: #8a6115;
+      --shadow: 0 16px 46px rgba(42, 39, 32, .11);
+      --radius: 2px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(194, 62, 42, .08), transparent 22rem),
+        repeating-linear-gradient(0deg, transparent 0 27px, rgba(91, 87, 77, .055) 27px 28px),
+        var(--paper);
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, "Noto Sans JP", sans-serif;
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    .skip-link {
+      position: fixed; top: 8px; left: 8px; z-index: 99; transform: translateY(-150%);
+      background: var(--ink); color: white; padding: .55rem .8rem;
+    }
+    .skip-link:focus { transform: none; }
+    .masthead {
+      border-bottom: 1px solid var(--line-strong);
+      background: rgba(251, 248, 239, .92);
+      backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 20;
+    }
+    .masthead-inner {
+      max-width: 1320px; margin: auto; padding: .72rem clamp(1rem, 4vw, 3.6rem);
+      display: flex; gap: 1rem; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: .8rem; min-width: 0; }
+    .brand-mark {
+      width: 34px; height: 34px; border: 2px solid var(--ink); position: relative; flex: 0 0 auto;
+      background: linear-gradient(135deg, transparent 42%, var(--red) 43% 53%, transparent 54%);
+    }
+    .brand-mark::after { content: ""; position: absolute; inset: 6px; border: 1px solid var(--ink); }
+    .brand-copy { min-width: 0; }
+    .brand-title { font: 700 .86rem/1.2 "Yu Mincho", "Hiragino Mincho ProN", serif; letter-spacing: .1em; }
+    .brand-meta { color: var(--muted); font-size: .67rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .header-actions { display: flex; gap: .45rem; flex-wrap: wrap; justify-content: flex-end; }
+    .quiet-btn, .solid-btn {
+      border: 1px solid var(--line-strong); background: transparent; color: var(--ink);
+      padding: .46rem .68rem; border-radius: var(--radius); font-weight: 700; font-size: .73rem;
+    }
+    .quiet-btn:hover { background: #e8e2d4; }
+    .solid-btn { background: var(--ink); color: white; border-color: var(--ink); }
+    .solid-btn:hover { background: #343730; }
+    .quiet-btn:focus-visible, .solid-btn:focus-visible, .decision-btn:focus-visible,
+    input:focus-visible, select:focus-visible, summary:focus-visible {
+      outline: 3px solid #fff; outline-offset: 2px;
+      box-shadow: 0 0 0 5px #20221e;
+    }
+    .page { max-width: 1320px; margin: auto; padding: 0 clamp(1rem, 4vw, 3.6rem) 5rem; }
+    .hero {
+      display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+      gap: clamp(2rem, 6vw, 7rem); padding: clamp(3rem, 9vw, 8.8rem) 0 3rem;
+      align-items: end;
+    }
+    .eyebrow { color: var(--red-dark); font-weight: 800; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
+    h1 {
+      margin: .55rem 0 1rem; max-width: 13ch;
+      font: 700 clamp(3rem, 8.5vw, 7.4rem)/.95 "Yu Mincho", "Hiragino Mincho ProN", serif;
+      letter-spacing: -.055em;
+    }
+    .hero-lead { max-width: 44rem; font-size: clamp(1rem, 1.8vw, 1.28rem); color: #45483f; }
+    .public-note {
+      display: block; margin-top: 1.4rem; padding: .9rem 1rem;
+      border-left: 5px solid var(--green); background: rgba(23, 107, 82, .08); font-size: .86rem;
+    }
+    .progress-panel { border-top: 7px solid var(--red); padding-top: 1rem; }
+    .progress-kicker { display: flex; justify-content: space-between; gap: 1rem; font-size: .76rem; color: var(--muted); }
+    .progress-number { font: 700 clamp(4rem, 8vw, 7.5rem)/.9 "Yu Mincho", "Hiragino Mincho ProN", serif; }
+    .progress-number small { font: 600 .9rem/1 sans-serif; color: var(--muted); letter-spacing: .04em; }
+    .progress-track { height: 11px; background: #d8d1c2; margin-top: 1.1rem; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0; background: var(--red); transition: width .45s ease; }
+    .progress-copy { margin-top: .55rem; color: var(--muted); font-size: .78rem; }
+    .focus-strip {
+      margin: 1rem 0 2rem; border: 1px solid var(--ink); background: var(--ink); color: #f8f4e8;
+      display: grid; grid-template-columns: 180px 1fr;
+    }
+    .focus-label {
+      padding: 1.2rem; border-right: 1px solid rgba(255,255,255,.3);
+      font: 700 1.25rem/1.25 "Yu Mincho", "Hiragino Mincho ProN", serif;
+    }
+    .focus-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .focus-item { padding: 1rem; border-right: 1px solid rgba(255,255,255,.16); min-width: 0; }
+    .focus-item:last-child { border-right: 0; }
+    .focus-no { color: #e98b76; font-size: .68rem; letter-spacing: .14em; }
+    .focus-title { font-size: .82rem; line-height: 1.45; margin-top: .25rem; }
+    .controls {
+      display: grid; grid-template-columns: 1.5fr repeat(2, minmax(150px, .55fr)) auto;
+      gap: .75rem; align-items: end; padding: 1.2rem 0; border-block: 1px solid var(--line-strong);
+    }
+    .field label { display: block; font-size: .68rem; font-weight: 800; letter-spacing: .08em; margin-bottom: .28rem; }
+    .field input, .field select {
+      width: 100%; border: 1px solid var(--line-strong); background: var(--paper-hi); color: var(--ink);
+      border-radius: 0; min-height: 43px; padding: .58rem .68rem;
+    }
+    .check-field { display: flex; align-items: center; gap: .45rem; min-height: 43px; font-size: .78rem; font-weight: 700; }
+    .check-field input { width: 1rem; height: 1rem; accent-color: var(--red); }
+    .legend { display: flex; flex-wrap: wrap; gap: .45rem; margin: 1rem 0 2.3rem; }
+    .legend span { font-size: .68rem; border-bottom: 3px solid var(--tag); padding: .2rem .4rem; }
+    .inventory-head { display: flex; gap: 1rem; justify-content: space-between; align-items: end; margin: 2.6rem 0 1rem; }
+    .inventory-head h2 { margin: 0; font: 700 clamp(1.8rem, 3vw, 3rem)/1.1 "Yu Mincho", "Hiragino Mincho ProN", serif; }
+    .inventory-count { color: var(--muted); font-size: .78rem; }
+    .inventory { border-top: 1px solid var(--ink); }
+    .card {
+      display: grid; grid-template-columns: 70px minmax(0, 1fr) 190px;
+      border-bottom: 1px solid var(--line-strong); background: rgba(251,248,239,.58);
+      transition: background .18s ease;
+    }
+    .card:hover { background: rgba(255,252,244,.94); }
+    .card.is-decided { background: rgba(232, 226, 212, .72); }
+    .card-index { border-right: 1px solid var(--line); padding: 1.35rem .55rem; text-align: center; }
+    .card-id { font: 700 .7rem/1 monospace; letter-spacing: .08em; color: var(--muted); }
+    .priority { margin-top: .55rem; color: var(--red-dark); font-weight: 900; font-size: .72rem; }
+    .card-main { padding: 1.3rem clamp(1rem, 2.8vw, 2.1rem); min-width: 0; }
+    .card-topline { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin-bottom: .45rem; }
+    .category { font-size: .66rem; font-weight: 800; letter-spacing: .1em; color: var(--muted); }
+    .recommendation { font-size: .66rem; font-weight: 900; color: var(--rec-color); border: 1px solid currentColor; padding: .08rem .34rem; }
+    .card h3 { margin: 0 0 .55rem; font: 700 clamp(1.15rem, 2.1vw, 1.65rem)/1.35 "Yu Mincho", "Hiragino Mincho ProN", serif; }
+    .summary { margin: 0; color: #3f423a; font-size: .9rem; max-width: 58rem; }
+    details { margin-top: .85rem; }
+    summary { color: var(--red-dark); font-weight: 800; font-size: .78rem; cursor: pointer; width: fit-content; }
+    .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 1.5rem; margin-top: .85rem; }
+    .detail-block { border-left: 2px solid var(--line); padding-left: .75rem; }
+    .detail-block h4 { margin: 0 0 .15rem; font-size: .66rem; letter-spacing: .09em; color: var(--muted); }
+    .detail-block p, .detail-block ul { margin: 0; font-size: .78rem; }
+    .detail-block ul { padding-left: 1.2rem; }
+    .ask-ai { margin-top: .8rem; }
+    .card-actions { border-left: 1px solid var(--line); padding: 1.15rem .85rem; display: flex; flex-direction: column; gap: .4rem; }
+    .action-caption { font-size: .65rem; font-weight: 800; color: var(--muted); letter-spacing: .08em; margin-bottom: .1rem; }
+    .decision-btn {
+      border: 1px solid var(--line-strong); background: rgba(255,255,255,.28); color: var(--ink);
+      padding: .45rem .55rem; text-align: left; font-weight: 800; font-size: .7rem; position: relative;
+    }
+    .decision-btn::before { content: ""; display: inline-block; width: 8px; height: 8px; background: var(--btn-color); margin-right: .45rem; }
+    .decision-btn:hover { background: white; }
+    .decision-btn.selected { color: white; background: var(--btn-color); border-color: var(--btn-color); }
+    .decision-btn.selected::before { background: white; }
+    .archived-note { color: var(--muted); font-size: .72rem; border-top: 1px solid var(--line); padding-top: .65rem; }
+    .empty { display: none; padding: 4rem 1rem; text-align: center; border-bottom: 1px solid var(--line-strong); }
+    .decision-dock {
+      position: fixed; inset: auto 0 0; z-index: 30; background: rgba(32,34,30,.96); color: white;
+      transform: translateY(calc(100% - 44px)); transition: transform .3s ease; box-shadow: 0 -12px 35px rgba(0,0,0,.18);
+    }
+    .decision-dock.open { transform: none; }
+    .dock-toggle { width: 100%; height: 44px; border: 0; background: transparent; color: white; font-weight: 800; letter-spacing: .07em; }
+    .dock-inner { max-width: 1320px; margin: auto; padding: 1rem clamp(1rem, 4vw, 3.6rem) 1.4rem; }
+    .dock-actions { display: flex; gap: .55rem; flex-wrap: wrap; margin-bottom: .65rem; }
+    .dock-actions button { border-color: rgba(255,255,255,.45); color: white; }
+    .dock-actions .solid-btn { background: var(--red); border-color: var(--red); }
+    .packet-preview { font: .72rem/1.5 monospace; color: #d9d7ce; max-height: 9rem; overflow: auto; white-space: pre-wrap; }
+    .toast {
+      position: fixed; right: 1rem; bottom: 4rem; z-index: 60; background: var(--red-dark); color: white;
+      padding: .75rem 1rem; font-size: .78rem; transform: translateY(140%); opacity: 0; transition: .25s;
+    }
+    .toast.show { transform: none; opacity: 1; }
+    footer { padding: 4rem 0 2rem; border-top: 1px solid var(--line-strong); margin-top: 4rem; color: var(--muted); font-size: .75rem; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-call { color: var(--ink); font: 700 clamp(1.45rem, 3vw, 2.8rem)/1.25 "Yu Mincho", "Hiragino Mincho ProN", serif; max-width: 17ch; }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; gap: 2.2rem; padding-top: 4rem; }
+      h1 { max-width: 10ch; }
+      .focus-strip { grid-template-columns: 1fr; }
+      .focus-label { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.3); }
+      .focus-list { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .focus-item { border-bottom: 1px solid rgba(255,255,255,.16); }
+      .controls { grid-template-columns: 1fr 1fr; }
+      .card { grid-template-columns: 56px minmax(0,1fr); }
+      .card-actions { grid-column: 2; border-left: 0; border-top: 1px solid var(--line); flex-direction: row; flex-wrap: wrap; padding: .85rem 1rem 1.1rem; }
+      .action-caption { width: 100%; }
+      .decision-btn { flex: 1 1 105px; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .masthead-inner { align-items: flex-start; }
+      .brand-meta { display: none; }
+      .header-actions .quiet-btn:nth-child(-n+2) { display: none; }
+      h1 { font-size: clamp(3.25rem, 18vw, 5rem); }
+      .focus-list { grid-template-columns: 1fr; }
+      .controls { grid-template-columns: 1fr; }
+      .check-field { min-height: auto; }
+      .card { grid-template-columns: 42px minmax(0,1fr); }
+      .card-index { padding-inline: .2rem; }
+      .card-id { writing-mode: vertical-rl; margin: auto; }
+      .details-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#inventory">棚卸し一覧へ移動</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <div class="brand-title">判断台帳 / Decision Ledger</div>
+          <div class="brand-meta" id="save-status">ブラウザに自動保存</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="quiet-btn" id="undo-btn" type="button">1つ戻す</button>
+        <button class="quiet-btn" id="import-btn" type="button">判断を読込</button>
+        <button class="solid-btn" id="packet-btn" type="button">Decision Packet</button>
+        <input id="import-file" type="file" accept="application/json" hidden>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <div class="eyebrow">Inventory / Decide / Reduce</div>
+        <h1 id="page-title">全体を、<br>ひとつずつ<br>決める。</h1>
+        <p class="hero-lead">散らばった仕事を判断単位へまとめ、今やる・やらない・待つ・任せるを一つずつ決めるための公開可能な抜粋です。非公開案件や内部識別子は含みません。</p>
+        <div class="public-note">このページは明示的な公開allowlistだけから再生成されています。非公開案件、内部ID、ローカルpath、判断理由の機密部分は含みません。</div>
+      </div>
+      <aside class="progress-panel" aria-label="判断進捗">
+        <div class="progress-kicker"><span>DECISION PROGRESS</span><span id="progress-ratio">0 / 0</span></div>
+        <div class="progress-number"><span id="progress-percent">0</span><small>%</small></div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-copy" id="progress-copy">未判断から始めます。</div>
+      </aside>
+    </section>
+
+    <section class="focus-strip" aria-labelledby="focus-heading">
+      <div class="focus-label" id="focus-heading">次に見る<br>5件だけ</div>
+      <div class="focus-list" id="focus-list"></div>
+    </section>
+
+    <section class="controls" aria-label="棚卸しフィルター">
+      <div class="field">
+        <label for="search">検索</label>
+        <input id="search" type="search" placeholder="例：収入、Chrome、議事録">
+      </div>
+      <div class="field">
+        <label for="category-filter">領域</label>
+        <select id="category-filter"><option value="">すべて</option></select>
+      </div>
+      <div class="field">
+        <label for="recommendation-filter">AIおすすめ</label>
+        <select id="recommendation-filter">
+          <option value="">すべて</option><option>GO</option><option>NO-GO</option><option>PARK</option><option>WAIT</option><option>DELEGATE</option>
+        </select>
+      </div>
+      <label class="check-field"><input id="undecided-only" type="checkbox">未判断だけ</label>
+    </section>
+    <div class="legend" aria-label="判断種別">
+      <span style="--tag:#176b52">GO — 今やる</span>
+      <span style="--tag:#8c281c">NO-GO — やらない</span>
+      <span style="--tag:#8a6115">PARK — 今週外す</span>
+      <span style="--tag:#245f86">WAIT — 条件待ち</span>
+      <span style="--tag:#5a486d">DELEGATE — 任せる</span>
+    </div>
+
+    <section id="inventory" aria-labelledby="inventory-heading">
+      <div class="inventory-head">
+        <h2 id="inventory-heading">判断するもの</h2>
+        <div class="inventory-count" id="inventory-count"></div>
+      </div>
+      <div class="inventory" id="inventory-list"></div>
+      <div class="empty" id="empty-state">条件に合う項目はありません。</div>
+    </section>
+
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-call">決めるのは全部ではない。次の一手だけでいい。</div>
+        <div>
+          <p>判断はこのブラウザのlocalStorageへ保存されます。Decision PacketをコピーまたはJSONで保存し、このtaskへ戻すとローカルSSoTへ反映できます。</p>
+          <p>「もっと知りたい」は各項目の詳細を開き、「AIに聞く」を押してください。文脈packetがコピーされます。</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <aside class="decision-dock" id="decision-dock" aria-label="Decision Packet">
+    <button class="dock-toggle" id="dock-toggle" type="button" aria-expanded="false">DECISION PACKET を開く</button>
+    <div class="dock-inner">
+      <div class="dock-actions">
+        <button class="solid-btn" id="copy-packet" type="button">コピー</button>
+        <button class="quiet-btn" id="download-packet" type="button">JSON保存</button>
+        <button class="quiet-btn" id="adopt-all" type="button">AI案を一括採用</button>
+        <button class="quiet-btn" id="reset-all" type="button">判断をリセット</button>
+      </div>
+      <div class="packet-preview" id="packet-preview"></div>
+    </div>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="application/json" id="dataset">{"schema_version":"1.0.0","manifest_id":"johnny-decision-public-2026-07-13","source_inventory_id":"johnny-decision-inventory-2026-07-13","title":"全タスク棚卸し — 公開版","generated_at":"2026-07-13T23:09:40+09:00","intro":"散らばった仕事を判断単位へまとめ、今やる・やらない・待つ・任せるを一つずつ決めるための公開可能な抜粋です。非公開案件や内部識別子は含みません。","allowed_item_fields":["category","decision_question","id","next_action","reactivate_when","recommendation","summary","title","why"],"items":[{"category":"司令塔","decision_question":"今後の着手判断をこのコックピットに一本化する？","id":"D001","next_action":"優先度の高い項目から順に判断し、判断結果をDecision Packetとして保存する。","reactivate_when":"台帳と実在タスクのずれが3件以上出たとき。","recommendation":"GO","summary":"散在した在庫を判断単位へ統合し、今後はこの台帳から着手順を決める。","title":"全タスク判断コックピットをSSoTにする","why":"同じ仕事が複数の管理面に重複すると、着手より整理に時間を使ってしまうため。"},{"category":"収入","decision_question":"追加棚卸しより、案件獲得1件を先に試す？","id":"D007","next_action":"最優先チャネルを1つ選び、提案を1件だけ投入する。","reactivate_when":"1件投入後の反応を得たとき。","recommendation":"GO","summary":"作った棚卸しを増やすより、既存の提案パックを実際の獲得行動へ使う。","title":"キャリア棚卸しを案件獲得行動へ接続する","why":"次の学びは追加整理ではなく、市場に出した時の反応から得られるため。"},{"category":"収入","decision_question":"新規企画より既存No.001の市場学習を優先する？","id":"D008","next_action":"最小の公開または計測receiptを1件作る。","reactivate_when":"最初の反応データが取れたとき。","recommendation":"GO","summary":"新しい構想を増やす前に、既に作ったNo.001の公開・計測ループを閉じる。","title":"ラーメン図鑑の既存ローンチを進める","why":"ゼロから企画するより、既存成果物を市場へ出す方が学習が早い。"},{"category":"収入","decision_question":"既回答の判断を使い、宿泊No.001を前へ進める？","id":"D009","next_action":"未完の1工程だけ閉じる。","reactivate_when":"次工程が具体化したとき。","recommendation":"GO","summary":"既に決めた方針を再質問せず、No.001の完成と公開学習へ進む。","title":"宿泊ビジネス図鑑の既存ビルドを進める","why":"判断のやり直しより、未完の1工程を閉じる方が価値が高い。"},{"category":"収入","decision_question":"章追加と周辺自動化を今週のWIPから外す？","id":"D010","next_action":"今週は着手しない。","reactivate_when":"既存No.001で反応データが1件以上取れたとき。","recommendation":"PARK","summary":"既存ローンチが閉じるまで、章追加と周辺自動化を一塊で保留する。","title":"絶滅職種図鑑の第2・第3章は今週触らない","why":"関連する作業が多く、今着手するとWIPと認知負荷が再膨張するため。"},{"category":"収入","decision_question":"派生IPは消さず、制作だけPARKする？","id":"D011","next_action":"アイデア台帳に残し、制作タスクは作らない。","reactivate_when":"既存シリーズで継続需要が見えたとき。","recommendation":"PARK","summary":"アイデアの価値は残しつつ、既存ローンチの学習が出るまで制作を始めない。","title":"派生IPと新シリーズ構想は一旦保留する","why":"今は検証前の企画増殖になりやすいため。"},{"category":"リサーチ","decision_question":"監視source追加は在庫10件以下までNO-GOにする？","id":"D012","next_action":"既存在庫の自動圧縮ルールを先に整える。","reactivate_when":"research系inboxが10件以下になったとき。","recommendation":"NO-GO","summary":"新しい監視sourceを増やさず、既に溜まったfeedを先に整理する。","title":"監視sourceの追加を止める","why":"情報の入口より、整理されず溜まる出口がボトルネックになっているため。"},{"category":"業務省力化","decision_question":"議事録は最新工程一本にまとめて委譲する？","id":"D013","next_action":"最新工程だけを起動し、古い工程は参照用にする。","reactivate_when":"最新工程の受入テストが失敗したとき。","recommendation":"DELEGATE","summary":"古い入口を再開せず、より新しい実装工程を単一の入口にする。","title":"議事録パイプラインを最新工程へ一本化する","why":"新旧工程の並走が混乱と二重作業を生むため。"},{"category":"業務省力化","decision_question":"文書タブ化を議事録の一工程へ統合する？","id":"D014","next_action":"最新の議事録工程へ受入条件を1項目だけ追加する。","reactivate_when":"現在の経路が不可能とartifactで判明したとき。","recommendation":"DELEGATE","summary":"単独プロジェクトにせず、議事録の出力工程として扱う。","title":"文書タブ化を議事録工程へ統合する","why":"別々に管理すると同じ成果物に二つの実装入口ができるため。"},{"category":"業務省力化","decision_question":"まず5分だけ聞いて台本の方向を決める？","id":"D015","next_action":"サンプルを5分聞き、続けたい・直したい・止めるの3語で返す。","reactivate_when":"試聴結果が続けたい、または直したいのとき。","recommendation":"GO","summary":"音声基盤を増やす前に、既存台本が聞ける脚本かだけを5分確認する。","title":"Morning Podlogは5分の試聴だけ行う","why":"品質ボトルネックは音声エンジンより台本の聞きやすさにあるため。"},{"category":"業務省力化","decision_question":"音声バックエンド比較は試聴後までPARKする？","id":"D016","next_action":"着手しない。","reactivate_when":"試聴がGOで、既存音声に具体的な不満が出たとき。","recommendation":"PARK","summary":"試聴で脚本品質が通るまで、音声エンジンの追加比較をしない。","title":"追加の音声バックエンド比較は保留する","why":"上流の脚本が通る前に下流を磨いても価値が出にくいため。"},{"category":"業務省力化","decision_question":"自動配信は内容品質が通るまでWAITにする？","id":"D017","next_action":"試聴結果を待つ。","reactivate_when":"脚本GOと単発再生成功が揃ったとき。","recommendation":"WAIT","summary":"自動配信を先に有効化せず、内容品質が通ってから一つずつ進める。","title":"Morning Podlogの自動配信は試聴後まで待つ","why":"低品質な配信の自動化は通知ノイズを増やすため。"},{"category":"業務省力化","decision_question":"メール自動化は母艦移行後までWAITにする？","id":"D018","next_action":"母艦移行後に再評価する。","reactivate_when":"実行環境と送信元preflightが安定したとき。","recommendation":"WAIT","summary":"検知・下書き・通知は一体設計するが、自動送信はせず、実行環境が安定してから再開する。","title":"重要メール自動化は母艦移行後まで待つ","why":"移行中は二重処理と接続アカウント誤認のリスクが高いため。"},{"category":"業務省力化","decision_question":"録音基盤は実際の再発までPARKする？","id":"D019","next_action":"着手しない。","reactivate_when":"イヤホン使用時の録音不能が実案件で再発したとき。","recommendation":"PARK","summary":"議事録処理を先に閉じ、録音不能が再発した場合だけ構築する。","title":"イヤホン会議録音の新規構築は保留する","why":"録音入力と議事録処理を同時に変えると、ボトルネックが分からなくなるため。"},{"category":"システム","decision_question":"Chrome問題は既存診断taskを今週再開する？","id":"D021","next_action":"実URLを開くE2E確認まで行う。","reactivate_when":"E2Eが失敗したとき。","recommendation":"GO","summary":"再インストールを繰り返さず、runtime・browser discovery・extension bindingの順で診断を再開する。","title":"CodexからChromeを操作できない問題を直す","why":"ブラウザ操作不能は複数業務の共通ボトルネックだから。"},{"category":"司令塔","decision_question":"コックピット判断後に、目標refreshを5問以内でやる？","id":"D025","next_action":"コックピット判断後、5問以内のrefreshを行う。","reactivate_when":"1週間経過または最優先項目が変わったとき。","recommendation":"GO","summary":"古い現在地をAIが推測で書き換えず、5問以内の短い確認で更新する。","title":"目標とCURRENT FOCUSを本人確認で更新する","why":"現在の優先順位と古い目標文書にずれがあるため。"},{"category":"司令塔","decision_question":"inboxはAIが先に3分類し、実判断だけ見せる？","id":"D026","next_action":"feed・観測・実判断の3分類ルールを追加する。","reactivate_when":"実判断が5件を超えたとき。","recommendation":"GO","summary":"自動収集feedを人間の判断待ちとして数えず、実判断だけを少数表示する。","title":"判断inboxを人間判断とfeedに分離する","why":"機械収集された項目が人間の認知負荷を見かけ上膨らませているため。"},{"category":"システム","decision_question":"既存差分は保護し、今回は新規pathだけ触る？","id":"D027","next_action":"対象pathだけを個別stageする。","reactivate_when":"専用の整理taskを別途承認したとき。","recommendation":"GO","summary":"新規成果物だけをpath限定で扱い、既存差分は所有者不明のまま保存する。","title":"既存の未整理差分を保護し、広域cleanupしない","why":"一括cleanupは他taskの成果を壊す可能性があるため。"},{"category":"システム","decision_question":"旧アーキテクチャはNO-GOにして現行システムへ統合する？","id":"D028","next_action":"必要要件だけを現行システムへ移す。","reactivate_when":"現行システムに欠ける具体要件が確認されたとき。","recommendation":"NO-GO","summary":"旧設計は現行システムへ統合し、別プロジェクトとしては再開しない。","title":"旧アーキテクチャを独立プロジェクトとして再開しない","why":"旧設計と現行運用が並走すると、同じ役割が二重化するため。"},{"category":"事業探索","decision_question":"市場仮説は具体的な次イベントまでPARKする？","id":"D030","next_action":"次回会議の目的が決まった時だけcontext packを再利用する。","reactivate_when":"次の会議日程または検証対象が決まったとき。","recommendation":"PARK","summary":"過去コンテキストは保存し、次の会議・仮説検証・成果物が決まるまで追加討議を始めない。","title":"市場仮説の追加討議は具体的な次イベントまで保留する","why":"具体的な検証単位がないまま再開すると議論だけが増殖するため。"},{"category":"司令塔","decision_question":"古いdashboardは参考用に残し、判断SSoTから外す？","id":"D031","next_action":"削除せずread-only archiveとして残す。","reactivate_when":"新しいコックピットに運用上の欠陥が出たとき。","recommendation":"NO-GO","summary":"古いdashboardは参考表示に留め、新しいコックピットへ判断機能を一本化する。","title":"古いvisibility dashboardを判断SSoTとして使わない","why":"古い生成値は現在の仕事在庫と一致しないため。"},{"category":"完了済み","decision_question":"完了群は再開不要としてarchiveする。","id":"D032","next_action":"新しい不具合や要望が出るまで開かない。","reactivate_when":"具体的な不具合・期限・利用者要望が出たとき。","recommendation":"NO-GO","summary":"表示ツール、運用設計、構造化テンプレート、HTML標準化、議事録、ingest群は再開対象から外す。","title":"直近で完成した成果物群は再開せず保管する","why":"追加作業の具体的な要求がなく、再開すると改善のための改善になりやすいため。"}]}</script>
+  <script>
+  (() => {
+    'use strict';
+    const dataset = JSON.parse(document.getElementById('dataset').textContent);
+    const inventoryId = dataset.inventory_id || dataset.source_inventory_id || dataset.manifest_id;
+    const storageKey = `johnny-decision-cockpit:${dataset.schema_version}:${inventoryId}:decisions`;
+    const historyKey = `${storageKey}:history`;
+    const COLORS = {'GO':'#176b52','NO-GO':'#8c281c','PARK':'#8a6115','WAIT':'#245f86','DELEGATE':'#5a486d'};
+    const LABELS = {'GO':'GO','NO-GO':'NO-GO','PARK':'PARK','WAIT':'WAIT','DELEGATE':'DELEGATE'};
+    const esc = (value='') => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+    const asList = value => Array.isArray(value) ? value : (value ? [value] : []);
+    const items = dataset.items.map((item, index) => ({
+      priority: 'P' + Math.min(3, Math.floor(index / 8)),
+      decision_required: true,
+      lifecycle: 'active',
+      gaps: [], stop_condition: '', confidence: null,
+      ...item
+    }));
+    const normalizeStoredDecisions = value => {
+      const clean = Object.create(null);
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return clean;
+      items.forEach(item => { if (LABELS[value[item.id]]) clean[item.id] = value[item.id]; });
+      return clean;
+    };
+    let decisions = normalizeStoredDecisions(readJson(storageKey, {}));
+    let history = readJson(historyKey, []);
+    if (!Array.isArray(history)) history = [];
+    const filters = {search:'', category:'', recommendation:'', undecided:false};
+
+    const $ = selector => document.querySelector(selector);
+    const listEl = $('#inventory-list');
+    const toastEl = $('#toast');
+
+    function readJson(key, fallback) {
+      try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
+      catch (error) { $('#save-status').textContent = 'この環境では自動保存できません'; return fallback; }
+    }
+    function persist() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(decisions));
+        localStorage.setItem(historyKey, JSON.stringify(history.slice(-80)));
+        $('#save-status').textContent = `自動保存済み · ${new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}`;
+      } catch (error) { $('#save-status').textContent = '保存できません · PacketをJSON保存してください'; }
+    }
+    function showToast(message) {
+      toastEl.textContent = message; toastEl.classList.add('show');
+      clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+    }
+    function pushHistory() { history.push(JSON.parse(JSON.stringify(decisions))); if (history.length > 80) history.shift(); }
+    function setDecision(id, value) {
+      pushHistory();
+      if (decisions[id] === value) delete decisions[id]; else decisions[id] = value;
+      persist(); render();
+    }
+    function filteredItems() {
+      const needle = filters.search.trim().toLowerCase();
+      return items.filter(item => {
+        if (filters.category && item.category !== filters.category) return false;
+        if (filters.recommendation && item.recommendation !== filters.recommendation) return false;
+        if (filters.undecided && decisions[item.id]) return false;
+        if (needle) {
+          const hay = [item.id,item.category,item.title,item.summary,item.why,item.next_action,item.recommendation].join(' ').toLowerCase();
+          if (!hay.includes(needle)) return false;
+        }
+        return true;
+      });
+    }
+    function detailBlock(title, body) {
+      if (!body || (Array.isArray(body) && body.length === 0)) return '';
+      const content = Array.isArray(body)
+        ? `<ul>${body.map(entry => `<li>${esc(entry)}</li>`).join('')}</ul>`
+        : `<p>${esc(body)}</p>`;
+      return `<div class="detail-block"><h4>${esc(title)}</h4>${content}</div>`;
+    }
+    function cardHtml(item, index) {
+      const current = decisions[item.id] || '';
+      const details = [
+        detailBlock('なぜ', item.why),
+        detailBlock('次の一手', item.next_action),
+        detailBlock('未確認・不足', item.gaps),
+        detailBlock('やらない線', item.stop_condition),
+        detailBlock('再開条件', item.reactivate_when),
+        detailBlock('判断の問い', item.decision_question),
+        detailBlock('証拠状態', item.evidence_state),
+        
+      ].join('');
+      const actionHtml = item.decision_required === false
+        ? `<div class="archived-note">判断不要。具体的な再開条件が出るまで保管。</div>`
+        : Object.keys(LABELS).map(value => `<button type="button" class="decision-btn ${current===value?'selected':''}" style="--btn-color:${COLORS[value]}" data-action="decide" data-id="${esc(item.id)}" data-value="${value}">${LABELS[value]}</button>`).join('');
+      return `<article class="card ${current?'is-decided':''}" id="item-${esc(item.id)}">
+        <div class="card-index"><div class="card-id">${esc(item.id)}</div><div class="priority">${esc(item.priority)}</div></div>
+        <div class="card-main">
+          <div class="card-topline"><span class="category">${esc(item.category)}</span><span class="recommendation" style="--rec-color:${COLORS[item.recommendation]||'#20221e'}">AI案 ${esc(item.recommendation)}</span>${current?`<span class="recommendation" style="--rec-color:${COLORS[current]}">決定 ${esc(current)}</span>`:''}</div>
+          <h3>${esc(item.title)}</h3>
+          <p class="summary">${esc(item.summary)}</p>
+          <details ${item.priority==='P0'?'open':''}>
+            <summary>詳細と判断材料</summary>
+            <div class="details-grid">${details}</div>
+            <button type="button" class="quiet-btn ask-ai" data-action="ask-ai" data-id="${esc(item.id)}">この件をAIに聞く</button>
+          </details>
+        </div>
+        <div class="card-actions"><div class="action-caption">あなたの判断</div>${actionHtml}</div>
+      </article>`;
+    }
+    function render() {
+      const visible = filteredItems();
+      listEl.innerHTML = visible.map((item, i) => cardHtml(item, i)).join('');
+      $('#empty-state').style.display = visible.length ? 'none' : 'block';
+      $('#inventory-count').textContent = `${visible.length} / ${items.length}件を表示`;
+      renderProgress(); renderFocus(); renderPacket();
+    }
+    function renderProgress() {
+      const required = items.filter(item => item.decision_required !== false);
+      const decided = required.filter(item => decisions[item.id]).length;
+      const percent = required.length ? Math.round(decided / required.length * 100) : 100;
+      $('#progress-ratio').textContent = `${decided} / ${required.length}`;
+      $('#progress-percent').textContent = String(percent);
+      $('#progress-fill').style.width = `${percent}%`;
+      $('#progress-copy').textContent = percent === 100 ? '必要な判断が揃いました。Packetを保存してください。' : `あと${required.length-decided}件。P0からで十分です。`;
+    }
+    function renderFocus() {
+      const order = {P0:0,P1:1,P2:2,P3:3};
+      const focus = items.filter(item => item.decision_required !== false && !decisions[item.id])
+        .sort((a,b) => (order[a.priority]??9)-(order[b.priority]??9))
+        .slice(0,5);
+      $('#focus-list').innerHTML = (focus.length ? focus : items.filter(item => item.decision_required !== false).slice(0,5))
+        .map((item, idx) => `<a class="focus-item" href="#item-${esc(item.id)}"><div class="focus-no">0${idx+1} / ${esc(item.recommendation)}</div><div class="focus-title">${esc(item.title)}</div></a>`).join('');
+    }
+    function packetObject() {
+      const required = items.filter(item => item.decision_required !== false);
+      const rows = required.map(item => ({id:item.id,title:item.title,ai_recommendation:item.recommendation,user_decision:decisions[item.id]||null}));
+      const counts = {};
+      Object.values(decisions).forEach(value => counts[value]=(counts[value]||0)+1);
+      return {schema_version:'1.0.0',inventory_id:inventoryId,exported_at:new Date().toISOString(),decided:rows.filter(r=>r.user_decision).length,total_required:required.length,counts,decisions:rows};
+    }
+    function packetText() {
+      const packet = packetObject();
+      const lines = [`Decision Packet: ${packet.inventory_id}`,`判断済み ${packet.decided}/${packet.total_required}`,''];
+      packet.decisions.forEach(row => lines.push(`${row.id}\t${row.user_decision||'未判断'}\t${row.title}`));
+      return lines.join('\n');
+    }
+    function renderPacket() { $('#packet-preview').textContent = packetText(); }
+    async function copyText(text, success) {
+      try { await navigator.clipboard.writeText(text); showToast(success); }
+      catch (error) {
+        const area=document.createElement('textarea'); area.value=text; area.style.position='fixed'; area.style.opacity='0'; document.body.append(area); area.select(); document.execCommand('copy'); area.remove(); showToast(success);
+      }
+    }
+    function askAi(item) {
+      const packet = [`次の判断を手伝ってください。`,`ID: ${item.id}`,`項目: ${item.title}`,`AI案: ${item.recommendation}`,`概要: ${item.summary}`,`理由: ${item.why}`,`次の一手: ${item.next_action}`,`再開条件: ${item.reactivate_when}`,`問い: ${item.decision_question}`,`必要なら、判断に足りない情報を最大3つだけ質問してください。`].join('\n');
+      copyText(packet, 'AI相談用packetをコピーしました');
+    }
+    function downloadJson() {
+      const blob = new Blob([JSON.stringify(packetObject(),null,2)],{type:'application/json'});
+      const url = URL.createObjectURL(blob); const link=document.createElement('a');
+      link.href=url; link.download=`decision-packet-${inventoryId}.json`; link.click(); URL.revokeObjectURL(url);
+      showToast('Decision Packetを保存しました');
+    }
+    function importJson(file) {
+      if (file.size > 1024 * 1024) { showToast('Packetが大きすぎます（上限1MB）'); return; }
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const payload=JSON.parse(reader.result);
+          if (payload.schema_version !== '1.0.0' || payload.inventory_id !== inventoryId || !Array.isArray(payload.decisions)) throw new Error('この棚卸し用のPacketではありません');
+          const expectedIds = new Set(items.filter(item => item.decision_required !== false).map(item => item.id));
+          if (payload.decisions.length !== expectedIds.size) throw new Error('Packetの件数が一致しません');
+          const seen = new Set();
+          const nextDecisions = Object.create(null);
+          for (const row of payload.decisions) {
+            if (!row || typeof row !== 'object' || Array.isArray(row)) throw new Error('Packetの行形式が不正です');
+            const keys = Object.keys(row).sort().join(',');
+            if (keys !== 'ai_recommendation,id,title,user_decision') throw new Error('Packetに未対応フィールドがあります');
+            if (typeof row.id !== 'string' || !expectedIds.has(row.id) || seen.has(row.id)) throw new Error('PacketのIDが不正または重複しています');
+            if (row.user_decision !== null && !LABELS[row.user_decision]) throw new Error('Packetの判断値が不正です');
+            seen.add(row.id);
+            if (row.user_decision !== null) nextDecisions[row.id] = row.user_decision;
+          }
+          if (seen.size !== expectedIds.size || [...expectedIds].some(id => !seen.has(id))) throw new Error('Packetに不足IDがあります');
+          pushHistory();
+          decisions = nextDecisions;
+          persist(); render(); showToast('判断を読み込みました');
+        } catch(error) { showToast(error.message || '読込に失敗しました'); }
+      };
+      reader.readAsText(file);
+    }
+
+    [...new Set(items.map(item => item.category))].sort().forEach(category => {
+      const option=document.createElement('option'); option.value=category; option.textContent=category; $('#category-filter').append(option);
+    });
+    listEl.addEventListener('click', event => {
+      const button=event.target.closest('button[data-action]'); if(!button) return;
+      const item=items.find(entry => entry.id===button.dataset.id); if(!item) return;
+      if(button.dataset.action==='decide') setDecision(item.id,button.dataset.value);
+      if(button.dataset.action==='ask-ai') askAi(item);
+    });
+    $('#search').addEventListener('input', event => {filters.search=event.target.value; render();});
+    $('#category-filter').addEventListener('change', event => {filters.category=event.target.value; render();});
+    $('#recommendation-filter').addEventListener('change', event => {filters.recommendation=event.target.value; render();});
+    $('#undecided-only').addEventListener('change', event => {filters.undecided=event.target.checked; render();});
+    $('#undo-btn').addEventListener('click', () => { if(!history.length){showToast('戻せる判断はありません');return;} decisions=history.pop(); persist(); render(); showToast('1つ前へ戻しました'); });
+    $('#packet-btn').addEventListener('click', () => {$('#decision-dock').classList.add('open'); $('#dock-toggle').setAttribute('aria-expanded','true');});
+    $('#dock-toggle').addEventListener('click', () => {const open=$('#decision-dock').classList.toggle('open'); $('#dock-toggle').setAttribute('aria-expanded',String(open));});
+    $('#copy-packet').addEventListener('click', () => copyText(packetText(),'Decision Packetをコピーしました'));
+    $('#download-packet').addEventListener('click', downloadJson);
+    $('#adopt-all').addEventListener('click', () => { if(!confirm('未判断項目へAIおすすめを一括採用します。あとで1つずつ変更・undoできます。'))return; pushHistory(); items.filter(item=>item.decision_required!==false).forEach(item=>{if(!decisions[item.id]) decisions[item.id]=item.recommendation;}); persist(); render(); showToast('AI案を一括採用しました'); });
+    $('#reset-all').addEventListener('click', () => {
+      if(!confirm('このブラウザに保存した判断とundo履歴をすべて消しますか？')) return;
+      decisions=Object.create(null); history=[];
+      try { localStorage.removeItem(storageKey); localStorage.removeItem(historyKey); } catch(error) {}
+      render(); $('#save-status').textContent='判断は未入力です'; showToast('判断と履歴を削除しました');
+    });
+    $('#import-btn').addEventListener('click', () => $('#import-file').click());
+    $('#import-file').addEventListener('change', event => {const file=event.target.files[0]; if(file) importJson(file); event.target.value='';});
+    render();
+  })();
+  </script>
+</body>
+</html>
