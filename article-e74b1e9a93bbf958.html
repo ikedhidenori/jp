@@ -320,7 +320,7 @@
 
     .offers { background: var(--paper); }
     .offer-scroll-hint { margin: -14px 0 8px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .04em; text-align: right; }
-    .offer-track { display: grid; grid-template-columns: repeat(6, minmax(210px, 1fr)); gap: 14px; overflow-x: auto; padding: 8px 4px 30px; }
+    .offer-track { display: grid; grid-template-columns: repeat(3, minmax(230px, 1fr)); gap: 14px; overflow-x: auto; padding: 8px 4px 30px; }
     .offer { min-height: 410px; padding: 24px; border: 1px solid var(--line); background: var(--white); position: relative; }
     .offer::after { content: attr(data-step); position: absolute; right: 18px; bottom: 10px; color: var(--paper-2); font-family: var(--display); font-size: 82px; line-height: 1; z-index: 0; }
     .offer > * { position: relative; z-index: 1; }
@@ -330,7 +330,7 @@
     .offer strong { display: block; margin-top: 25px; color: var(--moss); }
 
     .system { background: var(--paper-2); }
-    .system-grid { display: grid; grid-template-columns: 1fr 90px 1fr; gap: 30px; align-items: stretch; }
+    .system-grid { display: grid; grid-template-columns: 1fr 52px 1fr 52px 1fr; gap: 18px; align-items: stretch; }
     .system-side { padding: clamp(24px, 4vw, 44px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
     .system-side h3 { margin-top: 0; }
     .system-side ul { padding-left: 1.1em; color: var(--muted); }
@@ -480,8 +480,8 @@
         <h1>肩書きではなく、<br><em>変えてきた状態</em>から<br>仕事を読み直す。</h1>
       </div>
       <div class="hero-bottom">
-        <p class="thesis">まだ名前も仕様もない生活者の欲求を発見し、企業・技術・地域をつなぎ、体験できるプロトタイプとして社会に出す。</p>
-        <div class="legend"><strong>渡鳥ジョニー キャリア棚卸し</strong>親仕事77件・子活動20件を復元した作業版。共同成果と本人寄与を分離し、確認できないことは断定していない。</div>
+        <p class="thesis">まだ名前も仕様もない生活者の欲求を発見し、AIとともに問い・調査・構想・ラフ試作・発信・検証判断を貫通して、企業・技術・地域を体験できるプロトタイプと実証へつなぐ。</p>
+        <div class="legend"><strong>渡鳥ジョニー キャリア棚卸し</strong>親仕事77件・子活動20件を復元した作業版。共同成果と本人寄与を分離し、確認できないことは断定していない。今回の棚卸し自体をAI-native full-cycleの現在側証拠として加えた。</div>
       </div>
     </section>
 
@@ -529,7 +529,7 @@
             <text x="430" y="80">PHASE 3</text><text x="430" y="103" fill="#f3efe5" font-size="21">概念を社会へ</text><text x="430" y="126">VLDK / Van à Table</text>
             <text x="625" y="286">PHASE 4</text><text x="625" y="309" fill="#f3efe5" font-size="21">企業・地域と共創</text><text x="625" y="332">LAC / FAB CAR</text>
             <text x="820" y="102">PHASE 5</text><text x="820" y="125" fill="#f3efe5" font-size="21">技術を社会実装</text><text x="820" y="148">Off-grid / INNFRA</text>
-            <text x="1012" y="286">PHASE 6</text><text x="1012" y="309" fill="#f3efe5" font-size="21">仕事を再設計</text><text x="1012" y="332">AI collaboration OS</text>
+            <text x="1012" y="286">PHASE 6</text><text x="1012" y="309" fill="#f3efe5" font-size="21">仕事を再設計</text><text x="1012" y="332">AI-native full-cycle</text>
           </g>
         </svg>
       </figure>
@@ -645,7 +645,7 @@
         </div>
         <div>
           <div class="route-panel active" id="route-panel-job" role="tabpanel" aria-labelledby="route-tab-job" data-panel="job"><p class="big">新規事業・サービスデザインの<br>0→1プロデューサー</p><div class="route-box"><b>相手の停滞</b><p>技術や構想はあるが、誰のどんな体験にするか決まらない。</p></div><div class="route-box"><b>見せる順</b><p>FAB CAR → オフグリッド住宅 → 地域社会実装 → LAC</p></div></div>
-          <div class="route-panel" id="route-panel-side" role="tabpanel" aria-labelledby="route-tab-side" data-panel="side" hidden><p class="big">曖昧な構想を、検証できる形へ。<br>Concept-to-Prototype伴走</p><div class="route-box"><b>買い手</b><p>新規事業責任者、R&amp;D、地域企業、施設運営者、小規模事業者。</p></div><div class="route-box"><b>二つの入口</b><p>試作品まで進める伴走と、提供メニュー・価格仮説・依頼／予約導線を作るOffer Architectureを短期スプリントで試す。</p></div></div>
+          <div class="route-panel" id="route-panel-side" role="tabpanel" aria-labelledby="route-tab-side" data-panel="side" hidden><p class="big">曖昧な構想を、検証できる形へ。<br>Concept-to-Prototype伴走</p><div class="route-box"><b>買い手</b><p>新規事業責任者、R&amp;D、地域企業、施設運営者、小規模事業者。</p></div><div class="route-box"><b>三つの発注単位</b><p>Reframe Sprint、Concept-to-Prototype、Living Lab / Field Pilot Design。提供メニューや価格仮説は、必要に応じて各商品の成果物として設計する。</p></div></div>
           <div class="route-panel" id="route-panel-advisor" role="tabpanel" aria-labelledby="route-tab-advisor" data-panel="advisor" hidden><p class="big">狭い専門知で入り、<br>問い直しと実証伴走へ広げる。</p><div class="route-box"><b>入口テーマ</b><p>移動生活、オフグリッド、Living Lab、地域・観光・防災。</p></div><div class="route-box"><b>継続価値</b><p>知識の回答ではなく、関係者形成と次の実証判断まで支援する。</p></div></div>
         </div>
       </div>
@@ -716,7 +716,7 @@
       </div>
       <div class="sprint-lanes reveal">
         <article class="sprint-lane"><small>EMPLOYMENT</small><h3>Loftwork / btrax向け<br>職務適合</h3><p>共創プロジェクト版とService Designer版を分離。前者は参加型Web・場・地域、後者は調査・コンセプト・試作を先頭に置き、不足証拠も明示する。</p><ul><li>応募要約 初稿完成</li><li>必須条件との差分表あり</li><li>送信前の本人確認待ち</li></ul></article>
-        <article class="sprint-lane"><small>CONTRACT</small><h3>Bizlink / ProSharing向け<br>発注単位</h3><p>Reframe SprintとConcept-to-Prototypeの二つに限定。開始状態、期間、到達状態、役割境界を面談可能な言葉へ変える。</p><ul><li>登録プロフィール 初稿完成</li><li>2商品の範囲を固定</li><li>価格は面談で条件回収後</li></ul></article>
+        <article class="sprint-lane"><small>CONTRACT</small><h3>Bizlink / ProSharing向け<br>発注単位</h3><p>公開3商品のうち、初回面談ではReframe SprintとConcept-to-Prototypeを先行提示。開始状態、期間、到達状態、役割境界を面談可能な言葉へ変える。</p><ul><li>登録プロフィール 初稿完成</li><li>初回提示2商品の範囲を固定</li><li>価格は面談で条件回収後</li></ul></article>
         <article class="sprint-lane"><small>EXPERT INTERVIEW</small><h3>ビザスク向け<br>狭い専門知</h3><p>移動生活、オフグリッド、Living Labの三テーマへ絞り、企業が検索・質問できる15の問いへ分解する。</p><ul><li>テーマ別紹介 初稿完成</li><li>回答可能質問15本</li><li>設備技術の専門領域とは分離</li></ul></article>
       </div>
       <div class="sprint-timeline reveal" aria-label="14日間の進行">
@@ -736,7 +736,7 @@
       <div class="profile-tabs reveal" role="tablist" aria-label="仕事獲得用プロフィール">
         <button class="profile-tab" id="profile-tab-rd" type="button" role="tab" aria-selected="true" aria-controls="profile-panel-rd" data-profile="rd">大企業R&amp;D・新規事業</button>
         <button class="profile-tab" id="profile-tab-regional" type="button" role="tab" aria-selected="false" aria-controls="profile-panel-regional" data-profile="regional" tabindex="-1">地域・Living Lab</button>
-        <button class="profile-tab" id="profile-tab-ai" type="button" role="tab" aria-selected="false" aria-controls="profile-panel-ai" data-profile="ai" tabindex="-1">AI協業・知的生産</button>
+        <button class="profile-tab" id="profile-tab-ai" type="button" role="tab" aria-selected="false" aria-controls="profile-panel-ai" data-profile="ai" tabindex="-1">AI-native Full-cycle</button>
       </div>
       <div class="reveal">
         <article class="profile-panel active" id="profile-panel-rd" role="tabpanel" aria-labelledby="profile-tab-rd" data-profile-panel="rd">
@@ -748,8 +748,8 @@
           <aside class="profile-side"><div><b>証拠の見せ順</b><ol><li>LAC八ヶ岳</li><li>中城城跡実証</li><li>Living Lab</li><li>自治体実証群</li></ol></div><p class="profile-use">地域企業、自治体連携、観光、防災、場づくりの相談に使う。</p></aside>
         </article>
         <article class="profile-panel" id="profile-panel-ai" role="tabpanel" aria-labelledby="profile-tab-ai" data-profile-panel="ai" hidden>
-          <div><small>COLLABORATION OS DESIGNER</small><h3>構想する人の強みを残し、調査・記録・完遂をAIへ。</h3><p class="profile-copy">企画者や小チームの知識仕事を棚卸しし、人が担う核心判断と、AIへ渡す調査・記録・比較・定型運用を分けます。公開資料、SNS、会議記録を横断する証拠台帳や、調査から文書公開までの実運用を構築中。AI導入ではなく、役割境界と証拠が残る仕事の仕組みを設計します。</p></div>
-          <aside class="profile-side"><div><b>最初の導入範囲</b><ol><li>仕事と情報源の棚卸し</li><li>人／AI／運用の責任分界</li><li>優先フロー3本の実装</li><li>導入前後の比較</li></ol></div><p class="profile-use">市場検証前の仮説。まず2〜4週間の小規模導入で証拠を作る。</p></aside>
+          <div><small>AI-NATIVE FULL-CYCLE 0→1</small><h3>問いから検証判断までをAIと一周し、専門家との接続点を作る。</h3><p class="profile-copy">企画者や小チームの曖昧な構想を、問い、調査、体験コンセプト、ラフ試作、発信、検証判断までAIと一周します。人は核心判断、AIは調査・比較・記録、専門家は専門設計・施工・法務・安全を担い、成果と責任の境界を残します。</p></div>
+          <aside class="profile-side"><div><b>現在側の証拠</b><ol><li>棚卸し成果物 66点</li><li>親仕事77件＋子活動20件</li><li>D1公開ページ 6点</li><li>本人の確認時間は回答待ち</li></ol></div><p class="profile-use">外部顧客成果ではなく、方法を一周できることの現在側証拠。市場成果はこれから検証する。</p></aside>
         </article>
       </div>
     </section>
@@ -762,13 +762,13 @@
         <article class="copy-card">
           <small>80 CHARACTERS / HEADLINE</small>
           <h3>プロフィール見出し</h3>
-          <p class="copy-text" id="copy-headline">生活者の未言語化ニーズを、企業・技術・地域とつなぎ、体験プロトタイプと実証へ変える0→1プロデューサー。</p>
+          <p class="copy-text" id="copy-headline">生活者の未言語化ニーズを、AIとともに調査・構想・ラフ試作・検証判断まで貫通し、体験プロトタイプと実証へつなぐ0→1プロデューサー。</p>
           <button class="copy-action" type="button" data-copy-target="copy-headline">文章をコピー</button>
         </article>
         <article class="copy-card wide">
           <small>200 CHARACTERS / SUMMARY</small>
           <h3>応募プロフィール</h3>
-          <p class="copy-text" id="copy-summary">生活者の未言語化ニーズを見つけ、企業・技術・地域をつなぎ、体験できるプロトタイプと実証へ変える0→1プロデューサー。FAB CAR、LivingAnywhere Commons八ヶ岳北杜、オフグリッド住宅、水循環製品、世界遺産での滞在実証などを推進。課題設定、体験コンセプト、共創体制、最初の実装を横断して進める。</p>
+          <p class="copy-text" id="copy-summary">生活者の未言語化ニーズを見つけ、AIとともに問い、調査、構想、ラフ試作、発信、検証判断を一周し、企業・技術・地域を体験できるプロトタイプと実証へつなぐ0→1プロデューサー。FAB CAR、LivingAnywhere Commons八ヶ岳北杜、オフグリッド住宅、水循環製品、世界遺産での滞在実証などを推進してきた。</p>
           <button class="copy-action" type="button" data-copy-target="copy-summary">文章をコピー</button>
         </article>
         <article class="copy-card wide">
@@ -780,7 +780,7 @@
         <article class="copy-card">
           <small>FIRST THREE OFFERS</small>
           <h3>業務委託の入口</h3>
-          <div class="offer-mini"><div><b>Reframe Sprint</b><p>1–2週間。発散した課題を、核心課題・利用場面・優先仮説・次の検証へ。</p></div><div><b>Offer Architecture</b><p>2–4週間。活動・技術・場所を、提供メニュー・価格仮説・依頼／予約導線へ。受注成果はこれから検証。</p></div><div><b>Concept-to-Prototype</b><p>4–8週間。アイデアを、体験コンセプト・試作品・実証計画へ。</p></div></div>
+          <div class="offer-mini"><div><b>Reframe Sprint</b><p>1–2週間。発散した課題を、核心課題・利用場面・優先仮説・次の検証へ。</p></div><div><b>Concept-to-Prototype</b><p>4–8週間。アイデアを、体験コンセプト・ラフ試作・実証計画へ。</p></div><div><b>Living Lab / Field Pilot Design</b><p>4–10週間。技術や地域資源を、暮らしの体験・参加者・運用・評価の設計へ。</p></div></div>
         </article>
         <article class="copy-card wide reference-card">
           <small>REFERENCE REQUEST / DRAFT — NOT SENT</small>
@@ -809,46 +809,48 @@
 
     <section class="offers">
       <p class="kicker">08 / Offer hypotheses</p>
-      <h2>「何でもできます」を、<br>6つの発注単位へ。</h2>
-      <p class="section-lead">価格を決める前の市場テスト案。開始状態と到達状態を示し、既存関係者がどれに相談料を払うかを見る。</p>
+      <h2>「何でもできます」を、<br>3つの発注単位へ。</h2>
+      <p class="section-lead">AI-native full-cycleは別商品ではなく、3サービスを貫く共通OS。開始状態と到達状態を示し、既存関係者がどれに相談料を払うかを見る。</p>
       <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 200" role="img" aria-labelledby="offer-fig-title offer-fig-desc">
-          <title id="offer-fig-title">6つの商品仮説の期間と到達状態</title><desc id="offer-fig-desc">Reframeは1から2週、Offer ArchitectureとAI Collaborationは2から4週、Concept-to-Prototypeは4から8週、Living LabとRegional Pilotは2から3か月を想定する。</desc>
-          <line x1="190" y1="18" x2="950" y2="18" stroke="#b8b09f"/><g fill="#5d6761" font-family="sans-serif" font-size="11"><text x="190" y="12">短い</text><text x="920" y="12">長い</text></g>
-          <g font-family="sans-serif" font-size="13" fill="#18201e"><text x="20" y="45">Reframe</text><text x="20" y="72">Offer Architecture</text><text x="20" y="99">AI Collaboration</text><text x="20" y="126">Concept-to-Prototype</text><text x="20" y="153">Living Lab</text><text x="20" y="180">Regional Pilot</text></g>
-          <g fill="#315c4f"><rect x="190" y="31" width="130" height="16"/><rect x="190" y="58" width="210" height="16"/><rect x="190" y="85" width="210" height="16"/><rect x="190" y="112" width="420" height="16"/><rect x="190" y="139" width="710" height="16"/><rect x="190" y="166" width="710" height="16"/></g>
-          <g fill="#5d6761" font-family="sans-serif" font-size="12"><text x="330" y="44">1–2週</text><text x="410" y="71">2–4週</text><text x="410" y="98">2–4週</text><text x="620" y="125">4–8週</text><text x="910" y="152">2–3か月</text><text x="910" y="179">2–3か月</text></g>
+        <svg viewBox="0 0 1000 210" role="img" aria-labelledby="offer-fig-title offer-fig-desc">
+          <title id="offer-fig-title">3つの商品仮説と共通のAI-native full-cycle</title><desc id="offer-fig-desc">Reframeは1から2週、Concept-to-Prototypeは4から8週、Living LabまたはField Pilot Designは4から10週。すべてを問い、調査、構想、ラフ試作、発信、検証判断の共通OSが貫く。</desc>
+          <line x1="230" y1="18" x2="950" y2="18" stroke="#b8b09f"/><g fill="#5d6761" font-family="sans-serif" font-size="11"><text x="230" y="12">短い</text><text x="920" y="12">長い</text></g>
+          <g font-family="sans-serif" font-size="13" fill="#18201e"><text x="20" y="53">Reframe Sprint</text><text x="20" y="91">Concept-to-Prototype</text><text x="20" y="129">Living Lab / Field Pilot</text></g>
+          <g fill="#315c4f"><rect x="230" y="39" width="135" height="18"/><rect x="230" y="77" width="450" height="18"/><rect x="230" y="115" width="650" height="18"/></g>
+          <g fill="#5d6761" font-family="sans-serif" font-size="12"><text x="378" y="53">1–2週</text><text x="693" y="91">4–8週</text><text x="893" y="129">4–10週</text></g>
+          <rect x="20" y="158" width="930" height="34" rx="17" fill="#e6b84f" opacity=".24"/><text x="485" y="179" text-anchor="middle" fill="#18201e" font-family="sans-serif" font-size="13">QUESTION → RESEARCH → CONCEPT → ROUGH PROTOTYPE → COMMUNICATION → VALIDATION</text>
         </svg>
-        <figcaption>短期商品は問いと検証を売り、長期商品は場・関係者・運用まで扱う。価格は期間ではなく到達状態への反応を見て決める。</figcaption>
+        <figcaption>短期商品は問いと検証を売り、長期商品は場・関係者・運用まで扱う。AI-native full-cycleは独立商品ではなく、全商品の調査・試作・証拠化を高速化する共通OS。</figcaption>
       </figure>
-      <p class="offer-scroll-hint" aria-hidden="true">横にスクロールして6商品を見る →</p>
+      <p class="offer-scroll-hint" aria-hidden="true">小さい画面では横にスクロール →</p>
       <div class="offer-track reveal">
         <article class="offer" data-step="1"><small>1–2 WEEKS</small><h3>Reframe Sprint</h3><p>会議が発散し、顧客も課題も広すぎる状態から始める。</p><strong>核心課題・利用場面・検証仮説へ</strong></article>
-        <article class="offer" data-step="2"><small>2–4 WEEKS</small><h3>Offer Architecture</h3><p>活動や技術はあるが、誰へ何をどう売るか決まっていない。</p><strong>提供メニュー・価格仮説・依頼／予約導線へ</strong></article>
-        <article class="offer" data-step="3"><small>4–8 WEEKS</small><h3>Concept-to-Prototype</h3><p>アイデアはあるが、触れるものも検証方法もない。</p><strong>体験コンセプト・試作品・検証計画へ</strong></article>
-        <article class="offer" data-step="4"><small>2–3 MONTHS</small><h3>Living Lab Design</h3><p>技術実証が機器の性能評価だけで終わっている。</p><strong>暮らし・場・参加者・評価の設計へ</strong></article>
-        <article class="offer" data-step="5"><small>2–3 MONTHS</small><h3>Regional Pilot</h3><p>地域資源はあるが、関係者の目的が揃わず動けない。</p><strong>現地調査・共通テーマ・実証・次期提案へ</strong></article>
-        <article class="offer" data-step="6"><small>2–4 WEEKS</small><h3>AI<br>Collaboration<br>OS</h3><p>個人や小チームの知識仕事が散乱し、反復できない。</p><strong>仕事棚卸し・AI分担・運用フローへ</strong></article>
+        <article class="offer" data-step="2"><small>4–8 WEEKS</small><h3>Concept-to-Prototype</h3><p>アイデアはあるが、触れるものも検証方法もない。</p><strong>体験コンセプト・ラフ試作・検証計画へ</strong></article>
+        <article class="offer" data-step="3"><small>4–10 WEEKS</small><h3>Living Lab /<br>Field Pilot Design</h3><p>技術や地域資源はあるが、暮らしの体験や関係者の動きに変換できていない。</p><strong>体験・参加者・運用・評価の実証設計へ</strong></article>
       </div>
     </section>
 
     <section class="system">
       <p class="kicker">09 / Collaboration system</p>
       <h2>弱点を消すのではなく、<br>分業できる形にする。</h2>
-      <p class="section-lead">本人の強さが出る工程と、AI・運用担当へ渡す工程を混ぜない。生き生きする条件を、仕事選びと日々の協業システムの両方へ反映する。</p>
+      <p class="section-lead">本人の強さが出る工程、AIへ渡す工程、専門家へ接続する工程を混ぜない。生き生きする条件を、仕事選びと日々の協業システムの両方へ反映する。</p>
+      <p class="offer-scroll-hint" aria-hidden="true">小さい画面では責任分界図を横にスクロール →</p>
       <figure class="evidence-figure reveal">
         <svg viewBox="0 0 1000 190" role="img" aria-labelledby="system-fig-title system-fig-desc">
-          <title id="system-fig-title">JohnnyとAI・運用担当の責任分界</title><desc id="system-fig-desc">Johnnyは現場観察、概念化、関係形成、核心判断、初期試作を担い、AIと運用担当は記録、追跡、構造化、定型運用、成果回収を担う。中央で判断と証拠を往復させる。</desc>
-          <circle cx="285" cy="92" r="78" fill="#fffdf7" stroke="#ad3218" stroke-width="3"/><circle cx="715" cy="92" r="78" fill="#fffdf7" stroke="#315c4f" stroke-width="3"/><path d="M375 92H625" stroke="#18201e" stroke-width="2"/><path d="M400 76L375 92l25 16M600 76l25 16-25 16" fill="none" stroke="#18201e" stroke-width="2"/>
-          <g text-anchor="middle" font-family="sans-serif"><text x="285" y="80" fill="#ad3218" font-size="18">JOHNNY</text><text x="285" y="106" fill="#18201e" font-size="14">発散・越境・核心判断</text><text x="715" y="80" fill="#315c4f" font-size="18">AI + OPERATOR</text><text x="715" y="106" fill="#18201e" font-size="14">収束・反復・証拠回収</text><text x="500" y="67" fill="#5d6761" font-size="12">判断 ⇄ 記録</text><text x="500" y="125" fill="#5d6761" font-size="12">構想 ⇄ 完了条件</text></g>
+          <title id="system-fig-title">Johnny、AI、専門家の責任分界</title><desc id="system-fig-desc">Johnnyは問い、現場、核心判断を担い、AIは調査、比較、ラフ試作、記録を担い、専門家は専門設計、施工、法務、安全を担う。互いの境界で判断と証拠を往復させる。</desc>
+          <circle cx="170" cy="92" r="75" fill="#fffdf7" stroke="#ad3218" stroke-width="3"/><circle cx="500" cy="92" r="75" fill="#fffdf7" stroke="#315c4f" stroke-width="3"/><circle cx="830" cy="92" r="75" fill="#fffdf7" stroke="#e6b84f" stroke-width="3"/><path d="M255 92H415M585 92H745" stroke="#18201e" stroke-width="2"/><path d="M280 76L255 92l25 16M390 76l25 16-25 16M610 76l-25 16 25 16M720 76l25 16-25 16" fill="none" stroke="#18201e" stroke-width="2"/>
+          <g text-anchor="middle" font-family="sans-serif"><text x="170" y="80" fill="#ad3218" font-size="18">JOHNNY</text><text x="170" y="106" fill="#18201e" font-size="13">問い・現場・核心判断</text><text x="500" y="80" fill="#315c4f" font-size="18">AI</text><text x="500" y="106" fill="#18201e" font-size="13">調査・比較・ラフ試作・記録</text><text x="830" y="80" fill="#9a6b00" font-size="18">SPECIALISTS</text><text x="830" y="106" fill="#18201e" font-size="13">専門設計・施工・法務・安全</text></g>
         </svg>
-        <figcaption>本人を管理業務へ寄せるのではない。核心判断は本人に残し、その前後の記録と完遂をシステムへ渡す。</figcaption>
+        <figcaption>本人を管理業務へ寄せず、AIに責任を偽装しない。核心判断は本人に残し、専門判断は専門家へ、調査・比較・ラフ試作・証拠化はAIへ渡す。</figcaption>
       </figure>
       <div class="system-grid reveal">
-        <div class="system-side"><h3>Johnny / 発散と越境</h3><ul><li>現場の違和感をつかむ</li><li>問いと概念をつくる</li><li>異分野の人を巻き込む</li><li>体験の核心を判断する</li><li>最初のプロトタイプを動かす</li></ul></div>
+        <div class="system-side"><h3>Johnny / 問いと判断</h3><ul><li>現場の違和感をつかむ</li><li>問いと概念をつくる</li><li>異分野の人を巻き込む</li><li>体験の核心を判断する</li><li>検証結果から次を決める</li></ul></div>
         <div class="system-bridge">⇄</div>
-        <div class="system-side"><h3>AI + Operator / 収束と反復</h3><ul><li>記録・検索・比較を継続する</li><li>タスク・期限・証拠を追跡する</li><li>提案書とケースへ構造化する</li><li>定型連絡と運用を自動化する</li><li>完了条件と数字を回収する</li></ul></div>
+        <div class="system-side"><h3>AI / 速度と証拠</h3><ul><li>公開資料を再帰的に調べる</li><li>記録・検索・比較を継続する</li><li>構想をラフ試作へ変える</li><li>タスク・期限・証拠を追跡する</li><li>ケースと公開物へ構造化する</li></ul></div>
+        <div class="system-bridge">⇄</div>
+        <div class="system-side"><h3>Specialists / 専門責任</h3><ul><li>専門設計と計算を担う</li><li>施工実務と品質を担保する</li><li>法務・安全を判断する</li><li>専門領域の成立性を検証する</li><li>最終成果の責任境界を明確にする</li></ul></div>
       </div>
+      <aside class="billing-evidence reveal"><small>W031 / CURRENT-SIDE MEASUREMENT</small><h3>棚卸し自体を、full-cycleで一周した。</h3><p>W031作成直前のスナップショットで、66成果物、親仕事77件＋子活動20件、D1公開ページ6点を約42.5時間のファイル生成観測窓で構築した。42.5時間は連続作業時間ではない。本人の確認・訂正・判断時間と、外部顧客の市場成果は未確定として分離する。</p><div class="billing-clusters"><span>66成果物</span><span>6公開ページ</span><span>本人確認時間は回答待ち</span></div></aside>
       <aside class="billing-evidence reveal"><small>CURRENT OPERATING ROLE / INNFRA</small><h3>構想だけでなく、顧客・商務・現場まで横断する。</h3><p>公開プロフィールと内部記録から、提案、再ヒアリング、自治体・パートナー調整、見積、現場課題対応、広報を案件横断で反復していることを確認した。担当タスクは役割の証拠として扱い、完了・採用・成約は別に裏づける。</p><div class="billing-clusters"><span>構想・顧客開発</span><span>商務・調整</span><span>実装後の現場対応</span></div></aside>
     </section>
 
