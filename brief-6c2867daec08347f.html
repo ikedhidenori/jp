@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="施設移設の可否判断に必要な論点と次のアクションを匿名化してまとめた公開用ブリーフです。">
+  <title>移設可否検討ブリーフ｜判断材料と次の一手</title>
+  <style>
+    :root {
+      --ink: #1c2824;
+      --muted: #617069;
+      --paper: #f4f0e6;
+      --white: #fffdf8;
+      --forest: #174f41;
+      --forest-2: #2f6e5b;
+      --amber: #8b5312;
+      --amber-on-dark: #dda24d;
+      --line: #d8d2c4;
+      --soft: #e4ece7;
+      --shadow: 0 18px 50px rgba(28, 40, 36, .09);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 90% 5%, rgba(194, 122, 36, .12), transparent 27rem),
+        linear-gradient(180deg, #f8f5ed 0%, var(--paper) 100%);
+      font-family: "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", sans-serif;
+      line-height: 1.75;
+      letter-spacing: .02em;
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .masthead {
+      padding: 28px 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--amber);
+    }
+
+    .privacy {
+      padding: 6px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, .72);
+      white-space: nowrap;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      margin-top: 16px;
+      padding: clamp(34px, 7vw, 78px);
+      color: #f9f6ed;
+      background: var(--forest);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -80px;
+      bottom: -180px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      box-shadow: 0 0 0 48px rgba(255,255,255,.04), 0 0 0 96px rgba(255,255,255,.03);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255,255,255,.34);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f0b15d;
+      box-shadow: 0 0 0 5px rgba(240,177,93,.15);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 20px;
+      font-size: clamp(34px, 6vw, 66px);
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin-bottom: 0;
+      color: rgba(249,246,237,.8);
+      font-size: clamp(15px, 2vw, 18px);
+    }
+
+    main { padding: 68px 0 82px; }
+
+    section + section { margin-top: 74px; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .kicker {
+      margin-bottom: 8px;
+      color: var(--forest-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-size: clamp(27px, 4vw, 42px);
+      line-height: 1.28;
+      letter-spacing: -.025em;
+    }
+
+    .section-head > p {
+      margin-bottom: 3px;
+      color: var(--muted);
+    }
+
+    .verdict {
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1fr);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .verdict-label {
+      display: grid;
+      place-items: center;
+      min-height: 170px;
+      color: white;
+      background: var(--amber);
+      font-size: 18px;
+      font-weight: 800;
+      writing-mode: vertical-rl;
+      letter-spacing: .18em;
+    }
+
+    .verdict-body { padding: 30px 34px; }
+
+    .verdict-body strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--forest);
+      font-size: 23px;
+      line-height: 1.5;
+    }
+
+    .verdict-body p { margin-bottom: 0; color: var(--muted); }
+
+    .gates {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .gate {
+      position: relative;
+      min-height: 230px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,253,248,.8);
+    }
+
+    .gate-number {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      color: #b9c5bf;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 40px;
+      line-height: 1;
+    }
+
+    .gate h3 {
+      max-width: calc(100% - 50px);
+      margin-bottom: 15px;
+      color: var(--forest);
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .gate p { margin-bottom: 16px; color: var(--muted); }
+
+    .evidence {
+      display: inline-block;
+      padding: 5px 9px;
+      color: var(--forest);
+      background: var(--soft);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .route {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .route::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      left: 9%;
+      right: 9%;
+      height: 2px;
+      background: var(--line);
+    }
+
+    .step {
+      position: relative;
+      padding: 0 10px;
+      text-align: center;
+    }
+
+    .dot {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 16px;
+      color: white;
+      background: var(--forest);
+      border: 7px solid var(--paper);
+      border-radius: 50%;
+      font-weight: 800;
+    }
+
+    .step:last-child .dot { background: var(--amber); }
+
+    .step h3 { margin-bottom: 8px; font-size: 16px; line-height: 1.45; }
+    .step p { margin-bottom: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    .fact-note {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      padding: 26px 28px;
+      border-left: 4px solid var(--forest-2);
+      background: var(--soft);
+      border-radius: 0 18px 18px 0;
+    }
+
+    .fact-icon {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      color: white;
+      background: var(--forest-2);
+      border-radius: 14px;
+      font-weight: 900;
+    }
+
+    .fact-note strong { display: block; margin-bottom: 5px; }
+    .fact-note p { margin-bottom: 0; color: var(--muted); }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+    }
+
+    .action-panel {
+      padding: 30px;
+      border-radius: var(--radius);
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+
+    .action-panel.dark {
+      color: #f9f6ed;
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .action-panel h3 { margin-bottom: 18px; font-size: 21px; }
+
+    .checklist {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      position: relative;
+      padding: 13px 0 13px 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .dark .checklist li { border-color: rgba(255,255,255,.16); }
+
+    .dark .checklist li::before { color: var(--amber-on-dark); }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      font-weight: 900;
+    }
+
+    .decision {
+      padding: clamp(30px, 5vw, 48px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .decision h2 { margin-bottom: 16px; }
+    .decision p { max-width: 760px; margin: 0 auto; color: var(--muted); }
+
+    footer {
+      padding: 0 0 40px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-line {
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 28px, 1120px); }
+      .masthead { align-items: flex-start; }
+      .hero { border-radius: 22px; }
+      .section-head { grid-template-columns: 1fr; gap: 12px; }
+      .verdict { grid-template-columns: 1fr; }
+      .verdict-label { min-height: auto; padding: 12px; writing-mode: horizontal-tb; }
+      .gates, .actions { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; gap: 18px; }
+      .route::before { top: 4%; bottom: 4%; left: 28px; right: auto; width: 2px; height: auto; }
+      .step { display: grid; grid-template-columns: 58px 1fr; column-gap: 16px; text-align: left; }
+      .dot { grid-row: 1 / span 2; margin: 0; border-color: var(--paper); }
+      .step h3 { align-self: end; }
+      .footer-line { flex-direction: column; }
+    }
+
+    @media (max-width: 430px) {
+      .masthead { display: block; }
+      .privacy { display: inline-block; margin-top: 10px; }
+      .hero { padding: 32px 24px; }
+      .verdict-body, .gate, .action-panel { padding: 24px; }
+      .fact-note { grid-template-columns: 1fr; }
+      .section-head { margin-bottom: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <div class="masthead">
+      <div class="eyebrow">Decision brief</div>
+      <div class="privacy">公開用・匿名化済み</div>
+    </div>
+    <div class="hero">
+      <div class="status">現時点の結論：条件付き・未決</div>
+      <h1>移設可否を決めるための<br>判断材料と次の一手</h1>
+      <p>施設一式の引き継ぎを前提に、技術・行政・土地・費用の論点を整理。実行判断に必要な証拠と、短期で進める順序を一枚にまとめました。</p>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section aria-labelledby="summary-title">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Executive summary</div>
+          <h2 id="summary-title">移設そのものは可能性あり。<br>ただし、まだ発注判断はできない。</h2>
+        </div>
+        <p>共有された技術資料から、構造体は軽量部材で構成され、一般的な工具と人力を中心に分解・再組立・移動できる前提が確認されています。一方、実際の移設可否は構造体だけでなく、設置先の扱い、土地条件、付帯設備を含む総費用で決まります。</p>
+      </div>
+
+      <div class="verdict">
+        <div class="verdict-label">暫定判断</div>
+        <div class="verdict-body">
+          <strong>「移設できるか」ではなく、「適法かつ事業として成立する形で、総額を抑えて移設できるか」を判断する段階です。</strong>
+          <p>次の四つのゲートを短期間でそろえ、条件が満たされれば移設へ、満たされなければ代替案へ切り替えます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="gates-title">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Decision gates</div>
+          <h2 id="gates-title">未解決の四つのゲート</h2>
+        </div>
+        <p>口頭の見解や概算だけで進めず、それぞれを確認可能な証拠に変えることが重要です。</p>
+      </div>
+
+      <div class="gates">
+        <article class="gate">
+          <div class="gate-number">01</div>
+          <h3>行政上の取り扱い</h3>
+          <p>分解・移動可能な構造であることを資料で示し、設置後の利用方法を含めた扱いを関係行政機関へ確認する。</p>
+          <span class="evidence">必要証拠：確認記録</span>
+        </article>
+
+        <article class="gate">
+          <div class="gate-number">02</div>
+          <h3>設置先の利用可否</h3>
+          <p>候補地の権利関係、用途、造成の要否、搬入経路を一体で確認。候補地が決まらなければ他の検討も確定しない。</p>
+          <span class="evidence">必要証拠：現地条件表</span>
+        </article>
+
+        <article class="gate">
+          <div class="gate-number">03</div>
+          <h3>フルスコープの総費用</h3>
+          <p>構造体だけでなく、エネルギー・水循環・内装・床まわり・運搬・再施工まで含む同一条件の見積もりを作る。</p>
+          <span class="evidence">必要証拠：比較見積書</span>
+        </article>
+
+        <article class="gate">
+          <div class="gate-number">04</div>
+          <h3>引き継ぐ価値の範囲</h3>
+          <p>「箱だけ」では成立しにくい。付帯設備の状態と再利用範囲を確認し、循環型システム一式としての価値を評価する。</p>
+          <span class="evidence">必要証拠：設備診断</span>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="route-title">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Critical path</div>
+          <h2 id="route-title">判断までの最短ルート</h2>
+        </div>
+        <p>各作業は並行して進めつつ、最終判断は四つの証拠がそろった時点で一度に行います。</p>
+      </div>
+
+      <div class="route" aria-label="判断までの進行順序">
+        <article class="step">
+          <div class="dot">1</div>
+          <h3>技術資料を提示</h3>
+          <p>分解・再組立・移動の実態を視覚資料で説明</p>
+        </article>
+        <article class="step">
+          <div class="dot">2</div>
+          <h3>候補地を確定</h3>
+          <p>利用可否と搬入条件を現地ベースで確認</p>
+        </article>
+        <article class="step">
+          <div class="dot">3</div>
+          <h3>現地調査と再見積もり</h3>
+          <p>地元施工者も含め、削減余地を具体化</p>
+        </article>
+        <article class="step">
+          <div class="dot">4</div>
+          <h3>移設／代替を判断</h3>
+          <p>総費用と事業成立性で最終選択</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-label="技術資料から確認できること">
+      <div class="fact-note">
+        <div class="fact-icon">i</div>
+        <div>
+          <strong>技術資料が支えるのは「移動可能性」であり、設置後の法的取り扱いを自動的に確定するものではありません。</strong>
+          <p>軽量で分解可能という構造上の特徴は重要な説明材料です。ただし、継続利用の方法や設置状態も含め、関係行政機関の確認記録を残す必要があります。</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="actions-title">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Next actions</div>
+          <h2 id="actions-title">役割別の次アクション</h2>
+        </div>
+        <p>個人名ではなく、役割単位で実行責任を整理しています。</p>
+      </div>
+
+      <div class="actions">
+        <article class="action-panel">
+          <h3>受け入れ側</h3>
+          <ul class="checklist">
+            <li>技術資料を添えて行政上の扱いを再確認する</li>
+            <li>候補地の権利・用途・搬入条件を整理する</li>
+            <li>地元施工者による現地確認を調整する</li>
+          </ul>
+        </article>
+
+        <article class="action-panel dark">
+          <h3>施設・技術側</h3>
+          <ul class="checklist">
+            <li>分解・再組立を示す資料を提供する</li>
+            <li>付帯設備の状態と再利用範囲を確認する</li>
+            <li>現地条件を反映した再見積もりを支援する</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="decision" aria-labelledby="decision-title">
+      <div class="kicker">Go / No-go</div>
+      <h2 id="decision-title">最終判断の基準</h2>
+      <p>行政上の扱いが確認でき、候補地が使用可能で、付帯設備を含む総費用が事業計画に収まり、運用開始までの工程が成立すること。この四条件がそろった場合のみ移設を実行します。</p>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <div class="footer-line">
+      <span>Public decision brief / 匿名化編集版</span>
+      <span>公開期限：2026年7月16日 17:37（日本時間）</span>
+    </div>
+  </footer>
+</body>
+</html>
