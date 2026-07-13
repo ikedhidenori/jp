@@ -142,6 +142,16 @@
     .river-map svg { display: block; min-width: 960px; width: 100%; height: auto; }
     .river-map text { font-family: var(--body); }
     .river-caption { max-width: 820px; margin: 28px 0 0 auto; color: #bcc5bf; font-size: 14px; }
+    .proof-chain { margin: 42px 0 0; }
+    .proof-chain h3 { max-width: 780px; margin: 0; font-size: clamp(24px, 3vw, 38px); }
+    .proof-chain > p { max-width: 800px; margin: 14px 0 0; color: #bcc5bf; }
+    .proof-chain ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 26px 0 0; padding: 0; list-style: none; }
+    .proof-chain li { min-height: 164px; padding: 20px; border: 1px solid rgba(255,255,255,.18); border-radius: 18px; background: rgba(255,255,255,.035); }
+    .proof-chain time { display: block; color: var(--sun); font: 700 14px/1 var(--mono); letter-spacing: .08em; }
+    .proof-chain b { display: block; margin-top: 13px; color: var(--paper); font-size: 18px; }
+    .proof-chain li span { display: block; margin-top: 8px; color: #bcc5bf; font-size: 13px; }
+    .full-cycle-boundary { padding: 16px 0 16px 18px; border-left: 3px solid var(--sun); color: #bcc5bf; }
+    .full-cycle-boundary strong { color: var(--paper); }
     .billing-evidence { margin-top: 34px; padding: 24px; border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius); background: rgba(255,255,255,.04); }
     .billing-evidence small { color: var(--sun); font-weight: 800; letter-spacing: .12em; }
     .billing-evidence h3 { margin: 12px 0 8px; font-size: clamp(23px, 3vw, 34px); }
@@ -420,6 +430,7 @@
       .sprint-timeline { grid-template-columns: 1fr 1fr; }
       .sprint-step:last-child { grid-column: 1 / -1; }
       .billing-clusters { grid-template-columns: 1fr; }
+      .proof-chain ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .profile-panel.active { grid-template-columns: 1fr; }
       .profile-side { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
       .copy-card, .copy-card.wide { grid-column: span 6; }
@@ -446,6 +457,8 @@
       .sprint-timeline { grid-template-columns: 1fr; }
       .sprint-lane, .sprint-step { min-height: 0; }
       .sprint-step:not(:last-child) { margin-right: 0; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
+      .proof-chain ol { grid-template-columns: 1fr; }
+      .proof-chain li { min-height: 0; }
       .profile-tabs { grid-template-columns: 1fr; }
       .profile-panel { min-height: 0; padding: 26px 20px; border-radius: 18px; }
       .copy-card, .copy-card.wide { grid-column: 1 / -1; min-height: 280px; }
@@ -534,6 +547,19 @@
         </svg>
       </figure>
       <p class="river-caption">個人の一次体験から始まり、扱う関係者と実装範囲が徐々に広がっている。これは転職回数ではなく、同じ問いをより大きな単位で扱えるようになった軌跡として説明できる。</p>
+      <div class="proof-chain reveal">
+        <h3>職種を増やしたのではない。<br>一人称で貫く範囲を広げてきた。</h3>
+        <p>約100人の個人的な共同体験から、企業・地域の実証、さらにAI協業OSへ。同じ方法が対象と責任範囲を変えながら反復している。</p>
+        <ol aria-label="2010年から2026年までの証拠鎖">
+          <li><time datetime="2010">2010</time><b>共同体験</b><span>約100人・1泊2日の体験を共同設営し、234ページの写真出版へ。</span></li>
+          <li><time datetime="2014">2014</time><b>生活実験</b><span>家、物技交換、Webをつなぎ、暮らしそのものを参加型作品へ。</span></li>
+          <li><time datetime="2018">2018</time><b>カテゴリー形成</b><span>VLDKを車両、都市の共有空間、イベント、発信へ展開。</span></li>
+          <li><time datetime="2020">2020</time><b>継続有償の場づくり</b><span>LAC八ヶ岳を、屋外と共創運営を含むLiving Labへ。</span></li>
+          <li><time datetime="2025">2025</time><b>地域実証</b><span>文化財の制約下で、滞在、設備、運営、広報を一つの体験へ。</span></li>
+          <li><time datetime="2026">2026</time><b>方法の再利用</b><span>自治体公園の活用提案とAI協業OSへ。採用・成果は検証前に断定しない。</span></li>
+        </ol>
+        <p class="full-cycle-boundary"><strong>AI-native full-cycle</strong>は「一人で全部を完成させる」ことではない。問い、調査、構想、体験設計、ラフ試作、発信、検証判断を貫き、専門家へ渡すBriefと責任境界を早く明確にする。</p>
+      </div>
       <aside class="billing-evidence reveal"><small>2009–2017 / DIGITAL PROOF</small><h3>広告制作から、参加型Webと運用できるECへ。</h3><p>外部資料で役割を補強できたCandle Night、skmtSocial、わざわざ、La Vida、ONIBUSに加え、本人ポートフォリオと同時代公開物から、出版PR、食・農、音楽、デザイン、芸術祭、ユースオーケストラ、持続可能な漁業の8件も復元した。さらに旧HTMLから、POMPON CAKES、MOMOE、ZERO PUBLICのユニット制作クレジットと、FISHMANS+の池田秀紀「Web Production」実名クレジットを回収した。ZERO PUBLICは、候補地を共同地図へ登録し、住居・食糧地・土地に分類してSNSで共有する参加導線を実装し、同年の美術館展にも展開した。FISHMANS+には51会場の登録・地域検索・地図・主催ガイドが実装され、プロジェクト全体は同時視聴1万3,000人・総視聴約7万人と記録される。展示・視聴等を本人単独またはWebだけの成果とはしない。共同ユニット内の個人分担、契約、登録・事業成果は確認前に帰属させない。書籍本体の役割は「撮影、編集補助」としてPRサイト制作から分離する。</p><div class="billing-clusters"><span>反復型デジタル広告制作</span><span>Web／SNSの参加体験設計</span><span>事業者・文化領域のWeb／EC統合</span></div></aside>
     </section>
 
