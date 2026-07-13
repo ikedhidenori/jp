@@ -117,14 +117,18 @@
       .boundary h3 { margin-bottom: 2mm; font-size: 11pt; }
       .boundary p, .boundary li { font-size: 7.5pt; }
       .method, .proof { margin-top: 5mm; }
+      .steps { grid-template-columns: repeat(5, 1fr); }
       .step { padding: 2.5mm; }
       .step strong { font-size: 8.2pt; }
       .step span, .step b { font-size: 6.8pt; }
       .case { padding: 3mm; }
+      .proof-grid { grid-template-columns: repeat(4, 1fr); gap: 1px; }
       .case h3 { font-size: 8.2pt; }
       .case p { font-size: 7.2pt; }
       .case small { font-size: 6.8pt; }
-      .footer { margin-top: 2mm; padding-top: 2.5mm; }
+      .footer { display: grid; grid-template-columns: 1fr auto; margin-top: 2mm; padding-top: 2.5mm; }
+      .fit { display: flex; }
+      .links { text-align: right; }
       .fit p, .fit b, .links { font-size: 7pt; }
       a { text-decoration: underline; }
     }
