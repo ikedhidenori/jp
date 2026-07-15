@@ -4,330 +4,550 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>住宅の解体と、尊厳のミニマム — INNFRA 未来仮説×事業仮説 統合 v1.0</title>
+<title>住宅の解体と、尊厳のミニマム — INNFRA 未来仮説×事業仮説 v1.0</title>
 <style>
 :root{
-  --ink:#1a1a1a; --ink-soft:#4a4a4a; --ink-faint:#8a8a8a;
-  --bg:#fafaf9; --card:#ffffff; --line:#e5e3e0;
-  --amber:#b45309; --water:#0e7490; --danger:#9f1239;
-  --tag-v:#166534; --tag-w:#92400e; --tag-u:#6b7280;
+  --ink:#1c1917; --ink2:#57534e; --ink3:#a8a29e;
+  --bg:#fcfcfb; --card:#ffffff; --line:#e7e5e4;
+  --teal:#0891b2; --teal-d:#155e75; --teal-bg:#ecfeff;
+  --amber:#d97706; --amber-d:#92400e; --amber-bg:#fffbeb;
+  --red:#be123c;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"Noto Sans JP","Hiragino Sans",sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;font-feature-settings:"palt";-webkit-font-smoothing:antialiased}
-.wrap{max-width:960px;margin:0 auto;padding:0 24px}
-section{padding:56px 0;border-bottom:1px solid var(--line)}
-h2{font-size:1.5rem;font-weight:700;letter-spacing:.02em;margin-bottom:8px}
-h2 .no{font-size:.8rem;font-weight:500;color:var(--ink-faint);display:block;letter-spacing:.15em;margin-bottom:4px}
-h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px}
+body{font-family:"Noto Sans JP","Hiragino Sans",sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;font-feature-settings:"palt";-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+section{padding:52px 0}
+section+section{border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.sec-no{font-size:.72rem;font-weight:700;color:var(--ink3);letter-spacing:.18em;white-space:nowrap}
+h2{font-size:1.42rem;font-weight:800;letter-spacing:.01em}
+.sec-msg{font-size:1rem;font-weight:700;color:var(--ink);background:linear-gradient(transparent 65%,#fde68a 65%);display:inline;line-height:2}
+.sec-msg-wrap{margin:4px 0 26px}
 p{margin-bottom:1em}
-.lead{color:var(--ink-soft);font-size:.95rem;margin-bottom:28px}
-.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:1px 8px;border-radius:3px;vertical-align:middle;letter-spacing:.05em;white-space:nowrap}
-.tag.v{background:#dcfce7;color:var(--tag-v)}
-.tag.w{background:#fef3c7;color:var(--tag-w)}
-.tag.u{background:#f3f4f6;color:var(--tag-u)}
-.tag.hon{background:#e0f2fe;color:#075985}
-.tag.sui{background:#ede9fe;color:#5b21b6}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:"Noto Sans JP",sans-serif}
+.num{font-variant-numeric:tabular-nums}
 
-/* hero */
-.hero{padding:72px 0 56px;border-bottom:2px solid var(--ink)}
-.hero .draft{display:inline-block;border:1.5px solid var(--danger);color:var(--danger);font-size:.72rem;font-weight:700;padding:3px 12px;letter-spacing:.12em;margin-bottom:20px}
-.hero h1{font-size:2.1rem;font-weight:800;line-height:1.4;letter-spacing:.01em;margin-bottom:10px}
-.hero .sub{color:var(--ink-soft);font-size:.9rem;margin-bottom:36px}
-.hypothesis{background:var(--ink);color:#fafaf9;padding:28px 32px;font-size:1.02rem;line-height:2.05;border-radius:2px}
-.hypothesis b{color:#fcd34d;font-weight:700}
-.hypothesis .conf{display:block;margin-top:14px;font-size:.72rem;color:#a8a29e}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px 20px 14px;box-shadow:0 1px 2px rgba(28,25,23,.04)}
+.panel .t{font-size:.86rem;font-weight:800;line-height:1.5}
+.panel .s{font-size:.7rem;color:var(--ink3);margin-bottom:10px}
+.panel .src{font-size:.66rem;color:var(--ink3);margin-top:8px;border-top:1px dashed var(--line);padding-top:6px}
+.tagv{color:#15803d;font-weight:700}.tagw{color:#a16207;font-weight:700}
 
-/* stat cards */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:24px 0}
-.stat{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--ink);padding:20px 22px;border-radius:2px}
-.stat .num{font-size:1.75rem;font-weight:800;letter-spacing:.01em;line-height:1.2;font-variant-numeric:tabular-nums}
-.stat .num small{font-size:.95rem;font-weight:700}
-.stat .what{font-size:.85rem;font-weight:700;margin:6px 0 4px}
-.stat .src{font-size:.72rem;color:var(--ink-faint)}
-.stat.water-t{border-top-color:var(--water)}
-.stat.amber-t{border-top-color:var(--amber)}
+.tile{background:var(--ink);color:#fafaf9;border-radius:6px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center}
+.tile .big{font-size:2.3rem;font-weight:800;line-height:1.1;color:#fcd34d}
+.tile .big small{font-size:1.1rem}
+.tile .lbl{font-size:.8rem;font-weight:700;margin-top:6px}
+.tile .sub{font-size:.68rem;color:#a8a29e;margin-top:2px}
+.tile.water{background:var(--teal-d)}
+.tile.water .big{color:#a5f3fc}
 
-/* callout */
-.callout{background:var(--card);border-left:4px solid var(--amber);padding:18px 24px;margin:20px 0;font-size:.95rem;border-radius:0 2px 2px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.callout.blue{border-left-color:var(--water)}
-.callout.red{border-left-color:var(--danger)}
-.callout b{font-weight:700}
+.callout{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:0 6px 6px 0;padding:16px 22px;margin:20px 0;font-size:.93rem}
+.callout.blue{border-left-color:var(--teal)}
+.callout.red{border-left-color:var(--red)}
 
-/* tables */
-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:18px 0;background:var(--card)}
-th{background:var(--ink);color:#fafaf9;font-weight:700;padding:10px 14px;text-align:left;font-size:.8rem;letter-spacing:.04em}
-td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
-tr:last-child td{border-bottom:none}
-td.k{font-weight:700;white-space:nowrap}
-.tbl-scroll{overflow-x:auto;margin:18px 0}
-.tbl-scroll table{min-width:720px;margin:0}
+.hero{padding:64px 0 48px;background:var(--ink);color:#fafaf9}
+.hero .draft{display:inline-block;border:1.5px solid #f87171;color:#fca5a5;font-size:.7rem;font-weight:700;padding:3px 12px;letter-spacing:.12em;margin-bottom:22px;border-radius:3px}
+.hero h1{font-size:2.15rem;font-weight:800;line-height:1.35;margin-bottom:8px}
+.hero .sub{color:#a8a29e;font-size:.85rem;margin-bottom:30px}
+.hero .hyp{font-size:1.04rem;line-height:2.1;max-width:820px}
+.hero .hyp b{color:#fcd34d}
+.hero .conf{font-size:.7rem;color:#78716c;margin-top:16px}
 
-/* scenes */
-.scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:22px 0}
-.scene{background:var(--card);border:1px solid var(--line);padding:20px;border-radius:2px}
-.scene .who{font-weight:800;font-size:.95rem;margin-bottom:2px}
-.scene .type{font-size:.7rem;color:var(--ink-faint);letter-spacing:.1em;margin-bottom:10px}
-.scene p{font-size:.82rem;line-height:1.8;margin-bottom:8px;color:var(--ink-soft)}
-.scene .point{font-size:.78rem;font-weight:700;color:var(--amber)}
-.scene.dead .point{color:var(--water)}
+.dcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:22px 0}
+.dcard{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px}
+.dcard .name{font-weight:800;font-size:.9rem}
+.dcard .ind{font-size:.74rem;color:var(--ink2);margin:6px 0 10px;min-height:3em}
+.dcard .now{font-size:.76rem;font-weight:700;padding:5px 10px;border-radius:4px;display:inline-block}
+.now.head{background:var(--teal-bg);color:var(--teal-d)}
+.now.side{background:#f5f5f4;color:var(--ink2)}
+.now.tail{background:#fff1f2;color:var(--red)}
 
-/* two col */
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:20px 0}
-@media(max-width:700px){.cols{grid-template-columns:1fr}}
-.col-box{background:var(--card);border:1px solid var(--line);padding:22px;border-radius:2px}
-.col-box h4{font-size:.95rem;font-weight:800;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
-.col-box ol{padding-left:1.3em;font-size:.88rem}
-.col-box ol li{margin-bottom:9px}
-.col-box .own{font-size:.72rem;color:var(--ink-faint)}
+.scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin:22px 0}
+.scene{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px;border-top:4px solid var(--amber)}
+.scene.c-only{border-top-color:var(--teal)}
+.scene .who{font-weight:800;font-size:.95rem}
+.scene .type{font-size:.68rem;color:var(--ink3);letter-spacing:.1em;margin-bottom:8px}
+.scene p{font-size:.8rem;line-height:1.75;color:var(--ink2);margin-bottom:8px}
+.scene .pt{font-size:.76rem;font-weight:800;color:var(--amber-d)}
+.scene .buys{margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);font-size:.72rem}
+.buys b{font-weight:800}
+.yes{color:#15803d}.no{color:var(--red)}
 
-ul.tight{padding-left:1.3em;font-size:.92rem}
-ul.tight li{margin-bottom:8px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+@media(max-width:760px){.cols{grid-template-columns:1fr}}
+.colbox{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:20px 22px}
+.colbox h4{font-size:.95rem;font-weight:800;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.colbox ol{padding-left:1.25em;font-size:.87rem}
+.colbox ol li{margin-bottom:9px}
+.note{font-size:.72rem;color:var(--ink3)}
 
-.foot{padding:40px 0 64px;font-size:.75rem;color:var(--ink-faint);line-height:1.9}
-.foot b{color:var(--ink-soft)}
-svg{max-width:100%;height:auto;display:block;margin:24px auto}
-.svg-cap{text-align:center;font-size:.75rem;color:var(--ink-faint);margin-top:-12px;margin-bottom:8px}
-.legend{font-size:.75rem;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);padding:10px 16px;border-radius:2px;margin-top:20px}
-@media(max-width:600px){.hero h1{font-size:1.55rem}.hypothesis{padding:22px 20px;font-size:.94rem}section{padding:44px 0}}
-@media print{body{background:#fff}.hero{padding-top:24px}}
+table{width:100%;border-collapse:collapse;font-size:.84rem;background:var(--card)}
+th{background:var(--ink);color:#fafaf9;font-weight:700;padding:9px 13px;text-align:left;font-size:.78rem}
+td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+
+.foot{padding:40px 0 60px;font-size:.72rem;color:var(--ink3);line-height:1.9;border-top:2px solid var(--ink)}
+.foot b{color:var(--ink2)}
+.legend-bar{font-size:.72rem;color:var(--ink2);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:9px 16px;margin-top:24px}
+@media(max-width:600px){.hero h1{font-size:1.6rem}section{padding:40px 0}}
+@media print{.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
 </head>
 <body>
 
-<!-- ============ HERO ============ -->
+<!-- ================= HERO ================= -->
 <div class="hero"><div class="wrap">
-  <span class="draft">DRAFT v1.0 — 2026-07-16 戦略議論用の叩き台 (FB 前・確定事実ではない)</span>
+  <span class="draft">DRAFT v1.0 — 2026-07-16 戦略議論用 叩き台（FB 前）</span>
   <h1>住宅の解体と、尊厳のミニマム</h1>
-  <div class="sub">INNFRA 未来仮説 × 事業仮説 統合 — 2026-07-15 / 10〜20 年逆算による事業領域仮説</div>
-  <div class="hypothesis">
-    単身化と生存コスト危機が進む 2040 年の日本で、住宅は「箱の所有」から「<b>尊厳のミニマム — 寝る・立てる・暖かい・洗える・水がある — を保証する器と、それを支える網への接続権</b>」へ解体・再結合される。その成立可能性は、既設インフラなしで水・衛生・エネルギーを賄う規格が握る。<b>INNFRA はその規格を書く会社になる。</b>
-    <span class="conf">確信度: 中 — 本人回答 + 検証済データ + 推論の統合。本資料はすべての主張に確度タグを付け、反証条件を先に宣言する (§8)。</span>
+  <div class="sub">INNFRA 未来仮説 × 事業仮説 統合 — 10〜20 年逆算 / 2026-07-15</div>
+  <div class="hyp">
+    単身化と生存コスト危機が進む 2040 年の日本で、住宅は「箱の所有」から「<b>尊厳のミニマム — 寝る・立てる・暖かい・洗える・水がある — を保証する器と、網への接続権</b>」へ解体・再結合される。その成立可能性は、既設インフラなしで水・衛生・エネルギーを賄う規格が握る。<b>INNFRA はその規格を書く会社になる。</b>
   </div>
-  <div class="legend">
-    確度タグの読み方 — <span class="tag v">検証済</span> 独立 3 票の反証投票を通過した一次統計 / <span class="tag w">照合済</span> 一次ソース確認済 (使用前 URL 目視推奨) / <span class="tag hon">本人</span> 実体験・N=1 / <span class="tag sui">推論</span> AI・チーム推論 / <span class="tag u">未確認</span> 検証前 — 隠さず明示
-  </div>
+  <div class="conf">全主張に確度タグ付き ✅=3票検証済 ⚠=一次ソース照合済 ｜ 反証条件は §06 で先に宣言 ｜ 確定事実として扱わない</div>
 </div></div>
 
-<!-- ============ 1. 外部既成事実 ============ -->
+<!-- ================= 01 ファクト ================= -->
 <section><div class="wrap">
-  <h2><span class="no">01 — 基礎 (ファクト)</span>外部で既に始まっている変化</h2>
-  <p class="lead">これは社内の思いつきではなく、外部で観測済みの変化から出発する。数値はすべて出典つき。</p>
-  <div class="grid">
-    <div class="stat"><div class="num">43.5<small>%</small></div><div class="what">単独世帯が最大類型に (2040 年 2,442 万世帯)</div><div class="src">社人研 世帯推計 2024・高齢単身は 1,041 万 = 1.4 倍 <span class="tag w">照合済</span></div></div>
-    <div class="stat"><div class="num">66<small>%</small></div><div class="what">今後 20 年の高齢者増 (+211 万人) が東京圏に集中</div><div class="src">社人研推計の加工値 — 高齢化は地方でなく都市の問題になる <span class="tag w">照合済</span></div></div>
-    <div class="stat water-t"><div class="num">+48<small>%</small></div><div class="what">水道料金 — 2046 年までに 96% の事業体で値上げ必要</div><div class="src">EY×水の安全保障戦略機構 2024 (推計) <span class="tag w">照合済</span></div></div>
-    <div class="stat water-t"><div class="num">82<small> 事業者</small></div><div class="what">2024 年に実際に値上げ (過去最多・最大 4 割・800 万人)</div><div class="src">管路更新は現行 130 年ペース — 推計でなく進行中の実測 <span class="tag w">照合済</span></div></div>
-    <div class="stat"><div class="num">52.4<small>%</small></div><div class="what">20 代の休日「移動ゼロ」— 34 年で倍増。移動の主役は 70 代へ逆転</div><div class="src">国交省 全国都市交通特性調査 2021 <span class="tag v">検証済</span></div></div>
-    <div class="stat amber-t"><div class="num">光熱費</div><div class="what">多拠点サブスク先行者の死因 — 需要不足ではなくコスト構造</div><div class="src">大手 2 社が 2024 年に定額モデル撤退。運営者自身が理由を明示 <span class="tag w">照合済</span></div></div>
+  <div class="sec-head"><span class="sec-no">01 / 基礎データ</span><h2>外部で既に始まっている変化</h2></div>
+  <div class="sec-msg-wrap"><span class="sec-msg">社内の思いつきではない — 公的統計が先に動いている。</span></div>
+
+  <div class="grid3">
+    <!-- 1a 外出率 折れ線 -->
+    <div class="panel">
+      <div class="t">外出率は 34 年間 一貫低下</div><div class="s">調査日に外出した人の割合（全国 70 都市）</div>
+      <svg viewBox="0 0 320 185" role="img" aria-label="外出率の推移 1987-2021">
+        <line x1="36" y1="155" x2="300" y2="155" stroke="#e7e5e4"/>
+        <line x1="36" y1="95" x2="300" y2="95" stroke="#f5f5f4"/>
+        <line x1="36" y1="35" x2="300" y2="35" stroke="#f5f5f4"/>
+        <text x="30" y="159" font-size="9" fill="#a8a29e" text-anchor="end">50%</text>
+        <text x="30" y="99" font-size="9" fill="#a8a29e" text-anchor="end">70%</text>
+        <text x="30" y="39" font-size="9" fill="#a8a29e" text-anchor="end">90%</text>
+        <polyline points="50,46 246,62 286,83" fill="none" stroke="#0891b2" stroke-width="2.5" stroke-linecap="round"/>
+        <polyline points="50,97 246,125 286,147" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="50" cy="46" r="3.5" fill="#0891b2"/><circle cx="246" cy="62" r="3.5" fill="#0891b2"/><circle cx="286" cy="83" r="4.5" fill="#0891b2"/>
+        <circle cx="50" cy="97" r="3.5" fill="#d97706"/><circle cx="246" cy="125" r="3.5" fill="#d97706"/><circle cx="286" cy="147" r="4.5" fill="#d97706"/>
+        <text x="60" y="42" font-size="10" font-weight="700" fill="#155e75">平日 86.3%</text>
+        <text x="230" y="79" font-size="10" font-weight="700" fill="#155e75" text-anchor="end">→ 74.1%</text>
+        <text x="62" y="112" font-size="10" font-weight="700" fill="#92400e">休日 69.5%</text>
+        <text x="232" y="143" font-size="10" font-weight="700" fill="#92400e" text-anchor="end">→ 52.5%</text>
+        <text x="50" y="172" font-size="9.5" fill="#78716c" text-anchor="middle">1987</text>
+        <text x="246" y="172" font-size="9.5" fill="#78716c" text-anchor="middle">2015</text>
+        <text x="286" y="172" font-size="9.5" fill="#78716c" text-anchor="middle">2021</text>
+      </svg>
+      <div class="src">国交省 全国都市交通特性調査 <span class="tagv">✅検証済</span>・低下はコロナ前から</div>
+    </div>
+
+    <!-- 1b 20代 移動ゼロ -->
+    <div class="panel">
+      <div class="t">休日に「移動ゼロ」の 20 代が多数派に</div><div class="s">休日の移動回数 0 回の割合（20 代）</div>
+      <svg viewBox="0 0 320 185" role="img" aria-label="20代の休日移動ゼロ率">
+        <line x1="20" y1="155" x2="300" y2="155" stroke="#e7e5e4"/>
+        <rect x="60" y="101" width="70" height="54" rx="4" fill="#a8a29e"/>
+        <rect x="190" y="56" width="70" height="99" rx="4" fill="#d97706"/>
+        <text x="95" y="93" font-size="15" font-weight="800" fill="#57534e" text-anchor="middle" class="num">28.6%</text>
+        <text x="225" y="48" font-size="15" font-weight="800" fill="#92400e" text-anchor="middle" class="num">52.4%</text>
+        <text x="95" y="171" font-size="10" fill="#78716c" text-anchor="middle">1987</text>
+        <text x="225" y="171" font-size="10" fill="#78716c" text-anchor="middle">2021</text>
+      </svg>
+      <div class="src">同調査 <span class="tagv">✅検証済</span>・「移動が減った」でなく「外出しない人が増えた」構造変化</div>
+    </div>
+
+    <!-- 1c ダンベル 逆転 -->
+    <div class="panel">
+      <div class="t">移動の主役は 70 代へ逆転</div><div class="s">1 日あたり移動回数（2015 年に逆転、2021 年に差が拡大）</div>
+      <svg viewBox="0 0 320 185" role="img" aria-label="20代と70代の移動回数の逆転">
+        <line x1="40" y1="70" x2="280" y2="70" stroke="#e7e5e4" stroke-width="1"/>
+        <line x1="40" y1="130" x2="280" y2="130" stroke="#e7e5e4" stroke-width="1"/>
+        <line x1="98" y1="70" x2="216" y2="70" stroke="#1c1917" stroke-width="2"/>
+        <circle cx="98" cy="70" r="8" fill="#d97706"/>
+        <circle cx="216" cy="70" r="8" fill="#0891b2"/>
+        <text x="98" y="52" font-size="11" font-weight="800" fill="#92400e" text-anchor="middle" class="num">20代 1.43回</text>
+        <text x="216" y="52" font-size="11" font-weight="800" fill="#155e75" text-anchor="middle" class="num">70代 1.60回</text>
+        <text x="160" y="95" font-size="10" fill="#57534e" text-anchor="middle">若者は高齢者より移動しない（2015 実測）</text>
+        <text x="160" y="150" font-size="10.5" font-weight="700" fill="#1c1917" text-anchor="middle">B 層（網）の顧客像は</text>
+        <text x="160" y="168" font-size="10.5" font-weight="700" fill="#1c1917" text-anchor="middle">「移動する高齢者」がデータに沿う</text>
+      </svg>
+      <div class="src">国交省 同調査 <span class="tagv">✅検証済</span></div>
+    </div>
+
+    <!-- 1d 単独世帯 -->
+    <div class="panel">
+      <div class="t">単独世帯 43.5% で最大類型 — ただしピークは 2036</div><div class="s">単独世帯数の推計（万世帯）</div>
+      <svg viewBox="0 0 320 185" role="img" aria-label="単独世帯数の推移と2036年ピーク">
+        <rect x="46" y="25" width="133" height="130" fill="#ecfeff"/>
+        <text x="112" y="20" font-size="9" font-weight="700" fill="#0891b2" text-anchor="middle">← 規格を書く時間窓 →</text>
+        <line x1="30" y1="155" x2="300" y2="155" stroke="#e7e5e4"/>
+        <polyline points="46,122 179,41 212,44 295,71" fill="none" stroke="#0891b2" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="46" cy="122" r="4" fill="#0891b2"/>
+        <circle cx="179" cy="41" r="6" fill="#155e75"/>
+        <circle cx="212" cy="44" r="4" fill="#0891b2"/>
+        <circle cx="295" cy="71" r="4" fill="#0891b2"/>
+        <text x="46" y="140" font-size="10" fill="#155e75" font-weight="700" text-anchor="middle" class="num">2,115</text>
+        <text x="179" y="30" font-size="11" font-weight="800" fill="#155e75" text-anchor="middle" class="num">ピーク 2,453</text>
+        <text x="290" y="90" font-size="10" fill="#155e75" font-weight="700" text-anchor="end" class="num">2,330</text>
+        <text x="46" y="171" font-size="9.5" fill="#78716c" text-anchor="middle">2020</text>
+        <text x="179" y="171" font-size="9.5" fill="#78716c" text-anchor="middle">2036</text>
+        <text x="295" y="171" font-size="9.5" fill="#78716c" text-anchor="middle">2050</text>
+      </svg>
+      <div class="src">社人研 世帯推計 2024 <span class="tagw">⚠照合済</span>・「いつかやる」の猶予はない</div>
+    </div>
+
+    <!-- 1e 高齢単身 -->
+    <div class="panel">
+      <div class="t">高齢単身は 1.4 倍・1,041 万世帯へ</div><div class="s">65 歳以上の単独世帯（万世帯）。増分の 66% は東京圏に着弾</div>
+      <svg viewBox="0 0 320 185" role="img" aria-label="高齢単身世帯の増加">
+        <line x1="20" y1="155" x2="300" y2="155" stroke="#e7e5e4"/>
+        <rect x="60" y="72" width="70" height="83" rx="4" fill="#a8a29e"/>
+        <rect x="190" y="38" width="70" height="117" rx="4" fill="#0891b2"/>
+        <text x="95" y="64" font-size="15" font-weight="800" fill="#57534e" text-anchor="middle" class="num">738万</text>
+        <text x="225" y="30" font-size="15" font-weight="800" fill="#155e75" text-anchor="middle" class="num">1,041万</text>
+        <text x="95" y="171" font-size="10" fill="#78716c" text-anchor="middle">2020 実測</text>
+        <text x="225" y="171" font-size="10" fill="#78716c" text-anchor="middle">2040 推計</text>
+      </svg>
+      <div class="src">社人研 2024 / 東京圏集中は推計加工値 <span class="tagw">⚠照合済</span>・家族という受け皿を持たない初の高齢世代</div>
+    </div>
+
+    <!-- 1f 水道タイル -->
+    <div class="panel" style="display:flex;flex-direction:column;gap:10px;justify-content:center;background:var(--teal-d);border:none">
+      <div style="font-size:.86rem;font-weight:800;color:#fff">水のコスト危機は推計ではなく実測</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div style="flex:1;min-width:80px"><div style="font-size:1.5rem;font-weight:800;color:#a5f3fc" class="num">+48%</div><div style="font-size:.66rem;color:#cffafe">2046 年までに必要な平均値上げ（96% の事業体）</div></div>
+        <div style="flex:1;min-width:80px"><div style="font-size:1.5rem;font-weight:800;color:#a5f3fc" class="num">82</div><div style="font-size:.66rem;color:#cffafe">2024 年に実際に値上げした事業者（過去最多・最大 4 割）</div></div>
+        <div style="flex:1;min-width:80px"><div style="font-size:1.5rem;font-weight:800;color:#a5f3fc" class="num">130年</div><div style="font-size:.66rem;color:#cffafe">現行ペースでの管路全更新の所要年数</div></div>
+      </div>
+      <div style="font-size:.64rem;color:#67e8f9;border-top:1px dashed rgba(255,255,255,.25);padding-top:6px">EY×水の安全保障戦略機構 2024 / 総務省・厚労省 ⚠照合済</div>
+    </div>
   </div>
-  <div class="callout"><b>読み方:</b> 空き家は 2043 年に広義 1,861 万戸 (25.3%) へ増えるが、「家余り」は「住める器余り」ではない — 危険空き家は倍増し、単独世帯は戸建を選ばない (NRI 分析)。<b>安い器が余る未来ではなく、尊厳ある器が足りない未来</b>が来る。<span class="tag w">照合済</span></div>
+
+  <div class="callout"><b>空き家は受け皿にならない:</b> 2043 年に広義 1,861 万戸へ増えるが、危険空き家が倍増する理由自体が「単独世帯は戸建を選ばない」から（NRI 分析 ⚠）。<b>安い器が余る未来ではなく、尊厳ある器が足りない未来</b>が来る。</div>
 </div></section>
 
-<!-- ============ 2. 解体 ============ -->
+<!-- ================= 02 解体 ================= -->
 <section><div class="wrap">
-  <h2><span class="no">02 — 構造</span>住宅機能の解体 — 何が残るか</h2>
-  <p class="lead">バンライフ・シェアハウス遍歴・介護現場の実体験 (N=1) から、現在の住宅が束ねる機能を解体した。<span class="tag hon">本人</span> <span class="tag sui">推論</span></p>
-  <svg viewBox="0 0 720 240" role="img" aria-label="住宅機能の三層解体図">
-    <g font-family="Noto Sans JP,sans-serif">
-      <rect x="20" y="20" width="680" height="52" fill="#f3f4f6" stroke="#e5e3e0"/>
-      <text x="40" y="43" font-size="13" font-weight="700" fill="#6b7280">外部化される</text>
-      <text x="40" y="62" font-size="12" fill="#6b7280">洗濯・映像・冷蔵 — すでに家の外・クラウド・網へ</text>
-      <rect x="20" y="86" width="680" height="52" fill="#fef9ee" stroke="#e5e3e0"/>
-      <text x="40" y="109" font-size="13" font-weight="700" fill="#92400e">こだわりとして携行される</text>
-      <text x="40" y="128" font-size="12" fill="#92400e">コーヒー・音・映像 — 小型化テックが解決する</text>
-      <rect x="20" y="152" width="680" height="66" fill="#1a1a1a"/>
-      <text x="40" y="178" font-size="14" font-weight="800" fill="#fcd34d">還元不能の核 = 尊厳のミニマム</text>
-      <text x="40" y="200" font-size="12.5" fill="#fafaf9">① 尊厳ある寝心地　② 立てる高さ　③ 温熱　＋ 水 (関係が入ると核に戻る)</text>
+  <div class="sec-head"><span class="sec-no">02 / 構造</span><h2>住宅を解体すると、何が残るか</h2></div>
+  <div class="sec-msg-wrap"><span class="sec-msg">3,000 万円の家が束ねていた機能のうち、手放せないのは 4 つだけ。</span></div>
+
+  <svg viewBox="0 0 720 330" role="img" aria-label="住宅機能の三層解体図">
+    <!-- 現在の住宅 -->
+    <rect x="20" y="30" width="200" height="270" rx="8" fill="#f5f5f4" stroke="#d6d3d1" stroke-width="1.5"/>
+    <text x="120" y="56" font-size="13.5" font-weight="800" text-anchor="middle" fill="#1c1917">現在の住宅</text>
+    <text x="120" y="74" font-size="9.5" text-anchor="middle" fill="#78716c">全機能を 1 つの箱に束ねる＝3,000 万円</text>
+    <g font-size="10.5" fill="#57534e">
+      <rect x="38" y="88" width="76" height="24" rx="12" fill="#fff" stroke="#e7e5e4"/><text x="76" y="104" text-anchor="middle">洗濯</text>
+      <rect x="122" y="88" width="76" height="24" rx="12" fill="#fff" stroke="#e7e5e4"/><text x="160" y="104" text-anchor="middle">映像・娯楽</text>
+      <rect x="38" y="120" width="76" height="24" rx="12" fill="#fff" stroke="#e7e5e4"/><text x="76" y="136" text-anchor="middle">冷蔵・調理</text>
+      <rect x="122" y="120" width="76" height="24" rx="12" fill="#fff" stroke="#e7e5e4"/><text x="160" y="136" text-anchor="middle">収納</text>
+      <rect x="38" y="152" width="76" height="24" rx="12" fill="#fffbeb" stroke="#fcd34d"/><text x="76" y="168" text-anchor="middle">コーヒー・音</text>
+      <rect x="122" y="152" width="76" height="24" rx="12" fill="#fffbeb" stroke="#fcd34d"/><text x="160" y="168" text-anchor="middle">趣味の一点</text>
+      <rect x="38" y="184" width="160" height="24" rx="12" fill="#1c1917"/><text x="118" y="200" text-anchor="middle" fill="#fcd34d">寝る・立てる・温熱</text>
+      <rect x="38" y="216" width="160" height="24" rx="12" fill="#1c1917"/><text x="118" y="232" text-anchor="middle" fill="#fcd34d">水（風呂・衛生）</text>
+      <rect x="38" y="248" width="160" height="24" rx="12" fill="#fff" stroke="#e7e5e4"/><text x="118" y="264" text-anchor="middle">住所・信用・安全</text>
     </g>
+    <!-- arrows -->
+    <path d="M 232 110 L 268 92" stroke="#a8a29e" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+    <path d="M 232 168 L 268 172" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#ar2)"/>
+    <path d="M 232 215 L 268 248" stroke="#1c1917" stroke-width="2.5" fill="none" marker-end="url(#ar3)"/>
+    <defs>
+      <marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#a8a29e"/></marker>
+      <marker id="ar2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#d97706"/></marker>
+      <marker id="ar3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#1c1917"/></marker>
+    </defs>
+    <!-- layers -->
+    <rect x="280" y="46" width="420" height="72" rx="6" fill="#f5f5f4" stroke="#d6d3d1"/>
+    <text x="300" y="72" font-size="12.5" font-weight="800" fill="#57534e">外部化される — 網とサービスへ</text>
+    <text x="300" y="92" font-size="10.5" fill="#78716c">洗濯・映像・冷蔵・収納。すでに家の外・クラウド・配送網へ流出中</text>
+    <rect x="280" y="132" width="420" height="72" rx="6" fill="#fffbeb" stroke="#fcd34d"/>
+    <text x="300" y="158" font-size="12.5" font-weight="800" fill="#92400e">こだわりとして携行される</text>
+    <text x="300" y="178" font-size="10.5" fill="#a16207">小型化テックが解決。プア標準世界で「残す一点」になる</text>
+    <rect x="280" y="218" width="420" height="86" rx="6" fill="#1c1917"/>
+    <text x="300" y="246" font-size="13.5" font-weight="800" fill="#fcd34d">還元不能の核 ＝ 尊厳のミニマム</text>
+    <text x="300" y="268" font-size="11" fill="#fafaf9">① 尊厳ある寝心地　② 立てる高さ　③ 温熱　④ 水</text>
+    <text x="300" y="288" font-size="9.5" fill="#a8a29e">水は単身生存では外せるが、N≥2・親密さ・尊厳が入ると核に戻る</text>
   </svg>
-  <ul class="tight">
-    <li>水は単身の生存では外部化できる。しかし <b>N≥2・親密さ・尊厳が入ると核に戻る</b> — 水の必然性は生存でなく関係から生まれる。<span class="tag hon">本人</span></li>
-    <li>住まいの最小単位は世帯から<b>個人</b>へ (一人一部屋、V=3.3 畳下限)。</li>
-    <li>再結合の型: <b>核は所有 (100 万円の器)、残りは網から月額で接続</b> — 3,000 万円の借金の構造的解体。</li>
-  </ul>
-  <div class="callout red"><b>判定器 — 機械浴テスト:</b> すべてのプロダクトを「これは檜風呂か、機械浴か」で判定する。生存はコモディティ化する。安い擬似体験が標準になる世界ほど、<b>尊厳が差別化になる</b>。尊厳なき最安生存の量産はやらない。</div>
+
+  <div class="callout red" style="margin-top:26px"><b>判定器 — 機械浴テスト:</b> すべてのプロダクトを「これは檜風呂か、機械浴か」で判定する。生存はコモディティ化する — 安い擬似体験が標準になる世界ほど<b>尊厳が差別化になる</b>。尊厳なき最安生存の量産はやらない。</div>
 </div></section>
 
-<!-- ============ 3. 二階建て ============ -->
+<!-- ================= 03 二階建て ================= -->
 <section><div class="wrap">
-  <h2><span class="no">03 — 構え</span>二階建て — 価値原理と経済エンジンを分ける</h2>
-  <p class="lead">「測れるものに仮説が乗っ取られる」ことと「ワクワクだけの空疎化」を同時に防ぐための構造。<span class="tag sui">推論</span></p>
-  <svg viewBox="0 0 720 300" role="img" aria-label="二階建て構造図">
-    <g font-family="Noto Sans JP,sans-serif">
-      <rect x="20" y="16" width="680" height="70" fill="#1a1a1a"/>
-      <text x="40" y="46" font-size="14" font-weight="800" fill="#fcd34d">価値原理 (何者か) — 尊厳のミニマム</text>
-      <text x="40" y="70" font-size="12" fill="#fafaf9">全世界線・全シーンで生き残った唯一の価値軸。判定器 = 機械浴テスト</text>
-      <rect x="20" y="106" width="680" height="70" fill="#0e7490"/>
-      <text x="40" y="136" font-size="14" font-weight="800" fill="#fff">経済エンジン (何で稼ぐか) — C: 水・衛生・エネの自律規格</text>
-      <text x="40" y="160" font-size="12" fill="#e0f2fe">機器販売 + 施工規格 + 遠隔監視 RaaS + 将来ライセンス。全世界線で売れる唯一の経済層</text>
-      <rect x="20" y="196" width="330" height="84" fill="#fff" stroke="#0e7490" stroke-width="1.5"/>
-      <text x="38" y="224" font-size="13" font-weight="700" fill="#0e7490">B: 直営 1 号網 (エクスト)</text>
-      <text x="38" y="246" font-size="11.5" fill="#4a4a4a">規格を書くためのデータ源・ショールーム。</text>
-      <text x="38" y="264" font-size="11.5" fill="#4a4a4a">収益 KPI から解放し、規格 KPI へ (充電網→標準の型)</text>
-      <rect x="370" y="196" width="330" height="84" fill="#fff" stroke="#b45309" stroke-width="1.5"/>
-      <text x="388" y="224" font-size="13" font-weight="700" fill="#b45309">A: 参照実装 (死なないシェルター)</text>
-      <text x="388" y="246" font-size="11.5" fill="#4a4a4a">規格を内蔵した器 = 尊厳のミニマムの原器。</text>
-      <text x="388" y="264" font-size="11.5" fill="#4a4a4a">N-27・9 月投資判断と接続</text>
-    </g>
-  </svg>
-  <div class="callout blue"><b>先行者の失敗が順序を証明している:</b> 多拠点サブスク大手の死因は需要不足ではなく光熱費・原価の高騰 — つまり <b>C (コスト規格) の不在が B (網) を殺した</b>。B は C の先行実装であり、C なき B は成立しない。<span class="tag w">照合済</span></div>
-  <h3>意思決定基準 (ビジョンを標語にしないための 3 ゲート)</h3>
-  <ul class="tight">
-    <li><b>機械浴テスト</b> — これは檜風呂か、機械浴か</li>
-    <li><b>場所 3 条件</b> — 正統性/特権性 × インフラ不在 × 技術突破。どこでやるかのゲート (屋久島は本条件不成立で wedge から除外済み)</li>
-    <li><b>規格貢献テスト</b> — この案件は C 規格のデータ・実績・標準化に貢献するか。供給側都合の案件を断る理由になる</li>
-  </ul>
-</div></section>
+  <div class="sec-head"><span class="sec-no">03 / 構え</span><h2>二階建て — 価値原理 × 経済エンジン</h2></div>
+  <div class="sec-msg-wrap"><span class="sec-msg">「何者か」と「何で稼ぐか」を分ける。C が背骨、B は実験室、A は原器。</span></div>
 
-<!-- ============ 4. 市場 ============ -->
-<section><div class="wrap">
-  <h2><span class="no">04 — 経済</span>市場規模 — 分母は実測で確定している</h2>
-  <p class="lead">分母 = 高確度 (実測/照合済)。浸透率 = 未検証。7/16 では「桁と構図」で議論する。</p>
-  <div class="grid">
-    <div class="stat water-t"><div class="num">4.2<small> 兆円/年</small></div><div class="what">C の置換対象: 上下水の料金市場 (+更新投資 1.5 兆円/年)</div><div class="src">総務省 地方公営企業決算 2023 (実測)。+48% 転嫁 = 年 1.3 兆円級の負担増が生活者に着弾 <span class="tag w">照合済</span></div></div>
-    <div class="stat"><div class="num">12<small> 兆円/年</small></div><div class="what">A+B の置換対象: 家賃市場 (民営借家 1,568 万戸 × 平均 6.5 万円)</div><div class="src">住宅・土地統計調査 2023 ベースの推計 <span class="tag w">照合済</span></div></div>
-    <div class="stat amber-t"><div class="num">0.11<small> 兆円</small></div><div class="what">現在の RV 市場 — 3 桁下からのスタートと正直に言う</div><div class="src">10 年で 4 倍成長、ただし 8 割はレジャー用途。「移動しながら住む」市場はまだ誰も測っていない <span class="tag w">照合済</span></div></div>
+  <svg viewBox="0 0 720 330" role="img" aria-label="二階建て事業構造図">
+    <rect x="20" y="20" width="680" height="66" rx="8" fill="#1c1917"/>
+    <text x="44" y="48" font-size="14" font-weight="800" fill="#fcd34d">価値原理 ─ 尊厳のミニマム</text>
+    <text x="44" y="70" font-size="10.5" fill="#d6d3d1">全世界線・全シーンで生き残った唯一の価値軸。判定器 = 機械浴テスト</text>
+    <line x1="360" y1="86" x2="360" y2="106" stroke="#a8a29e" stroke-width="2" stroke-dasharray="3 3"/>
+    <rect x="20" y="106" width="680" height="76" rx="8" fill="#155e75"/>
+    <text x="44" y="136" font-size="14.5" font-weight="800" fill="#a5f3fc">C　規格 ─ 経済エンジン（背骨）</text>
+    <text x="44" y="158" font-size="10.5" fill="#cffafe">既設インフラなしで水・衛生・エネを賄う自律規格 ＝ 機器販売＋施工規格＋遠隔監視 RaaS＋将来ライセンス</text>
+    <path d="M 200 216 L 200 190" stroke="#0891b2" stroke-width="2.5" fill="none" marker-end="url(#au)"/>
+    <path d="M 520 216 L 520 190" stroke="#d97706" stroke-width="2.5" fill="none" marker-end="url(#au2)"/>
+    <defs>
+      <marker id="au" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#0891b2"/></marker>
+      <marker id="au2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#d97706"/></marker>
+    </defs>
+    <rect x="20" y="220" width="330" height="88" rx="8" fill="#fff" stroke="#0891b2" stroke-width="1.5"/>
+    <text x="40" y="248" font-size="13" font-weight="800" fill="#155e75">B　直営 1 号網（エクスト）</text>
+    <text x="40" y="270" font-size="10.5" fill="#57534e">規格を書くためのデータ源・ショールーム。</text>
+    <text x="40" y="288" font-size="10.5" fill="#57534e">収益 KPI から解放し規格 KPI へ（充電網→標準の型）</text>
+    <rect x="370" y="220" width="330" height="88" rx="8" fill="#fff" stroke="#d97706" stroke-width="1.5"/>
+    <text x="390" y="248" font-size="13" font-weight="800" fill="#92400e">A　参照実装（死なないシェルター）</text>
+    <text x="390" y="270" font-size="10.5" fill="#57534e">規格を内蔵した器 = 尊厳のミニマムの原器。</text>
+    <text x="390" y="288" font-size="10.5" fill="#57534e">9 月投資判断（N-27）と接続</text>
+  </svg>
+
+  <div class="callout blue"><b>先行者の失敗が順序を証明する:</b> 多拠点サブスク大手 2 社は 2024 年に定額モデルから撤退。死因は需要不足ではなく<b>光熱費・原価の高騰 ＝ C（コスト規格）の不在が B（網）を殺した</b>。C なき B は成立しない。⚠照合済（運営者自身の告知）</div>
+
+  <div class="grid3" style="margin-top:8px">
+    <div class="panel" style="border-top:3px solid var(--ink)"><div class="t">🚫 機械浴テスト</div><div style="font-size:.8rem;color:var(--ink2)">これは檜風呂か、機械浴か。尊厳なき最安生存はやらない</div></div>
+    <div class="panel" style="border-top:3px solid var(--ink)"><div class="t">📍 場所 3 条件</div><div style="font-size:.8rem;color:var(--ink2)">正統性 × インフラ不在 × 技術突破。不成立の場所ではやらない（屋久島は除外済）</div></div>
+    <div class="panel" style="border-top:3px solid var(--ink)"><div class="t">📐 規格貢献テスト</div><div style="font-size:.8rem;color:var(--ink2)">C 規格のデータ・実績・標準化に貢献しない案件は断る</div></div>
   </div>
-  <div class="callout"><b>価格構造の発見:</b> 単身の平均家賃は 6.5 万円 — 月 8 万円のリバンドル仮説 (N-31) は家賃の置換だけでは成立しない。<b>「家賃 + 水道光熱 (1.5〜2 万円) の統合価格」として初めて成立する</b>。B と C を束ねる必然性が、思想ではなく価格構造の側から出た。<span class="tag sui">推論</span></div>
-  <div class="tbl-scroll"><table>
-    <tr><th>浸透率シナリオ (単独世帯 2,442 万 × 月 8 万)</th><th>年間規模</th><th>家賃市場比</th></tr>
-    <tr><td>1% (24 万世帯)</td><td class="k">2,300 億円</td><td>約 2%</td></tr>
-    <tr><td>5% (122 万世帯)</td><td class="k">1.2 兆円</td><td>約 10%</td></tr>
-    <tr><td>10% (244 万世帯)</td><td class="k">2.3 兆円</td><td>約 20%</td></tr>
-  </table></div>
-  <p style="font-size:.8rem;color:var(--ink-faint)">浸透率は未検証 <span class="tag u">未確認</span>。参照点: 独の RV 保有は日本の約 10 倍 (160 万台) — 規制・文化が変われば天井は動く。</p>
 </div></section>
 
-<!-- ============ 5. 顧客と経路 ============ -->
+<!-- ================= 04 市場 ================= -->
 <section><div class="wrap">
-  <h2><span class="no">05 — 経路</span>顧客・支払者と市場形成の順序</h2>
-  <svg viewBox="0 0 720 150" role="img" aria-label="市場形成タイムライン">
-    <g font-family="Noto Sans JP,sans-serif">
-      <line x1="30" y1="110" x2="690" y2="110" stroke="#1a1a1a" stroke-width="2"/>
-      <circle cx="80" cy="110" r="6" fill="#0e7490"/>
-      <text x="80" y="88" font-size="12.5" font-weight="700" text-anchor="middle" fill="#0e7490">〜24 ヶ月</text>
-      <text x="80" y="135" font-size="11" text-anchor="middle" fill="#4a4a4a">B2B / B2G 実需</text>
-      <circle cx="300" cy="110" r="6" fill="#b45309"/>
-      <text x="300" y="88" font-size="12.5" font-weight="700" text-anchor="middle" fill="#b45309">2030 年代前半</text>
-      <text x="300" y="135" font-size="11" text-anchor="middle" fill="#4a4a4a">規格の席が埋まる期限</text>
-      <circle cx="500" cy="110" r="6" fill="#9f1239"/>
-      <text x="500" y="88" font-size="12.5" font-weight="700" text-anchor="middle" fill="#9f1239">2036</text>
-      <text x="500" y="135" font-size="11" text-anchor="middle" fill="#4a4a4a">単独世帯ピーク (時間窓)</text>
-      <circle cx="650" cy="110" r="6" fill="#1a1a1a"/>
-      <text x="650" y="88" font-size="12.5" font-weight="700" text-anchor="middle">2040</text>
-      <text x="650" y="135" font-size="11" text-anchor="middle" fill="#4a4a4a">仮説の舞台</text>
+  <div class="sec-head"><span class="sec-no">04 / 経済</span><h2>市場 — 分母は実測で確定している</h2></div>
+  <div class="sec-msg-wrap"><span class="sec-msg">狙うのは新市場の創造ではなく、12 兆円と 4.2 兆円の「置換」。</span></div>
+
+  <div class="panel">
+    <div class="t">置換対象の分母（年間、兆円）</div><div class="s">面積は正直に描いている — 現在地 (RV) は 3 桁下</div>
+    <svg viewBox="0 0 720 235" role="img" aria-label="市場分母の比較バー">
+      <g font-size="11.5">
+        <text x="20" y="38" font-weight="700" fill="#1c1917">家賃市場（A+B の置換対象）</text>
+        <rect x="20" y="46" width="600" height="26" rx="4" fill="#d97706"/>
+        <text x="632" y="64" font-weight="800" fill="#92400e" class="num">12 兆</text>
+        <text x="20" y="102" font-weight="700" fill="#1c1917">上下水の料金市場（C の置換対象）</text>
+        <rect x="20" y="110" width="210" height="26" rx="4" fill="#0891b2"/>
+        <text x="242" y="128" font-weight="800" fill="#155e75" class="num">4.2 兆</text><text x="310" y="128" font-size="10" fill="#78716c">＋ 更新投資 1.5 兆/年</text>
+        <text x="20" y="166" font-weight="700" fill="#1c1917">現在の RV 市場（現在地）</text>
+        <rect x="20" y="174" width="6" height="26" rx="2" fill="#78716c"/>
+        <text x="36" y="192" font-weight="800" fill="#57534e" class="num">0.11 兆</text>
+        <text x="120" y="192" font-size="10" fill="#78716c">10 年で 4 倍成長。ただし 8 割はレジャー用途 — 恒常居住市場はまだ誰も測っていない</text>
+        <text x="20" y="225" font-size="9.5" fill="#a8a29e">総務省 地方公営企業決算 2023（実測）/ 住宅・土地統計調査 2023 ベース推計 / 日本RV協会 ⚠照合済</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <div class="t">月 8 万円は「家賃＋水道光熱の統合価格」で初めて成立する</div><div class="s">単身の平均家賃 6.5 万円 &lt; 8 万円 — B と C を束ねる必然性が価格構造から出た</div>
+      <svg viewBox="0 0 340 150" role="img" aria-label="統合価格の構造">
+        <g font-size="10.5">
+          <text x="20" y="30" font-weight="700" fill="#57534e">いまの単身の住コスト</text>
+          <rect x="20" y="38" width="243" height="26" rx="4" fill="#a8a29e"/>
+          <rect x="265" y="38" width="57" height="26" rx="4" fill="#78716c"/>
+          <text x="140" y="56" fill="#fff" font-weight="700" text-anchor="middle" class="num">家賃 6.5 万</text>
+          <text x="293" y="56" fill="#fff" font-weight="700" text-anchor="middle" font-size="9" class="num">水光熱</text>
+          <text x="20" y="98" font-weight="700" fill="#155e75">リバンドル（置換であって上乗せでない）</text>
+          <rect x="20" y="106" width="302" height="26" rx="4" fill="#0891b2"/>
+          <text x="171" y="124" fill="#fff" font-weight="800" text-anchor="middle" class="num">器＋網＋水・エネ規格 ＝ 月 8 万</text>
+        </g>
+      </svg>
+      <div class="src">N-31「アンバンドル→リバンドル月 8 万」仮説と統合 ⚠ 受容性は未検証（検証 §07-①）</div>
+    </div>
+    <div class="panel">
+      <div class="t">浸透率シナリオ（単独世帯 2,442 万 × 月 8 万）</div><div class="s">7/16 は「桁と構図」で議論する — 浸透率は未検証</div>
+      <svg viewBox="0 0 340 150" role="img" aria-label="浸透率シナリオ">
+        <g font-size="10.5">
+          <text x="20" y="34" fill="#57534e" font-weight="700">1%</text>
+          <rect x="55" y="22" width="48" height="18" rx="3" fill="#0891b2"/>
+          <text x="112" y="36" font-weight="700" fill="#155e75" class="num">2,300 億/年（家賃市場の約 2%）</text>
+          <text x="20" y="78" fill="#57534e" font-weight="700">5%</text>
+          <rect x="55" y="66" width="125" height="18" rx="3" fill="#0891b2"/>
+          <text x="188" y="80" font-weight="700" fill="#155e75" class="num">1.2 兆/年</text>
+          <text x="20" y="122" fill="#57534e" font-weight="700">10%</text>
+          <rect x="55" y="110" width="240" height="18" rx="3" fill="#155e75"/>
+          <text x="302" y="124" font-weight="800" fill="#155e75" text-anchor="end" class="num" style="fill:#155e75"></text>
+          <text x="180" y="124" font-weight="800" fill="#fff" text-anchor="middle" class="num">2.3 兆/年</text>
+        </g>
+      </svg>
+      <div class="src">参照点: 独の RV 保有は日本の 10 倍（160 万台）— 規制・文化で天井は動く ⚠</div>
+    </div>
+  </div>
+
+  <div class="callout blue"><b>C 側の需要は負担増として着弾する:</b> 上下水 4.2 兆円に平均 +48% を当てると<b>年 1.3 兆円級の追加負担</b>。この負担増分が分散型代替の理論上限 — 経済合理の閾値特定が次の検証（§07-②）。</div>
+</div></section>
+
+<!-- ================= 05 経路 ================= -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-no">05 / 経路</span><h2>誰に、どの順番で売るか</h2></div>
+  <div class="sec-msg-wrap"><span class="sec-msg">現行顧客は全員「C 規格の初期顧客」と再解釈できる — 否定ではなく再配置。</span></div>
+
+  <svg viewBox="0 0 720 210" role="img" aria-label="市場形成の3フェーズ">
+    <g font-size="11">
+      <rect x="20" y="30" width="200" height="110" rx="8" fill="#155e75"/>
+      <text x="40" y="58" font-size="12.5" font-weight="800" fill="#a5f3fc">〜24 ヶ月</text>
+      <text x="40" y="80" font-weight="700" fill="#fff">B2B / B2G 実需</text>
+      <text x="40" y="100" font-size="9.5" fill="#cffafe">自衛隊・防災（収益スパイン）</text>
+      <text x="40" y="116" font-size="9.5" fill="#cffafe">ケア事業者・器メーカー</text>
+      <path d="M 228 85 L 252 85" stroke="#78716c" stroke-width="2.5" marker-end="url(#af)"/>
+      <rect x="260" y="30" width="200" height="110" rx="8" fill="#0891b2"/>
+      <text x="280" y="58" font-size="12.5" font-weight="800" fill="#ecfeff">〜2030 年代前半</text>
+      <text x="280" y="80" font-weight="700" fill="#fff">空き家 × 規格キット</text>
+      <text x="280" y="100" font-size="9.5" fill="#cffafe">競合（空き家在庫）を</text>
+      <text x="280" y="116" font-size="9.5" fill="#cffafe">C の販路に変える</text>
+      <path d="M 468 85 L 492 85" stroke="#78716c" stroke-width="2.5" marker-end="url(#af)"/>
+      <rect x="500" y="30" width="200" height="110" rx="8" fill="#d97706"/>
+      <text x="520" y="58" font-size="12.5" font-weight="800" fill="#fffbeb">2030 年代〜</text>
+      <text x="520" y="80" font-weight="700" fill="#fff">生活者の器＋網</text>
+      <text x="520" y="100" font-size="9.5" fill="#fef3c7">移動する高齢者・降りる中間層</text>
+      <text x="520" y="116" font-size="9.5" fill="#fef3c7">二人暮らしの水核化層</text>
+      <defs><marker id="af" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#78716c"/></marker></defs>
+      <line x1="20" y1="170" x2="700" y2="170" stroke="#e7e5e4" stroke-width="2"/>
+      <circle cx="560" cy="170" r="6" fill="#be123c"/>
+      <text x="560" y="196" font-size="10" font-weight="800" fill="#be123c" text-anchor="middle">2036 単独世帯ピーク — 規格の席はここまでに埋まる</text>
     </g>
   </svg>
-  <ul class="tight">
-    <li><b>24 ヶ月 (シリーズ A 期) = B2B/B2G:</b> 自衛隊・防災 (収益スパイン)・ケア事業者・空き家リノベ事業者・器メーカー — 現行の顧客群はすべて「<b>C 規格の初期顧客</b>」と再解釈できる。現行事業の否定ではなく再配置。<span class="tag sui">推論</span></li>
-    <li><b>中期 (2030 年代) = 生活者:</b> 移動する高齢者 (70 代 &gt; 20 代の実測に沿う)・都市を降りる中間層・二人暮らしの水核化層。<span class="tag u">WTP 未検証</span></li>
-    <li><b>経路:</b> B2G/B2B 実需 → 空き家×規格キット (競合を販路化) → 生活者の器+網。</li>
-    <li><b>交差する支払者:</b> 行政 (災害・福祉・関係人口)。都市から来る月額のレベニューシェアが地域経済への現金注入源になる。</li>
-  </ul>
 </div></section>
 
-<!-- ============ 6. wedge & right-to-win ============ -->
+<!-- ================= 06 反証 ================= -->
 <section><div class="wrap">
-  <h2><span class="no">06 — 起点</span>最初の wedge と、勝てる理由・勝てないかもしれない理由</h2>
+  <div class="sec-head"><span class="sec-no">06 / 誠実さの装置</span><h2>反証条件 — 間違っている場合、何で分かるか</h2></div>
+  <div class="sec-msg-wrap"><span class="sec-msg">先に宣言し、以後の議論を「この表への答え合わせ」に固定する。</span></div>
+
+  <div class="dcards">
+    <div class="dcard"><div class="name">① 移動需要の反転</div><div class="ind">次回 都市交通特性調査の 20 代外出率 / RV 販売額</div><span class="now side">→ 分岐待ち — B の形（移動網 vs 定置網）を決める</span></div>
+    <div class="dcard"><div class="name">② 都市の急崩壊</div><div class="ind">実質家賃/賃金比・都心の子ども人口・空室率</div><span class="now side">→ 前提にしない — NYC 子ども -12% だが SF は急回復中。都市は簡単に死なない</span></div>
+    <div class="dcard"><div class="name">③ 網の経済性</div><div class="ind">停泊・滞在サービスの原価構造と後発の生死</div><span class="now head">↑ C 規格を持つ網だけが黒字化するか、が検証点</span></div>
+    <div class="dcard"><div class="name">④ 技術コスト崖</div><div class="ind">太陽光＋蓄電の宅内自立コスト / 自動運転 L4</div><span class="now side">→ 蓄電池は 4 年で -35%。ただし日本の太陽光は世界の 1.7 倍 — 崖が遅れるリスク</span></div>
+    <div class="dcard"><div class="name">⑤ 制度</div><div class="ind">車中泊・停泊規制 / 居住誘導区域の強制力</div><span class="now tail">↓ 逆風 — コンパクトシティ 971 市町村で現役強化中</span></div>
+    <div class="dcard"><div class="name">⑥ 時間窓</div><div class="ind">社人研 世帯推計の改定値</div><span class="now tail">↓ 締切固定 — 単独世帯ピーク 2036</span></div>
+  </div>
+
+  <div class="callout red"><b>追加リスク（隠さない）:</b> ① 尊厳 WTP が実在しない（機械浴で十分な世界）— 検証 §07-① で最初に潰しに行く ② 水技術のコモディティ化 — 技術優位の客観検証（wota 等との比較）は未実施。<b>「規格を書く」ポジションの獲得可能性そのものが最大の未検証仮説</b> ③ 社名も特許も原体験もオフグリッドなのに「オフグリッドは手段」と言い切る内在的緊張。</div>
+
+  <div class="grid2">
+    <div class="panel">
+      <div class="t">反証側の実測も正面から見る — 在宅・擬似体験は本当に伸びている</div><div class="s">市場規模（億円/年）</div>
+      <svg viewBox="0 0 340 165" role="img" aria-label="在宅エンタメ市場の成長">
+        <line x1="20" y1="135" x2="320" y2="135" stroke="#e7e5e4"/>
+        <rect x="50" y="99" width="52" height="36" rx="4" fill="#a8a29e"/>
+        <rect x="120" y="37" width="52" height="98" rx="4" fill="#57534e"/>
+        <rect x="205" y="123" width="42" height="12" rx="3" fill="#fbbf24"/>
+        <rect x="262" y="90" width="42" height="45" rx="4" fill="#d97706"/>
+        <text x="76" y="92" font-size="11" font-weight="800" fill="#57534e" text-anchor="middle" class="num">2,158</text>
+        <text x="146" y="30" font-size="11" font-weight="800" fill="#1c1917" text-anchor="middle" class="num">5,930</text>
+        <text x="226" y="116" font-size="11" font-weight="800" fill="#92400e" text-anchor="middle" class="num">744</text>
+        <text x="283" y="82" font-size="11" font-weight="800" fill="#92400e" text-anchor="middle" class="num">2,750</text>
+        <text x="76" y="150" font-size="8.5" fill="#78716c" text-anchor="middle">動画配信 2019</text>
+        <text x="146" y="150" font-size="8.5" fill="#78716c" text-anchor="middle">動画配信 2024</text>
+        <text x="226" y="150" font-size="8.5" fill="#78716c" text-anchor="middle">メタバース 2021</text>
+        <text x="283" y="150" font-size="8.5" fill="#78716c" text-anchor="middle">メタバース 2024</text>
+        <text x="170" y="163" font-size="9" fill="#a8a29e" text-anchor="middle">ただし成長率は鈍化（+32.5%→+4.1%）＝ 定着期。全面 VR 代替の一本調子ではない</text>
+      </svg>
+      <div class="src">GEM Partners / 矢野経済研究所 ⚠照合済・国交省統計でもオンライン移行は活動別に非対称（観光・通院は移行しない）</div>
+    </div>
+    <div class="panel">
+      <div class="t">B 層の市場は、まだ誰にも測られていない</div><div class="s">RV パーク施設数（供給）は伸びている — しかし</div>
+      <svg viewBox="0 0 340 165" role="img" aria-label="RVパーク施設数と稼働率データの不在">
+        <line x1="20" y1="120" x2="180" y2="120" stroke="#e7e5e4"/>
+        <rect x="30" y="102" width="34" height="18" rx="3" fill="#67e8f9"/>
+        <rect x="78" y="72" width="34" height="48" rx="4" fill="#22d3ee"/>
+        <rect x="126" y="14" width="34" height="106" rx="4" fill="#0891b2"/>
+        <text x="47" y="96" font-size="10" font-weight="700" fill="#155e75" text-anchor="middle" class="num">110</text>
+        <text x="95" y="66" font-size="10" font-weight="700" fill="#155e75" text-anchor="middle" class="num">295</text>
+        <text x="143" y="8" font-size="10" font-weight="800" fill="#155e75" text-anchor="middle" class="num">650</text>
+        <text x="47" y="134" font-size="8.5" fill="#78716c" text-anchor="middle">2018</text>
+        <text x="95" y="134" font-size="8.5" fill="#78716c" text-anchor="middle">2022</text>
+        <text x="143" y="134" font-size="8.5" fill="#78716c" text-anchor="middle">2026</text>
+        <rect x="200" y="14" width="120" height="106" rx="6" fill="none" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="260" y="55" font-size="11" font-weight="800" fill="#78716c" text-anchor="middle">稼働率・収益性</text>
+        <text x="260" y="74" font-size="10" fill="#a8a29e" text-anchor="middle">公開統計 なし</text>
+        <text x="260" y="102" font-size="8.5" fill="#a8a29e" text-anchor="middle">業界の誰も測っていない空白</text>
+        <text x="170" y="158" font-size="9" fill="#a8a29e" text-anchor="middle">→ エクスト = この空白を測る「規格を書くためのデータ源」（§07-③）</text>
+      </svg>
+      <div class="src">日本RV協会 公表値（実測）⚠・稼働率統計の不在自体が発見</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================= 07 wedge & action ================= -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-no">07 / 起点と次の一手</span><h2>wedge・2 週間の検証・7/16 で決めること</h2></div>
+  <div class="sec-msg-wrap"><span class="sec-msg">7/24 株主定例までに、少なくとも 1 つの初期値を持つ。</span></div>
+
   <div class="cols">
-    <div class="col-box">
+    <div class="colbox">
       <h4>最初の wedge</h4>
       <ol>
-        <li><b>エクスト = 規格を書くための直営予行練習装置。</b>収益事業の期待から解放し、B 実験室として KPI を再定義する。「POC の域を出ない」という社内評価への回答 — <b>POC であることこそ役割</b> (稼ぐのは防災・自衛隊系)</li>
-        <li><b>ケア × 檜風呂</b> — 尊厳 WTP の最初の実地検証。「今求めている」実顧客が既にいる領域から</li>
+        <li><b>エクスト ＝ 規格を書くための直営予行練習装置。</b>収益 KPI から解放し B 実験室として再定義 —「POC の域を出ない」という社内評価への回答は<b>「POC であることこそ役割」</b>（稼ぐのは防災・自衛隊系）</li>
+        <li><b>ケア × 檜風呂</b> — 尊厳 WTP の最初の実地検証。「今求めている」実顧客がいる領域から</li>
       </ol>
-      <div class="own">屋久島は場所 3 条件不成立で wedge から除外 (2026-07-15 判定)</div>
-    </div>
-    <div class="col-box">
-      <h4>right-to-win 候補と正直な弱点</h4>
+      <div class="note">屋久島は場所 3 条件不成立で wedge から除外（2026-07-15 判定）</div>
+      <h4 style="margin-top:20px">2 週間で実施する検証</h4>
       <ol>
-        <li>水循環の実装実績 (富士川・彩湖・OIST・中城)</li>
-        <li>場所の目利き (場所 3 条件 = 中城で証明)</li>
-        <li>先行的中の直感 5 件 — 直感は 1〜2 年の先行指標という実績</li>
-        <li>尊厳原理 = コモディティ化への防壁</li>
-      </ol>
-      <div class="own" style="color:var(--danger);font-weight:700">弱点 (隠さない): 技術優位の客観検証は未実施 (wota 等との比較)。「規格を書く」ポジションの獲得可能性そのものが最大の未検証仮説。<span class="tag u">未確認</span></div>
-    </div>
-  </div>
-</div></section>
-
-<!-- ============ 7. 反証条件表 ============ -->
-<section><div class="wrap">
-  <h2><span class="no">07 — 誠実さの装置</span>反証条件と先行指標 — 先に宣言し、答え合わせする</h2>
-  <p class="lead">この仮説が<b>間違っている場合に何で分かるか</b>を先に決める (pre-registration)。7/16 でこの表を採択し、以後の議論を「表への答え合わせ」に固定する — 同じ議論を巡回させないための構造。</p>
-  <div class="tbl-scroll"><table>
-    <tr><th style="width:2em">#</th><th>分岐</th><th>先行指標 (測れるもの)</th><th>現在値・注記</th></tr>
-    <tr><td>1</td><td class="k">移動需要の反転</td><td>都市交通特性調査 (次回) の 20 代外出率 / RV 販売額</td><td>B の形 (移動網 vs 定置網) を決める分岐</td></tr>
-    <tr><td>2</td><td class="k">都市急崩壊</td><td>実質家賃/賃金比・都心の子ども人口・空室率</td><td><b>前提でなくブースター分岐</b>。海外実測: NYC 子ども -12%、SF 空室 29.7% だが直近は急改善 — 都市は簡単に死なない</td></tr>
-    <tr><td>3</td><td class="k">網の経済性</td><td>停泊・滞在サービスの原価構造と後発の生死</td><td>C 規格を持つ網だけが黒字化するか、が検証点</td></tr>
-    <tr><td>4</td><td class="k">技術コスト崖</td><td>太陽光+蓄電の宅内自立コスト / 自動運転 L4 エリア</td><td>蓄電池は 4 年で -35%。ただし<b>日本の太陽光は世界平均の 1.7 倍 — 崖が遅れるリスク</b></td></tr>
-    <tr><td>5</td><td class="k">制度</td><td>車中泊・停泊規制 / 居住誘導区域の強制力</td><td>コンパクトシティ 971 市町村で現役強化中 = <b>分散居住への制度逆風は既に強い</b></td></tr>
-    <tr><td>6</td><td class="k">時間窓</td><td>社人研 世帯推計の改定値</td><td>単独世帯ピーク 2036 — 「いつかやる」の猶予はない</td></tr>
-  </table></div>
-  <div class="callout red"><b>追加リスク:</b> ① 尊厳 WTP が実在しない (機械浴で十分な世界) — 2 週間検証の 1 番で最初に潰しに行く ② 水技術のコモディティ化 ③ 内在する矛盾 — 社名も特許も原体験もオフグリッドなのに「オフグリッドは手段」と言い切る緊張。二階建てはこれを緩和するが、消しはしない。</div>
-</div></section>
-
-<!-- ============ 8. 検証と論点 ============ -->
-<section><div class="wrap">
-  <h2><span class="no">08 — 次の 2 週間</span>検証 4 点と、7/16 で決めること</h2>
-  <div class="cols">
-    <div class="col-box">
-      <h4>2 週間で実施する検証 (7/24 株主定例までに 1 点でも初期値を)</h4>
-      <ol>
-        <li><b>尊厳 WTP コンセプトテスト</b> — 檜風呂 vs 機械浴の 2 択ボード + 支払意思。ケア事業経路 + 既存リスト流用</li>
-        <li><b>分散型の経済合理閾値の一次試算</b> — 自社実データ (富士川・彩湖の実コスト) vs 集中型料金 +48% 世界</li>
-        <li><b>B 需要の一次観測</b> — RV パーク運営者 3〜5 件ヒアリング。稼働率統計は業界にゼロ = 誰も測っていない空白を最初に埋める</li>
+        <li><b>尊厳 WTP テスト</b> — 檜風呂 vs 機械浴の 2 択ボード＋支払意思（ケア経路＋既存リスト）</li>
+        <li><b>経済合理閾値の一次試算</b> — 自社実コスト（富士川・彩湖）vs 集中型 +48% 世界</li>
+        <li><b>B 需要の一次観測</b> — RV パーク運営者 3〜5 件ヒアリング（空白を最初に測る）</li>
         <li><b>反証条件表の合意</b> — 答え合わせの日付を決める</li>
       </ol>
     </div>
-    <div class="col-box">
-      <h4>7/16 の論点 (決めることは 5 つ)</h4>
+    <div class="colbox">
+      <h4>7/16 で決めること（5 つ）</h4>
       <ol>
-        <li>「尊厳のミニマム」を L1 の言葉として<b>仮決め</b>するか (判定器 = 機械浴テストつき)</li>
-        <li><b>C 背骨の合意</b> — 自衛隊・防災・ケアを「C 規格の初期顧客」と再解釈する</li>
+        <li>「尊厳のミニマム」を L1 の言葉として<b>仮決め</b>するか（判定器つき — 決め切りは反証表への答え合わせで担保）</li>
+        <li><b>C 背骨の合意</b> — 自衛隊・防災・ケアを「C 規格の初期顧客」と再解釈（現行事業の再配置）</li>
         <li><b>エクスト KPI の再定義</b> — 収益 → 規格データ・体現実績</li>
-        <li><b>反証条件表の採択</b> (6 分岐 + 先行指標)</li>
-        <li><b>検証 4 点の owner と期限</b>。7/24 株主定例には本統合の §hero→§3→§6 を充てる</li>
+        <li><b>反証条件表の採択</b>（§06 の 6 分岐）</li>
+        <li><b>検証 4 点の owner と期限</b> — 7/24 株主定例には本資料の §Hero→§03→§07 を充てる</li>
       </ol>
+      <h4 style="margin-top:20px">right-to-win（と正直な弱点）</h4>
+      <ol>
+        <li>水循環の実装実績（富士川・彩湖・OIST・中城）</li>
+        <li>場所の目利き（場所 3 条件 — 中城で証明）</li>
+        <li>先行的中の直感 5 件 ＝ 1〜2 年の先行指標という実績</li>
+      </ol>
+      <div class="note" style="color:var(--red);font-weight:700">弱点: 技術優位の客観検証は未実施。「規格を書く」席を取れるか自体が最大の未検証仮説</div>
     </div>
   </div>
 </div></section>
 
-<!-- ============ 9. シーン ============ -->
+<!-- ================= 08 シーン ================= -->
 <section><div class="wrap">
-  <h2><span class="no">09 — レンダリング</span>2040 年のシーン 4 型</h2>
-  <p class="lead"><b>注意: ここからは基礎 (ファクト) ではなく、想像力の補助線。</b>4 型は同じ結論を支持しない — B が死ぬ世界線 (シーン C) も同じ熱量で置いてある。</p>
+  <div class="sec-head"><span class="sec-no">08 / レンダリング</span><h2>2040 年のシーン 4 型 — 想像力の補助線</h2></div>
+  <div class="sec-msg-wrap"><span class="sec-msg">ここからはファクトではない。4 型は同じ結論を支持しない — B が死ぬ世界線も同じ熱量で置く。</span></div>
+
   <div class="scenes">
     <div class="scene">
-      <div class="who">ワタリ (45)</div><div class="type">遊牧型</div>
-      <p>自動運転 EV に牽かれる自作ポッド (唯一の所有物、100 万円) で就寝中に移動。景色をプレイリストのように選ぶ。旧温泉旅館にポッドを横付けし、個室温泉に入る。</p>
-      <p class="point">残す一点: コーヒー器具</p>
+      <div class="who">ワタリ（45）</div><div class="type">遊牧型</div>
+      <p>自動運転 EV に牽かれる自作ポッド（唯一の所有物・100 万円）で就寝中に移動。景色をプレイリストのように選び、旧温泉旅館にポッドを横付けする。</p>
+      <p class="pt">残す一点 ─ コーヒー器具</p>
+      <div class="buys">買うもの: <b class="yes">A ✓ B ✓ C ✓</b></div>
     </div>
     <div class="scene">
-      <div class="who">71 歳・未婚単身</div><div class="type">定置型 — データの主戦場</div>
-      <p>元設備士。水道管の破裂で郊外の持ち家を見切り、駅前の定置ポッド群へ。週 3 回、送迎 EV で温泉に通う — そこが社交場 (70 代は 20 代より移動する・実測)。</p>
-      <p class="point">残す一点: 檜の風呂椅子 —「機械浴になったら終わり」</p>
+      <div class="who">71 歳・未婚単身</div><div class="type">定置型 ─ データの主戦場</div>
+      <p>水道管の破裂で郊外の持ち家を見切り、駅前の定置ポッド群へ。週 3 回、送迎 EV で温泉に通う — そこが社交場（70 代は 20 代より移動する・実測）。</p>
+      <p class="pt">残す一点 ─ 檜の風呂椅子。「機械浴になったら終わり」</p>
+      <div class="buys">買うもの: <b class="yes">A ✓ B ✓ C ✓</b>（高齢単身 1,041 万の主戦場）</div>
     </div>
     <div class="scene">
-      <div class="who">34 歳・二人暮らし</div><div class="type">定置型 — 水の核化</div>
-      <p>都心 1LDK 家賃 12 万を捨て、郊外の空き家を規格キットでリノベし月 4 万で住む。水道契約は最小径、生活の水は規格キットが賄う。</p>
-      <p class="point">妥協しない一点: 二人で入れる風呂</p>
+      <div class="who">34 歳・二人暮らし</div><div class="type">定置型 ─ 水の核化</div>
+      <p>都心 1LDK・家賃 12 万を捨て、郊外の空き家を規格キットでリノベし月 4 万で住む。水道契約は最小径、生活の水は規格が賄う。</p>
+      <p class="pt">妥協しない一点 ─ 二人で入れる風呂</p>
+      <div class="buys">買うもの: <b class="yes">C ✓</b> A・B は買わない（空き家が器）</div>
     </div>
-    <div class="scene dead">
-      <div class="who">29 歳・単身</div><div class="type">半電脳型 — B が死ぬ世界線</div>
-      <p>週 5 在宅、収入の 6 割はデジタル内で消える。休日に外出しないのは同世代の多数派 (52.4%・実測)。移動の網は彼に 1 円も売れない。それでも身体は寝て、立って、暖まり、洗われる。</p>
-      <p class="point">それでも C は買う — VR で代替できないのは風呂だった</p>
+    <div class="scene c-only">
+      <div class="who">29 歳・単身</div><div class="type">半電脳型 ─ B が死ぬ世界線</div>
+      <p>週 5 在宅、収入の 6 割はデジタル内で消える。休日に外出しないのは同世代の多数派（52.4%・実測）。それでも身体は寝て、立って、暖まり、洗われる。</p>
+      <p class="pt">VR で代替できなかったのは風呂だった</p>
+      <div class="buys">買うもの: <b class="yes">C ✓</b> <b class="no">B ✗</b>（1 円も売れない）— それでも C は生き残る</div>
     </div>
   </div>
-  <div class="callout"><b>社内への説明の型:</b> 「これは新事業の思いつきではない。水道値上げ 82 事業者・単独世帯 43.5%・多拠点サブスクの死因 (光熱費) — 外部で既に始まっている変化が、うちの既存 3 資産 (死なないシェルター・エクスト・水循環技術) に初めて役割分担を与えた、という話。エクストは収益で測るから引き裂かれる — あれは規格を書くための予行練習装置だ。そして中城の夜に私たちが身体で確認したもの — あれが『尊厳のミニマム』であり、機械浴の反対側であり、この会社が量産すべき体験の原器だ」</div>
+
+  <div class="callout"><b>社内への説明の型:</b>「これは新事業の思いつきではない。水道値上げ 82 事業者・単独世帯 43.5%・多拠点サブスクの死因（光熱費）— 外部で既に始まっている変化が、うちの既存 3 資産（死なないシェルター・エクスト・水循環技術）に初めて役割分担を与えた、という話。エクストは収益で測るから引き裂かれる — あれは規格を書くための予行練習装置だ。そして中城の夜に私たちが身体で確認したもの — あれが『尊厳のミニマム』であり、この会社が量産すべき体験の原器だ」</div>
 </div></section>
 
-<!-- ============ FOOT ============ -->
+<!-- ================= FOOT ================= -->
 <div class="foot"><div class="wrap">
-  <b>未確認事項 (隠さない):</b> 尊厳 WTP の実在 / 分散型の経済合理閾値 / B 需要の定量 / 技術優位の客観比較 / 月 8 万統合価格の受容性 / 「蓋をした怒り」の定量<br><br>
-  <b>主要出典:</b> 国交省 全国都市交通特性調査 (2015/2021) ・社人研 世帯数将来推計 (2024) ・EY×水の安全保障戦略機構 (2024) ・総務省 地方公営企業等決算/住宅・土地統計調査 (2023-24) ・NRI/日本総研 空き家推計 ・日本RV協会 ・警察庁 運転免許統計 ・NY 州会計監査官 ・中国 NBS/BIS ・CBRE<br><br>
-  <b>元資料 (SSoT):</b> innfra-future-hypothesis-synthesis-2026-07-15.md (16 項目統合・確度タグ付き) / innfra-hypothesis-homework-2026-07-15.md (反証データ・一次照合・市場分母の詳細) / innfra-future-hypothesis-walkthrough-2026-07-15.md (思考経路の記録)<br><br>
-  DRAFT v1.0 — 2026-07-15 作成。本資料は FB 前の叩き台であり、確定事実として扱わない。数値の使用前に各出典 URL の目視照合を推奨。
+  <b>未確認事項（隠さない）:</b> 尊厳 WTP の実在 ／ 分散型の経済合理閾値 ／ B 需要の定量 ／ 技術優位の客観比較 ／ 月 8 万統合価格の受容性 ／「蓋をした怒り」の定量<br><br>
+  <b>主要出典:</b> 国交省 全国都市交通特性調査（2015/2021）・社人研 世帯数将来推計 2024・EY×水の安全保障戦略機構 2024・総務省 地方公営企業等決算／住宅・土地統計調査・NRI／日本総研 空き家推計・日本RV協会・警察庁 運転免許統計・NY 州会計監査官・中国 NBS/BIS・CBRE<br><br>
+  <b>元資料（SSoT・詳細データと確度タグの全リスト）:</b> innfra-future-hypothesis-synthesis-2026-07-15.md ／ innfra-hypothesis-homework-2026-07-15.md ／ innfra-future-hypothesis-walkthrough-2026-07-15.md<br><br>
+  DRAFT v1.0 — 2026-07-15。FB 前の叩き台であり確定事実として扱わない。数値の使用前に出典 URL の目視照合を推奨。
 </div></div>
 
 </body>
