@@ -4,1202 +4,295 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>渡鳥ジョニー｜キャリア棚卸しダッシュボード</title>
-  <script>document.documentElement.classList.add('js');</script>
+  <title>渡鳥ジョニー｜全仕事棚卸しチェック面</title>
   <style>
     :root {
-      --paper: #f3efe5;
-      --paper-2: #e9e2d4;
-      --ink: #18201e;
-      --muted: #5d6761;
-      --line: #b8b09f;
-      --signal: #ad3218;
-      --moss: #315c4f;
-      --sun: #f0c75e;
-      --white: #fffdf7;
-      --shadow: 0 18px 44px rgba(24, 32, 30, .11);
-      --radius: 22px;
-      --display: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
-      --body: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+      --paper:#eee6d4; --paper-hi:#fffaf0; --ink:#161512; --muted:#645f55;
+      --line:#bdb29d; --signal:#ef4b23; --signal-dark:#a92f13; --blue:#174d69; --acid:#d8e258;
+      --shadow:0 20px 52px rgba(35,27,18,.12); --serif:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+      --sans:"Avenir Next","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+      --mono:"SFMono-Regular","Osaka-Mono",monospace;
     }
-
-    * { box-sizing: border-box; }
-    .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      background:
-        linear-gradient(rgba(24,32,30,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(24,32,30,.035) 1px, transparent 1px),
-        var(--paper);
-      background-size: 32px 32px;
-      font-family: var(--body);
-      line-height: 1.75;
-      letter-spacing: .015em;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .18;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
-      z-index: 10;
-    }
-
-    a { color: inherit; }
-    button { font: inherit; }
-    a:focus-visible, button:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
-    .career-river a:focus-visible, .career-river button:focus-visible,
-    .routes a:focus-visible, .routes button:focus-visible,
-    .questions a:focus-visible, .questions button:focus-visible { outline-color: var(--sun); }
-    .skip-link { position: absolute; left: -999px; }
-    .skip-link:focus { left: 12px; top: 12px; z-index: 30; background: var(--white); padding: 8px 12px; }
-    .reading-progress { position: fixed; z-index: 25; top: 0; left: 0; height: 4px; width: 0; background: var(--signal); }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 64px;
-      padding: 10px clamp(18px, 4vw, 64px);
-      border-bottom: 1px solid rgba(24,32,30,.2);
-      background: rgba(243,239,229,.92);
-      backdrop-filter: blur(14px);
-    }
-    .wordmark { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: .08em; }
-    .topbar nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 16px; }
-    .topbar nav a { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding-inline: 10px; color: var(--muted); font-size: 12px; text-decoration: none; }
-    .topbar nav a:hover, .topbar nav a:focus-visible { color: var(--signal); }
-
-    main { overflow: hidden; }
-    section { position: relative; padding: clamp(72px, 10vw, 140px) max(20px, calc((100vw - 1180px) / 2)); }
-    .kicker { margin: 0 0 14px; color: var(--signal); font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
-    h1, h2, h3 { font-family: var(--display); line-height: 1.28; text-wrap: balance; }
-    h1 { max-width: 1050px; margin: 0; font-size: clamp(42px, 7.5vw, 96px); font-weight: 600; letter-spacing: -.045em; }
-    h2 { margin: 0; font-size: clamp(34px, 5vw, 62px); font-weight: 600; letter-spacing: -.035em; }
-    h3 { font-size: clamp(21px, 2.2vw, 30px); }
-    .section-lead { max-width: 720px; margin: 20px 0 44px; color: var(--muted); font-size: clamp(16px, 1.7vw, 20px); }
-    h1, h2, h3, p, li, td, th { overflow-wrap: anywhere; }
-    .kicker, .wordmark, .offer h3 { overflow-wrap: normal; word-break: normal; }
-    .evidence-figure { margin: 0 0 48px; overflow-x: auto; padding-bottom: 8px; }
-    .evidence-figure svg { display: block; min-width: 700px; width: 100%; height: auto; }
-    .evidence-figure figcaption { max-width: 760px; margin-top: 13px; color: var(--muted); font-size: 13px; }
-    .routes .evidence-figure figcaption, .questions .evidence-figure figcaption { color: #d7dfda; }
-
-    .hero {
-      min-height: calc(100vh - 64px);
-      display: grid;
-      align-content: space-between;
-      gap: 70px;
-      padding-top: clamp(70px, 12vh, 150px);
-      background: radial-gradient(circle at 82% 28%, rgba(230,184,79,.24), transparent 26%);
-    }
-    .hero > *, .hero-bottom > * { min-width: 0; max-width: 100%; }
-    .hero h1 em { color: var(--signal); font-style: normal; }
-    .hero-bottom { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr); gap: 50px; align-items: end; }
-    .thesis { max-width: 750px; margin: 0; font-family: var(--display); font-size: clamp(23px, 3.2vw, 40px); line-height: 1.55; }
-    .legend { border-left: 1px solid var(--line); padding-left: 24px; color: var(--muted); font-size: 13px; }
-    .legend strong { display: block; color: var(--ink); font-size: 16px; }
-
-    .metrics { border-block: 1px solid var(--line); background: rgba(255,253,247,.6); padding-block: 0; }
-    .metric-grid { max-width: 1180px; margin: auto; display: grid; grid-template-columns: repeat(4, 1fr); }
-    .metric { min-height: 180px; padding: 34px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
-    .metric:last-child { border-right: 0; }
-    .metric b { font-family: var(--display); font-size: clamp(48px, 6vw, 78px); font-weight: 500; line-height: 1; }
-    .metric span { color: var(--muted); font-size: 13px; }
-
-    .coverage { padding-block: clamp(54px, 7vw, 88px); background: var(--white); }
-    .coverage-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: clamp(30px, 6vw, 80px); align-items: end; }
-    .coverage h2 { font-size: clamp(30px, 4.2vw, 52px); }
-    .coverage-track { display: flex; height: 22px; margin: 28px 0 18px; overflow: hidden; border-radius: 999px; background: var(--paper-2); }
-    .coverage-track span { min-width: 3px; }
-    .coverage-track .confirmed { flex: 53; background: var(--moss); }
-    .coverage-track .candidate { flex: 21; background: var(--sun); }
-    .coverage-track .source-only { flex: 0; min-width: 0; background: var(--signal); }
-    .coverage-track .merged { flex: 3; background: var(--line); }
-    .coverage-key { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; color: var(--muted); font-size: 13px; }
-    .coverage-key span { display: flex; align-items: center; gap: 9px; }
-    .coverage-key i { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 50%; background: var(--moss); }
-    .coverage-key span:nth-child(2) i { background: var(--sun); }
-    .coverage-key span:nth-child(3) i { background: var(--signal); }
-    .coverage-key span:nth-child(4) i { background: var(--line); }
-    .coverage-insight { padding: 26px; border-left: 4px solid var(--signal); background: var(--paper); }
-    .coverage-insight small { color: var(--signal); font-weight: 800; letter-spacing: .14em; }
-    .coverage-insight h3 { margin: 10px 0 12px; font-size: clamp(22px, 2.5vw, 31px); }
-    .coverage-insight p { margin: 0; color: var(--muted); }
-
-    .career-river { background: var(--ink); color: var(--paper); }
-    .career-river .kicker { color: var(--sun); }
-    .career-river .section-lead { color: #bcc5bf; }
-    .river-map { margin-top: 52px; overflow-x: auto; padding: 0 0 20px; }
-    .river-map svg { display: block; min-width: 960px; width: 100%; height: auto; }
-    .river-map text { font-family: var(--body); }
-    .river-caption { max-width: 820px; margin: 28px 0 0 auto; color: #bcc5bf; font-size: 14px; }
-    .proof-chain { margin: 42px 0 0; }
-    .proof-chain h3 { max-width: 780px; margin: 0; font-size: clamp(24px, 3vw, 38px); }
-    .proof-chain > p { max-width: 800px; margin: 14px 0 0; color: #bcc5bf; }
-    .proof-chain ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 26px 0 0; padding: 0; list-style: none; }
-    .proof-chain li { min-height: 164px; padding: 20px; border: 1px solid rgba(255,255,255,.18); border-radius: 18px; background: rgba(255,255,255,.035); }
-    .proof-chain time { display: block; color: var(--sun); font: 700 14px/1 var(--mono); letter-spacing: .08em; }
-    .proof-chain b { display: block; margin-top: 13px; color: var(--paper); font-size: 18px; }
-    .proof-chain li span { display: block; margin-top: 8px; color: #bcc5bf; font-size: 13px; }
-    .full-cycle-boundary { padding: 16px 0 16px 18px; border-left: 3px solid var(--sun); color: #bcc5bf; }
-    .full-cycle-boundary strong { color: var(--paper); }
-    .billing-evidence { margin-top: 34px; padding: 24px; border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius); background: rgba(255,255,255,.04); }
-    .billing-evidence small { color: var(--sun); font-weight: 800; letter-spacing: .12em; }
-    .billing-evidence h3 { margin: 12px 0 8px; font-size: clamp(23px, 3vw, 34px); }
-    .billing-evidence > p { max-width: 850px; margin: 0; color: #bcc5bf; }
-    .billing-clusters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
-    .billing-clusters span { padding: 15px; border-top: 1px solid rgba(255,255,255,.2); color: var(--paper); font-weight: 800; }
-
-    .patterns { background: var(--paper-2); }
-    .pattern-stack { border-top: 1px solid var(--line); }
-    .pattern {
-      display: grid;
-      grid-template-columns: 70px minmax(190px, .8fr) 50px minmax(260px, 1.4fr) 50px minmax(190px, .8fr);
-      gap: 20px;
-      align-items: center;
-      padding: 30px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .pattern-no { color: var(--signal); font-family: var(--display); font-size: 34px; }
-    .pattern h3 { margin: 0; font-size: 23px; }
-    .pattern p { margin: 0; color: var(--muted); font-size: 14px; }
-    .arrow { color: var(--signal); font-size: 30px; text-align: center; }
-    .pattern-output { font-weight: 700; }
-
-    .cases { background: var(--white); }
-    .filter-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 30px; }
-    .filter {
-      min-height: 44px;
-      padding: 9px 15px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--muted);
-      background: transparent;
-      cursor: pointer;
-    }
-    .filter[aria-pressed="true"] { color: var(--white); border-color: var(--moss); background: var(--moss); }
-    .case-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
-    .case-card {
-      grid-column: span 4;
-      min-height: 330px;
-      display: flex;
-      flex-direction: column;
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--paper);
-      box-shadow: 0 0 0 rgba(24,32,30,0);
-      transition: transform .25s ease, box-shadow .25s ease, opacity .2s ease;
-    }
-    .case-card:nth-child(5n+1) { grid-column: span 5; }
-    .case-card:nth-child(5n+2) { grid-column: span 7; }
-    .case-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .case-card.hidden { display: none; }
-    .case-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .case-id { color: var(--signal); font-weight: 800; letter-spacing: .1em; }
-    .readiness { display: flex; gap: 4px; }
-    .readiness i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
-    .readiness i.on { background: var(--moss); }
-    .case-card h3 { margin: auto 0 12px; font-size: clamp(24px, 3vw, 36px); }
-    .case-card p { margin: 0; color: var(--muted); }
-    .case-tag { margin-top: 22px; color: var(--moss); font-size: 12px; font-weight: 800; }
-
-    .commercial { background: #efe5d2; }
-    .commercial-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(30px, 6vw, 84px); align-items: stretch; }
-    .proof-stack { border-block: 1px solid #b7aa91; }
-    .proof-step { display: grid; grid-template-columns: 54px 1fr; gap: 18px; align-items: start; padding: 21px 0; border-top: 1px solid #cfc3ad; }
-    .proof-step:first-child { border-top: 0; }
-    .proof-step b { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; color: var(--white); background: var(--signal); font-family: var(--display); font-size: 21px; font-weight: 500; }
-    .proof-step h3 { margin: 1px 0 5px; font-size: clamp(20px, 2vw, 26px); }
-    .proof-step p { margin: 0; color: var(--muted); font-size: 14px; }
-    .commercial-thesis { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; padding: clamp(28px, 5vw, 54px); border-radius: 26px; color: var(--paper); background: var(--ink); }
-    .commercial-thesis small { color: var(--sun); font-weight: 800; letter-spacing: .14em; }
-    .commercial-thesis blockquote { margin: 28px 0; font-family: var(--display); font-size: clamp(27px, 4vw, 46px); line-height: 1.35; }
-    .commercial-thesis dl { display: grid; grid-template-columns: auto 1fr; gap: 12px 18px; margin: 0; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.24); }
-    .commercial-thesis dt { color: var(--sun); font-weight: 800; }
-    .commercial-thesis dd { margin: 0; color: #d7dfda; }
-    .proof-boundary { margin-top: 30px; padding: 20px 24px; border-left: 4px solid var(--signal); background: rgba(255,255,255,.42); color: var(--muted); }
-    .proof-boundary strong { color: var(--ink); }
-
-    .routes { background: var(--moss); color: var(--white); }
-    .routes .kicker { color: var(--sun); }
-    .routes .section-lead { color: #d7dfda; }
-    .route-layout { display: grid; grid-template-columns: 250px 1fr; gap: clamp(30px, 6vw, 90px); }
-    .route-tabs { display: flex; flex-direction: column; gap: 10px; }
-    .route-tab { padding: 15px 18px; border: 1px solid rgba(255,255,255,.25); border-radius: 14px; color: #d7dfda; background: transparent; text-align: left; cursor: pointer; }
-    .route-tab[aria-selected="true"] { color: var(--ink); border-color: var(--sun); background: var(--sun); }
-    .route-panel { display: none; animation: rise .35s ease both; }
-    .route-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-    .route-panel .big { grid-column: 1 / -1; margin: 0 0 14px; font-family: var(--display); font-size: clamp(27px, 4vw, 48px); line-height: 1.35; }
-    .route-box { padding: 24px; border: 1px solid rgba(255,255,255,.25); border-radius: 18px; }
-    .route-box b { display: block; margin-bottom: 7px; color: var(--sun); }
-    .route-box p { margin: 0; color: #d7dfda; }
-
-    .market { background: var(--paper); }
-    .market-summary { display: grid; grid-template-columns: 1fr 1fr 2fr; border-block: 1px solid var(--line); margin-bottom: 46px; }
-    .market-stat { min-height: 150px; padding: 24px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
-    .market-stat:last-child { border-right: 0; }
-    .market-stat b { font-family: var(--display); font-size: clamp(44px, 6vw, 70px); font-weight: 500; line-height: 1; }
-    .market-stat span { color: var(--muted); font-size: 13px; }
-    .market-stat p { margin: 0; font-family: var(--display); font-size: clamp(19px, 2.2vw, 27px); line-height: 1.5; }
-    .market-lanes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-    .market-lane { min-width: 0; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
-    .market-lane > small { color: var(--signal); font-weight: 800; letter-spacing: .12em; }
-    .market-lane h3 { min-height: 72px; margin: 15px 0 24px; font-size: clamp(23px, 2.4vw, 31px); }
-    .opportunity { display: grid; grid-template-columns: 34px 1fr 54px; gap: 10px; align-items: center; min-height: 70px; padding-block: 12px; border-top: 1px solid var(--line); }
-    .opportunity:first-of-type { border-top: 0; }
-    .opportunity .rank { color: var(--signal); font-family: var(--display); font-size: 20px; }
-    .opportunity a { display: inline-flex; min-height: 44px; align-items: center; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-    .opportunity em { display: flex; min-height: 44px; flex-direction: column; align-items: flex-end; justify-content: center; color: var(--moss); font-style: normal; font-weight: 800; text-align: right; }
-    .opportunity em::before { content: attr(data-kind); color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .08em; line-height: 1.2; }
-    .market-lane p { color: var(--muted); font-size: 13px; }
-    .market-note { margin-top: 30px; padding: 22px 24px; border-left: 4px solid var(--signal); background: var(--paper-2); color: var(--muted); }
-    .market-note strong { color: var(--ink); }
-
-    .readiness-sprint { background: var(--ink); color: var(--paper); }
-    .readiness-sprint .kicker { color: var(--sun); }
-    .readiness-sprint .section-lead { color: #bcc5bf; }
-    .sprint-status { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid rgba(255,255,255,.24); margin-bottom: 42px; }
-    .sprint-number { min-height: 150px; padding: 26px; border-right: 1px solid rgba(255,255,255,.24); display: flex; flex-direction: column; justify-content: space-between; }
-    .sprint-number:last-child { border-right: 0; }
-    .sprint-number b { color: var(--sun); font-family: var(--display); font-size: clamp(46px, 6vw, 72px); font-variant-numeric: tabular-nums; font-weight: 500; line-height: 1; }
-    .sprint-number span { color: #bcc5bf; font-size: 13px; }
-    .sprint-lanes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    .sprint-lane { min-height: 320px; padding: 25px; border: 1px solid rgba(255,255,255,.22); border-radius: var(--radius); background: rgba(255,255,255,.04); }
-    .sprint-lane small { color: var(--sun); font-weight: 800; letter-spacing: .12em; }
-    .sprint-lane h3 { margin: 20px 0 16px; font-size: clamp(23px, 2.4vw, 31px); }
-    .sprint-lane p { color: #d7dfda; }
-    .sprint-lane ul { margin: 24px 0 0; padding: 18px 0 0 1.15em; border-top: 1px solid rgba(255,255,255,.18); color: #bcc5bf; font-size: 13px; }
-    .sprint-timeline { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 34px; border-top: 1px solid rgba(255,255,255,.24); }
-    .sprint-step { min-height: 160px; padding: 22px 18px 12px 0; }
-    .sprint-step:not(:last-child) { margin-right: 18px; border-right: 1px solid rgba(255,255,255,.18); }
-    .sprint-step b { display: block; color: var(--sun); font-size: 12px; font-variant-numeric: tabular-nums; letter-spacing: .1em; }
-    .sprint-step p { margin: 12px 0 0; color: #d7dfda; font-size: 14px; }
-    .sprint-note { margin-top: 28px; padding: 22px 24px; border-left: 4px solid var(--sun); background: rgba(255,255,255,.06); color: #d7dfda; }
-    .sprint-note strong { color: var(--sun); }
-
-    .profiles { background: var(--paper-2); }
-    .profile-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
-    .profile-tab { min-height: 58px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: transparent; cursor: pointer; font-weight: 800; }
-    .profile-tab[aria-selected="true"] { color: var(--white); border-color: var(--signal); background: var(--signal); }
-    .profile-panel { display: none; min-height: 440px; grid-template-columns: minmax(0, 1.5fr) minmax(250px, .5fr); gap: clamp(28px, 6vw, 80px); padding: clamp(28px, 5vw, 58px); border: 1px solid var(--line); border-radius: 28px; background: var(--white); animation: rise .35s ease both; }
-    .profile-panel.active { display: grid; }
-    .profile-panel small { color: var(--signal); font-weight: 800; letter-spacing: .13em; }
-    .profile-panel h3 { max-width: 760px; margin: 18px 0 26px; font-size: clamp(28px, 4vw, 48px); }
-    .profile-copy { max-width: 760px; color: var(--muted); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.9; }
-    .profile-evidence-note { margin: 16px 0 0; color: var(--muted); font-size: 12px; }
-    .phrase { display: inline-block; white-space: nowrap; }
-    .profile-side { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; padding-left: 28px; border-left: 1px solid var(--line); }
-    .profile-side b { color: var(--moss); }
-    .profile-side ol { margin: 18px 0 30px; padding-left: 1.25em; color: var(--muted); }
-    .profile-side li { margin-block: 9px; }
-    .profile-use { padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
-
-    .application-kit { background: var(--ink); color: var(--paper); }
-    .application-kit .kicker { color: var(--sun); }
-    .application-kit .section-lead { color: #bcc5bf; }
-    .copy-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
-    .copy-card { grid-column: span 4; min-height: 310px; display: flex; flex-direction: column; padding: 25px; border: 1px solid rgba(255,255,255,.23); border-radius: var(--radius); background: rgba(255,255,255,.04); }
-    .copy-card.wide { grid-column: span 8; }
-    .copy-card.reference-card { grid-column: span 8; }
-    .copy-card small { color: var(--sun); font-weight: 800; letter-spacing: .12em; }
-    .copy-card h3 { margin: 18px 0; font-size: clamp(22px, 2.4vw, 31px); }
-    .copy-text { margin: 0; color: #d7dfda; line-height: 1.8; }
-    .copy-action { min-height: 44px; margin-top: auto; align-self: flex-start; padding: 10px 18px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; color: var(--paper); background: transparent; cursor: pointer; font-weight: 800; }
-    .copy-action:hover, .copy-action:focus-visible { color: var(--ink); border-color: var(--sun); background: var(--sun); }
-    .copy-action.copied { color: var(--ink); border-color: var(--sun); background: var(--sun); }
-    .reference-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
-    .reference-tab { min-height: 44px; padding: 8px 14px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: #bcc5bf; background: transparent; cursor: pointer; font-weight: 800; }
-    .reference-tab[aria-pressed="true"] { color: var(--ink); border-color: var(--sun); background: var(--sun); }
-    .reference-case { display: block; margin-bottom: 10px; color: var(--sun); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
-    .reference-boundary { margin: 18px 0 22px; padding: 14px 16px; border-left: 3px solid var(--sun); color: #bcc5bf; background: rgba(255,255,255,.05); font-size: 12px; line-height: 1.65; }
-    .reference-permission { margin: 0 0 18px; color: #bcc5bf; font-size: 12px; line-height: 1.65; }
-    .offer-mini { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 16px; }
-    .offer-mini div { padding: 18px; border-top: 1px solid rgba(255,255,255,.22); }
-    .offer-mini b { color: var(--sun); }
-    .offer-mini p { margin: 8px 0 0; color: #bcc5bf; font-size: 13px; }
-
-    .offers { background: var(--paper); }
-    .offer-scroll-hint { margin: -14px 0 8px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .04em; text-align: right; }
-    .offer-track { display: grid; grid-template-columns: repeat(3, minmax(230px, 1fr)); gap: 14px; overflow-x: auto; padding: 8px 4px 30px; }
-    .offer { min-height: 410px; padding: 24px; border: 1px solid var(--line); background: var(--white); position: relative; }
-    .offer::after { content: attr(data-step); position: absolute; right: 18px; bottom: 10px; color: var(--paper-2); font-family: var(--display); font-size: 82px; line-height: 1; z-index: 0; }
-    .offer > * { position: relative; z-index: 1; }
-    .offer small { color: var(--signal); font-weight: 800; }
-    .offer h3 { min-height: 76px; margin: 28px 0 18px; font-size: clamp(20px, 1.8vw, 27px); }
-    .offer p { color: var(--muted); font-size: 14px; }
-    .offer strong { display: block; margin-top: 25px; color: var(--moss); }
-
-    .system { background: var(--paper-2); }
-    .system-grid { display: grid; grid-template-columns: 1fr 52px 1fr 52px 1fr; gap: 18px; align-items: stretch; }
-    .system-side { padding: clamp(24px, 4vw, 44px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
-    .system-side h3 { margin-top: 0; }
-    .system-side ul { padding-left: 1.1em; color: var(--muted); }
-    .system-bridge { display: grid; place-items: center; color: var(--signal); font-family: var(--display); font-size: 42px; writing-mode: vertical-rl; }
-    .system .billing-evidence { border-color: var(--line); background: rgba(255,253,247,.72); }
-    .system .billing-evidence > p { color: var(--muted); }
-    .system .billing-clusters span { border-color: var(--line); color: var(--ink); }
-
-    .gates { background: var(--paper); }
-    .gate-list { border-top: 1px solid var(--line); }
-    .gate { display: grid; grid-template-columns: minmax(190px, .55fr) minmax(0, 1.45fr); gap: 28px; margin: 0; padding: 25px 0; border: 0; border-bottom: 1px solid var(--line); }
-    .gate legend { padding: 0; font-family: var(--display); font-size: clamp(20px, 2.2vw, 29px); font-weight: 600; }
-    .gate-options { display: flex; flex-wrap: wrap; gap: 9px; }
-    .gate-option { min-height: 44px; padding: 9px 15px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--white); cursor: pointer; }
-    .gate-option[aria-pressed="true"] { color: var(--white); border-color: var(--moss); background: var(--moss); }
-    .gate-output { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: end; margin-top: 28px; padding: 24px; border-left: 4px solid var(--signal); background: var(--paper-2); }
-    .gate-output small { display: block; margin-bottom: 8px; color: var(--signal); font-weight: 800; letter-spacing: .1em; }
-    .gate-summary { margin: 0; color: var(--ink); white-space: pre-line; }
-    .gate-copy { color: var(--ink); border-color: var(--line); }
-    .gate-copy:hover, .gate-copy:focus-visible { color: var(--white); border-color: var(--moss); background: var(--moss); }
-
-    .questions { background: var(--ink); color: var(--paper); }
-    .questions .kicker { color: var(--sun); }
-    .questions .section-lead { color: #bcc5bf; }
-    .evidence-interview { margin: 38px 0 28px; border: 1px solid rgba(255,255,255,.24); background: rgba(255,255,255,.045); }
-    .interview-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(190px, .32fr); gap: 30px; align-items: end; padding: clamp(24px, 4vw, 38px); border-bottom: 1px solid rgba(255,255,255,.2); }
-    .interview-head small, .interview-output small { color: var(--sun); font-weight: 800; letter-spacing: .11em; }
-    .interview-head h3 { max-width: 760px; margin: 12px 0; font-size: clamp(27px, 3.5vw, 44px); }
-    .interview-head p { max-width: 760px; margin: 0; color: #bcc5bf; }
-    .interview-meter { align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end; }
-    .interview-meter b { color: var(--sun); font-family: var(--display); font-size: clamp(42px, 5vw, 66px); font-weight: 500; line-height: 1; }
-    .interview-meter span { margin-top: 8px; color: #bcc5bf; font-size: 12px; }
-    .interview-meter-track { height: 4px; margin-top: 13px; background: rgba(255,255,255,.16); }
-    .interview-meter-fill { width: 0; height: 100%; background: var(--sun); transition: width .25s ease; }
-    .interview-steps { display: grid; }
-    .interview-step { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(230px, auto); gap: 20px; align-items: center; padding: 24px clamp(20px, 3vw, 34px); border-bottom: 1px solid rgba(255,255,255,.16); }
-    .interview-step > b { color: var(--sun); font-family: var(--display); font-size: 28px; font-weight: 500; }
-    .interview-step small { color: #89958e; font-weight: 800; letter-spacing: .08em; }
-    .interview-step p { margin: 7px 0 0; color: #e2e7e4; line-height: 1.7; }
-    .interview-state { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
-    .interview-state button { min-height: 44px; padding: 8px 12px; border: 1px solid rgba(255,255,255,.27); border-radius: 999px; color: #bcc5bf; background: transparent; cursor: pointer; }
-    .interview-state button[aria-pressed="true"] { color: var(--ink); border-color: var(--sun); background: var(--sun); }
-    .interview-output { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; padding: clamp(22px, 3vw, 32px); background: rgba(240,199,94,.07); }
-    .interview-output p { margin: 9px 0 0; color: #d7dfda; white-space: pre-line; }
-    .interview-privacy { margin: 0; padding: 0 clamp(20px, 3vw, 34px) 24px; color: #89958e; font-size: 12px; }
-    .question-list { counter-reset: q; display: grid; gap: 12px; }
-    .question {
-      counter-increment: q;
-      display: grid;
-      grid-template-columns: 56px 1fr auto;
-      align-items: center;
-      gap: 18px;
-      padding: 20px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.035);
-    }
-    .question::before { content: counter(q, decimal-leading-zero); color: var(--sun); font-family: var(--display); font-size: 23px; }
-    .question p { margin: 0; }
-    .question button { min-height: 44px; display: inline-flex; align-items: center; border: 0; color: var(--paper); background: transparent; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
-    .question.done { opacity: .48; }
-    .question.done p { text-decoration: line-through; }
-
-    .closing { min-height: 78vh; display: grid; place-items: center; text-align: center; background: var(--signal); color: var(--white); }
-    .closing blockquote { max-width: 950px; margin: 0; font-family: var(--display); font-size: clamp(32px, 6vw, 72px); line-height: 1.35; }
-    .closing p { max-width: 650px; margin: 32px auto 0; }
-    footer { padding: 34px 20px; color: var(--muted); background: var(--paper); text-align: center; font-size: 12px; }
-
-    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: no-preference) {
-      .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
-      .js .reveal.visible { opacity: 1; transform: none; }
-    }
-    @media print { .reveal { opacity: 1 !important; transform: none !important; transition: none !important; } .topbar, .reading-progress { display: none; } }
-    @media (max-width: 900px) {
-      .hero-bottom, .route-layout, .system-grid, .coverage-grid, .commercial-grid { grid-template-columns: 1fr; }
-      .gate { grid-template-columns: 1fr; gap: 14px; }
-      .metric-grid { grid-template-columns: repeat(2, 1fr); }
-      .metric:nth-child(2) { border-right: 0; }
-      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-      .pattern { grid-template-columns: 52px 1fr; }
-      .pattern .arrow { display: none; }
-      .pattern p, .pattern-output { grid-column: 2; }
-      .case-card, .case-card:nth-child(5n+1), .case-card:nth-child(5n+2) { grid-column: span 6; }
-      .route-tabs { flex-direction: row; overflow-x: auto; }
-      .route-tab { min-width: 150px; }
-      .market-lanes, .sprint-lanes { grid-template-columns: 1fr; }
-      .sprint-timeline { grid-template-columns: 1fr 1fr; }
-      .sprint-step:last-child { grid-column: 1 / -1; }
-      .billing-clusters { grid-template-columns: 1fr; }
-      .proof-chain ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .profile-panel.active { grid-template-columns: 1fr; }
-      .profile-side { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
-      .copy-card, .copy-card.wide { grid-column: span 6; }
-      .copy-card.reference-card { grid-column: 1 / -1; }
-      .interview-head, .interview-step, .interview-output { grid-template-columns: 1fr; }
-      .interview-meter { min-height: 110px; }
-      .interview-state { justify-content: flex-start; }
-      .system-bridge { writing-mode: horizontal-tb; }
-    }
-    @media (max-width: 620px) {
-      .topbar nav { display: none; }
-      section { padding-inline: 18px; }
-      .hero { min-height: auto; }
-      h1 { font-size: clamp(32px, 9.2vw, 44px); letter-spacing: -.055em; }
-      .thesis { font-size: 21px; }
-      .hero-bottom { gap: 28px; }
-      .metric { min-height: 145px; padding: 22px 18px; }
-      .market-summary { grid-template-columns: 1fr 1fr; }
-      .market-stat:nth-child(2) { border-right: 0; }
-      .market-stat:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line); }
-      .sprint-status { grid-template-columns: 1fr; }
-      .sprint-number { min-height: 112px; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.24); }
-      .sprint-number:last-child { border-bottom: 0; }
-      .sprint-timeline { grid-template-columns: 1fr; }
-      .sprint-lane, .sprint-step { min-height: 0; }
-      .sprint-step:not(:last-child) { margin-right: 0; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
-      .proof-chain ol { grid-template-columns: 1fr; }
-      .proof-chain li { min-height: 0; }
-      .profile-tabs { grid-template-columns: 1fr; }
-      .profile-panel { min-height: 0; padding: 26px 20px; border-radius: 18px; }
-      .copy-card, .copy-card.wide { grid-column: 1 / -1; min-height: 280px; }
-      .reference-tabs { display: grid; grid-template-columns: 1fr; }
-      .reference-tab { width: 100%; text-align: left; }
-      .offer-mini { grid-template-columns: 1fr; }
-      .case-card, .case-card:nth-child(5n+1), .case-card:nth-child(5n+2) { grid-column: 1 / -1; min-height: 280px; }
-      .route-panel.active { grid-template-columns: 1fr; }
-      .route-panel .big { grid-column: 1; }
-      .question { grid-template-columns: 40px 1fr; }
-      .question button { grid-column: 2; justify-self: start; }
-      .interview-state { display: grid; grid-template-columns: 1fr; }
-      .interview-state button { width: 100%; text-align: left; }
-      .gate-output { grid-template-columns: 1fr; }
-    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--sans);line-height:1.65}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.19;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 170 170' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");z-index:20}
+    button,input,select{font:inherit} button,select{min-height:44px} a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--signal-dark);outline-offset:2px}
+    .top{position:sticky;top:0;z-index:15;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px clamp(16px,4vw,58px);border-bottom:1px solid var(--ink);background:rgba(238,230,212,.94);backdrop-filter:blur(16px)}
+    .brand{font:800 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}.local{padding:7px 10px;color:#fff;background:var(--signal-dark);font:800 11px/1 var(--mono);letter-spacing:.08em}
+    main{overflow-x:clip}.hero{position:relative;min-height:620px;padding:clamp(72px,10vw,132px) max(20px,calc((100vw - 1220px)/2));border-bottom:1px solid var(--ink);background:linear-gradient(113deg,var(--paper-hi) 0 62%,var(--blue) 62%)}
+    .hero:after{content:"121";position:absolute;right:-.03em;bottom:-.22em;color:rgba(255,255,255,.12);font:800 clamp(190px,36vw,520px)/1 var(--serif);letter-spacing:-.1em}
+    .eyebrow{margin:0 0 18px;color:var(--signal-dark);font:800 12px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase}
+    h1,h2,h3{font-family:var(--serif);line-height:1.22;text-wrap:balance}h1{position:relative;z-index:2;max-width:850px;margin:0;font-size:clamp(46px,8vw,104px);font-weight:600;letter-spacing:-.055em}h1 em{color:var(--signal);font-style:normal}
+    .hero-copy{position:relative;z-index:2;max-width:680px;margin:36px 0 0;font-size:clamp(17px,2vw,23px)}.hero-note{position:relative;z-index:2;max-width:650px;margin:46px 0 0;padding:18px 20px;border-left:5px solid var(--acid);color:#e9f1ef;background:rgba(8,28,38,.88)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--ink);background:var(--paper-hi)}.metric{min-height:150px;padding:24px clamp(16px,3vw,38px);border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between}.metric:last-child{border-right:0}.metric b{font:500 clamp(44px,6vw,78px)/1 var(--serif)}.metric span{color:var(--muted);font-size:12px}
+    .spine{padding:clamp(76px,9vw,126px) max(20px,calc((100vw - 1220px)/2));border-bottom:1px solid var(--ink);background:var(--paper-hi)}.spine-head{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:48px;align-items:end}.spine h2{max-width:850px;margin:0;font-size:clamp(42px,6.8vw,86px)}.spine-thesis{margin:0;padding:20px 0 3px;border-top:6px solid var(--signal);font:500 clamp(20px,2.4vw,30px)/1.55 var(--serif)}.spine-thesis strong{color:var(--signal-dark)}.spine-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}.proof-tag{display:inline-flex;gap:7px;align-items:center;padding:5px 8px;border:1px solid var(--line);font:800 10px/1 var(--mono);letter-spacing:.06em}.proof-tag:before{content:"";width:8px;height:8px;background:var(--blue)}.proof-tag.self:before{background:var(--signal)}.proof-tag.hypothesis:before{border:1px solid var(--ink);background:transparent}
+    .spine-flow{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:62px;border-top:1px solid var(--ink)}.spine-flow:before{content:"";position:absolute;left:0;right:0;top:-5px;height:9px;background:linear-gradient(90deg,var(--blue) 0 30%,var(--signal) 30% 66%,var(--acid) 66% 100%);clip-path:polygon(0 25%,98% 25%,98% 0,100% 50%,98% 100%,98% 75%,0 75%)}.spine-step{position:relative;min-height:360px;padding:34px 20px 24px;border-right:1px solid var(--line)}.spine-step:first-child{border-left:1px solid var(--line)}.spine-step time{display:block;color:var(--signal-dark);font:800 11px/1 var(--mono);letter-spacing:.08em}.spine-step h3{min-height:78px;margin:18px 0 14px;font-size:clamp(21px,2.2vw,31px)}.spine-step p{margin:0;color:var(--muted);font-size:13px}.spine-step .inherit{position:absolute;left:20px;right:20px;bottom:24px;padding-top:11px;border-top:1px solid var(--line);color:var(--ink);font:800 10px/1.45 var(--mono)}.spine-caption{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;margin-top:34px;padding:22px;border:1px solid var(--ink);background:#e5dcc7}.spine-caption b{color:var(--signal-dark);font:800 11px/1.3 var(--mono)}.spine-caption p{margin:0;font-size:13px}.spine-caption strong{font-size:15px}
+    .coverage{padding:clamp(70px,8vw,110px) max(20px,calc((100vw - 1220px)/2));border-bottom:1px solid var(--ink);background:#e5dcc7}.coverage-head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:40px;align-items:end}.coverage h2{max-width:800px;margin:0;font-size:clamp(38px,6vw,76px)}.coverage-lead{margin:0;color:var(--muted);font-size:15px}.coverage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:42px;margin-top:52px}.coverage-panel{padding-top:20px;border-top:6px solid var(--ink)}.coverage-panel h3{margin:0 0 8px;font-size:28px}.coverage-panel>p{margin:0 0 24px;color:var(--muted);font-size:12px}.bar-list{display:grid;gap:15px}.bar-row{display:grid;grid-template-columns:minmax(145px,1fr) minmax(120px,1.4fr) auto;gap:12px;align-items:center}.bar-label{font-size:12px}.bar-track{height:12px;background:rgba(22,21,18,.12)}.bar-fill{display:block;height:100%;background:var(--blue)}.bar-fill.candidate{background:var(--signal-dark)}.bar-value{min-width:62px;text-align:right;font:800 11px/1 var(--mono)}.coverage-note{display:grid;grid-template-columns:auto 1fr;gap:15px;margin-top:34px;padding:20px;border:1px solid var(--ink);background:var(--paper-hi)}.coverage-note b{display:grid;place-items:center;width:42px;height:42px;color:#fff;background:var(--signal-dark);font:800 11px/1 var(--mono)}.coverage-note p{margin:0;font-size:13px}.coverage-note strong{display:block;margin-bottom:4px;font-size:15px}
+    .routes{padding:clamp(76px,9vw,124px) max(20px,calc((100vw - 1220px)/2));color:#fff;background:var(--ink)}.routes-head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:42px;align-items:end}.routes .eyebrow{color:var(--acid)}.routes h2{max-width:820px;margin:0;font-size:clamp(40px,6.5vw,82px)}.routes-lead{margin:0;color:#c9c3b5;font-size:15px}.route-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:52px;background:rgba(255,255,255,.26)}.route-card{position:relative;min-height:430px;padding:28px;background:var(--ink)}.route-num{display:block;margin-bottom:48px;color:var(--acid);font:800 12px/1 var(--mono);letter-spacing:.12em}.route-card h3{min-height:82px;margin:0;font-size:clamp(26px,3vw,38px)}.route-buy{min-height:88px;margin:18px 0 26px;color:#e9e3d5;font-size:15px}.route-card dl{display:grid;gap:15px;margin:0;padding-top:18px;border-top:1px solid rgba(255,255,255,.28)}.route-card dt{color:var(--acid);font:800 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}.route-card dd{margin:5px 0 0;color:#d5d0c5;font-size:12px}.route-flow{display:grid;grid-template-columns:repeat(3,1fr);margin-top:34px;border:1px solid rgba(255,255,255,.34)}.route-step{position:relative;padding:22px 24px;border-right:1px solid rgba(255,255,255,.34)}.route-step:last-child{border-right:0}.route-step b{display:block;color:var(--acid);font:800 10px/1 var(--mono);letter-spacing:.1em}.route-step p{margin:10px 0 0;font:500 17px/1.55 var(--serif)}.route-caution{margin:26px 0 0;color:#c9c3b5;font-size:12px}
+    .market-fit{padding:clamp(76px,9vw,124px) max(20px,calc((100vw - 1220px)/2));border-bottom:1px solid var(--ink);background:var(--acid)}.market-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr);gap:42px;align-items:end}.market-fit .eyebrow{color:var(--signal-dark)}.market-fit h2{max-width:850px;margin:0;font-size:clamp(40px,6.5vw,82px)}.market-lead{margin:0;padding-top:18px;border-top:5px solid var(--ink);font-size:15px}.market-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:52px;border:1px solid var(--ink);background:var(--ink)}.market-card{position:relative;min-height:365px;padding:30px 30px 28px;background:var(--paper-hi)}.market-card.featured{background:var(--blue);color:#fff}.market-card .market-type{display:block;margin-bottom:50px;color:var(--signal-dark);font:800 11px/1 var(--mono);letter-spacing:.11em}.market-card.featured .market-type{color:var(--acid)}.market-card h3{max-width:620px;margin:0;font-size:clamp(28px,3.6vw,45px)}.market-card h3 a{color:inherit;text-decoration-thickness:1px;text-underline-offset:7px}.market-card p{max-width:690px;margin:18px 0 26px;color:var(--muted);font-size:14px}.market-card.featured p{color:#e7efed}.market-card dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:0;padding-top:18px;border-top:1px solid var(--line)}.market-card.featured dl{border-color:rgba(255,255,255,.3)}.market-card dt{color:var(--signal-dark);font:800 10px/1 var(--mono);letter-spacing:.08em}.market-card.featured dt{color:var(--acid)}.market-card dd{margin:6px 0 0;font-size:12px}.market-signal{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;margin-top:28px;padding:20px;border:1px solid var(--ink);background:var(--paper-hi)}.market-signal b{color:var(--signal-dark);font:800 11px/1.3 var(--mono)}.market-signal p{margin:0;font-size:13px}.market-signal a{min-height:44px;display:inline-flex;align-items:center;padding:0 14px;color:#fff;background:var(--signal-dark);font:800 11px/1 var(--mono);text-decoration:none}.market-source{margin:22px 0 0;font-size:11px}
+    .workspace{display:grid;grid-template-columns:minmax(260px,340px) minmax(0,1fr);max-width:1440px;margin:auto;min-height:100vh}.controls{position:sticky;top:65px;align-self:start;max-height:calc(100vh - 65px);overflow:auto;padding:34px 26px 70px;border-right:1px solid var(--ink);background:#e5dcc7}.controls h2{margin:0 0 10px;font-size:30px}.controls p{margin:0 0 26px;color:var(--muted);font-size:13px}
+    .field{display:grid;gap:7px;margin:0 0 18px}.field label{font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}.field input,.field select{width:100%;min-height:46px;padding:10px 12px;border:1px solid #645f55;border-radius:0;color:var(--ink);background:var(--paper-hi)}
+    .progress{margin:28px 0;padding:18px;color:#fff;background:var(--blue)}.progress-top{display:flex;justify-content:space-between;gap:14px;align-items:end}.progress b{font:500 36px/1 var(--serif)}.track{height:7px;margin-top:13px;background:rgba(255,255,255,.22)}.track i{display:block;width:0;height:100%;background:var(--acid);transition:width .3s ease}
+    .control-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.control-actions button,.copy-queue{padding:9px 12px;border:1px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}.copy-queue{grid-column:1/-1;color:#fff;border-color:var(--signal-dark);background:var(--signal-dark)}.control-actions button:hover,.copy-queue:hover{transform:translateY(-1px);box-shadow:4px 4px 0 var(--ink)}
+    .privacy{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}.privacy strong{color:var(--signal-dark)}
+    .catalogue{padding:34px clamp(18px,4vw,54px) 90px}.catalogue-head{display:flex;justify-content:space-between;gap:22px;align-items:end;margin-bottom:24px}.catalogue-head h2{margin:0;font-size:clamp(34px,5vw,62px)}.catalogue-head p{margin:0;color:var(--muted)}
+    .mobile-jump{display:none}.era-title{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;margin:54px 0 12px;padding-top:18px;border-top:6px solid var(--ink)}.era-title b{font:800 11px/1 var(--mono);letter-spacing:.1em;color:var(--signal-dark)}.era-title h3{margin:0;font-size:clamp(26px,3vw,40px)}
+    .work-list{display:grid;gap:8px}.work{display:grid;grid-template-columns:88px minmax(130px,.55fr) minmax(230px,1.65fr) minmax(170px,.85fr) 220px;gap:14px;align-items:center;min-height:106px;padding:16px 16px 16px 0;border-top:1px solid var(--line);background:rgba(255,250,240,.52);transition:background .2s,transform .2s}.work:hover{background:var(--paper-hi);transform:translateX(3px)}.work[data-kind="child"]{margin-left:38px;border-left:5px solid var(--acid)}
+    .work-id{align-self:stretch;display:grid;place-items:center;color:#fff;background:var(--ink);font:800 12px/1 var(--mono);writing-mode:vertical-rl}.work[data-kind="child"] .work-id{color:var(--ink);background:var(--acid)}.period{font:700 12px/1.5 var(--mono);color:var(--blue)}.title{margin:0;font:600 clamp(18px,2vw,27px)/1.35 var(--serif)}.form{color:var(--muted);font-size:12px}.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}.chip{padding:3px 7px;border:1px solid var(--line);font-size:10px}.chip.evidence{color:#fff;border-color:var(--blue);background:var(--blue)}
+    .review label{display:block;margin-bottom:6px;font:800 10px/1 var(--mono);letter-spacing:.08em}.review select{width:100%;padding:8px;border:2px solid var(--ink);background:var(--paper-hi);font-size:12px}.work[data-review="missing"]{background:#fff1b5}.work[data-review="wrong"]{background:#ffd6cb}.work[data-review="thin"]{background:#dcebf0}.work[data-review="ok"]{opacity:.72}.work[hidden]{display:none}
+    .empty{display:none;padding:50px 20px;text-align:center;border:1px dashed var(--muted)}.empty.show{display:block}
+    .prompts{padding:clamp(70px,9vw,120px) max(20px,calc((100vw - 1180px)/2));color:#fff;background:var(--ink)}.prompts .eyebrow{color:var(--acid)}.prompts h2{max-width:820px;margin:0;font-size:clamp(38px,6vw,74px)}.prompt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:44px;background:rgba(255,255,255,.22)}.prompt{min-height:145px;padding:24px;background:var(--ink)}.prompt b{display:block;color:var(--acid);font:800 11px/1 var(--mono)}.prompt p{margin:14px 0 0;font:500 clamp(18px,2.2vw,26px)/1.5 var(--serif)}
+    footer{display:flex;justify-content:space-between;gap:30px;padding:28px max(20px,calc((100vw - 1180px)/2));border-top:1px solid var(--line);font-size:11px;color:var(--muted);background:var(--paper-hi)}
+    .toast{position:fixed;right:18px;bottom:18px;z-index:30;max-width:320px;padding:13px 16px;color:#fff;background:var(--blue);box-shadow:var(--shadow);transform:translateY(140%);transition:transform .25s}.toast.show{transform:translateY(0)}
+    @media(min-width:981px) and (max-width:1400px){.workspace{grid-template-columns:minmax(240px,300px) minmax(0,1fr)}.catalogue{padding-inline:20px}.work{grid-template-columns:64px 110px minmax(0,1fr) 180px;gap:10px}.work-id{grid-column:1;grid-row:1/3}.period{grid-column:2;grid-row:1}.title{grid-column:3;grid-row:1}.meta{grid-column:4;grid-row:1}.review{grid-column:2/5;grid-row:2;max-width:260px}.form{display:none}}
+    @media(max-width:980px){.hero{background:linear-gradient(150deg,var(--paper-hi) 0 72%,var(--blue) 72%)}.metrics{grid-template-columns:repeat(2,1fr)}.metric:nth-child(2){border-right:0}.metric:nth-child(-n+2){border-bottom:1px solid var(--line)}.spine-head,.coverage-head,.routes-head,.market-head{grid-template-columns:1fr}.spine-flow{grid-template-columns:repeat(3,1fr)}.spine-step:nth-child(3){border-right:0}.spine-step:nth-child(n+4){border-top:1px solid var(--line)}.coverage-grid,.route-grid,.market-grid{grid-template-columns:1fr}.route-card,.market-card{min-height:0}.route-card h3,.route-buy{min-height:0}.route-flow{grid-template-columns:1fr}.route-step{border-right:0;border-bottom:1px solid rgba(255,255,255,.34)}.route-step:last-child{border-bottom:0}.workspace{grid-template-columns:1fr}.controls{position:relative;top:auto;max-height:none;border-right:0;border-bottom:1px solid var(--ink)}.mobile-jump{position:sticky;top:46px;z-index:12;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:-34px calc(-1 * clamp(18px,4vw,54px)) 34px;padding:10px clamp(18px,4vw,54px);border-bottom:1px solid var(--ink);background:rgba(238,230,212,.96);backdrop-filter:blur(12px);font:800 11px/1 var(--mono);letter-spacing:.06em}.mobile-jump a{min-height:44px;display:inline-flex;align-items:center;color:#fff;background:var(--signal-dark);padding:0 14px;text-decoration:none}.work{grid-template-columns:58px 120px minmax(0,1fr) 190px}.work-id{grid-column:1;grid-row:1/3}.period{grid-column:2;grid-row:1}.title{grid-column:3;grid-row:1}.meta{grid-column:4;grid-row:1}.review{grid-column:2/5;grid-row:2;max-width:260px}.form{display:none}}
+    @media(max-width:680px){.top{align-items:flex-start}.brand{line-height:1.35}.hero{min-height:570px;padding-top:64px}.hero:after{font-size:240px}.metrics{grid-template-columns:1fr 1fr}.metric{min-height:120px}.metric b{font-size:46px}.spine-flow{grid-template-columns:1fr}.spine-step{min-height:0;padding-bottom:96px;border-left:1px solid var(--line)!important;border-right:1px solid var(--line)!important;border-top:1px solid var(--line)}.spine-step:first-child{border-top:0}.spine-step h3{min-height:0}.spine-caption{grid-template-columns:1fr}.coverage-grid{gap:34px}.bar-row{grid-template-columns:1fr auto}.bar-track{grid-column:1/-1;grid-row:2}.bar-value{grid-column:2;grid-row:1}.market-card dl,.market-signal{grid-template-columns:1fr}.market-card .market-type{margin-bottom:28px}.market-signal a{justify-self:start}.catalogue{padding-inline:12px}.mobile-jump{top:45px;margin:-34px -12px 34px;padding-inline:12px}.catalogue-head{align-items:start;flex-direction:column}.era-title{grid-template-columns:1fr;gap:6px;margin-top:42px}.work{grid-template-columns:42px 1fr;gap:10px;padding:12px 10px 12px 0}.work[data-kind="child"]{margin-left:14px}.work-id{grid-column:1;grid-row:1/4}.period{grid-column:2;grid-row:1}.title{grid-column:2;grid-row:2;font-size:20px}.meta{grid-column:2;grid-row:3}.review{grid-column:2;grid-row:4;max-width:none}.review select{min-height:48px}.prompt-grid{grid-template-columns:1fr}footer{flex-direction:column}.control-actions{grid-template-columns:1fr}.copy-queue{grid-column:auto}}
+    @media(max-width:480px){.top{gap:8px;padding:8px 10px}.brand{min-width:0;flex:1 1 auto;font-size:9px;line-height:1.2;letter-spacing:.04em}.local{flex:0 0 auto;white-space:nowrap;padding:6px 7px;font-size:9px;letter-spacing:.03em}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+    @media print{.top,.controls,.prompts,.review,.toast{display:none!important}.hero{min-height:auto;background:#fff}.hero-note{color:#000;background:#fff;border-color:#000}.workspace{display:block}.catalogue{padding:20px}.work{break-inside:avoid}.work[data-review="unreviewed"]{display:none}.metrics{grid-template-columns:repeat(4,1fr)}body{background:#fff}}
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">本文へ移動</a>
-  <div class="reading-progress" aria-hidden="true"></div>
-  <header class="topbar">
-    <div class="wordmark">JOHNNY / WORK ATLAS</div>
-    <nav aria-label="ページ内ナビゲーション">
-      <a href="#river">経歴</a><a href="#patterns">仕事の型</a><a href="#cases">ケース</a><a href="#commercial">商業証拠</a><a href="#routes">経路</a><a href="#market">市場</a><a href="#sprint">14日</a><a href="#profiles">プロフィール</a><a href="#kit">応募素材</a><a href="#gates">条件</a><a href="#questions">未確認</a>
-    </nav>
-  </header>
-
-  <main id="main">
+  <header class="top"><span class="brand">Johnny Career Field Ledger</span><span class="local">PRIVATE REVIEW · NOINDEX</span></header>
+  <main>
     <section class="hero">
-      <div>
-        <p class="kicker">Career inventory / working edition</p>
-        <h1>肩書きではなく、<br><em>変えてきた状態</em>から<br>仕事を読み直す。</h1>
-      </div>
-      <div class="hero-bottom">
-        <p class="thesis">まだ名前も仕様もない生活者の欲求を発見し、AIとともに問い・調査・構想・ラフ試作・発信・検証判断を貫通して、企業・技術・地域を体験できるプロトタイプと実証へつなぐ。</p>
-        <div class="legend"><strong>渡鳥ジョニー キャリア棚卸し</strong>親仕事77件・子活動27件を復元した作業版。共同成果と本人寄与を分離し、確認できないことは断定していない。今回の棚卸し自体と、図鑑制作工場、Morning Podlog、Research GatewayをAI-native full-cycleの現在側証拠として加えた。</div>
-      </div>
+      <p class="eyebrow">Career archaeology / recall interface</p>
+      <h1>全仕事を、<br><em>思い出すための面</em>。</h1>
+      <p class="hero-copy">これは職務経歴書ではない。93の親仕事と28の具体活動を一望し、「知っている」「内容不足」「この周辺に抜けがある」「違う」を付けるための個人用チェック面。</p>
+      <p class="hero-note"><strong>入力しない設計：</strong>自由記述、社名、金額、人物名は保存しない。ブラウザに残るのは各IDの確認状態だけ。詳細は会話で一件ずつ回収する。</p>
     </section>
 
-    <section class="metrics" aria-label="棚卸しの現在地">
-      <div class="metric-grid">
-        <div class="metric"><b>77</b><span>親仕事ID<br>仕事・共同制作・事業を含む</span></div>
-        <div class="metric"><b>53</b><span>存在・役割を確認済み</span></div>
-        <div class="metric"><b>21</b><span>個人寄与・結果の確認待ち</span></div>
-        <div class="metric"><b>7</b><span>公開証拠で8 / 8の代表ケース</span></div>
-      </div>
+    <section class="metrics" aria-label="棚卸し件数">
+      <div class="metric"><b id="metric-total">121</b><span>全項目</span></div>
+      <div class="metric"><b id="metric-parent">93</b><span>親仕事・親活動</span></div>
+      <div class="metric"><b id="metric-child">28</b><span>親案件内の具体活動</span></div>
+      <div class="metric"><b id="metric-visible">121</b><span>現在の表示件数</span></div>
     </section>
 
-    <section class="coverage" id="coverage">
-      <div class="coverage-grid reveal">
-        <div>
-          <p class="kicker">Inventory coverage / 2026.07.13</p>
-          <h2>事例の数は足りた。<br>次は、事業成果を掘る。</h2>
-          <div class="coverage-track" role="img" aria-label="親仕事77件の内訳。役割確認済み53件、候補21件、本人資料のみ0件、統合または除外3件"><span class="confirmed"></span><span class="candidate"></span><span class="source-only"></span><span class="merged"></span></div>
-          <div class="coverage-key"><span><i></i>役割確認済み 53</span><span><i></i>候補 21</span><span><i></i>本人資料のみ 0</span><span><i></i>統合・除外 3</span></div>
+    <section class="spine" aria-labelledby="spine-title">
+      <div class="spine-head">
+        <div><p class="eyebrow">Career spine / working interpretation</p><h2 id="spine-title">技術を作る人から、<br>暮らしの未来を実装する人へ。</h2></div>
+        <p class="spine-thesis">現状への違和感から、<strong>約3年先の生活</strong>を構想し、いま触れられる場・体験・製品へ落とす。これが現在まで反復している中心仮説。</p>
+      </div>
+      <div class="spine-legend" aria-label="証拠区分">
+        <span class="proof-tag">PUBLIC 公開資料で確認</span>
+        <span class="proof-tag self">SELF 本人証言</span>
+        <span class="proof-tag hypothesis">HYPOTHESIS キャリア解釈</span>
+      </div>
+      <div class="spine-flow">
+        <article class="spine-step"><time>2004–06</time><h3>技術で<br>最後まで作る</h3><p>Flash／ActionScriptを独学し、広告制作の現場で実装を担う。adidas案件の個別分担は本人証言で、外部補強待ち。</p><span class="inherit">獲得 → SELF-LEARNING<br>HIGH-LOAD EXECUTION</span></article>
+        <article class="spine-step"><time>2006–07</time><h3>現場データを<br>表現へ変える</h3><p>GeoWalkerを共同開発。移動・身体のログを創作環境へ変換し、試用、論文、記事、一般公開まで進めた。</p><span class="inherit">獲得 → FIELD DATA<br>R&amp;D / PUBLIC RELEASE</span></article>
+        <article class="spine-step"><time>2008–10</time><h3>自分自身を<br>媒体にする</h3><p>「轟ジョニー」として現地へ行き、身体、人格、動画、Webを横断。海士町では自主企画へ踏み出した。</p><span class="inherit">獲得 → PERSONA<br>FULL-CYCLE MEDIA</span></article>
+        <article class="spine-step"><time>2010–17</time><h3>問いと文脈を<br>暮らしに埋める</h3><p>社会文化Webと「暮らしかた冒険家」を往復。問題発見、問い、コンセプト、社会彫刻としての文脈を深めた。</p><span class="inherit">獲得 → QUESTION<br>CONTEXT / MEANING</span></article>
+        <article class="spine-step"><time>2018–22</time><h3>暮らしと場を<br>プロトタイプ化</h3><p>VLDK、LAC八ヶ岳、オフグリッド・リビングラボへ。自分で暮らし、利用者を迎え、場と運用を反復改善した。</p><span class="inherit">獲得 → LIVING LAB<br>PLACE / OPERATION</span></article>
+        <article class="spine-step"><time>2023–</time><h3>製品と社会実装へ<br>知見を移す</h3><p>住宅、可搬設備、地域実証へ生活者知を移植。AIを使い、構想・設計・実装・検証の全周を広げつつある。</p><span class="inherit">獲得 → PRODUCT<br>SOCIAL IMPLEMENTATION</span></article>
+      </div>
+      <div class="spine-caption"><b>READING<br>GUIDE</b><p><strong>これは美談化した一本道ではない。</strong> 広告から研究、研究から現場、自主実験から組織案件へ移るたび、前段で得た能力を捨てずに持ち越している、という作業仮説。特に「約3年先」は本人の自己理解であり、成果事実ではなく今後の市場検証対象として扱う。</p></div>
+    </section>
+
+    <section class="routes" aria-labelledby="lac-signal-title">
+      <div class="routes-head">
+        <div><p class="eyebrow">Case signal / C04 LAC Yatsugatake</p><h2 id="lac-signal-title">思想だけではない。<br>期間・サービス・利用変化まで言える。</h2></div>
+        <p class="routes-lead">売上・稼働率は未回収。ただし、公開資料から安全に使える定量信号と、本人・会社へ帰属させてはいけない数字は分離できる。</p>
+      </div>
+      <div class="route-grid">
+        <article class="route-card"><span class="route-num">01 / LIFE CYCLE</span><h3>約2年9か月<br>構想から転換まで</h3><p class="route-buy">2020年3月の仕事開始記録から、段階開設、運営、2022年12月の貸切専用移行までを追える。</p><dl><div><dt>追加信号</dt><dd>初回見学から本開業まで8か月</dd></div><div><dt>境界</dt><dd>正式な契約期間・全期間の稼働時間とは言わない</dd></div></dl></article>
+        <article class="route-card"><span class="route-num">02 / SERVICE</span><h3>価格と予約導線<br>まで実装</h3><p class="route-buy">旧公式サイトでキャンプ5,000円、車中泊3,500円、CarStay予約導線を確認。場の思想を販売可能なサービス形へ落とした。</p><dl><div><dt>証明すること</dt><dd>サービス設計と公開販売導線</dd></div><div><dt>境界</dt><dd>予約数・売上・稼働率は未確認</dd></div></dl></article>
+        <article class="route-card"><span class="route-num">03 / DEMAND &amp; CHANGE</span><h3>90枚／80人<br>利用者1名の変化</h3><p class="route-buy">開設前イベントは本人報告で無料チケット90枚完売・常時80人視聴。公開事例では来訪者1名が会員化し二拠点生活へ移行した。</p><dl><div><dt>使い方</dt><dd>初期需要信号と具体的な利用者変化</dd></div><div><dt>境界</dt><dd>前者は自己申告、後者を全利用者へ一般化しない</dd></div></dl></article>
+      </div>
+      <p class="route-caution">LAC全体の48拠点・延べ3万泊超、後続Makersの8組完成は、八ヶ岳や本人の直接成果としては使わない。</p>
+    </section>
+
+    <section class="coverage" aria-labelledby="coverage-title">
+      <div class="coverage-head">
+        <div><p class="eyebrow">Coverage map / parent work only</p><h2 id="coverage-title">「全部思い出す」と「売れる証拠にする」は、別の順で掘る。</h2></div>
+        <p class="coverage-lead">下の数値は能力評価ではなく、正本にある93件の親仕事を証拠状態で集計したもの。赤は、案件の存在だけでなく本人の役割・成果を会話で確かめたい領域。</p>
+      </div>
+      <div class="coverage-grid">
+        <article class="coverage-panel"><h3>証拠状態</h3><p>親仕事93件の内訳。関連・統合項目は二重計上しない。</p><div class="bar-list"><div class="bar-row"><span class="bar-label">ケース化可能</span><span class="bar-track"><i class="bar-fill" style="width:10%"></i></span><span class="bar-value">9 / 93</span></div><div class="bar-row"><span class="bar-label">存在・役割あり</span><span class="bar-track"><i class="bar-fill" style="width:69%"></i></span><span class="bar-value">64 / 93</span></div><div class="bar-row"><span class="bar-label">本人役割確認前</span><span class="bar-track"><i class="bar-fill candidate" style="width:16%"></i></span><span class="bar-value">15 / 93</span></div><div class="bar-row"><span class="bar-label">関連・統合・除外</span><span class="bar-track"><i class="bar-fill" style="width:5%"></i></span><span class="bar-value">5 / 93</span></div></div></article>
+        <article class="coverage-panel"><h3>年代別の確認前案件</h3><p>各年代の親仕事総数に対する「本人役割確認前」の件数。</p><div class="bar-list"><div class="bar-row"><span class="bar-label">2004–2007</span><span class="bar-track"><i class="bar-fill candidate" style="width:0%"></i></span><span class="bar-value">0 / 4</span></div><div class="bar-row"><span class="bar-label">2008–2010</span><span class="bar-track"><i class="bar-fill candidate" style="width:5%"></i></span><span class="bar-value">1 / 21</span></div><div class="bar-row"><span class="bar-label">2011–2013</span><span class="bar-track"><i class="bar-fill candidate" style="width:5%"></i></span><span class="bar-value">1 / 19</span></div><div class="bar-row"><span class="bar-label">2014–2017</span><span class="bar-track"><i class="bar-fill candidate" style="width:7%"></i></span><span class="bar-value">1 / 15</span></div><div class="bar-row"><span class="bar-label">2018–2019</span><span class="bar-track"><i class="bar-fill candidate" style="width:45%"></i></span><span class="bar-value">5 / 11</span></div><div class="bar-row"><span class="bar-label">2020–2022</span><span class="bar-track"><i class="bar-fill candidate" style="width:20%"></i></span><span class="bar-value">3 / 15</span></div><div class="bar-row"><span class="bar-label">2023–2026</span><span class="bar-track"><i class="bar-fill candidate" style="width:50%"></i></span><span class="bar-value">4 / 8</span></div></div></article>
+      </div>
+      <div class="coverage-note"><b>2X</b><p><strong>二本立てで進める。</strong>網羅性は、確認前比率の高い2023–2026と2018–2019から記憶を開く。仕事獲得への変換は、すでにケース化できる案件へ「継続理由・顧客の変化・商業責任」を足す。件数の多さと市場価値を混同しない。</p></div>
+    </section>
+
+    <section class="routes" aria-labelledby="routes-title">
+      <div class="routes-head">
+        <div><p class="eyebrow">One career / three buying units</p><h2 id="routes-title">同じ実績を、三つの買われ方へ翻訳する。</h2></div>
+        <p class="routes-lead">転職用・副業用に別人格を作らない。核となるケースは共通にし、契約形態ごとに「相手が買う単位」と「成功状態」だけを変える。</p>
+      </div>
+      <div class="route-grid">
+        <article class="route-card"><span class="route-num">01 / EMPLOYMENT</span><h3>転職<br>継続的な役割</h3><p class="route-buy">生活者の一次情報と技術の可能性を往復し、課題設定、体験コンセプト、共創体制、最初のプロトタイプまでを担う。</p><dl><div><dt>入口</dt><dd>ターゲット応募、説明会、信頼型キャリアSNS、既存関係者の紹介</dd></div><div><dt>最初の証拠</dt><dd>中城、LAC、オフグリッド住宅、FAB CAR</dd></div><div><dt>次に補う</dt><dd>1→10、顧客成果、予算・チーム・商業責任</dd></div></dl></article>
+        <article class="route-card"><span class="route-num">02 / PROJECT</span><h3>業務委託<br>期限付きの到達状態</h3><p class="route-buy">技術やアイデアはあるが体験が決まらない案件を、4〜8週間でコンセプト、簡易試作、役割分担、実証計画へ進める。</p><dl><div><dt>入口</dt><dd>既存顧客の再依頼・紹介、プロシェアリング、直接販売する短期スプリント</dd></div><div><dt>最初の証拠</dt><dd>中城、INNFRA Base、FAB CAR、LAC</dd></div><div><dt>次に補う</dt><dd>継続理由、検収、価格・見積の境界、顧客Before／After</dd></div></dl></article>
+        <article class="route-card"><span class="route-num">03 / EXPERT CALL</span><h3>スポット相談<br>狭い専門知</h3><p class="route-buy">移動生活、オフグリッド住宅、Living Labの実践者として、生活者の制約、受容条件、実証で観察すべきことを整理する。</p><dl><div><dt>入口</dt><dd>専門家インタビュー、テーマ別相談、登壇・記事からの問い合わせ</dd></div><div><dt>最初の証拠</dt><dd>VLDK、オフグリッド住宅、LAC、地域実証</dd></div><div><dt>次に補う</dt><dd>現職との利益相反、守秘境界、公開可能テーマ</dd></div></dl></article>
+      </div>
+      <div class="route-flow" aria-label="仕事獲得への変換順">
+        <div class="route-step"><b>STEP 01 / PROVE</b><p>一案件ごとに、役割・判断・結果を閉じる。</p></div>
+        <div class="route-step"><b>STEP 02 / TRANSLATE</b><p>同じケースを、三つの買われ方へ翻訳する。</p></div>
+        <div class="route-step"><b>STEP 03 / TEST</b><p>少数の入口で反応を比べ、強い経路へ寄せる。</p></div>
+      </div>
+      <p class="route-caution">この面は判断材料まで。応募、登録、連絡、公開は本人の明示承認後にだけ行う。</p>
+    </section>
+
+    <section class="market-fit" aria-labelledby="market-title">
+      <div class="market-head">
+        <div><p class="eyebrow">Live market fit / checked 2026-07-16</p><h2 id="market-title">向いている仕事はある。<br>ただし、同じ入口ではない。</h2></div>
+        <p class="market-lead">現行の公式募集を、経歴の似ている度だけでなく、今ある証拠、弱点を補える環境、副業として試せる小ささで読み直した。点数は付けず、入口の役割を分ける。</p>
+      </div>
+      <div class="market-grid">
+        <article class="market-card featured"><span class="market-type">01 / NATURAL HOME</span><h3><a href="https://loftwork.com/jp/recruit/yuen-produce">Loftwork<br>ゆえん／Produce</a></h3><p>地域課題、未来を踏まえたプロジェクト設計、Web・動画・プロダクト・空間、多数の関係者、長期関係を一つの仕事として扱う。経歴を別職種へ矯正せず、そのまま読ませやすい。</p><dl><div><dt>LEAD WITH</dt><dd>中城、LAC、参加型Web、FAB CAR</dd></div><div><dt>PROVE NEXT</dt><dd>企画営業、提案書、段取り、長期顧客成果</dd></div></dl></article>
+        <article class="market-card"><span class="market-type">02 / GROWTH FIT</span><h3><a href="https://loftwork.com/jp/recruit/layout">Loftwork<br>LAYOUT</a></h3><p>場、コミュニティ、運営を、収支計画・KPI・体制まで含む事業として扱う。LAC／オフグリッド期の延長にありながら、弱い商業・運営設計をチーム内で鍛える候補。</p><dl><div><dt>LEAD WITH</dt><dd>LAC、オフグリッド、中城の空間・体験・運営</dd></div><div><dt>GROW INTO</dt><dd>P/L、KGI/KPI、運用計画、継続改善</dd></div></dl></article>
+        <article class="market-card"><span class="market-type">03 / SIDE-JOB TEST</span><h3><a href="https://btrax.com/jp/careers/service-designer">btrax<br>Service Designer</a></h3><p>副業・業務委託を明記。調査、コンセプト、簡易プロトタイプ、立ち上げ支援までが近い。実践内容は合うが、サービスデザイン名義3年、正式な調査・定量分析、英語が選考上のギャップ。</p><dl><div><dt>LEAD WITH</dt><dd>GeoWalker、FAB CAR、Living Labの検証循環</dd></div><div><dt>DO NOT BLUFF</dt><dd>英語、定量調査、UXリサーチの形式経験</dd></div></dl></article>
+        <article class="market-card"><span class="market-type">04 / EXTERNAL PRO</span><h3><a href="https://alphadrive.co.jp/lp/ad-partners-company/">AlphaDrive<br>Partners</a></h3><p>2026年5月開始。企業側の事業課題整理、人材要件定義、稼働中の品質管理へ運営会社が介在するため、万能顧問ではなく、0→1の特定フェーズを担う外部人材として試しやすい。</p><dl><div><dt>SELL AS</dt><dd>生活者起点のProblem／Solution Fit実証</dd></div><div><dt>PROVE NEXT</dt><dd>顧客Before／After、期間、成果物、継続条件</dd></div></dl></article>
+      </div>
+      <div class="market-signal"><b>FASTEST<br>SIGNAL</b><p><strong>スポット相談は主商品ではなく市場調査。</strong> バンライフ、オフグリッド住宅、Living Labを別テーマにし、企業が何を質問し何に支払うかを観測する。一般論の称賛ではなく、具体質問・相談化・提示額を記録する。</p><a href="https://expert.visasq.com/">ビザスク公式</a></div>
+      <p class="market-source">公式募集の現存を2026-07-16に再確認。募集継続は将来保証されない。応募、登録、説明会申込、連絡は未実施。</p>
+    </section>
+
+    <section class="workspace">
+      <aside class="controls" id="filters-start" aria-label="棚卸しフィルター">
+        <h2>絞って、記憶を開く。</h2>
+        <p>一度に全部読まなくていい。年代かジャンルを一つ選び、反応できる項目だけ印を付ける。</p>
+        <div class="field"><label for="search">検索</label><input id="search" type="search" placeholder="案件名・ID・役割"></div>
+        <div class="field"><label for="era-filter">年代</label><select id="era-filter"><option value="all">すべての年代</option></select></div>
+        <div class="field"><label for="genre-filter">ジャンル</label><select id="genre-filter"><option value="all">すべてのジャンル</option></select></div>
+        <div class="field"><label for="evidence-filter">証拠状態</label><select id="evidence-filter"><option value="all">すべて</option><option value="strong">ケース化可能</option><option value="known">存在・役割あり</option><option value="candidate">役割確認前</option><option value="relation">親・統合・除外</option></select></div>
+        <div class="field"><label for="review-filter">本人確認状態</label><select id="review-filter"><option value="all">すべて</option><option value="unreviewed">未確認</option><option value="ok">だいたい合っている</option><option value="thin">内容が足りない</option><option value="missing">この周辺に抜けあり</option><option value="wrong">違う・統合したい</option><option value="later">後で話す</option></select></div>
+        <div class="field"><label for="kind-filter">項目種別</label><select id="kind-filter"><option value="all">親＋子活動</option><option value="parent">親仕事だけ</option><option value="child">具体活動だけ</option></select></div>
+
+        <div class="progress" aria-live="polite"><div class="progress-top"><span>確認進捗</span><b id="progress-value">0%</b></div><div class="track"><i id="progress-bar"></i></div><small id="progress-copy">0 / 121件</small></div>
+        <div class="control-actions">
+          <button id="export-state" type="button">状態を書き出す</button>
+          <button id="import-state" type="button">状態を読み込む</button>
+          <input id="import-file" type="file" accept="application/json" hidden>
+          <button class="copy-queue" id="copy-queue" type="button">要対話項目をコピー</button>
+          <button id="reset-state" type="button">状態を初期化</button>
         </div>
-        <aside class="coverage-insight">
-          <small>NEXT EVIDENCE</small>
-          <h3>売上・継続・再依頼・運用改善</h3>
-          <p>公開ケースを増やすより、非公開の有償案件と現在の事業から、相手の判断が変わった瞬間、採用・成約、導入後の変化を一つずつ回収する方が市場価値を上げる。</p>
-        </aside>
+        <p class="privacy"><strong>公開禁止。</strong> noindexはアクセス制限ではない。このファイルはローカルでのみ開く。保存状態はこのブラウザ内だけで、自由記述は保持しない。</p>
+      </aside>
+
+      <div class="catalogue">
+        <nav class="mobile-jump" aria-label="モバイル棚卸し操作"><a href="#filters-start">絞り込みへ戻る</a><span id="mobile-progress">0 / 121件確認</span></nav>
+        <header class="catalogue-head"><div><p class="eyebrow">Canonical ledger · checked 2026-07-16</p><h2>仕事の地層</h2></div><p id="result-copy" aria-live="polite">121件を表示</p></header>
+        <div id="work-root"></div>
+        <div class="empty" id="empty">条件に合う項目がありません。</div>
       </div>
     </section>
 
-    <section class="career-river" id="river">
-      <p class="kicker">01 / Career river</p>
-      <h2>媒体は変わった。<br>仕事の中心は、変わっていない。</h2>
-      <p class="section-lead">Webから暮らし、場、技術、地域、AIへ。バラバラに見える経歴を、扱う対象が大きくなっていく一本の流れとして捉える。</p>
-      <figure class="river-map reveal">
-        <svg viewBox="0 0 1180 410" role="img" aria-labelledby="river-title river-desc">
-          <title id="river-title">6段階のキャリアの流れ</title>
-          <desc id="river-desc">デジタル編集から生活実験、カテゴリー形成、企業共創、社会実装、AIによる仕事再設計へ発展している。</desc>
-          <path d="M20 245 C170 85 260 370 430 215 S700 65 840 220 S1030 365 1160 170" fill="none" stroke="#e6b84f" stroke-width="34" stroke-linecap="round" opacity=".18"/>
-          <path d="M20 245 C170 85 260 370 430 215 S700 65 840 220 S1030 365 1160 170" fill="none" stroke="#e6b84f" stroke-width="3" stroke-linecap="round"/>
-          <g fill="#f3efe5">
-            <circle cx="85" cy="192" r="9"/><circle cx="275" cy="273" r="9"/><circle cx="480" cy="162" r="9"/><circle cx="680" cy="137" r="9"/><circle cx="880" cy="265" r="9"/><circle cx="1090" cy="220" r="9"/>
-          </g>
-          <g font-size="13" fill="#bcc5bf">
-            <text x="42" y="120">PHASE 1</text><text x="42" y="143" fill="#f3efe5" font-size="21">デジタルで編集</text><text x="42" y="166">Web / 広告 / Interactive</text>
-            <text x="220" y="326">PHASE 2</text><text x="220" y="349" fill="#f3efe5" font-size="21">暮らしを試作</text><text x="220" y="372">DIY / 展示 / 出版</text>
-            <text x="430" y="80">PHASE 3</text><text x="430" y="103" fill="#f3efe5" font-size="21">概念を社会へ</text><text x="430" y="126">VLDK / Van à Table</text>
-            <text x="625" y="286">PHASE 4</text><text x="625" y="309" fill="#f3efe5" font-size="21">企業・地域と共創</text><text x="625" y="332">LAC / FAB CAR</text>
-            <text x="820" y="102">PHASE 5</text><text x="820" y="125" fill="#f3efe5" font-size="21">技術を社会実装</text><text x="820" y="148">Off-grid / INNFRA</text>
-            <text x="1012" y="286">PHASE 6</text><text x="1012" y="309" fill="#f3efe5" font-size="21">仕事を再設計</text><text x="1012" y="332">AI-native full-cycle</text>
-          </g>
-        </svg>
-      </figure>
-      <p class="river-caption">個人の一次体験から始まり、扱う関係者と実装範囲が徐々に広がっている。これは転職回数ではなく、同じ問いをより大きな単位で扱えるようになった軌跡として説明できる。</p>
-      <div class="proof-chain reveal">
-        <h3>職種を増やしたのではない。<br>一人称で貫く範囲を広げてきた。</h3>
-        <p>約100人の個人的な共同体験から、企業・地域の実証、さらにAI協業OSへ。同じ方法が対象と責任範囲を変えながら反復している。</p>
-        <ol aria-label="2010年から2026年までの証拠鎖">
-          <li><time datetime="2010">2010</time><b>共同体験</b><span>約100人・1泊2日の体験を共同設営し、234ページの写真出版へ。</span></li>
-          <li><time datetime="2014">2014</time><b>生活実験</b><span>家、物技交換、Webをつなぎ、暮らしそのものを参加型作品へ。</span></li>
-          <li><time datetime="2018">2018</time><b>カテゴリー形成</b><span>VLDKを車両、都市の共有空間、イベント、発信へ展開。</span></li>
-          <li><time datetime="2020">2020</time><b>継続有償の場づくり</b><span>LAC八ヶ岳を、屋外と共創運営を含むLiving Labへ。</span></li>
-          <li><time datetime="2025">2025</time><b>地域実証</b><span>文化財の制約下で、滞在、設備、運営、広報を一つの体験へ。</span></li>
-          <li><time datetime="2026">2026</time><b>方法の再利用</b><span>自治体公園の活用提案とAI協業OSへ。採用・成果は検証前に断定しない。</span></li>
-        </ol>
-        <p class="full-cycle-boundary"><strong>AI-native full-cycle</strong>の狙いは、個人のAI技能を高め、従来は職種間に分かれていた初期0→1を一人称で担える範囲を広げること。ただし「一人で全部を完成させる」のではなく、問い、調査、構想、体験設計、ラフ試作、発信、検証判断を貫き、専門家へ渡すBriefと責任境界を早く明確にする。</p>
+    <section class="prompts">
+      <p class="eyebrow">Recall triggers</p>
+      <h2>成果物が残らない仕事ほど、記憶から掘る。</h2>
+      <div class="prompt-grid">
+        <article class="prompt"><b>01 / ROLE DRIFT</b><p>正式な肩書以上の役割を、いつの間にか担っていた。</p></article>
+        <article class="prompt"><b>02 / RECOVERY</b><p>止まった企画・組織・現場を立て直した。</p></article>
+        <article class="prompt"><b>03 / CONNECTION</b><p>異なる人や会社をつなぎ、共同プロジェクトを生んだ。</p></article>
+        <article class="prompt"><b>04 / NAMING</b><p>名前、コンセプト、企画書、構想を作った。</p></article>
+        <article class="prompt"><b>05 / FULL CYCLE</b><p>Web、写真、映像、文章、現場を横断した。</p></article>
+        <article class="prompt"><b>06 / INVISIBLE OPS</b><p>設営、調達、予算、外注、運営、火消しを引き受けた。</p></article>
+        <article class="prompt"><b>07 / ADVISORY</b><p>壁打ちから始まり、実質的に事業設計をしていた。</p></article>
+        <article class="prompt"><b>08 / UNBUILT</b><p>実現しなかったが、設計力を示す企画がある。</p></article>
       </div>
-      <aside class="billing-evidence reveal"><small>2009–2017 / DIGITAL PROOF</small><h3>広告制作から、参加型Webと運用できるECへ。</h3><p>外部資料で役割を補強できたCandle Night、skmtSocial、わざわざ、La Vida、ONIBUSに加え、本人ポートフォリオと同時代公開物から、出版PR、食・農、音楽、デザイン、芸術祭、ユースオーケストラ、持続可能な漁業の8件も復元した。さらに旧HTMLから、POMPON CAKES、MOMOE、ZERO PUBLICのユニット制作クレジットと、FISHMANS+の池田秀紀「Web Production」実名クレジットを回収した。ZERO PUBLICは、候補地を共同地図へ登録し、住居・食糧地・土地に分類してSNSで共有する参加導線を実装し、同年の美術館展にも展開した。FISHMANS+には51会場の登録・地域検索・地図・主催ガイドが実装され、プロジェクト全体は同時視聴1万3,000人・総視聴約7万人と記録される。展示・視聴等を本人単独またはWebだけの成果とはしない。共同ユニット内の個人分担、契約、登録・事業成果は確認前に帰属させない。書籍本体の役割は「撮影、編集補助」としてPRサイト制作から分離する。</p><div class="billing-clusters"><span>反復型デジタル広告制作</span><span>Web／SNSの参加体験設計</span><span>事業者・文化領域のWeb／EC統合</span></div></aside>
-    </section>
-
-    <section class="patterns" id="patterns">
-      <p class="kicker">02 / Repeatable patterns</p>
-      <h2>77件の調査対象IDから見える、<br>6つの仕事。</h2>
-      <p class="section-lead">「何を作れるか」より、「何を何へ変えるか」。ここが市場へ持ち運べる能力の単位になる。</p>
-      <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 145" role="img" aria-labelledby="pattern-fig-title pattern-fig-desc">
-          <title id="pattern-fig-title">6つの仕事の変換構造</title><desc id="pattern-fig-desc">違和感、構想、技術、場所、多者の関心、実践を、概念、試作品、生活者価値、文化、共同行動、物語へ変換する。</desc>
-          <g fill="none" stroke="#315c4f" stroke-width="2"><path d="M45 62H135"/><path d="M210 62H300"/><path d="M375 62H465"/><path d="M540 62H630"/><path d="M705 62H795"/><path d="M870 62H960"/></g>
-          <g fill="#ad3218"><circle cx="45" cy="62" r="9"/><circle cx="210" cy="62" r="9"/><circle cx="375" cy="62" r="9"/><circle cx="540" cy="62" r="9"/><circle cx="705" cy="62" r="9"/><circle cx="870" cy="62" r="9"/></g>
-          <g fill="#315c4f"><rect x="126" y="53" width="18" height="18"/><rect x="291" y="53" width="18" height="18"/><rect x="456" y="53" width="18" height="18"/><rect x="621" y="53" width="18" height="18"/><rect x="786" y="53" width="18" height="18"/><rect x="951" y="53" width="18" height="18"/></g>
-          <g fill="#18201e" font-family="sans-serif" font-size="14" text-anchor="middle"><text x="92" y="30">違和感→概念</text><text x="257" y="30">構想→試作</text><text x="422" y="30">技術→体験</text><text x="587" y="30">場所→文化</text><text x="752" y="30">多者→行動</text><text x="917" y="30">実践→物語</text></g>
-          <g fill="#5d6761" font-family="sans-serif" font-size="12" text-anchor="middle"><text x="92" y="112">C02 / C03</text><text x="257" y="112">C08 / C05</text><text x="422" y="112">C05 / C06</text><text x="587" y="112">C04 / C09</text><text x="752" y="112">C06 / C09</text><text x="917" y="112">C01 / C10</text></g>
-        </svg>
-        <figcaption>成果物が違っても、入力を観察し、意味を与え、他者が触れられる出力へ変える構造は共通している。</figcaption>
-      </figure>
-      <div class="pattern-stack reveal">
-        <article class="pattern"><div class="pattern-no">01</div><h3>違和感を拾う</h3><div class="arrow">→</div><p>自ら暮らし、まだ言語化されていない欲求を観察する。</p><div class="arrow">→</div><div class="pattern-output">新しい概念・問い</div></article>
-        <article class="pattern"><div class="pattern-no">02</div><h3>構想を触れるものへ</h3><div class="arrow">→</div><p>技術と利用場面を結び、協働相手と試作品をつくる。</p><div class="arrow">→</div><div class="pattern-output">プロトタイプ</div></article>
-        <article class="pattern"><div class="pattern-no">03</div><h3>技術を暮らしへ翻訳</h3><div class="arrow">→</div><p>専門仕様を、使う人が実感できる空間・体験へ変える。</p><div class="arrow">→</div><div class="pattern-output">生活者価値</div></article>
-        <article class="pattern"><div class="pattern-no">04</div><h3>場所に文化をつくる</h3><div class="arrow">→</div><p>コンセプト、参加者像、体験、運営を一体で設計する。</p><div class="arrow">→</div><div class="pattern-output">場・コミュニティ</div></article>
-        <article class="pattern"><div class="pattern-no">05</div><h3>異なる目的を束ねる</h3><div class="arrow">→</div><p>企業、行政、地域、専門家の間に共通の判断をつくる。</p><div class="arrow">→</div><div class="pattern-output">共同実証</div></article>
-        <article class="pattern"><div class="pattern-no">06</div><h3>実践を社会へ伝える</h3><div class="arrow">→</div><p>写真、映像、Web、イベントで実践の意味を伝播させる。</p><div class="arrow">→</div><div class="pattern-output">物語・カテゴリー</div></article>
-      </div>
-    </section>
-
-    <section class="cases" id="cases">
-      <p class="kicker">03 / Case atlas</p>
-      <h2>代表作は、用途によって変える。</h2>
-      <p class="section-lead">11ケースのうち、Googleマイマップ奇食旅、暮らしかた冒険家／hey, sapporo、VLDK、FAB CAR、LAC八ヶ岳、オフグリッド住宅、ノマドランド対談は公開資料で8項目が揃い、case-readyになった。ボタンで証明したい能力ごとに絞り込める。</p>
-      <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 150" role="img" aria-labelledby="case-fig-title case-fig-desc">
-          <title id="case-fig-title">11ケースの準備度</title><desc id="case-fig-desc">8項目中の公開証拠と整理済み項目数をケースごとの棒で示す。Googleマイマップ奇食旅、暮らしかた冒険家／hey, sapporo、VLDK、FAB CAR、LAC八ヶ岳、オフグリッド住宅、ノマドランド対談は8項目すべてが揃った。</desc>
-          <g fill="#d8d1c3"><rect x="34" y="55" width="58" height="18"/><rect x="122" y="55" width="58" height="18"/><rect x="210" y="55" width="58" height="18"/><rect x="298" y="55" width="58" height="18"/><rect x="386" y="55" width="58" height="18"/><rect x="474" y="55" width="58" height="18"/><rect x="562" y="55" width="58" height="18"/><rect x="650" y="55" width="58" height="18"/><rect x="738" y="55" width="58" height="18"/><rect x="826" y="55" width="58" height="18"/><rect x="914" y="55" width="58" height="18"/></g>
-          <g fill="#315c4f"><rect x="34" y="55" width="58" height="18" fill="#ad3218"/><rect x="122" y="55" width="58" height="18" fill="#ad3218"/><rect x="210" y="55" width="58" height="18" fill="#ad3218"/><rect x="298" y="55" width="58" height="18" fill="#ad3218"/><rect x="386" y="55" width="58" height="18" fill="#ad3218"/><rect x="474" y="55" width="51" height="18"/><rect x="562" y="55" width="0" height="18"/><rect x="650" y="55" width="58" height="18" fill="#ad3218"/><rect x="738" y="55" width="44" height="18"/><rect x="826" y="55" width="58" height="18" fill="#ad3218"/><rect x="914" y="55" width="7" height="18"/></g>
-          <g fill="#18201e" font-family="sans-serif" font-size="13" text-anchor="middle"><text x="63" y="35">C01</text><text x="151" y="35">C02</text><text x="239" y="35">C03</text><text x="327" y="35">C04</text><text x="415" y="35">C05</text><text x="503" y="35">C06</text><text x="591" y="35">C07</text><text x="679" y="35">C08</text><text x="767" y="35">C09</text><text x="855" y="35">C10</text><text x="943" y="35">C11</text></g>
-          <g fill="#5d6761" font-family="sans-serif" font-size="12" text-anchor="middle"><text x="63" y="105" fill="#ad3218">8/8</text><text x="151" y="105" fill="#ad3218">8/8</text><text x="239" y="105" fill="#ad3218">8/8</text><text x="327" y="105" fill="#ad3218">8/8</text><text x="415" y="105" fill="#ad3218">8/8</text><text x="503" y="105">7/8</text><text x="591" y="105">0/8</text><text x="679" y="105" fill="#ad3218">8/8</text><text x="767" y="105">6/8</text><text x="855" y="105" fill="#ad3218">8/8</text><text x="943" y="105">1/8</text></g>
-        </svg>
-        <figcaption>ケースの数は足りている。次に必要なのは追加収集よりも、本人の判断と結果を一つずつ確定すること。</figcaption>
-      </figure>
-      <div class="filter-row" role="group" aria-label="ケースの絞り込み">
-        <button class="filter" data-filter="all" aria-pressed="true">すべて</button>
-        <button class="filter" data-filter="concept" aria-pressed="false">概念</button>
-        <button class="filter" data-filter="prototype" aria-pressed="false">試作</button>
-        <button class="filter" data-filter="place" aria-pressed="false">場・地域</button>
-        <button class="filter" data-filter="implementation" aria-pressed="false">社会実装</button>
-        <button class="filter" data-filter="narrative" aria-pressed="false">発信・編集</button>
-      </div>
-      <div class="case-grid reveal">
-        <article class="case-card" data-tags="narrative concept"><div class="case-head"><span class="case-id">C01</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>Googleマイマップ奇食旅</h3><p>Round 1〜22へ出演・一部構成編集。撮影交渉、投票反映、現場での構成変更まで同時代資料で確認。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="concept narrative place implementation"><div class="case-head"><span class="case-id">C02</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>暮らしかた冒険家／hey, sapporo</h3><p>生活実験を、空間、参加、Web、展示、映像、出版制作へ横断展開。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="concept narrative prototype"><div class="case-head"><span class="case-id">C03</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>VLDK</h3><p>生活仮説を約1年検証し、Web、有料公開イベント、企業媒体へ展開。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="place concept implementation"><div class="case-head"><span class="case-id">C04</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>LAC八ヶ岳</h3><p>実験場を場・文化・共創運営へ具体化。滞在制作型Makers-in-Residenceを構想・募集し、工房利用まで確認。2022年8月には別主体の2泊3日制作企画で8組が完成品を制作したが、本人構想との継承関係と本人関与は未確認。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="prototype implementation"><div class="case-head"><span class="case-id">C05</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>オフグリッド住宅</h3><p>技術実証を、都心並みに快適な生活実証へ翻訳。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="implementation place concept narrative"><div class="case-head"><span class="case-id">C06</span><span class="readiness" aria-label="準備度7/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><h3>中城城跡滞在実証</h3><p>実証・宿泊体験、空間、運営、発信を統合し、専門担当と分業して実装。</p><span class="case-tag">7 / 8 — ADOPTION EVIDENCE</span></article>
-        <article class="case-card" data-tags="concept implementation"><div class="case-head"><span class="case-id">C07</span><span class="readiness" aria-label="準備度0/8"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><h3>企業R&amp;D調査・助言候補</h3><p>本人作成一覧の5件すべてで、企業名入りカレンダー予定を照合。研修・インタビュー形式も一部確認したが、本人役割、課題、助言、成果物、相手の判断変化は未確認。</p><span class="case-tag">CALENDAR-CORROBORATED — 0 / 8</span></article>
-        <article class="case-card" data-tags="prototype concept"><div class="case-head"><span class="case-id">C08</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>FAB CAR</h3><p>移動生活の知見とデジタル製造を、普通車の試作品へ。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="place implementation narrative"><div class="case-head"><span class="case-id">C09</span><span class="readiness" aria-label="準備度6/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div><h3>自治体・地域実証</h3><p>俵ヶ浦の「移動する宿」を代表ケースに分解。</p><span class="case-tag">DECISION / ADOPTION 要確認</span></article>
-        <article class="case-card" data-tags="narrative"><div class="case-head"><span class="case-id">C10</span><span class="readiness" aria-label="準備度8/8"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><h3>ノマドランド</h3><p>実践知を5論点へ翻訳し、映画の発売記念コンテンツとして少なくとも2媒体へ展開。</p><span class="case-tag">8 / 8 — CASE READY</span></article>
-        <article class="case-card" data-tags="place prototype"><div class="case-head"><span class="case-id">C11</span><span class="readiness" aria-label="準備度1/8"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><h3>本人名義サウナ事業登録</h3><p>県パートナー一覧への表示は2022年から確認。独立した営業・提供実績ではない。</p><span class="case-tag">SERVICE EXISTENCE 要確認</span></article>
-      </div>
-    </section>
-
-    <section class="commercial" id="commercial">
-      <p class="kicker">03B / Commercial proof</p>
-      <h2>仕事として売れてきた。<br>次に証明するのは、なぜ続いたか。</h2>
-      <p class="section-lead">商業実績が存在しないわけではない。安全に確認できる五つの層と、まだ回収できていない顧客価値の因果を分ける。</p>
-      <div class="commercial-grid reveal">
-        <div>
-          <div class="proof-stack" aria-label="現在確認できる商業証拠の五層">
-            <article class="proof-step"><b>1</b><div><h3>長期の有償関係</h3><p>場のプロデュースと、現在まで続く事業・製品開発で継続契約を担当。</p></div></article>
-            <article class="proof-step"><b>2</b><div><h3>外部クライアント／制作代行</h3><p>専門団体のWeb支援、市民エネルギー企画、小規模事業者3社のWeb／EC制作を外部資料で確認。</p></div></article>
-            <article class="proof-step"><b>3</b><div><h3>商用の請求記録</h3><p>Web、広告、CMS、SNS、UI、APIディレクション等を商用制作として請求。</p></div></article>
-            <article class="proof-step"><b>4</b><div><h3>非金銭の価値交換</h3><p>制作と継続的な農産物提供を交換し、一部の対価受領を確認。</p></div></article>
-            <article class="proof-step"><b>5</b><div><h3>販売可能な導線</h3><p>有料イベント、宿泊、仕事依頼、ECを価格・申込・購入経路のある形で公開。</p></div></article>
-          </div>
-          <p class="proof-boundary"><strong>証拠の境界：</strong>外部オファーや受託関係は実支払いを、請求記録は入金・検収を、価格や予約導線は実売上を、契約条件の改定は成果評価を、それぞれ単独では証明しない。</p>
-        </div>
-        <aside class="commercial-thesis">
-          <div><small>REAL GAP</small><blockquote>不足しているのは<br>「売れた事実」ではなく、<br>「選ばれ続けた理由」。</blockquote></div>
-          <dl>
-            <dt>確認済み</dt><dd>対価を伴う責任、長期関係、外部クライアントへの制作、商用請求、販売導線。</dd>
-            <dt>次に回収</dt><dd>更新・条件改定の理由、顧客のBefore / After、再依頼、運用改善。</dd>
-            <dt>市場での意味</dt><dd>単発のアイデアマンではなく、継続責任を担える人として説明できる。</dd>
-          </dl>
-        </aside>
-      </div>
-    </section>
-
-    <section class="routes" id="routes">
-      <p class="kicker">04 / Go-to-market</p>
-      <h2>同じ人のまま、<br>買われ方を変える。</h2>
-      <p class="section-lead">転職、副業、顧問で別人格を作る必要はない。相手の開始状態と契約単位に合わせて、見せるケースを変える。</p>
-      <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 180" role="img" aria-labelledby="route-fig-title route-fig-desc">
-          <title id="route-fig-title">一つの中核能力から3つの市場ルートへ</title><desc id="route-fig-desc">生活者の欲求を実証へ変える能力を、転職、副業・業務委託、顧問・相談の3つの契約形態へ分けて届ける。</desc>
-          <rect x="40" y="55" width="275" height="70" rx="16" fill="#f0c75e"/><text x="177" y="85" text-anchor="middle" fill="#18201e" font-family="sans-serif" font-size="15">欲求・技術・地域をつなぎ</text><text x="177" y="108" text-anchor="middle" fill="#18201e" font-family="sans-serif" font-size="15">実証へ変える</text>
-          <g fill="none" stroke="#f0c75e" stroke-width="3"><path d="M315 90H455V35H555"/><path d="M315 90H555"/><path d="M315 90H455V145H555"/></g>
-          <g fill="#fffdf7" font-family="sans-serif"><rect x="555" y="8" width="390" height="48" rx="12" fill="none" stroke="#fffdf7"/><text x="580" y="39" font-size="16">転職｜役割と裁量を買う</text><rect x="555" y="66" width="390" height="48" rx="12" fill="none" stroke="#fffdf7"/><text x="580" y="97" font-size="16">副業・委託｜到達状態を買う</text><rect x="555" y="124" width="390" height="48" rx="12" fill="none" stroke="#fffdf7"/><text x="580" y="155" font-size="16">顧問・相談｜専門知と判断を買う</text></g>
-        </svg>
-        <figcaption>変えるのは本人の物語ではなく、相手が購入できる単位。三つの市場で反応を比べ、強い経路へ時間を寄せる。</figcaption>
-      </figure>
-      <div class="route-layout reveal">
-        <div class="route-tabs" role="tablist" aria-label="仕事獲得ルート">
-          <button class="route-tab" id="route-tab-job" role="tab" aria-selected="true" aria-controls="route-panel-job" tabindex="0" data-route="job">転職</button>
-          <button class="route-tab" id="route-tab-side" role="tab" aria-selected="false" aria-controls="route-panel-side" tabindex="-1" data-route="side">副業・委託</button>
-          <button class="route-tab" id="route-tab-advisor" role="tab" aria-selected="false" aria-controls="route-panel-advisor" tabindex="-1" data-route="advisor">顧問・相談</button>
-        </div>
-        <div>
-          <div class="route-panel active" id="route-panel-job" role="tabpanel" aria-labelledby="route-tab-job" data-panel="job"><p class="big">新規事業・サービスデザインの<br>0→1プロデューサー</p><div class="route-box"><b>相手の停滞</b><p>技術や構想はあるが、誰のどんな体験にするか決まらない。</p></div><div class="route-box"><b>見せる順</b><p>FAB CAR → オフグリッド住宅 → 地域社会実装 → LAC</p></div></div>
-          <div class="route-panel" id="route-panel-side" role="tabpanel" aria-labelledby="route-tab-side" data-panel="side" hidden><p class="big">曖昧な構想を、検証できる形へ。<br>Concept-to-Prototype伴走</p><div class="route-box"><b>買い手</b><p>新規事業責任者、R&amp;D、地域企業、施設運営者、小規模事業者。</p></div><div class="route-box"><b>三つの発注単位</b><p>Reframe Sprint、Concept-to-Prototype、Living Lab / Field Pilot Design。提供メニューや価格仮説は、必要に応じて各商品の成果物として設計する。</p></div></div>
-          <div class="route-panel" id="route-panel-advisor" role="tabpanel" aria-labelledby="route-tab-advisor" data-panel="advisor" hidden><p class="big">狭い専門知で入り、<br>問い直しと実証伴走へ広げる。</p><div class="route-box"><b>入口テーマ</b><p>移動生活、オフグリッド、Living Lab、地域・観光・防災。</p></div><div class="route-box"><b>継続価値</b><p>知識の回答ではなく、関係者形成と次の実証判断まで支援する。</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="market" id="market">
-      <p class="kicker">05 / Live market — checked 2026.07.13</p>
-      <h2>相性のよさと、<br>仕事への近さは違う。</h2>
-      <p class="section-lead">Exaで200件を確認し、追加の公式サイト探索を含む57候補を56の固有入口へ統合。仕事内容だけでなく、応募可能性、報酬、必要証拠、機会費用まで含めて再評価した。</p>
-      <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 210" role="img" aria-labelledby="market-fig-title market-fig-desc">
-          <title id="market-fig-title">56の市場入口を3つの目的へ分離</title><desc id="market-fig-desc">個人収入を早く検証する入口、転職の本命、法人の事業共創を別のレーンとして扱う。</desc>
-          <path d="M100 98H880" stroke="#b8b09f" stroke-width="2"/>
-          <g font-family="sans-serif" text-anchor="middle">
-            <circle cx="175" cy="98" r="62" fill="#ad3218"/><text x="175" y="88" fill="#fffdf7" font-size="17">個人収入</text><text x="175" y="114" fill="#fffdf7" font-size="13">副業・委託・相談</text>
-            <circle cx="500" cy="98" r="62" fill="#315c4f"/><text x="500" y="88" fill="#fffdf7" font-size="17">転職</text><text x="500" y="114" fill="#fffdf7" font-size="13">役割と裁量</text>
-            <circle cx="825" cy="98" r="62" fill="#f0c75e"/><text x="825" y="88" fill="#18201e" font-size="17">法人事業</text><text x="825" y="114" fill="#18201e" font-size="13">実証・共創公募</text>
-            <text x="175" y="188" fill="#5d6761" font-size="13">今すぐ市場反応を測る</text><text x="500" y="188" fill="#5d6761" font-size="13">ケースで選考を通す</text><text x="825" y="188" fill="#5d6761" font-size="13">本人の仕事と混ぜない</text>
-          </g>
-        </svg>
-        <figcaption>同じ「相性が高い」でも購買者が違う。個人の収入、雇用、会社の事業開発を一つのランキングにしない。</figcaption>
-      </figure>
-      <div class="market-summary reveal">
-        <div class="market-stat"><b>200</b><span>Exaで確認した検索結果</span></div>
-        <div class="market-stat"><b>56</b><span>重複除去後の市場入口</span></div>
-        <div class="market-stat"><p>初回は一社へ賭けず、同じ3ケースを転職、業務委託、専門相談へ翻訳し、送信可能性を揃える。</p></div>
-      </div>
-      <div class="market-lanes reveal">
-        <article class="market-lane">
-          <small>PERSONAL INCOME</small>
-          <h3>早く、低コストで<br>市場反応を測る</h3>
-          <div class="opportunity"><span class="rank">01</span><a href="https://btrax.com/jp/careers/service-designer">btrax<br>Service Designer</a><em data-kind="適合点">88</em></div>
-          <div class="opportunity"><span class="rank">02</span><a href="https://alphadrive.co.jp/lp/ad-partners-talent/">AlphaDrive<br>Partners</a><em data-kind="適合点">84</em></div>
-          <div class="opportunity"><span class="rank">03</span><a href="https://expert.visasq.com/">ビザスクexpert</a><em data-kind="適合点">83</em></div>
-          <div class="opportunity"><span class="rank">04</span><a href="https://prosharing.bizlink.io/">Bizlink</a><em data-kind="適合点">80</em></div>
-          <p>点数は成約確率ではなく、現在の証拠と働き方を含めた優先度。</p>
-        </article>
-        <article class="market-lane">
-          <small>EMPLOYMENT</small>
-          <h3>役割と裁量を<br>買ってもらう</h3>
-          <div class="opportunity"><span class="rank">01</span><a href="https://hrmos.co/pages/alphadrive/jobs">AlphaDrive REGION<br>Manager / Consultant</a><em data-kind="内容適合">非常に高</em></div>
-          <div class="opportunity"><span class="rank">02</span><a href="https://loftwork.com/jp/recruit">Loftwork<br>共創プロジェクト系</a><em data-kind="内容適合">高</em></div>
-          <div class="opportunity"><span class="rank">03</span><a href="https://btrax.com/jp/careers/service-designer">btrax<br>Service Designer</a><em data-kind="適合点">88</em></div>
-          <div class="opportunity"><span class="rank">04</span><a href="https://herp.careers/v1/digitalsaiyo/qLsVlRv1pUIS">デジタル庁<br>Service Designer</a><em data-kind="適合点">85</em></div>
-          <p>AlphaDrive REGIONは地域・自治体、新規事業、企画提案、体制構築、実証、自社サービスを一つの職務で扱う。経歴との内容適合は最も高いが、顧客獲得、複数案件、マネジメント、KPI・収益の証拠補強が必要。</p>
-        </article>
-        <article class="market-lane">
-          <small>COMPANY PIPELINE</small>
-          <h3>法人の事業開発として<br>別に扱う</h3>
-          <div class="opportunity"><span class="rank">01</span><a href="https://www.city.shizuoka.lg.jp/s2432/s009040.html">静岡市<br>上下水道実証</a><em data-kind="締切">8/7</em></div>
-          <div class="opportunity"><span class="rank">02</span><a href="https://www.keikyu.co.jp/report/2026/report2026060901.html">KEIKYU × 横須賀</a><em data-kind="締切">8/24</em></div>
-          <div class="opportunity"><span class="rank">03</span><a href="https://startups.pref.kanagawa.jp/program/bak-yak/bak-2026/">BAK / YAK 2026</a><em data-kind="締切">8/17</em></div>
-          <div class="opportunity"><span class="rank">04</span><a href="https://vlag.yokohama/mebuku3/">MEBUKU</a><em data-kind="締切">7/19</em></div>
-          <p>採択や共創は本人収入を保証しない。INNFRA等で応募する場合、本人の担当と契約を先に分ける。</p>
-        </article>
-      </div>
-      <div class="market-note reveal"><strong>直近の低コスト探索。</strong> 副業は<a href="https://alphadrive.co.jp/lp/ad-partners-talent/">AlphaDrive Partners</a>で新規事業案件の購買語彙を回収する。転職はREGIONの職務要件を基準に商業Before/Afterを補強し、<a href="https://loftwork.com/jp/event/recruitmeetup">Loftwork Meetup</a>で部門・成果物・数字の評価軸を確認する。登録・申し込みは本人承認後に限る。</div>
-    </section>
-
-    <section class="readiness-sprint" id="sprint">
-      <p class="kicker">05.5 / 14-day readiness sprint</p>
-      <h2>市場へ送る前に、<br>三つの入口を同じ証拠で揃える。</h2>
-      <p class="section-lead">外部送信をしない段階で需要や受注は証明できない。まず転職、業務委託、専門相談の三経路を、完成度の高いC08・C05・C04で比較可能な状態へする。</p>
-      <div class="sprint-status reveal" aria-label="14日準備スプリントの現在地">
-        <div class="sprint-number"><b>3</b><span>経路別の原稿初稿</span></div>
-        <div class="sprint-number"><b>3</b><span>初回に固定したCASE READY実績</span></div>
-        <div class="sprint-number"><b>なし</b><span>本調査での外部送信操作</span></div>
-      </div>
-      <div class="sprint-lanes reveal">
-        <article class="sprint-lane"><small>EMPLOYMENT</small><h3>AlphaDrive REGION / Loftwork向け<br>職務適合</h3><p>地域新規事業版と共創プロジェクト版を分離。前者は中城・LAC・Living Lab、後者は参加型Web・場・地域を先頭に置き、商業成果とPMの不足証拠も明示する。</p><ul><li>応募要約 初稿完成</li><li>必須条件との差分表あり</li><li>送信前の本人確認待ち</li></ul></article>
-        <article class="sprint-lane"><small>CONTRACT</small><h3>AlphaDrive Partners / Bizlink向け<br>発注単位</h3><p>Reframe Sprint、Concept-to-Prototype、Regional Pilotを、依頼の開始状態、到達状態、役割境界から説明する。案件、単価、稼働条件は登録前後に確認する。</p><ul><li>登録プロフィール 初稿完成</li><li>依頼開始状態を4つに固定</li><li>稼働・利益相反は本人確認待ち</li></ul></article>
-        <article class="sprint-lane"><small>EXPERT INTERVIEW</small><h3>ビザスク向け<br>狭い専門知</h3><p>移動生活、オフグリッド、Living Labの三テーマへ絞り、企業が検索・質問できる15の問いへ分解する。</p><ul><li>テーマ別紹介 初稿完成</li><li>回答可能質問15本</li><li>設備技術の専門領域とは分離</li></ul></article>
-      </div>
-      <div class="sprint-timeline reveal" aria-label="14日間の進行">
-        <div class="sprint-step"><b>DAY 1–3</b><p>共通3ケースを、役割境界と証拠URLつきの短文へ。</p></div>
-        <div class="sprint-step"><b>DAY 4–6</b><p>転職、業務委託、専門相談の原稿を一つずつ作る。</p></div>
-        <div class="sprint-step"><b>DAY 7</b><p>主張、機密、現行URL、公開期限を一括監査。</p></div>
-        <div class="sprint-step"><b>DAY 8</b><p>働き方制約と外部送信可否だけを15分で確認。</p></div>
-        <div class="sprint-step"><b>DAY 9–14</b><p>送信直前の状態へ整え、承認後の順番を決める。</p></div>
-      </div>
-      <div class="sprint-note reveal"><strong>用途を分ける。</strong> このページは本人の全体分析。応募先には、プロフィール、C08・C05・C04、相談可能範囲だけを抜き出した短いD1版を使う。</div>
-    </section>
-
-    <section class="profiles" id="profiles">
-      <p class="kicker">06 / Buyer-specific profiles</p>
-      <h2>経歴は変えない。<br>買い手の入口を変える。</h2>
-      <p class="section-lead">一つの万能プロフィールで全部を説明しない。同じ仕事の核を、相手が抱える停滞と、最初に見たい証拠に合わせて3つの入口へ翻訳する。</p>
-      <div class="profile-tabs reveal" role="tablist" aria-label="仕事獲得用プロフィール">
-        <button class="profile-tab" id="profile-tab-rd" type="button" role="tab" aria-selected="true" aria-controls="profile-panel-rd" data-profile="rd">大企業R&amp;D・新規事業</button>
-        <button class="profile-tab" id="profile-tab-regional" type="button" role="tab" aria-selected="false" aria-controls="profile-panel-regional" data-profile="regional" tabindex="-1">地域・Living Lab</button>
-        <button class="profile-tab" id="profile-tab-ai" type="button" role="tab" aria-selected="false" aria-controls="profile-panel-ai" data-profile="ai" tabindex="-1">AI-native Full-cycle</button>
-      </div>
-      <div class="reveal">
-        <article class="profile-panel active" id="profile-panel-rd" role="tabpanel" aria-labelledby="profile-tab-rd" data-profile-panel="rd">
-          <div><small>SERVICE / VENTURE PRODUCER</small><h3>技術や構想を、生活者が体験できる事業仮説へ。</h3><p class="profile-copy">技術や構想はあるが、誰のどんな体験にするか決まらない段階から入り、生活者視点で問いを再設定し、社内外の専門家を束ね、コンセプト、試作品、実証まで進めます。FAB CAR、オフグリッド住宅、水循環システム、地域・観光・防災実証など、デジタル、空間、製品、サービスを横断して0→1を推進してきました。</p></div>
-          <aside class="profile-side"><div><b>証拠の見せ順</b><ol><li>FAB CAR</li><li>オフグリッド住宅</li><li>INNFRA／中城</li><li>LAC八ヶ岳</li></ol></div><p class="profile-use">転職、サービスデザイン、新規事業、R&amp;D共創の応募に使う。</p></aside>
-        </article>
-        <article class="profile-panel" id="profile-panel-regional" role="tabpanel" aria-labelledby="profile-tab-regional" data-profile-panel="regional" hidden>
-          <div><small>REGIONAL / LIVING LAB PRODUCER</small><h3><span class="phrase">地域資源と技術を、</span> <span class="phrase">訪れ、暮らし、</span> <span class="phrase">参加できる実証へ。</span></h3><p class="profile-copy">地域にある場所、文化、技術、事業者を、参加できる体験と実証へ束ねます。中城城跡では、実証・宿泊体験のコンセプト・企画・設計、現地会場の配置・設営計画、全体ディレクション、現場運営、設営進行管理、インテリア調達・設営、広報撮影の手配・ディレクション、Instagram動画制作を担当。設備専門設計、施工実務、行政・調達の実務調整、最終決裁は各担当者と分業し、企画提案と予算編成には参画しました。</p><p class="profile-evidence-note">役割分担の詳細は本人確認によるものです。「現場監理」は法定の工事監理ではなく、現場ディレクションと設営進行管理を指します。</p></div>
-          <aside class="profile-side"><div><b>証拠の見せ順</b><ol><li>LAC八ヶ岳</li><li>中城城跡実証</li><li>Living Lab</li><li>自治体実証群</li></ol></div><p class="profile-use">地域企業、自治体連携、観光、防災、場づくりの相談に使う。</p></aside>
-        </article>
-        <article class="profile-panel" id="profile-panel-ai" role="tabpanel" aria-labelledby="profile-tab-ai" data-profile-panel="ai" hidden>
-          <div><small>AI-NATIVE FULL-CYCLE 0→1</small><h3>問いから検証判断までをAIと一周し、専門家との接続点を作る。</h3><p class="profile-copy">企画者や小チームの曖昧な構想を、問い、調査、体験コンセプト、ラフ試作、発信、検証判断までAIと一周します。人は核心判断、AIは調査・比較・記録、専門家は専門設計・施工・法務・安全を担い、成果と責任の境界を残します。</p></div>
-          <aside class="profile-side"><div><b>現在側の証拠</b><ol><li>棚卸し成果物 66点</li><li>親仕事77件＋子活動20件</li><li>D1公開ページ 6点</li><li>本人の確認時間は回答待ち</li></ol></div><p class="profile-use">外部顧客成果ではなく、方法を一周できることの現在側証拠。市場成果はこれから検証する。</p></aside>
-        </article>
-      </div>
-    </section>
-
-    <section class="application-kit" id="kit">
-      <p class="kicker">07 / Ready-to-use application kit</p>
-      <h2>説明する前に、<br>使える文章にする。</h2>
-      <p class="section-lead">確認済みの事実だけで作った初稿。各ボタンからコピーし、Wantedly、登録面談、既存関係者への相談、推薦依頼に使える。</p>
-      <div class="copy-grid reveal">
-        <article class="copy-card">
-          <small>80 CHARACTERS / HEADLINE</small>
-          <h3>プロフィール見出し</h3>
-          <p class="copy-text" id="copy-headline">生活者の未言語化ニーズを、AIとともに調査・構想・ラフ試作・検証判断まで貫通し、体験プロトタイプと実証へつなぐ0→1プロデューサー。</p>
-          <button class="copy-action" type="button" data-copy-target="copy-headline">文章をコピー</button>
-        </article>
-        <article class="copy-card wide">
-          <small>200 CHARACTERS / SUMMARY</small>
-          <h3>応募プロフィール</h3>
-          <p class="copy-text" id="copy-summary">生活者の未言語化ニーズを見つけ、AIとともに問い、調査、構想、ラフ試作、発信、検証判断を一周し、企業・技術・地域を体験できるプロトタイプと実証へつなぐ0→1プロデューサー。FAB CAR、LivingAnywhere Commons八ヶ岳北杜、オフグリッド住宅、水循環製品、世界遺産での滞在実証などを推進してきた。</p>
-          <button class="copy-action" type="button" data-copy-target="copy-summary">文章をコピー</button>
-        </article>
-        <article class="copy-card wide">
-          <small>INTRODUCTION REQUEST</small>
-          <h3>既存関係者への相談文</h3>
-          <p class="copy-text" id="copy-intro">いま、これまでの仕事を「曖昧な構想を体験プロトタイプへ変える0→1伴走」として整理しています。案件紹介をお願いする前に、あなたから見て、どんな停滞のときに僕を呼ぶと価値が出るかを30分だけ聞かせてもらえませんか。言葉が市場に通じるかを確かめたいです。</p>
-          <button class="copy-action" type="button" data-copy-target="copy-intro">文章をコピー</button>
-        </article>
-        <article class="copy-card">
-          <small>FIRST THREE OFFERS</small>
-          <h3>業務委託の入口</h3>
-          <div class="offer-mini"><div><b>Reframe Sprint</b><p>1–2週間。発散した課題を、核心課題・利用場面・優先仮説・次の検証へ。</p></div><div><b>Concept-to-Prototype</b><p>4–8週間。アイデアを、体験コンセプト・ラフ試作・実証計画へ。</p></div><div><b>Living Lab / Field Pilot Design</b><p>4–10週間。技術や地域資源を、暮らしの体験・参加者・運用・評価の設計へ。</p></div></div>
-        </article>
-        <article class="copy-card wide reference-card">
-          <small>REFERENCE REQUEST / DRAFT — NOT SENT</small>
-          <h3>案件別・推薦コメント依頼</h3>
-          <div class="reference-tabs" role="group" aria-label="推薦を依頼する案件">
-            <button class="reference-tab" type="button" aria-pressed="true" data-reference="fabcar">FAB CAR</button>
-            <button class="reference-tab" type="button" aria-pressed="false" data-reference="lac">LAC八ヶ岳</button>
-            <button class="reference-tab" type="button" aria-pressed="false" data-reference="infra">インフラゼロハウス</button>
-          </div>
-          <div class="reference-output" aria-live="polite" aria-atomic="true">
-            <span class="reference-case" id="reference-case">最初に頼む候補｜共創ディレクション</span>
-            <p class="copy-text" id="copy-reference">いま、これまでの仕事を、案件全体の成果と僕個人の役割を混同しない形で整理しています。FAB CARについて、僕は「ニューノーマルな茶室」のコンセプト、スケッチ／ラフ、企画プロデュース、全体ディレクションを担当し、設計・施工はVUILDチームが担った、と整理しています。あなたから見て、①僕から渡された構想のうち設計の起点になったもの、②意見交換のなかで僕が判断したこと、③その結果、当初案や普段の制作と比べて変わった色・素材・所作・ディテール、を2〜4文で教えてもらえますか。事実と違う前提があれば遠慮なく直してください。</p>
-            <p class="reference-boundary" id="reference-boundary">境界：モデリング、設計、施工はVUILD側。ShopBot導入の因果や決裁、部材費を総予算として本人へ帰属させない。</p>
-          </div>
-          <p class="reference-permission">回答しただけでは公開許諾になりません。引用／要約、実名／匿名、公開Web／選考限定／照会限定、所属表示、編集後再承認を別々に確認します。</p>
-          <button class="copy-action" type="button" data-copy-target="copy-reference">文章をコピー</button>
-        </article>
-        <article class="copy-card">
-          <small>TRUST TRANSFER / PRIORITY</small>
-          <h3>推薦を頼む順番</h3>
-          <div class="offer-mini"><div><b>1. FAB CAR</b><p>公開された役割境界が強く、専門チームとの共創を証言しやすい。</p></div><div><b>2. LAC八ヶ岳</b><p>継続・条件改定の理由まで確認できれば、商業信頼への効果が最大。</p></div><div><b>3. インフラゼロハウス</b><p>役割整理は進んだ。本人が間に入ることで変わった判断・合意を外部証言へ。</p></div><div><b>慎重枠：現在案件</b><p>現職・契約への影響があるため、最初の依頼先にはしない。</p></div></div>
-        </article>
-      </div>
-      <span class="sr-only" id="copy-status" role="status" aria-live="polite"></span>
-    </section>
-
-    <section class="offers">
-      <p class="kicker">08 / Offer hypotheses</p>
-      <h2>「何でもできます」を、<br>3つの発注単位へ。</h2>
-      <p class="section-lead">AI-native full-cycleは別商品ではなく、3サービスを貫く共通OS。開始状態と到達状態を示し、既存関係者がどれに相談料を払うかを見る。</p>
-      <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 210" role="img" aria-labelledby="offer-fig-title offer-fig-desc">
-          <title id="offer-fig-title">3つの商品仮説と共通のAI-native full-cycle</title><desc id="offer-fig-desc">Reframeは1から2週、Concept-to-Prototypeは4から8週、Living LabまたはField Pilot Designは4から10週。すべてを問い、調査、構想、ラフ試作、発信、検証判断の共通OSが貫く。</desc>
-          <line x1="230" y1="18" x2="950" y2="18" stroke="#b8b09f"/><g fill="#5d6761" font-family="sans-serif" font-size="11"><text x="230" y="12">短い</text><text x="920" y="12">長い</text></g>
-          <g font-family="sans-serif" font-size="13" fill="#18201e"><text x="20" y="53">Reframe Sprint</text><text x="20" y="91">Concept-to-Prototype</text><text x="20" y="129">Living Lab / Field Pilot</text></g>
-          <g fill="#315c4f"><rect x="230" y="39" width="135" height="18"/><rect x="230" y="77" width="450" height="18"/><rect x="230" y="115" width="650" height="18"/></g>
-          <g fill="#5d6761" font-family="sans-serif" font-size="12"><text x="378" y="53">1–2週</text><text x="693" y="91">4–8週</text><text x="893" y="129">4–10週</text></g>
-          <rect x="20" y="158" width="930" height="34" rx="17" fill="#e6b84f" opacity=".24"/><text x="485" y="179" text-anchor="middle" fill="#18201e" font-family="sans-serif" font-size="13">QUESTION → RESEARCH → CONCEPT → ROUGH PROTOTYPE → COMMUNICATION → VALIDATION</text>
-        </svg>
-        <figcaption>短期商品は問いと検証を売り、長期商品は場・関係者・運用まで扱う。AI-native full-cycleは独立商品ではなく、全商品の調査・試作・証拠化を高速化する共通OS。</figcaption>
-      </figure>
-      <p class="offer-scroll-hint" aria-hidden="true">小さい画面では横にスクロール →</p>
-      <div class="offer-track reveal">
-        <article class="offer" data-step="1"><small>1–2 WEEKS</small><h3>Reframe Sprint</h3><p>会議が発散し、顧客も課題も広すぎる状態から始める。</p><strong>核心課題・利用場面・検証仮説へ</strong></article>
-        <article class="offer" data-step="2"><small>4–8 WEEKS</small><h3>Concept-to-Prototype</h3><p>アイデアはあるが、触れるものも検証方法もない。</p><strong>体験コンセプト・ラフ試作・検証計画へ</strong></article>
-        <article class="offer" data-step="3"><small>4–10 WEEKS</small><h3>Living Lab /<br>Field Pilot Design</h3><p>技術や地域資源はあるが、暮らしの体験や関係者の動きに変換できていない。</p><strong>体験・参加者・運用・評価の実証設計へ</strong></article>
-      </div>
-    </section>
-
-    <section class="system">
-      <p class="kicker">09 / Collaboration system</p>
-      <h2>弱点を消すのではなく、<br>分業できる形にする。</h2>
-      <p class="section-lead">本人の強さが出る工程、AIへ渡す工程、専門家へ接続する工程を混ぜない。生き生きする条件を、仕事選びと日々の協業システムの両方へ反映する。</p>
-      <p class="offer-scroll-hint" aria-hidden="true">小さい画面では責任分界図を横にスクロール →</p>
-      <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 190" role="img" aria-labelledby="system-fig-title system-fig-desc">
-          <title id="system-fig-title">Johnny、AI、専門家の責任分界</title><desc id="system-fig-desc">Johnnyは問い、現場、核心判断を担い、AIは調査、比較、ラフ試作、記録を担い、専門家は専門設計、施工、法務、安全を担う。互いの境界で判断と証拠を往復させる。</desc>
-          <circle cx="170" cy="92" r="75" fill="#fffdf7" stroke="#ad3218" stroke-width="3"/><circle cx="500" cy="92" r="75" fill="#fffdf7" stroke="#315c4f" stroke-width="3"/><circle cx="830" cy="92" r="75" fill="#fffdf7" stroke="#e6b84f" stroke-width="3"/><path d="M255 92H415M585 92H745" stroke="#18201e" stroke-width="2"/><path d="M280 76L255 92l25 16M390 76l25 16-25 16M610 76l-25 16 25 16M720 76l25 16-25 16" fill="none" stroke="#18201e" stroke-width="2"/>
-          <g text-anchor="middle" font-family="sans-serif"><text x="170" y="80" fill="#ad3218" font-size="18">JOHNNY</text><text x="170" y="106" fill="#18201e" font-size="13">問い・現場・核心判断</text><text x="500" y="80" fill="#315c4f" font-size="18">AI</text><text x="500" y="106" fill="#18201e" font-size="13">調査・比較・ラフ試作・記録</text><text x="830" y="80" fill="#9a6b00" font-size="18">SPECIALISTS</text><text x="830" y="106" fill="#18201e" font-size="13">専門設計・施工・法務・安全</text></g>
-        </svg>
-        <figcaption>本人を管理業務へ寄せず、AIに責任を偽装しない。核心判断は本人に残し、専門判断は専門家へ、調査・比較・ラフ試作・証拠化はAIへ渡す。</figcaption>
-      </figure>
-      <div class="system-grid reveal">
-        <div class="system-side"><h3>Johnny / 問いと判断</h3><ul><li>現場の違和感をつかむ</li><li>問いと概念をつくる</li><li>異分野の人を巻き込む</li><li>体験の核心を判断する</li><li>検証結果から次を決める</li></ul></div>
-        <div class="system-bridge">⇄</div>
-        <div class="system-side"><h3>AI / 速度と証拠</h3><ul><li>公開資料を再帰的に調べる</li><li>記録・検索・比較を継続する</li><li>構想をラフ試作へ変える</li><li>タスク・期限・証拠を追跡する</li><li>ケースと公開物へ構造化する</li></ul></div>
-        <div class="system-bridge">⇄</div>
-        <div class="system-side"><h3>Specialists / 専門責任</h3><ul><li>専門設計と計算を担う</li><li>施工実務と品質を担保する</li><li>法務・安全を判断する</li><li>専門領域の成立性を検証する</li><li>最終成果の責任境界を明確にする</li></ul></div>
-      </div>
-      <aside class="billing-evidence reveal"><small>W031 / CURRENT-SIDE MEASUREMENT</small><h3>棚卸し自体を、full-cycleで一周した。</h3><p>W031作成直前のスナップショットで、66成果物、親仕事77件＋子活動20件、D1公開ページ6点を約42.5時間のファイル生成観測窓で構築した。42.5時間は連続作業時間ではない。本人の確認・訂正・判断時間と、外部顧客の市場成果は未確定として分離する。</p><div class="billing-clusters"><span>66成果物</span><span>6公開ページ</span><span>本人確認時間は回答待ち</span></div></aside>
-      <aside class="billing-evidence reveal"><small>CURRENT OPERATING ROLE / INNFRA</small><h3>構想だけでなく、顧客・商務・現場まで横断する。</h3><p>公開プロフィールと内部記録から、提案、再ヒアリング、自治体・パートナー調整、見積、現場課題対応、広報を案件横断で反復していることを確認した。担当タスクは役割の証拠として扱い、完了・採用・成約は別に裏づける。</p><div class="billing-clusters"><span>構想・顧客開発</span><span>商務・調整</span><span>実装後の現場対応</span></div></aside>
-    </section>
-
-    <section class="gates" id="gates">
-      <p class="kicker">10 / Personal market gates</p>
-      <h2>資料は揃った。<br>次は、出せる条件を決める。</h2>
-      <p class="section-lead">選択内容はこの端末のブラウザ内だけに保存され、外部送信されない。迷う項目は「未確定」を選べる。</p>
-      <div class="gate-list reveal">
-        <fieldset class="gate" data-gate="priority"><legend>最初に試す経路</legend><div class="gate-options"><button class="gate-option" type="button" data-value="転職">転職</button><button class="gate-option" type="button" data-value="副業・業務委託">副業・業務委託</button><button class="gate-option" type="button" data-value="スポット相談">スポット相談</button><button class="gate-option" type="button" data-value="未確定">未確定</button></div></fieldset>
-        <fieldset class="gate" data-gate="hours"><legend>週に確保できる時間</legend><div class="gate-options"><button class="gate-option" type="button" data-value="週2〜4時間">2〜4時間</button><button class="gate-option" type="button" data-value="週5〜10時間">5〜10時間</button><button class="gate-option" type="button" data-value="週11〜20時間">11〜20時間</button><button class="gate-option" type="button" data-value="週20時間超">20時間超</button><button class="gate-option" type="button" data-value="未確定">未確定</button></div></fieldset>
-        <fieldset class="gate" data-gate="onsite"><legend>東京などでの対面頻度</legend><div class="gate-options"><button class="gate-option" type="button" data-value="週1回以上">週1回以上</button><button class="gate-option" type="button" data-value="月1〜2回">月1〜2回</button><button class="gate-option" type="button" data-value="必要時のみ">必要時のみ</button><button class="gate-option" type="button" data-value="対面は難しい">難しい</button><button class="gate-option" type="button" data-value="未確定">未確定</button></div></fieldset>
-        <fieldset class="gate" data-gate="english"><legend>英語での実務</legend><div class="gate-options"><button class="gate-option" type="button" data-value="会議・資料とも対応可能">会議・資料とも可能</button><button class="gate-option" type="button" data-value="支援があれば会議・資料に対応">支援があれば可能</button><button class="gate-option" type="button" data-value="読み書き中心">読み書き中心</button><button class="gate-option" type="button" data-value="現状は難しい">現状は難しい</button><button class="gate-option" type="button" data-value="未確定">未確定</button></div></fieldset>
-        <fieldset class="gate" data-gate="conflict"><legend>副業規定・利益相反</legend><div class="gate-options"><button class="gate-option" type="button" data-value="確認済み・問題なし">確認済み</button><button class="gate-option" type="button" data-value="テーマを限定すれば可能">テーマ限定で可能</button><button class="gate-option" type="button" data-value="確認が必要">確認が必要</button><button class="gate-option" type="button" data-value="現状は難しい">現状は難しい</button></div></fieldset>
-      </div>
-      <div class="gate-output reveal"><div><small>YOUR MARKET GATES</small><p class="gate-summary" id="gate-summary">まだ選択されていません。</p></div><button class="copy-action gate-copy" type="button" data-copy-target="gate-summary">回答をコピー</button></div>
-    </section>
-
-    <section class="questions" id="questions">
-      <p class="kicker">11 / Evidence gaps</p>
-      <h2>公開資料では埋まらない、<br>次の問い。</h2>
-      <p class="section-lead">ここから先は、ジョニー本人との一問一答でしか進まない。回答済みにした項目は、この端末内だけで記憶される。</p>
-      <figure class="evidence-figure reveal">
-        <svg viewBox="0 0 1000 170" role="img" aria-labelledby="gap-fig-title gap-fig-desc">
-          <title id="gap-fig-title">キャリア証拠の主要な6つの欠損</title><desc id="gap-fig-desc">収益、本人判断、運用成果、仕様変更、立て直し、生き生きする条件の6領域は本人回答が必要である。</desc>
-          <line x1="55" y1="125" x2="945" y2="125" stroke="#5d6761"/>
-          <g fill="#f0c75e"><rect x="80" y="35" width="80" height="90"/><rect x="230" y="22" width="80" height="103"/><rect x="380" y="52" width="80" height="73"/><rect x="530" y="42" width="80" height="83"/><rect x="680" y="28" width="80" height="97"/><rect x="830" y="48" width="80" height="77"/></g>
-          <g fill="#f3efe5" font-family="sans-serif" font-size="13" text-anchor="middle"><text x="120" y="150">収益</text><text x="270" y="150">本人判断</text><text x="420" y="150">運用成果</text><text x="570" y="150">仕様変更</text><text x="720" y="150">立て直し</text><text x="870" y="150">生き生き度</text></g>
-        </svg>
-        <figcaption>公開記事が増えても、この六つは埋まらない。市場での再現性を証明するには、本人の記憶と手元資料が必要になる。</figcaption>
-      </figure>
-      <div class="evidence-interview reveal" id="commercial-interview">
-        <div class="interview-head">
-          <div><small>ONE ANONYMOUS CASE / FOUR QUESTIONS</small><h3>一件だけ深く掘れば、<br>商業証拠はまとめて埋まる。</h3><p>社名・金額は不要。最も状態を変えた非公開仕事を匿名で一件選び、同じ案件について順番に答える。回答本文はこのページへ入力・保存しない。</p></div>
-          <div class="interview-meter" aria-live="polite"><b id="interview-count">0 / 4</b><span>回答済み。保留は未完了として残す。</span><div class="interview-meter-track" aria-hidden="true"><div class="interview-meter-fill" id="interview-meter-fill"></div></div></div>
-        </div>
-        <div class="interview-steps">
-          <article class="interview-step" data-interview-q="q1"><b>01</b><div><small>BEFORE / AFTER</small><p>顧客や組織の状態を最も変えた非公開仕事を匿名で一件。開始前に何が止まり、何を任され、終了後に何が変わった？</p></div><div class="interview-state" role="group" aria-label="質問1の状態"><button type="button" data-state="未回答" aria-pressed="true">未回答</button><button type="button" data-state="回答済み" aria-pressed="false">回答済み</button><button type="button" data-state="保留" aria-pressed="false">保留</button></div></article>
-          <article class="interview-step" data-interview-q="q2"><b>02</b><div><small>ORIGIN / REPEAT</small><p>どう始まり、誰の課題をどう発見し、どの提案が採用され、なぜ継続・再依頼された？</p></div><div class="interview-state" role="group" aria-label="質問2の状態"><button type="button" data-state="未回答" aria-pressed="true">未回答</button><button type="button" data-state="回答済み" aria-pressed="false">回答済み</button><button type="button" data-state="保留" aria-pressed="false">保留</button></div></article>
-          <article class="interview-step" data-interview-q="q3"><b>03</b><div><small>COMMERCIAL BOUNDARY</small><p>価格・見積・契約・予算・売上・粗利・追加提案について、自分は何を決定／提案／管理し、何に関与しなかった？</p></div><div class="interview-state" role="group" aria-label="質問3の状態"><button type="button" data-state="未回答" aria-pressed="true">未回答</button><button type="button" data-state="回答済み" aria-pressed="false">回答済み</button><button type="button" data-state="保留" aria-pressed="false">保留</button></div></article>
-          <article class="interview-step" data-interview-q="q4"><b>04</b><div><small>1→10 / EVIDENCE</small><p>初回実装後に何をどれくらい運用し、利用・時間・品質・費用・売上の何が変化した？　何で確認でき、どこまで公開可能？</p></div><div class="interview-state" role="group" aria-label="質問4の状態"><button type="button" data-state="未回答" aria-pressed="true">未回答</button><button type="button" data-state="回答済み" aria-pressed="false">回答済み</button><button type="button" data-state="保留" aria-pressed="false">保留</button></div></article>
-        </div>
-        <div class="interview-output"><div><small>PASTE BACK INTO THIS CONVERSATION</small><p id="commercial-interview-summary">4問と回答欄をコピーし、この会話へ貼り付けて回答できます。現在 0 / 4 問が回答済みです。</p><pre class="sr-only" id="commercial-interview-copy">匿名の非公開仕事を一件だけ選んで答えます。
-
-Q1 Before / After［状態：未回答］
-顧客や組織の状態を最も変えた非公開仕事を匿名で一件。開始前に何が止まり、何を任され、終了後に何が変わった？
-回答：
-
-Q2 始まり・採用・継続理由［状態：未回答］
-その仕事はどう始まり、誰の課題をどう発見し、どの提案が採用され、なぜ継続・再依頼された？
-回答：
-
-Q3 収益責任の境界［状態：未回答］
-価格・見積・契約・予算・売上・粗利・追加提案について、自分は何を決定／提案／管理し、何に関与しなかった？
-回答：
-
-Q4 運用結果・証拠・公開範囲［状態：未回答］
-初回実装後に何をどれくらい運用し、利用・時間・品質・費用・売上の何が変化した？　何で確認でき、どこまで公開可能？
-回答：</pre></div><button class="copy-action" type="button" data-copy-target="commercial-interview-copy">4問をコピー</button></div>
-        <p class="interview-privacy">この端末に保存するのは各問の「未回答／回答済み／保留」だけ。自由記述、社名、金額、連絡先は保存・送信しない。</p>
-      </div>
-      <p class="section-lead">以下は案件固有の追加キュー。上の一件を4問で掘った後、必要なものだけ進める。</p>
-      <div class="question-list reveal">
-        <div class="question" data-q="makers-in-residence-outcome"><p>2022年8月に同拠点で行われた「2泊3日のキャンプギアづくり」は、本人のMakers-in-Residence構想を直接引き継いだ企画か。直接継承、発想は近い別企画、本人関与なし、覚えていない、のどれか。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="kasegu-bousai-origin"><p>「稼ぐ防災」という完全一致の言葉を最終決定した経緯と、共同で磨いた関係者を確認する。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="infra-zero-external-testimony"><p>インフラゼロハウスで、住宅側と設備側の間に自分が入ることで、どの判断・合意・進行が変わったか。関係者に公開可能な範囲で証言を依頼できるか。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="nakagusuku-decision-adoption"><p>中城で、自分の提案・判断によって当初案から最も大きく変更・追加され、最終案へ採用されたものは何か。変更前後はどう違ったか。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="early-digital-impact"><p>2009〜2010年の請求記録群（独立8件＋公開案件へ統合1件）のうち、自分の提案や実装で相手の判断・体験・成果が最も変わったと覚えているものはどれか。該当なしでもよい。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="advisory"><p>大企業5社の新規事業リサーチ／助言で、相手の判断や次の行動が変わったと覚え、資料か相手の証言で確認できそうな案件はあるか。該当なしでもよい。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="tawaragaura-decision-adoption"><p>俵ヶ浦「移動する宿」で、自分が決めた具体案と、その後に採用・実装されたものは何か。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="google-mymaps-contract"><p>任意深掘り：奇食旅当時のGoogleとの雇用・契約経路と、全22回を通じた制作分担は何だったか。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="nomadland-contract-impact"><p>任意深掘り：『ノマドランド』対談の依頼経路、有償性、原稿確認範囲と、公開後の反響・後続依頼は何だったか。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="sauna-service-existence"><p>県一覧の本人名義サウナ事業登録は、実事業、LAC名義登録、構想、誤記のどれだったか。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="turnaround"><p>止まった企画や難しい関係を、自分が前進させた非公開案件は何か。</p><button type="button">回答済みにする</button></div>
-        <div class="question" data-q="alive"><p>どの工程では時間を忘れ、どの工程では急に消耗するか。</p><button type="button">回答済みにする</button></div>
-      </div>
-    </section>
-
-    <section class="closing">
-      <div><blockquote>面白い経歴を説明するのではない。<br>次の相手に、何を再現できるかを示す。</blockquote><p>親仕事77件のうち53件は存在・役割を確認したが、すべてが独立した有償仕事ではない。本人の判断、数字、採用・成約、他者の証言が加わるたび、仕事を得るための証拠へ変わっていく。</p></div>
     </section>
   </main>
-  <footer>Working edition — public-evidence layer / last structured 2026.07.13</footer>
+  <footer><span>正本：Johnny Canonical Work Ledger</span><span>チェック状態は端末内保存 · 詳細回答は会話へ · この公開ページは 2026-07-19 04:05 JST に自動削除</span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script type="application/json" id="work-data">[{"id":"W001","kind":"parent","parent":"","period":"2004–2007+","title":"hidesignlab.™ 初期Web活動・技術発信","form":"自主制作・フリーランス基盤","era":"2004–2007｜技術基盤","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W002","kind":"parent","parent":"","period":"2004–2006頃","title":"テキーラジャパン／TBWA系制作会社でのWebエンジニアリング・デザイン","form":"会社員","era":"2004–2007｜技術基盤","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W003","kind":"parent","parent":"","period":"2008–2010頃候補","title":"Googleとの関係・契約経路（未確定）","form":"W004の関係属性／独立仕事から除外","era":"2008–2010｜広告・キャンペーン","genres":["横断・その他"],"evidence":"relation"},{"id":"W004","kind":"parent","parent":"","period":"2008.1–4","title":"Google マイマップEXPO「全国“奇食”分布地図を試す旅」","form":"デジタルキャンペーン・現地取材・出演・動画制作協力","era":"2008–2010｜広告・キャンペーン","genres":["写真・映像・発信","Web・ソフトウェア"],"evidence":"strong"},{"id":"W005","kind":"parent","parent":"","period":"20代（2009–2010・海士町は本人証言）","title":"海士町リヤカー島一周／地域コンテンツ自主企画","form":"自主企画・自己実験・地域コンテンツ","era":"2008–2010｜広告・キャンペーン","genres":["地域・行政"],"evidence":"known"},{"id":"W006","kind":"parent","parent":"","period":"2010–2018頃","title":"「暮らしかた冒険家」活動全体","form":"共同自主事業・クリエイティブユニット","era":"2008–2010｜広告・キャンペーン","genres":["暮らし実験・概念"],"evidence":"known"},{"id":"W007","kind":"parent","parent":"","period":"2011–2014頃","title":"熊本移住・古民家改修・物技交換等の生活実験","form":"自主企画・編集・制作","era":"2011–2013｜社会文化Web・暮らし","genres":["アート・展示・出版","暮らし実験・概念"],"evidence":"known"},{"id":"W008","kind":"parent","parent":"","period":"2014","title":"札幌国際芸術祭2014 hey, sapporo","form":"アートプロジェクト・公開型生活実験","era":"2014–2017｜展示・出版・生活実験","genres":["アート・展示・出版","暮らし実験・概念"],"evidence":"strong"},{"id":"W009","kind":"parent","parent":"","period":"2015","title":"D&DEPARTMENT HOKKAIDO「hey, sapporo ないものねだりから、あるものみっけの暮らしかた展」","form":"共同展示・トーク","era":"2014–2017｜展示・出版・生活実験","genres":["AI・業務OS","アート・展示・出版","写真・映像・発信","暮らし実験・概念"],"evidence":"known"},{"id":"W010","kind":"parent","parent":"","period":"2016","title":"21_21 DESIGN SIGHT「雑貨展」／「終わらない自問自答」","form":"展示・共同作品","era":"2014–2017｜展示・出版・生活実験","genres":["アート・展示・出版"],"evidence":"known"},{"id":"W011","kind":"parent","parent":"","period":"2016","title":"『あたらしい家づくりの教科書』","form":"撮影、編集補助","era":"2014–2017｜展示・出版・生活実験","genres":["アート・展示・出版","写真・映像・発信"],"evidence":"known"},{"id":"W012","kind":"parent","parent":"","period":"2012–2016+","title":"#candlemov → ドキュメンタリー映画『別れかた 暮らしかた』","form":"公開製作会議への出演・撮影・一部制作運用タスク","era":"2011–2013｜社会文化Web・暮らし","genres":["アート・展示・出版","写真・映像・発信","暮らし実験・概念"],"evidence":"known"},{"id":"W013","kind":"parent","parent":"","period":"2017","title":"d47 MUSEUM「NIPPONの47人 2017 これからの暮らしかた - Off-Grid Life -」","form":"謝辞クレジット","era":"2014–2017｜展示・出版・生活実験","genres":["アート・展示・出版","暮らし実験・概念"],"evidence":"known"},{"id":"W014","kind":"parent","parent":"","period":"2006–2010年代","title":"Web・写真・映像・メインビジュアル・ソーシャル広告の受託制作","form":"フリーランス・受託の親案件","era":"2004–2007｜技術基盤","genres":["写真・映像・発信","Web・ソフトウェア"],"evidence":"known"},{"id":"W015","kind":"parent","parent":"","period":"2018–","title":"LESSMORE Inc.／VLDK受託サービス","form":"法人・クリエイティブ／コンサル事業","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両","新規事業・助言"],"evidence":"known"},{"id":"W016","kind":"parent","parent":"","period":"2018–2022+","title":"都市型バンライフ／VLDK","form":"自主事業・コンセプト開発・生活実験","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両","Web・ソフトウェア","暮らし実験・概念"],"evidence":"strong"},{"id":"W017","kind":"parent","parent":"","period":"2018–2021頃","title":"Van à Table","form":"共同オウンドメディア・アート／編集企画","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両","アート・展示・出版"],"evidence":"known"},{"id":"W018","kind":"parent","parent":"","period":"2020–2022確認","title":"LivingAnywhere Commons 八ヶ岳北杜 立ち上げ・運営・転換","form":"拠点プロデュース・運営","era":"2020–2022｜LAC・オフグリッド","genres":["場・コミュニティ","新規事業・助言"],"evidence":"strong"},{"id":"W019","kind":"parent","parent":"","period":"2020","title":"LAC八ヶ岳「Be Outsiders」コンセプト／文化設計","form":"コンセプト・ブランド・コミュニティ","era":"2020–2022｜LAC・オフグリッド","genres":["場・コミュニティ","暮らし実験・概念"],"evidence":"strong"},{"id":"W020","kind":"parent","parent":"","period":"2020–2022","title":"LAC八ヶ岳 個別プログラム群","form":"場・イベント・滞在制作プログラム","era":"2020–2022｜LAC・オフグリッド","genres":["場・コミュニティ"],"evidence":"known"},{"id":"W021","kind":"parent","parent":"","period":"2021/2022–","title":"オフグリッド・リビングラボ八ヶ岳","form":"生活実証・研究開発・発信","era":"2020–2022｜LAC・オフグリッド","genres":["オフグリッド・製品","Web・ソフトウェア"],"evidence":"strong"},{"id":"W022","kind":"parent","parent":"","period":"2022.2–10確認","title":"「渡鳥ジョニーのもう縛られないぞラジオ」","form":"本人名義Spotify番組・オウンドメディア","era":"2020–2022｜LAC・オフグリッド","genres":["写真・映像・発信"],"evidence":"known"},{"id":"W023","kind":"parent","parent":"","period":"2022","title":"U3 × LIFULL 完全オフグリッド住宅実証","form":"企業横断実証","era":"2020–2022｜LAC・オフグリッド","genres":["オフグリッド・製品"],"evidence":"relation"},{"id":"W024","kind":"parent","parent":"","period":"2023–","title":"MUJI HOUSE × INNFRA「インフラゼロでも暮らせる家」","form":"共同開発・実証","era":"2023–2026｜製品・社会実装・AI","genres":["オフグリッド・製品","Web・ソフトウェア"],"evidence":"known"},{"id":"W025","kind":"parent","parent":"","period":"2021/2023–","title":"INNFRA事業立ち上げ・プロデュース・コンサル","form":"創業メンバー／事業開発・製品開発・実装","era":"2020–2022｜LAC・オフグリッド","genres":["オフグリッド・製品","Web・ソフトウェア","新規事業・助言"],"evidence":"known"},{"id":"W026","kind":"parent","parent":"","period":"2022–2026","title":"TRY!YAMANASHI!／山梨実証・社会実装プログラム系譜","form":"制度・事業化の接続層","era":"2020–2022｜LAC・オフグリッド","genres":["地域・行政"],"evidence":"relation"},{"id":"W027","kind":"parent","parent":"","period":"2025–2026","title":"ソーシャルX for OKINAWA／中城世界遺産ポップアップ実証","form":"地域・観光・官民連携実証","era":"2023–2026｜製品・社会実装・AI","genres":["地域・行政"],"evidence":"candidate"},{"id":"W028","kind":"parent","parent":"","period":"2024–2025","title":"未来X 2025／Social X群馬","form":"会社プログラム成果・事業提案の接続層","era":"2023–2026｜製品・社会実装・AI","genres":["横断・その他"],"evidence":"relation"},{"id":"W029","kind":"parent","parent":"","period":"2025–2026","title":"INNFRA Base／防災道の駅・コインランドリー実装","form":"プロダクト・社会実装","era":"2023–2026｜製品・社会実装・AI","genres":["オフグリッド・製品"],"evidence":"known"},{"id":"W030","kind":"parent","parent":"","period":"2026","title":"屋久島・公園活用／1日1組宿泊事業提案","form":"新規事業・地域／行政提案","era":"2023–2026｜製品・社会実装・AI","genres":["地域・行政","場・コミュニティ","新規事業・助言"],"evidence":"candidate"},{"id":"W031","kind":"parent","parent":"","period":"2026","title":"Johnny×AI協業OS／GITS","form":"自主R&D・業務設計","era":"2023–2026｜製品・社会実装・AI","genres":["AI・業務OS"],"evidence":"candidate"},{"id":"W032","kind":"parent","parent":"","period":"2026","title":"図鑑シリーズ／AIコンテンツ制作ファクトリー","form":"副業実験・コンテンツ運用設計","era":"2023–2026｜製品・社会実装・AI","genres":["AI・業務OS"],"evidence":"candidate"},{"id":"W033","kind":"parent","parent":"","period":"2026","title":"AI活用ノウハウ・業務システム群","form":"自主R&D・業務設計","era":"2023–2026｜製品・社会実装・AI","genres":["AI・業務OS"],"evidence":"known"},{"id":"W034","kind":"parent","parent":"","period":"2021.6–7","title":"映画『ノマドランド』BD／DVD発売記念対談","form":"専門家取材・プロモーションコンテンツ","era":"2020–2022｜LAC・オフグリッド","genres":["アート・展示・出版","暮らし実験・概念"],"evidence":"strong"},{"id":"W035","kind":"parent","parent":"","period":"2021.2–8","title":"SASEBO RE SORT 移動型客室・サービス開発","form":"受託・開発プロデュース候補","era":"2020–2022｜LAC・オフグリッド","genres":["モビリティ・車両","Web・ソフトウェア","新規事業・助言"],"evidence":"candidate"},{"id":"W036","kind":"parent","parent":"","period":"2021.1–4","title":"大手モビリティ企業A｜次世代モビリティ調査・助言","form":"受託・助言候補","era":"2020–2022｜LAC・オフグリッド","genres":["モビリティ・車両"],"evidence":"candidate"},{"id":"W037","kind":"parent","parent":"","period":"2021.2–9","title":"大手モビリティ企業B｜次世代モビリティ助言・実証検討","form":"受託・社外連携プロジェクト候補","era":"2020–2022｜LAC・オフグリッド","genres":["モビリティ・車両"],"evidence":"known"},{"id":"W038","kind":"parent","parent":"","period":"2019.4","title":"三重県紀北町「超移動時代の地方のあり方」実地調査","form":"受託・地域調査候補","era":"2018–2019｜VLDK・地域実証","genres":["地域・行政"],"evidence":"candidate"},{"id":"W039","kind":"parent","parent":"","period":"2018–2019","title":"つくばVAN泊／自治体バンライフ実証","form":"招聘実践者・パネリスト・実車展示・画像提供・後続登壇","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両","地域・行政","アート・展示・出版","写真・映像・発信","暮らし実験・概念"],"evidence":"known"},{"id":"W040","kind":"parent","parent":"","period":"2019.1","title":"大手ヘルスケア企業｜新規事業リサーチ","form":"受託・調査候補","era":"2018–2019｜VLDK・地域実証","genres":["新規事業・助言"],"evidence":"candidate"},{"id":"W041","kind":"parent","parent":"","period":"2018.12","title":"佐世保市「俵ヶ浦と佐世保」ツアー＆アイデアソン","form":"地域調査・アイデアソン・企画提案","era":"2018–2019｜VLDK・地域実証","genres":["地域・行政","新規事業・助言"],"evidence":"candidate"},{"id":"W042","kind":"parent","parent":"","period":"2018.11","title":"大手重工企業｜新規事業リサーチ","form":"受託・調査候補","era":"2018–2019｜VLDK・地域実証","genres":["新規事業・助言"],"evidence":"candidate"},{"id":"W043","kind":"parent","parent":"","period":"2018.9–11","title":"神戸・芦屋・淡路・洲本「島＆都市デュアル暮らしツアーズ」","form":"招聘生活実践者・フィールド検証・本人記事3本・有料登壇・実車説明","era":"2018–2019｜VLDK・地域実証","genres":["写真・映像・発信","暮らし実験・概念"],"evidence":"strong"},{"id":"W044","kind":"parent","parent":"","period":"2018.8","title":"大手家電企業｜新規事業リサーチ","form":"受託・調査候補","era":"2018–2019｜VLDK・地域実証","genres":["新規事業・助言"],"evidence":"candidate"},{"id":"W045","kind":"parent","parent":"","period":"2020.9–2021.1","title":"VUILD／EMARF「FAB CAR」自家用車リノベーション","form":"共同開発・デジタルファブリケーション","era":"2020–2022｜LAC・オフグリッド","genres":["モビリティ・車両","Web・ソフトウェア"],"evidence":"strong"},{"id":"W046","kind":"parent","parent":"","period":"2022以前–現行掲載","title":"山梨県「渡鳥ジョニー／ワーケーション・アウトドアサウナレンタル」パートナー登録","form":"本人名義登録・C04重複候補","era":"2020–2022｜LAC・オフグリッド","genres":["地域・行政","場・コミュニティ"],"evidence":"candidate"},{"id":"W047","kind":"parent","parent":"","period":"2020–","title":"Be Outsiders／LAC八ヶ岳オフグリッドキャンプ場","form":"場・宿泊サービス・共同制作型運営","era":"2020–2022｜LAC・オフグリッド","genres":["オフグリッド・製品","場・コミュニティ"],"evidence":"known"},{"id":"W048","kind":"parent","parent":"","period":"2006–2007","title":"慶應義塾大学SFC／GeoWalker","form":"研究開発・インタラクションデザイン・技術発表","era":"2004–2007｜技術基盤","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W049","kind":"parent","parent":"","period":"2010","title":"グローバルスポーツ用品ブランド／ゴルフ製品デジタル広告群","form":"匿名受託","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W050","kind":"parent","parent":"","period":"2010","title":"グローバルスポーツ用品ブランド／ソーシャル連動サイト","form":"匿名受託","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W051","kind":"parent","parent":"","period":"2010","title":"グローバルスポーツ用品ブランド／SNSゲームアプリ","form":"匿名受託・開発","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W052","kind":"parent","parent":"","period":"2010","title":"大手飲料ブランド／商品Webサイト","form":"匿名受託","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W053","kind":"parent","parent":"","period":"2010","title":"オンライン共創・企画プラットフォーム","form":"匿名受託・開発","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W054","kind":"parent","parent":"","period":"2010","title":"社会・未来ビジョン系プロジェクトサイト","form":"匿名受託","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W055","kind":"parent","parent":"","period":"2010.03","title":"環境・社会運動／海外展開PR","form":"W061重複・統合済み","era":"2008–2010｜広告・キャンペーン","genres":["横断・その他"],"evidence":"relation"},{"id":"W056","kind":"parent","parent":"","period":"2010","title":"食品ブランドWebサイト","form":"匿名受託","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W057","kind":"parent","parent":"","period":"2009–2010","title":"大手検索・IT企業／デジタルキャンペーン","form":"匿名受託・コンテンツ制作","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W058","kind":"parent","parent":"","period":"2014–2015","title":"NPOグリーンズ「わたしたち電力」サイトリニューアル／運営","form":"Webディレクション・共同企画・公開後運用・コンテンツ参加","era":"2014–2017｜展示・出版・生活実験","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W059","kind":"parent","parent":"","period":"2014–2017","title":"一般社団法人パッシブハウス・ジャパン サイト刷新／コンテンツ運用","form":"情報設計・コピー編集／統合・図解ディレクション・個別Web実装・運用支援","era":"2014–2017｜展示・出版・生活実験","genres":["アート・展示・出版","Web・ソフトウェア"],"evidence":"known"},{"id":"W060","kind":"parent","parent":"","period":"2012頃","title":"ボシドラ農園 boshidora.com","form":"Webデザイン・コーディング・プログラミング・物技交換","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア","暮らし実験・概念"],"evidence":"known"},{"id":"W061","kind":"parent","parent":"","period":"2009.10–2012.04","title":"100万人のキャンドルナイト Web／SNS制作・運用","form":"Web制作、季節更新、イベントページ、ジェネレーター、tweet表示、Ustream導線、海外展開コンテンツPR","era":"2008–2010｜広告・キャンペーン","genres":["場・コミュニティ","Web・ソフトウェア"],"evidence":"known"},{"id":"W062","kind":"parent","parent":"","period":"2010.12–2013+","title":"坂本龍一 skmtSocial project","form":"Website共同制作・コーディング・段階ローンチ・参加機能実装／後続運用","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W063","kind":"parent","parent":"","period":"2015.03–2018.07","title":"わざわざ waza2.com Web／EC統合・追加実装／保守","form":"情報設計・Webデザイン・コーディング・プログラミング・移行・更新","era":"2014–2017｜展示・出版・生活実験","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W064","kind":"parent","parent":"","period":"2015.02–2016.11","title":"La Vida コーポレートサイト刷新／EC導入・更新","form":"リニューアル受託・Webデザイン・コーディング・プログラミング","era":"2014–2017｜展示・出版・生活実験","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W065","kind":"parent","parent":"","period":"2015.08–2018.12","title":"ONIBUS COFFEE Web／オンラインショップ・追加制作","form":"Webデザイン・コーディング・プログラミング・撮影／更新","era":"2014–2017｜展示・出版・生活実験","genres":["写真・映像・発信","Web・ソフトウェア"],"evidence":"known"},{"id":"W066","kind":"parent","parent":"","period":"2016","title":"『あたらしい家づくりの教科書』PRサイト newecohouse.net","form":"Webデザイン・コーディング・プログラミング・撮影・編集","era":"2014–2017｜展示・出版・生活実験","genres":["アート・展示・出版","写真・映像・発信","Web・ソフトウェア"],"evidence":"known"},{"id":"W067","kind":"parent","parent":"","period":"2011–2012+","title":"大地を守る会「ちゃんと、たべもの、プロジェクト」公式サイト","form":"Webデザイン・コーディング・プログラミング","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W068","kind":"parent","parent":"","period":"2010–2017+","title":"のはら農研塾 Web／農産物EC","form":"Webデザイン・コーディング・プログラミング・更新","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W069","kind":"parent","parent":"","period":"2016–","title":"Gotch／後藤正文公式サイト gotch.info","form":"Webデザイン・コーディング・プログラミング・公開後調整","era":"2014–2017｜展示・出版・生活実験","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W070","kind":"parent","parent":"","period":"2011–","title":"長嶋りかこ公式サイト rikako-nagashima.com","form":"Webプロデュース・デザイン・コーディング・プログラミング","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア","新規事業・助言"],"evidence":"known"},{"id":"W071","kind":"parent","parent":"","period":"2013–2014","title":"札幌国際芸術祭2014公式サイト","form":"コーディング・プログラミング","era":"2011–2013｜社会文化Web・暮らし","genres":["アート・展示・出版","Web・ソフトウェア"],"evidence":"known"},{"id":"W072","kind":"parent","parent":"","period":"2015–","title":"東北ユースオーケストラ公式サイト","form":"コーディング・プログラミング","era":"2014–2017｜展示・出版・生活実験","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W073","kind":"parent","parent":"","period":"2016–2017","title":"『イサリビ』／monosugoi.shop 編集・デザイン","form":"誌面の編集・デザイン制作","era":"2014–2017｜展示・出版・生活実験","genres":["アート・展示・出版"],"evidence":"known"},{"id":"W074","kind":"parent","parent":"","period":"2011–2012","title":"POMPON CAKES 公式サイト","form":"共同Webデザイン","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W075","kind":"parent","parent":"","period":"2011–2013+","title":"MOMOE momoegohan.com","form":"共同Webデザイン","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W076","kind":"parent","parent":"","period":"2011","title":"FISHMANS+ fishmansplus.com","form":"共同Web Production／ソーシャルビューイング参加基盤","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W077","kind":"parent","parent":"","period":"2012","title":"坂口恭平「ZERO PUBLIC」zero-public.com","form":"共同Webデザイン・開発／参加型領土地図","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W078","kind":"parent","parent":"","period":"2011","title":"SAC about cookies ECサイト","form":"Web制作・写真の一部・写真教室","era":"2011–2013｜社会文化Web・暮らし","genres":["写真・映像・発信","Web・ソフトウェア"],"evidence":"known"},{"id":"W079","kind":"parent","parent":"","period":"2011頃","title":"giftee立ち上げ期","form":"オープニング写真撮影・スタッフ向けワークショップ","era":"2011–2013｜社会文化Web・暮らし","genres":["写真・映像・発信"],"evidence":"known"},{"id":"W080","kind":"parent","parent":"","period":"2011.04–2012.03確認","title":"エネシフジャパン","form":"呼びかけ人・共同Webデザイン／制作・公開運用参加","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W081","kind":"parent","parent":"","period":"2011.03–2012.02頃","title":"無事.me","form":"共同Web企画・Web制作・公開後開発／携帯対応・情報運用","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W082","kind":"parent","parent":"","period":"2011–2012","title":"NIKON NEXT","form":"Web制作・プログラミング・コーディング","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"candidate"},{"id":"W083","kind":"parent","parent":"","period":"2010.08–2011.12確認","title":"Mt.RAINIER for Mt.FUJIキャンペーンWeb","form":"Flashサイト制作","era":"2008–2010｜広告・キャンペーン","genres":["AI・業務OS","Web・ソフトウェア"],"evidence":"known"},{"id":"W084","kind":"parent","parent":"","period":"2010.10–12","title":"海士と大地の守人ツアー","form":"ムーブメントデザイン・Webデザイン・公開広報会議／現地配信支援","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W085","kind":"parent","parent":"","period":"2012","title":"SUSTENA公式サイト刷新","form":"共同ユニットでディレクション・開発・コーディング／本人は人物・思想のWeb構造化へ制作関与","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W086","kind":"parent","parent":"","period":"2018","title":"YADOKARI.netリニューアル","form":"Webデザイン・フロントエンド開発・情報整理","era":"2018–2019｜VLDK・地域実証","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W087","kind":"parent","parent":"","period":"2010","title":"ペピン結構設計・公演Web","form":"Webサイト制作補助","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W088","kind":"parent","parent":"","period":"2013","title":"『Web Designing』Tumblr特集","form":"記事執筆","era":"2011–2013｜社会文化Web・暮らし","genres":["写真・映像・発信","Web・ソフトウェア"],"evidence":"known"},{"id":"W089","kind":"parent","parent":"","period":"2011.08–2012.12","title":"エコ議員つうしんぼ原発版／脱原発つうしんぼ","form":"Web開発・選挙区データ構造対応・公開運用支援","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W090","kind":"parent","parent":"","period":"2011–2013","title":"サンワ工務店 Web／デジタル業務支援","form":"Web制作・ソーシャル導入支援・IT環境整備","era":"2011–2013｜社会文化Web・暮らし","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W091","kind":"parent","parent":"","period":"2017.01","title":"竹田まちホテル関連プロジェクト","form":"キックオフ参加・現地調査候補","era":"2014–2017｜展示・出版・生活実験","genres":["地域・行政"],"evidence":"candidate"},{"id":"W092","kind":"parent","parent":"","period":"2010.07","title":"家族経営企業の業務基盤整備","form":"Gmail設定・名刺デザイン・Web制作","era":"2008–2010｜広告・キャンペーン","genres":["AI・業務OS","Web・ソフトウェア"],"evidence":"candidate"},{"id":"W093","kind":"parent","parent":"","period":"2010.03–2011.09確認","title":"OPEN SOURCE PRODUCT","form":"プロジェクトメンバー・Webサイト制作","era":"2008–2010｜広告・キャンペーン","genres":["Web・ソフトウェア"],"evidence":"known"},{"id":"W002-A01","kind":"child","parent":"W002","period":"2004–2006頃","title":"adidas Japan 日本代表サイト／オンラインショップ刷新","form":"W002に統合した具体活動","era":"2004–2007｜技術基盤","genres":["Web・ソフトウェア"],"evidence":"candidate"},{"id":"W006-A01","kind":"child","parent":"W006","period":"2010-09〜2012-08","title":"「結婚キャンプ」／1泊2日のDIY型婚礼と写真出版","form":"W006に統合した具体活動","era":"2008–2010｜広告・キャンペーン","genres":["場・コミュニティ","写真・映像・発信"],"evidence":"known"},{"id":"W006-A02","kind":"child","parent":"W006","period":"2010–2011頃","title":"「新婚ノマド旅行」／西日本3週間の生活・仕事実験","form":"W006に統合した具体活動","era":"2008–2010｜広告・キャンペーン","genres":["暮らし実験・概念"],"evidence":"known"},{"id":"W006-A03","kind":"child","parent":"W006","period":"2017-01-10","title":"YouTube「Know your place はじまるよ【001】」","form":"W006に統合した具体活動","era":"2014–2017｜展示・出版・生活実験","genres":["場・コミュニティ"],"evidence":"known"},{"id":"W006-A04","kind":"child","parent":"W006","period":"2017-08-25","title":"SIAF2017「勝手に連動企画」働き方を考えるトークライブ","form":"W006に統合した具体活動","era":"2014–2017｜展示・出版・生活実験","genres":["写真・映像・発信"],"evidence":"candidate"},{"id":"W012-A01","kind":"child","parent":"W012","period":"2012–2015","title":"「1000000人で映画をつくるワークショップ #candlemov」／長期撮影・制作運用","form":"W012に統合した具体活動","era":"2011–2013｜社会文化Web・暮らし","genres":["アート・展示・出版","写真・映像・発信"],"evidence":"relation"},{"id":"W016-A01","kind":"child","parent":"W016","period":"2018-07-30","title":"「人生もうワンチャンあるっしょ？ 渡鳥ジョニーのワケありBAR episode 1 〜『都市型バンライフ』をつまみに酒を飲んだらほぼ2025年の住まい方が見えてきた〜」","form":"W016に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両","暮らし実験・概念"],"evidence":"known"},{"id":"W016-A02","kind":"child","parent":"W016","period":"2018-03-19","title":"BETTARA STAND日本橋「バンライフをつつく夜」","form":"W016に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両","暮らし実験・概念"],"evidence":"candidate"},{"id":"W016-A03","kind":"child","parent":"W016","period":"2018-06-08","title":"YADOKARI「バンライフを語る夜」","form":"W016に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両","暮らし実験・概念"],"evidence":"candidate"},{"id":"W043-A01","kind":"child","parent":"W043","period":"2018-09-13","title":"KIITO NIGHT 22「究極のノマドワーク!?」","form":"W043に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["暮らし実験・概念"],"evidence":"known"},{"id":"W043-A02","kind":"child","parent":"W043","period":"2018-09-26","title":"DUAL LIFE SCHOOL東京「島＆都市デュアル体験報告」／MYバン見学告知","form":"W043に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両"],"evidence":"known"},{"id":"W016-A04","kind":"child","parent":"W016","period":"2019-03-16","title":"肴町Little 1周年パーティ・ムービーナイト","form":"W016に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["横断・その他"],"evidence":"candidate"},{"id":"W039-A01","kind":"child","parent":"W039","period":"2019-04-22","title":"つくばVAN泊スピンオフ「住まいが移動する未来の暮らし方」","form":"W039に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["モビリティ・車両","地域・行政","暮らし実験・概念"],"evidence":"known"},{"id":"W016-A05","kind":"child","parent":"W016","period":"2019-05-31","title":"立教大学 ゲスト講師","form":"W016に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["横断・その他"],"evidence":"candidate"},{"id":"W016-A06","kind":"child","parent":"W016","period":"2019-08-04","title":"ADDressワゴンお披露目イベント","form":"W016に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["場・コミュニティ"],"evidence":"candidate"},{"id":"W016-A07","kind":"child","parent":"W016","period":"2019-11-02–04","title":"TINY HOUSE FESTIVAL 2019","form":"W016に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["横断・その他"],"evidence":"candidate"},{"id":"W018-A01","kind":"child","parent":"W018","period":"2019-11-05","title":"haluta軽井沢232「これからの働き方・暮らし方」","form":"W018に統合した具体活動","era":"2018–2019｜VLDK・地域実証","genres":["暮らし実験・概念"],"evidence":"candidate"},{"id":"W020-A01","kind":"child","parent":"W020","period":"2020-08-01","title":"LivingAnywhere Commons八ヶ岳 バンライフフェス","form":"W020に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["モビリティ・車両","場・コミュニティ","暮らし実験・概念"],"evidence":"known"},{"id":"W018-A02","kind":"child","parent":"W018","period":"2020-08-17","title":"TABIPPO「未来の暮らしについて考える」","form":"W018に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["暮らし実験・概念"],"evidence":"candidate"},{"id":"W016-A09","kind":"child","parent":"W016","period":"2020-11-14","title":"リノベーションEXPO JAPAN 2020","form":"W016に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["横断・その他"],"evidence":"known"},{"id":"W020-A03","kind":"child","parent":"W020","period":"2021-01–2022-08","title":"LAC八ヶ岳 シェア工房／Makers-in-Residence","form":"W020に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["場・コミュニティ"],"evidence":"known"},{"id":"W020-A04","kind":"child","parent":"W020","period":"2020–2021","title":"LAC八ヶ岳 サウナ設備・商品構想","form":"W020に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["場・コミュニティ"],"evidence":"relation"},{"id":"W045-A01","kind":"child","parent":"W045","period":"2021-01-22","title":"VUILDER'S TALK「自分たちでつくる移動型の暮らし」","form":"W045に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["モビリティ・車両","Web・ソフトウェア","暮らし実験・概念"],"evidence":"candidate"},{"id":"W018-A03","kind":"child","parent":"W018","period":"2021-01-22","title":"TRY!YAMANASHI 2021","form":"W018に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["横断・その他"],"evidence":"candidate"},{"id":"W018-A04","kind":"child","parent":"W018","period":"2022-03-05","title":"山梨県 二拠点居住体験ツアー","form":"W018に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["地域・行政"],"evidence":"candidate"},{"id":"W016-A08","kind":"child","parent":"W016","period":"2022-07-19","title":"PLANETS「『働かない』日に僕たちがすべきこと」","form":"W016に統合した具体活動","era":"2020–2022｜LAC・オフグリッド","genres":["横断・その他"],"evidence":"candidate"},{"id":"W033-A01","kind":"child","parent":"W033","period":"2026-07","title":"Morning Podlog","form":"W033に統合した具体活動","era":"2023–2026｜製品・社会実装・AI","genres":["AI・業務OS"],"evidence":"candidate"},{"id":"W033-A02","kind":"child","parent":"W033","period":"2026-07","title":"GITS Research Gateway","form":"W033に統合した具体活動","era":"2023–2026｜製品・社会実装・AI","genres":["AI・業務OS"],"evidence":"known"}]</script>
   <script>
-    const progress = document.querySelector('.reading-progress');
-    const updateProgress = () => {
-      const max = document.documentElement.scrollHeight - innerHeight;
-      progress.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
-    };
-    addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
+    const items = JSON.parse(document.getElementById('work-data').textContent);
+    const STORAGE_KEY = 'johnny-career-work-checklist-v1';
+    const labels = {unreviewed:'未確認',ok:'だいたい合っている',thin:'内容が足りない',missing:'この周辺に抜けあり',wrong:'違う・統合したい',later:'後で話す'};
+    const evidenceLabels = {strong:'ケース化可能',known:'存在・役割あり',candidate:'役割確認前',relation:'親・統合・除外'};
+    let state = {};
+    try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { state = {}; }
 
-    const reveals = [...document.querySelectorAll('.reveal')];
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-      }, { threshold: .12 });
-      reveals.forEach(el => observer.observe(el));
-    } else {
-      reveals.forEach(el => el.classList.add('visible'));
+    const root = document.getElementById('work-root');
+    const filters = {
+      search: document.getElementById('search'), era: document.getElementById('era-filter'),
+      genre: document.getElementById('genre-filter'), evidence: document.getElementById('evidence-filter'),
+      review: document.getElementById('review-filter'), kind: document.getElementById('kind-filter')
+    };
+
+    const escapeHTML = value => String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+    const unique = values => [...new Set(values)].sort((a,b) => a.localeCompare(b,'ja'));
+    unique(items.map(item => item.era)).forEach(value => filters.era.insertAdjacentHTML('beforeend', `<option value="${escapeHTML(value)}">${escapeHTML(value)}</option>`));
+    unique(items.flatMap(item => item.genres)).forEach(value => filters.genre.insertAdjacentHTML('beforeend', `<option value="${escapeHTML(value)}">${escapeHTML(value)}</option>`));
+
+    function saveState(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {} updateProgress(); }
+    function toast(message){ const el=document.getElementById('toast'); el.textContent=message; el.classList.add('show'); clearTimeout(toast.timer); toast.timer=setTimeout(()=>el.classList.remove('show'),2200); }
+    function reviewValue(id){ return state[id] || 'unreviewed'; }
+
+    function matches(item){
+      const needle=filters.search.value.trim().toLowerCase();
+      if(needle && ![item.id,item.period,item.title,item.form,...item.genres].join(' ').toLowerCase().includes(needle)) return false;
+      if(filters.era.value!=='all' && item.era!==filters.era.value) return false;
+      if(filters.genre.value!=='all' && !item.genres.includes(filters.genre.value)) return false;
+      if(filters.evidence.value!=='all' && item.evidence!==filters.evidence.value) return false;
+      if(filters.review.value!=='all' && reviewValue(item.id)!==filters.review.value) return false;
+      if(filters.kind.value!=='all' && item.kind!==filters.kind.value) return false;
+      return true;
     }
 
-    document.querySelectorAll('.filter').forEach(button => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.filter').forEach(b => b.setAttribute('aria-pressed', 'false'));
-        button.setAttribute('aria-pressed', 'true');
-        const filter = button.dataset.filter;
-        document.querySelectorAll('.case-card').forEach(card => {
-          card.classList.toggle('hidden', filter !== 'all' && !card.dataset.tags.includes(filter));
-        });
-      });
-    });
+    function rowHTML(item){
+      const review=reviewValue(item.id);
+      const options=Object.entries(labels).map(([value,label])=>`<option value="${value}" ${value===review?'selected':''}>${label}</option>`).join('');
+      const chips=[`<span class="chip evidence">${escapeHTML(evidenceLabels[item.evidence])}</span>`,...item.genres.map(g=>`<span class="chip">${escapeHTML(g)}</span>`)];
+      return `<article class="work" data-id="${item.id}" data-kind="${item.kind}" data-review="${review}">
+        <span class="work-id">${escapeHTML(item.id)}</span><span class="period">${escapeHTML(item.period)}</span>
+        <h3 class="title">${escapeHTML(item.title)}</h3><div class="meta"><div class="form">${escapeHTML(item.form)}</div><div class="chips">${chips.join('')}</div></div>
+        <div class="review"><label for="review-${item.id}">本人確認</label><select id="review-${item.id}" data-review-select="${item.id}">${options}</select></div>
+      </article>`;
+    }
 
-    const routeTabs = [...document.querySelectorAll('.route-tab')];
-    const selectRoute = tab => {
-      routeTabs.forEach(t => {
-        const selected = t === tab;
-        t.setAttribute('aria-selected', String(selected));
-        t.tabIndex = selected ? 0 : -1;
-      });
-      document.querySelectorAll('.route-panel').forEach(panel => {
-        const active = panel.dataset.panel === tab.dataset.route;
-        panel.classList.toggle('active', active);
-        panel.hidden = !active;
-      });
-    };
-    routeTabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => selectRoute(tab));
-      tab.addEventListener('keydown', event => {
-        let next = index;
-        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % routeTabs.length;
-        else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + routeTabs.length) % routeTabs.length;
-        else if (event.key === 'Home') next = 0;
-        else if (event.key === 'End') next = routeTabs.length - 1;
-        else return;
-        event.preventDefault();
-        selectRoute(routeTabs[next]);
-        routeTabs[next].focus();
-      });
-    });
-
-    const profileTabs = [...document.querySelectorAll('.profile-tab')];
-    const selectProfile = tab => {
-      profileTabs.forEach(t => {
-        const selected = t === tab;
-        t.setAttribute('aria-selected', String(selected));
-        t.tabIndex = selected ? 0 : -1;
-      });
-      document.querySelectorAll('.profile-panel').forEach(panel => {
-        const active = panel.dataset.profilePanel === tab.dataset.profile;
-        panel.classList.toggle('active', active);
-        panel.hidden = !active;
-      });
-    };
-    profileTabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => selectProfile(tab));
-      tab.addEventListener('keydown', event => {
-        let next = index;
-        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % profileTabs.length;
-        else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + profileTabs.length) % profileTabs.length;
-        else if (event.key === 'Home') next = 0;
-        else if (event.key === 'End') next = profileTabs.length - 1;
-        else return;
-        event.preventDefault();
-        selectProfile(profileTabs[next]);
-        profileTabs[next].focus();
-      });
-    });
-
-    const referenceDrafts = {
-      fabcar: {
-        label: '最初に頼む候補｜共創ディレクション',
-        text: 'いま、これまでの仕事を、案件全体の成果と僕個人の役割を混同しない形で整理しています。FAB CARについて、僕は「ニューノーマルな茶室」のコンセプト、スケッチ／ラフ、企画プロデュース、全体ディレクションを担当し、設計・施工はVUILDチームが担った、と整理しています。あなたから見て、①僕から渡された構想のうち設計の起点になったもの、②意見交換のなかで僕が判断したこと、③その結果、当初案や普段の制作と比べて変わった色・素材・所作・ディテール、を2〜4文で教えてもらえますか。事実と違う前提があれば遠慮なく直してください。',
-        boundary: '境界：モデリング、設計、施工はVUILD側。ShopBot導入の因果や決裁、部材費を総予算として本人へ帰属させない。'
-      },
-      lac: {
-        label: '商業信頼を補う候補｜場とコミュニティ',
-        text: 'いま、これまでの仕事を、案件全体の成果と僕個人の役割を混同しない形で整理しています。LivingAnywhere Commons八ヶ岳北杜について、僕はプロデューサー兼コミュニティマネージャーとして、LIFULLから示された「実験場」という原構想を、屋外・キャンプ・ものづくりを利用者と試すLiving Labへ具体化した、と整理しています。あなたから見て、①立ち上げ前に何が課題だったか、②僕へ何を任せ、どの判断を評価したか、③場・利用者・チームにどんな変化があったか、④LIFULL側、イベント企画者、設備・施工等との分担、を2〜4文で教えてもらえますか。事実と違う前提があれば遠慮なく直してください。',
-        boundary: '境界：LIFULLの原構想・運営主体、個別イベント、建築設計、施工を分離。契約継続や条件改定の理由は、公開推薦とは別の任意・非公開質問にする。'
-      },
-      infra: {
-        label: '技術翻訳を補う候補｜住宅×オフグリッド',
-        text: 'いま、これまでの仕事を、案件全体の成果と僕個人の役割を混同しない形で整理しています。インフラゼロハウスについて、僕は開発メンバー／オフグリッドインフラ プロデューサーとして、八ヶ岳での生活実証知見を住宅商品へつなぎ、行政・利用・住宅・設備の条件を製品要件へまとめ、専門設計者との判断を次の設計へ渡す役割を担った、と整理しています。公開可能な範囲で、①僕が住宅側と設備側を接続するうえで担ったこと、②僕が間に入ることで判断・合意・進行がどう変わったか、③試泊や対話で仕様・運用・伝え方がどう変わったか、④住宅設計、設備技術設計、最終決裁との分担、を2〜4文で教えてもらえますか。内部WBS、配管、未公開仕様は書かなくて大丈夫です。',
-        boundary: '境界：住宅・空間全体、配管、設備容量等の技術設計、受賞・実用化を本人単独成果にしない。'
-      }
-    };
-    const referenceTabs = [...document.querySelectorAll('.reference-tab')];
-    const referenceText = document.getElementById('copy-reference');
-    const referenceCase = document.getElementById('reference-case');
-    const referenceBoundary = document.getElementById('reference-boundary');
-    const selectReference = tab => {
-      const draft = referenceDrafts[tab.dataset.reference];
-      referenceTabs.forEach(item => {
-        const selected = item === tab;
-        item.setAttribute('aria-pressed', String(selected));
-      });
-      referenceCase.textContent = draft.label;
-      referenceText.textContent = draft.text;
-      referenceBoundary.textContent = draft.boundary;
-    };
-    referenceTabs.forEach(tab => {
-      tab.addEventListener('click', () => selectReference(tab));
-    });
-
-    const copyText = async text => {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        return;
-      }
-      const area = document.createElement('textarea');
-      area.value = text;
-      area.setAttribute('readonly', '');
-      area.style.position = 'fixed';
-      area.style.opacity = '0';
-      document.body.appendChild(area);
-      area.select();
-      const copied = document.execCommand('copy');
-      area.remove();
-      if (!copied) throw new Error('copy command failed');
-    };
-    const copyStatus = document.getElementById('copy-status');
-    document.querySelectorAll('.copy-action').forEach(button => {
-      button.addEventListener('click', async () => {
-        const target = document.getElementById(button.dataset.copyTarget);
-        if (!target) return;
-        const original = button.textContent;
-        try {
-          await copyText(target.textContent.trim());
-          button.textContent = 'コピーしました';
-          button.classList.add('copied');
-          copyStatus.textContent = `${original}：コピーしました`;
-        } catch {
-          button.textContent = 'コピーできませんでした';
-          copyStatus.textContent = `${original}：コピーできませんでした`;
-        }
-        setTimeout(() => {
-          button.textContent = original;
-          button.classList.remove('copied');
-        }, 1800);
-      });
-    });
-
-    const gateStorageKey = 'johnny-career-market-gates';
-    let gateState = {};
-    try { gateState = JSON.parse(localStorage.getItem(gateStorageKey) || '{}'); } catch { gateState = {}; }
-    const gateGroups = [...document.querySelectorAll('.gate')];
-    const gateSummary = document.getElementById('gate-summary');
-    const updateGateSummary = () => {
-      const lines = gateGroups.map(group => {
-        const label = group.querySelector('legend').textContent.trim();
-        return `${label}：${gateState[group.dataset.gate] || '未選択'}`;
-      });
-      gateSummary.textContent = lines.join('\n');
-    };
-    gateGroups.forEach(group => {
-      const options = [...group.querySelectorAll('.gate-option')];
-      const sync = () => options.forEach(option => option.setAttribute('aria-pressed', String(gateState[group.dataset.gate] === option.dataset.value)));
-      sync();
-      options.forEach(option => option.addEventListener('click', () => {
-        gateState[group.dataset.gate] = option.dataset.value;
-        localStorage.setItem(gateStorageKey, JSON.stringify(gateState));
-        sync();
-        updateGateSummary();
+    function render(){
+      const visible=items.filter(matches); const byEra=new Map();
+      visible.forEach(item=>{ if(!byEra.has(item.era)) byEra.set(item.era,[]); byEra.get(item.era).push(item); });
+      root.innerHTML=[...byEra.entries()].map(([era,entries],index)=>`<section class="era-block"><header class="era-title"><b>STRATUM ${String(index+1).padStart(2,'0')}</b><h3>${escapeHTML(era)}</h3></header><div class="work-list">${entries.map(rowHTML).join('')}</div></section>`).join('');
+      root.querySelectorAll('[data-review-select]').forEach(select=>select.addEventListener('change',event=>{
+        const id=event.currentTarget.dataset.reviewSelect; const value=event.currentTarget.value;
+        if(value==='unreviewed') delete state[id]; else state[id]=value;
+        event.currentTarget.closest('.work').dataset.review=value; saveState();
+        if(filters.review.value!=='all') render();
       }));
-    });
-    updateGateSummary();
+      document.getElementById('metric-visible').textContent=visible.length;
+      document.getElementById('result-copy').textContent=`${visible.length} / ${items.length}件を表示`;
+      document.getElementById('empty').classList.toggle('show',visible.length===0);
+    }
 
-    const saved = JSON.parse(localStorage.getItem('johnny-career-questions') || '{}');
-    document.querySelectorAll('.question').forEach(item => {
-      const button = item.querySelector('button');
-      const sync = () => {
-        const done = Boolean(saved[item.dataset.q]);
-        item.classList.toggle('done', done);
-        button.textContent = done ? '未回答に戻す' : '回答済みにする';
-      };
-      sync();
-      button.addEventListener('click', () => {
-        saved[item.dataset.q] = !saved[item.dataset.q];
-        localStorage.setItem('johnny-career-questions', JSON.stringify(saved));
-        sync();
-      });
+    function updateProgress(){
+      const reviewed=items.filter(item=>reviewValue(item.id)!=='unreviewed').length; const percent=Math.round(reviewed/items.length*100);
+      document.getElementById('progress-value').textContent=`${percent}%`; document.getElementById('progress-bar').style.width=`${percent}%`;
+      document.getElementById('progress-copy').textContent=`${reviewed} / ${items.length}件`;
+      document.getElementById('mobile-progress').textContent=`${reviewed} / ${items.length}件確認`;
+    }
+
+    Object.values(filters).forEach(control=>control.addEventListener(control===filters.search?'input':'change',render));
+    document.getElementById('metric-total').textContent=items.length;
+    document.getElementById('metric-parent').textContent=items.filter(i=>i.kind==='parent').length;
+    document.getElementById('metric-child').textContent=items.filter(i=>i.kind==='child').length;
+
+    document.getElementById('copy-queue').addEventListener('click',async()=>{
+      const selected=items.filter(item=>['thin','missing','wrong','later'].includes(reviewValue(item.id)));
+      const text=['キャリア棚卸しで対話したい項目',...selected.map(item=>`- ${item.id}｜${labels[reviewValue(item.id)]}｜${item.period}｜${item.title}`)].join('\n');
+      try { await navigator.clipboard.writeText(text); toast(`${selected.length}件をコピーしました`); } catch { toast('コピーできませんでした'); }
     });
 
-    const interviewStorageKey = 'johnny-career-commercial-interview-v1';
-    let interviewState = {};
-    try { interviewState = JSON.parse(localStorage.getItem(interviewStorageKey) || '{}'); } catch { interviewState = {}; }
-    const interviewQuestions = [...document.querySelectorAll('.interview-step')];
-    const interviewCount = document.getElementById('interview-count');
-    const interviewMeterFill = document.getElementById('interview-meter-fill');
-    const interviewCopy = document.getElementById('commercial-interview-copy');
-    const interviewSummary = document.getElementById('commercial-interview-summary');
-    const interviewPrompts = {
-      q1: { label: 'Q1 Before / After', prompt: '顧客や組織の状態を最も変えた非公開仕事を匿名で一件。開始前に何が止まり、何を任され、終了後に何が変わった？' },
-      q2: { label: 'Q2 始まり・採用・継続理由', prompt: 'その仕事はどう始まり、誰の課題をどう発見し、どの提案が採用され、なぜ継続・再依頼された？' },
-      q3: { label: 'Q3 収益責任の境界', prompt: '価格・見積・契約・予算・売上・粗利・追加提案について、自分は何を決定／提案／管理し、何に関与しなかった？' },
-      q4: { label: 'Q4 運用結果・証拠・公開範囲', prompt: '初回実装後に何をどれくらい運用し、利用・時間・品質・費用・売上の何が変化した？　何で確認でき、どこまで公開可能？' }
-    };
-    const updateInterview = () => {
-      const answered = interviewQuestions.filter(item => interviewState[item.dataset.interviewQ] === '回答済み').length;
-      interviewCount.textContent = `${answered} / 4`;
-      interviewMeterFill.style.width = `${answered * 25}%`;
-      interviewSummary.textContent = `4問と回答欄をコピーし、この会話へ貼り付けて回答できます。現在 ${answered} / 4 問が回答済みです。`;
-      const blocks = interviewQuestions.map(item => {
-        const itemPrompt = interviewPrompts[item.dataset.interviewQ];
-        const itemState = interviewState[item.dataset.interviewQ] || '未回答';
-        return `${itemPrompt.label}［状態：${itemState}］\n${itemPrompt.prompt}\n回答：`;
-      });
-      interviewCopy.textContent = ['匿名の非公開仕事を一件だけ選んで答えます。', ...blocks].join('\n\n');
-    };
-    interviewQuestions.forEach(item => {
-      const key = item.dataset.interviewQ;
-      const buttons = [...item.querySelectorAll('[data-state]')];
-      const sync = () => buttons.forEach(button => button.setAttribute('aria-pressed', String((interviewState[key] || '未回答') === button.dataset.state)));
-      sync();
-      buttons.forEach(button => button.addEventListener('click', () => {
-        interviewState[key] = button.dataset.state;
-        try { localStorage.setItem(interviewStorageKey, JSON.stringify(interviewState)); } catch { /* status remains usable without persistence */ }
-        sync();
-        updateInterview();
-      }));
+    document.getElementById('export-state').addEventListener('click',()=>{
+      const payload={schema:'johnny-career-work-checklist-v1',exportedAt:new Date().toISOString(),state};
+      const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
+      const a=document.createElement('a'); a.href=url; a.download='career-work-check-state.json'; a.click(); URL.revokeObjectURL(url); toast('状態JSONを書き出しました');
     });
-    updateInterview();
+    document.getElementById('import-state').addEventListener('click',()=>document.getElementById('import-file').click());
+    document.getElementById('import-file').addEventListener('change',async event=>{
+      const file=event.target.files[0]; if(!file) return;
+      try { const payload=JSON.parse(await file.text()); if(payload.schema!=='johnny-career-work-checklist-v1') throw new Error('schema'); state=payload.state||{}; saveState(); render(); toast('状態を読み込みました'); }
+      catch { toast('このチェック面の状態JSONではありません'); }
+      event.target.value='';
+    });
+    document.getElementById('reset-state').addEventListener('click',()=>{
+      if(!confirm('このブラウザに保存した確認状態を初期化しますか？')) return;
+      state={}; saveState(); render(); toast('確認状態を初期化しました');
+    });
+
+    render(); updateProgress();
   </script>
 </body>
 </html>
