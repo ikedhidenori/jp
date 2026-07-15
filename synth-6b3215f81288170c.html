@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>INNFRA 未来仮説 最終統合 v1.0</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+  :root{--bg:#fff;--fg:#1a1a1a;--muted:#666;--line:#ddd;--card:#f7f7f5;--accent:#0a5c5c}
+  @media (prefers-color-scheme:dark){:root{--bg:#141414;--fg:#e8e8e6;--muted:#9a9a96;--line:#3a3a3a;--card:#1f1f1e;--accent:#6fc2c2}}
+  *{box-sizing:border-box}
+  body{margin:0 auto;max-width:860px;padding:20px 16px 60px;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;font-size:15.5px;line-height:1.8}
+  h1{font-size:1.3rem;line-height:1.5}
+  h2{font-size:1.1rem;margin-top:2em;padding:.3em 0 .3em .6em;border-left:4px solid var(--accent)}
+  blockquote{margin:.8em 0;padding:.5em 1em;border-left:3px solid var(--line);color:var(--muted);font-size:.92rem}
+  table{border-collapse:collapse;font-size:.85rem;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  th{background:var(--card)}
+  li{margin:.3em 0}
+  code{background:var(--card);padding:1px 5px;border-radius:4px;font-size:.88em}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">INNFRA 未来仮説 最終統合 v1.0</h1>
+</header>
+<h1 id="innfra-未来仮説事業仮説-最終統合-v1.0">INNFRA 未来仮説×事業仮説
+最終統合 v1.0</h1>
+<blockquote>
+<p><strong>採用した構え (素子判断、2026-07-15 昼)</strong>: 二階建て —
+価値原理 = <strong>尊厳のミニマム</strong> (機械浴テスト) × 経済エンジン
+= <strong>C 規格背骨</strong> (B 直営・A 参照実装を従属)。理由:
+尊厳は全世界線・全シーンで生き残った唯一の価値軸であり、C
+は全世界線で売れる唯一の経済層。両者を分けることで「測れるものに仮説が乗っ取られる」ことと「ワクワクだけの空疎化」の両方を防ぐ。</p>
+</blockquote>
+<h2 id="一文で表した未来仮説-確信度-中-本人回答検証済推論">1.
+一文で表した未来仮説 【確信度: 中 / 本人回答+検証済+推論】</h2>
+<p>単身化と生存コスト危機が進む 2040
+年の日本で、住宅は「箱の所有」から「<strong>尊厳のミニマム
+(寝る・立てる・暖かい・洗える・水がある)
+を保証する器と、それを支える網への接続権</strong>」へ解体・再結合される。その成立可能性は、既設インフラなしで水・衛生・エネルギーを賄う規格が握る
+— INNFRA はその<strong>規格を書く会社</strong>になる。</p>
+<h2 id="年後に変化する社会的前提-確信度-高-人口水道-中-コスト乖離">2.
+10〜20 年後に変化する社会的前提 【確信度: 高 (人口・水道) 〜 中
+(コスト乖離)】</h2>
+<ul>
+<li>単独世帯 43.5% = 2,442 万で最大類型 (2040、ピーク 2036)。高齢単身
+1,041 万 = 1.4 倍 【検証済⚠社人研 2024】</li>
+<li>高齢者増の約 66% (+211 万人) が東京圏に着弾 —
+高齢化は都市の問題になる 【照合済⚠第一生命経研】</li>
+<li>水道: 2046 年までに 96% の事業体が値上げ必要・平均 +48%
+(推計)。<strong>2024 年に 82 事業者が実際に値上げ (最大 4 割・800
+万人)、管路更新 130 年ペース = 進行中の実測</strong> 【検証済⚠】</li>
+<li>空き家は広義 1,861 万戸・25.3% (2043 推計) —
+ただし「家余り」は「住める器余り」ではない
+(危険空き家倍増、単独世帯は戸建を選ばない) 【照合済⚠NRI】</li>
+<li>若年の在宅化は 34 年一貫 (20 代の休日移動ゼロ 52.4%)、移動の主役は
+70 代へ逆転 【検証済✅国交省】</li>
+<li>労働供給 1,100 万人不足 → 「施設に人を集めてケア」モデルの崩れ
+【民間推計】</li>
+<li>生存コスト (家賃+光熱+ケア) と実質手取りの乖離が中間層下半分に到達
+【推論 — 先行指標: 実質家賃/賃金比】</li>
+</ul>
+<h2
+id="解体再構成される住宅機能-確信度-中-本人回答-n1推論一般化可能性は未確認">3.
+解体・再構成される住宅機能 【確信度: 中 / 本人回答
+(N=1)+推論。一般化可能性は未確認】</h2>
+<ul>
+<li>三層解体: 外部化容易 (洗濯・映像・冷蔵) / こだわり携行
+(コーヒー・音) / <strong>還元不能の核 = ①尊厳ある寝心地 ②立てる高さ
+③温熱</strong></li>
+<li>水は単身生存では外部化可能だが、<strong>N≥2・女性・親密さ・尊厳が入ると核に戻る</strong>
+(水の必然性は生存でなく関係から)</li>
+<li>最小単位は世帯 → <strong>個人</strong> (一人一部屋、VLDK V=3.3
+畳下限)</li>
+<li>再結合の型: <strong>核は所有 (器 100
+万)、残りは網から月額で接続</strong> — 3,000 万の借金の解体</li>
+</ul>
+<h2
+id="新しく生まれる欲望不安ニーズ-確信度-中-本人回答推論定量は未確認-検証-14-①">4.
+新しく生まれる欲望・不安・ニーズ 【確信度: 中 /
+本人回答+推論。定量は未確認 → 検証 14-①】</h2>
+<ul>
+<li>「家賃 (住コスト) のために生きる」倒錯からの解放 —
+蓋をされた全員の怒り (仮説)</li>
+<li>呼吸できるスペースの確保 (都市の金融化の主観的裏面)</li>
+<li>プア標準世界 (安い擬似体験が多数派)
+での「<strong>尊厳の一点</strong>」保持 —
+機械浴の拒否、檜の風呂椅子</li>
+<li>家族という受け皿を持たない初の高齢世代の「尊厳ある自立」</li>
+</ul>
+<h2 id="会社が実現したい世界と担う役割-確信度-中-本人回答統合">5.
+会社が実現したい世界と担う役割 【確信度: 中 / 本人回答+統合】</h2>
+<p><strong>描ける世界 (N-10 の 10
+個目ではなく、判定器つきの候補)</strong>: 「誰もが —
+所得と場所と年齢と世帯形態に関わらず —
+尊厳のミニマムを月数万円で選べる国」。 役割:
+その最低線を<strong>規格として供給する</strong> =
+ビジョン「地球のすべての夜に灯りと潤いを」の実装値。サバイバル
+(死なない=C) とウェルビーイング (尊厳=価値原理) を一語で貫き、R1 の 5
+回目の堂々巡りを終わらせる。</p>
+<h2 id="意思決定基準としてのビジョン-確信度-中-本人回答推論">6.
+意思決定基準としてのビジョン 【確信度: 中 / 本人回答+推論】</h2>
+<ul>
+<li><strong>機械浴テスト</strong>: これは檜風呂か、機械浴か
+(尊厳なき最安生存の量産はやらない)</li>
+<li><strong>場所 3 条件</strong> (正統性/特権性 × インフラ不在 ×
+技術突破): どこでやるかのゲート (運用されていなかった R3
+を規格に昇格)</li>
+<li><strong>規格貢献テスト</strong>: この案件は C
+規格のデータ・実績・標準化に貢献するか (供給側都合の A-B
+帯案件を断る理由になる)</li>
+</ul>
+<h2 id="水エネルギーαの不可避な課題-確信度-高-水道-中-他">7.
+水・エネルギー+αの不可避な課題 【確信度: 高 (水道) / 中 (他)】</h2>
+<ul>
+<li>集中型インフラの限界コストが構造的に上がり続ける (人口減×更新負債) —
+実測で進行中</li>
+<li>器を置ける場所が既設網に縛られる — <strong>B 先行者 (HafH/LAC)
+の死因は光熱費・原価 = C の不在</strong> 【検証済⚠】</li>
+<li>単身高齢の在宅限界:
+ケアが器に来るには水・衛生・温熱の自律が前提</li>
+<li>酷暑の常態化 × 電気 — 温熱の核が電力問題に還元される</li>
+</ul>
+<h2 id="顧客利用者支払者-確信度-中-既存実績推論生活者-wtp-は未検証">8.
+顧客、利用者、支払者 【確信度: 中 / 既存実績+推論。生活者 WTP
+は未検証】</h2>
+<ul>
+<li><strong>24 ヶ月 (シリーズ A 期)</strong>: B2B/B2G — 自衛隊・防災
+(岩崎ファネル D 帯 =
+収益スパイン)・ゆたかけあ型ケア事業者・空き家リノベ事業者・器メーカー。全て「C
+規格の初期顧客」と再解釈できる</li>
+<li><strong>中期 (2030 年代)</strong>: 生活者 — 移動する高齢者 (70
+代&gt;20 代の実測に沿う)・降りる中間層・二人暮らしの水核化層。月 8 万 =
+家賃 6.5 万+光熱水 1.5〜2 万の<strong>統合価格</strong>
+(置換であって上乗せではない)</li>
+<li><strong>交差する支払者</strong>: 行政
+(災害・福祉・関係人口)。トークン/地域経済への現金注入源 =
+都市から来る月額のレベニューシェア</li>
+</ul>
+<h2 id="サービスと事業モデル-確信度-中-推論本人回答">9.
+サービスと事業モデル 【確信度: 中 / 推論+本人回答】</h2>
+<p>二階建て構造: - <strong>価値原理 (何者か)</strong>: 尊厳のミニマム —
+全プロダクトを機械浴テストで判定 - <strong>経済エンジン
+(何で稼ぐか)</strong>: C = 水・衛生・エネの自律規格 (機器販売 + 施工規格
++ 遠隔監視 RaaS + 将来ライセンス) - <strong>B = 直営 1 号網</strong>
+(エクスト→停泊・滞在点): 規格を書くためのデータ源・ショールーム
+(テスラ充電網型)。収益 KPI から解放し規格 KPI へ - <strong>A =
+参照実装</strong> (死なないシェルター = 規格内蔵の器、9
+月投資判断と接続)</p>
+<h2
+id="市場規模のレンジ算定根拠市場形成経路-確信度-分母高-実測照合済-浸透率低-未検証">10.
+市場規模のレンジ、算定根拠、市場形成経路 【確信度: 分母=高 (実測/照合済)
+/ 浸透率=低 (未検証)】</h2>
+<ul>
+<li><strong>C</strong>: 上下水料金市場 4.2 兆円/年 (実測 2023) +
+更新投資 1.5 兆円/年。+48% 値上げ = <strong>年 1.3
+兆円級の追加負担</strong>が生活者に着弾 —
+この負担増分が分散型代替の理論上限。経済合理の閾値特定が次の検証
+(14-②)</li>
+<li><strong>A+B</strong>: 家賃市場 12 兆円/年の置換。単独世帯 2,442 万 ×
+月 8 万: 浸透 1% = 年 2,300 億 / 5% = 1.2 兆 / 10% = 2.3 兆。現 RV 市場
+0.11 兆円 = 3 桁下からのスタートと正直に言う</li>
+<li><strong>経路</strong>: B2G/B2B 実需 (D 帯) → 空き家×規格キット
+(競合を販路化) → 生活者の器+網。<strong>時間窓: 単独世帯ピーク 2036 —
+規格の席は 2030 年代前半に埋まる</strong></li>
+</ul>
+<h2
+id="巨大化への戦略と-right-to-win-確信度-低中-推論技術優位の客観検証が未">11.
+巨大化への戦略と right-to-win 【確信度: 低〜中 /
+推論。技術優位の客観検証が未】</h2>
+<ul>
+<li>戦略 = テスラ型: 直営網 (B) で規格を書き、参照実装 (A)
+で証明し、規格 (C) を開いて業界標準へ</li>
+<li>right-to-win の候補: ①水循環の実装実績 (富士川・彩湖・OIST・中城)
+②場所の目利き (4K・3 条件 = 中城で証明) ③先行的中の直感 5 件
+(SANU・核シェルター・OGR・VLDK・洗濯外部化) ④尊厳原理 =
+コモディティ化の防壁</li>
+<li><strong>正直な弱点</strong>: 技術優位の客観検証は未 (wota
+等競合との比較)。「規格を書く」ポジションの獲得可能性そのものが最大の未検証仮説</li>
+</ul>
+<h2 id="最初の-wedge-確信度-中-本人回答">12. 最初の wedge 【確信度: 中 /
+本人回答】</h2>
+<ul>
+<li><strong>エクスト = 規格を書くための直営予行練習装置</strong>
+(収益事業の期待から解放し、B 実験室として KPI 再定義)。菊永「POC
+の域を出ない」への回答 = POC であることこそ役割</li>
+<li>並走 wedge: <strong>ゆたかけあ型ケア × 檜風呂</strong> = 尊厳 WTP
+の最初の実地検証 (D 帯実顧客)</li>
+<li>屋久島は場所 3 条件不成立で wedge から外す (本人判定
+2026-07-15)</li>
+</ul>
+<h2
+id="最大のリスク矛盾反証条件-確信度-高-列挙の網羅性-宿題-4-を正式採択">13.
+最大のリスク、矛盾、反証条件 【確信度: 高 (列挙の網羅性) — 宿題 §4
+を正式採択】</h2>
+<p><strong>反証条件・先行指標 6 分岐</strong> (宿題 §4
+の表をそのまま資料に添付し、以後この表で答え合わせ): 1. 移動需要の反転 →
+B の形 (移動網 vs 定置網) を決める / 2. 都市急崩壊はブースター分岐
+(前提にしない) / 3. 網の経済性 — C 規格を持つ網だけが黒字化するか / 4.
+技術コスト崖 — 日本の太陽光は世界の 1.7
+倍で<strong>崖が遅れるリスク</strong> / 5. 制度 — コンパクトシティ 971
+市町村は現役強化中 = <strong>分散居住への制度逆風は既に強い</strong> /
+6. 時間窓 — 単独世帯ピーク 2036 <strong>追加リスク</strong>: ①尊厳 WTP
+が実在しない (機械浴で十分な世界) — 14-① で最初に検証
+②水技術のコモディティ化 (11 の弱点) ③社内構造リスク — R1-R5
+の堂々巡りが資料でも再燃する (対策 =
+反証条件表の合意で「答え合わせの日付」を決める)
+<strong>内在する矛盾</strong>:
+社名も特許も原体験もオフグリッドなのに「オフグリッドは手段」と言い切る緊張
+(R4)。二階建てはこれを緩和するが消しはしない。</p>
+<h2 id="週間で実施する検証-確信度-高-実施可能性-効果は未確認">14. 2
+週間で実施する検証 【確信度: 高 (実施可能性) / 効果は未確認】</h2>
+<ol type="1">
+<li><strong>尊厳 WTP コンセプトテスト</strong>: 檜風呂 vs 機械浴の 2
+択ボード + 支払意思。ゆたかけあ経路 + OGR リスト流用 (PMF Phase 0 の前半
+2 週分)</li>
+<li><strong>分散型の経済合理閾値の一次試算</strong>: 自社実データ
+(富士川・彩湖の実コスト) vs 集中型料金 +48% 世界 — C
+の「売れる価格」の初期値</li>
+<li><strong>B 需要の一次観測</strong>: RV パーク運営者 3〜5 件ヒアリング
+(稼働率統計が業界ゼロ = 誰も測っていない空白を最初に埋める)</li>
+<li><strong>7/16 で反証条件表を合意</strong> —
+以後の議論をこの表への答え合わせに固定 (堂々巡り R1-R5
+の構造的封じ)</li>
+</ol>
+<h2
+id="社内がこれならあるかもしれないと議論を続けられる説明-確信度-中">15.
+社内が「これならあるかもしれない」と議論を続けられる説明 【確信度:
+中】</h2>
+<blockquote>
+<p>「これは新事業の思いつきではない。水道値上げ 82 事業者・単独世帯
+43.5%・HafH の死因 (光熱費) —
+<strong>外部で既に始まっている変化</strong>が、うちの既存 3 資産
+(死なないシェルター・エクスト・水循環技術)
+に初めて役割分担を与えた、という話。エクストは収益で測るから引き裂かれる
+—
+あれは規格を書くための予行練習装置で、稼ぐのは自衛隊と防災。そして中城の夜に私たちが身体で確認したもの
+—
+あれが『尊厳のミニマム』であり、機械浴の反対側であり、この会社が量産すべき体験の原器だ」</p>
+</blockquote>
+<ul>
+<li>川島対応: 外部既成事実の束で提示 (SANU 型の受容形式)。岩崎対応:
+ファネル D 帯 (自衛隊・ゆたかけあ) が C の初期顧客である整合 +
+宇沢/社会的共通資本 (N-28)
+は「尊厳のミニマムの公共財化」として腹落ちの席がある</li>
+</ul>
+<h2 id="の戦略議論で扱うべき論点-確信度-高">16. 2026-07-16
+の戦略議論で扱うべき論点 【確信度: 高】</h2>
+<ol type="1">
+<li>L1 の言葉として「尊厳のミニマム」を<strong>仮決め</strong>するか (10
+個目のフレーズではなく、機械浴テストという判定器つき —
+決め切るプロセスは「反証表への答え合わせ」で担保)</li>
+<li><strong>C 背骨の合意</strong>: 自衛隊・防災・ゆたかけあを「C
+規格の初期顧客」と再解釈する (現行事業の否定ではなく再配置)</li>
+<li><strong>エクスト KPI の再定義</strong>: 収益 → 規格データ・体現実績
+(菊永指摘への回答形)</li>
+<li><strong>反証条件表の採択</strong>: 6
+分岐+先行指標を資料に添付し、次回以降「答え合わせの日付」を決める</li>
+<li><strong>2 週間検証 4 点の owner と期限</strong> (7/24 株主定例の前に
+1 点でも初期値を持つ)</li>
+<li>7/24 株主定例への出力: 「北極星から逆算したロードマップ + KPI
+骨子」に本統合の 1→9→12 を充てる</li>
+</ol>
+<hr />
+<h2 id="未確認事項の一覧-隠さない">未確認事項の一覧 (隠さない)</h2>
+<ul>
+<li>尊厳 WTP の実在 (→14-①) / 分散型の経済合理閾値 (→14-②) / B
+需要の定量 (→14-③) / 技術優位の客観比較 (wota 等) / 月 8
+万統合価格の受容性 / 「蓋をした怒り」の定量 / RV
+パーク認定数の年次内訳・家計調査動画配信単独項目 (7/16
+に影響しない粒度)</li>
+</ul>
+<h2 id="シーン素材-レンダリング側-基礎と分離して使う">シーン素材
+(レンダリング側 — 基礎と分離して使う)</h2>
+<p>ワタリ (45 歳・遊牧型) / シーン A (71 歳・定置型・檜の風呂椅子) /
+シーン B (34 歳・二人・空き家×規格キット・二人で入れる風呂) / シーン C
+(29 歳・半電脳型 — B が死に C だけ残る世界線)。詳細 =
+[[innfra-hypothesis-homework-2026-07-15]] §5 +
+[[innfra-future-hypothesis-walkthrough-2026-07-15]]。</p>
+</body>
+</html>
+
+<footer style="margin-top:40px;padding-top:12px;border-top:1px solid #ccc;color:#888;font-size:.8rem">TTL 72h。D2-internal、転送・SNS共有不可。</footer>
