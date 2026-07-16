@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>3つの仮説 やさしい解説書 — INNFRA 事業探索</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#161616;--sub:#5a5a5a;--faint:#9a9a9a;--line:#e4e4e0;--bg:#faf9f6;--acc:#f5c400;--accsoft:#fff8d6;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);line-height:1.95;font-size:15.5px;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:720px;margin:0 auto;padding:56px 20px 100px;}
+header{margin-bottom:52px;border-bottom:2px solid var(--ink);padding-bottom:28px;}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sub);margin-bottom:10px;}
+.kicker::before{content:"";display:inline-block;width:22px;height:10px;background:var(--acc);margin-right:10px;}
+h1{font-size:34px;font-weight:900;line-height:1.45;margin-bottom:14px;}
+.lede{color:var(--sub);font-size:15px;}
+h2{font-size:22px;font-weight:900;margin:64px 0 6px;padding-top:20px;border-top:1px solid var(--line);}
+h2 .no{color:var(--faint);font-size:14px;margin-right:10px;letter-spacing:.1em;}
+h3{font-size:16.5px;font-weight:700;margin:30px 0 8px;}
+p{margin:14px 0;}
+.tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;padding:1px 6px;border:1px solid var(--ink);vertical-align:2px;margin-left:5px;white-space:nowrap;}
+.tag.fact{background:var(--ink);color:#fff;}
+.tag.inf{border-color:var(--faint);color:var(--sub);}
+.tag.unv{border-style:dashed;color:var(--sub);}
+.sum{background:#fff;border:1px solid var(--ink);padding:18px 22px;margin:20px 0;}
+.sum .h{font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--sub);margin-bottom:6px;}
+.sum .h::before{content:"";display:inline-block;width:14px;height:9px;background:var(--acc);margin-right:8px;}
+.sum p{margin:4px 0;font-weight:500;}
+blockquote{font-family:"Noto Serif JP",serif;border-left:3px solid var(--acc);padding:6px 0 6px 18px;margin:18px 0;color:#333;}
+blockquote small{display:block;font-family:"Noto Sans JP",sans-serif;color:var(--faint);font-size:12px;margin-top:6px;}
+.metaphor{background:var(--accsoft);padding:16px 20px;margin:18px 0;font-size:14px;}
+.metaphor::before{content:"たとえるなら";display:block;font-size:10.5px;font-weight:900;letter-spacing:.12em;color:var(--sub);margin-bottom:5px;}
+table{border-collapse:collapse;width:100%;margin:18px 0;font-size:13.5px;}
+th{font-size:12px;text-align:left;border-bottom:2px solid var(--ink);padding:8px;background:#f3f2ed;}
+td{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top;line-height:1.7;}
+td.h{font-weight:700;white-space:nowrap;font-size:12.5px;}
+ul,ol{padding-left:24px;margin:14px 0;}
+li{margin:7px 0;}
+.qa{margin:20px 0;}
+.qa dt{font-weight:900;margin-top:22px;}
+.qa dt::before{content:"Q. ";color:var(--sub);}
+.qa dd{margin:6px 0 0 0;padding-left:26px;position:relative;}
+.qa dd::before{content:"A.";position:absolute;left:0;font-weight:900;color:var(--sub);}
+.gloss dt{font-weight:900;font-size:14px;margin-top:16px;}
+.gloss dd{margin:2px 0 0;font-size:14px;color:#333;}
+footer{margin-top:70px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--sub);}
+.toc{background:#fff;border:1px solid var(--line);padding:20px 26px;margin:26px 0 0;font-size:14px;}
+.toc a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line);}
+.toc ol{margin:6px 0 0;}
+mark{background:linear-gradient(transparent 62%,var(--acc) 62%,var(--acc) 92%,transparent 92%);font-weight:700;}
+.fig{margin:24px 0;background:#fff;border:1px solid var(--line);padding:18px 16px 10px;}
+.fig svg{width:100%;height:auto;display:block;font-family:"Noto Sans JP",sans-serif;}
+.figcap{font-size:12px;color:var(--sub);margin-top:8px;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<div class="kicker">INNFRA 事業探索 — 社内共有用 / 2026-07-16</div>
+<h1>3つの仮説 やさしい解説書</h1>
+<p class="lede">7/16 の事業探索会議に出た 3 つの資料 (ジョニー案・川島案・岩崎資料) を、原文を読まなくても分かるように解説します。内容はすべて原文準拠で、引用にはページ番号 (川島 p.n / 岩崎 p.n) と章番号 (ジョニー Ⅰ〜Ⅶ) を付けています。解説者の推論には <span class="tag inf">INFERENCE</span>、原文に情報がない箇所には <span class="tag unv">UNVERIFIED</span> を付け、原文にないことを本人の主張として書いていません。</p>
+<nav class="toc">
+<b>目次</b>
+<ol>
+<li><a href="#c1">議論の出発点 — いまのモデルの何が問題か</a></li>
+<li><a href="#c2">ジョニー案「住宅の解体と、尊厳のミニマム」</a></li>
+<li><a href="#c3">川島案「滞在型サービス事業仮説」</a></li>
+<li><a href="#c4">岩崎資料「住まいの地殻変動」</a></li>
+<li><a href="#c5">3つはどう噛み合うのか</a></li>
+<li><a href="#c6">まだ決まっていないこと</a></li>
+<li><a href="#c7">用語集</a> / <a href="#c8">よくある誤解 Q&amp;A</a></li>
+</ol>
+</nav>
+</header>
+
+<h2 id="c1"><span class="no">1</span>議論の出発点 — いまのモデルの何が問題か</h2>
+<p>3 つの資料は別々に書かれましたが、出発点はひとつです。<mark>「インフラ設備を売る」というこれまでのモデルには、構造的な弱点がある</mark>ということ。川島案がいちばん端的に言語化しています。</p>
+<blockquote>「インフラ販売では、顧客が最終需要をつくる。INNFRAが水や電力を提供しても、その土地で事業やサービスが成立するかは顧客次第であり、インフラ導入需要そのものが不確実になる」<small>川島 p.6</small></blockquote>
+<p>つまり、どれだけ良い水循環システムを作っても、それを置く「場所の事業」が成立しなければ売れない。売れるかどうかを顧客任せにしている限り、需要は安定しない — ここまでは 3 資料とも (そして社内でも) ほぼ争いがありません。問題は「では何に張るか」で、それぞれの資料が違う高さから答えを書いています。</p>
+<div class="fig">
+<svg viewBox="0 0 680 190" role="img" aria-label="従来モデルと転換後モデルの比較">
+<defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#161616"/></marker></defs>
+<text x="0" y="16" font-size="12" font-weight="900" fill="#5a5a5a">これまで — 需要は顧客まかせ</text>
+<rect x="0" y="28" width="150" height="46" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="75" y="48" font-size="12" font-weight="700" text-anchor="middle">INNFRA</text>
+<text x="75" y="64" font-size="10.5" text-anchor="middle" fill="#5a5a5a">設備を売る</text>
+<line x1="150" y1="51" x2="196" y2="51" stroke="#161616" stroke-width="1.5" marker-end="url(#fa)"/>
+<rect x="200" y="28" width="150" height="46" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="275" y="48" font-size="12" font-weight="700" text-anchor="middle">顧客</text>
+<text x="275" y="64" font-size="10.5" text-anchor="middle" fill="#5a5a5a">場所の事業を営む</text>
+<line x1="350" y1="51" x2="396" y2="51" stroke="#9a9a9a" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#fa)"/>
+<rect x="400" y="28" width="180" height="46" fill="none" stroke="#9a9a9a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="490" y="48" font-size="12" font-weight="700" text-anchor="middle" fill="#5a5a5a">事業が成立する…?</text>
+<text x="490" y="64" font-size="10.5" text-anchor="middle" fill="#9a9a9a">ここが顧客次第 = 需要が不確実</text>
+<text x="0" y="118" font-size="12" font-weight="900" fill="#5a5a5a">転換の方向 — 需要を自分でつくる</text>
+<rect x="0" y="130" width="430" height="46" fill="#f5c400" stroke="#161616" stroke-width="1.5"/>
+<text x="215" y="150" font-size="12" font-weight="900" text-anchor="middle">INNFRA が「行く理由」と「過ごせる条件」を一体でつくる</text>
+<text x="215" y="166" font-size="10.5" text-anchor="middle">場所・体験・インフラ・運用をワンセットで成立させる</text>
+<line x1="430" y1="153" x2="476" y2="153" stroke="#161616" stroke-width="1.5" marker-end="url(#fa)"/>
+<rect x="480" y="130" width="180" height="46" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="570" y="150" font-size="12" font-weight="700" text-anchor="middle">需要が手元に残る</text>
+<text x="570" y="166" font-size="10.5" text-anchor="middle" fill="#5a5a5a">実績・データ・改善サイクル</text>
+</svg>
+<p class="figcap">図1: 従来モデルの不確実チェーン (川島 p.6 の指摘) と、3 資料に共通する転換の方向。</p>
+</div>
+
+<h2 id="c2"><span class="no">2</span>ジョニー案「住宅の解体と、尊厳のミニマム」</h2>
+<div class="sum">
+<div class="h">30秒まとめ</div>
+<p>住宅は「一棟の箱を所有するもの」から、「小さな核 (器) + 生活インフラへの接続権 (月額)」に分解されていく — という未来認識に立ち、INNFRA は<b>水・衛生・エネルギーを既設インフラなしで賄う「規格」を書く会社</b>になることを提案。ただし「その席を取れるのか」が最大の未検証だと自分で認めている。</p>
+</div>
+
+<h3>何を言っているのか</h3>
+<p>出発点は人口データです。2040 年には単独世帯が 2,442 万・全世帯の 43.5% で最大類型になり、今後 20 年の高齢者増加の約 66% は東京圏に集中する (Ⅰ、社人研)<span class="tag fact">FACT</span>。一人暮らしの高齢者が主役になる社会で、「家族向けの家を一棟買う」という住宅の形が実態と合わなくなっていく。そこで:</p>
+<div class="fig">
+<svg viewBox="0 0 680 168" role="img" aria-label="2040年の世帯構成と高齢者増加の地域分布">
+<text x="0" y="16" font-size="12.5" font-weight="900">2040年の世帯構成 — 単独世帯が最大類型に <tspan font-size="10" font-weight="700" fill="#5a5a5a">FACT・社人研</tspan></text>
+<rect x="0" y="26" width="269" height="34" fill="#f5c400" stroke="#161616" stroke-width="1"/>
+<rect x="269" y="26" width="349" height="34" fill="#dddcd6"/>
+<text x="10" y="48" font-size="13" font-weight="900">単独世帯 43.5% (2,442万)</text>
+<text x="285" y="48" font-size="12" fill="#5a5a5a">その他の世帯 56.5%</text>
+<text x="0" y="102" font-size="12.5" font-weight="900">今後20年の高齢者増加 (+211万人など) の行き先 <tspan font-size="10" font-weight="700" fill="#5a5a5a">FACT</tspan></text>
+<rect x="0" y="112" width="408" height="34" fill="#161616"/>
+<rect x="408" y="112" width="210" height="34" fill="#dddcd6"/>
+<text x="10" y="134" font-size="13" font-weight="900" fill="#f5c400">東京圏 66%</text>
+<text x="424" y="134" font-size="12" fill="#5a5a5a">その他の地域 34%</text>
+</svg>
+<p class="figcap">図2: ジョニー案の未来認識を支える 2 つの一次統計 (Ⅰ)。「一人暮らし、しかも都市圏」が住まいの主役になる。</p>
+</div>
+<blockquote>「住宅の価値は『箱の所有』から、核となる器 (100万円で持てる) と、それを支える網への接続権 (月額) へ再結合される」<small>ジョニー Ⅱ</small></blockquote>
+<p>ここで言う「器」は小さな住まいの本体、「網」はそれを支える水・エネルギー・保守のネットワークです。そして人の生活として譲れない下限を「尊厳のミニマム」と呼びます — ①尊厳ある寝心地 ②立てる高さ ③温熱 ④水 (Ⅱ)。これ以下に削ると「貧しさ」になる、という設計思想の線引きです。</p>
+
+<h3>A・B・C とは何か</h3>
+<p>この案の中核は、事業を 3 つの層に分けて<b>従属関係</b>をつけたことです (Ⅳ 図5):</p>
+<ul>
+<li><b>C 規格 = 経済エンジン (背骨)</b> — 既設インフラなしで水・衛生・エネルギーを賄うための「機器 + 施工規格 + 遠隔監視 + 将来ライセンス」。お金を稼ぐ本体はここ。</li>
+<li><b>B 直営 1 号網 = 実験室</b> — 規格を書くためのデータ源・ショールーム。収益 KPI から解放し、規格 KPI で運営する。</li>
+<li><b>A 参照実装 = 原器</b> — 規格を内蔵した器 (「死なないシェルター」)。尊厳のミニマムを形にして見せるもの。</li>
+</ul>
+<div class="fig">
+<svg viewBox="0 0 680 220" role="img" aria-label="A・B・Cの従属関係">
+<defs><marker id="fb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#161616"/></marker></defs>
+<rect x="230" y="20" width="220" height="110" fill="#f5c400" stroke="#161616" stroke-width="2"/>
+<text x="340" y="48" font-size="15" font-weight="900" text-anchor="middle">C 規格 = 背骨</text>
+<text x="340" y="70" font-size="10.5" text-anchor="middle">機器 + 施工規格 + 遠隔監視</text>
+<text x="340" y="86" font-size="10.5" text-anchor="middle">+ 将来ライセンス</text>
+<text x="340" y="112" font-size="11" font-weight="900" text-anchor="middle">収益はここで立てる</text>
+<rect x="10" y="45" width="160" height="66" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="90" y="70" font-size="13" font-weight="900" text-anchor="middle">B 直営1号網</text>
+<text x="90" y="90" font-size="10.5" text-anchor="middle" fill="#5a5a5a">実験室・ショールーム</text>
+<rect x="510" y="45" width="160" height="66" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="590" y="70" font-size="13" font-weight="900" text-anchor="middle">A 参照実装</text>
+<text x="590" y="90" font-size="10.5" text-anchor="middle" fill="#5a5a5a">規格を内蔵した器 = 原器</text>
+<line x1="170" y1="78" x2="226" y2="78" stroke="#161616" stroke-width="1.5" marker-end="url(#fb)"/>
+<text x="198" y="66" font-size="10" text-anchor="middle" fill="#5a5a5a">稼働データ</text>
+<line x1="510" y1="78" x2="454" y2="78" stroke="#161616" stroke-width="1.5" marker-end="url(#fb)"/>
+<text x="482" y="66" font-size="10" text-anchor="middle" fill="#5a5a5a">実証実績</text>
+<line x1="340" y1="130" x2="340" y2="172" stroke="#161616" stroke-width="1.5" marker-end="url(#fb)"/>
+<rect x="180" y="176" width="320" height="36" fill="none" stroke="#161616" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="340" y="199" font-size="11.5" font-weight="700" text-anchor="middle">将来: 第三者採用・ライセンス (= ここで初めて「規格」)</text>
+</svg>
+<p class="figcap">図3: A・B・C の従属関係 (ジョニー Ⅳ 図5)。B と A は C を育てるための装置で、単体の収益事業として立てる設計ではない。</p>
+</div>
+<div class="metaphor">C はレシピと調理基準、B はそれを磨くための直営テスト厨房、A はレシピ通りに作った見本の一皿。売り物は最終的に「レシピと品質保証の仕組み」であって、一皿ずつの料理ではない — という構図です。<span class="tag inf">INFERENCE</span></div>
+<p>大事なのは順序です。原文は「C が背骨、B は C を書くための実験室、A は C を体現する原器──この従属関係は選んだのではなく、反証が消去法で残した順序だ」と書いています。たとえば多拠点住み放題のサブスクは、大手 2 社が 2024 年にそろって定額モデルをやめており (理由は物価と光熱費の高騰、運営者自身が明記)<span class="tag fact">FACT</span>、「B (網) を単体の収益事業として先に立てる」案はこの反証で消えた、という理屈です。</p>
+
+<h3>正直に書かれている弱点</h3>
+<ul>
+<li>「『規格を書く』という席をうちが取れるのか──それ自体が、この資料でいちばん大きな未検証仮説だ」(Ⅵ)</li>
+<li>将来の収益モデルである「器+網+規格の統合価格 月8万円」は<b>受容性が未検証</b> (Ⅴ)<span class="tag unv">UNVERIFIED</span></li>
+<li>一方で、撤回条件 (どんな数字が出たらこの仮説を降りるか) を 6 項目、具体的な指標つきで先に出している — これはこの資料の誠実なところです</li>
+</ul>
+
+<h2 id="c3"><span class="no">3</span>川島案「滞在型サービス事業仮説」</h2>
+<div class="sum">
+<div class="h">30秒まとめ</div>
+<p>インフラを売って顧客の事業成立を祈るのではなく、<b>INNFRA 自身がフィールドとサービスを持ち、「人がその場所に行く理由」と「そこで過ごせる条件」を一体でつくる</b>事業への転換を提案。ただし「宿泊業を始める話ではない」と明言しており、最初の顧客・商品はまだ 4 候補のまま絞り込まれていない。</p>
+</div>
+
+<h3>何を言っているのか</h3>
+<p>この資料の前半は「INNFRA は本質的に何をしてきた会社か」の再定義に割かれています。八ヶ岳ラボ (既存インフラに頼らない暮らしの実証)、中城城跡 (世界遺産という制約地での滞在体験)、彩湖 BASE (河川区域での拠点)、道の駅富士川 (平時も有事も使える拠点) — 4 つの実績から帰納して、こう自己定義します。</p>
+<blockquote>「低密度・制約地でも、人がそこにいる理由と、そこにいられる条件を同時につくる。これが、現在最も本質に近いINNFRAの自己定義である」<small>川島 p.5</small></blockquote>
+<div class="fig">
+<svg viewBox="0 0 680 216" role="img" aria-label="4つの実績事例からの帰納">
+<defs><marker id="fc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#161616"/></marker></defs>
+<g font-size="12" font-weight="900">
+<rect x="0" y="10" width="158" height="76" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="12" y="34">八ヶ岳ラボ</text>
+<text x="12" y="54" font-size="10" font-weight="400" fill="#5a5a5a">水道・電力に依存しない</text>
+<text x="12" y="70" font-size="10" font-weight="400" fill="#5a5a5a">暮らしを自分たちで実証</text>
+<rect x="174" y="10" width="158" height="76" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="186" y="34">中城城跡</text>
+<text x="186" y="54" font-size="10" font-weight="400" fill="#5a5a5a">世界遺産 = 建築も上下水も</text>
+<text x="186" y="70" font-size="10" font-weight="400" fill="#5a5a5a">難しい場所で滞在体験を構想</text>
+<rect x="348" y="10" width="158" height="76" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="360" y="34">彩湖 BASE</text>
+<text x="360" y="54" font-size="10" font-weight="400" fill="#5a5a5a">河川区域・治水などの制約下で</text>
+<text x="360" y="70" font-size="10" font-weight="400" fill="#5a5a5a">利用できる拠点を成立させる</text>
+<rect x="522" y="10" width="158" height="76" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="534" y="34">道の駅富士川</text>
+<text x="534" y="54" font-size="10" font-weight="400" fill="#5a5a5a">平時はランドリー等、有事は</text>
+<text x="534" y="70" font-size="10" font-weight="400" fill="#5a5a5a">水・電力・衛生の拠点</text>
+</g>
+<g stroke="#161616" stroke-width="1.5" fill="none">
+<line x1="79" y1="86" x2="300" y2="132" marker-end="url(#fc)"/>
+<line x1="253" y1="86" x2="322" y2="130" marker-end="url(#fc)"/>
+<line x1="427" y1="86" x2="358" y2="130" marker-end="url(#fc)"/>
+<line x1="601" y1="86" x2="380" y2="132" marker-end="url(#fc)"/>
+</g>
+<rect x="70" y="138" width="540" height="64" fill="#fff8d6" stroke="#161616" stroke-width="2"/>
+<text x="340" y="164" font-size="13" font-weight="900" text-anchor="middle">「低密度・制約地でも、人がそこにいる理由と、</text>
+<text x="340" y="186" font-size="13" font-weight="900" text-anchor="middle">そこにいられる条件を同時につくる」(p.5)</text>
+</svg>
+<p class="figcap">図4: 4 つの実績からの帰納 (川島 §1-2)。共通するのは設備の納品ではなく「場所の制約解除」。</p>
+</div>
+<p>つまり INNFRA の強みは水処理装置そのものではなく、<b>「普通なら人が滞在できない場所を、滞在できる場所に変えること」</b>。だったらその力を顧客案件のためだけに使うのではなく、自社の事業として持とう、というのが提案の骨子です。自社フィールドなら「顧客体験、設備、価格、運用を自ら変更し、改善サイクルを回せる」(p.7) — 顧客の現場では試せない学習ができる、という理由も添えられています。</p>
+
+<h3>商品イメージ (3 カテゴリ)</h3>
+<ul>
+<li>唯一無二の場所での<b>プレミアム滞在</b></li>
+<li>レジリエントな<b>セカンドホーム</b> (部分所有・年間利用権など)</li>
+<li>郊外・地域生活圏の<b>フェーズフリー型拠点</b> (平時は日常利用、有事は防災拠点)</li>
+</ul>
+<p>ただし資料自身が「プレミアム滞在、部分所有別荘、郊外拠点は別事業に近い」(p.16) と認めており、どれから始めるかは決まっていません。最初の顧客も「富裕層、ファミリー、法人、地域住民のどれか」(p.16) と<b>4 候補のまま</b>です<span class="tag unv">UNVERIFIED</span>。</p>
+
+<h3>正直に書かれている弱点</h3>
+<ul>
+<li>「顧客の主な購入理由は、場所、建築、サービス、ブランドかもしれない。その場合、水・電力の知見は必要条件ではあっても、競争力の中心にはならない」(p.14-15) — <b>自社の核が競争優位になるか自体が未証明</b>だと認めている</li>
+<li>「これらが標準化できなければ、個別開発・プロデュース事業にとどまる」(p.15) — 毎回条件が違う現場 (土地利用・旅館業法・消防・排水…) を型化できなければ、スケールする事業にならない</li>
+<li>撤回条件 (何が出たらやめるか) は明示されていない — 会議で埋めるべき欄です</li>
+</ul>
+<p>なお、よく誤解されそうな点をひとつ。この資料は「世界観」や「尊厳」という言葉を一度も使っていません<span class="tag fact">FACT</span>。語り口は終始「場所の制約解除・供給方式の差・標準化」という実務的なものです。「川島案 = 世界観の話」という要約は原文と合いません。</p>
+
+<h2 id="c4"><span class="no">4</span>岩崎資料「住まいの地殻変動」</h2>
+<div class="sum">
+<div class="h">30秒まとめ</div>
+<p>これは事業提案ではなく<b>「地図」</b>。住まいをめぐる 2024-2026 年の変化 (人口・価格・空き家・法改正・新ビジネス) を横断整理した俯瞰資料で、資料自身がそう定義している。役割は 2 つ — 市場の分母データを提供することと、「大きな数字」から「特定商品の需要」へ話が飛ぶのを止める検問所になること。</p>
+</div>
+
+<h3>何が書いてあるのか</h3>
+<p>住まいの変化を生む「八つの構造的な力」(p.2) — 少子高齢化、単身・非婚化、経済格差の拡大、建設費高騰、テクノロジー、気候変動リスク、円安・外国資本、価値観の多様化 (所有→利用) — を軸に、国内市場の課題 (空き家約 900 万戸・総住宅の約 14% <span class="tag fact">FACT</span>、老朽マンションの「二つの老い」、賃貸市場の入居差別)、2023〜26 年の法改正年表、新ビジネス (シェア別荘、超高級シニアレジデンス、不動産トークン化、多拠点居住) を総覧しています。</p>
+<p>重要なのは、この資料には INNFRA への言及も事業提案も一切ないことです<span class="tag fact">FACT</span>。だから他の 2 案と「どちらが良いか」を比べる対象ではありません。</p>
+<div class="fig">
+<svg viewBox="0 0 680 206" role="img" aria-label="空き家比率と住まい関連の法改正タイムライン">
+<text x="0" y="16" font-size="12.5" font-weight="900">総住宅に占める空き家 — 約900万戸 <tspan font-size="10" font-weight="700" fill="#5a5a5a">FACT・2023 住宅・土地統計調査 (速報)</tspan></text>
+<rect x="0" y="26" width="87" height="32" fill="#f5c400" stroke="#161616" stroke-width="1"/>
+<rect x="87" y="26" width="531" height="32" fill="#dddcd6"/>
+<text x="97" y="47" font-size="12" font-weight="900">← 約14% が空き家</text>
+<text x="0" y="100" font-size="12.5" font-weight="900">住まい関連の法改正ラッシュ <tspan font-size="10" font-weight="700" fill="#5a5a5a">FACT・岩崎 p.5</tspan></text>
+<line x1="20" y1="140" x2="660" y2="140" stroke="#9a9a9a" stroke-width="2"/>
+<g>
+<circle cx="60" cy="140" r="7" fill="#161616"/>
+<circle cx="200" cy="140" r="7" fill="#161616"/>
+<circle cx="340" cy="140" r="7" fill="#161616"/>
+<circle cx="480" cy="140" r="7" fill="#161616"/>
+<circle cx="620" cy="140" r="9" fill="#f5c400" stroke="#161616" stroke-width="2"/>
+</g>
+<g font-size="10.5" text-anchor="middle">
+<text x="60" y="122" font-weight="900">2023.12</text><text x="60" y="162">改正空家法</text><text x="60" y="177" fill="#5a5a5a">管理不全空家に課税強化</text>
+<text x="200" y="122" font-weight="900">2024.4</text><text x="200" y="162">相続登記の義務化</text><text x="200" y="177" fill="#5a5a5a">所有者不明対策</text>
+<text x="340" y="122" font-weight="900">2025.4</text><text x="340" y="162">省エネ基準適合義務化</text><text x="340" y="177" fill="#5a5a5a">新築コスト増の一因</text>
+<text x="480" y="122" font-weight="900">2025.10</text><text x="480" y="162">住宅セーフティネット法</text><text x="480" y="177" fill="#5a5a5a">居住サポート住宅を創設</text>
+<text x="620" y="122" font-weight="900">2026.4</text><text x="620" y="162">改正区分所有法</text><text x="620" y="177" fill="#5a5a5a">建替え決議を緩和</text>
+</g>
+</svg>
+<p class="figcap">図5: 岩崎資料の代表ファクト。制度側も 3 年で集中的に動いており、「住まいの前提」が法律レベルで組み替わっている。</p>
+</div>
+
+<h3>検問所としての使い方</h3>
+<p>この資料の数字は魅力的なので、そのまま事業の根拠にしたくなります。しかし資料自身が複線的に書いており、たとえば:</p>
+<ul>
+<li><b>空き家 900 万戸</b> →「巨大市場」ではない。商品化できる立地・状態・権利関係の内訳は未分解</li>
+<li><b>単身世帯 4 割</b> →「単身向け住宅が売れる」ではない。実態は多様化と二極化 (超高級シニアレジデンスと入居拒否が同時進行)</li>
+<li><b>富裕層 3 割増</b> → 同じページに「中間層が消えつつある」とある。裏面を無視すると誤読になる</li>
+</ul>
+<p>会議でマクロの数字が出てきたら、「それは分母の話か、うちが取れる市場の話か」を一度この資料に戻って確認する — それがこの資料のいちばん良い使い方です。</p>
+
+<h2 id="c5"><span class="no">5</span>3つはどう噛み合うのか</h2>
+<p>3 つの資料は同じ土俵の対立案ではなく、<b>高さの違う 3 枚</b>です。</p>
+<div class="fig">
+<svg viewBox="0 0 680 208" role="img" aria-label="3資料の役割分担レイヤー">
+<rect x="40" y="16" width="400" height="52" fill="#f5c400" stroke="#161616" stroke-width="1.5"/>
+<text x="56" y="38" font-size="13" font-weight="900">ジョニー案 — 構造と検証計画</text>
+<text x="56" y="56" font-size="10.5">何で稼ぎ (C規格)、どう確かめるか (2週間×撤回条件)</text>
+<rect x="40" y="76" width="400" height="52" fill="#fff" stroke="#161616" stroke-width="1.5"/>
+<text x="56" y="98" font-size="13" font-weight="900">川島案 — 意志と実績</text>
+<text x="56" y="116" font-size="10.5" fill="#5a5a5a">なぜ INNFRA がやるのか (自己定義と4事例の裏付け)</text>
+<rect x="40" y="136" width="400" height="52" fill="#dddcd6" stroke="#161616" stroke-width="1.5"/>
+<text x="56" y="158" font-size="13" font-weight="900">岩崎資料 — 地図</text>
+<text x="56" y="176" font-size="10.5" fill="#5a5a5a">外側の世界がどう動いているか (市場・法制度の俯瞰)</text>
+<g font-size="10.5" fill="#5a5a5a">
+<text x="470" y="44">← 議論の主戦場</text>
+<text x="470" y="104">← 土台。顧客と撤回条件を今日埋める</text>
+<text x="470" y="164">← 分母データ + 飛躍の検問所</text>
+</g>
+</svg>
+<p class="figcap">図6: 3 資料の役割分担 <span class="tag inf">INFERENCE</span>。対立案として採決するのではなく、1 つの意思決定を 3 方向から支える構図で読む。</p>
+</div>
+<table>
+<tr><th style="width:22%;">資料</th><th>種類</th><th>会議での役割</th></tr>
+<tr><td class="h">ジョニー案</td><td>意志から検証計画まで全階層を書いた「仮説の束」</td><td>議論の主戦場。特に C (規格) の妥当性</td></tr>
+<tr><td class="h">川島案</td><td>「INNFRAとは何の会社か」の再定義 + 事業の方向</td><td>意志と実績の裏付け。顧客・撤回条件を埋める対象</td></tr>
+<tr><td class="h">岩崎資料</td><td>市場の地図 (提案なし)</td><td>分母データと、論理飛躍の検問所</td></tr>
+</table>
+<p>しかも、対立して見えた部分の多くは原文レベルで消えます。川島案は「『INNFRAが宿泊業を始める』という話ではない」(p.17) と自ら言い、「標準化できなければ個別プロデュース業にとどまる」(p.15) と<b>標準化を成立条件</b>に置いています。これはジョニー案の「C 規格が背骨」と、言葉が違うだけで同じ構造です<span class="tag fact">FACT</span>。川島案の「自社フィールドで改善サイクルを回す」も、ジョニー案の「B = 規格を書くためのデータ源」と同じ機能を指しています。</p>
+<p>整理すると: <mark>川島案が「なぜ INNFRA がやるのか (意志と実績)」を、ジョニー案が「何で稼ぎ、どう検証するか (構造と計画)」を、岩崎資料が「その外側の世界がどう動いているか (地図)」を担当している</mark> — と読むのが、3 資料をいちばん活かす読み方です。<span class="tag inf">INFERENCE</span></p>
+
+<h2 id="c6"><span class="no">6</span>まだ決まっていないこと</h2>
+<h3>会議で決める対立 3 点</h3>
+<ol>
+<li><b>最初の顧客と支払者</b> — 滞在の顧客 (富裕層・法人) から入るか、B2B/B2G の実需 (防災・ケア事業者・器メーカー) から入るか</li>
+<li><b>学習の順番</b> — 場と体験を先に作って規格を蒸留するか、最初から規格 KPI を背骨に置いて直営網を実験装置と割り切るか</li>
+<li><b>2 週間で誰を測るか</b> — 消費者の支払意思 (尊厳・月8万円) か、B2B/B2G の調達意向 (LOI) か</li>
+</ol>
+<h3>両案が自己申告している未検証事項</h3>
+<ul>
+<li>規格の「席」を INNFRA が取れるのか (ジョニー)</li>
+<li>水・電力の知見が競争力の中心になるのか (川島)</li>
+<li>月 8 万円の統合価格に人が払うのか (ジョニー)</li>
+<li>現場ごとに違う条件を標準化できるのか (川島)</li>
+</ul>
+<p>これらは意見では決着しないので、7/24 の株主定例までに 2 週間の反証実験 (選択テスト・10年TCO比較・LOI 打診・共通化率の実測など) で「初期値」を取りに行く、というのが会議資料の提案です。詳細はスライド版 p.9 を参照してください。</p>
+<div class="fig">
+<svg viewBox="0 0 680 158" role="img" aria-label="7月24日までの検証タイムライン">
+<defs><marker id="fd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#161616"/></marker></defs>
+<line x1="30" y1="66" x2="650" y2="66" stroke="#161616" stroke-width="2" marker-end="url(#fd)"/>
+<circle cx="70" cy="66" r="9" fill="#f5c400" stroke="#161616" stroke-width="2"/>
+<circle cx="560" cy="66" r="9" fill="#161616"/>
+<g font-size="11" text-anchor="middle">
+<text x="70" y="34" font-weight="900">7/16 探索会議</text>
+<text x="70" y="50" fill="#5a5a5a">決定文を仮決定・owner 割当</text>
+<text x="315" y="46" font-weight="700" fill="#5a5a5a">2週間 — 実験 1〜2 本を実走</text>
+<text x="315" y="96" fill="#5a5a5a">選択テスト / 10年TCO / LOI 打診 / 共通化率の実測</text>
+<text x="560" y="34" font-weight="900">7/24 株主定例</text>
+<text x="560" y="50" fill="#5a5a5a">最低ひとつの「初期値」で判定</text>
+</g>
+<g font-size="11.5" text-anchor="middle">
+<rect x="180" y="112" width="270" height="34" fill="#fff8d6" stroke="#161616" stroke-width="1.5"/>
+<text x="315" y="134" font-weight="900">継続 / 修正 / 撤回 を数字で決める</text>
+</g>
+</svg>
+<p class="figcap">図7: 検証の時間軸 (ジョニー Ⅵ)。「議論の続き」ではなく「実験の初期値」で 7/24 に判定するのが提案の骨子。</p>
+</div>
+
+<h2 id="c7"><span class="no">7</span>用語集</h2>
+<dl class="gloss">
+<dt>オフグリッド</dt><dd>水道・電力などの既設インフラ網 (グリッド) に接続せず、自前の設備で賄うこと。3 資料とも「目的ではなく手段」として扱っています。</dd>
+<dt>器 (うつわ)</dt><dd>ジョニー案の用語。住まいの物理的な核となる小さな構造体。「100万円で持てる」水準が想定されています (Ⅱ)。</dd>
+<dt>網 (あみ)</dt><dd>ジョニー案の用語。器を支える水・エネルギー・保守・監視のサービスネットワーク。月額の「接続権」として売る想定。</dd>
+<dt>規格 (C)</dt><dd>ジョニー案の用語で、機器 + 施工基準 + 遠隔監視 + 将来のライセンスの一式。注意: 現時点では「社内の参照設計」の段階で、第三者が採用して初めて本当の「規格 (業界標準)」になります。会話でこの言葉が出たら「どの段階の規格の話か」を確認するのが安全です。</dd>
+<dt>wedge (ウェッジ)</dt><dd>市場に最初に打ち込む楔 (くさび)。「最初の顧客 × 最初の商品」の具体的な一点のこと。</dd>
+<dt>B2B / B2G</dt><dd>企業向け (Business) / 行政・自治体向け (Government) の取引。ジョニー案は最初の 24 か月をここに張る提案です。</dd>
+<dt>LOI</dt><dd>Letter of Intent。「買う意向があります」という文書。契約ではないが、口頭の好意よりずっと硬い証拠になります。</dd>
+<dt>有償 PoC</dt><dd>Proof of Concept (概念実証) をお金をもらって行うこと。無償だと「付き合い」でも成立してしまうため、支払いを伴うことが需要の証拠になります。</dd>
+<dt>TCO</dt><dd>Total Cost of Ownership。購入費だけでなく、工事・保守・光熱費まで含めた総費用。「上下水を引き込む場合 vs 自律設備」の比較は 10 年 TCO で行います。</dd>
+<dt>CAPEX</dt><dd>設備投資 (先行投資)。建物を建てる事業は CAPEX が重く、検証に時間がかかります。</dd>
+<dt>BOM</dt><dd>Bill of Materials。部品表。「3 サイトの BOM 共通化率」は、現場ごとにバラバラな構成をどれだけ共通部品で組めたかの指標です。</dd>
+<dt>SLA</dt><dd>Service Level Agreement。保守や監視サービスの品質保証水準の取り決め。</dd>
+<dt>リバンドル</dt><dd>ジョニー案の用語。家賃・水道・光熱費と別々に払っているものを「器 + 網 + 規格」の統合価格 (月8万円想定) に束ね直すこと。既存支出の置換であって上乗せではない、というのが原文の主張です (受容性は未検証)。</dd>
+<dt>フェーズフリー</dt><dd>平時と有事 (災害時) で切り替えて使える設計。道の駅富士川の「平時はランドリー、有事は水・電力・衛生拠点」が実例です。</dd>
+<dt>尊厳のミニマム</dt><dd>ジョニー案の用語。生活として譲れない下限 = 尊厳ある寝心地・立てる高さ・温熱・水の 4 点 (Ⅱ)。</dd>
+</dl>
+
+<h2 id="c8"><span class="no">8</span>よくある誤解 Q&amp;A</h2>
+<dl class="qa">
+<dt>INNFRA は宿泊業 (ホテル・旅館) を始めるの?</dt>
+<dd>いいえ。川島案自身が「『INNFRAが宿泊業を始める』という話ではない」(p.17) と明言しています。滞在や宿泊は、規格を磨き実績とデータを得るための<b>手段・実験場</b>として位置づけられています。</dd>
+<dt>3 案のうちどれかを選ぶ会議だったの?</dt>
+<dd>いいえ。3 つは階層が違うので横並びの採決はできません。決めるのは「最初の顧客」「学習の順番」「2 週間で何を測るか」という具体的な 3 点です。</dd>
+<dt>市場が 12 兆円あるなら、少し取れれば大きいのでは?</dt>
+<dd>その「12 兆円」は世の中の総支出 (分母) であって、INNFRA が取れる市場ではありません。浸透率のシナリオ (1% で年 2,300 億円という試算が原文にあります) も、現時点では検証されていない仮説です<span class="tag unv">UNVERIFIED</span>。分母と取得可能市場の混同は、岩崎資料を検問所にして避けます。</dd>
+<dt>「規格」ってもう存在するの?</dt>
+<dd>まだです。現在あるのは実装実績 (富士川・彩湖・OIST・中城) と社内の設計知見で、段階でいえば「社内参照設計」。第三者が採用して初めて「規格」と呼べるものになり、そこに至れるかどうか自体が最大の検証対象です。</dd>
+<dt>で、結局なにが決まれば前に進むの?</dt>
+<dd>決定文の空欄が埋まれば進みます — ①24 か月の経済エンジン ②最初の顧客と支払者 ③自社で持つ範囲 ④2 週間の反証実験の owner ⑤継続/撤回の判定基準。判定の場は 7/24 の株主定例です。</dd>
+</dl>
+
+<footer>
+<p>関連資料: 会議用スライド v2 = brief-be50b9458a9e90f0.html / 出典: ジョニー仮説 (ikedhidenori.github.io/jp/brief-2ad01c1f42339728.html、2026-07-16 DRAFT v1.0)・川島「滞在型サービス事業仮説」19p・岩崎「住まいの地殻変動」14p。本解説は原文引用に準拠し、解説者の比喩・整理には INFERENCE を付しています。</p>
+</footer>
+
+</div>
+</body>
+</html>
