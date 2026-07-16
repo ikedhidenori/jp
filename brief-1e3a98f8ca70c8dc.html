@@ -340,6 +340,58 @@
     .matrix tbody th { width: 18%; font-size: .82rem; }
     .matrix td { font-size: .92rem; line-height: 1.55; }
 
+    .source-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin-bottom: 28px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+    }
+
+    .source-action {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 96px;
+      padding: 20px;
+      background: var(--white);
+      text-decoration: none;
+    }
+
+    .source-action strong {
+      font-size: 1.08rem;
+      line-height: 1.35;
+    }
+
+    .source-action span {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .source-action:hover,
+    .source-action:focus-visible {
+      background: var(--yellow);
+      outline: 3px solid var(--ink);
+      outline-offset: -3px;
+    }
+
+    .source-row-link {
+      font-weight: 850;
+      text-decoration-thickness: .12em;
+      text-underline-offset: .18em;
+    }
+
+    .source-row-link::after {
+      margin-left: .35em;
+      content: "↗";
+      font-size: .82em;
+    }
+
     .truth-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -718,6 +770,7 @@
       .hero { padding-top: 46px; }
       .section-head { grid-template-columns: 1fr; gap: .7rem; }
       .section-head p { margin-top: .75rem; }
+      .source-actions { grid-template-columns: 1fr; }
       .conflict-strip { grid-template-columns: 1fr; }
       .conflict-strip .vs { width: 2.5rem; height: 2.5rem; }
       .truth-grid,
@@ -741,7 +794,7 @@
       .matrix td { display: block; width: 100%; }
       .matrix thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
       .matrix tbody tr { margin-bottom: 18px; border: 1px solid var(--ink); background: var(--white); }
-      .matrix tbody th { padding: 12px 14px; color: var(--ink); background: var(--yellow); }
+      .matrix tbody th { width: 100%; padding: 12px 14px; color: var(--ink); background: var(--yellow); }
       .matrix td { position: relative; padding: 44px 14px 14px; border-right: 0; }
       .matrix td::before {
         position: absolute;
@@ -817,6 +870,7 @@
         <li><a href="#dissent">04 見落とせない点</a></li>
         <li><a href="#meeting">05 会議進行</a></li>
         <li><a href="#prompt">06 Fable用プロンプト</a></li>
+        <li><a href="#sources">07 元資料</a></li>
       </ul>
     </div>
   </nav>
@@ -1210,7 +1264,7 @@
       </div>
     </section>
 
-    <section aria-labelledby="sources-title">
+    <section id="sources" aria-labelledby="sources-title">
       <div class="shell">
         <header class="section-head">
           <span class="section-index">出典一覧</span>
@@ -1219,15 +1273,25 @@
             <p>会議で事実、資料からの解釈、仮説が混ざったときに、どの資料を確認すればよいかを示す。</p>
           </div>
         </header>
+        <div class="source-actions" aria-label="元資料PDF">
+          <a class="source-action" href="https://ikedhidenori.github.io/jp/source-e03ffc9278ae5217-business-hypothesis.pdf#page=1" target="_blank" rel="noopener noreferrer" aria-label="事業仮説メモ PDF・19ページ。新しいタブで開く">
+            <strong>事業仮説メモ</strong>
+            <span>PDF・19ページ ↗</span>
+          </a>
+          <a class="source-action" href="https://ikedhidenori.github.io/jp/source-078b3a6a578d4acc-sumai-trend.pdf#page=1" target="_blank" rel="noopener noreferrer" aria-label="住まいトレンド PDF・14ページ。新しいタブで開く">
+            <strong>住まいトレンド</strong>
+            <span>PDF・14ページ ↗</span>
+          </a>
+        </div>
         <div class="matrix-wrap">
           <table class="matrix">
             <thead><tr><th scope="col">資料</th><th scope="col">主に確認できる内容</th></tr></thead>
             <tbody>
               <tr><th scope="row">ジョニー案</th><td data-label="主な確認内容">人口・水道・住宅の外部変化、尊厳ある生活に最低限必要なもの、A/B/C、24か月の企業・行政向け展開、案を見直す条件</td></tr>
-              <tr><th scope="row">事業仮説メモ p.1–8</th><td data-label="主な確認内容">活動史・自己定義、制約地の一体設計、インフラ単体需要の不確実性、自社サービスで最終需要まで閉じる理由</td></tr>
-              <tr><th scope="row">事業仮説メモ p.9–14</th><td data-label="主な確認内容">三つの候補カテゴリー、資金設計、自社で持つ機能・資産、自社運営から共同開発・運営受託・持分所有・フランチャイズ・他社ブランドでの提供・共通基盤事業へ進む順番</td></tr>
-              <tr><th scope="row">事業仮説メモ p.15–19</th><td data-label="主な確認内容">競争優位、オフグリッド、標準化、運営負荷、カテゴリー分散、最初の一商品の反証論点と結論</td></tr>
-              <tr><th scope="row">住まいトレンド p.2–14</th><td data-label="主な確認内容">構造要因、国内課題、制度変化、所有/利用、金融化、サービス/ブランド、定住解体、負の側面</td></tr>
+              <tr><th scope="row"><a class="source-row-link" href="https://ikedhidenori.github.io/jp/source-e03ffc9278ae5217-business-hypothesis.pdf#page=1" target="_blank" rel="noopener noreferrer" aria-label="事業仮説メモ p.1–8。PDFの1ページから新しいタブで開く">事業仮説メモ p.1–8</a></th><td data-label="主な確認内容">活動史・自己定義、制約地の一体設計、インフラ単体需要の不確実性、自社サービスで最終需要まで閉じる理由</td></tr>
+              <tr><th scope="row"><a class="source-row-link" href="https://ikedhidenori.github.io/jp/source-e03ffc9278ae5217-business-hypothesis.pdf#page=9" target="_blank" rel="noopener noreferrer" aria-label="事業仮説メモ p.9–14。PDFの9ページから新しいタブで開く">事業仮説メモ p.9–14</a></th><td data-label="主な確認内容">三つの候補カテゴリー、資金設計、自社で持つ機能・資産、自社運営から共同開発・運営受託・持分所有・フランチャイズ・他社ブランドでの提供・共通基盤事業へ進む順番</td></tr>
+              <tr><th scope="row"><a class="source-row-link" href="https://ikedhidenori.github.io/jp/source-e03ffc9278ae5217-business-hypothesis.pdf#page=15" target="_blank" rel="noopener noreferrer" aria-label="事業仮説メモ p.15–19。PDFの15ページから新しいタブで開く">事業仮説メモ p.15–19</a></th><td data-label="主な確認内容">競争優位、オフグリッド、標準化、運営負荷、カテゴリー分散、最初の一商品の反証論点と結論</td></tr>
+              <tr><th scope="row"><a class="source-row-link" href="https://ikedhidenori.github.io/jp/source-078b3a6a578d4acc-sumai-trend.pdf#page=2" target="_blank" rel="noopener noreferrer" aria-label="住まいトレンド p.2–14。PDFの2ページから新しいタブで開く">住まいトレンド p.2–14</a></th><td data-label="主な確認内容">構造要因、国内課題、制度変化、所有/利用、金融化、サービス/ブランド、定住解体、負の側面</td></tr>
               <tr><th scope="row">岩崎・川島 Slack</th><td data-label="主な確認内容">「滞在」という言葉の広さ、過去の取り組みに引っ張られること、具体的な事業仮説に必要な条件についての本人同士のやり取り</td></tr>
               <tr><th scope="row">INNFRA既存資料</th><td data-label="主な確認内容">インフラが弱く制約の多い現場、平時・災害時兼用、見かけだけのオフグリッド、法規・熱・水・電力・運営収支、顧客に継続して買われる確証が得られる前の大型投資抑制</td></tr>
             </tbody>
