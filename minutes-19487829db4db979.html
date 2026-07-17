@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="color-scheme" content="light">
+  <title>OL8撤去工事｜亀井さん 手壊し・常用案 見積判断メモ</title>
+  <style>
+    :root {
+      --ink:#172033; --muted:#5c6678; --paper:#fffdf8; --ground:#f2efe8;
+      --line:#d8d1c5; --navy:#14213d; --red:#a72920; --red-soft:#f8e9e6;
+      --green:#0f6655; --green-soft:#e5f1ed; --gold:#8a5a12; --gold-soft:#f6eddc;
+      --blue-soft:#e8eef6; --shadow:0 18px 48px rgba(29,35,48,.10);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; color:var(--ink); background:var(--ground);
+      font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+      font-variant-numeric:tabular-nums; line-height:1.75;
+    }
+    a { color:#075a78; text-underline-offset:3px; }
+    .page { width:min(1160px,calc(100% - 40px)); margin:28px auto 72px; background:var(--paper); box-shadow:var(--shadow); border:1px solid var(--line); }
+    header { padding:52px 56px 42px; background:var(--navy); color:#fff; }
+    .eyebrow { margin:0 0 16px; color:#d9e2f0; font-size:.78rem; letter-spacing:.16em; font-weight:700; }
+    h1 { max-width:850px; margin:0; font-size:clamp(2rem,4.5vw,3.6rem); line-height:1.18; letter-spacing:-.035em; }
+    .lead { max-width:780px; margin:20px 0 0; color:#edf2f7; font-size:1.05rem; }
+    .meta { display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:28px; color:#cbd5e1; font-size:.86rem; }
+    main { padding:0 56px 56px; }
+    .verdict { margin:-1px -56px 0; padding:30px 56px; background:var(--red-soft); border-bottom:1px solid #e8c4bf; }
+    .verdict-label { color:var(--red); font-size:.78rem; font-weight:800; letter-spacing:.14em; }
+    .verdict h2 { margin:7px 0 8px; color:#771b16; font-size:clamp(1.55rem,3vw,2.25rem); border:0; }
+    .verdict p { max-width:900px; margin:0; color:#52231f; }
+    section { padding:52px 0 8px; }
+    section + section { border-top:1px solid var(--line); }
+    h2 { margin:0 0 10px; font-size:clamp(1.45rem,2.6vw,2rem); line-height:1.35; letter-spacing:-.02em; }
+    h3 { margin:30px 0 10px; font-size:1.08rem; }
+    .section-note { max-width:760px; margin:0 0 26px; color:var(--muted); }
+    .metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:26px 0 16px; }
+    .metric { min-height:150px; padding:20px; border:1px solid var(--line); background:#fff; }
+    .metric .k { display:block; color:var(--muted); font-size:.78rem; font-weight:700; }
+    .metric .v { display:block; margin-top:18px; color:var(--navy); font-size:clamp(1.35rem,2.4vw,2.05rem); font-weight:800; line-height:1.15; }
+    .metric .s { display:block; margin-top:8px; color:var(--muted); font-size:.78rem; }
+    .metric.alert { border-top:5px solid var(--red); }
+    .metric.warn { border-top:5px solid var(--gold); }
+    .metric.ok { border-top:5px solid var(--green); }
+    .callout { margin:22px 0; padding:18px 20px; border-left:5px solid var(--gold); background:var(--gold-soft); }
+    .callout strong { color:#65410d; }
+    .decision-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:18px; }
+    .panel { padding:24px; border:1px solid var(--line); background:#fff; }
+    .panel h3 { margin-top:0; }
+    ul.clean { margin:0; padding-left:1.25rem; }
+    ul.clean li + li { margin-top:9px; }
+    .unknowns { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:18px; }
+    .unknown { padding:18px; background:#fff; border:1px solid var(--line); }
+    .unknown b { display:block; margin-bottom:5px; color:var(--red); }
+    .table-wrap { width:100%; overflow-x:auto; margin:20px 0 6px; border:1px solid var(--line); background:#fff; }
+    table { width:100%; border-collapse:collapse; font-size:.88rem; }
+    th,td { padding:12px 14px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { color:#fff; background:var(--navy); font-size:.77rem; letter-spacing:.03em; white-space:nowrap; }
+    tr:last-child td { border-bottom:0; }
+    td.num { white-space:nowrap; font-weight:700; }
+    .flow { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:9px; margin:26px 0 8px; counter-reset:step; }
+    .flow > div { position:relative; padding:44px 14px 17px; border:1px solid var(--line); background:#fff; font-size:.88rem; }
+    .flow > div::before { counter-increment:step; content:"0" counter(step); position:absolute; top:12px; left:14px; color:var(--green); font-weight:800; font-size:.78rem; }
+    .flow > div:not(:last-child)::after { content:"›"; position:absolute; right:-9px; top:42%; z-index:2; color:var(--green); font-size:1.25rem; font-weight:800; }
+    .timeline { display:grid; grid-template-columns:130px 1fr; margin-top:20px; }
+    .timeline .date,.timeline .event { padding:15px 0; border-bottom:1px solid var(--line); }
+    .timeline .date { color:var(--green); font-weight:800; }
+    .timeline .event { padding-left:20px; }
+    .compare { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:22px; }
+    .compare article { padding:24px; border:1px solid var(--line); background:#fff; }
+    .compare article:first-child { border-top:5px solid var(--green); }
+    .compare article:last-child { border-top:5px solid var(--gold); }
+    .compare h3 { margin:0 0 14px; }
+    .bar-row { display:grid; grid-template-columns:92px 1fr 76px; gap:10px; align-items:center; margin:12px 0; font-size:.82rem; }
+    .track { height:9px; background:#e7e2d9; }
+    .fill { height:100%; background:var(--green); }
+    .fill.gold { background:var(--gold); }
+    .risk-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .risk { padding:20px; border:1px solid var(--line); background:#fff; }
+    .risk b { display:block; margin-bottom:6px; color:var(--red); }
+    .status { display:inline-block; padding:3px 8px; background:var(--red-soft); color:#7a1b16; font-size:.72rem; font-weight:800; }
+    details { margin:18px 0; border:1px solid var(--line); background:#fff; }
+    summary { cursor:pointer; padding:17px 20px; color:var(--navy); font-weight:800; }
+    details > div { padding:4px 20px 22px; }
+    pre { margin:0; padding:18px; white-space:pre-wrap; word-break:break-word; background:#f2f4f7; border:1px solid #d5dae1; font:inherit; font-size:.86rem; line-height:1.7; }
+    .fineprint { color:var(--muted); font-size:.8rem; }
+    footer { padding:26px 56px; background:#e9e5dc; color:#586070; font-size:.78rem; }
+    @media (max-width:900px) {
+      .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .unknowns { grid-template-columns:1fr; }
+      .flow { grid-template-columns:1fr; }
+      .flow > div:not(:last-child)::after { content:"↓"; right:18px; top:auto; bottom:-15px; }
+    }
+    @media (max-width:768px) {
+      .page { width:100%; margin:0; border:0; }
+      header { padding:38px 24px 34px; }
+      main { padding:0 24px 40px; }
+      .verdict { margin:0 -24px; padding:26px 24px; }
+      .decision-grid,.compare,.risk-grid { grid-template-columns:1fr; }
+      .timeline { grid-template-columns:96px 1fr; }
+      footer { padding:24px; }
+    }
+    @media (max-width:400px) {
+      header { padding:30px 18px; }
+      main { padding:0 18px 34px; }
+      .verdict { margin:0 -18px; padding:23px 18px; }
+      .metrics { grid-template-columns:1fr; }
+      .metric { min-height:0; }
+      section { padding-top:40px; }
+      .timeline { grid-template-columns:1fr; }
+      .timeline .date { padding-bottom:2px; border-bottom:0; }
+      .timeline .event { padding:0 0 14px; }
+      .bar-row { grid-template-columns:80px 1fr 62px; }
+      th,td { padding:10px; }
+      footer { padding:22px 18px; }
+    }
+    @media print { body{background:#fff}.page{width:100%;margin:0;border:0;box-shadow:none} details{break-inside:avoid} }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="eyebrow">OL8 WITHDRAWAL / COST DECISION BRIEF</p>
+      <h1>亀井さん「手壊し・常用」案<br>見積判断メモ</h1>
+      <p class="lead">インスタントハウス5棟の解体・撤去について、7月17日の電話内容を発注判断向けに整理。金額は通話ベースの概算であり、正式見積ではありません。</p>
+      <div class="meta"><span>2026年7月17日</span><span>対象：OL8／八ヶ岳ラボ</span><span>形式：電話整理</span></div>
+    </header>
+
+    <main>
+      <div class="verdict">
+        <div class="verdict-label">最初に押さえること</div>
+        <h2>100万円は「総額」ではない</h2>
+        <p>4人×10日なら、人工だけで100万円。仮設トイレ、発電機、燃料、工具・消耗品、産廃、コンテナ、運搬等は別に加算されます。現段階では総額未確定です。</p>
+      </div>
+
+      <section aria-labelledby="key-numbers">
+        <h2 id="key-numbers">判断に必要な4つの数字</h2>
+        <p class="section-note">固定価格ではなく常用精算。日数の上振れが、そのまま費用の上振れになります。</p>
+        <div class="metrics">
+          <div class="metric ok"><span class="k">常用単価</span><span class="v">2.5万円</span><span class="s">1人・1日あたり／税区分未確認</span></div>
+          <div class="metric alert"><span class="k">10日試算</span><span class="v">100万円</span><span class="s">4人×10日。人工のみ</span></div>
+          <div class="metric alert"><span class="k">1日延長</span><span class="v">＋10万円</span><span class="s">4人稼働の場合</span></div>
+          <div class="metric warn"><span class="k">仮設トイレ</span><span class="v">52,580円</span><span class="s">税込。汲み取り費は別途</span></div>
+        </div>
+        <div class="callout"><strong>社内への伝え方：</strong>「解体費100万円」ではなく、「人工だけで100万円になり得る常用案。総額は未確定」。</div>
+      </section>
+
+      <section aria-labelledby="cost-structure">
+        <h2 id="cost-structure">費用構造</h2>
+        <p class="section-note">現在計算できるのは人工と仮設トイレまで。発電機・産廃等を足さないと総額比較はできません。</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>シナリオ</th><th>人工</th><th>仮設トイレ</th><th>既知小計</th><th>含まれない費用</th></tr></thead>
+            <tbody>
+              <tr><td>4人×7日／人工税込</td><td class="num">700,000円</td><td class="num">52,580円</td><td class="num">752,580円</td><td>汲取、発電機、燃料、産廃、コンテナ、工具、消耗品、交通費等</td></tr>
+              <tr><td>4人×7日／人工税別</td><td class="num">770,000円</td><td class="num">52,580円</td><td class="num">822,580円</td><td>同上</td></tr>
+              <tr><td>4人×10日／人工税込</td><td class="num">1,000,000円</td><td class="num">52,580円</td><td class="num">1,052,580円</td><td>同上</td></tr>
+              <tr><td>4人×10日／人工税別</td><td class="num">1,100,000円</td><td class="num">52,580円</td><td class="num">1,152,580円</td><td>同上</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="unknowns">
+          <div class="unknown"><b>発電機：未見積</b><span>電動工具4人分の充電用途。賃料、燃料、運搬、期間を確認。</span></div>
+          <div class="unknown"><b>産廃：総額未見積</b><span>分別廃プラ等8,000円／m³という資料情報あり。税・運搬・受入条件は未確認。</span></div>
+          <div class="unknown"><b>コンテナ：条件未確定</b><span>容量、設置、交換回数、回送費、交換リードタイムが必要。</span></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="method">
+        <h2 id="method">想定する施工の流れ</h2>
+        <p class="section-note">亀井さんが内装を先行し、3人の解体班が外装・上物を追う。初めて扱う構造のため、1棟目を実測ゲートにします。</p>
+        <div class="flow" aria-label="施工フロー">
+          <div>残置機材・家電を撤去し、1棟目を空ける</div>
+          <div>亀井さんが内装を先行解体</div>
+          <div>解体班3人が外装・上物を人力解体</div>
+          <div>木材・廃プラ等を分別しコンテナへ</div>
+          <div>1棟実績から残り4棟を再見積し続行判断</div>
+        </div>
+        <div class="decision-grid">
+          <div class="panel">
+            <h3>作業体制</h3>
+            <ul class="clean">
+              <li>解体業者3人＋亀井さん1人＝最大4人</li>
+              <li>解体業者・亀井さんとも25,000円／人日</li>
+              <li>3人×1週間という初期感はあるが、4人×7日でも終わらない可能性</li>
+              <li>4人×10日は試算例であり、完了保証ではない</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>工具・設備</h3>
+            <ul class="clean">
+              <li>レシプロソー等の充電式工具を中心に使用</li>
+              <li>コンプレッサーは使わない想定</li>
+              <li>チェーンソーは汚れ・安全面から使わない方向</li>
+              <li>現地電源が難しく、小型発電機と仮設トイレが必要</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="comparison">
+        <h2 id="comparison">新田さん案との比較</h2>
+        <p class="section-note">亀井さん案は人工が膨らみやすい代わりに分別しやすい。新田さん案は人工を抑えやすい代わりに混合廃棄物が増える可能性があります。</p>
+        <div class="compare">
+          <article>
+            <h3>亀井さん案：人力解体</h3>
+            <ul class="clean">
+              <li>最大4人×実働日数×25,000円</li>
+              <li>7日超、10日程度の可能性</li>
+              <li>分別しやすく、再利用材を残しやすい</li>
+              <li>工期上振れ・安全・総額上限なしがリスク</li>
+            </ul>
+            <div class="bar-row"><span>人工負担</span><div class="track"><div class="fill" style="width:85%"></div></div><b>高め</b></div>
+            <div class="bar-row"><span>分別性</span><div class="track"><div class="fill" style="width:82%"></div></div><b>高い</b></div>
+          </article>
+          <article>
+            <h3>新田さん案：重機解体</h3>
+            <ul class="clean">
+              <li>4人×5日、約70万円＋税と聞こえる可能性</li>
+              <li>重機で内装ごと解体</li>
+              <li>工期・人工を抑えられる可能性</li>
+              <li>混廃・重機・ダンプ等の費用上振れがリスク</li>
+            </ul>
+            <div class="bar-row"><span>人工負担</span><div class="track"><div class="fill gold" style="width:55%"></div></div><b>低め</b></div>
+            <div class="bar-row"><span>分別性</span><div class="track"><div class="fill gold" style="width:35%"></div></div><b>低い</b></div>
+          </article>
+        </div>
+        <p class="fineprint">※新田さん案の「約70万円＋税」は文字起こしからの推定で要再確認。図のバーは費用実額ではなく、相対的な特性を示す。</p>
+      </section>
+
+      <section aria-labelledby="gates">
+        <h2 id="gates">発注前に置く6つのゲート</h2>
+        <p class="section-note">常用案は、止める条件を先に決めないと費用が膨らみます。</p>
+        <div class="risk-grid">
+          <div class="risk"><b>1｜不可逆作業の開始条件</b>移設・譲渡の最終判断、社内決裁、正式発注後に着工する。</div>
+          <div class="risk"><b>2｜人工上限</b>例：40人工／100万円。超過見込み時は作業停止・事前承認。</div>
+          <div class="risk"><b>3｜1棟目パイロット</b>実績人工と廃棄量から残り4棟を再計算し、続行を判断。</div>
+          <div class="risk"><b>4｜日報</b>人数、時間、作業、完了棟数、廃棄量、残工程、事故・破損を記録。</div>
+          <div class="risk"><b>5｜産廃条件</b>正式業者名、単価、税、運搬、交換、最低料金、マニフェストを確認。</div>
+          <div class="risk"><b>6｜安全条件</b>脚立上部作業、墜落防止、PPE、労災・賠償保険を事前確認。</div>
+        </div>
+      </section>
+
+      <section aria-labelledby="schedule">
+        <h2 id="schedule">工程と次の判断</h2>
+        <p class="section-note">7月20日は最短着手候補。条件が揃わなければ開始しません。</p>
+        <div class="timeline">
+          <div class="date">7月18日</div><div class="event"><b>社内判断</b><br>移設／解体、予算上限、発注可否を決める。</div>
+          <div class="date">7月19日<br>15:00</div><div class="event"><b>亀井さん現地確認</b><br>施工範囲、安全、残置物、コンテナ位置、書面条件を確認。</div>
+          <div class="date">7月19〜20日</div><div class="event"><b>残置物撤去</b><br>機材・家電・生活用品を撤去または集約し、作業動線を空ける。</div>
+          <div class="date">7月20日</div><div class="event"><b>最短着手候補</b><br>正式発注、安全確認、産廃手配が完了している場合のみ。</div>
+          <div class="date">8月13〜16日</div><div class="event"><b>お盆期間</b><br>亀井さんが動けない可能性。本人確認が必要。</div>
+          <div class="date">8月31日</div><div class="event"><b>原状回復期限</b><br>解体、産廃最終回収、整地、完了確認まで含む。</div>
+        </div>
+      </section>
+
+      <section aria-labelledby="ledger">
+        <h2 id="ledger">数値台帳と未確定事項</h2>
+        <p class="section-note">発言値を確定値に見せないため、詳細を分けて記録しています。</p>
+        <details>
+          <summary>数値台帳を開く</summary>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>項目</th><th>発言値</th><th>解釈</th><th>状態</th></tr></thead>
+              <tbody>
+                <tr><td>常用単価</td><td class="num">25,000円／人日</td><td>解体業者・亀井さん共通</td><td><span class="status">税区分要確認</span></td></tr>
+                <tr><td>体制</td><td class="num">最大4人</td><td>解体業者3人＋亀井さん</td><td>日別人数を記録</td></tr>
+                <tr><td>初期工期感</td><td>3人×1週間</td><td>5・6・7稼働日のどれか不明</td><td><span class="status">要確認</span></td></tr>
+                <tr><td>10日試算</td><td class="num">1,000,000円</td><td>4人×10日。固定見積ではない</td><td>参考計算</td></tr>
+                <tr><td>トイレ</td><td class="num">52,580円</td><td>3週間賃料＋設置・引取の税込小計</td><td>汲取別途</td></tr>
+                <tr><td>発電機</td><td>未見積</td><td>4人分の充電用途</td><td><span class="status">要取得</span></td></tr>
+                <tr><td>分別廃プラ等</td><td class="num">8,000円／m³</td><td>料金表の読み上げ。運搬等不明</td><td><span class="status">要原票確認</span></td></tr>
+                <tr><td>混合廃棄物</td><td>未見積</td><td>分別品より高額の見込み</td><td><span class="status">要取得</span></td></tr>
+                <tr><td>コンテナ</td><td>1台交換案</td><td>2台なら木材・外装材を並行分別可能</td><td>容量・費用未確定</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>亀井さんへの確認メッセージ案を開く</summary>
+          <div>
+            <pre>亀井さん、先ほどはありがとうございました。社内決裁と正式発注のため、以下を文面で確認させてください。
+
+1. 解体業者3名・亀井さんとも、常用25,000円／人日で合っていますか。税込／税別、交通費・諸経費込みかも教えてください。
+2. 現時点の想定は最大4名×10日＝40人工・100万円という理解で合っていますか。これは固定金額ではなく実績精算でしょうか。
+3. 工具、替刃、消耗品、仮設トイレ、発電機、燃料、産廃、コンテナで、見積に含むもの／含まないものを教えてください。
+4. 発電機のレンタル料、運搬費、燃料費を確認お願いします。
+5. 7月20日着手の場合の工程案と、お盆期間を含む作業不可日を教えてください。
+6. 脚立を使う上部解体の安全対策、労災・賠償保険の加入状況を確認させてください。
+7. 1棟目の解体後に、実績人工と廃棄量から残り4棟を再計算し、続行判断を入れる進め方は可能でしょうか。
+
+正式発注までは解体に着手せず、7月19日15時ごろの現地確認で最終調整させてください。よろしくお願いします。</pre>
+          </div>
+        </details>
+
+        <details>
+          <summary>ASR・固有名詞の確認事項を開く</summary>
+          <div>
+            <ul class="clean">
+              <li>「反田」は産廃業者名の誤変換可能性。ソリタ等を含め正式名称を原票確認。</li>
+              <li>「40米／80瓶」は4m³／8m³等の誤変換可能性があり、容量として未採用。</li>
+              <li>「京北衛生」はし尿汲取業者名とみられるが、正式名称を確認。</li>
+              <li>「お盆13・14・15・16」は作業不可日を指す可能性。本人確認が必要。</li>
+              <li>新田さん案の70万円、廃プラ8,000円／m³はいずれも書面再確認前。</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <section aria-labelledby="implication">
+        <h2 id="implication">この案を採るなら</h2>
+        <div class="panel">
+          <p style="margin:0;font-size:1.08rem"><strong>安さを決めるのは人工単価ではなく、何日で止められるか。</strong></p>
+          <p style="margin:10px 0 0;color:var(--muted)">1棟目の実績、人工上限、産廃の書面単価。この3つが揃った時点で、初めて亀井さん案と新田さん案を同じ土俵で比較できます。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      この文書は通話内容を発注判断向けに整理したもので、正式見積・契約書ではありません。重要金額は書面で再確認してください。<br>
+      このページは 2026年7月20日 17:39 JST に自動削除されます。
+    </footer>
+  </div>
+</body>
+</html>
