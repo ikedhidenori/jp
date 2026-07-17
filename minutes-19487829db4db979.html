@@ -5,324 +5,644 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="color-scheme" content="light">
-  <title>OL8撤去工事｜亀井さん 手壊し・常用案 見積判断メモ</title>
+  <title>OL8撤去工事｜亀井案・新田案 即決ブリーフ</title>
   <style>
     :root {
-      --ink:#172033; --muted:#5c6678; --paper:#fffdf8; --ground:#f2efe8;
-      --line:#d8d1c5; --navy:#14213d; --red:#a72920; --red-soft:#f8e9e6;
-      --green:#0f6655; --green-soft:#e5f1ed; --gold:#8a5a12; --gold-soft:#f6eddc;
-      --blue-soft:#e8eef6; --shadow:0 18px 48px rgba(29,35,48,.10);
+      --ink:#192230;
+      --muted:#5e6874;
+      --paper:#fffdf8;
+      --ground:#eeeae2;
+      --navy:#14263d;
+      --navy-2:#213b59;
+      --line:#d7d0c3;
+      --green:#116958;
+      --green-soft:#e7f2ee;
+      --orange:#9a5a0b;
+      --orange-soft:#f8eddc;
+      --red:#a2332b;
+      --red-soft:#f8e9e7;
+      --blue-soft:#e8eef5;
+      --white:#ffffff;
+      --shadow:0 22px 64px rgba(25,34,48,.11);
     }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body {
-      margin:0; color:var(--ink); background:var(--ground);
+      margin:0;
+      color:var(--ink);
+      background:var(--ground);
       font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
-      font-variant-numeric:tabular-nums; line-height:1.75;
+      font-variant-numeric:tabular-nums;
+      line-height:1.72;
     }
-    a { color:#075a78; text-underline-offset:3px; }
-    .page { width:min(1160px,calc(100% - 40px)); margin:28px auto 72px; background:var(--paper); box-shadow:var(--shadow); border:1px solid var(--line); }
-    header { padding:52px 56px 42px; background:var(--navy); color:#fff; }
-    .eyebrow { margin:0 0 16px; color:#d9e2f0; font-size:.78rem; letter-spacing:.16em; font-weight:700; }
-    h1 { max-width:850px; margin:0; font-size:clamp(2rem,4.5vw,3.6rem); line-height:1.18; letter-spacing:-.035em; }
-    .lead { max-width:780px; margin:20px 0 0; color:#edf2f7; font-size:1.05rem; }
-    .meta { display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:28px; color:#cbd5e1; font-size:.86rem; }
-    main { padding:0 56px 56px; }
-    .verdict { margin:-1px -56px 0; padding:30px 56px; background:var(--red-soft); border-bottom:1px solid #e8c4bf; }
-    .verdict-label { color:var(--red); font-size:.78rem; font-weight:800; letter-spacing:.14em; }
-    .verdict h2 { margin:7px 0 8px; color:#771b16; font-size:clamp(1.55rem,3vw,2.25rem); border:0; }
-    .verdict p { max-width:900px; margin:0; color:#52231f; }
-    section { padding:52px 0 8px; }
+    .page {
+      width:min(1180px,calc(100% - 40px));
+      margin:28px auto 72px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:var(--paper);
+      box-shadow:var(--shadow);
+    }
+    header {
+      padding:52px 58px 48px;
+      color:#fff;
+      background:linear-gradient(112deg,var(--navy),var(--navy-2));
+    }
+    .eyebrow {
+      margin:0 0 14px;
+      color:#cad8e8;
+      font-size:.76rem;
+      font-weight:800;
+      letter-spacing:.17em;
+      text-transform:uppercase;
+    }
+    h1 {
+      max-width:950px;
+      margin:0;
+      font-size:clamp(2rem,4.7vw,4rem);
+      line-height:1.13;
+      letter-spacing:-.045em;
+    }
+    .mobile-br { display:none; }
+    .lead {
+      max-width:840px;
+      margin:21px 0 0;
+      color:#e8eef5;
+      font-size:1.06rem;
+    }
+    .meta {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 20px;
+      margin-top:28px;
+      color:#c5d1df;
+      font-size:.82rem;
+    }
+    main { padding:0 58px 58px; }
+    section { padding:52px 0 10px; }
     section + section { border-top:1px solid var(--line); }
-    h2 { margin:0 0 10px; font-size:clamp(1.45rem,2.6vw,2rem); line-height:1.35; letter-spacing:-.02em; }
-    h3 { margin:30px 0 10px; font-size:1.08rem; }
-    .section-note { max-width:760px; margin:0 0 26px; color:var(--muted); }
-    .metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:26px 0 16px; }
-    .metric { min-height:150px; padding:20px; border:1px solid var(--line); background:#fff; }
-    .metric .k { display:block; color:var(--muted); font-size:.78rem; font-weight:700; }
-    .metric .v { display:block; margin-top:18px; color:var(--navy); font-size:clamp(1.35rem,2.4vw,2.05rem); font-weight:800; line-height:1.15; }
-    .metric .s { display:block; margin-top:8px; color:var(--muted); font-size:.78rem; }
-    .metric.alert { border-top:5px solid var(--red); }
-    .metric.warn { border-top:5px solid var(--gold); }
-    .metric.ok { border-top:5px solid var(--green); }
-    .callout { margin:22px 0; padding:18px 20px; border-left:5px solid var(--gold); background:var(--gold-soft); }
-    .callout strong { color:#65410d; }
-    .decision-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:18px; }
-    .panel { padding:24px; border:1px solid var(--line); background:#fff; }
-    .panel h3 { margin-top:0; }
-    ul.clean { margin:0; padding-left:1.25rem; }
-    ul.clean li + li { margin-top:9px; }
-    .unknowns { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:18px; }
-    .unknown { padding:18px; background:#fff; border:1px solid var(--line); }
-    .unknown b { display:block; margin-bottom:5px; color:var(--red); }
-    .table-wrap { width:100%; overflow-x:auto; margin:20px 0 6px; border:1px solid var(--line); background:#fff; }
-    table { width:100%; border-collapse:collapse; font-size:.88rem; }
+    h2 {
+      margin:0 0 11px;
+      font-size:clamp(1.48rem,2.8vw,2.15rem);
+      line-height:1.32;
+      letter-spacing:-.025em;
+    }
+    h3 { margin:0 0 10px; font-size:1.06rem; line-height:1.45; }
+    p { margin:0; }
+    .section-note { max-width:800px; color:var(--muted); }
+    .status {
+      display:inline-block;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:.7rem;
+      font-weight:800;
+      line-height:1.5;
+      white-space:nowrap;
+    }
+    .status.red { color:#81231d; background:var(--red-soft); }
+    .status.orange { color:#6f4008; background:var(--orange-soft); }
+    .status.green { color:#0c594a; background:var(--green-soft); }
+    .decision-strip {
+      display:grid;
+      grid-template-columns:1fr 1.25fr;
+      margin:0 -58px;
+      border-bottom:1px solid var(--line);
+    }
+    .decision-strip article { padding:30px 58px; }
+    .decision-strip article:first-child { background:var(--green-soft); }
+    .decision-strip article:last-child { background:var(--blue-soft); }
+    .decision-strip .label {
+      display:block;
+      margin-bottom:7px;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.12em;
+    }
+    .decision-strip strong {
+      display:block;
+      color:var(--navy);
+      font-size:clamp(1.18rem,2.3vw,1.72rem);
+      line-height:1.35;
+    }
+    .decision-strip p { margin-top:8px; color:#405064; font-size:.87rem; }
+    .branch {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      align-items:stretch;
+      margin:28px 0 18px;
+    }
+    .branch-card {
+      padding:25px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .branch-card.yes { border-top:6px solid var(--green); }
+    .branch-card.maybe { border-top:6px solid var(--navy-2); }
+    .branch-card.no { border-top:6px solid var(--orange); }
+    .branch-card .choice {
+      display:block;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.1em;
+    }
+    .branch-card .vendor {
+      display:block;
+      margin:8px 0 10px;
+      color:var(--navy);
+      font-size:1.7rem;
+      font-weight:850;
+      line-height:1.2;
+    }
+    .hold-gate {
+      display:grid;
+      grid-template-columns:145px 1fr;
+      gap:18px;
+      align-items:center;
+      margin-top:14px;
+      padding:18px 20px;
+      color:#fff;
+      background:var(--navy);
+    }
+    .hold-gate strong { font-size:.82rem; letter-spacing:.08em; }
+    .hold-gate span { color:#e3ebf3; font-size:.88rem; }
+    .metrics {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:28px;
+    }
+    .metric {
+      min-height:154px;
+      padding:20px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .metric.green { border-top:5px solid var(--green); }
+    .metric.orange { border-top:5px solid var(--orange); }
+    .metric.red { border-top:5px solid var(--red); }
+    .metric .k { display:block; color:var(--muted); font-size:.75rem; font-weight:750; }
+    .metric .v {
+      display:block;
+      margin-top:17px;
+      color:var(--navy);
+      font-size:clamp(1.32rem,2.5vw,2.08rem);
+      font-weight:850;
+      line-height:1.12;
+    }
+    .metric .s { display:block; margin-top:8px; color:var(--muted); font-size:.76rem; line-height:1.55; }
+    .notice {
+      margin:22px 0 0;
+      padding:18px 20px;
+      border-left:5px solid var(--orange);
+      background:var(--orange-soft);
+      color:#5b3a10;
+    }
+    .notice strong { color:#5f3905; }
+    .comparison {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:26px;
+    }
+    .quick-diff {
+      margin-top:24px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .diff-row {
+      display:grid;
+      grid-template-columns:120px 1fr 1fr;
+      border-bottom:1px solid var(--line);
+    }
+    .diff-row:last-child { border-bottom:0; }
+    .diff-row > * { padding:13px 15px; }
+    .diff-row .axis { color:var(--muted); background:#f3f0ea; font-size:.75rem; font-weight:850; }
+    .diff-row .kamei-diff { border-left:4px solid var(--green); }
+    .diff-row .nitta-diff { border-left:1px solid var(--line); border-right:4px solid var(--orange); }
+    .diff-row b { display:block; margin-bottom:2px; color:var(--navy); font-size:.78rem; }
+    .diff-row span { font-size:.82rem; }
+    .vendor-card { border:1px solid var(--line); background:#fff; }
+    .vendor-card.kamei { border-top:6px solid var(--green); }
+    .vendor-card.nitta { border-top:6px solid var(--orange); }
+    .vendor-head { padding:23px 24px 19px; border-bottom:1px solid var(--line); }
+    .vendor-head .name { display:block; color:var(--navy); font-size:1.5rem; font-weight:850; }
+    .vendor-head .method { color:var(--muted); font-size:.82rem; }
+    .facts { margin:0; }
+    .facts div {
+      display:grid;
+      grid-template-columns:112px 1fr;
+      gap:14px;
+      padding:13px 24px;
+      border-bottom:1px solid #e6e1d8;
+    }
+    .facts div:last-child { border-bottom:0; }
+    .facts dt { color:var(--muted); font-size:.75rem; font-weight:800; }
+    .facts dd { margin:0; font-size:.88rem; }
+    .mobile-only { display:none; }
+    .table-scroll {
+      width:100%;
+      margin-top:22px;
+      overflow-x:auto;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    table { width:100%; border-collapse:collapse; font-size:.84rem; }
     th,td { padding:12px 14px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
-    th { color:#fff; background:var(--navy); font-size:.77rem; letter-spacing:.03em; white-space:nowrap; }
+    th { color:#fff; background:var(--navy); font-size:.73rem; letter-spacing:.025em; }
     tr:last-child td { border-bottom:0; }
-    td.num { white-space:nowrap; font-weight:700; }
-    .flow { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:9px; margin:26px 0 8px; counter-reset:step; }
-    .flow > div { position:relative; padding:44px 14px 17px; border:1px solid var(--line); background:#fff; font-size:.88rem; }
-    .flow > div::before { counter-increment:step; content:"0" counter(step); position:absolute; top:12px; left:14px; color:var(--green); font-weight:800; font-size:.78rem; }
-    .flow > div:not(:last-child)::after { content:"›"; position:absolute; right:-9px; top:42%; z-index:2; color:var(--green); font-size:1.25rem; font-weight:800; }
-    .timeline { display:grid; grid-template-columns:130px 1fr; margin-top:20px; }
-    .timeline .date,.timeline .event { padding:15px 0; border-bottom:1px solid var(--line); }
-    .timeline .date { color:var(--green); font-weight:800; }
-    .timeline .event { padding-left:20px; }
-    .compare { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:22px; }
-    .compare article { padding:24px; border:1px solid var(--line); background:#fff; }
-    .compare article:first-child { border-top:5px solid var(--green); }
-    .compare article:last-child { border-top:5px solid var(--gold); }
-    .compare h3 { margin:0 0 14px; }
-    .bar-row { display:grid; grid-template-columns:92px 1fr 76px; gap:10px; align-items:center; margin:12px 0; font-size:.82rem; }
-    .track { height:9px; background:#e7e2d9; }
-    .fill { height:100%; background:var(--green); }
-    .fill.gold { background:var(--gold); }
-    .risk-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-    .risk { padding:20px; border:1px solid var(--line); background:#fff; }
-    .risk b { display:block; margin-bottom:6px; color:var(--red); }
-    .status { display:inline-block; padding:3px 8px; background:var(--red-soft); color:#7a1b16; font-size:.72rem; font-weight:800; }
-    details { margin:18px 0; border:1px solid var(--line); background:#fff; }
-    summary { cursor:pointer; padding:17px 20px; color:var(--navy); font-weight:800; }
-    details > div { padding:4px 20px 22px; }
-    pre { margin:0; padding:18px; white-space:pre-wrap; word-break:break-word; background:#f2f4f7; border:1px solid #d5dae1; font:inherit; font-size:.86rem; line-height:1.7; }
-    .fineprint { color:var(--muted); font-size:.8rem; }
-    footer { padding:26px 56px; background:#e9e5dc; color:#586070; font-size:.78rem; }
-    @media (max-width:900px) {
+    td.num { white-space:nowrap; font-weight:800; }
+    .cost-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:24px;
+    }
+    .cost-panel { padding:24px; border:1px solid var(--line); background:#fff; }
+    .cost-panel h3 { color:var(--navy); font-size:1.25rem; }
+    .cost-total {
+      display:block;
+      margin:15px 0 7px;
+      color:var(--navy);
+      font-size:clamp(1.55rem,3vw,2.3rem);
+      font-weight:850;
+      line-height:1.15;
+    }
+    .cost-panel ul { margin:16px 0 0; padding-left:1.2rem; }
+    .cost-panel li + li { margin-top:7px; }
+    .scenario {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin-top:18px;
+    }
+    .scenario div { padding:16px; background:var(--green-soft); border:1px solid #c6ddd5; }
+    .scenario span { display:block; color:var(--muted); font-size:.72rem; font-weight:800; }
+    .scenario b { display:block; margin-top:8px; color:var(--green); font-size:1.35rem; }
+    .scenario small { display:block; margin-top:3px; color:var(--muted); }
+    .risks {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:24px;
+    }
+    .risk { padding:21px; border:1px solid var(--line); background:#fff; }
+    .risk .n { color:var(--red); font-size:.72rem; font-weight:850; letter-spacing:.1em; }
+    .risk h3 { margin-top:7px; color:var(--navy); }
+    .risk p { color:var(--muted); font-size:.85rem; }
+    .risk .impact { display:block; margin-top:12px; color:var(--red); font-size:.77rem; font-weight:800; }
+    .process {
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:9px;
+      margin-top:25px;
+      counter-reset:step;
+    }
+    .process div {
+      position:relative;
+      min-height:150px;
+      padding:44px 15px 16px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:.82rem;
+    }
+    .process div::before {
+      counter-increment:step;
+      content:"0" counter(step);
+      position:absolute;
+      top:13px;
+      left:15px;
+      color:var(--green);
+      font-size:.74rem;
+      font-weight:850;
+    }
+    .process div:not(:last-child)::after {
+      content:"›";
+      position:absolute;
+      top:42%;
+      right:-10px;
+      z-index:2;
+      color:var(--green);
+      font-size:1.3rem;
+      font-weight:900;
+    }
+    .timeline { display:grid; grid-template-columns:128px 1fr; margin-top:22px; }
+    .timeline .date,.timeline .event { padding:14px 0; border-bottom:1px solid var(--line); }
+    .timeline .date { color:var(--green); font-weight:850; }
+    .timeline .event { padding-left:18px; }
+    .checklist {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:22px;
+    }
+    .check {
+      position:relative;
+      padding:18px 18px 18px 49px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:.87rem;
+    }
+    .check::before {
+      content:"";
+      position:absolute;
+      top:20px;
+      left:18px;
+      width:16px;
+      height:16px;
+      border:2px solid var(--green);
+      background:#fff;
+    }
+    .decision-box {
+      margin-top:26px;
+      padding:28px;
+      color:#fff;
+      background:var(--navy);
+    }
+    .decision-box h3 { color:#fff; font-size:1.35rem; }
+    .decision-box ul { margin:14px 0 0; padding-left:1.2rem; color:#e9eff5; }
+    .decision-box li + li { margin-top:8px; }
+    details { margin-top:16px; border:1px solid var(--line); background:#fff; }
+    summary { cursor:pointer; padding:17px 20px; color:var(--navy); font-weight:850; }
+    details > div { padding:0 20px 22px; }
+    .fine { color:var(--muted); font-size:.78rem; }
+    footer { padding:27px 58px; color:#5d6670; background:#e8e3da; font-size:.76rem; }
+    @media (max-width:920px) {
       .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .unknowns { grid-template-columns:1fr; }
-      .flow { grid-template-columns:1fr; }
-      .flow > div:not(:last-child)::after { content:"↓"; right:18px; top:auto; bottom:-15px; }
+      .process { grid-template-columns:1fr; }
+      .process div { min-height:0; }
+      .process div:not(:last-child)::after { content:"↓"; top:auto; right:17px; bottom:-17px; }
+      .risks { grid-template-columns:1fr; }
     }
     @media (max-width:768px) {
-      .page { width:100%; margin:0; border:0; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
       header { padding:38px 24px 34px; }
-      main { padding:0 24px 40px; }
-      .verdict { margin:0 -24px; padding:26px 24px; }
-      .decision-grid,.compare,.risk-grid { grid-template-columns:1fr; }
+      main { padding:0 24px 42px; }
+      .decision-strip { grid-template-columns:1fr; margin:0 -24px; }
+      .decision-strip article { padding:25px 24px; }
+      .branch { grid-template-columns:1fr; }
+      .hold-gate { grid-template-columns:1fr; gap:5px; }
+      .comparison,.cost-grid,.checklist { grid-template-columns:1fr; }
+      .scenario { grid-template-columns:1fr; }
       .timeline { grid-template-columns:96px 1fr; }
       footer { padding:24px; }
     }
-    @media (max-width:400px) {
+    @media (max-width:480px) {
       header { padding:30px 18px; }
-      main { padding:0 18px 34px; }
-      .verdict { margin:0 -18px; padding:23px 18px; }
+      main { padding:0 18px 36px; }
+      section { padding-top:42px; }
+      .mobile-br { display:inline; }
+      .decision-strip { margin:0 -18px; }
+      .decision-strip article { padding:23px 18px; }
       .metrics { grid-template-columns:1fr; }
       .metric { min-height:0; }
-      section { padding-top:40px; }
+      .facts div { grid-template-columns:1fr; gap:3px; padding:12px 18px; }
+      .diff-row { grid-template-columns:1fr 1fr; }
+      .diff-row .axis { grid-column:1 / -1; }
+      .diff-row .nitta-diff { border-left:1px solid var(--line); }
+      .decision-strip .label,.branch-card .choice,.metric .k,.status { font-size:.78rem; line-height:1.55; }
       .timeline { grid-template-columns:1fr; }
       .timeline .date { padding-bottom:2px; border-bottom:0; }
-      .timeline .event { padding:0 0 14px; }
-      .bar-row { grid-template-columns:80px 1fr 62px; }
-      th,td { padding:10px; }
+      .timeline .event { padding:0 0 13px; }
+      .table-scroll { margin-left:-2px; width:calc(100% + 4px); }
       footer { padding:22px 18px; }
     }
-    @media print { body{background:#fff}.page{width:100%;margin:0;border:0;box-shadow:none} details{break-inside:avoid} }
+    @media print {
+      body { background:#fff; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      header { background:var(--navy)!important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      section { break-inside:avoid; }
+      details { break-inside:avoid; }
+    }
   </style>
 </head>
 <body>
   <div class="page">
     <header>
-      <p class="eyebrow">OL8 WITHDRAWAL / COST DECISION BRIEF</p>
-      <h1>亀井さん「手壊し・常用」案<br>見積判断メモ</h1>
-      <p class="lead">インスタントハウス5棟の解体・撤去について、7月17日の電話内容を発注判断向けに整理。金額は通話ベースの概算であり、正式見積ではありません。</p>
-      <div class="meta"><span>2026年7月17日</span><span>対象：OL8／八ヶ岳ラボ</span><span>形式：電話整理</span></div>
+      <p class="eyebrow">OL8 withdrawal / decision brief</p>
+      <h1>解体撤去へ切替。<br>施工者は総額・工期・<span class="mobile-br"><br></span>安全で決める</h1>
+      <p class="lead">粟田さんの5棟移設は成立見込みが極めて低い。8月31日の原状回復を守るため、解体撤去を主案とし、亀井案と新田案を同じ条件で比較する。</p>
+      <div class="meta"><span>2026年7月17日</span><span>対象：OL8／八ヶ岳ラボ</span><span>5棟＋内装＋ウッドデッキ</span><span>電話概算・要書面確認</span></div>
     </header>
 
     <main>
-      <div class="verdict">
-        <div class="verdict-label">最初に押さえること</div>
-        <h2>100万円は「総額」ではない</h2>
-        <p>4人×10日なら、人工だけで100万円。仮設トイレ、発電機、燃料、工具・消耗品、産廃、コンテナ、運搬等は別に加算されます。現段階では総額未確定です。</p>
+      <div class="decision-strip" aria-label="本日の決裁案">
+        <article>
+          <span class="label">DECISION 01</span>
+          <strong>移設を主工程から外し、解体へ</strong>
+          <p>正式辞退ではないが、行政見解が覆る具体材料が出た場合のみ、解体着手前に再検討。</p>
+        </article>
+        <article>
+          <span class="label">DECISION 02</span>
+          <strong>IC人数で見積を詰める順番を決め、総額・工期・安全で選定</strong>
+          <p>IC人員は主要条件の一つ。費用上限・工程・安全・産廃条件を書面化してから正式発注。</p>
+        </article>
       </div>
 
-      <section aria-labelledby="key-numbers">
-        <h2 id="key-numbers">判断に必要な4つの数字</h2>
-        <p class="section-note">固定価格ではなく常用精算。日数の上振れが、そのまま費用の上振れになります。</p>
+      <section aria-labelledby="quick-decision">
+        <h2 id="quick-decision">1分で決める「確認の順番」</h2>
+        <p class="section-note">IC側スタッフが外部人工を実際に置き換えられるかは、金額を左右する主要条件の一つです。</p>
+        <div class="branch">
+          <article class="branch-card yes">
+            <span class="choice">IC 2名｜必要期間・安全条件を確約</span>
+            <span class="vendor">亀井案から条件確認</span>
+            <p>何人工減るかと総額上限を先に確認。単価ベースで2名×10日なら50万円の机上余地。</p>
+          </article>
+          <article class="branch-card maybe">
+            <span class="choice">IC 1名／人数・日程が未確定</span>
+            <span class="vendor">両案を並行確認</span>
+            <p>IC投入だけでは選べない。同一範囲の総額上限と完了工程を揃える。</p>
+          </article>
+          <article class="branch-card no">
+            <span class="choice">IC 0名｜継続投入できない</span>
+            <span class="vendor">新田案から見積確認</span>
+            <p>正式見積の確認を優先。口頭工程は本体5日で、亀井案より短い。</p>
+          </article>
+        </div>
+        <div class="hold-gate"><strong>共通の発注ゲート</strong><span>共通回答書・総額上限・8月31日完了条件が揃わなければ、どちらも発注保留。</span></div>
+        <div class="notice"><strong>共通条件：</strong>「解体終了」ではなく、産廃最終回収・整地・貸主確認までを8月31日までに完了できること。</div>
+      </section>
+
+      <section aria-labelledby="numbers">
+        <h2 id="numbers">判断を左右する数字</h2>
+        <p class="section-note">下記はすべて口頭概算。両案とも、税込の正式総額見積はまだありません。</p>
         <div class="metrics">
-          <div class="metric ok"><span class="k">常用単価</span><span class="v">2.5万円</span><span class="s">1人・1日あたり／税区分未確認</span></div>
-          <div class="metric alert"><span class="k">10日試算</span><span class="v">100万円</span><span class="s">4人×10日。人工のみ</span></div>
-          <div class="metric alert"><span class="k">1日延長</span><span class="v">＋10万円</span><span class="s">4人稼働の場合</span></div>
-          <div class="metric warn"><span class="k">仮設トイレ</span><span class="v">52,580円</span><span class="s">税込。汲み取り費は別途</span></div>
-        </div>
-        <div class="callout"><strong>社内への伝え方：</strong>「解体費100万円」ではなく、「人工だけで100万円になり得る常用案。総額は未確定」。</div>
-      </section>
-
-      <section aria-labelledby="cost-structure">
-        <h2 id="cost-structure">費用構造</h2>
-        <p class="section-note">現在計算できるのは人工と仮設トイレまで。発電機・産廃等を足さないと総額比較はできません。</p>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>シナリオ</th><th>人工</th><th>仮設トイレ</th><th>既知小計</th><th>含まれない費用</th></tr></thead>
-            <tbody>
-              <tr><td>4人×7日／人工税込</td><td class="num">700,000円</td><td class="num">52,580円</td><td class="num">752,580円</td><td>汲取、発電機、燃料、産廃、コンテナ、工具、消耗品、交通費等</td></tr>
-              <tr><td>4人×7日／人工税別</td><td class="num">770,000円</td><td class="num">52,580円</td><td class="num">822,580円</td><td>同上</td></tr>
-              <tr><td>4人×10日／人工税込</td><td class="num">1,000,000円</td><td class="num">52,580円</td><td class="num">1,052,580円</td><td>同上</td></tr>
-              <tr><td>4人×10日／人工税別</td><td class="num">1,100,000円</td><td class="num">52,580円</td><td class="num">1,152,580円</td><td>同上</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="unknowns">
-          <div class="unknown"><b>発電機：未見積</b><span>電動工具4人分の充電用途。賃料、燃料、運搬、期間を確認。</span></div>
-          <div class="unknown"><b>産廃：総額未見積</b><span>分別廃プラ等8,000円／m³という資料情報あり。税・運搬・受入条件は未確認。</span></div>
-          <div class="unknown"><b>コンテナ：条件未確定</b><span>容量、設置、交換回数、回送費、交換リードタイムが必要。</span></div>
+          <div class="metric green"><span class="k">亀井案の常用単価</span><span class="v">2.5万円</span><span class="s">1人・1日／税区分未確認</span></div>
+          <div class="metric red"><span class="k">亀井案・外部4名×10日</span><span class="v">100万円</span><span class="s">人工だけ。総額ではない</span></div>
+          <div class="metric green"><span class="k">IC 2名×10日の粗い効果</span><span class="v">単価ベース▲50万円</span><span class="s">税区分未確認。完全置換・工期不変時のみ</span></div>
+          <div class="metric orange"><span class="k">新田案の参考合算</span><span class="v">約150〜160万円＋未算入</span><span class="s">極低確度。税込比較ではなく、正式見積ではない</span></div>
         </div>
       </section>
 
-      <section aria-labelledby="method">
-        <h2 id="method">想定する施工の流れ</h2>
-        <p class="section-note">亀井さんが内装を先行し、3人の解体班が外装・上物を追う。初めて扱う構造のため、1棟目を実測ゲートにします。</p>
-        <div class="flow" aria-label="施工フロー">
-          <div>残置機材・家電を撤去し、1棟目を空ける</div>
-          <div>亀井さんが内装を先行解体</div>
-          <div>解体班3人が外装・上物を人力解体</div>
-          <div>木材・廃プラ等を分別しコンテナへ</div>
-          <div>1棟実績から残り4棟を再見積し続行判断</div>
+      <section aria-labelledby="compare">
+        <h2 id="compare">亀井案 vs 新田案</h2>
+        <p class="section-note">亀井案は分別とIC投入で下げ余地がある一方、常用で工期超過がそのまま増額。新田案は工程を短くしやすい一方、混廃・重機費が膨らみます。</p>
+        <div class="quick-diff" aria-label="3項目の差分早見">
+          <div class="diff-row"><div class="axis">差分早見</div><div class="kamei-diff"><b>亀井案</b><span>人力・常用</span></div><div class="nitta-diff"><b>新田案</b><span>重機・口頭概算</span></div></div>
+          <div class="diff-row"><div class="axis">工期</div><div class="kamei-diff"><span>1週間超の可能性<br><small>10日は費用試算</small></span></div><div class="nitta-diff"><span>本体約5日<br><small>書面保証なし</small></span></div></div>
+          <div class="diff-row"><div class="axis">費用</div><div class="kamei-diff"><span>既知小計＋未算入</span></div><div class="nitta-diff"><span>一部費目込み参考合算＋α</span></div></div>
+          <div class="diff-row"><div class="axis">IC投入</div><div class="kamei-diff"><span>置換余地あり・要合意</span></div><div class="nitta-diff"><span>未確認</span></div></div>
         </div>
-        <div class="decision-grid">
-          <div class="panel">
-            <h3>作業体制</h3>
-            <ul class="clean">
-              <li>解体業者3人＋亀井さん1人＝最大4人</li>
-              <li>解体業者・亀井さんとも25,000円／人日</li>
-              <li>3人×1週間という初期感はあるが、4人×7日でも終わらない可能性</li>
-              <li>4人×10日は試算例であり、完了保証ではない</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3>工具・設備</h3>
-            <ul class="clean">
-              <li>レシプロソー等の充電式工具を中心に使用</li>
-              <li>コンプレッサーは使わない想定</li>
-              <li>チェーンソーは汚れ・安全面から使わない方向</li>
-              <li>現地電源が難しく、小型発電機と仮設トイレが必要</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="comparison">
-        <h2 id="comparison">新田さん案との比較</h2>
-        <p class="section-note">亀井さん案は人工が膨らみやすい代わりに分別しやすい。新田さん案は人工を抑えやすい代わりに混合廃棄物が増える可能性があります。</p>
-        <div class="compare">
-          <article>
-            <h3>亀井さん案：人力解体</h3>
-            <ul class="clean">
-              <li>最大4人×実働日数×25,000円</li>
-              <li>7日超、10日程度の可能性</li>
-              <li>分別しやすく、再利用材を残しやすい</li>
-              <li>工期上振れ・安全・総額上限なしがリスク</li>
-            </ul>
-            <div class="bar-row"><span>人工負担</span><div class="track"><div class="fill" style="width:85%"></div></div><b>高め</b></div>
-            <div class="bar-row"><span>分別性</span><div class="track"><div class="fill" style="width:82%"></div></div><b>高い</b></div>
+        <div class="comparison">
+          <article class="vendor-card kamei">
+            <div class="vendor-head"><span class="name">亀井さん案</span><span class="method">人力解体・分別・常用精算</span></div>
+            <dl class="facts">
+              <div><dt>体制</dt><dd>亀井さん1名＋解体業者3名、最大4名</dd></div>
+              <div><dt>口頭工期</dt><dd>1週間超の可能性。10日は費用試算シナリオで、予定工期ではない</dd></div>
+              <div><dt>人工</dt><dd>25,000円／人日。4名×10日＝100万円</dd></div>
+              <div><dt>IC投入</dt><dd><span class="status green">減額余地あり</span> 置換なら1名1日25,000円</dd></div>
+              <div><dt>産廃</dt><dd>分別しやすい。廃プラ等8,000円／m³の資料情報</dd></div>
+              <div><dt>別途</dt><dd>トイレ、汲取、発電機、燃料、工具、産廃、コンテナ等</dd></div>
+              <div><dt>最大リスク</dt><dd>日数超過・脚立切断・コンテナ待ち・総額上限なし</dd></div>
+            </dl>
           </article>
-          <article>
-            <h3>新田さん案：重機解体</h3>
-            <ul class="clean">
-              <li>4人×5日、約70万円＋税と聞こえる可能性</li>
-              <li>重機で内装ごと解体</li>
-              <li>工期・人工を抑えられる可能性</li>
-              <li>混廃・重機・ダンプ等の費用上振れがリスク</li>
-            </ul>
-            <div class="bar-row"><span>人工負担</span><div class="track"><div class="fill gold" style="width:55%"></div></div><b>低め</b></div>
-            <div class="bar-row"><span>分別性</span><div class="track"><div class="fill gold" style="width:35%"></div></div><b>低い</b></div>
+          <article class="vendor-card nitta">
+            <div class="vendor-head"><span class="name">新田さん案</span><span class="method">設備切離し後、重機で解体</span></div>
+            <dl class="facts">
+              <div><dt>体制</dt><dd>4名×5日＝20人工の口頭案</dd></div>
+              <div><dt>口頭工期</dt><dd>本体約5日、重機実稼働1日。完了保証なし</dd></div>
+              <div><dt>人工</dt><dd>約70万円＋税の可能性。文字起こし由来で要確認</dd></div>
+              <div><dt>IC投入</dt><dd><span class="status orange">未確認</span> 置換・値引き合意なし</dd></div>
+              <div><dt>産廃</dt><dd>混廃24,000〜25,000円／m³。8m³×4台なら約80万円</dd></div>
+              <div><dt>別途</dt><dd>産廃、重機、ダンプ、運搬、保険、平板処分等</dd></div>
+              <div><dt>最大リスク</dt><dd>混廃・重機等の総額上振れ、設備切離し待ち</dd></div>
+            </dl>
           </article>
         </div>
-        <p class="fineprint">※新田さん案の「約70万円＋税」は文字起こしからの推定で要再確認。図のバーは費用実額ではなく、相対的な特性を示す。</p>
       </section>
 
-      <section aria-labelledby="gates">
-        <h2 id="gates">発注前に置く6つのゲート</h2>
-        <p class="section-note">常用案は、止める条件を先に決めないと費用が膨らみます。</p>
-        <div class="risk-grid">
-          <div class="risk"><b>1｜不可逆作業の開始条件</b>移設・譲渡の最終判断、社内決裁、正式発注後に着工する。</div>
-          <div class="risk"><b>2｜人工上限</b>例：40人工／100万円。超過見込み時は作業停止・事前承認。</div>
-          <div class="risk"><b>3｜1棟目パイロット</b>実績人工と廃棄量から残り4棟を再計算し、続行を判断。</div>
-          <div class="risk"><b>4｜日報</b>人数、時間、作業、完了棟数、廃棄量、残工程、事故・破損を記録。</div>
-          <div class="risk"><b>5｜産廃条件</b>正式業者名、単価、税、運搬、交換、最低料金、マニフェストを確認。</div>
-          <div class="risk"><b>6｜安全条件</b>脚立上部作業、墜落防止、PPE、労災・賠償保険を事前確認。</div>
+      <section aria-labelledby="costs">
+        <h2 id="costs">現時点では総額比較できない</h2>
+        <p class="section-note">亀井案は一部費目だけ、新田案は別の費目を一部含むため、数字の範囲が違います。未算入費を揃え、発注時に上限を置きます。</p>
+        <div class="cost-grid">
+          <article class="cost-panel">
+            <h3>亀井案｜既知小計</h3>
+            <span class="cost-total">105.3〜115.3万円</span>
+            <p class="fine"><strong>産廃・発電機等は未算入。</strong> 人工＋仮設トイレのみ。人工の税込／税別で幅。</p>
+            <ul>
+              <li>人工：100万〜110万円</li>
+              <li>仮設トイレ：52,580円</li>
+              <li>汲取、発電機、燃料、産廃、コンテナ等は未算入</li>
+            </ul>
+            <div class="scenario" aria-label="IC人員投入の外注費削減例">
+              <div><span>IC 0名</span><b>▲0円</b><small>10日</small></div>
+              <div><span>IC 1名</span><b>▲25万円</b><small>10日・完全置換</small></div>
+              <div><span>IC 2名</span><b>▲50万円</b><small>10日・完全置換</small></div>
+            </div>
+          </article>
+          <article class="cost-panel">
+            <h3>新田案｜一部費目込み参考合算</h3>
+            <span class="cost-total">約150〜160万円＋未算入</span>
+            <p class="fine"><strong>極低確度・正式見積ではない。</strong> 人工・産廃・重機の口頭値を足した参考で、税込比較ではありません。</p>
+            <ul>
+              <li>人工中心：約70万円＋税の可能性 <span class="status red">低確度</span><br><small>現場管理費の含有は要確認</small></li>
+              <li>産廃：約70〜80万円</li>
+              <li>重機稼働：約47,000円</li>
+              <li>運搬、保険、ダンプ、往復、平板処分等は追加可能性</li>
+            </ul>
+          </article>
+        </div>
+        <div class="notice"><strong>注意：</strong>亀井案の「▲50万円」は外注費の表面削減。IC側の人件費、移動・宿泊、本業の機会損失、PPE・工具、安全管理は含みません。</div>
+      </section>
+
+      <section aria-labelledby="risks">
+        <h2 id="risks">工程を止める4つの懸念</h2>
+        <p class="section-note">ここを確定しないまま発注すると、安い案が途中で高くなります。</p>
+        <div class="risks">
+          <article class="risk">
+            <span class="n">RISK 01</span>
+            <h3>発電機の総費用</h3>
+            <p>亀井案で必要。賃料、運搬、燃料、延長料、4人分の充電容量が未確認。</p>
+            <span class="impact">発注前：全期間の総額を取得</span>
+          </article>
+          <article class="risk">
+            <span class="n">RISK 02</span>
+            <h3>コンテナを回せるか</h3>
+            <p>1台運用では満杯から交換まで作業停止の可能性。容量、交換時間、休日対応、仮置き可否が不明。</p>
+            <span class="impact">4名全員が常用請求対象なら、待機1日＝最大10万円</span>
+          </article>
+          <article class="risk">
+            <span class="n">RISK 03</span>
+            <h3>見積日数で終わるか</h3>
+            <p>亀井案は1週間超の可能性、新田案は本体5日の口頭工程。産廃最終回収・整地までの日付保証なし。</p>
+            <span class="impact">発注前：日付入り工程表を取得</span>
+          </article>
+          <article class="risk">
+            <span class="n">RISK 04</span>
+            <h3>カーポートが別工程</h3>
+            <p>粟田さんは地元工務店へ移設見積を依頼済み。新田案でも本体と別の3〜4日想定。撤去／移設、担当、費用、本体との干渉が未確定。</p>
+            <span class="impact">発注前：担当者・日程・費用を本体工程に統合</span>
+          </article>
         </div>
       </section>
 
-      <section aria-labelledby="schedule">
-        <h2 id="schedule">工程と次の判断</h2>
-        <p class="section-note">7月20日は最短着手候補。条件が揃わなければ開始しません。</p>
+      <section aria-labelledby="conditions">
+        <h2 id="conditions">どちらを選んでも外せない条件</h2>
+        <p class="section-note">両者へ同じ回答書を送り、含む／含まないを揃えます。</p>
+        <div class="checklist">
+          <div class="check"><strong>含有確認する希望範囲</strong><br>5棟、内装、外装、デッキ、平板、整地、清掃</div>
+          <div class="check"><strong>別工事・対象外の確認</strong><br>カーポート、蓄電池、設備、配線切離し、残置物</div>
+          <div class="check"><strong>全費目</strong><br>人工、管理、重機、車両、工具、交通宿泊、トイレ、発電機、産廃、税</div>
+          <div class="check"><strong>工期</strong><br>着手、人数、休工、解体、最終回収、整地、貸主確認の日付</div>
+          <div class="check"><strong>上限</strong><br>人工または総額の上限、超過時の停止・事前承認</div>
+          <div class="check"><strong>IC投入</strong><br>何人・何日で、有償人工が何人工減るか</div>
+          <div class="check"><strong>安全・責任</strong><br>労災、賠償、指揮命令、PPE、事故・破損</div>
+          <div class="check"><strong>完了条件</strong><br>マニフェスト、最終回収、整地、貸主確認まで</div>
+        </div>
+      </section>
+
+      <section aria-labelledby="sequence">
+        <h2 id="sequence">段取り</h2>
+        <p class="section-note">不可逆な解体は、所有者承認・発注書・安全条件・産廃手配が揃ってから始めます。</p>
+        <div class="process" aria-label="解体撤去の進行手順">
+          <div><strong>方針決裁</strong><br>移設を主工程から外し、IC投入人数と予算上限を決める</div>
+          <div><strong>条件統一</strong><br>両者へ同じ回答書を送り、対象範囲と費用を揃える</div>
+          <div><strong>準備</strong><br>残置物撤去、設備切離し、発電機・重機・コンテナ手配</div>
+          <div><strong>解体</strong><br>亀井案は1棟目で再予測。新田案は重機前に再利用物を外す</div>
+          <div><strong>原状回復</strong><br>産廃最終回収、整地、清掃、貸主確認で完了</div>
+        </div>
         <div class="timeline">
-          <div class="date">7月18日</div><div class="event"><b>社内判断</b><br>移設／解体、予算上限、発注可否を決める。</div>
-          <div class="date">7月19日<br>15:00</div><div class="event"><b>亀井さん現地確認</b><br>施工範囲、安全、残置物、コンテナ位置、書面条件を確認。</div>
-          <div class="date">7月19〜20日</div><div class="event"><b>残置物撤去</b><br>機材・家電・生活用品を撤去または集約し、作業動線を空ける。</div>
-          <div class="date">7月20日</div><div class="event"><b>最短着手候補</b><br>正式発注、安全確認、産廃手配が完了している場合のみ。</div>
-          <div class="date">8月13〜16日</div><div class="event"><b>お盆期間</b><br>亀井さんが動けない可能性。本人確認が必要。</div>
-          <div class="date">8月31日</div><div class="event"><b>原状回復期限</b><br>解体、産廃最終回収、整地、完了確認まで含む。</div>
+          <div class="date">7月18日</div><div class="event"><strong>社内決裁</strong><br>解体移行、IC 0／1／2名、予算上限。両者へ共通回答書。</div>
+          <div class="date">7月19日<br>15:00</div><div class="event"><strong>亀井さん現地確認</strong><br>発電機、安全、人工上限、コンテナ、工程の確認・確定を目指す。</div>
+          <div class="date">7月19日<br>夕方</div><div class="event"><strong>提案：最終決裁</strong><br>条件が揃えば、川島さんが施工者、IC人数、発注上限を決定。</div>
+          <div class="date">最短着工候補</div><div class="event"><strong>施工者ごとの着手日を確認</strong><br>亀井案は7月20日希望、新田案は未確認。発注書、安全条件、産廃手配の完了後のみ。</div>
+          <div class="date">1棟目完了</div><div class="event"><strong>再予測ゲート</strong><br>人工、廃棄量、残工期を更新し、続行判断。</div>
+          <div class="date">8月22日</div><div class="event"><strong>提案する社内完了目標</strong><br>期限前に原状回復を終え、バッファを確保。</div>
+          <div class="date">8月31日</div><div class="event"><strong>提示されている原状回復期限</strong><br>最終回収、整地、貸主確認まで完了させる。</div>
         </div>
       </section>
 
-      <section aria-labelledby="ledger">
-        <h2 id="ledger">数値台帳と未確定事項</h2>
-        <p class="section-note">発言値を確定値に見せないため、詳細を分けて記録しています。</p>
+      <section aria-labelledby="approval">
+        <h2 id="approval">川島さん・チームに求める決裁</h2>
+        <div class="decision-box">
+          <h3>この4点が決まれば、発注準備へ進める</h3>
+          <ul>
+            <li><strong>解体へ移行：</strong>移設は主工程から外す</li>
+            <li><strong>IC人員：</strong>0名／1名／2名のどれを、何日・どの作業へ出せるか</li>
+            <li><strong>見積確定の順番：</strong>IC 2名確約なら亀井案、0名なら新田案、1名・未確定なら両案を並行確認</li>
+            <li><strong>業者選定：</strong>同一範囲の税込総額上限、有償人工削減数、8月31日完了工程、安全・保険、産廃・カーポート条件が揃ってから決定</li>
+          </ul>
+        </div>
         <details>
-          <summary>数値台帳を開く</summary>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>項目</th><th>発言値</th><th>解釈</th><th>状態</th></tr></thead>
-              <tbody>
-                <tr><td>常用単価</td><td class="num">25,000円／人日</td><td>解体業者・亀井さん共通</td><td><span class="status">税区分要確認</span></td></tr>
-                <tr><td>体制</td><td class="num">最大4人</td><td>解体業者3人＋亀井さん</td><td>日別人数を記録</td></tr>
-                <tr><td>初期工期感</td><td>3人×1週間</td><td>5・6・7稼働日のどれか不明</td><td><span class="status">要確認</span></td></tr>
-                <tr><td>10日試算</td><td class="num">1,000,000円</td><td>4人×10日。固定見積ではない</td><td>参考計算</td></tr>
-                <tr><td>トイレ</td><td class="num">52,580円</td><td>3週間賃料＋設置・引取の税込小計</td><td>汲取別途</td></tr>
-                <tr><td>発電機</td><td>未見積</td><td>4人分の充電用途</td><td><span class="status">要取得</span></td></tr>
-                <tr><td>分別廃プラ等</td><td class="num">8,000円／m³</td><td>料金表の読み上げ。運搬等不明</td><td><span class="status">要原票確認</span></td></tr>
-                <tr><td>混合廃棄物</td><td>未見積</td><td>分別品より高額の見込み</td><td><span class="status">要取得</span></td></tr>
-                <tr><td>コンテナ</td><td>1台交換案</td><td>2台なら木材・外装材を並行分別可能</td><td>容量・費用未確定</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
-
-        <details>
-          <summary>亀井さんへの確認メッセージ案を開く</summary>
+          <summary>事実・確度の注記</summary>
           <div>
-            <pre>亀井さん、先ほどはありがとうございました。社内決裁と正式発注のため、以下を文面で確認させてください。
-
-1. 解体業者3名・亀井さんとも、常用25,000円／人日で合っていますか。税込／税別、交通費・諸経費込みかも教えてください。
-2. 現時点の想定は最大4名×10日＝40人工・100万円という理解で合っていますか。これは固定金額ではなく実績精算でしょうか。
-3. 工具、替刃、消耗品、仮設トイレ、発電機、燃料、産廃、コンテナで、見積に含むもの／含まないものを教えてください。
-4. 発電機のレンタル料、運搬費、燃料費を確認お願いします。
-5. 7月20日着手の場合の工程案と、お盆期間を含む作業不可日を教えてください。
-6. 脚立を使う上部解体の安全対策、労災・賠償保険の加入状況を確認させてください。
-7. 1棟目の解体後に、実績人工と廃棄量から残り4棟を再計算し、続行判断を入れる進め方は可能でしょうか。
-
-正式発注までは解体に着手せず、7月19日15時ごろの現地確認で最終調整させてください。よろしくお願いします。</pre>
-          </div>
-        </details>
-
-        <details>
-          <summary>ASR・固有名詞の確認事項を開く</summary>
-          <div>
-            <ul class="clean">
-              <li>「反田」は産廃業者名の誤変換可能性。ソリタ等を含め正式名称を原票確認。</li>
-              <li>「40米／80瓶」は4m³／8m³等の誤変換可能性があり、容量として未採用。</li>
-              <li>「京北衛生」はし尿汲取業者名とみられるが、正式名称を確認。</li>
-              <li>「お盆13・14・15・16」は作業不可日を指す可能性。本人確認が必要。</li>
-              <li>新田さん案の70万円、廃プラ8,000円／m³はいずれも書面再確認前。</li>
+            <ul>
+              <li>粟田さんの最新連絡は「山梨県内で公に5棟すべてを常設移設するのは難しい」。正式辞退ではない。</li>
+              <li>亀井案・新田案はいずれも電話ベースで、税込の正式総額見積は未取得。</li>
+              <li>亀井案25,000円／人日は高確度だが、税区分・諸経費は未確認。</li>
+              <li>新田案70万円＋税は低確度。書面または原音確認が必要。</li>
+              <li>両案とも8月31日までの完了保証は未取得。</li>
             </ul>
           </div>
         </details>
-      </section>
-
-      <section aria-labelledby="implication">
-        <h2 id="implication">この案を採るなら</h2>
-        <div class="panel">
-          <p style="margin:0;font-size:1.08rem"><strong>安さを決めるのは人工単価ではなく、何日で止められるか。</strong></p>
-          <p style="margin:10px 0 0;color:var(--muted)">1棟目の実績、人工上限、産廃の書面単価。この3つが揃った時点で、初めて亀井さん案と新田さん案を同じ土俵で比較できます。</p>
-        </div>
       </section>
     </main>
 
     <footer>
-      この文書は通話内容を発注判断向けに整理したもので、正式見積・契約書ではありません。重要金額は書面で再確認してください。<br>
-      このページは 2026年7月20日 17:39 JST に自動削除されます。
+      本資料は電話・メッセージの内容を意思決定用に整理したもので、正式見積・契約書ではありません。重要金額・工期・責任範囲は発注前に書面で確認してください。<br>
+      このページは 2026年7月20日 19:13 JST に自動削除されます。
     </footer>
   </div>
 </body>
