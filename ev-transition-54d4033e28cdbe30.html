@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="EV、ハイブリッド、ガソリン、水素の2030・2035・2050年シナリオを、一次情報と専門家討議から図解した調査レポート">
-  <title>EVは本当に普及するのか — 2035年の最頻シナリオ</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2311130f'/><path d='M35 6 14 36h15l-3 22 24-34H35z' fill='%23d7ff4b'/></svg>">
+  <meta name="description" content="EV、ハイブリッド、ガソリン、水素の最頻シナリオと、国別差、日本のメーカー・地域・充電・V2H・電源・電池技術を一次情報で図解した調査レポート">
+  <title>EVは本当に普及するのか — 世界の分岐と日本の現在地</title>
   <style>
     :root {
       --bg: #11130f;
@@ -43,6 +44,7 @@
     }
     a { color: inherit; text-underline-offset: .22em; }
     a:hover { color: var(--lime); }
+    a:focus-visible, summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
     p { max-width: 74ch; }
     strong { color: var(--lime); }
     .mono { font-family: "SFMono-Regular", Menlo, Consolas, monospace; letter-spacing: .03em; }
@@ -107,7 +109,7 @@
     .hero-mark::after { inset: 42%; border-width: 2px; background: var(--lime); box-shadow: 0 0 80px rgba(215,255,75,.42); }
     .verdict-strip {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       border-block: 1px solid var(--line);
     }
     .verdict-strip > div { padding: 17px 16px; border-right: 1px solid var(--line); }
@@ -131,7 +133,8 @@
     .dock a { flex: 0 0 auto; padding: .55rem .75rem; color: var(--muted); text-decoration: none; font-size: .75rem; }
     .dock a:hover { color: var(--lime); }
     main { overflow: clip; }
-    section { padding: 100px 0; border-bottom: 1px solid var(--line); }
+    section { padding: 100px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 64px; }
+    .keep { white-space: nowrap; }
     .section-head { display: grid; grid-template-columns: .65fr 1.35fr; gap: 2rem; align-items: end; margin-bottom: 50px; }
     .section-head h2 {
       margin: 0;
@@ -146,6 +149,8 @@
     .paper-section .section-head p { color: #5e6258; }
     .paper-section .eyebrow { color: #455211; }
     .paper-section strong { color: #374500; }
+    .paper-section a:hover { color: #455211; }
+    .paper-section a:focus-visible, .paper-section summary:focus-visible { outline-color: #455211; }
     .callout {
       position: relative;
       padding: clamp(28px, 5vw, 66px);
@@ -221,7 +226,7 @@
     .legend i { display: inline-block; width: 20px; height: 8px; margin-right: 6px; }
     .path-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
     .path-card { position: relative; min-height: 330px; padding: 22px; background: #fff; border-top: 8px solid var(--tone); }
-    .path-card .code { color: #777b71; font: 700 .7rem monospace; }
+    .path-card .code { color: #5f635a; font: 700 .7rem monospace; }
     .path-card h3 { margin: 3rem 0 .7rem; font-size: 1.35rem; }
     .path-card p { color: #61655c; font-size: .88rem; }
     .path-card .role { position: absolute; bottom: 20px; left: 22px; right: 22px; padding-top: 12px; border-top: 1px solid #d7d5ca; font-weight: 800; }
@@ -245,6 +250,7 @@
     .h2-contrast span { font-size: .82rem; }
     .h2-contrast .versus { font: 700 1rem monospace; writing-mode: vertical-rl; }
     .h2-note { margin-top: 16px; color: var(--muted); font-size: .78rem; }
+    .paper-section .h2-note { color: #666a60; }
     .risk-matrix {
       position: relative;
       min-height: 560px;
@@ -279,7 +285,7 @@
     .trigger-card h3 { margin: 0 0 1rem; font-size: 1.15rem; }
     .trigger-card ul { margin: 0; padding-left: 1.1rem; color: #5b5f56; font-size: .86rem; }
     .trigger-card li { margin: .7rem 0; }
-    .trigger-card small { display: block; margin-top: 1rem; color: #777b70; }
+    .trigger-card small { display: block; margin-top: 1rem; color: #5f635a; }
     .x-card { display: grid; grid-template-columns: .7fr 1.3fr; gap: 32px; padding: clamp(24px, 5vw, 54px); background: #080a07; border: 1px solid var(--line); }
     .x-card h3 { margin: 0; font-size: clamp(2rem, 4vw, 4rem); line-height: 1; letter-spacing: -.05em; }
     .x-card ul { margin: 0; color: var(--muted); }
@@ -292,6 +298,148 @@
     details { margin-top: 24px; border-top: 1px solid var(--line); }
     summary { cursor: pointer; padding: 18px 0; color: var(--lime); font-weight: 800; }
     .method { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; color: var(--muted); font-size: .85rem; }
+    .data-status { display: inline-flex; align-items: center; gap: .4rem; padding: .3rem .55rem; border: 1px solid currentColor; font: 800 .65rem/1 monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .data-status.observed { color: #285d5a; background: rgba(88,215,210,.12); }
+    .data-status.target { color: #775f00; background: rgba(244,205,77,.18); }
+    .data-status.estimate { color: #8d3515; background: rgba(255,107,53,.12); }
+    .formula {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: clamp(24px, 4vw, 46px);
+      border: 1px solid #cbc9bc;
+      background: #fff;
+    }
+    .formula .mark { width: 72px; aspect-ratio: 1; display: grid; place-content: center; border-radius: 50%; background: var(--ink); color: var(--lime); font: 800 1.8rem monospace; }
+    .formula p { margin: 0; font: 800 clamp(1.1rem, 2.6vw, 1.8rem)/1.5 "Hiragino Mincho ProN", "Yu Mincho", serif; }
+    .rank-chart { display: grid; gap: 9px; }
+    .rank-row { display: grid; grid-template-columns: 92px 1fr 70px; gap: 14px; align-items: center; }
+    .rank-row > b { font-size: .83rem; }
+    .rank-track { height: 26px; background: #d9d8cd; overflow: hidden; }
+    .rank-track i { display: block; width: var(--value); height: 100%; background: var(--tone, var(--orange)); }
+    .rank-row > span { font: 800 .82rem monospace; text-align: right; }
+    .scroll-cue { display: none; margin: 36px 0 -28px; color: #5f635a; font: 800 .72rem monospace; text-align: right; }
+    .factor-scroll { margin-top: 38px; overflow-x: auto; border: 1px solid #cbc9bd; background: #fff; }
+    .factor-table { width: 100%; min-width: 900px; border-collapse: collapse; font-size: .76rem; }
+    .factor-table th, .factor-table td { padding: 13px 9px; border: 1px solid #dedcd0; text-align: center; }
+    .factor-table th:first-child, .factor-table td:first-child { position: sticky; left: 0; z-index: 2; min-width: 112px; background: #f6f4e9; text-align: left; font-weight: 900; }
+    .factor-table thead th { background: #f0eee3; color: #4e5249; font-size: .67rem; }
+    .heat { display: inline-grid; place-content: center; width: 42px; height: 24px; font: 900 .65rem monospace; }
+    .heat.hi { background: var(--lime); color: #1d2500; }
+    .heat.mid { background: var(--yellow); color: #403400; }
+    .heat.low { background: #d6d5ca; color: #54584f; }
+    .loop-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 30px; }
+    .loop-card { padding: 24px; border: 1px solid #cbc9bd; background: #fff; }
+    .loop-card h3 { margin: 0 0 18px; font-size: 1.3rem; }
+    .loop-chain { display: grid; gap: 6px; }
+    .loop-step { position: relative; padding: 12px 14px; background: #efede1; font-size: .82rem; font-weight: 800; }
+    .loop-step:not(:last-child)::after { content: "↓"; position: absolute; z-index: 2; left: 50%; bottom: -13px; transform: translateX(-50%); color: #686c62; }
+    .loop-card.virtuous { border-top: 7px solid #6f8a00; }
+    .loop-card.lockin { border-top: 7px solid var(--orange); }
+    .counter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 30px; }
+    .counter { min-height: 125px; padding: 16px; border: 1px solid #cbc9bd; background: #f7f5ea; }
+    .counter b { display: block; margin-bottom: .35rem; font-size: .9rem; }
+    .counter span { color: #62665d; font-size: .76rem; }
+    .japan-section { position: relative; background: linear-gradient(135deg, #0c1c1b 0%, #11130f 62%); }
+    .japan-section::before { content: "JP"; position: absolute; right: -1vw; top: -4rem; color: rgba(88,215,210,.07); font: 900 clamp(12rem, 35vw, 32rem)/1 monospace; letter-spacing: -.12em; pointer-events: none; }
+    .jp-kicker { position: relative; display: inline-flex; margin-bottom: 22px; padding: .5rem .7rem; background: var(--cyan); color: #0c2321; font: 900 .7rem monospace; letter-spacing: .12em; }
+    .jp-dashboard { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(88,215,210,.18); border: 1px solid rgba(88,215,210,.3); }
+    .jp-metric { min-height: 190px; padding: 20px; background: #122421; }
+    .jp-metric .data-status { margin-bottom: 30px; color: var(--cyan); }
+    .jp-metric b { display: block; color: var(--cyan); font-size: clamp(2rem, 4vw, 4rem); line-height: .95; letter-spacing: -.06em; }
+    .jp-metric span:last-child { display: block; margin-top: .7rem; color: #aabbb5; font-size: .75rem; }
+    .range-board { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
+    .range-card { padding: 20px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); }
+    .range-card .data-status.observed { color: var(--cyan); }
+    .range-card .data-status.estimate { color: #ff9a74; }
+    .range-card b { display: block; margin: .5rem 0; color: var(--lime); font-size: clamp(2rem, 4vw, 3.6rem); letter-spacing: -.06em; }
+    .range-card p { margin: 0; color: var(--muted); font-size: .78rem; }
+    .lane-grid { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px; }
+    .lane-card { min-height: 310px; padding: 20px; border-top: 7px solid var(--tone); background: var(--panel); }
+    .lane-card .lane-no { color: var(--tone); font: 900 .72rem monospace; }
+    .lane-card h3 { margin: 2.2rem 0 .75rem; font-size: 1.15rem; }
+    .lane-card .lane-data { display: block; margin-top: 1rem; color: var(--tone); font: 800 1.45rem/1.15 monospace; }
+    .lane-card p { color: var(--muted); font-size: .78rem; }
+    .proxy-layout { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 30px; margin-top: 44px; }
+    .proxy-chart { display: grid; align-content: start; gap: 9px; }
+    .proxy-row { display: grid; grid-template-columns: 82px 1fr 58px; gap: 10px; align-items: center; font-size: .75rem; }
+    .proxy-track { height: 24px; background: #292e25; }
+    .proxy-track i { display: block; width: var(--value); height: 100%; background: var(--tone, var(--cyan)); }
+    .proxy-row strong { color: var(--paper); font: 800 .72rem monospace; text-align: right; }
+    .geo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .geo-card { min-height: 145px; padding: 14px; background: #e9e7db; color: var(--ink); }
+    .geo-card b { display: block; margin-bottom: .5rem; font-size: .82rem; }
+    .geo-card span { color: #5f635a; font-size: .71rem; }
+    .charge-hero { display: grid; grid-template-columns: .72fr 1.28fr; gap: 34px; align-items: center; }
+    .charge-big { display: grid; place-content: center; width: min(100%, 330px); aspect-ratio: 1; margin-inline: auto; border-radius: 50%; background: var(--cyan); color: var(--ink); text-align: center; }
+    .charge-big b { display: block; font-size: clamp(5rem, 12vw, 9rem); line-height: .8; letter-spacing: -.1em; }
+    .charge-big span { display: block; max-width: 210px; margin: 1rem auto 0; font-size: .84rem; font-weight: 800; }
+    .charge-bars { display: grid; gap: 12px; }
+    .charge-row { display: grid; grid-template-columns: 110px 1fr 44px; gap: 10px; align-items: center; font-size: .76rem; }
+    .charge-track { height: 28px; background: #d9d7cb; }
+    .charge-track i { display: block; width: var(--value); height: 100%; background: var(--tone, #425a58); }
+    .charge-row b { text-align: right; font-family: monospace; }
+    .dwelling-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+    .dwelling-card { padding: 20px; border: 1px solid #cbc9bc; background: #fff; }
+    .dwelling-card h3 { margin: 0 0 14px; }
+    .stack { display: flex; height: 46px; overflow: hidden; }
+    .stack i { display: grid; place-content: center; width: var(--value); background: var(--tone); color: #15180f; font: 900 .7rem monospace; font-style: normal; }
+    .stack i.dark { color: var(--paper); }
+    .owner-pattern { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; }
+    .owner-pattern div { padding: 14px; background: #e2e0d4; }
+    .owner-pattern b { display: block; font-size: 1.4rem; }
+    .owner-pattern span { color: #62665d; font-size: .68rem; }
+    .infra-timeline { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 12px; margin-top: 42px; }
+    .infra-node { min-height: 170px; padding: 20px; border: 1px solid #c7c5b8; background: #fff; }
+    .infra-node b { display: block; margin: .8rem 0 .3rem; font-size: clamp(2.4rem, 5vw, 4.7rem); line-height: 1; letter-spacing: -.07em; }
+    .infra-node p { margin: 0; color: #666a61; font-size: .75rem; }
+    .infra-arrow { color: #777b71; font: 900 1.8rem monospace; }
+    .charge-roles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 26px; }
+    .charge-role { min-height: 160px; padding: 16px; border: 1px solid #cbc9bd; }
+    .charge-role b { display: block; margin-bottom: .6rem; }
+    .charge-role span { color: #64685e; font-size: .72rem; }
+    .energy-scale { display: grid; gap: 10px; }
+    .scale-row { display: grid; grid-template-columns: 185px 1fr 92px; gap: 14px; align-items: center; }
+    .scale-track { height: 36px; background: #0b0d0a; overflow: hidden; }
+    .scale-track i { display: block; width: var(--value); min-width: 5px; height: 100%; background: var(--tone); }
+    .scale-row b { color: var(--paper); font-size: .76rem; }
+    .scale-row strong { color: var(--tone); font: 900 .85rem monospace; text-align: right; }
+    .mix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 34px; }
+    .mix-card { padding: 20px; border: 1px solid var(--line); background: var(--panel); }
+    .mix-card h3 { margin: 0 0 16px; font-size: .95rem; }
+    .mix-card .data-status.observed { color: var(--cyan); }
+    .mix-card .data-status.target { color: var(--yellow); }
+    .mixbar { display: flex; height: 58px; overflow: hidden; }
+    .mixbar i { display: grid; place-content: center; width: var(--value); background: var(--tone); color: #10130d; font: 900 .67rem monospace; font-style: normal; white-space: nowrap; }
+    .mix-legend { display: none; }
+    .grid-truth { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 22px; }
+    .grid-truth div { padding: 16px; border-left: 5px solid var(--tone); background: #1c211a; }
+    .grid-truth b { display: block; color: var(--tone); margin-bottom: .35rem; }
+    .grid-truth span { color: var(--muted); font-size: .72rem; }
+    .maturity { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 30px; }
+    .maturity-step { position: relative; min-height: 190px; padding: 16px; border-top: 7px solid var(--tone); background: #fff; color: var(--ink); }
+    .maturity-step .stage { color: #5f635a; font: 800 .67rem monospace; }
+    .maturity-step h3 { margin: 2rem 0 .5rem; font-size: .95rem; }
+    .maturity-step p { margin: 0; color: #64685e; font-size: .71rem; }
+    .tech-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+    .tech-timeline { display: grid; gap: 8px; }
+    .tech-event { display: grid; grid-template-columns: 112px 1fr; gap: 16px; padding: 15px; border: 1px solid #cbc9bd; background: #fff; }
+    .tech-event b { color: #536400; font: 900 .78rem monospace; }
+    .tech-event span { color: #5f635a; font-size: .76rem; }
+    .density-card { padding: 22px; background: var(--ink); color: var(--paper); }
+    .density-card h3 { margin-top: 0; }
+    .density-bars { display: grid; gap: 11px; }
+    .density-row { display: grid; grid-template-columns: 72px 1fr 72px; gap: 8px; align-items: center; font-size: .72rem; }
+    .density-track { height: 24px; background: #30342d; }
+    .density-track i { display: block; width: var(--value); height: 100%; background: var(--tone); }
+    .role-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 34px; }
+    .role-card { min-height: 230px; padding: 20px; background: #fff; border-top: 7px solid var(--tone); }
+    .role-card h3 { margin: 2.2rem 0 .6rem; }
+    .role-card p { color: #63675e; font-size: .78rem; }
+    .role-card .stage-label { color: #4b4f45; font: 900 .68rem monospace; }
+    .scope-note { margin-top: 18px; padding: 17px; border-left: 6px solid var(--orange); background: rgba(255,107,53,.09); font-size: .76rem; }
     footer { padding: 60px 0 80px; color: var(--muted); font-size: .75rem; }
     footer .wrap { display: flex; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--line); padding-top: 24px; }
     .reveal { opacity: 1; transform: translateY(10px); transition: transform .65s ease; }
@@ -311,11 +459,15 @@
       .chain { grid-template-columns: 1fr 1fr; }
       .chain > div:last-child { grid-column: span 2; }
       .source-grid { grid-template-columns: 1fr 1fr; }
+      .counter-grid, .jp-dashboard, .range-board, .lane-grid, .charge-roles, .grid-truth, .role-grid { grid-template-columns: 1fr 1fr; }
+      .proxy-layout, .charge-hero, .tech-grid { grid-template-columns: 1fr; }
+      .maturity { grid-template-columns: repeat(3, 1fr); }
+      .maturity-step:last-child { grid-column: span 2; }
     }
     @media (max-width: 620px) {
       .wrap { width: min(calc(100% - 28px), var(--max)); }
       .hero-top { display: grid; grid-template-columns: 1fr; gap: .2rem; font-size: .62rem; }
-      .hero h1 { max-width: 100%; font-size: clamp(2.65rem, 14vw, 4.2rem); overflow-wrap: anywhere; word-break: break-all; }
+      .hero h1 { max-width: 100%; font-size: clamp(2.65rem, 14vw, 4.2rem); overflow-wrap: anywhere; word-break: normal; }
       .hero .lead { max-width: 100%; font-size: 1.02rem; overflow-wrap: anywhere; }
       .dock { -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 36px), transparent 100%); mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 36px), transparent 100%); }
       .hero-mark { right: -38vw; top: 8vh; }
@@ -335,6 +487,27 @@
       .h2-contrast .versus { writing-mode: horizontal-tb; }
       .risk-matrix { min-height: 620px; }
       .bubble { width: calc(var(--size) * .86); font-size: .62rem; }
+      .formula { grid-template-columns: 1fr; }
+      .formula .mark { width: 56px; }
+      .rank-row { grid-template-columns: 68px 1fr 54px; gap: 8px; }
+      .scroll-cue { display: block; }
+      .loop-duo, .counter-grid, .jp-dashboard, .range-board, .lane-grid, .proxy-layout, .geo-grid, .charge-hero, .dwelling-grid, .owner-pattern, .charge-roles, .mix-grid, .grid-truth, .maturity, .tech-grid, .role-grid { grid-template-columns: 1fr; }
+      .maturity-step:last-child { grid-column: auto; }
+      .jp-metric { min-height: 150px; }
+      .path-card, .lane-card, .maturity-step, .role-card, .source-grid a { min-height: auto; }
+      .path-card .code, .lane-card .lane-no, .maturity-step .stage, .role-card .stage-label { font-size: .78rem; }
+      .lane-card h3, .maturity-step h3, .role-card h3 { margin-top: 1.2rem; }
+      .lane-card p, .maturity-step p, .role-card p, .source-grid span { font-size: .82rem; }
+      .charge-big { width: min(100%, 270px); min-height: 0; }
+      .charge-row { grid-template-columns: 86px 1fr 38px; gap: 7px; }
+      .infra-timeline { grid-template-columns: 1fr; }
+      .infra-arrow { transform: rotate(90deg); justify-self: center; }
+      .scale-row { grid-template-columns: 112px 1fr 70px; gap: 8px; }
+      .mixbar i { font-size: 0; }
+      .mix-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 10px; color: var(--muted); font-size: .78rem; }
+      .mix-legend span { display: inline-flex; align-items: center; gap: 6px; }
+      .mix-legend i { width: 10px; height: 10px; border-radius: 50%; background: var(--tone); }
+      .tech-event { grid-template-columns: 86px 1fr; }
       footer .wrap { display: block; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -357,23 +530,24 @@
 <body>
   <div class="progress" aria-hidden="true"></div>
   <header class="hero wrap">
-    <div class="hero-top mono"><span>GLOBAL MOBILITY SCENARIO / 2026</span><span>UPDATED 2026-07-21 JST</span></div>
+    <div class="hero-top mono"><span>GLOBAL MOBILITY + JAPAN DEEP DIVE / 2026</span><span>UPDATED 2026-07-21 JST</span></div>
     <div class="hero-main">
       <div class="hero-mark" aria-hidden="true"></div>
       <div class="eyebrow">Deep research report</div>
       <h1>EVは本当に<span>普及するのか</span></h1>
-      <p class="lead">結論は「全車BEV」でも「ガソリン車回帰」でもない。<strong>乗用車ではBEVが電動化の主軸</strong>になり、HEV/PHEV・既存ICE・用途限定の水素が、地域別に長く併存する。</p>
+      <p class="lead">結論は「全車BEV」でも「ガソリン車回帰」でもない。<strong>乗用車ではBEVが電動化の主軸</strong>になり、HEV/PHEV・既存ICE・用途限定の水素が地域別に長く併存する。日本は戸建て・軽商用・防災から局地的に進む。</p>
     </div>
     <div class="verdict-strip" aria-label="結論の要約">
       <div><b>DIRECTION</b><span>BEVが主軸</span></div>
       <div><b>TRANSITION</b><span>HEV/PHEVが地域差を埋める</span></div>
       <div><b>NICHE</b><span>水素は高稼働・拠点型</span></div>
       <div><b>LEGACY</b><span>ガソリン車は保有車に残る</span></div>
+      <div><b>JAPAN</b><span>HEV主体、BEVは用途別に拡大</span></div>
     </div>
   </header>
 
   <nav class="dock" aria-label="ページ内ナビゲーション">
-    <a href="#verdict">結論</a><a href="#scenarios">確率</a><a href="#speed">販売と保有</a><a href="#regions">地域差</a><a href="#powertrains">用途</a><a href="#why">根拠</a><a href="#hydrogen">水素</a><a href="#risks">リスク</a><a href="#triggers">反転条件</a><a href="#sources">出典</a>
+    <a href="#verdict">結論</a><a href="#scenarios">確率</a><a href="#speed">販売と保有</a><a href="#regions">世界地域</a><a href="#country-drivers">国別因果</a><a href="#japan-market">日本市場</a><a href="#japan-charging">充電</a><a href="#japan-energy">V2H・電力</a><a href="#innovation">電池・新用途</a><a href="#powertrains">用途</a><a href="#risks">リスク</a><a href="#sources">出典</a>
   </nav>
 
   <main>
@@ -445,10 +619,273 @@
       </div>
     </section>
 
+    <section id="country-drivers" class="paper-section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">04 / Country causality</div></div>
+          <div><h2>差を生むのは、<span class="keep">気候より</span>「7条件」</h2><p>国民性や技術力の一言では説明できない。最も弱い条件がボトルネックになり、条件が閾値を越えると市場が自己駆動する。</p></div>
+        </div>
+        <div class="formula reveal">
+          <div class="mark">×7</div>
+          <p>政策の確実性 × 実効価格/TCO × 充電可能性 × 電気・燃料価格差 × 国内産業の方向 × 適合車種 × 日常用途</p>
+        </div>
+        <div class="rank-chart reveal" aria-label="2025年の国別BEVとPHEV新車販売比率">
+          <div class="rank-row"><b>ノルウェー</b><div class="rank-track"><i style="--value:97%;--tone:#5e7a00"></i></div><span>≈97%</span></div>
+          <div class="rank-row"><b>中国</b><div class="rank-track"><i style="--value:55%;--tone:#6f8a00"></i></div><span>≈55%</span></div>
+          <div class="rank-row"><b>ドイツ</b><div class="rank-track"><i style="--value:30%;--tone:#b39009"></i></div><span>≈30%</span></div>
+          <div class="rank-row"><b>欧州</b><div class="rank-track"><i style="--value:28%;--tone:#c2a01a"></i></div><span>≈28%</span></div>
+          <div class="rank-row"><b>米国</b><div class="rank-track"><i style="--value:10%;--tone:#cb6139"></i></div><span>≈10%</span></div>
+          <div class="rank-row"><b>インド</b><div class="rank-track"><i style="--value:4%;--tone:#d77855"></i></div><span>≈4%</span></div>
+          <div class="rank-row"><b>日本</b><div class="rank-track"><i style="--value:3%;--tone:#df8a6d"></i></div><span>&lt;3%</span></div>
+        </div>
+        <p class="chart-source">2025年の新車BEV＋PHEV。ドイツは欧州に含まれるため合算不可。出典: <a href="https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars">IEA Global EV Outlook 2026</a></p>
+
+        <div class="scroll-cue" aria-hidden="true">横にスクロール →</div>
+        <div class="factor-scroll reveal" aria-label="国別EV普及7因子の定性ヒートマップ">
+          <table class="factor-table">
+            <thead><tr><th>市場類型</th><th>政策確実性</th><th>実効価格</th><th>充電可能性</th><th>電気/燃料差</th><th>産業方向</th><th>車種供給</th><th>用途適合</th><th>支配因子</th></tr></thead>
+            <tbody>
+              <tr><td>ノルウェー<br>税制設計型</td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td><span class="heat mid">中</span></td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td>ICEを高くした</td></tr>
+              <tr><td>中国<br>自己駆動型</td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td><span class="heat mid">中</span></td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td>価格×供給網</td></tr>
+              <tr><td>EU/ドイツ<br>規制牽引型</td><td><span class="heat hi">強</span></td><td><span class="heat mid">中</span></td><td><span class="heat hi">強</span></td><td><span class="heat mid">中</span></td><td><span class="heat hi">強</span></td><td><span class="heat hi">強</span></td><td><span class="heat mid">中</span></td><td>CO₂規制</td></tr>
+              <tr><td>米国<br>政治分断型</td><td><span class="heat low">弱</span></td><td><span class="heat mid">中</span></td><td><span class="heat hi">強</span></td><td><span class="heat mid">中</span></td><td><span class="heat mid">中</span></td><td><span class="heat mid">中</span></td><td><span class="heat mid">中</span></td><td>政策反転</td></tr>
+              <tr><td>日本<br>HEVロックイン型</td><td><span class="heat low">弱</span></td><td><span class="heat low">弱</span></td><td><span class="heat low">弱</span></td><td><span class="heat mid">中</span></td><td><span class="heat low">弱</span></td><td><span class="heat low">弱</span></td><td><span class="heat mid">中</span></td><td>HEV成功</td></tr>
+              <tr><td>インド<br>モード飛越型</td><td><span class="heat mid">中</span></td><td><span class="heat mid">中</span></td><td><span class="heat low">弱</span></td><td><span class="heat mid">中</span></td><td><span class="heat mid">中</span></td><td><span class="heat mid">中</span></td><td><span class="heat hi">強</span></td><td>二輪・三輪</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="chart-source">強・中・弱は一次資料に基づく本レポートの定性評価で、計量指数ではない。インドは乗用車より二輪・三輪の適合度を重視。</p>
+
+        <div class="loop-duo reveal">
+          <article class="loop-card virtuous"><h3>仮説：中国の好循環</h3><div class="loop-chain"><div class="loop-step">量販モデルを大量投入</div><div class="loop-step">価格低下・選択肢増加</div><div class="loop-step">台数増で充電器稼働率が上がりやすい</div><div class="loop-step">追加投資と中古市場が形成</div></div></article>
+          <article class="loop-card lockin"><h3>仮説：日本のHEVロックイン</h3><div class="loop-chain"><div class="loop-step">HEVでも規制・目標に対応</div><div class="loop-step">量販BEVの投入圧力が弱い</div><div class="loop-step">台数不足で充電事業が低稼働になりやすい</div><div class="loop-step">「EVはまだ早い」が自己強化</div></div></article>
+        </div>
+        <div class="counter-grid reveal">
+          <div class="counter"><b>寒さ ≠ 不可能</b><span>ノルウェー97%。寒冷はコストだが、価格・車種・充電で克服できる。</span></div>
+          <div class="counter"><b>集合住宅 ≠ 不可能</b><span>中国55%。公共充電と車価優位が自宅充電の弱さを補完。</span></div>
+          <div class="counter"><b>自宅充電 ≠ 十分</b><span>米国は条件が良くても約10%。政策と商品構成が相殺。</span></div>
+          <div class="counter"><b>国内OEM ≠ 普及</b><span>日本は技術力があっても、投資方向がHEV中心ならBEVは増えない。</span></div>
+          <div class="counter"><b>補助金 ≠ 市場形成</b><span>価格・車種・充電・残価が自走しなければ、支援終了で逆回転する。</span></div>
+          <div class="counter"><b>乗用車 ≠ EV全体</b><span>インドでは電動三輪が3分の2超。交通モードごとに見る必要がある。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="japan-market" class="japan-section">
+      <div class="wrap">
+        <div class="jp-kicker">JAPAN DEEP DIVE / MARKET</div>
+        <div class="section-head reveal">
+          <div><div class="eyebrow">05 / Japan mosaic</div></div>
+          <div><h2>日本は全国一律ではなく、用途と住宅でモザイク化する</h2><p>HEVが最大市場を維持しながら、BEVは戸建て郊外、軽・商用、都市の先行層、防災価値の高い用途から濃くなる。</p></div>
+        </div>
+        <div class="jp-dashboard reveal">
+          <article class="jp-metric"><span class="data-status">観測 / 2025販売</span><b>6.3万</b><span>BEV。METI資料のMarkLines集計。</span></article>
+          <article class="jp-metric"><span class="data-status">観測 / 2025販売</span><b>4.1万</b><span>PHEV。プラグイン合計は約10.4万台。</span></article>
+          <article class="jp-metric"><span class="data-status">観測 / 2025販売</span><b>201万</b><span>HEV。MarkLinesの国内全車456万台集計。</span></article>
+          <article class="jp-metric"><span class="data-status">観測 / 2025保有</span><b>0.83%</b><span>BEV＋PHEV＋FCEV / 全四輪保有。本稿計算。</span></article>
+        </div>
+        <p class="chart-source">販売: <a href="https://www.meti.go.jp/shingikai/sankoshin/green_innovation/industrial_restructuring/pdf/036_04_00.pdf">経産省 2026年5月資料</a>。保有: <a href="https://www.cev-pc.or.jp/tokei/hoyuudaisu.html">CEV</a>と<a href="https://www.airia.or.jp/publish/file/v19mrm0000002ml8-att/v19mrm0000002mln.xlsx">AIRIA全四輪保有</a>から本稿計算。0.83%は公式公表比率ではない。</p>
+        <div class="scope-note">2025年3月の道路上のストックはBEV 35.8万台、PHEV 28.7万台、FCEV 0.83万台、合計65.4万台。METI/MarkLinesではHEVが国内全車の約44%、IEAの乗用車文脈では約3分の1。分母が違うため同じ比率として扱わない。</div>
+
+        <div class="range-board reveal">
+          <article class="range-card"><span class="data-status observed">観測</span><b>&lt;3%</b><h3>2025 プラグイン新車</h3><p>BEV＋PHEV。HEVが主流。販売と保有を混同しない。</p></article>
+          <article class="range-card"><span class="data-status estimate">独自推計</span><b>8–15%</b><h3>2030 プラグイン新車</h3><p>量販軽・小型BEV、集合住宅充電、残価が上振れ条件。</p></article>
+          <article class="range-card"><span class="data-status estimate">独自推計</span><b>15–30%</b><h3>2035 プラグイン新車</h3><p>HEVが最大セグメントのままでも政府目標は達成可能。</p></article>
+        </div>
+        <div class="scope-note">日本の2035年「電動車100%」はBEV限定ではなく、HEV・PHEV・FCEVを含む。上の2030/2035レンジは政府目標ではなく、本レポートの判断。</div>
+
+        <div class="section-head reveal" style="margin-top:80px">
+          <div><div class="eyebrow">Market lanes</div></div>
+          <div><h2>メーカー競争は4レーン</h2><p>登録車、軽、輸入車の統計は分母と期間が異なる。足し算ではなく、日本で成立している商品ポジションとして読む。</p></div>
+        </div>
+        <div class="lane-grid reveal">
+          <article class="lane-card" style="--tone:#d7ff4b"><span class="lane-no">01 / KEI BEV</span><h3>軽・近距離</h3><span class="lane-data">サクラ 14,093</span><p>2025暦年。eKクロスEV 1,442台。セカンドカー、訪問、自治体、近距離で適合。</p></article>
+          <article class="lane-card" style="--tone:#58d7d2"><span class="lane-no">02 / DOMESTIC BEV</span><h3>国産量販</h3><span class="lane-data">bZ4X 10,710</span><p>FY2025登録車。リーフ7,460台。戸建て通勤と都市間移動の中核候補。</p></article>
+          <article class="lane-card" style="--tone:#f4cd4d"><span class="lane-no">03 / PHEV SUV</span><h3>長距離と給電</h3><span class="lane-data">Outlander 7,878</span><p>2025暦年。日常は電気、長距離は液体燃料、防災時は外部給電。</p></article>
+          <article class="lane-card" style="--tone:#ff6b35"><span class="lane-no">04 / IMPORT BEV</span><h3>都市・選択肢</h3><span class="lane-data">30,513</span><p>2025年の外国メーカーEV登録。外国ブランド登録の12.6%。</p></article>
+        </div>
+        <p class="chart-source">出典: <a href="https://www.zenkeijikyo.or.jp/statistics/tushokaku-12926">全国軽自動車協会連合会</a>、<a href="https://www.jada.or.jp/files/libs/7115/202605081310545995.pdf">JADA FY2025</a>、<a href="https://www.jada.or.jp/files/libs/6512/202601071355095700.pdf">JADA 2025暦年</a>、<a href="https://www.jaia-jp.org/ja/news/20260129j/">JAIA 2025</a>。期間差のため市場シェア比較ではない。</p>
+
+        <div class="proxy-layout reveal">
+          <div>
+            <div class="eyebrow">Regional flow proxy</div>
+            <h3 style="font-size:clamp(1.8rem,4vw,3.4rem);line-height:1.05;margin:.8rem 0 1.4rem">東京は青森の約14倍。ただし住宅だけでは説明できない。</h3>
+            <div class="proxy-chart" aria-label="FY2024 EVとPHEV補助交付件数の全四輪保有1万台あたり">
+              <div class="proxy-row"><span>東京</span><div class="proxy-track"><i style="--value:100%;--tone:#58d7d2"></i></div><strong>36.2</strong></div>
+              <div class="proxy-row"><span>神奈川</span><div class="proxy-track"><i style="--value:40%;--tone:#58d7d2"></i></div><strong>14.4</strong></div>
+              <div class="proxy-row"><span>大阪</span><div class="proxy-track"><i style="--value:37.5%;--tone:#58d7d2"></i></div><strong>13.6</strong></div>
+              <div class="proxy-row"><span>愛知</span><div class="proxy-track"><i style="--value:36.4%;--tone:#58d7d2"></i></div><strong>13.2</strong></div>
+              <div class="proxy-row"><span>全国</span><div class="proxy-track"><i style="--value:27.6%;--tone:#d7ff4b"></i></div><strong>10.0</strong></div>
+              <div class="proxy-row"><span>北海道</span><div class="proxy-track"><i style="--value:9.2%;--tone:#ff6b35"></i></div><strong>3.3</strong></div>
+              <div class="proxy-row"><span>青森</span><div class="proxy-track"><i style="--value:7.1%;--tone:#ff6b35"></i></div><strong>2.6</strong></div>
+            </div>
+            <p class="chart-source">単位: FY2024国補助交付件数 / 2025年3月全四輪保有1万台。販売シェア・保有率・因果推定ではない。出典: <a href="https://www.cev-pc.or.jp/tokei/koufu.html">CEV</a>、<a href="https://www.airia.or.jp/publish/file/v19mrm0000002ml8-att/v19mrm0000002mln.xlsx">AIRIA</a>。本稿計算。</p>
+          </div>
+          <div class="geo-grid">
+            <div class="geo-card"><b>都心：先行層と集合住宅の二極</b><span>補助、法人、所得、輸入車は追い風。専用駐車・合意形成が壁。</span></div>
+            <div class="geo-card"><b>郊外戸建て：最適地</b><span>自宅AC充電、太陽光、複数台保有が揃い、日常の手間が最小。</span></div>
+            <div class="geo-card"><b>地方・農村：軽と商用が鍵</b><span>駐車と高走行は好条件。車価、整備網、経路充電が普及を決める。</span></div>
+            <div class="geo-card"><b>寒冷・人口希薄：複合制約</b><span>冬季航続、暖房、迂回、AWD車種、急速網。寒さ単独が原因ではない。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="japan-charging" class="paper-section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">06 / Charging reality</div></div>
+          <div><h2>所有者は「急速充電で暮らす」のではない</h2><p>主役は自宅のAC普通充電。公共急速は長距離・補完・緊急用で、集合住宅だけがこの順序を逆転させやすい。</p></div>
+        </div>
+        <div class="charge-hero reveal">
+          <div class="charge-big"><div><b>77%</b><span>BEV所有者が自宅で充電。複数回答。</span></div></div>
+          <div class="charge-bars" aria-label="BEV所有者の充電場所">
+            <div class="charge-row"><span>商業施設</span><div class="charge-track"><i style="--value:32%;--tone:#3f6460"></i></div><b>32</b></div>
+            <div class="charge-row"><span>ディーラー</span><div class="charge-track"><i style="--value:27%;--tone:#587571"></i></div><b>27</b></div>
+            <div class="charge-row"><span>高速SA/PA</span><div class="charge-track"><i style="--value:22%;--tone:#6b8581"></i></div><b>22</b></div>
+            <div class="charge-row"><span>公共施設</span><div class="charge-track"><i style="--value:17%;--tone:#80938f"></i></div><b>17</b></div>
+            <div class="charge-row"><span>ガソリンST</span><div class="charge-track"><i style="--value:10%;--tone:#96a6a2"></i></div><b>10</b></div>
+            <div class="charge-row"><span>勤務先</span><div class="charge-track"><i style="--value:7%;--tone:#aab5b2"></i></div><b>7</b></div>
+            <p class="chart-source">JAMA 2025年度調査、BEV n=300。複数回答のため合計100%にならない。</p>
+          </div>
+        </div>
+
+        <div class="dwelling-grid reveal">
+          <article class="dwelling-card"><h3>戸建てBEV</h3><div class="stack" aria-label="経路充電18%、使い分け10%、基礎充電72%"><i class="dark" style="--value:18%;--tone:#ff6b35">18</i><i style="--value:10%;--tone:#f4cd4d">10</i><i style="--value:72%;--tone:#d7ff4b">基礎72%</i></div><p>自宅・職場中心。戸建てBEV所有者の96%が自宅充電器を設置。</p></article>
+          <article class="dwelling-card"><h3>集合住宅BEV</h3><div class="stack" aria-label="経路充電46%、使い分け19%、基礎充電35%"><i class="dark" style="--value:46%;--tone:#ff6b35">経路46%</i><i style="--value:19%;--tone:#f4cd4d">19</i><i style="--value:35%;--tone:#d7ff4b">35</i></div><p>基礎充電中心は35%。外部充電を補完ではなく主経路にしやすい。</p></article>
+        </div>
+        <div class="owner-pattern reveal">
+          <div><b>61%</b><span>自宅で週1回以上</span></div>
+          <div><b>278分</b><span>自宅充電時間回答者の平均（n=232）</span></div>
+          <div><b>59%</b><span>17時〜翌4時に開始</span></div>
+          <div><b>3–6kW</b><span>家庭の典型AC出力</span></div>
+        </div>
+        <p class="chart-source">出典: <a href="https://www.jama.or.jp/release/docs/release/2026/20260414_2025PassengerCars.pdf.pdf">JAMA 2025年度乗用車市場動向調査</a>。Webパネル、BEV n=300 / PHEV n=200。278分は自宅充電時間の回答者n=232の平均。現在所有者の自己選択を含み、一般世帯の普及率ではない。</p>
+
+        <div class="section-head reveal" style="margin-top:80px">
+          <div><div class="eyebrow">Ports timeline</div></div>
+          <div><h2>充電口は1年で6.8万→10.6万</h2><p>整備は加速した。次の課題は口数だけでなく、集合住宅、出力、故障率、料金、稼働率、場所の適合。</p></div>
+        </div>
+        <div class="infra-timeline reveal">
+          <article class="infra-node"><span class="data-status observed">観測</span><b>6.8万口</b><p>2025年3月。急速1.2万＋普通5.6万。</p></article>
+          <div class="infra-arrow">→</div>
+          <article class="infra-node"><span class="data-status observed">観測</span><b>10.6万口</b><p>2026年3月。FY2025に3.8万口を支援。</p></article>
+          <div class="infra-arrow">→</div>
+          <article class="infra-node"><span class="data-status target">政府目標</span><b>30万口</b><p>2030年。公共急速3万口を含む。</p></article>
+        </div>
+        <p class="chart-source">出典: <a href="https://www.meti.go.jp/policy/mono_info_service/mono/automobile/charging-infra-fukyu.html">METI 2025</a>、<a href="https://www.meti.go.jp/shingikai/sankoshin/green_innovation/industrial_restructuring/pdf/036_04_00.pdf">METI 2026年5月資料</a>。</p>
+
+        <div class="rank-chart reveal" style="margin-top:34px" aria-label="FY2024充電設備補助交付基数の全四輪保有1万台あたり">
+          <h3 style="margin:0 0 8px">地域の増設フローも約8倍差</h3>
+          <div class="rank-row"><b>滋賀</b><div class="rank-track"><i style="--value:100%;--tone:#3f6460"></i></div><span>11.6</span></div>
+          <div class="rank-row"><b>愛媛</b><div class="rank-track"><i style="--value:92.7%;--tone:#4e716d"></i></div><span>10.8</span></div>
+          <div class="rank-row"><b>愛知</b><div class="rank-track"><i style="--value:53.7%;--tone:#6d8884"></i></div><span>6.2</span></div>
+          <div class="rank-row"><b>全国</b><div class="rank-track"><i style="--value:34.3%;--tone:#8ca09c"></i></div><span>4.0</span></div>
+          <div class="rank-row"><b>新潟</b><div class="rank-track"><i style="--value:12.5%;--tone:#c57252"></i></div><span>1.5</span></div>
+          <div class="rank-row"><b>青森</b><div class="rank-track"><i style="--value:11.8%;--tone:#d38162"></i></div><span>1.4</span></div>
+        </div>
+        <p class="chart-source"><a href="https://www.cev-pc.or.jp/tokei/koufu3.html">CEV</a>のFY2024充電設備補助交付「基数」/ <a href="https://www.airia.or.jp/publish/file/v19mrm0000002ml8-att/v19mrm0000002mln.xlsx">AIRIA 2025年3月全四輪保有</a>1万台。本稿計算。現存設備密度ではなく、国補助を使った単年度の展開速度。集合住宅・ホテル等の一括設置で跳ねる。</p>
+
+        <div class="charge-roles reveal">
+          <div class="charge-role"><b>自宅・基礎</b><span>AC200V、3–6kW。駐車時間を使い、日常走行分を夜間または昼の太陽光で補う。</span></div>
+          <div class="charge-role"><b>職場・目的地</b><span>普通充電。滞在時間が長い集合住宅、職場、商業、宿泊で量を作る。</span></div>
+          <div class="charge-role"><b>経路・急速</b><span>50–350kW。長距離、緊急、回転率重視。家庭充電の代替にすると料金と待ち時間が増える。</span></div>
+          <div class="charge-role"><b>V2H</b><span>典型6kWの双方向DC機器。普通充電器ではなく、住宅へ放電できる別設備。</span></div>
+        </div>
+        <div class="definition-warning reveal"><b>数え方が4種類ある</b><p>「施設」は場所、「基」は機器、「口」は同時充電できるコネクター、「累計出荷」は現役台数を保証しない。EVコンセント約191万口、Mode 3約7.2万口、V2H約3.1万台という出荷規模を、公共10.6万口へ足してはいけない。</p></div>
+      </div>
+    </section>
+
+    <section id="japan-energy">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">07 / V2H + Energy</div></div>
+          <div><h2>V2Hは実在する。だが「動く発電所」はまだ先</h2><p>日本で先行しているのは太陽光と定置型蓄電池。EVはまず住宅・事業所・災害時の局所バッファとして価値を持つ。</p></div>
+        </div>
+        <div class="energy-scale reveal" aria-label="太陽光、家庭用蓄電池、プラグイン車、V2Hの規模比較">
+          <div class="scale-row"><b>住宅中心の太陽光<br>2024年3月</b><div class="scale-track"><i style="--value:100%;--tone:#f4cd4d"></i></div><strong style="--tone:#f4cd4d">335.8万</strong></div>
+          <div class="scale-row"><b>家庭用蓄電池<br>2024年上期</b><div class="scale-track"><i style="--value:26.8%;--tone:#58d7d2"></i></div><strong style="--tone:#58d7d2">約90万</strong></div>
+          <div class="scale-row"><b>BEV＋PHEV保有<br>2025年3月</b><div class="scale-track"><i style="--value:19.2%;--tone:#d7ff4b"></i></div><strong style="--tone:#d7ff4b">64.6万</strong></div>
+          <div class="scale-row"><b>V2H累計出荷<br>2024年末</b><div class="scale-track"><i style="--value:.93%;--tone:#ff6b35"></i></div><strong style="--tone:#ff6b35">約3.1万</strong></div>
+        </div>
+        <p class="chart-source">太陽光は10kW未満FIT/FIP設備数、蓄電池は推計ストック、車は保有、V2Hは累計出荷。基準時点・分母・定義が異なるため、同時点の普及率ではなく規模感の比較。</p>
+        <div class="scope-note">別の観測として、2020–2024年度の国補助交付はV2H 14,971基、FY2024だけで3,892基。未補助・旧年度・撤去を含まないため、現存台数や世帯普及率には置き換えない。<a href="https://www.cev-pc.or.jp/tokei/koufu2.html">CEV</a></div>
+
+        <div class="grid-truth reveal">
+          <div style="--tone:#ff6b35"><b>31,135台</b><span>V2H累計出荷。稼働世帯数ではない。</span></div>
+          <div style="--tone:#f4cd4d"><b>16%</b><span>V2Hの実クラウド接続率。通信対応率100%とは別。</span></div>
+          <div style="--tone:#58d7d2"><b>≈30MW</b><span>31,135台×6kW×16%の説明用上限。実効供給力ではない。</span></div>
+          <div style="--tone:#d7ff4b"><b>約47万台</b><span>家庭用蓄電池のクラウド接続。DR稼働台数ではない。</span></div>
+        </div>
+        <div class="scope-note">車両不在、未接続、SOC下限、翌日の走行、所有者同意、契約、系統制約を控除していない。約187MWという全台銘板合計も、約30MWという接続率適用値も「使える電源容量」ではない。</div>
+
+        <div class="mix-grid reveal">
+          <article class="mix-card"><h3><span class="data-status observed">観測 / FY2024</span></h3><div class="mixbar" aria-label="再エネ23.1%、原子力9.4%、バイオマスを除く火力67.5%"><i style="--value:23.1%;--tone:#d7ff4b">再エネ<br>23.1</i><i style="--value:9.4%;--tone:#58d7d2">原子力<br>9.4</i><i style="--value:67.5%;--tone:#ff6b35">火力* 67.5%</i></div><div class="mix-legend" aria-hidden="true"><span><i style="--tone:#d7ff4b"></i>再エネ 23.1%</span><span><i style="--tone:#58d7d2"></i>原子力 9.4%</span><span><i style="--tone:#ff6b35"></i>火力* 67.5%</span></div><p class="chart-source">発電電力量構成。*火力はバイオマスを除く。</p></article>
+          <article class="mix-card"><h3><span class="data-status target">政府見通し / 2040</span></h3><div class="mixbar" aria-label="再エネ40から50%、原子力約20%、火力30から40%の中心値イメージ"><i style="--value:45%;--tone:#d7ff4b">再エネ<br>40–50</i><i style="--value:20%;--tone:#58d7d2">原子力<br>≈20</i><i style="--value:35%;--tone:#ff6b35">火力 30–40</i></div><div class="mix-legend" aria-hidden="true"><span><i style="--tone:#d7ff4b"></i>再エネ 40–50%</span><span><i style="--tone:#58d7d2"></i>原子力 約20%</span><span><i style="--tone:#ff6b35"></i>火力 30–40%</span></div><p class="chart-source">棒はレンジ中心の図示。予測確定値ではなく政策的見通し。</p></article>
+        </div>
+        <p class="chart-source">出典: <a href="https://www.meti.go.jp/press/2026/04/20260414001/20260414001.html">METI FY2024電源構成</a>、<a href="https://www.enecho.meti.go.jp/category/others/basic_plan/pdf/20250218_03.pdf">第7次エネルギー基本計画</a>、<a href="https://www.meti.go.jp/shingikai/energy_environment/dr_ready/pdf/004_05_00.pdf">JEMA 家庭用蓄電池</a>、<a href="https://www.meti.go.jp/shingikai/energy_environment/dr_ready/pdf/008_06_00.pdf">JEMA EV・V2H</a>、<a href="https://www.meti.go.jp/shingikai/sankoshin/sangyo_gijutsu/resource_circulation/solar_power_generation/pdf/20250328_2.pdf">METI 太陽光設備</a></p>
+        <div class="scope-note">系統用蓄電池の契約申込みは2025年9月末に約24GW、前年比約3.9倍。ただし経産省は事業化見込みが不透明な案件が多数あると明記しており、稼働容量として描けない。<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/007_01_01.pdf">一次資料</a></div>
+
+        <div class="section-head reveal" style="margin-top:80px">
+          <div><div class="eyebrow">Grid maturity</div></div>
+          <div><h2>最初に広がるのは放電より「充電時間をずらす」こと</h2><p>双方向機器を追加せず、電池劣化や翌日の走行との衝突も小さい。スマート充電がV2Gより先に規模化する蓋然性が高い。</p></div>
+        </div>
+        <div class="maturity reveal">
+          <article class="maturity-step" style="--tone:#6f8a00"><span class="stage">MASS</span><h3>普通充電</h3><p>自宅・職場・目的地。すでに所有者の基本動作。</p></article>
+          <article class="maturity-step" style="--tone:#9caf21"><span class="stage">EARLY SCALE</span><h3>スマート充電</h3><p>時間帯料金、太陽光余剰、ピーク回避で充電を制御。</p></article>
+          <article class="maturity-step" style="--tone:#c8a91f"><span class="stage">COMMERCIAL NICHE</span><h3>V2H</h3><p>住宅の自家消費と停電対策。約3.1万台規模。</p></article>
+          <article class="maturity-step" style="--tone:#d77c38"><span class="stage">EARLY COMMERCIAL</span><h3>V2B / Fleet</h3><p>帰庫車両で事業所ピークを管理。運行計画と相性がよい。</p></article>
+          <article class="maturity-step" style="--tone:#ff6b35"><span class="stage">PILOT / SYSTEM ENTRY</span><h3>V2G / VPP</h3><p>計量・契約・接続・保証を束ねる段階。全国インフラではない。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="innovation" class="paper-section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">08 / Innovation</div></div>
+          <div><h2>全固体電池は本物の可能性。まだベースケースではない</h2><p>目標年と量産実績を分ける。初期投入が成功しても、価格・歩留まり・年間生産量が大衆車へ届くまでには時間差がある。</p></div>
+        </div>
+        <div class="tech-grid reveal">
+          <div class="tech-timeline">
+            <div class="tech-event"><b>2025–27</b><span>各社パイロット・実証ライン。製造条件と歩留まりの検証。</span></div>
+            <div class="tech-event"><b>2027–28</b><span>Toyotaが初期市場投入を目標。出光は固体電解質の大型パイロット設備を準備。</span></div>
+            <div class="tech-event"><b>FY2028</b><span>Nissanが全固体電池EVの市場投入を目標。</span></div>
+            <div class="tech-event"><b>Early 2030s</b><span>IEAの中心的な読みは、まず高価格・高性能用途。大衆量産の優位は未実証。</span></div>
+            <div class="tech-event"><b>Re-rate when</b><span>量産車の実走寿命、充電曲線、パック価格、良品率、年産GWhを確認できた時点で上方修正。</span></div>
+          </div>
+          <aside class="density-card">
+            <h3>Na-ionは「次の車」ではなく別の電池化学</h3>
+            <div class="density-bars">
+              <div class="density-row"><span>NMC</span><div class="density-track"><i style="--value:100%;--tone:#58d7d2"></i></div><b>265 Wh/kg</b></div>
+              <div class="density-row"><span>LFP</span><div class="density-track"><i style="--value:77%;--tone:#d7ff4b"></i></div><b>205 Wh/kg</b></div>
+              <div class="density-row"><span>Na-ion</span><div class="density-track"><i style="--value:66%;--tone:#f4cd4d"></i></div><b>175 Wh/kg</b></div>
+            </div>
+            <p>小型・短距離・低温・定置蓄電には有望。世界能力はLi-ionの1%強で、日本の量販乗用車を直ちに置換する規模ではない。</p>
+          </aside>
+        </div>
+        <p class="chart-source">出典: <a href="https://global.toyota/en/newsroom/corporate/39865919.html">Toyota / Idemitsu</a>、<a href="https://www.nissan-global.com/EN/INNOVATION/TECHNOLOGY/ARCHIVE/ASSB/">Nissan ASSB</a>、<a href="https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries">IEA Batteries 2026</a>。エネルギー密度はセル単体の最新到達上限（up to）の比較で、パック値・市場平均ではない。</p>
+
+        <div class="section-head reveal" style="margin-top:80px">
+          <div><div class="eyebrow">Beyond mobility</div></div>
+          <div><h2>EVの第二機能は「移動できる電力バッファ」</h2><p>価値は一つではない。家庭、事業所、地域、電池の次の人生へ段階的に広がる。</p></div>
+        </div>
+        <div class="role-grid reveal">
+          <article class="role-card" style="--tone:#6f8a00"><span class="stage-label">COMMERCIAL NOW</span><h3>停電・現場給電</h3><p>V2L/V2Hで住宅、避難所、工具、通信、建物設備を支える。防災協定は平時の公用車と両立。</p></article>
+          <article class="role-card" style="--tone:#8fa51c"><span class="stage-label">COMMERCIAL NICHE</span><h3>太陽光の自家消費</h3><p>昼の余剰を車へ入れ、夕方以降に住宅へ戻す。走行予定と住宅負荷を同時に管理。</p></article>
+          <article class="role-card" style="--tone:#b69619"><span class="stage-label">EARLY COMMERCIAL</span><h3>フリート電力管理</h3><p>帰庫型バン・公用車・オンデマンド交通を、充電負荷と事業所ピークの両面で最適化。</p></article>
+          <article class="role-card" style="--tone:#c87a2c"><span class="stage-label">OPERATING PROGRAMS</span><h3>地域モビリティ</h3><p>平日は自治体・タクシー、休日は共有車。地産電力、防災、交通空白を一体で設計。</p></article>
+          <article class="role-card" style="--tone:#df6536"><span class="stage-label">EARLY / PILOT</span><h3>使用済み電池</h3><p>車載寿命後に定置蓄電、離島、太陽光併設、非常電源へ。残存性能評価と保証が鍵。</p></article>
+          <article class="role-card" style="--tone:#ff6b35"><span class="stage-label">PILOT</span><h3>系統V2G</h3><p>再エネ余剰吸収と需給調整。技術は可能だが、車両の可用性と収益分配が未成熟。</p></article>
+        </div>
+        <div class="definition-warning reveal"><b>「動く発電所」は比喩としては半分正しい</b><p>EVは発電せず、貯めて運ぶ。現時点で最も現実的なのは局所バックアップと充電時間制御であり、全国電力市場の常時電源ではない。</p></div>
+      </div>
+    </section>
+
     <section id="powertrains" class="paper-section">
       <div class="wrap">
         <div class="section-head reveal">
-          <div><div class="eyebrow">04 / Powertrains</div></div>
+          <div><div class="eyebrow">09 / Powertrains</div></div>
           <div><h2>勝者は1つではない</h2><p>パワートレインは思想ではなく、充電場所、走行距離、休止時間、ペイロード、燃料供給で選ばれる。</p></div>
         </div>
         <div class="path-grid reveal">
@@ -471,7 +908,7 @@
     <section id="why">
       <div class="wrap">
         <div class="section-head reveal">
-          <div><div class="eyebrow">05 / Evidence</div></div>
+          <div><div class="eyebrow">10 / Evidence</div></div>
           <div><h2>方向を支える5つの数字</h2><p>政策だけなら反転し得る。だが販売規模、電池、効率、モデル供給、電力需要の総量が同じ方向を向く。</p></div>
         </div>
         <div class="evidence-grid reveal">
@@ -497,7 +934,7 @@
     <section id="hydrogen" class="paper-section">
       <div class="wrap">
         <div class="section-head reveal">
-          <div><div class="eyebrow">06 / Hydrogen</div></div>
+          <div><div class="eyebrow">11 / Hydrogen</div></div>
           <div><h2>水素は「次の乗用車」ではない</h2><p>小さな現行市場だけで未来を否定してはいけない。同時に、技術的可能性とシステム経済性も混同できない。</p></div>
         </div>
         <div class="h2-contrast reveal">
@@ -520,7 +957,7 @@
     <section id="risks">
       <div class="wrap">
         <div class="section-head reveal">
-          <div><div class="eyebrow">07 / Risk map</div></div>
+          <div><div class="eyebrow">12 / Risk map</div></div>
           <div><h2>最大リスクは「20年の長期化」</h2><p>ガソリン車の全面復権より、保護主義・充電格差・資本コストが移行を10〜20年伸ばす方が蓋然性は高い。</p></div>
         </div>
         <div class="risk-matrix reveal" role="img" aria-label="EV移行リスクの発生可能性と影響度のマトリクス">
@@ -540,7 +977,7 @@
     <section id="triggers" class="paper-section">
       <div class="wrap">
         <div class="section-head reveal">
-          <div><div class="eyebrow">08 / Reversal</div></div>
+          <div><div class="eyebrow">13 / Reversal</div></div>
           <div><h2>何が起きたら結論を変えるか</h2><p>予測は信念ではなく、観測で更新する。以下は公式閾値ではなく、本レポートの再評価用警戒線。</p></div>
         </div>
         <div class="trigger-grid reveal">
@@ -554,7 +991,7 @@
     <section id="x-origin">
       <div class="wrap">
         <div class="section-head reveal">
-          <div><div class="eyebrow">09 / X ingest</div></div>
+          <div><div class="eyebrow">14 / X ingest</div></div>
           <div><h2>議論の発端を事実に戻す</h2><p>Xトレンドは論点発見に使い、市場数値・政策・企業目標は一次資料へ置換した。</p></div>
         </div>
         <div class="x-card reveal">
@@ -572,7 +1009,7 @@
     <section id="sources">
       <div class="wrap">
         <div class="section-head reveal">
-          <div><div class="eyebrow">10 / Sources</div></div>
+          <div><div class="eyebrow">15 / Sources</div></div>
           <div><h2>一次資料</h2><p>2026年7月21日時点。政策は成立済みと提案を分離し、予測は定義と分母を確認した。</p></div>
         </div>
         <div class="source-grid reveal">
@@ -591,13 +1028,25 @@
           <a href="https://www.epa.gov/regulations-emissions-vehicles-and-engines/final-rule-rescission-greenhouse-gas-endangerment"><b>US EPA</b><span>2026年GHG規制撤回</span></a>
           <a href="https://www.meti.go.jp/policy/energy_environment/global_warming/ggs/05_jidosha.html"><b>日本 経済産業省</b><span>2035年電動車100%の定義</span></a>
           <a href="https://www.meti.go.jp/policy/mono_info_service/mono/automobile/charging-infra-fukyu.html"><b>日本 経済産業省</b><span>2030年30万口、現状6.8万口</span></a>
+          <a href="https://www.meti.go.jp/shingikai/sankoshin/green_innovation/industrial_restructuring/pdf/036_04_00.pdf"><b>METI — 自動車分野</b><span>2025販売、2026年10.6万口</span></a>
+          <a href="https://www.cev-pc.or.jp/tokei/hoyuudaisu.html"><b>CEV — 保有統計</b><span>BEV、PHEV、FCEV保有台数</span></a>
+          <a href="https://www.cev-pc.or.jp/tokei/koufu.html"><b>CEV — 都道府県</b><span>車両補助交付、地域proxy</span></a>
+          <a href="https://www.jama.or.jp/release/docs/release/2026/20260414_2025PassengerCars.pdf.pdf"><b>JAMA 2025年度調査</b><span>所有者の充電場所・時間・住宅差</span></a>
+          <a href="https://www.airia.or.jp/publish/file/HVEV_2025.pdf"><b>AIRIA</b><span>ハイブリッド・EV保有推移</span></a>
+          <a href="https://www.meti.go.jp/shingikai/energy_environment/dr_ready/pdf/004_05_00.pdf"><b>JEMA — 家庭用蓄電池</b><span>約90万台、クラウド接続</span></a>
+          <a href="https://www.meti.go.jp/shingikai/energy_environment/dr_ready/pdf/008_06_00.pdf"><b>JEMA — EV/V2H</b><span>出荷、出力、通信、DR成熟度</span></a>
+          <a href="https://www.meti.go.jp/press/2026/04/20260414001/20260414001.html"><b>METI — FY2024電源</b><span>再エネ23.1%、火力（バイオマス除く）67.5%</span></a>
+          <a href="https://www.enecho.meti.go.jp/category/others/basic_plan/pdf/20250218_03.pdf"><b>第7次エネルギー基本計画</b><span>2040年の政策的電源見通し</span></a>
+          <a href="https://global.toyota/en/newsroom/corporate/39865919.html"><b>Toyota / Idemitsu</b><span>全固体電池2027–2028目標</span></a>
+          <a href="https://www.nissan-global.com/EN/INNOVATION/TECHNOLOGY/ARCHIVE/ASSB/"><b>Nissan ASSB</b><span>FY2028市場投入目標</span></a>
+          <a href="https://global.honda/en/newsroom/news/2024/c241121eng.html"><b>Honda ASSB</b><span>実証ラインと2020年代後半の適用目標</span></a>
           <a href="https://global.toyota/jp/newsroom/corporate/20352116.html"><b>Toyota 2017</b><span>電動車550万、BEV＋FCEV 100万</span></a>
           <a href="https://global.toyota/en/newsroom/corporate/36428993.html"><b>Toyota 2021</b><span>2030年BEV 350万台目標</span></a>
           <a href="https://www.energy.ca.gov/news/2026-07/ev-sales-rebound-trumps-war-iran-rages"><b>California Energy Commission</b><span>2026年Q2 EV/PHEV/FCEV</span></a>
         </div>
         <details>
           <summary>調査方法と限界</summary>
-          <div class="method"><div><b>方法</b><p>Xトレンドを耐久保存し、IEA、BNEF、EIA、OPEC、各国政府、Toyota等の一次資料へ置換。世界需要、電池、消費者市場、充電、政策、水素の6視点を独立評価し、各自の再評価、争点討議、Devil's Advocate監査を実施。</p></div><div><b>限界</b><p>2035年の日米レンジとシナリオ確率は公式予測ではなくラウンドテーブル推定。IEA/BNEFは前提が相関する。X投稿の直近網羅検索はAPI利用枠不足で未完了。2050年の正確な保有車構成は低信頼。</p></div></div>
+          <div class="method"><div><b>方法</b><p>Xトレンドを耐久保存し、IEA、BNEF、各国政府、日本のCEV・JAMA・AIRIA・JEMA・自動車団体等へ置換。世界需要、電池、消費者、充電、政策、水素に加え、日本の住宅・地域・電力・V2Hを独立評価し、反対尋問を実施。</p></div><div><b>限界</b><p>2035年の日米レンジとシナリオ確率は公式予測ではない。日本の地域差は補助交付フローproxyで因果推定ではない。設備数・ストック・出荷累計を区別した。X投稿の直近網羅検索はAPI利用枠不足で未完了。</p></div></div>
         </details>
       </div>
     </section>
