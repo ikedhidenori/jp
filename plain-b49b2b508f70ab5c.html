@@ -1,0 +1,1577 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src 'self'; connect-src 'none'; script-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>INNFRA 事業仮説探索の現在地 — 内部戦略資料</title>
+  <style>
+    :root {
+      --paper: #f2efe7;
+      --paper-deep: #e7e0d3;
+      --ink: #101820;
+      --ink-2: #26343c;
+      --muted: #5b676d;
+      --line: #b9b3a7;
+      --line-dark: #77746d;
+      --rust: #b64127;
+      --rust-dark: #7e2c1b;
+      --teal: #0d6b6f;
+      --teal-soft: #d9e8e5;
+      --gold: #86631b;
+      --gold-soft: #eee2c4;
+      --slate: #465965;
+      --white: #fffdf7;
+      --shadow: 0 18px 48px rgba(16, 24, 32, 0.09);
+      --radius-sm: 4px;
+      --radius-md: 10px;
+      --radius-lg: 18px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+      --max: 1180px;
+      --font-body: "BIZ UDGothic", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      --font-display: "YuMincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(rgba(16, 24, 32, 0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 24, 32, 0.026) 1px, transparent 1px);
+      background-size: 24px 24px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.8;
+      font-feature-settings: "palt";
+      line-break: strict;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--teal); text-underline-offset: 0.2em; }
+    a:hover { color: var(--rust-dark); }
+    a:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 999;
+      top: 8px;
+      left: 8px;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: var(--white);
+      transform: translateY(-150%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .shell {
+      width: min(calc(100% - 48px), var(--max));
+      margin-inline: auto;
+    }
+
+    .classification {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      min-height: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      color: #e8e1d6;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .classification strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .masthead {
+      position: relative;
+      overflow: hidden;
+      min-height: 760px;
+      background: var(--ink);
+      color: var(--white);
+      border-bottom: 8px solid var(--rust);
+    }
+
+    .masthead::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.26;
+      background-image:
+        repeating-linear-gradient(112deg, transparent 0 43px, rgba(255,255,255,0.06) 44px 45px),
+        radial-gradient(circle at 78% 28%, rgba(182,65,39,0.44), transparent 28%);
+      pointer-events: none;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+      gap: var(--space-16);
+      align-items: end;
+      padding: 84px 0 72px;
+    }
+
+    .eyebrow {
+      margin: 0 0 var(--space-4);
+      color: #f2b39f;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-feature-settings: "palt";
+      letter-spacing: 0.035em;
+    }
+
+    h1 {
+      max-width: 14em;
+      font-size: clamp(42px, 6.2vw, 78px);
+      line-height: 1.16;
+      font-weight: 600;
+    }
+
+    .hero-lead {
+      max-width: 34em;
+      margin: var(--space-8) 0 0;
+      color: #d9d6cf;
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.85;
+    }
+
+    .hero-lead strong { color: #fff; }
+
+    .hero-side {
+      position: relative;
+      padding-left: var(--space-8);
+      border-left: 1px solid rgba(255,255,255,0.22);
+    }
+
+    .hero-verdict {
+      margin: 0 0 var(--space-8);
+      padding: var(--space-6);
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.055);
+    }
+
+    .hero-verdict small {
+      display: block;
+      margin-bottom: var(--space-2);
+      color: #f2b39f;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+    }
+
+    .hero-verdict p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    .role-ribbon {
+      display: grid;
+      gap: 10px;
+    }
+
+    .role-mini {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: var(--space-4);
+      align-items: center;
+      padding: 13px 16px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.025);
+    }
+
+    .role-mini b {
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 18px;
+    }
+
+    .role-mini span { color: #c8ced0; font-size: 14px; }
+
+    .hero-note {
+      margin-top: var(--space-6);
+      color: #aeb7bb;
+      font-size: 12px;
+    }
+
+    .toc {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      background: rgba(242, 239, 231, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .toc-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      min-height: 64px;
+    }
+
+    .toc-mark {
+      flex: 0 0 auto;
+      color: var(--rust);
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .toc nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px 18px;
+    }
+
+    .toc a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--ink-2);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    main { display: block; }
+
+    section[id] { scroll-margin-top: 80px; }
+
+    .section {
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-dark {
+      color: var(--white);
+      background: var(--ink-2);
+      border-bottom-color: transparent;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: var(--space-8);
+      align-items: start;
+      margin-bottom: var(--space-12);
+    }
+
+    .section-no {
+      padding-top: 8px;
+      color: var(--rust);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .section-dark .section-no { color: #f2b39f; }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    .section-summary {
+      max-width: 50em;
+      margin: var(--space-4) 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .section-dark .section-summary { color: #c9d0d2; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: var(--space-6);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 3px 9px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .tag.fact { color: var(--teal); }
+    .tag.voice { color: var(--rust); }
+    .tag.summary { color: var(--teal); }
+    .tag.analysis { color: var(--slate); }
+    .tag.open { color: var(--gold); }
+
+    .prehistory {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+      gap: var(--space-8);
+      margin-bottom: var(--space-12);
+      padding: var(--space-8);
+      background: var(--ink);
+      color: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .prehistory-kicker {
+      color: #f2b39f;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .prehistory h3 {
+      margin-top: var(--space-2);
+      font-size: 27px;
+      line-height: 1.4;
+    }
+
+    .prehistory p {
+      margin: 0;
+      color: #d4d9da;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 0;
+      margin-left: 6px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 136px;
+      width: 2px;
+      background: var(--ink);
+    }
+
+    .time-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr);
+      gap: 38px;
+      padding: 0 0 var(--space-10);
+    }
+
+    .time-item::before {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 130px;
+      width: 14px;
+      height: 14px;
+      border: 3px solid var(--paper);
+      border-radius: 50%;
+      background: var(--rust);
+      box-shadow: 0 0 0 1px var(--ink);
+    }
+
+    .time-date {
+      padding-top: 2px;
+      color: var(--rust-dark);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .time-body {
+      min-width: 0;
+      padding: 0 0 var(--space-8);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .time-body h3 {
+      font-family: var(--font-body);
+      font-size: 19px;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    .time-body p {
+      max-width: 50em;
+      margin: var(--space-2) 0 0;
+      color: var(--ink-2);
+      line-height: 1.75;
+    }
+
+    .time-shift {
+      display: inline-block;
+      margin-top: var(--space-3);
+      padding-left: 12px;
+      border-left: 3px solid var(--gold);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .six-phases {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: var(--space-8);
+      background: var(--line-dark);
+      border: 1px solid var(--line-dark);
+    }
+
+    .phase {
+      min-width: 0;
+      min-height: 176px;
+      padding: var(--space-6);
+      background: var(--white);
+    }
+
+    .phase b {
+      display: block;
+      color: var(--rust);
+      font-family: var(--font-display);
+      font-size: 26px;
+    }
+
+    .phase span {
+      display: block;
+      margin-top: var(--space-3);
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .phase small {
+      display: block;
+      margin-top: var(--space-2);
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .pitch-shift {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) 72px minmax(0, 1.18fr);
+      gap: var(--space-6);
+      align-items: stretch;
+      margin-bottom: var(--space-10);
+    }
+
+    .pitch-panel {
+      position: relative;
+      min-width: 0;
+      padding: var(--space-8);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .pitch-panel.to {
+      color: var(--ink);
+      background: #f5e4db;
+      border-color: #f5e4db;
+    }
+
+    .pitch-panel .overline {
+      color: #aeb9bc;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .pitch-panel.to .overline { color: var(--rust-dark); }
+
+    .pitch-panel strong {
+      display: block;
+      margin-top: var(--space-4);
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.4vw, 42px);
+      line-height: 1.35;
+    }
+
+    .pitch-panel p { margin: var(--space-4) 0 0; color: #cfd6d8; }
+    .pitch-panel.to p { color: var(--ink-2); }
+
+    .pitch-arrow {
+      display: grid;
+      place-items: center;
+      color: #f2b39f;
+      font-family: var(--font-display);
+      font-size: 44px;
+    }
+
+    .pitch-layers {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .pitch-layer {
+      min-width: 0;
+      padding: var(--space-6);
+      border-top: 3px solid #f2b39f;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .pitch-layer b { color: #fff; }
+    .pitch-layer p { margin: var(--space-3) 0 0; color: #cfd6d8; font-size: 14px; }
+
+    .pitch-crosswalk {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+    }
+
+    .cross-note {
+      min-width: 0;
+      padding: var(--space-5, 20px);
+      border-left: 3px solid #f2b39f;
+      background: rgba(255,255,255,0.04);
+      color: #d7ddde;
+      font-size: 14px;
+    }
+
+    .cross-note strong { color: #fff; }
+
+    .metric-warning {
+      margin-top: var(--space-8);
+      padding: var(--space-6);
+      border: 1px dashed #d9b47b;
+      color: #eadcc9;
+      background: rgba(164,118,34,0.11);
+      font-size: 14px;
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .person {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: 0 10px 30px rgba(16,24,32,0.06);
+    }
+
+    .person::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 7px;
+      background: var(--person-color, var(--rust));
+    }
+
+    .person.soma { --person-color: var(--teal); }
+    .person.iwasaki { --person-color: var(--gold); }
+    .person.kawashima { --person-color: var(--rust); }
+    .person.johnny { --person-color: var(--slate); }
+
+    .person-head {
+      padding: var(--space-8) var(--space-8) var(--space-6) calc(var(--space-8) + 7px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .person-id {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-4);
+    }
+
+    .person-id h3 { font-size: 31px; line-height: 1.3; }
+    .person-id span { color: var(--person-color); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+
+    .person-thesis {
+      margin: var(--space-4) 0 0;
+      font-size: 17px;
+      line-height: 1.75;
+      font-weight: 700;
+    }
+
+    .person dl { margin: 0; }
+
+    .axis {
+      display: grid;
+      grid-template-columns: 116px minmax(0, 1fr);
+      gap: var(--space-4);
+      padding: 14px var(--space-8) 14px calc(var(--space-8) + 7px);
+      border-bottom: 1px solid #ddd7ca;
+    }
+
+    .axis:last-child { border-bottom: 0; }
+    .axis dt { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .axis dd { min-width: 0; margin: 0; font-size: 14px; line-height: 1.72; }
+
+    .evidence-foot {
+      margin: 0;
+      padding: var(--space-4) var(--space-8) var(--space-6) calc(var(--space-8) + 7px);
+      color: var(--muted);
+      background: #ece8df;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .layer-map {
+      display: grid;
+      grid-template-columns: 156px repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--line-dark);
+      border-left: 1px solid var(--line-dark);
+      background: var(--white);
+    }
+
+    .layer-row { display: contents; }
+
+    .layer-cell {
+      min-width: 0;
+      padding: 15px;
+      border-right: 1px solid var(--line-dark);
+      border-bottom: 1px solid var(--line-dark);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .layer-cell.head {
+      color: var(--white);
+      background: var(--ink);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .layer-cell.axis-name {
+      background: var(--paper-deep);
+      color: var(--ink-2);
+      font-weight: 700;
+    }
+
+    .layer-cell.primary {
+      position: relative;
+      color: var(--ink);
+      background: var(--gold-soft);
+      font-weight: 700;
+    }
+
+    .layer-cell.primary::after {
+      content: "主対象";
+      display: block;
+      margin-top: 3px;
+      color: var(--rust-dark);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+
+    .compare-list {
+      display: grid;
+      gap: var(--space-4);
+      margin-top: var(--space-12);
+    }
+
+    .compare-head {
+      display: grid;
+      grid-template-columns: 160px repeat(4, minmax(0, 1fr));
+      color: var(--white);
+      background: var(--ink);
+    }
+
+    .compare-head > div {
+      min-width: 0;
+      padding: 11px 15px;
+      border-right: 1px solid rgba(255,255,255,0.18);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .compare-head > div:last-child { border-right: 0; }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 160px repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .compare-row > div {
+      min-width: 0;
+      padding: 15px;
+      border-right: 1px solid var(--line);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .compare-row > div:last-child { border-right: 0; }
+    .compare-label { background: var(--ink); color: var(--white); font-weight: 700; }
+    .member-label { display: none; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; }
+
+    .triad {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .triad-card {
+      min-width: 0;
+      padding: var(--space-8);
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .triad-card:nth-child(1) { border-top: 7px solid var(--teal); }
+    .triad-card:nth-child(2) { border-top: 7px solid var(--rust); }
+    .triad-card:nth-child(3) { border-top: 7px solid var(--gold); }
+
+    .triad-card h3 { font-size: 28px; }
+    .triad-card ol, .triad-card ul { margin: var(--space-6) 0 0; padding-left: 1.3em; }
+    .triad-card li { margin: 0 0 var(--space-3); }
+
+    .synthesis-quote {
+      margin: var(--space-12) 0 0;
+      padding: var(--space-10);
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: clamp(23px, 3vw, 36px);
+      line-height: 1.65;
+      letter-spacing: 0.04em;
+    }
+
+    .synthesis-quote small {
+      display: block;
+      margin-top: var(--space-4);
+      color: #f2b39f;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+    }
+
+    .operating-model {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      margin-top: var(--space-8);
+      border: 1px solid var(--line-dark);
+    }
+
+    .op-step {
+      position: relative;
+      min-width: 0;
+      min-height: 230px;
+      padding: var(--space-8) var(--space-6);
+      border-right: 1px solid var(--line-dark);
+      background: var(--white);
+    }
+
+    .op-step:last-child { border-right: 0; }
+
+    .op-step::after {
+      content: "→";
+      position: absolute;
+      z-index: 2;
+      top: 28px;
+      right: -17px;
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line-dark);
+      border-radius: 50%;
+      background: var(--paper);
+      color: var(--rust);
+      font-weight: 700;
+    }
+
+    .op-step:last-child::after { display: none; }
+
+    .op-num { color: var(--rust); font-family: var(--font-display); font-size: 34px; }
+    .op-step h3 { margin-top: var(--space-3); font-size: 22px; line-height: 1.45; }
+    .op-step p { margin: var(--space-3) 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    .decision-gates {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-10);
+    }
+
+    .gate {
+      min-width: 0;
+      padding: var(--space-6);
+      border-left: 4px solid var(--rust);
+      background: var(--paper-deep);
+    }
+
+    .gate b { display: block; }
+    .gate p { margin: var(--space-2) 0 0; color: var(--ink-2); font-size: 14px; }
+
+    .revoke {
+      margin-top: var(--space-10);
+      padding: var(--space-8);
+      border: 1px dashed var(--rust);
+      background: #f4e5df;
+    }
+
+    .revoke h3 { font-size: 24px; }
+    .revoke ul { margin: var(--space-4) 0 0; padding-left: 1.3em; }
+    .revoke li { margin-bottom: var(--space-2); }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .source-card {
+      min-width: 0;
+      padding: var(--space-8);
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .source-card h3 { font-size: 24px; }
+    .source-card p, .source-card li { color: var(--ink-2); font-size: 14px; }
+    .source-card ul { margin: var(--space-4) 0 0; padding-left: 1.2em; }
+    .source-card code {
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .source-links {
+      display: grid;
+      gap: 8px;
+      margin-top: var(--space-4);
+    }
+
+    .source-links a,
+    .source-links span { font-size: 13px; overflow-wrap: anywhere; }
+
+    .final-note {
+      padding: var(--space-20) 0;
+      background: var(--rust);
+      color: var(--white);
+    }
+
+    .final-note p {
+      max-width: 34em;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(27px, 4vw, 48px);
+      line-height: 1.55;
+    }
+
+    footer {
+      padding: var(--space-8) 0;
+      color: #aeb7bb;
+      background: var(--ink);
+      font-size: 12px;
+    }
+
+    footer .shell {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; align-items: start; padding-top: 64px; }
+      .hero-side { padding-left: 0; border-left: 0; }
+      .masthead { min-height: auto; }
+      .six-phases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .people-grid { grid-template-columns: 1fr; }
+      .layer-map { grid-template-columns: 130px repeat(4, minmax(0, 1fr)); }
+      .layer-cell { padding: 11px; font-size: 12px; }
+      .compare-head { display: none; }
+      .compare-row { grid-template-columns: 140px repeat(2, minmax(0, 1fr)); }
+      .compare-label { grid-row: span 2; }
+      .member-label { display: block; margin-bottom: 4px; }
+      .compare-row > div:nth-child(3) { border-right: 0; }
+      .compare-row > div:nth-child(4), .compare-row > div:nth-child(5) { border-top: 1px solid var(--line); }
+      .triad { grid-template-columns: 1fr; }
+      .operating-model { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .op-step:nth-child(2) { border-right: 0; }
+      .op-step:nth-child(-n+2) { border-bottom: 1px solid var(--line-dark); }
+      .op-step:nth-child(2)::after { display: none; }
+      .pitch-crosswalk, .source-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .shell { width: min(calc(100% - 32px), var(--max)); }
+      .classification { align-items: flex-start; padding: 11px 0; line-height: 1.5; }
+      .classification span:last-child { text-align: right; }
+      .hero { gap: var(--space-10); padding: 54px 0; }
+      h1 { font-size: clamp(38px, 11.5vw, 58px); }
+      .toc { position: static; }
+      .toc-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .toc nav { justify-content: flex-start; }
+      .section { padding: 64px 0; }
+      .section-head { grid-template-columns: 1fr; gap: var(--space-2); }
+      .prehistory { grid-template-columns: 1fr; }
+      .timeline::before { left: 14px; }
+      .time-item { grid-template-columns: 1fr; gap: 6px; padding-left: 48px; }
+      .time-item::before { left: 8px; }
+      .time-date { padding-top: 0; }
+      .six-phases { grid-template-columns: 1fr; }
+      .phase { min-height: auto; }
+      .pitch-shift { grid-template-columns: 1fr; }
+      .pitch-arrow { transform: rotate(90deg); }
+      .pitch-layers { grid-template-columns: 1fr; }
+      .axis { grid-template-columns: 1fr; gap: 3px; }
+      .axis dt { color: var(--person-color); }
+      .layer-map { display: block; border: 0; background: transparent; }
+      .layer-row { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: var(--space-6); }
+      .layer-row:first-child { display: none; }
+      .layer-cell { border: 1px solid var(--line); }
+      .layer-cell.head { display: none; }
+      .layer-cell.axis-name { border-color: var(--ink); color: var(--white); background: var(--ink); }
+      .layer-cell[data-member]::before {
+        content: attr(data-member);
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-family: var(--font-body);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+      }
+      .compare-row { grid-template-columns: 1fr; }
+      .compare-label { grid-row: auto; }
+      .compare-row > div { border-right: 0; border-top: 1px solid var(--line); }
+      .compare-row > div:first-child { border-top: 0; }
+      .member-label { display: block; margin-bottom: 4px; }
+      .operating-model { grid-template-columns: 1fr; }
+      .op-step { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line-dark); }
+      .op-step:nth-child(2) { border-bottom: 1px solid var(--line-dark); }
+      .op-step:last-child { border-bottom: 0; }
+      .op-step::after, .op-step:nth-child(2)::after { top: auto; right: 26px; bottom: -17px; display: grid; transform: rotate(90deg); }
+      .op-step:last-child::after { display: none; }
+      .decision-gates { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 460px) {
+      body { font-size: 15px; }
+      .shell { width: min(calc(100% - 24px), var(--max)); }
+      .classification { font-size: 10px; }
+      .hero-lead { font-size: 16px; }
+      .role-mini { grid-template-columns: 52px minmax(0, 1fr); padding-inline: 12px; }
+      .section { padding: 52px 0; }
+      .section-head { margin-bottom: var(--space-8); }
+      .prehistory, .pitch-panel, .person-head, .triad-card, .source-card, .revoke { padding: var(--space-6); }
+      .axis { padding-inline: var(--space-6); }
+      .evidence-foot { padding-inline: var(--space-6); }
+      .synthesis-quote { padding: var(--space-6); }
+      .person-id { align-items: flex-start; flex-direction: column; gap: 3px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+
+    @media print {
+      :root { --paper: #fff; --white: #fff; }
+      body { background: #fff; color: #000; font-size: 10.5pt; }
+      .masthead { min-height: 0; color: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .toc { display: none; }
+      .section { padding: 32px 0; break-inside: auto; }
+      .person, .source-card, .triad-card, .phase, .op-step, .time-item { break-inside: avoid; }
+      a { color: #000; text-decoration: none; }
+      .shell { width: 92%; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+
+  <header class="masthead">
+    <div class="shell classification">
+      <span><strong>D2 / URL-LIMITED SHARE</strong>　一時共有・再配布不可</span>
+      <span>閲覧期限　2026.07.24 13:48 JST</span>
+    </div>
+    <div class="shell hero">
+      <div>
+        <p class="eyebrow">Business hypothesis field atlas</p>
+        <h1>事業仮説探索の<br>現在地</h1>
+        <p class="hero-lead">設立後の議論は、<strong>オフグリッド設備をどう売るか</strong>から、<strong>制約のある場所でも日常価値とレジリエンスを同時に成立させるにはどうするか</strong>へ移ってきた。</p>
+      </div>
+      <div class="hero-side">
+        <div class="hero-verdict">
+          <small>READ THIS FIRST</small>
+          <p>4人の主張は、競合する四つの完成案ではない。方向づけ、市場選定、顧客向け事業、共通プロダクトという<strong>異なる階層</strong>を見ている。</p>
+        </div>
+        <div class="role-ribbon" aria-label="4人の主張の役割">
+          <div class="role-mini"><b>相馬</b><span>現在地を言葉にし、安く早く探索する</span></div>
+          <div class="role-mini"><b>岩崎</b><span>市場の必然性と支払いで絞る</span></div>
+          <div class="role-mini"><b>川島</b><span>統合開発で顧客価値をつくる</span></div>
+          <div class="role-mini"><b>ジョニー</b><span>学びを共通仕様・製品へ変える</span></div>
+        </div>
+        <p class="hero-note">分析者統合案。会社の最終決定ではない。</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="toc">
+    <div class="shell toc-inner">
+      <span class="toc-mark">INNFRA / 事業仮説</span>
+      <nav aria-label="目次">
+        <a href="#history">議論史</a>
+        <a href="#pitch">ICCピッチ</a>
+        <a href="#members">4人の主張</a>
+        <a href="#compare">比較</a>
+        <a href="#synthesis">統合案</a>
+        <a href="#sources">出典</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="section" id="history">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-no">01 / TRAJECTORY</span>
+          <div>
+            <h2>設立後、問いは<br>どう変わったか</h2>
+            <p class="section-summary">技術実証、Vision、暮らしの具体像、市場の必然性、そして有料学習の順序へ。設立後の議論を、決定と未決を分けて並べる。</p>
+            <div class="legend" aria-label="証拠ラベル">
+              <span class="tag fact">確定</span>
+              <span class="tag voice">本人発言</span>
+              <span class="tag summary">会議要約</span>
+              <span class="tag analysis">編集者分析</span>
+              <span class="tag open">未検証</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="prehistory">
+          <div>
+            <span class="prehistory-kicker">PREHISTORY / 年次一部未同定</span>
+            <h3>U3I・OL8・ラボ</h3>
+          </div>
+          <p>最小単位の暮らしから、系統・マイクログリッド・オフグリッドの境界を考えた。生活可能性と技術・制度上のボトルネックは見えたが、何をもって事業化判断とするかは曖昧だった。設立前後の境界がそろわないため、正式な設立後タイムラインとは分ける。</p>
+        </aside>
+
+        <div class="timeline">
+          <article class="time-item">
+            <div class="time-date">2023.10.10</div>
+            <div class="time-body">
+              <h3>INNFRA株式会社設立 <span class="tag fact">確定</span></h3>
+              <p>本資料の正式な起点。2025年2月までの期間は、今回の史料に日付つきの事業仮説討議がない。</p>
+              <span class="time-shift">空白は「議論なし」ではなく「今回の史料では未取得」。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2025.02–05</div>
+            <div class="time-body">
+              <h3>技術会社から、暮らしを変える会社へ <span class="tag summary">会議要約</span> <span class="tag fact">確定</span></h3>
+              <p>「パンとバラ」「サバイバル＆ウェルビーイング」「インフラ起点のライフスタイルクリエイター」などを検討。5月、Vision「地球のすべての夜に灯りと潤いを」とMissionを採用。</p>
+              <span class="time-shift">旗は決まったが、「誰がどこでどう暮らすか」は未決。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2025.10–11</div>
+            <div class="time-body">
+              <h3>探索順序と「実践」の定義が分岐 <span class="tag summary">会議要約</span></h3>
+              <p>ビジョンから独占ニッチへ逆算するか、現場実践から積むか。サバイバルか豊かさか。「ビジョンと戦略は別」を確認した一方、描ける社会像の不足が明示された。</p>
+              <span class="time-shift">共通のVisionの下で、腹落ちする証拠の種類が分かれた。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2026.04</div>
+            <div class="time-body">
+              <h3>設備から、暮らしのプロトコルへ <span class="tag summary">会議要約</span></h3>
+              <p>VLDK、生活者視点、コントローラブル、アフォーダブル。モバイル住居のアンバンドル／リバンドル案と、市場選定の共通軸が生まれた。</p>
+              <span class="time-shift">事業単位が設備から生活パッケージへ拡張。価格は仮置き、WTPは未検証。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2026.05</div>
+            <div class="time-body">
+              <h3>オフグリッドを「目的」から「手段」へ <span class="tag fact">確定</span> <span class="tag summary">会議要約</span></h3>
+              <p>「ネオ・オフグリッド」「死なないシェルター」を検討。5月20日、手法へ固執せず、解く課題を再設定することで合意した。</p>
+              <span class="time-shift">装置の説明から、生活者価値と市場課題の説明へ。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2026.05–06</div>
+            <div class="time-body">
+              <h3>中城で体験価値は見えた。支払いはまだ <span class="tag summary">会議要約</span> <span class="tag open">未検証WTP</span></h3>
+              <p>4Kと場所3条件を整理。無料応募約100組という需要シグナルを得たが、有料WTPとは分ける必要がある。外部からは価値定義・PMFを先に、という指摘。</p>
+              <span class="time-shift">「人が来た」から「誰が、何に、いくら払うか」へ。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2026.06</div>
+            <div class="time-body">
+              <h3>Must・Will・Canと収益責任 <span class="tag summary">会議要約</span></h3>
+              <p>案件棚卸しでは自衛隊が強い実需シグナル。一方で「そこへ全振りしたいのか」という緊張が残る。株主からは市場選択とロードマップを要求され、ソリューションプロバイダー化も議論。</p>
+              <span class="time-shift">アイデア列挙から、必然性・代替優位・支払いで削る段階へ。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2026.07.03</div>
+            <div class="time-body">
+              <h3>堂々巡りを地図にする <span class="tag analysis">編集者分析</span></h3>
+              <p>過去議論を構造化し、最大の空白を「Visionの一歩手前の、描ける世界」と定義。案件ゲートと検証方法の不在を可視化した。</p>
+              <span class="time-shift">個人の意見差から、組織の未定義レイヤーへ問題設定を変更。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2026.07.15–16</div>
+            <div class="time-body">
+              <h3>3仮説を同じ軸で比較 <span class="tag voice">本人発言</span> <span class="tag analysis">編集者分析</span></h3>
+              <p>川島、岩崎、ジョニーの文書を比較。違いは「宿泊かインフラか」ではなく、最初の顧客、学習順序、最初に測る行動にあると整理された。</p>
+              <span class="time-shift">見かけの対立が減り、実験設計の分岐が残った。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2026.07.19–20</div>
+            <div class="time-body">
+              <h3>原点を再評価し、相馬が現在地を束ねる <span class="tag summary">会議要約</span> <span class="tag voice">本人発言</span></h3>
+              <p>OL8の「何を実証したのか」を再検討。相馬は生活必需インフラの再編集、日常価値から入るレジリエンス、低コストの概念検証を現在地として整理した。</p>
+              <span class="time-shift">最終事業モデルではなく、共通フレームと探索方法が現れた。</span>
+            </div>
+          </article>
+
+          <article class="time-item">
+            <div class="time-date">2026.07.21</div>
+            <div class="time-body">
+              <h3>共通認識は近づく。事業の芯は未決 <span class="tag voice">本人発言</span></h3>
+              <p>岩崎・川島は相馬の現在地と検証方法に認識一致。ICC v02は「防災市場への提供」から「制約地を有価値化するインフラテックデベロッパー」への転換を提示した。</p>
+              <span class="time-shift">顧客、支払者、最初の商品、勝ち筋、収益モデルはまだ決まっていない。</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="six-phases" aria-label="議論史の6段階">
+          <div class="phase"><b>01</b><span>暮らしを成立させる技術実験</span><small>生活可能性とボトルネックを知る</small></div>
+          <div class="phase"><b>02</b><span>会社の自己定義を広げる</span><small>技術会社から暮らしを変える会社へ</small></div>
+          <div class="phase"><b>03</b><span>Visionと具体像の空白</span><small>旗は決まるが、顧客の風景が描けない</small></div>
+          <div class="phase"><b>04</b><span>複数の実装案を試す</span><small>滞在、モバイル住居、シェルター</small></div>
+          <div class="phase"><b>05</b><span>手段と需要を分離する</span><small>必然性・WTP・代替優位で選ぶ</small></div>
+          <div class="phase"><b>06</b><span>有料学習の順序を選ぶ</span><small>統合開発からか、外部導入からか</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="pitch">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-no">02 / COMPANY PITCH</span>
+          <div>
+            <h2>最新ピッチは、<br>会社をどう語り直したか</h2>
+            <p class="section-summary">ICC KYOTO 2026 v02は個人仮説の証拠ではない。外に向けた現在の会社ナラティブとして、p.39–45の転換を読む。</p>
+          </div>
+        </div>
+
+        <div class="pitch-shift" aria-label="ICCピッチの戦略転換">
+          <div class="pitch-panel from">
+            <span class="overline">これまで / p.39</span>
+            <strong>インフラテック<br>スタートアップ</strong>
+            <p>防災市場へのインフラ提供</p>
+          </div>
+          <div class="pitch-arrow" aria-hidden="true">→</div>
+          <div class="pitch-panel to">
+            <span class="overline">これから / p.40–41</span>
+            <strong>インフラテック<br>デベロッパー</strong>
+            <p>開発制約地を、インフラテックと動産等の非建築で有価値化する拠点開発</p>
+          </div>
+        </div>
+
+        <div class="pitch-layers">
+          <div class="pitch-layer"><b>入口</b><p>生活用水、可動型水循環、「稼ぐ防災」、富士川ランドリー。p.2–24</p></div>
+          <div class="pitch-layer"><b>証拠</b><p>ラボ、実生活体験、彩湖、中城。インフラ・建築・体験を一体でつくった実績主張。p.25–38</p></div>
+          <div class="pitch-layer"><b>拡張</b><p>未利用地を新しい市場にし、屋久島・水上建築へ構想を広げる。p.39–45</p></div>
+        </div>
+
+        <div class="pitch-crosswalk">
+          <div class="cross-note"><strong>川島</strong> — 最新の「制約地×統合開発」という本人ポジショニングに最も近い。</div>
+          <div class="cross-note"><strong>相馬</strong> — 防災専用でなく、日常で価値を生む生活必需インフラの再編集と重なる。</div>
+          <div class="cross-note"><strong>ジョニー</strong> — 共通仕様はデベロッパーを反復可能にする内部資産になりうるが、PDFでは製品化経路が未接続。</div>
+          <div class="cross-note"><strong>岩崎</strong> — 未利用地の大きさと、今すぐ強い課題を持つ支払者の存在は別。市場ゲートは残る。</div>
+        </div>
+
+        <div class="metric-warning"><strong>数値の扱い：</strong>「国内防災市場1,700億円」「未利用地4兆円」「導入5件／予定5件」「提案30件」「約100倍応募」等はピッチ記載値。本資料では原典、定義、重複、獲得可能市場を照合していない。</div>
+      </div>
+    </section>
+
+    <section class="section" id="members">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-no">03 / FOUR VOICES</span>
+          <div>
+            <h2>直近の4人は、<br>何を主張しているか</h2>
+            <p class="section-summary">全員を同じ9軸で整理する。顧客・支払者が未確定な場合は、魅力的な言葉で補わず「未確定」と置く。</p>
+          </div>
+        </div>
+
+        <div class="people-grid">
+          <article class="person soma">
+            <div class="person-head">
+              <div class="person-id"><h3>相馬</h3><span>FRAME / TEST</span></div>
+              <p class="person-thesis">生活必需インフラを再編集し、日常で望ましく、だから災害にも強い状態をつくる。顧客は安く早く探す。</p>
+            </div>
+            <dl>
+              <div class="axis"><dt>未来像</dt><dd>暮らし方・家族・技術・環境に応じ、家の水・電気・安全・健康機能が後から更新される。</dd></div>
+              <div class="axis"><dt>解く課題</dt><dd>水やオフグリッド自体への強い最終需要が見えず、個別対応・コスト・保守が重い。</dd></div>
+              <div class="axis"><dt>顧客・支払者</dt><dd><strong>未確定。</strong>最も強い課題を持つ顧客を先に特定する。</dd></div>
+              <div class="axis"><dt>提供価値</dt><dd>水・電気・空間・利用を統合し、ハイブリッド、可搬、仮設、フェーズフリーにする。</dd></div>
+              <div class="axis"><dt>wedge</dt><dd>2〜3案の広告、1ページLP、フォーム、インタビュー。土地探索はその後。</dd></div>
+              <div class="axis"><dt>収益・展開</dt><dd>最初の売上と、隣接事業への波及経路を仮説ごとに比較する。</dd></div>
+              <div class="axis"><dt>INNFRAの役割</dt><dd>固定設備の売り手ではなく、生活必需インフラの編集者。</dd></div>
+              <div class="axis"><dt>最初の検証</dt><dd>具体的な困りごと、行動反応、支払いの兆候を1〜2か月で比較。</dd></div>
+              <div class="axis"><dt>最大リスク</dt><dd>包含力の高い現在地が、魅力的な総論のまま顧客を決められない。</dd></div>
+            </dl>
+            <p class="evidence-foot">本人Notion 7/20、本人Slack 7/20・21。本人も「事業モデルというより現在地の整理」と明示。</p>
+          </article>
+
+          <article class="person iwasaki">
+            <div class="person-head">
+              <div class="person-id"><h3>岩崎</h3><span>MARKET GATE</span></div>
+              <p class="person-thesis">自社PoCや「滞在」という広い括りを需要の証拠にせず、今ある必然性・代替優位・支払いで市場を選び直す。</p>
+            </div>
+            <dl>
+              <div class="axis"><dt>未来像</dt><dd>世界観までつくることには賛成。ただし過去の自社活動に縛られず、市場と社会像を選ぶ。</dd></div>
+              <div class="axis"><dt>解く課題</dt><dd>供給側の都合や無料実証を需要と誤認する。「滞在」は広すぎ、継続的な引き合いも弱い。</dd></div>
+              <div class="axis"><dt>顧客・支払者</dt><dd><strong>市場選定前で未確定。</strong>自衛隊は強い実需シグナルだが、Willとは別。</dd></div>
+              <div class="axis"><dt>提供価値</dt><dd>現時点では単一商品より、誤った市場選択を止める評価フレームが中心。</dd></div>
+              <div class="axis"><dt>wedge</dt><dd>Must／Will／Canを分け、現行代替では足りず、今求められる領域を探す。</dd></div>
+              <div class="axis"><dt>収益・展開</dt><dd>未特定。市場規模だけでなく、課題強度とright-to-winが必要。</dd></div>
+              <div class="axis"><dt>INNFRAの役割</dt><dd>技術プッシュ、流行追随、過去実績への固着を防ぎ、市場と世界観を狭く定義する。</dd></div>
+              <div class="axis"><dt>最初の検証</dt><dd>支払者、直近の困りごと、代替、不作為コスト、実支払いを市場ごとに比較。</dd></div>
+              <div class="axis"><dt>最大リスク</dt><dd>俯瞰で止まり商品にならない。実需だけで選ぶと会社が実現したい世界から離れる。</dd></div>
+            </dl>
+            <p class="evidence-foot">Slack統合記録 6/27–30、本人Slack・住まいトレンド 7/16、相馬案への賛同 7/21。住まいトレンドは市場地図。</p>
+          </article>
+
+          <article class="person kawashima">
+            <div class="person-head">
+              <div class="person-id"><h3>川島</h3><span>INTEGRATED FIELD</span></div>
+              <p class="person-thesis">制約地を対象に、インフラ・建築／空間・体験を一体で開発・販売する「インフラテックデベロッパー」になる。</p>
+            </div>
+            <dl>
+              <div class="axis"><dt>未来像</dt><dd>低密度・制約地でも、人がそこにいる理由と、そこにいられる条件が同時に生まれる。</dd></div>
+              <div class="axis"><dt>解く課題</dt><dd>従来開発では成立しない土地・用途がある。設備単品では最終需要まで閉じない。</dd></div>
+              <div class="axis"><dt>顧客・支払者</dt><dd>土地所有者、開発主体、施設運営者等が候補。<strong>最初の一顧客は未確定。</strong></dd></div>
+              <div class="axis"><dt>提供価値</dt><dd>水・電気・空間・制度・運営・体験を、短期・小単位・可変な拠点として成立させる。</dd></div>
+              <div class="axis"><dt>wedge</dt><dd>自社が商品・価格・運営・顧客接点・データを変えられる有料の統合フィールド。</dd></div>
+              <div class="axis"><dt>収益・展開</dt><dd>開発・販売から、共同開発、運営受託、会員／持分、共通基盤へ進む仮説。</dd></div>
+              <div class="axis"><dt>INNFRAの役割</dt><dd>市場に向き合う統合デベロッパー。全土地・建物を保有する意味ではない。</dd></div>
+              <div class="axis"><dt>最初の検証</dt><dd>誰が何にいくら払うか。全費用込み収支と別拠点での再現性。</dd></div>
+              <div class="axis"><dt>最大リスク</dt><dd>購入理由が場所・建築・ブランドに寄る。資本・運営が重く、標準化できない。</dd></div>
+            </dl>
+            <p class="evidence-foot">本人Slack 7/15・16・21、本人共有の事業仮説メモ。「デベロッパー」は本人もTAM重視の勇み足と留保。ICC v02は会社案との整合確認にのみ使用。</p>
+          </article>
+
+          <article class="person johnny">
+            <div class="person-head">
+              <div class="person-id"><h3>ジョニー</h3><span>PRODUCT / SPEC</span></div>
+              <p class="person-thesis">尊厳ある暮らしを支える水・衛生・エネルギーの共通仕様を、有償導入と運用データから製品・規格へ育てる。</p>
+            </div>
+            <dl>
+              <div class="axis"><dt>未来像</dt><dd>高価な箱を抱えなくても、尊厳のミニマムと場所を選べる自由が成立する。</dd></div>
+              <div class="axis"><dt>解く課題</dt><dd>住居費・インフラ固定費が暮らしを縛り、分散型インフラは個別設計で高い。</dd></div>
+              <div class="axis"><dt>顧客・支払者</dt><dd>初期は防災、自衛隊、ケア、居住空間メーカー等のB2B/B2G。生活者は中長期。</dd></div>
+              <div class="axis"><dt>提供価値</dt><dd>C＝共通仕様・施工・監視・保守。A＝参照実装、B＝運用データの場。</dd></div>
+              <div class="axis"><dt>wedge</dt><dd>外部顧客にC0を有償導入し、複数用途の共通部分と経済性を測る。</dd></div>
+              <div class="axis"><dt>収益・展開</dt><dd>機器、施工仕様、監視・保守、将来ライセンス。C0→C1製品→C2標準。</dd></div>
+              <div class="axis"><dt>INNFRAの役割</dt><dd>複数事業者が再利用できるインフラ製品・運用規格の供給者。</dd></div>
+              <div class="axis"><dt>最初の検証</dt><dd>最良代替との10年TCO、有償契約、BOM・施工・監視・保守の再利用率。</dd></div>
+              <div class="axis"><dt>最大リスク</dt><dd>「規格を書く席」を取れず個別SIへ戻る。尊厳・統合価格のWTPも未検証。</dd></div>
+            </dl>
+            <p class="evidence-foot">本人Slack 7/16と本人起点の仮説文書、7/16分析。C0→C1→C2は分析上の段階整理で、会社承認済みロードマップではない。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="compare">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-no">04 / COMPARISON</span>
+          <div>
+            <h2>違いは「結論」より、<br>見ている階層と学習順序</h2>
+            <p class="section-summary">四つを同列の事業案として競わせると混乱する。まず階層差を分け、その後に実質的な分岐だけを比べる。</p>
+          </div>
+        </div>
+
+        <div class="layer-map" role="table" aria-label="4人の主対象となる階層">
+          <div class="layer-row" role="row">
+            <div class="layer-cell head" role="columnheader">階層</div>
+            <div class="layer-cell head" role="columnheader">相馬</div>
+            <div class="layer-cell head" role="columnheader">岩崎</div>
+            <div class="layer-cell head" role="columnheader">川島</div>
+            <div class="layer-cell head" role="columnheader">ジョニー</div>
+          </div>
+
+          <div class="layer-row" role="row">
+            <div class="layer-cell axis-name" role="rowheader">方向・物語</div>
+            <div class="layer-cell primary" role="cell" data-member="相馬">現在地と探索フレーム</div>
+            <div class="layer-cell" role="cell" data-member="岩崎">判定に使う</div>
+            <div class="layer-cell" role="cell" data-member="川島">事業として具体化</div>
+            <div class="layer-cell" role="cell" data-member="ジョニー">価値原理を置く</div>
+          </div>
+
+          <div class="layer-row" role="row">
+            <div class="layer-cell axis-name" role="rowheader">市場選択</div>
+            <div class="layer-cell" role="cell" data-member="相馬">仮説を並べる</div>
+            <div class="layer-cell primary" role="cell" data-member="岩崎">必然性で選ぶ</div>
+            <div class="layer-cell" role="cell" data-member="川島">制約地へ寄せる</div>
+            <div class="layer-cell" role="cell" data-member="ジョニー">B2B/B2Gから置く</div>
+          </div>
+
+          <div class="layer-row" role="row">
+            <div class="layer-cell axis-name" role="rowheader">顧客向け事業</div>
+            <div class="layer-cell" role="cell" data-member="相馬">候補を探索</div>
+            <div class="layer-cell" role="cell" data-member="岩崎">選別する</div>
+            <div class="layer-cell primary" role="cell" data-member="川島">統合開発・販売</div>
+            <div class="layer-cell" role="cell" data-member="ジョニー">参照実装として扱う</div>
+          </div>
+
+          <div class="layer-row" role="row">
+            <div class="layer-cell axis-name" role="rowheader">共通プロダクト</div>
+            <div class="layer-cell" role="cell" data-member="相馬">必要機能を広く捉える</div>
+            <div class="layer-cell" role="cell" data-member="岩崎">再利用性を問う</div>
+            <div class="layer-cell" role="cell" data-member="川島">開発基盤として必要</div>
+            <div class="layer-cell primary" role="cell" data-member="ジョニー">仕様・監視・保守</div>
+          </div>
+        </div>
+
+        <div class="compare-list" role="table" aria-label="実質的な違い">
+          <div class="compare-head" role="row">
+            <div role="columnheader">観点</div>
+            <div role="columnheader">相馬</div>
+            <div role="columnheader">岩崎</div>
+            <div role="columnheader">川島</div>
+            <div role="columnheader">ジョニー</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="compare-label" role="rowheader">最初に減らす不確実性</div>
+            <div role="cell"><span class="member-label">相馬</span>どの顧客・課題に反応があるか</div>
+            <div role="cell"><span class="member-label">岩崎</span>どの市場に今の必然性があるか</div>
+            <div role="cell"><span class="member-label">川島</span>統合された場所・体験に誰が払うか</div>
+            <div role="cell"><span class="member-label">ジョニー</span>共通インフラが外部で有償採用・再利用されるか</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="compare-label" role="rowheader">学習順序</div>
+            <div role="cell"><span class="member-label">相馬</span>概念検証 → 対話 → 現場</div>
+            <div role="cell"><span class="member-label">岩崎</span>市場俯瞰 → 顧客・課題特定 → 実験</div>
+            <div role="cell"><span class="member-label">川島</span>自社制御フィールド → 支払い・運営 → 標準化</div>
+            <div role="cell"><span class="member-label">ジョニー</span>C0 → 有償導入・データ → C1製品 → C2規格</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="compare-label" role="rowheader">主な合格証拠</div>
+            <div role="cell"><span class="member-label">相馬</span>具体的な困りごと、行動反応</div>
+            <div role="cell"><span class="member-label">岩崎</span>代替を越える必然性と支払い</div>
+            <div role="cell"><span class="member-label">川島</span>予約金／PO、全費用込み収支、再現性</div>
+            <div role="cell"><span class="member-label">ジョニー</span>有償採用、TCO、再利用率、SLA</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="compare-label" role="rowheader">失敗しやすい形</div>
+            <div role="cell"><span class="member-label">相馬</span>総論で止まる</div>
+            <div role="cell"><span class="member-label">岩崎</span>分析で止まる／Willが消える</div>
+            <div role="cell"><span class="member-label">川島</span>場所依存・運営会社化・資本負荷</div>
+            <div role="cell"><span class="member-label">ジョニー</span>個別SI・規格の先走り</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="synthesis">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-no">05 / SYNTHESIS</span>
+          <div>
+            <h2>共通点、実質差、<br>まだ決めていないこと</h2>
+            <p class="section-summary">合意していないことを合意に見せず、それでも一緒に進められる範囲を分ける。</p>
+          </div>
+        </div>
+
+        <div class="triad">
+          <article class="triad-card">
+            <h3>共通点</h3>
+            <ol>
+              <li>設備単品だけでは足りない</li>
+              <li>オフグリッドは目的でなく手段</li>
+              <li>防災専用に閉じず、平時価値をつくる</li>
+              <li>世界観と需要証拠を分ける</li>
+              <li>大型投資より前に小さく検証する</li>
+              <li>現在地は仮説で、最終合意ではない</li>
+            </ol>
+          </article>
+          <article class="triad-card">
+            <h3>実質差</h3>
+            <ul>
+              <li>最初の顧客を誰に置くか</li>
+              <li>自社が握る制御点は何か</li>
+              <li>自社フィールドと外部導入のどちらから学ぶか</li>
+              <li>予約・収支と、TCO・共通化のどちらを先に測るか</li>
+              <li>デベロッパーと規格供給者のどちらを前面に出すか</li>
+            </ul>
+          </article>
+          <article class="triad-card">
+            <h3>未決</h3>
+            <ul>
+              <li>最も強い課題を持つ顧客</li>
+              <li>最初の商品、価格、支払者</li>
+              <li>既存代替より勝てる理由</li>
+              <li>所有・運営する範囲</li>
+              <li>wedgeから隣接市場への展開</li>
+              <li>ICC市場規模の獲得可能性</li>
+            </ul>
+          </article>
+        </div>
+
+        <blockquote class="synthesis-quote">
+          INNFRAは、制約のある場所でも日常の価値とレジリエンスが同時に成立するよう、生活必需インフラ・空間・体験を一体で再編集する。
+          <small>分析者による外向きの一文案 / 未合意</small>
+        </blockquote>
+
+        <div class="operating-model" aria-label="4人の主張を接続する統合案">
+          <article class="op-step"><span class="op-num">1</span><h3>相馬<br>探索範囲を置く</h3><p>日常で魅力的、更新可能、結果として強い。複数コンセプトを安く比較。</p></article>
+          <article class="op-step"><span class="op-num">2</span><h3>岩崎<br>市場を削る</h3><p>課題強度、現行代替、必然性、支払い、right-to-winで選ぶ。</p></article>
+          <article class="op-step"><span class="op-num">3</span><h3>川島<br>有料で学ぶ</h3><p>統合フィールドで、顧客価値、価格、運用、全費用込み収支を測る。</p></article>
+          <article class="op-step"><span class="op-num">4</span><h3>ジョニー<br>学びを複利化</h3><p>共通BOM、施工、監視、保守、SLAを製品にし、外部へ売る。</p></article>
+        </div>
+
+        <div class="decision-gates">
+          <div class="gate"><b>会議で決める 1</b><p>比較する顧客仮説を最大3つ。「誰が／いつ／何に困り／何へ／いくら払うか」で一文にする。</p></div>
+          <div class="gate"><b>会議で決める 2</b><p>統合フィールドと外部共通仕様、それぞれ最小の有料実験を一つ置く。</p></div>
+          <div class="gate"><b>会議で決める 3</b><p>実支払い、全費用込み採算、代替優位、再利用性、法規、損失上限を共通の合格条件にする。</p></div>
+          <div class="gate"><b>会議で決める 4</b><p>1〜2か月後の「継続／切替／追加検証／両案見送り」の条件を先に書く。</p></div>
+        </div>
+
+        <aside class="revoke">
+          <h3>この統合案を撤回する条件</h3>
+          <ul>
+            <li>統合フィールドで実支払いが出ない、または全費用込みで継続できない。</li>
+            <li>外部導入で中核仕様が再利用されず、案件ごとに大半を作り直す。</li>
+            <li>最良の代替にTCO・立ち上げ・運用のいずれでも勝てない。</li>
+            <li>顧客の購入理由が場所・建築・ブランドだけで、INNFRAの統合能力が価値にならない。</li>
+            <li>コンセプト反応が好意的意見にとどまり、強い顧客課題が見つからない。</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-no">06 / EVIDENCE</span>
+          <div>
+            <h2>どこまで読み、<br>何が未確認か</h2>
+            <p class="section-summary">資料の強さは、断定の強さではなく、証拠範囲と空白を隠さないことで担保する。</p>
+          </div>
+        </div>
+
+        <div class="source-grid">
+          <article class="source-card">
+            <h3>取得範囲</h3>
+            <ul>
+              <li><strong>Slack：</strong>4名Group DM、2025-09-30 21:28〜2026-07-21 10:35 JSTの全284メッセージ。3スレッド全返信。取得 2026-07-21 11:57 JST。</li>
+              <li><strong>Notion：</strong>相馬「事業方向性について現時点の整理」2026-07-20本文を認証済みブラウザで読了。</li>
+              <li><strong>ICC v02：</strong>56頁。全頁テキスト抽出・サムネイル目視、主要頁を高解像度確認。</li>
+              <li><strong>ローカル：</strong>設立日SSoT、議論マップ、3仮説比較、7/15統合、7/19松井対話。</li>
+            </ul>
+          </article>
+
+          <article class="source-card">
+            <h3>未確認・制約</h3>
+            <ul>
+              <li>2023-10-11〜2025-02-27の日付つき議論記録は今回未取得。</li>
+              <li>過去の音声・ASR由来資料は話者帰属に推定を含む。</li>
+              <li>ICCの市場規模、実績件数、提案件数、性能値は外部照合していない。</li>
+              <li>Notion APIは接続アカウント不一致で再取得不可。本文はブラウザ表示で確認。</li>
+              <li>4人の主張は更新中で、最終の会社合意ではない。</li>
+            </ul>
+          </article>
+
+          <article class="source-card">
+            <h3>主要ローカル資料</h3>
+            <div class="source-links">
+              <span>議論の系譜と仮説検証マップ</span>
+              <span>3仮説 分析ワークシート</span>
+              <span>未来仮説×事業仮説 最終統合</span>
+              <span>未来仮説 壁打ち記録</span>
+              <span>松井・ジョニー戦略対話</span>
+              <span>本HTMLのSSoT原稿</span>
+            </div>
+          </article>
+
+          <article class="source-card">
+            <h3>主要Slack発言</h3>
+            <div class="source-links">
+              <span>川島 7/21 — デベロッパー仮説</span>
+              <span>相馬 7/20 — 現在地と検証提案</span>
+              <span>相馬 7/20 — 更新され続ける家</span>
+              <span>ジョニー 7/16 — 住宅市場と尊厳</span>
+              <span>岩崎 7/16 — 市場再選定</span>
+              <span>川島 7/15 — 滞在型サービス仮説</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="final-note">
+    <div class="shell">
+      <p>いま揃っているのは、答えではない。<br>同じ証拠で比べられる、四つの役割である。</p>
+    </div>
+  </aside>
+
+  <footer>
+    <div class="shell">
+      <span>D2 / URL-LIMITED SHARE — 再配布不可</span>
+      <span>閲覧期限 2026-07-24 13:48 JST / 期限後の次回定期処理で削除</span>
+    </div>
+  </footer>
+</body>
+</html>
