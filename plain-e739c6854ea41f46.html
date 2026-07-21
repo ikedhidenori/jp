@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="日本の中古車査定周辺ビジネスの市場構造、収益モデル、規制、参入4案を一次情報中心に検証した調査レポート">
+  <title>日本の中古車査定周辺ビジネス — 構造・収益性・参入モデル調査</title>
+  <style type="text/css">:root {
+--ink: #17202a;
+--muted: #5f6b78;
+--paper: #fbfaf7;
+--surface: #ffffff;
+--line: #dfe4e8;
+--navy: #12324a;
+--teal: #0b7a75;
+--teal-soft: #e8f5f2;
+--amber: #a66100;
+--amber-soft: #fff4dd;
+--red: #a33a34;
+--shadow: 0 14px 40px rgba(18, 50, 74, .08);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper); }
+body {
+margin: 0;
+color: var(--ink);
+background:
+radial-gradient(circle at 88% 3%, rgba(11,122,117,.10), transparent 28rem),
+linear-gradient(180deg, #f4f7f6 0, var(--paper) 28rem);
+font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+font-size: 16px;
+line-height: 1.8;
+}
+body > header, body > main, body > nav, body > footer { max-width: 1120px; margin-inline: auto; }
+body > header {
+padding: 72px 40px 28px;
+}
+body > header h1 {
+max-width: 920px;
+margin: 0 0 14px;
+color: var(--navy);
+font-size: clamp(2.2rem, 5vw, 4.6rem);
+line-height: 1.08;
+letter-spacing: -.04em;
+word-break: keep-all;
+}
+.nowrap { white-space: nowrap; }
+body > header .subtitle { color: var(--teal); font-weight: 750; letter-spacing: .02em; }
+nav#TOC {
+margin-top: 18px;
+margin-bottom: 24px;
+padding: 22px 32px;
+border: 1px solid var(--line);
+border-radius: 18px;
+background: rgba(255,255,255,.86);
+box-shadow: var(--shadow);
+}
+nav#TOC::before { content: "CONTENTS"; display: block; color: var(--teal); font-size: .72rem; font-weight: 800; letter-spacing: .18em; }
+nav#TOC ul { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 10px 0 0; padding: 0; list-style: none; }
+nav#TOC ul ul { display: none; }
+nav#TOC a { color: var(--navy); text-decoration: none; font-size: .92rem; font-weight: 650; }
+main {
+margin-bottom: 64px;
+padding: 30px 40px 72px;
+border: 1px solid rgba(223,228,232,.9);
+border-radius: 24px;
+background: rgba(255,255,255,.94);
+box-shadow: var(--shadow);
+}
+h1, h2, h3, h4 { color: var(--navy); line-height: 1.28; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 4vw, 3.2rem); }
+h2 { margin: 4.2rem 0 1.35rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: clamp(1.55rem, 3vw, 2.35rem); letter-spacing: -.025em; }
+h2:first-of-type { margin-top: 1.5rem; border-top: 0; }
+h3 { margin: 3rem 0 1rem; font-size: 1.38rem; }
+h4 { margin-top: 2rem; font-size: 1.05rem; }
+p { max-width: 78ch; }
+a { color: #086b77; text-underline-offset: .18em; text-decoration-thickness: .08em; }
+strong { color: #0c394b; }
+ol, ul { padding-left: 1.4rem; }
+li { margin: .34rem 0; }
+main > section:first-of-type ol {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 12px;
+padding: 0;
+counter-reset: summary;
+list-style: none;
+}
+main > section:first-of-type ol li {
+position: relative;
+margin: 0;
+padding: 16px 17px 16px 48px;
+border: 1px solid var(--line);
+border-radius: 13px;
+background: #fcfdfd;
+line-height: 1.55;
+counter-increment: summary;
+}
+main > section:first-of-type ol li::before {
+content: counter(summary, decimal-leading-zero);
+position: absolute;
+left: 15px;
+top: 14px;
+color: var(--teal);
+font: 800 .74rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+blockquote {
+margin: 1.6rem 0;
+padding: 16px 22px;
+border-left: 4px solid var(--teal);
+background: var(--teal-soft);
+}
+.concept-figure {
+margin: 1.25rem 0 2rem;
+padding: 18px;
+border: 1px solid var(--line);
+border-radius: 16px;
+background: linear-gradient(135deg, #f9fbfb, #f1f6f5);
+}
+.concept-figure figcaption { margin-top: 12px; color: var(--muted); font-size: .8rem; line-height: 1.55; }
+.concept-grid { display: grid; gap: 10px; }
+.concept-grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.concept-card, .flow-node, .gate-map > div {
+display: flex; flex-direction: column; min-height: 92px; padding: 13px;
+border: 1px solid #d9e3e3; border-radius: 11px; background: rgba(255,255,255,.9);
+}
+.concept-card span, .flow-node span, .gate-map span { color: var(--teal); font: 800 .66rem/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .1em; }
+.concept-card strong, .flow-node strong, .gate-map strong { margin-top: auto; color: var(--navy); font-size: 1rem; }
+.concept-card small, .flow-node small, .gate-map small { color: var(--muted); }
+.concept-card.accent, .flow-node.accent { border-color: #7fbdb7; background: var(--teal-soft); }
+.concept-card.risk { border-color: #e2c8a4; background: var(--amber-soft); }
+.flow-map { display: grid; grid-template-columns: 1fr auto 1.55fr auto 1fr auto 1.2fr; gap: 9px; align-items: center; }
+.flow-map i { color: var(--teal); font-style: normal; font-weight: 900; }
+.score-figure { display: grid; gap: 9px; }
+.score-row { display: grid; grid-template-columns: 24px 1fr 28px; gap: 10px; align-items: center; }
+.score-row > span { height: 9px; overflow: hidden; border-radius: 999px; background: #dce7e7; }
+.score-row b { display: block; height: 100%; border-radius: inherit; background: var(--teal); }
+.score-row.risk b { background: var(--amber); }
+.score-row em { color: var(--muted); font-style: normal; font-size: .8rem; }
+.hypothesis-strip, .gate-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.hypothesis-strip > div { display: grid; gap: 4px; padding: 13px; border-radius: 11px; background: #fff; border: 1px solid var(--line); }
+.hypothesis-strip span { color: var(--teal); font: 800 .7rem ui-monospace, monospace; }
+.hypothesis-strip em { width: fit-content; padding: 3px 8px; border-radius: 999px; color: var(--amber); background: var(--amber-soft); font-size: .72rem; font-style: normal; font-weight: 750; }
+.hypothesis-strip em.conditional { color: var(--teal); background: var(--teal-soft); }
+pre {
+overflow-x: auto;
+padding: 22px;
+border-radius: 14px;
+color: #d8f3ef;
+background: #102d3c;
+font-size: .9rem;
+line-height: 1.65;
+}
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+p code, li code { padding: .12em .34em; border-radius: 5px; background: #edf3f4; font-size: .9em; }
+.table-wrap { overflow-x: auto; margin: 1.35rem 0 2.2rem; border: 1px solid var(--line); border-radius: 14px; }
+table { display: block; overflow-x: auto; width: 100%; max-width: 100%; min-width: 0; border-collapse: collapse; font-size: .88rem; line-height: 1.55; }
+thead { background: var(--navy); color: #fff; }
+th { text-align: left; letter-spacing: .01em; }
+th, td { min-width: 112px; padding: 12px 13px; vertical-align: top; border-bottom: 1px solid var(--line); }
+th:first-child, td:first-child { min-width: 138px; }
+tbody tr:nth-child(even) { background: #f7f9f9; }
+tbody tr:last-child td { border-bottom: 0; }
+hr { margin: 3rem 0; border: 0; border-top: 1px solid var(--line); }
+.meta-card {
+margin: 0 0 26px;
+padding: 18px 22px;
+border-left: 4px solid var(--teal);
+border-radius: 0 12px 12px 0;
+background: var(--teal-soft);
+color: #274a50;
+}
+.meta-card p { margin: 0; }
+.evidence-note { color: var(--muted); font-size: .9rem; }
+footer { padding: 0 40px 60px; color: var(--muted); font-size: .82rem; }
+@media (max-width: 760px) {
+body > header { padding: 42px 20px 18px; }
+nav#TOC { margin-inline: 14px; padding: 18px 20px; }
+nav#TOC ul { display: grid; grid-template-columns: 1fr 1fr; }
+main { margin-inline: 8px; padding: 18px 18px 52px; border-radius: 17px; }
+main > section:first-of-type ol { grid-template-columns: 1fr; }
+.concept-grid.four { grid-template-columns: 1fr 1fr; }
+.flow-map { grid-template-columns: 1fr; }
+.flow-map i { transform: rotate(90deg); text-align: center; }
+.hypothesis-strip, .gate-map { grid-template-columns: 1fr; }
+h2 { margin-top: 3.2rem; }
+table { min-width: 0; font-size: .82rem; }
+th, td { padding: 10px; }
+}
+@media print {
+body { background: #fff; font-size: 10.5pt; }
+nav#TOC { box-shadow: none; }
+main { max-width: none; border: 0; box-shadow: none; }
+a { color: inherit; }
+.table-wrap { overflow: visible; }
+table { min-width: 0; font-size: 8pt; }
+h2, h3 { break-after: avoid; }
+tr { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="subtitle">RESEARCH REPORT · JAPAN · 2026</div>
+  <h1><span class="nowrap">日本の中古車査定</span><br>周辺ビジネス</h1>
+  <p>構造・収益性・参入モデル調査</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#1-エグゼクティブサマリ" id="toc-1-エグゼクティブサマリ">§1
+エグゼクティブサマリ</a></li>
+<li><a href="#2-市場構造マップ" id="toc-2-市場構造マップ">§2
+市場構造マップ</a></li>
+<li><a href="#3-参入モデル4案" id="toc-3-参入モデル4案">§3
+参入モデル4案</a></li>
+<li><a href="#4-4モデルの採点" id="toc-4-4モデルの採点">§4
+4モデルの採点</a></li>
+<li><a href="#5-仮説検証" id="toc-5-仮説検証">§5 仮説検証</a></li>
+<li><a href="#6-情報の限界と追加調査すべき点" id="toc-6-情報の限界と追加調査すべき点">§6
+情報の限界と追加調査すべき点</a></li>
+</ul>
+</nav>
+<main>
+<blockquote>
+<p><strong>基準日:</strong> 2026年7月21日 JST<br />
+<strong>対象:</strong>
+日本市場／個人の副業（月10万円〜）から本業級<br />
+<strong>証拠区分:</strong>
+A=官公庁・法令・上場会社IR、B=業界団体・事業者公式、C=第三者調査・運営実績、D=当事者自己申告・販売者事例<br />
+<strong>注意:</strong>
+本稿は事業調査であり、法律・税務助言ではない。金額の「推定」は自分の人件費・税金を除く税前の感度分析である。</p>
+</blockquote>
+<section id="1-エグゼクティブサマリ" class="level2">
+<h2>§1 エグゼクティブサマリ</h2>
+<figure class="concept-figure">
+  <div class="concept-grid four">
+    <div class="concept-card accent"><span>FIT</span><strong>B · AIツール</strong><small>36 / 50</small></div>
+    <div class="concept-card"><span>SECOND</span><strong>C · コンテンツ</strong><small>34 / 50</small></div>
+    <div class="concept-card"><span>BASE</span><strong>A · アフィLP</strong><small>33 / 50</small></div>
+    <div class="concept-card risk"><span>RISK</span><strong>D · 実業</strong><small>20 / 50</small></div>
+  </div>
+  <figcaption>4モデルの相対位置。点数は判断の代替ではなく、本文の5軸評価を先読みする案内図。</figcaption>
+</figure>
+
+<ol type="1">
+<li>日本の総務省CPIには「中古自動車」の独立品目がない。起点LPの表示は日本統計の誤帰属である可能性が高く、車種別資産価値の根拠には使えない。</li>
+<li>中古車流通の中央市場は業者オークションで、USSはFY2025に成約214.5万台、1成約当たり三者合計手数料は平均約2.88万円、AA事業営業利益率は約65%だった。</li>
+<li>加盟店が媒体に払う公開リード料はカーセンサー1,500円、MOTA上位リード2,900円（各税別）。媒体運営者への料金であり、アフィリエイター報酬とは別である。</li>
+<li>公開ASP報酬は1件1,100〜5,922円。案件別承認率は非公開で、特別単価の存在だけはASP公式で確認できる。</li>
+<li>SEOの主要商用語は大手・法人媒体が優勢。新規個人のビッグワード正面突破は低確率だが、地域・車種・体験・独自データのロングテールまで「SEO不可能」ではない。</li>
+<li>電話ラッシュへの不満は定量的に存在し、MOTA・ユーカーパック等のUXに組み込まれている。ただし成長との単独因果は証明されず、仮説は「一部支持」である。</li>
+<li>モデルBは依頼者の強みに最も合うが、無料の公的データだけでは精密査定を作れない。正規DB/APIか買取店提携が成立条件である。</li>
+<li>公開事例のベースレートは厳しい。月10万円超の自己申告はある一方、238記事で直近売上ゼロ、数千フォロワーでも月1万円前後・赤字の売却案件が確認できる。</li>
+<li>Dの実業型は粗利上限が大きいが、古物商・AA参加条件・資金・瑕疵・在庫・輸出実務の複合リスクがあり、副業としての再現性が最も低い。</li>
+<li>4案中の材料上の相対順位はB&gt;C&gt;A&gt;D。ただしBのデータライセンス価格・二次利用条件は「不明（個別見積り）」で、ここが最大の未解決ゲートである。</li>
+</ol>
+</section>
+<section id="2-市場構造マップ" class="level2">
+<h2>§2 市場構造マップ</h2>
+<figure class="concept-figure">
+  <div class="flow-map">
+    <div class="flow-node"><span>SELLER</span><strong>個人</strong></div><i>→</i>
+    <div class="flow-node wide"><span>ROUTES</span><strong>下取り · 買取 · 一括査定<br>CtoB · CtoC</strong></div><i>→</i>
+    <div class="flow-node accent"><span>HUB</span><strong>業者AA</strong><small>USS等</small></div><i>→</i>
+    <div class="flow-node"><span>EXIT</span><strong>国内小売 · 輸出</strong></div>
+  </div>
+  <figcaption>中古車は複数の入口から業者オークションへ集まり、国内小売と輸出へ分岐する。</figcaption>
+</figure>
+
+<section id="21-バリューチェーンと金の流れ" class="level3">
+<h3>2.1 バリューチェーンと金の流れ</h3>
+<pre class="text"><code>個人の売主
+  ├─ ディーラー下取り ─┐
+  ├─ 買取専門店 ──────┼─→ 直接小売 / 業者AA（USS等） ─→ 国内小売
+  ├─ 一括査定・送客 ──┘             └────────→ 輸出
+  ├─ CtoBオークション ─────────────→ 落札店
+  └─ CtoC個人間売買 ──────────────→ 個人買主</code></pre>
+<table>
+<thead>
+<tr>
+<th>段階</th>
+<th>支払者 → 受取者</th>
+<th>成果地点・収益源</th>
+<th style="text-align: right;">公開額・マージン</th>
+<th>証拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下取り</td>
+<td>ディーラー → 個人</td>
+<td>新車販売と下取りを一体提示。再販差益</td>
+<td style="text-align: right;"><strong>不明</strong>（値引きとの配分・原価が非公開）</td>
+<td>非公開</td>
+</tr>
+<tr>
+<td>買取専門店</td>
+<td>買取店 → 個人</td>
+<td>直接小売またはAA売却。売価−買取−輸送・整備・在庫・AA料</td>
+<td style="text-align: right;">一般的な純利益は<strong>不明</strong></td>
+<td>非公開</td>
+</tr>
+<tr>
+<td>一括査定</td>
+<td>加盟買取店 → 媒体</td>
+<td>掲載料、車両情報閲覧、個人情報取得リード</td>
+<td style="text-align: right;">MOTA
+600円/閲覧、上位リード2,900円/件（税別）</td>
+<td><a href="https://autoc-one.jp/ullo/shop/registration/">MOTA料金</a>（B）</td>
+</tr>
+<tr>
+<td>掲載＋査定</td>
+<td>加盟店 → 媒体</td>
+<td>月額掲載＋査定依頼従量</td>
+<td style="text-align: right;">カーセンサー2万円/月/店舗＋1,500円/査定依頼（税別）</td>
+<td><a href="https://cdn.p.recruit.co.jp/terms/car-t-1044/index.html">利用約款・料金</a>（B）</td>
+</tr>
+<tr>
+<td>CtoBオークション</td>
+<td>落札店 → 媒体</td>
+<td>成約時の落札手数料</td>
+<td style="text-align: right;">ユーカーパック1万円〜/台。売主無料</td>
+<td><a href="https://www.ucarpac.co.jp/business/">事業モデル</a>、<a href="https://bid.ucarpac.com/">加盟店料金</a>（B）</td>
+</tr>
+<tr>
+<td>CtoC</td>
+<td>売主・買主 → 媒体</td>
+<td>検査、掲載、決済、名義変更等</td>
+<td style="text-align: right;">カババ売主5.5万/11万円、買主3.85万円、名義変更5.5万円（税込）</td>
+<td><a href="https://www.car-byebuy.com/Trade/AppealPoints/Sell">カババ料金</a>（B）</td>
+</tr>
+<tr>
+<td>業者AA</td>
+<td>出品店・落札店 → USS</td>
+<td>出品、成約、落札の三層</td>
+<td style="text-align: right;">FY2025平均5,696円＋8,549円＋14,855円≒2.88万円/成約</td>
+<td><a href="https://www.ussnet.co.jp/ir/item/databook2025.pdf">USS
+Databook 2025</a>（A）</td>
+</tr>
+<tr>
+<td>国内小売</td>
+<td>消費者 → 販売店</td>
+<td>車両＋諸費用。仕入・整備・在庫・保証控除前粗利</td>
+<td style="text-align: right;">IDOM
+FY2024直営店の台当たり粗利41万円。業界平均ではない</td>
+<td><a href="https://221616.com/idom/investor/library/">IDOM FY2024
+IR</a>（A）</td>
+</tr>
+<tr>
+<td>輸出</td>
+<td>海外買主 → 輸出業者</td>
+<td>売価−車両・AA・陸送・港湾・船賃・為替コスト</td>
+<td style="text-align: right;">純マージンは<strong>不明</strong></td>
+<td>非公開</td>
+</tr>
+</tbody>
+</table>
+<p><strong>構造上の示唆。</strong>
+在庫を持つ販売店より、中央市場インフラの収益性が公開情報では際立つ。USSのFY2025は出品320.2万台、成約214.5万台、成約率67.0%、成約車両代金2兆5,875億円、AA事業売上818億円、営業利益533億円、営業利益率約65%だった。一方、販売店の車両別純利益は在庫回転・整備・保証・金利の影響が大きく、一般化できる公表値がない。</p>
+</section>
+<section id="22-主要送客仲介サービス" class="level3">
+<h3>2.2 主要送客・仲介サービス</h3>
+<table>
+<thead>
+<tr>
+<th>サービス</th>
+<th>売却UX</th>
+<th>媒体側の収益源</th>
+<th style="text-align: right;">公開単価</th>
+<th>2024年以降の規模指標</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOTA車買取</td>
+<td>最大20社が事前入札、上位3社だけ連絡</td>
+<td>加盟店の閲覧・上位リード課金</td>
+<td style="text-align: right;">600円/閲覧、2,900円/上位リード（税別、期間施策）</td>
+<td>2026年3月10.53万申込、前年同月比137%。累計231万、加盟1,556店。<a href="https://mota.inc/news/3-wnw7d-in4/">実績</a>（B）</td>
+</tr>
+<tr>
+<td>カーセンサー</td>
+<td>掲載媒体＋複数買取店への査定依頼</td>
+<td>月額掲載＋従量リード</td>
+<td style="text-align: right;">2万円/月/店舗＋1,500円/依頼（税別）</td>
+<td>中古車掲載約51万台（2024-11）。<a href="https://www.recruit.co.jp/wp-content/uploads/2025/07/20250104_car_01.pdf">公表資料</a>（B）</td>
+</tr>
+<tr>
+<td>ナビクル</td>
+<td>従来型最大10社。2026年「アシスト」は事前入札後に候補選択、日程調整</td>
+<td>加盟店からの送客課金とみられる</td>
+<td style="text-align: right;"><strong>不明</strong>（非公開）</td>
+<td>2024年10月累計540万人超。<a href="https://www.a-tm.co.jp/news/54458/">会社発表</a>（B）</td>
+</tr>
+<tr>
+<td>ズバット</td>
+<td>1フォームで複数店へ依頼</td>
+<td>加盟店からの広告・送客課金とみられる</td>
+<td style="text-align: right;"><strong>不明</strong>（非公開）</td>
+<td>2024年10月累計300万人、加盟298事業者。<a href="https://www.webcrew.co.jp/news/detail/20241128-2.html">会社発表</a>（B）</td>
+</tr>
+<tr>
+<td>ユーカーパック</td>
+<td>1回査定、1社窓口、8,500社超が入札</td>
+<td>落札店の成約課金</td>
+<td style="text-align: right;">1万円〜/台、固定・月額0、売主無料</td>
+<td>買取実績2万台超。<a href="https://www.ucarpac.co.jp/">会社</a>（B）</td>
+</tr>
+<tr>
+<td>カババ</td>
+<td>運営が検査・撮影・決済・名義変更を支援するCtoC</td>
+<td>売主・買主の両面成約料＋実務料</td>
+<td style="text-align: right;">売主5.5万/11万円、買主3.85万円等</td>
+<td>2026年5月累計流通197億円、約4,800台、MAU約120万（会社発表）。<a href="https://prtimes.jp/main/html/rd/p/000000050.000053378.html">KPI</a>（B）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>料金レイヤーの注意。</strong>
+上表は主に「加盟店→媒体」の料金である。次節のASP報酬は「広告主/ASP→アフィリエイター」であり、同じリードでも価格・税・成果条件が違う。さらに買取店の車両差益、AA手数料とも別で、相互に推定変換しない。</p>
+</section>
+<section id="23-アフィリエイト実勢" class="level3">
+<h3>2.3 アフィリエイト実勢</h3>
+<section id="公開確認できる2026年の通常報酬" class="level4">
+<h4>公開確認できる2026年の通常報酬</h4>
+<table>
+<thead>
+<tr>
+<th>案件 / ASP</th>
+<th>支払先</th>
+<th>成果地点</th>
+<th style="text-align: right;">媒体報酬</th>
+<th>税</th>
+<th>証拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOTA / afb</td>
+<td>アフィリエイター</td>
+<td>新規査定申込完了</td>
+<td style="text-align: right;">2,961円</td>
+<td>税込</td>
+<td><a href="https://www.afi-b.com/feature_v2/car2026/">afb車特集2026</a>（B）</td>
+</tr>
+<tr>
+<td>CTN / afb</td>
+<td>同上</td>
+<td>新規顧客の初回査定申込</td>
+<td style="text-align: right;">5,922円</td>
+<td>税込</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>カーネクスト / afb</td>
+<td>同上</td>
+<td>Web初回申込後30日以内の査定完了</td>
+<td style="text-align: right;">3,300円</td>
+<td>税込</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>カーセブン / afb</td>
+<td>同上</td>
+<td>新規査定申込</td>
+<td style="text-align: right;">1,691円</td>
+<td>税込</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>ユーカーパック / afb</td>
+<td>同上</td>
+<td>Web申込後60日以内の通話完了</td>
+<td style="text-align: right;">1,100円</td>
+<td>税込</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>ズバット / afb</td>
+<td>同上</td>
+<td>一括査定申込</td>
+<td style="text-align: right;">1,100円</td>
+<td>税込</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>ガリバー / LinkShare</td>
+<td>同上</td>
+<td>無料査定申込</td>
+<td style="text-align: right;">1,800円</td>
+<td>表示上不明</td>
+<td><a href="https://www.linkshare.ne.jp/ecsite/individual/37923.html">LinkShare公式</a>（B）</td>
+</tr>
+<tr>
+<td>カーセブン / TownLife</td>
+<td>同上</td>
+<td>査定申込</td>
+<td style="text-align: right;">2,695円</td>
+<td>税込</td>
+<td><a href="https://townlife-aff.com/purchase_feature.html">公式特集</a>（B）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>通常報酬の公開レンジ:</strong>
+1,100〜5,922円/成果。中心帯は1,100〜3,300円。</li>
+<li><strong>A8.net:</strong>
+個別案件の現行単価はログイン後が中心で公開確認不能。MOTA
+2,630円という第三者観測はあるが、ASP登録誘導の利害があるため参考値にとどめる。<a href="https://afi-asp.tokyo/mota-car-purchase-asp/">第三者観測</a>（D）</li>
+<li><strong>felmat:</strong>
+クローズド型。車案件、単価、承認率は<strong>不明（公開URLなし）</strong>。<a href="https://www.felmat.net/">公式</a>（B）</li>
+<li><strong>アクセストレード:</strong>
+案件別承認率は会員ランク特典で、一般公開ではない。<a href="https://www.accesstrade.ne.jp/words/detail/474">公式用語集</a>（B）</li>
+<li><strong>承認率:</strong>
+主要車案件の2024年以降の実勢は<strong>不明（ASP会員画面・媒体別データ）</strong>。後の収益試算の50%/70%/85%は実績値ではなく感度仮定。</li>
+<li><strong>特別単価:</strong>
+A8は媒体別報酬・一時増額・特別報酬、LinkShareのガリバーは成果状況に応じた特単を公式に明記する。ただし倍率・条件は非公開。<a href="https://www.a8.net/ec/faq/">A8 FAQ</a>（B）</li>
+</ul>
+</section>
+</section>
+<section id="24-市場環境" class="level3">
+<h3>2.4 市場環境</h3>
+<section id="価格総務省cpiの中古自動車は存在しない" class="level4">
+<h4>価格：総務省CPIの「中古自動車」は存在しない</h4>
+<p>日本の2020年基準CPIの公式品目には、自動車総合と軽・小型・普通乗用車等はあるが、<strong>「中古自動車」「中古車」の独立品目はない</strong>。2025年基準改定資料にも同品目はない。<a href="https://www.stat.go.jp/data/cpi/">総務省CPI</a>、<a href="https://www.e-stat.go.jp/stat-search/file-download?fileKind=1&amp;statInfId=000032103938">2020年基準CSV</a>、<a href="https://www.stat.go.jp/data/cpi/2025/kaisetsu/index.html">2025年基準資料</a>（A）。したがって、起点LPの「総務省CPI（中古自動車）」は米国等の系列の誤帰属、または別系列の誤表示である可能性が高い。</p>
+<p>市場の代替指標として、USSの成約車両代金÷成約台数はFY2024約105.5万円からFY2025約120.6万円へ約14.3%上昇。2026年2月には平均成約価格138万円で過去最高と会社が報告した。<a href="https://www.ussnet.co.jp/ir/item/explanation2026_4Q.pdf">USS
+FY2026資料</a>（A）。ただし車種構成変化を含む平均で、同一品質の価格指数ではない。小売市場は2024年4兆8,285億円、前年比922.5億円増とのリクルート推計。<a href="https://www.recruit.co.jp/newsroom/pressrelease/assets/20250305_car_01.pdf">購入実態調査</a>（B）。</p>
+</section>
+<section id="円安輸出" class="level4">
+<h4>円安・輸出</h4>
+<p>20万円以上の中古車輸出台数は2024年156.7万台（前年比+2.0%）、2025年170.9万台（+9.1%）で3年連続過去最高。円安、海上輸送正常化、新興国需要が追い風とされる。<a href="https://www.aba-j.or.jp/info/industry/23647/">2024実績</a>、<a href="https://www.aba-j.or.jp/info/industry/25739/">2025実績</a>（B）。輸出業者のAA参加比率は2020年以前の約20%から30〜40%へ上昇したとの経産省資料もある。<a href="https://www.meti.go.jp/shingikai/sankoshin/sangyo_gijutsu/resource_circulation/jidosha_wg/pdf/063_03_00.pdf">自動車リサイクルWG</a>（A）。為替1円当たりの中古車価格弾性は<strong>不明（公的な識別推計を確認できず）</strong>。</p>
+</section>
+<section id="ev化" class="level4">
+<h4>EV化</h4>
+<p>乗用車の平均使用年数は13.32年で、ICE/HV流通が短期に消滅する可能性は低い。<a href="https://www.jama.or.jp/statistics/facts/four_wheeled/index.html">JAMA統計</a>（B）。一方、中古EVは電池SOH、残保証、充電規格、ソフト更新、補助金で個体差が拡大する。経産省は中古EV輸出と2030年以降の車載電池排出増を課題化し、国交省も電池耐久モニター基準を整備している。<a href="https://www.meti.go.jp/shingikai/sankoshin/sangyo_gijutsu/resource_circulation/jidosha_wg/pdf/061_07_00.pdf">経産省WG</a>、<a href="https://www.mlit.go.jp/report/press/jidosha10_hh_000307.html">国交省</a>（A）。モデルBでは「年式×距離」だけでなく、SOH・充電環境を変数にする必要がある。</p>
+</section>
+</section>
+<section id="25-規制信頼環境" class="level3">
+<h3>2.5 規制・信頼環境</h3>
+<section id="ビッグモーター事件後" class="level4">
+<h4>ビッグモーター事件後</h4>
+<ul>
+<li>国交省は2024年3月、130事業場の監査・処分と、車体整備の作業画像・内容・料金・実施者の記録、説明・了承を求める再発防止策を公表。<a href="https://www.mlit.go.jp/report/press/jidosha09_hh_000318.html">国交省</a>（A）</li>
+<li>金融庁は2024年1月、損保ジャパンとSOMPO HDに業務改善命令。<a href="https://www.fsa.go.jp/news/r5/hoken/20240125/20240125.html">金融庁</a>（A）</li>
+<li>消費者庁は2024年7月、「修復歴なし」とした30台の表示に景表法上の措置命令。<a href="https://www.caa.go.jp/notice/entry/038766/index.html">消費者庁</a>（A）</li>
+<li>JPUCは2024年11月、買取事業者・紹介媒体ガイドラインを改定し、紹介先、電話連絡、最終申込ボタン、確認画面、キャンセル、苦情窓口、誇大表示を規定。アフィリエイターも対象定義に含む。<a href="https://www.jpuc.or.jp/cockpit/storage/uploads/2024/11/26/JPUC_uid_674533bc67330.pdf">紹介サービス指針</a>（B）</li>
+</ul>
+<p>事件後に「買取仲介全体の新包括法」ができたのではない。整備、保険代理店、表示規制、業界自主基準が重層的に強化されたと理解するのが正確である。</p>
+</section>
+<section id="古物商許可の境界" class="level4">
+<h4>古物商許可の境界</h4>
+<table>
+<thead>
+<tr>
+<th>行為</th>
+<th>見立て</th>
+<th>実務上の線引き</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>アフィリエイト紹介のみ</td>
+<td>原則対象外の可能性が高い</td>
+<td>車両・代金を受けず、価格決定・契約締結をしない。ただし公式の一律Q&amp;Aはなく、実装次第</td>
+</tr>
+<tr>
+<td>相場説明・交渉支援</td>
+<td><strong>不明（実態依存）</strong></td>
+<td>売主の代理で価格承諾・契約成立を行えば「委託を受けて売買」に近づく</td>
+</tr>
+<tr>
+<td>反復継続して仕入・再販・輸出</td>
+<td>原則必要</td>
+<td>古物営業法2条・3条。自家用車の単純売却とは別</td>
+</tr>
+<tr>
+<td>委託を受けて売買</td>
+<td>原則必要</td>
+<td>所有権を取得しなくても法文上の対象</td>
+</tr>
+<tr>
+<td>業者AA参加</td>
+<td>実務上必須</td>
+<td>USSは自動車区分の許可取得後1年以上、行商、常設営業所、保証金等を要求</td>
+</tr>
+<tr>
+<td>ネット競りを運営</td>
+<td>古物競りあっせん業の届出</td>
+<td>相対紹介とは別類型</td>
+</tr>
+</tbody>
+</table>
+<p>一次根拠: <a href="https://laws.e-gov.go.jp/law/324AC0000000108?occasion_date=20250401">古物営業法</a>、<a href="https://www.keishicho.metro.tokyo.lg.jp/tetsuzuki/kobutsu/kaisetsu/kobutsu_shinsei.html">警視庁</a>、<a href="https://www.ussnet.co.jp/application/condition/index.html">USS入会条件</a>（A/B）。「紹介」と「委託売買」の境界は契約書、画面遷移、入金、価格承諾権を図示し、管轄警察へ事前照会すべきである。</p>
+</section>
+<section id="lp表示" class="level4">
+<h4>LP表示</h4>
+<ul>
+<li>「平均○万円高く売れる」「No.1」「AI査定精度○%」は、母集団、期間、車両条件、比較方法、外れ値処理、検証データが表示と一致する必要がある。<a href="https://www.caa.go.jp/policies/policy/representation/fair_labeling/representation_regulation/comparative_advertising/">比較広告ガイドライン</a>、<a href="https://www.caa.go.jp/policies/policy/representation/fair_labeling/faq/purchase">買取サービスQ&amp;A</a>（A）</li>
+<li>効果表示の合理的根拠は、求められた場合に原則15日以内に提出できる状態が必要。<a href="https://www.caa.go.jp/policies/policy/representation/fair_labeling/representation_regulation/misleading_representation/not_demonstrated_ad">不実証広告規制</a>（A）</li>
+<li>アフィリエイト広告であることを、最初の画面・対象表示の近く・本文と同程度以上の視認性で明示する。小さな注記だけでは不十分になり得る。<a href="https://www.caa.go.jp/policies/policy/representation/fair_labeling/public_notice/assets/representation_cms216_240418_01.pdf">表示管理指針</a>（A）</li>
+<li>無料査定紹介だけなら、アフィリエイター自身の通信販売には通常直結しない。有料ツール・会員・コンサルを販売すれば、価格、支払、提供、解約、氏名・住所・電話番号等の特商法表示が必要。<a href="https://www.no-trouble.caa.go.jp/what/mailorder/index.html">特商法ガイド</a>（A）</li>
+<li>四輪自動車は訪問購入規制の対象外。「法定8日クーリングオフ」と表示するのは不正確。JPUC約款の無負担解除は自主ルールである。<a href="https://www.caa.go.jp/policies/policy/consumer_transaction/amendment/2012/pdf/130213legal_1.pdf">消費者庁資料</a>（A）</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="3-参入モデル4案" class="level2">
+<h2>§3 参入モデル4案</h2>
+<figure class="concept-figure">
+  <div class="concept-grid four">
+    <div class="concept-card"><span>A · TRAFFIC</span><strong>SEO / LP</strong><small>低資本・高競争</small></div>
+    <div class="concept-card accent"><span>B · PRODUCT</span><strong>Data × AI</strong><small>強み適合・データゲート</small></div>
+    <div class="concept-card"><span>C · TRUST</span><strong>Content</strong><small>指名と一次体験</small></div>
+    <div class="concept-card risk"><span>D · OPERATION</span><strong>Trade</strong><small>高粗利・複合リスク</small></div>
+  </div>
+  <figcaption>各モデルが取りに行く価値の違い。Bは「送客LP」ではなく、データ契約を核にしたプロダクトである。</figcaption>
+</figure>
+
+<section id="31-同一前提の比較" class="level3">
+<h3>3.1 同一前提の比較</h3>
+<p><strong>収益の定義:</strong>
+A〜Cは、ASP確定報酬・広告・課金からサーバー、制作外注、広告費等の直接費を引いた月次営業貢献（本人の人件費・税前）。Dは車両粗利から陸送・保管・整備・金利・クレーム等を引く前後の幅が大きいため、粗利相当として別表示。<br />
+<strong>A〜Cの基本式:</strong>
+<code>対象流入 × 申込CVR × 承認率 × 成果単価</code>。承認率50%/70%/85%は公表実勢ではなく感度仮定。<br />
+<strong>推定ラベル:</strong>
+初期費用・工数・収益レンジは、公開単価と事例をアンカーにしたアナリスト推定。</p>
+<table>
+<thead>
+<tr>
+<th>モデル</th>
+<th style="text-align: right;">初期現金 / 立上工数（推定）</th>
+<th style="text-align: right;">月次工数（推定）</th>
+<th style="text-align: right;">悲観</th>
+<th style="text-align: right;">中立</th>
+<th style="text-align: right;">楽観</th>
+<th>競合・主障壁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A アフィLP/メディア</td>
+<td style="text-align: right;">2〜15万円 / 150〜400h</td>
+<td style="text-align: right;">40〜100h</td>
+<td style="text-align: right;">0〜1万円</td>
+<td style="text-align: right;">3〜15万円</td>
+<td style="text-align: right;">30〜100万円超</td>
+<td>ビッグワードは高密度。SEO履歴、一次情報、広告主審査</td>
+</tr>
+<tr>
+<td>B AI資産価値ツール</td>
+<td style="text-align: right;">自作5〜50万円 / 250〜800h</td>
+<td style="text-align: right;">40〜120h</td>
+<td style="text-align: right;">0〜3万円</td>
+<td style="text-align: right;">10〜50万円</td>
+<td style="text-align: right;">100〜300万円超</td>
+<td>正規データ契約、精度検証、再配布権、継続更新</td>
+</tr>
+<tr>
+<td>C note/YouTube/X</td>
+<td style="text-align: right;">1〜30万円 / 80〜250h</td>
+<td style="text-align: right;">40〜120h</td>
+<td style="text-align: right;">0〜1万円</td>
+<td style="text-align: right;">1〜10万円</td>
+<td style="text-align: right;">30〜100万円超</td>
+<td>信頼獲得、継続制作、プラットフォーム変動、指名性</td>
+</tr>
+<tr>
+<td>D 仲介・買取・輸出</td>
+<td style="text-align: right;">無在庫10〜100万円、在庫型100〜1,000万円超</td>
+<td style="text-align: right;">80〜250h</td>
+<td style="text-align: right;">▲50〜0万円</td>
+<td style="text-align: right;">粗利30〜80万円</td>
+<td style="text-align: right;">粗利100〜300万円</td>
+<td>許可、資金、AA、査定眼、クレーム、物流、為替</td>
+</tr>
+</tbody>
+</table>
+<section id="3シナリオの算定例" class="level4">
+<h4>3シナリオの算定例</h4>
+<table>
+<thead>
+<tr>
+<th>モデル</th>
+<th>悲観の算定例</th>
+<th>中立の算定例</th>
+<th>楽観の算定例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>800対象訪問×CVR0.8%×承認50%×2,500円＝0.8万円</td>
+<td>3,000×1.5%×70%×3,000円＝9.45万円</td>
+<td>10,000×2.0%×85%×5,000円＝85万円</td>
+</tr>
+<tr>
+<td>B</td>
+<td>1,000ツール利用×1.0%×50%×2,500円＝1.25万円</td>
+<td>8,000×2.0%×70%×3,000円＝33.6万円</td>
+<td>30,000×2.0%×85%×5,000円＝255万円</td>
+</tr>
+<tr>
+<td>C</td>
+<td>1,000コンテンツ訪問×0.5%×50%×2,500円＝0.63万円</td>
+<td>4,000×1.0%×70%×3,000円＝8.4万円</td>
+<td>10,000×1.5%×85%×5,000円＝63.75万円</td>
+</tr>
+<tr>
+<td>D</td>
+<td>1台×限界粗利5万円−固定費10万円＝▲5万円</td>
+<td>J-Net21例：5台、月商500万円、粗利60万円</td>
+<td>10台×限界粗利25万円−固定費50万円＝200万円（推定）</td>
+</tr>
+</tbody>
+</table>
+<p>A〜Cの単価2,500〜5,000円は公開通常単価レンジ内、5,000円は上位案件・特単帯を含む。流入、CVR、承認率は実績ではなく感度仮定であり、表の上端は到達確率を意味しない。Dの「限界粗利」は車両差益から案件直接費を引いた仮定で、公開業界平均ではない。</p>
+</section>
+</section>
+<section id="32-a-アフィlp--メディア型" class="level3">
+<h3>3.2 A. アフィLP / メディア型</h3>
+<p><strong>成立ロジック。</strong>
+公開通常単価1,100〜5,922円に対し、月10万円は単価3,000円・承認70%なら約48申込が必要。月10万円を得るための必要流入は、申込CVR1%なら約4,800対象訪問、2%なら約2,400対象訪問である。特単は実在するが、初期から前提にしない。</p>
+<p><strong>実例とベースレート。</strong>
+ラッコM&amp;A掲載の238記事カーリースサイトは月平均11,733円、最高70,400円、直近0円。バイク・車周辺ブログは2024年に1万PV/月・収益1万円超、2025年4月2.9万PV・約4万円と自己報告。<a href="https://rakkoma.com/project/list?page=1&amp;project_tab_item=1&amp;site_genre%5B0%5D=11&amp;site_sort=1&amp;sitesell_status=1">売却案件一覧</a>（C）、<a href="https://www.motorcamera.jp/entry/blog-report-202504">ブログ報告</a>（D）。「初月10万円・翌月30万円超」の有料note販売者もいるが、管理画面やPV証憑が公開部分になく利害が強いため信頼度は低い。<a href="https://note.com/real_nerine3502/n/nd52b0959ca0a">自己申告</a>（D）。</p>
+<p><strong>障壁とリスク。</strong>
+2026-07-21の一般検索ではMyBest、Motor-Fan、Carmo、IID等の法人媒体が上位候補を占める。<a href="https://my-best.com/5783">MyBest</a>、<a href="https://car.motor-fan.jp/article/10018255">Motor-Fan</a>、<a href="https://mobility.iid.co.jp/mota-kaitori/">IID</a>（C）。Google更新、広告主の案件停止・否認、薄い比較記事のコモディティ化が主リスク。地域、車種×年式、実売却記録、データ分析の長尾では余地が残る。</p>
+</section>
+<section id="33-b-ai資産価値ツール型" class="level3">
+<h3>3.3 B. AI資産価値ツール型</h3>
+<p><strong>成立ロジック。</strong>
+依頼者の技術・可視化・企画力に最も合う。しかし「CPIを見せて査定風にする」だけでは精度も表示根拠も不足する。MVPは①公的マクロ指標で市場局面、②正規データで個車レンジ、③レンジ幅・根拠・更新日、④上位数社送客、の四層に分ける必要がある。</p>
+<p><strong>合法的データ経路。</strong></p>
+<table>
+<thead>
+<tr>
+<th>経路</th>
+<th>粒度</th>
+<th>費用・条件</th>
+<th>Bへの可否</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e-Stat/CPI・登録・為替</td>
+<td>マクロ</td>
+<td>API利用可、出典表示。個車価格なし</td>
+<td>市場トレンドに可。査定教師データには不可</td>
+</tr>
+<tr>
+<td>PROTO自動車DB/API</td>
+<td>約30万件超、年式別小売・卸売・下取、残価、AA等</td>
+<td><strong>価格不明（個別見積り）</strong>。表示・学習・再配布範囲は契約</td>
+<td>最有力の正規候補。<a href="https://www.proto-g.co.jp/product/mobility/cardb/">公式</a>（B）</td>
+</tr>
+<tr>
+<td>DataLinePRO</td>
+<td>AA・小売相場、日次、過去13か月</td>
+<td>月2〜3万円＋基準価格1万円＋初期1万円（税別、掲載時点）。主に古物商向け</td>
+<td>研究・運用画面には現実的。外部表示/APIは別契約。<a href="https://www.proto-g.co.jp/product/mobility/dataline/">公式</a>（B）</td>
+</tr>
+<tr>
+<td>JAAI e-JAN等</td>
+<td>AA・小売・査定情報</td>
+<td>有償会員系。公開APIなし</td>
+<td>個別照会が必要。<a href="https://www.jaai.or.jp/images/jouhoukoukai/2025/2024_jigyouhoukoku.pdf">事業報告</a>（B）</td>
+</tr>
+<tr>
+<td>USS CIS</td>
+<td>実成約情報</td>
+<td>会員限定、古物商1年以上等</td>
+<td>初期MVPには重い。<a href="https://www.ussnet.co.jp/auction/advantage/index.html">USS</a>（B）</td>
+</tr>
+<tr>
+<td>提携買取店の実査定</td>
+<td>個車・成約</td>
+<td>二次利用、匿名化、保存、学習、解除後利用を契約</td>
+<td>長期の競争力。初期は提携獲得が障壁</td>
+</tr>
+</tbody>
+</table>
+<p><strong>スクレイピング。</strong>
+公開数値そのものに著作物性が乏しい場合でも、写真・説明・データベース構成の著作権、利用規約、認証回避、不正アクセス、サーバー負荷、限定提供データ、再配布を別々に判断する必要がある。グーネット買取はスクレイピング・データマイニング等を明示禁止。<a href="https://www.goo-net.com/satei/terms/">規約</a>（B）。カーセンサーも無断商用再利用の許諾は確認できない。<a href="https://cdn.p.recruit.co.jp/terms/car-t-1008/index.html">規約</a>（B）。「毎日クロールして相場API化」は高リスクで、正規ライセンス→書面許諾→提携店→公的統計の順が妥当。</p>
+<p><strong>収益実例の限界。</strong>
+日本の個人・小規模による「本物の車種別価値ツール」の検証可能な公開収益事例は確認できなかった。レンジは単価感度モデルであり、実例ではない。B2C課金より、無料利用→送客の方が初期の支払意思問題を避けやすいが、広告表示と精度根拠が必要。</p>
+</section>
+<section id="34-c-コンテンツ型" class="level3">
+<h3>3.4 C. コンテンツ型</h3>
+<p><strong>成立ロジック。</strong>
+実売却の時系列、見積書の匿名比較、電話体験、車種別の値落ち要因、EV電池の読み方など、本人の一次データを動画・X・noteにし、指名検索とツール利用へ送る。単独で広告収益を狙うより、Bの説明・信頼獲得チャネルとして使う方が構造的に強い。</p>
+<p><strong>実例。</strong>
+ラッコM&amp;A掲載では車YouTube登録3,300人で月13,867円、登録9,200人で月平均11,270円・最高55,406円、Instagramフォロワー4,000人で月利益▲1,180円。一方、YouTube/Web/TikTok複合の20万人規模は月平均売上約368万円・利益約55万円だが、演者兼営業を含むチーム事業で個人副業とは非比較。<a href="https://rakkoma.com/project/list?page=1&amp;project_tab_item=1&amp;site_genre%5B0%5D=11&amp;site_sort=1&amp;sitesell_status=1">一覧</a>（C）。フォロワー数だけでは月10万円は保証されない。</p>
+<p><strong>障壁とリスク。</strong>
+撮影・編集・投稿継続の労働集約、本人の信頼、プラットフォーム依存が障壁。一般論だけなら大手動画・メディアと同質化する。査定プロセスの観察データを構造化し、Bへ蓄積できる設計なら再利用性が上がる。</p>
+</section>
+<section id="35-d-実業型" class="level3">
+<h3>3.5 D. 実業型</h3>
+<p><strong>成立ロジック。</strong>
+無在庫の注文販売・仲介でも、売買の委託・契約・価格承諾に踏み込めば古物商許可の検討が必要。AA参加は許可取得後1年以上等の条件があり、即日参入できない。在庫型は価格変動、瑕疵、保管、資金金利を負う。</p>
+<p><strong>実例アンカー。</strong>
+中小機構J-Net21の無店舗・無在庫・従業員0モデルは、月5台×100万円＝月商500万円、年商6,000万円、年間売上総利益720万円（月60万円）を想定する。<a href="https://j-net21.smrj.go.jp/startup/guide/retail/f005.html">J-Net21</a>（A/B）。これは事業モデル例であり成功実績ではない。公開される小規模輸出・仲介の検証可能な失敗損益は乏しく、倒産・自己宣伝に偏るため、Dの収益幅は最も不確実である。</p>
+<p><strong>障壁とリスク。</strong>
+許可、営業所、本人確認・帳簿、AA保証金、査定能力、陸送・輸出書類、瑕疵、資金回収、為替。輸出需要は追い風だが、規制国・船腹・港湾・送金リスクも加わる。個人副業としては週末だけで完結しにくい。</p>
+</section>
+</section>
+<section id="4-4モデルの採点" class="level2">
+<h2>§4 4モデルの採点</h2>
+<figure class="concept-figure score-figure">
+  <div class="score-row"><strong>B</strong><span><b style="width:72%"></b></span><em>36</em></div>
+  <div class="score-row"><strong>C</strong><span><b style="width:68%"></b></span><em>34</em></div>
+  <div class="score-row"><strong>A</strong><span><b style="width:66%"></b></span><em>33</em></div>
+  <div class="score-row risk"><strong>D</strong><span><b style="width:40%"></b></span><em>20</em></div>
+  <figcaption>5軸・50点満点の単純合計。BとC/Aの差は小さく、Bのデータ条件で順位は変わり得る。</figcaption>
+</figure>
+
+<p>0=悪い、10=良い。各セルは「点数。根拠2文」。総合点は単純合計で、最終判断ではない。</p>
+<table>
+<thead>
+<tr>
+<th>モデル</th>
+<th>収益期待値</th>
+<th>再現性</th>
+<th>初期投資の軽さ</th>
+<th>強み適合</th>
+<th>リスクの低さ</th>
+<th style="text-align: right;">合計</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><strong>6</strong>。1成果1,100〜5,922円で月10万円の算術は成立する。だがSEO変動と案件停止で直近ゼロの実例がある。</td>
+<td><strong>4</strong>。記事数だけでは収益化しない。長尾・体験・被リンク・承認率が媒体ごとに違う。</td>
+<td><strong>9</strong>。現金2〜15万円で開始可能。主コストは本人の150〜400時間である。</td>
+<td><strong>7</strong>。LP設計とデータ表現は活かせる。SEO運営実績がない点は不利。</td>
+<td><strong>7</strong>。在庫・許可リスクは小さい。誇大表示、ステマ、案件否認のリスクは残る。</td>
+<td style="text-align: right;"><strong>33</strong></td>
+</tr>
+<tr>
+<td>B</td>
+<td><strong>8</strong>。送客に加え、将来のデータ・B2B・課金へ拡張できる。正規データが取れなければ価値は急落する。</td>
+<td><strong>6</strong>。プロダクト体験は複製できる。入力データと精度検証は他者依存で、公開成功例がない。</td>
+<td><strong>6</strong>。自作なら現金5〜50万円に圧縮可能。データライセンスと250〜800時間は軽くない。</td>
+<td><strong>10</strong>。AI開発、可視化、企画力に直接合う。SEO歴不足をプロダクト価値で部分的に補える。</td>
+<td><strong>6</strong>。在庫は持たない。データ契約、精度表示、個人情報、規約のリスクがある。</td>
+<td style="text-align: right;"><strong>36</strong></td>
+</tr>
+<tr>
+<td>C</td>
+<td><strong>5</strong>。小規模事例は月1万円前後が多い。複合媒体の上振れはあるが、既にチーム事業である。</td>
+<td><strong>5</strong>。制作を続ければ検証回数は増える。再生・配信アルゴリズムと本人性で結果がばらつく。</td>
+<td><strong>8</strong>。スマホ中心なら1〜30万円で始められる。継続工数40〜120時間/月が隠れた投資。</td>
+<td><strong>8</strong>。企画・プロデュース力と説明力を使える。Bの集客・信頼チャネルにすると相乗効果がある。</td>
+<td><strong>8</strong>。許可・在庫リスクは小さい。炎上、誤情報、プラットフォーム依存が残る。</td>
+<td style="text-align: right;"><strong>34</strong></td>
+</tr>
+<tr>
+<td>D</td>
+<td><strong>8</strong>。1台当たりの粗利はアフィ単価より大きい。月5台で粗利60万円という公的モデル例がある。</td>
+<td><strong>3</strong>。仕入・査定・販路・資金回収を同時に再現する必要がある。公開成功例は選択バイアスが強い。</td>
+<td><strong>2</strong>。無在庫でも許可・営業所・運転資金が要る。在庫型は100〜1,000万円超を見込む。</td>
+<td><strong>5</strong>。企画とデータは活きる。現場査定、物流、車両商品知識は現在の強み外。</td>
+<td><strong>2</strong>。瑕疵、在庫、規制、事故、送金、為替が重なる。副業時間との相性も悪い。</td>
+<td style="text-align: right;"><strong>20</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="5-仮説検証" class="level2">
+<h2>§5 仮説検証</h2>
+<figure class="concept-figure">
+  <div class="hypothesis-strip">
+    <div><span>H1</span><strong>SEO大手支配</strong><em>一部支持</em></div>
+    <div><span>H2</span><strong>電話UXが成長要因</strong><em>一部支持</em></div>
+    <div><span>H3</span><strong>個人の相場データ入手</strong><em class="conditional">条件付き支持</em></div>
+  </div>
+  <figcaption>白黒の結論。いずれも全肯定ではなく、成立条件または因果の未識別部分を残す。</figcaption>
+</figure>
+
+<section id="仮説1seoは大手支配でsns独自ツール差別化が必須" class="level3">
+<h3>仮説1：SEOは大手支配で、SNS/独自ツール差別化が必須</h3>
+<p><strong>判定：一部支持。</strong> 「車買取 おすすめ」「車一括査定
+おすすめ」のヘッド語で法人・大手比較サイトが優勢という観察は支持される。Googleも2024年に検索流入目的だけのコンテンツを減らす一方、小規模サイトでも独自で有用なら評価すると説明している。<a href="https://developers.google.com/search/blog/2024/03/core-update-spam-policies">2024年3月更新</a>、<a href="https://developers.google.com/search/blog/2024/08/august-2024-core-update">2024年8月更新</a>（A/B）。</p>
+<p>ただし「SNS/ツールがなければ参入不能」は棄却。地域特化で自然流入3倍という支援会社事例、古いが1記事で6か月44申込という法人事例がある。<a href="https://local-mp.co.jp/case/auto-collection/">地域事例</a>、<a href="https://ayudante.jp/case/seo-consulting/2021-06-21/11-00/">SEO事例</a>（D/C）。正確な言い換えは、<strong>「新規個人のヘッド語SEO単独は低確率。車種×年式、地域、実体験、独自データと、SNS・指名流入の併用が現実的」</strong>。</p>
+</section>
+<section id="仮説2電話ラッシュ不満がmotaユーカーパック型の成長要因" class="level3">
+<h3>仮説2：電話ラッシュ不満がMOTA/ユーカーパック型の成長要因</h3>
+<p><strong>判定：一部支持。</strong>
+2023年のn=300調査では一括査定のデメリットとして78.3%が「大量の電話」を選択。ただし調査主体は中古車関連企業で利害がある。<a href="https://prtimes.jp/main/html/rd/p/000000159.000022939.html">調査</a>（C）。JPUCも必要以上の電話を相談課題として扱い、MOTAは2026年自社顧客n=3,009で申込理由を上位3社方式31%、大量電話回避11%と報告した。<a href="https://www.jpuc.or.jp/useful/article/phone/">JPUC</a>、<a href="https://mota.inc/news/260624/">MOTA</a>（B）。</p>
+<p>MOTAの申込は前年同月比137%まで増え、主要3社が上位絞り込み・一社窓口・日程調整を実装しているため、未充足ニーズと商品設計の整合は強い。しかし広告投資、高値期待、相場表示、ブランド等を制御した独立研究はなく、電話制限の因果寄与率は<strong>不明</strong>。ユーカーパックの成長率も非公開で、単独因果は判定不能である。</p>
+</section>
+<section id="仮説3個人が合法的に車種別相場データを入手できる" class="level3">
+<h3>仮説3：個人が合法的に車種別相場データを入手できる</h3>
+<p><strong>判定：条件付き支持。</strong>
+無料公的APIだけでは不成立だが、PROTO法人DB/API、DataLinePRO、JAAI、USS会員データ、提携店実査定という正規経路はある。最も現実的な初期経路はPROTOへの個別見積りと、買取店1〜3社とのデータ利用契約である。</p>
+<p>公開サイトのスクレイピングは「事実値だから自由」でも「常に違法」でもない。著作権、データベース、規約、技術的制御、負荷、限定提供データ、再配布を分けて評価する必要があり、主要サイト規約は商用自動収集に厳しい。<a href="https://laws.e-gov.go.jp/law/345AC0000000048">著作権法</a>、<a href="https://www.meti.go.jp/press/2024/02/20250212003/20250212003.html">経産省2025年準則</a>（A）。Bをスクレイピング前提で設計するのは高リスクである。</p>
+</section>
+</section>
+<section id="6-情報の限界と追加調査すべき点" class="level2">
+<h2>§6 情報の限界と追加調査すべき点</h2>
+<figure class="concept-figure">
+  <div class="gate-map">
+    <div><span>GATE 01</span><strong>データ契約</strong><small>価格・学習・再配布</small></div>
+    <div><span>GATE 02</span><strong>承認率</strong><small>媒体別の実測</small></div>
+    <div><span>GATE 03</span><strong>許可境界</strong><small>画面・契約・入金</small></div>
+  </div>
+  <figcaption>追加調査の優先ゲート。特にGATE 01がモデルBの成立可否を決める。</figcaption>
+</figure>
+
+<table>
+<thead>
+<tr>
+<th>未解決点</th>
+<th>現状</th>
+<th>なぜ不足か</th>
+<th>次に確認する一次行動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROTO APIの価格・権利</td>
+<td><strong>不明（個別見積り）</strong></td>
+<td>呼出上限、B2C表示、モデル学習、派生値、再配布条件が公開されない</td>
+<td>同一要件書で見積り。API、画面表示、学習、キャッシュ、解約後データを分けて質問</td>
+</tr>
+<tr>
+<td>ASP案件別承認率</td>
+<td><strong>不明（会員・媒体別）</strong></td>
+<td>一般公開されず、媒体品質で変動</td>
+<td>A8/afb/AT登録後、同一月の承認率・否認理由を実測。特単はゼロ前提</td>
+</tr>
+<tr>
+<td>ナビクル/ズバット加盟店単価</td>
+<td><strong>不明（非公開）</strong></td>
+<td>事業者向け公開価格なし</td>
+<td>買取店として資料請求、成果地点・無効条件・最低料金を確認</td>
+</tr>
+<tr>
+<td>個人Bツールの成功例</td>
+<td><strong>不明（検証可能な公開例なし）</strong></td>
+<td>売上・流入・CVを同時公開する事業者が見つからない</td>
+<td>類似ツール運営者/データ会社へ取材、または小規模MVPで実測</td>
+</tr>
+<tr>
+<td>電話UXの因果効果</td>
+<td><strong>不明</strong></td>
+<td>各社自社調査で、広告・価格期待を統制しない</td>
+<td>2種類のLP/フローで申込率、離脱、苦情、売却完了をA/Bテスト</td>
+</tr>
+<tr>
+<td>紹介と委託売買の境界</td>
+<td><strong>不明（実装依存）</strong></td>
+<td>警察の公開Q&amp;Aに一律線引きなし</td>
+<td>契約、画面、入金、価格承諾権を図示して管轄警察へ照会</td>
+</tr>
+<tr>
+<td>買取・輸出の台当たり純利益</td>
+<td><strong>不明（非公開・構成差大）</strong></td>
+<td>車両品質、在庫日数、販路、物流で変動</td>
+<td>10台の案件別P/Lを匿名入手。売価ではなく全直接費と回収日数まで確認</td>
+</tr>
+</tbody>
+</table>
+<section id="調査上の限界" class="level3">
+<h3>調査上の限界</h3>
+<ol type="1">
+<li>ASPや加盟店のクローズド画面は閲覧せず、公開Webだけで確認した。ログイン限定値を推定で補っていない。</li>
+<li>企業の申込数・累計利用・MAUは多くが会社発表で、監査済み財務KPIではない。方向性の証拠として使い、横比較の精密値とは扱っていない。</li>
+<li>個人の収益報告は教材・ASP紹介・サイト売却の利害がある。管理画面、銀行入金、税申告の検証はできないためC/D評価とした。</li>
+<li>検索順位は2026-07-21時点の観察で、地域、履歴、端末、更新で変わる。大手優勢のスナップショットであり恒久順位ではない。</li>
+<li>収益レンジは予測ではなく感度帯である。承認率・CVR・単価・継続率の実測前に投資判断へ転用してはならない。</li>
+<li>法的見立ては一般論。最終的な許可・表示・契約判断は、画面・契約・金の流れを示したうえで管轄警察、弁護士、行政書士等へ照会が必要。</li>
+</ol>
+</section>
+<section id="主要出典の質と利害" class="level3">
+<h3>主要出典の質と利害</h3>
+<ul>
+<li><strong>高:</strong>
+総務省、e-Stat、警察庁/警視庁、消費者庁、金融庁、国交省、経産省、e-Gov、上場会社IR。</li>
+<li><strong>中:</strong>
+JPUC、自動車公正取引協議会、JAMA、JAAI、各サービスの料金・規約。制度・自社仕様には強いが、自社成長の因果説明には利害がある。</li>
+<li><strong>中低:</strong> PR
+TIMESの自社調査、SEO支援会社の事例、ラッコM&amp;A売主申告。条件付きの実例アンカーとしてのみ使用。</li>
+<li><strong>低:</strong>
+有料note・ASP登録誘導・収益自己申告。可能性の存在は示すが、再現性・確率の証拠には使わない。</li>
+</ul>
+<hr />
+<p><strong>完成条件の確認:</strong>
+市場構造、主要サービス、ASP、環境、規制、4モデルの同条件比較、5軸採点、3仮説、限界を収録。最終参入判断は行わず、判断材料に限定した。</p>
+</section>
+</section>
+</main>
+<footer>
+  <p>調査基準日 2026-07-21 JST · 日本市場限定 · D1 public-safe<br>この公開ページは 2026-07-24 15:35 JST に自動削除されます。</p>
+</footer>
+</body>
+</html>
