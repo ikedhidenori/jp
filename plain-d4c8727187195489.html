@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>中古車「売り時・売り方ナビ」0円MVP 実行計画</title>
+  <style>
+    :root {
+      --paper: #f4f1e8;
+      --panel: #fffdf7;
+      --ink: #1d2521;
+      --muted: #5e6761;
+      --line: #c8c7bd;
+      --green: #154f3b;
+      --green-2: #267055;
+      --amber: #793b00;
+      --amber-soft: #f4dfbd;
+      --red: #8e352f;
+      --shadow: 0 10px 30px rgba(29, 37, 33, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(21,79,59,.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 100% 28px;
+      font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.75;
+      letter-spacing: .02em;
+      font-feature-settings: "palt";
+      line-break: strict;
+    }
+    a { color: var(--green); text-underline-offset: .18em; }
+    a:hover { color: var(--amber); }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .masthead { padding: 68px 0 42px; border-bottom: 1px solid var(--line); }
+    .eyebrow { margin: 0 0 12px; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { max-width: 900px; margin: 0; font-size: clamp(2.15rem, 5vw, 4.7rem); line-height: 1.08; letter-spacing: -.045em; }
+    .lead { max-width: 790px; margin: 24px 0 0; font-size: clamp(1.05rem, 1.8vw, 1.32rem); color: #34413a; }
+    .verdict { margin-top: 32px; padding: 22px 24px; border-left: 7px solid var(--green); background: var(--panel); box-shadow: var(--shadow); font-weight: 700; }
+    .metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 34px 0 0; }
+    .metric { min-height: 132px; padding: 18px; border: 1px solid var(--line); background: rgba(255,253,247,.75); }
+    .metric b { display: block; color: var(--green); font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -.04em; }
+    .metric span { display: block; margin-top: 10px; color: var(--muted); font-size: .86rem; }
+    main { padding: 26px 0 80px; }
+    section { padding: 58px 0; border-bottom: 1px solid var(--line); }
+    section:last-child { border-bottom: 0; }
+    .section-head { display: grid; grid-template-columns: 150px 1fr; gap: 22px; align-items: start; margin-bottom: 30px; }
+    .section-no { color: var(--amber); font-weight: 900; font-size: .8rem; letter-spacing: .16em; }
+    h2 { margin: 0; font-size: clamp(1.55rem, 3vw, 2.65rem); line-height: 1.18; letter-spacing: -.035em; }
+    h3 { margin: 30px 0 10px; font-size: 1.22rem; }
+    p { max-width: 850px; margin: 0 0 18px; }
+    .note { color: var(--muted); font-size: .9rem; }
+    figure { margin: 0; }
+    figcaption { margin-top: 14px; color: var(--muted); font-size: .82rem; }
+    .product-map { display: grid; grid-template-columns: repeat(5, 1fr); align-items: stretch; gap: 8px; }
+    .map-node { position: relative; padding: 18px 14px; background: var(--panel); border: 1px solid var(--line); min-height: 128px; }
+    .map-node:not(:last-child)::after { content: "→"; position: absolute; z-index: 2; top: 44%; right: -17px; color: var(--amber); font-size: 1.35rem; font-weight: 900; }
+    .map-node em { display: block; color: var(--green); font-style: normal; font-weight: 900; font-size: .72rem; letter-spacing: .12em; }
+    .map-node strong { display: block; margin: 12px 0 7px; line-height: 1.35; }
+    .map-node small { color: var(--muted); }
+    .boundary { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .boundary article { padding: 24px; background: var(--panel); border-top: 5px solid var(--green); }
+    .boundary article.stop { border-color: var(--red); }
+    .boundary ul { margin: 10px 0 0; padding-left: 1.2em; }
+    .boundary li + li { margin-top: 7px; }
+    .result-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 22px; }
+    .result-card { padding: 20px; background: var(--panel); border: 1px solid var(--line); }
+    .result-card b { display: block; color: var(--green); margin-bottom: 8px; }
+    .result-card span { color: var(--muted); font-size: .9rem; }
+    .stack { display: grid; grid-template-columns: 1.05fr .95fr; gap: 24px; align-items: start; }
+    .stack-card { padding: 24px; background: var(--panel); box-shadow: var(--shadow); }
+    .stack-list { display: grid; gap: 0; }
+    .stack-item { display: grid; grid-template-columns: 145px 72px 1fr; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); align-items: center; }
+    .stack-item:last-child { border-bottom: 0; }
+    .stack-item strong { color: var(--green); }
+    .stack-item b { text-align: right; font-variant-numeric: tabular-nums; }
+    .tech-note { padding: 22px; border: 1px solid var(--green); background: #edf3ed; }
+    .effort { display: grid; gap: 11px; }
+    .effort-row { display: grid; grid-template-columns: 190px 1fr 88px; gap: 14px; align-items: center; }
+    .bar { height: 16px; background: #d8d9d1; overflow: hidden; }
+    .bar i { display: block; height: 100%; background: var(--green-2); }
+    .effort-row b { text-align: right; font-variant-numeric: tabular-nums; }
+    .total-band { display: flex; justify-content: space-between; gap: 18px; margin-top: 24px; padding: 20px 22px; color: #fff; background: var(--green); }
+    .total-band strong { font-size: 1.3rem; }
+    .gate-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: end; margin: 26px 0; }
+    .gate { min-height: 148px; padding: 18px; background: var(--panel); border: 1px solid var(--line); }
+    .gate:nth-child(1) { border-top: 8px solid var(--green); }
+    .gate:nth-child(2) { min-height: 178px; border-top: 8px solid #6b846e; }
+    .gate:nth-child(3) { min-height: 208px; border-top: 8px solid var(--amber); }
+    .gate:nth-child(4) { min-height: 238px; border-top: 8px solid var(--red); }
+    .gate .yen { display: block; margin-bottom: 9px; font-size: 1.7rem; font-weight: 900; letter-spacing: -.04em; }
+    .gate small { color: var(--muted); }
+    .unit-econ { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .formula { padding: 24px; background: #222b26; color: #fff; }
+    .formula b { color: #f2c77d; font-size: 1.45rem; }
+    .formula code { display: block; margin-top: 12px; white-space: normal; color: #f6f2e8; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
+    .cash-table { width: 100%; border-collapse: collapse; background: var(--panel); }
+    .cash-table th, .cash-table td { padding: 14px 13px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .cash-table th { color: var(--green); font-size: .8rem; letter-spacing: .07em; }
+    .cash-table td:nth-child(2), .cash-table td:nth-child(3) { font-variant-numeric: tabular-nums; font-weight: 800; white-space: nowrap; }
+    .timeline { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .timeline::before { content: ""; position: absolute; left: 8%; right: 8%; top: 20px; height: 2px; background: var(--line); }
+    .phase { position: relative; padding-top: 54px; }
+    .phase::before { content: ""; position: absolute; z-index: 1; top: 11px; left: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--panel); border: 5px solid var(--green); }
+    .phase b { display: block; color: var(--green); }
+    .phase time { color: var(--amber); font-size: .82rem; font-weight: 800; }
+    .phase p { margin-top: 10px; color: var(--muted); font-size: .9rem; }
+    .resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .resource-card { padding: 23px; background: var(--panel); border: 1px solid var(--line); }
+    .resource-card h3 { margin-top: 0; }
+    .resource-card ul { padding-left: 1.2em; margin-bottom: 0; }
+    .resource-card li + li { margin-top: 7px; }
+    .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+    .check { position: relative; padding: 12px 12px 12px 42px; border-bottom: 1px solid var(--line); }
+    .check::before { content: "✓"; position: absolute; left: 8px; top: 9px; color: var(--green); font-weight: 900; font-size: 1.2rem; }
+    .closing { margin-top: 34px; padding: 28px; border: 1px solid var(--amber); background: var(--amber-soft); }
+    footer { padding: 30px 0 56px; color: var(--muted); font-size: .82rem; }
+    @media (max-width: 860px) {
+      .metric-row, .result-grid, .gate-flow { grid-template-columns: 1fr 1fr; }
+      .product-map { grid-template-columns: 1fr; }
+      .map-node:not(:last-child)::after { content: "↓"; top: auto; right: 50%; bottom: -24px; }
+      .stack, .unit-econ { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .timeline::before { display: none; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .masthead { padding-top: 42px; }
+      .metric-row, .result-grid, .gate-flow, .boundary, .resource-grid, .checks, .timeline { grid-template-columns: 1fr; }
+      .section-head { grid-template-columns: 1fr; gap: 6px; }
+      section { padding: 42px 0; }
+      .stack-item { grid-template-columns: 1fr 62px; }
+      .stack-item span { grid-column: 1 / -1; }
+      .effort-row { grid-template-columns: 128px 1fr 66px; gap: 8px; font-size: .82rem; }
+      .total-band { flex-direction: column; }
+      .gate, .gate:nth-child(2), .gate:nth-child(3), .gate:nth-child(4) { min-height: auto; }
+      .cash-table { display: block; overflow-x: auto; }
+    }
+    @media (max-width: 400px) {
+      h1 { font-size: 2.05rem; }
+      .metric { min-height: 110px; }
+      .effort-row { grid-template-columns: 110px 1fr; }
+      .effort-row b { grid-column: 2; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap">
+      <p class="eyebrow">Used-car side business / MVP plan</p>
+      <h1>まず0円で公開する。<br>資金は、数字が出てから使う。</h1>
+      <p class="lead">「愛車の売り時・売り方ナビ」を、個人情報も価格データも持たない静的サイトとして立ち上げる。初期50万円は温存し、実測CPAを確認してから段階的に解放する計画。</p>
+      <div class="verdict">推奨：Cloudflare Pages Freeで6問・4結果のMVPを公開。開発費0円、Agent工数18.5〜28.5時間、依頼者の確認は約1時間。</div>
+      <div class="metric-row" aria-label="計画の主要数値">
+        <div class="metric"><b>¥0</b><span>初期の必須現金</span></div>
+        <div class="metric"><b>6問</b><span>個人情報を取らない診断</span></div>
+        <div class="metric"><b>4結果</b><span>売却方式の推奨タイプ</span></div>
+        <div class="metric"><b>18.5–28.5h</b><span>実装・QA・公開まで</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <div class="section-head"><span class="section-no">01 / PRODUCT</span><h2>査定額ではなく、売り方を決める</h2></div>
+      <p>無料の公開データだけでは、車種・年式・走行距離から信頼できる個車価格を出せない。そこで初版は「AI査定」を名乗らず、価格・手間・電話・期限の希望から、売却方式を整理する意思決定支援に限定する。</p>
+      <figure aria-labelledby="product-flow-caption">
+      <div class="product-map" aria-label="利用フロー">
+        <div class="map-node"><em>LAND</em><strong>LP</strong><small>対象者と便益を説明</small></div>
+        <div class="map-node"><em>INPUT</em><strong>6問</strong><small>価格・手間・期限・車種区分</small></div>
+        <div class="map-node"><em>DECIDE</em><strong>ルール判定</strong><small>ブラウザ内で完結</small></div>
+        <div class="map-node"><em>EXPLAIN</em><strong>4つの結果</strong><small>理由・注意・チェックリスト</small></div>
+        <div class="map-node"><em>REFER</em><strong>送客</strong><small>承認済み案件だけ表示</small></div>
+      </div>
+      <div class="result-grid">
+        <div class="result-card"><b>高値競争型</b><span>価格優先。比較の進め方と契約前確認。</span></div>
+        <div class="result-card"><b>連絡一本化型</b><span>電話と交渉を減らす。1回査定型の注意。</span></div>
+        <div class="result-card"><b>スピード型</b><span>期限優先。必要書類と即決前の確認。</span></div>
+        <div class="result-card"><b>専門店相談型</b><span>希少・事故・不動車など特殊条件。</span></div>
+      </div>
+      <div class="boundary">
+        <article><h3>初版に入れる</h3><ul><li>売却時期、優先順位、電話許容度</li><li>推奨理由と売却前チェック</li><li>PR表記、方法論、免責、プライバシー</li></ul></article>
+        <article class="stop"><h3>初版に入れない</h3><ul><li>査定額、将来価格、残価率</li><li>氏名・電話・メール・車台番号</li><li>スクレイピング、交渉、契約、入金</li></ul></article>
+      </div>
+      <figcaption id="product-flow-caption">価格を推測するのではなく、本人の優先順位を整理して売却方式へつなぐ。初版の価値と法務境界を同じ図に置いた。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">02 / STACK</span><h2>商用MVPを0円で配信する構成</h2></div>
+      <figure aria-labelledby="stack-caption">
+      <div class="stack">
+        <div class="stack-card">
+          <div class="stack-list">
+            <div class="stack-item"><strong>画面</strong><b>¥0</b><span>HTML / CSS / Vanilla JS</span></div>
+            <div class="stack-item"><strong>判定</strong><b>¥0</b><span>rules.json と固定テスト</span></div>
+            <div class="stack-item"><strong>配信</strong><b>¥0</b><span>Cloudflare Pages Free</span></div>
+            <div class="stack-item"><strong>計測</strong><b>¥0</b><span>URL分離＋Web Analytics＋ASP</span></div>
+            <div class="stack-item"><strong>ドメイン</strong><b>¥0</b><span>初期は pages.dev を使用</span></div>
+          </div>
+        </div>
+        <div class="tech-note">
+          <h3>ホスティングの判断</h3>
+          <p>本番はCloudflare Pages。静的ファイルをDirect Uploadでき、Freeプランは月500ビルド・2万ファイルまで。</p>
+          <p>既存GitHub Pagesは計画書の一時プレビュー専用。GitHub公式がオンライン事業を主目的とする無料ホスティングを制限しているため、商用LPの恒久本番には使わない。</p>
+          <p class="note"><a href="https://developers.cloudflare.com/pages/get-started/direct-upload/">Cloudflare公式</a> ／ <a href="https://docs.github.com/en/enterprise-cloud@latest/pages/getting-started-with-github-pages/github-pages-limits">GitHub公式</a></p>
+        </div>
+      </div>
+      <figcaption id="stack-caption">初期費用を0円にするための構成。配信規約に合わせ、商用本番と一時プレビューの置き場所を分ける。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">03 / EFFORT</span><h2>必要工数は18.5〜28.5時間</h2></div>
+      <p>ソフトウェア開発費は現金に含めない。ただし、公開品質まで到達するための作業量は消えない。最大幅28.5時間を基準に配分すると、実装よりもルール・表示・QAに半分以上を使う。</p>
+      <figure aria-labelledby="effort-caption">
+      <div class="effort" aria-label="作業工数の棒グラフ">
+        <div class="effort-row"><span>要件固定</span><div class="bar"><i style="width:21%"></i></div><b>1–1.5h</b></div>
+        <div class="effort-row"><span>判定ルール</span><div class="bar"><i style="width:43%"></i></div><b>2–3h</b></div>
+        <div class="effort-row"><span>コピー・根拠</span><div class="bar"><i style="width:43%"></i></div><b>2–3h</b></div>
+        <div class="effort-row"><span>UI設計</span><div class="bar"><i style="width:43%"></i></div><b>2–3h</b></div>
+        <div class="effort-row"><span>静的実装</span><div class="bar"><i style="width:100%"></i></div><b>4–7h</b></div>
+        <div class="effort-row"><span>法務表示</span><div class="bar"><i style="width:43%"></i></div><b>2–3h</b></div>
+        <div class="effort-row"><span>計測・CTA</span><div class="bar"><i style="width:36%"></i></div><b>1.5–2.5h</b></div>
+        <div class="effort-row"><span>QA</span><div class="bar"><i style="width:57%"></i></div><b>3–4h</b></div>
+        <div class="effort-row"><span>公開</span><div class="bar"><i style="width:21%"></i></div><b>1–1.5h</b></div>
+      </div>
+      <div class="total-band"><span>Agent：実装・検証・公開</span><strong>18.5〜28.5時間</strong><span>依頼者：判断・認証</span><strong>約1時間</strong></div>
+      <figcaption id="effort-caption">工数の最大値を基準にした相対配分。実装4〜7時間に対し、仕様・表示・QAにも合計14時間前後を確保する。</figcaption>
+      </figure>
+      <p class="note">ASP承認後のリンク差し替えと再QAは追加1〜2時間。審査待ちはカレンダー時間で、正確な日数は広告主ごとに不明。</p>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">04 / CAPITAL</span><h2>投資は0円→3万円→10万円→最大50万円</h2></div>
+      <p>初期50万円を先に使う理由はない。報酬3,000円・承認率70%なら、申込1件の期待確定売上は2,100円。利益率30%を残す許容申込CPAは1,470円。これを実測できるまで広告費を増やさない。</p>
+      <figure aria-labelledby="capital-caption">
+      <div class="unit-econ">
+        <div class="formula"><span>期待確定売上 / 申込</span><br><b>2,100円</b><code>3,000円 × 承認70%</code></div>
+        <div class="formula"><span>許容申込CPA</span><br><b>1,470円</b><code>2,100円 × (1 − 利益率30%)</code></div>
+      </div>
+      <div class="gate-flow" aria-label="投資ゲート">
+        <div class="gate"><span class="yen">0円</span><strong>Launch</strong><p>公開・自然流入・ASP申請</p><small>1,000対象訪問または30申込まで実測</small></div>
+        <div class="gate"><span class="yen">3万円</span><strong>Test 1</strong><p>1チャネルだけ試す</p><small>確定売上3.9万円以上が条件</small></div>
+        <div class="gate"><span class="yen">+10万円</span><strong>Test 2</strong><p>勝ち訴求を再現</p><small>確定ROAS 130%以上を再確認</small></div>
+        <div class="gate"><span class="yen">最大50万円</span><strong>Scale</strong><p>10万円単位で解放</p><small>1回でも基準割れなら停止</small></div>
+      </div>
+      <table class="cash-table">
+        <thead><tr><th>段階</th><th>累計投資</th><th>必要な確定売上</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td>Launch</td><td>0円</td><td>0〜約1.6万円 / 1,000対象訪問</td><td>売上より経路データを取る。流入0なら売上0。</td></tr>
+          <tr><td>Test 1</td><td>3万円</td><td>3.9万円以上</td><td>申込CPA≤1,470円も同時に満たす。</td></tr>
+          <tr><td>Test 2</td><td>13万円</td><td>追加10万円に対し13万円以上</td><td>勝ちパターンが偶然でないか再現。</td></tr>
+          <tr><td>Scale</td><td>最大50万円</td><td>50万円なら65万円以上</td><td>クリックでなくASP確定報酬で判定。</td></tr>
+        </tbody>
+      </table>
+      <figcaption id="capital-caption">投資額ではなく、確定報酬から逆算した許容CPAで次の支出を決める。50万円は一括予算ではなく、条件付きの上限である。</figcaption>
+      </figure>
+      <p class="note">0円時の売上は、開始25%・完了60%・CTA20%・広告主申込25%・承認70%・報酬3,000円の感度仮定。MVP実績ではない。</p>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">05 / ROADMAP</span><h2>1〜2作業日で公開、収益化は別ゲート</h2></div>
+      <figure aria-labelledby="roadmap-caption">
+      <div class="timeline">
+        <article class="phase"><time>PHASE 0</time><b>境界を固定</b><p>名称、対象、4結果、やらないこと、運営者表示。</p></article>
+        <article class="phase"><time>PHASE 1</time><b>ルールとコピー</b><p>6問、決定表、12ケース、結果文、一次根拠。</p></article>
+        <article class="phase"><time>PHASE 2–3</time><b>実装とQA</b><p>モバイルUI、静的実装、計測、法務表示、検証。</p></article>
+        <article class="phase"><time>PHASE 4</time><b>公開 / Revenue Live</b><p>Pages公開後、ASP承認リンクを別工程で反映。</p></article>
+      </div>
+      <div class="resource-grid">
+        <article class="resource-card"><h3>すでにある</h3><ul><li>中古車流通・ASP・法務の一次調査</li><li>公開報酬1,100〜5,922円のアンカー</li><li>電話ラッシュと連絡制限UXの知見</li><li>AI駆動の静的Web制作・QA環境</li></ul></article>
+        <article class="resource-card"><h3>新しく必要</h3><ul><li>独立Git repo</li><li>CloudflareアカウントとPages project</li><li>A8.net / afb等の媒体登録</li><li>承認済み案件リンク</li><li>運営者・連絡先の表示方針</li></ul></article>
+      </div>
+      <figcaption id="roadmap-caption">制作は1〜2作業日で閉じられるが、収益化はASP審査という外部ゲートを通る。公開完了とRevenue Liveを混同しない。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="section-head"><span class="section-no">06 / ACCEPTANCE</span><h2>公開を「できた」と言う条件</h2></div>
+      <figure aria-labelledby="acceptance-caption">
+      <div class="checks">
+        <div class="check">主要経路がHTTPS・HTTP 200</div>
+        <div class="check">12以上の固定ケースが期待結果と一致</div>
+        <div class="check">360 / 768 / 1280pxで表示破綻なし</div>
+        <div class="check">キーボードだけで診断完了</div>
+        <div class="check">査定額・根拠なし優良表示がない</div>
+        <div class="check">PR・方法論・免責・プライバシーを常時表示</div>
+        <div class="check">PIIを収集・保存・送信しない</div>
+        <div class="check">広告リンクに sponsored / nofollow / noopener</div>
+        <div class="check">LP→診断→結果→CTAを計測</div>
+        <div class="check">deployment ID・SHA-256・HTTP結果を保存</div>
+      </div>
+      <figcaption id="acceptance-caption">「公開した」という主張は、URLだけでなく、機能・表示・法務・計測・配信証拠の五面で確認する。</figcaption>
+      </figure>
+      <div class="closing"><strong>最初の着手単位</strong><p>Phase 0〜1だけを先に実施し、6問・4結果・12テストケース・全コピーを確定する。そのレビュー後にUI実装へ進む。最初に確かめるのは、画面か、それとも判定思想か。</p></div>
+      <h3>根拠とガードレール</h3>
+      <p class="note"><a href="https://www.caa.go.jp/policies/policy/representation/fair_labeling/representation_regulation/comparative_advertising/">消費者庁 比較広告ガイドライン</a> ／ <a href="https://www.caa.go.jp/policies/policy/representation/fair_labeling/representation_regulation/misleading_representation/not_demonstrated_ad">不実証広告規制</a> ／ <a href="https://www.jpuc.or.jp/cockpit/storage/uploads/2024/11/26/JPUC_uid_674533bc67330.pdf">JPUC紹介サービス指針</a> ／ <a href="https://developers.cloudflare.com/web-analytics/about/">Cloudflare Web Analytics</a></p>
+    </section>
+  </main>
+
+  <footer><div class="wrap">2026年7月21日時点。金額・CVR・収益は明示した仮定に基づく感度分析で、成果保証ではありません。<br>このページは 2026年7月24日 18:02 JST に自動削除されます。</div></footer>
+</body>
+</html>
