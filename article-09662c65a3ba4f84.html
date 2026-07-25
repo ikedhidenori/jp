@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>家賃はどこへ消えるのか</title>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:40rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern"; word-break:keep-all; line-break:strict;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+.mast{padding:56px 0 24px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:12px}
+.mast h1{font-size:clamp(26px,5.6vw,34px); line-height:1.28; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:11px; height:37px; background:var(--ink)}
+.mast .subtitle{font-size:17px; line-height:1.6; margin:0 0 0 22px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 22px}
+
+section{padding:40px 0 0; display:flex; flex-direction:column; gap:16px}
+section > h2{font-size:clamp(19px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+p{margin:0}
+strong{font-weight:700}
+.who{font-weight:700}
+
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:18px 18px 14px; margin:4px 0; display:flex; flex-direction:column; gap:14px}
+.artifact-title{font-size:13px; font-weight:700; margin:0}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0}
+
+/* 家賃解剖バー */
+.bar{display:flex; height:30px; width:100%; border:1.5px solid var(--ink); overflow:hidden}
+.bar span{display:block; transition:width .8s cubic-bezier(.2,.7,.3,1)}
+.seg-a{background:var(--red)}
+.seg-b{background:var(--ink)}
+.seg-c{background:var(--faint)}
+.legend{display:flex; flex-direction:column; gap:8px; font-size:13.5px; line-height:1.5}
+.legend div{display:grid; grid-template-columns:13px 1fr auto; gap:11px; align-items:baseline}
+.legend i{display:block; width:13px; height:13px; border:1px solid var(--ink)}
+.legend b{font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap}
+.legend small{display:block; color:var(--sub); font-size:12px; line-height:1.5}
+
+/* 数式 */
+.frac-row{display:flex; align-items:center; justify-content:flex-start; gap:12px; flex-wrap:wrap; font-size:14px}
+.frac-lead{font-weight:700}
+.frac{display:inline-flex; flex-direction:column; align-items:center; gap:3px; text-align:center}
+.frac .num-t{padding:0 12px}
+.frac .den{padding:0 12px; border-top:1.5px solid var(--ink)}
+.frac-note{font-size:12.5px; color:var(--sub); line-height:1.7; margin:0}
+.frac-note b{font-variant-numeric:tabular-nums}
+
+/* 24時間ストリップ */
+.day{display:grid; grid-template-columns:repeat(24,1fr); gap:2px; height:32px}
+.day span{background:var(--ink)}
+.day span.empty{background:transparent; border:1px dashed var(--faint)}
+.ticks{display:grid; grid-template-columns:repeat(24,1fr); font-size:9.5px; color:var(--faint);
+  font-variant-numeric:tabular-nums; margin-top:-8px}
+
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13.5px; line-height:1.55; min-width:24rem}
+th,td{border:1px solid var(--rule); padding:8px 10px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:12px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+.red{color:var(--red)} .green{color:var(--green)}
+td.ours{background:var(--pale-red)}
+
+.claim{border-left:4px solid var(--ink); padding-left:16px; font-weight:700; font-size:1.06em; line-height:1.7}
+
+hr.end{border:0; border-top:3px solid var(--ink); margin:56px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:16px 0 0}
+
+@media (max-width:520px){
+  body{font-size:15px; padding:0 16px 64px}
+  .artifact{padding:14px 13px 11px}
+  .ticks{font-size:8px}
+}
+@media (prefers-reduced-motion: reduce){ .bar span{transition:none} }
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="mast">
+    <h1>家賃はどこへ消えるのか</h1>
+    <p class="subtitle">中学生にもわかる、地代と分母の話。二百年前から誰もが気づいていて、誰も解けなかった問題について。</p>
+    <p class="meta">INNFRA ／ Living OS（仮称）検証中の内部資料　2026-07-25</p>
+  </header>
+
+  <section>
+    <h2>1. 何もしていないのに儲かる人がいる</h2>
+    <p>想像してください。鈴木さんは、渋谷駅の近くに小さな土地を持っています。おじいさんから相続したもので、鈴木さん自身は何もしていません。草も抜きません。それでも毎月、その土地の上に建つアパートから100万円の家賃が入ってきます。</p>
+    <p>隣で働く八百屋さんは、朝5時から夜まで働いて月30万円。鈴木さんは寝ていて100万円。この差はどこから来るのでしょう。</p>
+    <p>答えは「渋谷駅が近いから」です。でも、渋谷駅を作ったのは鈴木さんではありません。電車を走らせているのも、周りにお店や会社を集めたのも、街をおもしろくしたのも、ぜんぶ他の人たちです。<strong>みんなが作った便利さの代金を、たまたまそこを持っていた人が受け取る</strong>——これが「地代（ちだい）」の正体です。</p>
+  </section>
+
+  <section>
+    <h2>2. 家賃を解剖してみる</h2>
+    <p>あなたが将来、東京で一人暮らしをするとします。家賃は11万8千円。この中身を割ってみると、だいたいこうなります。</p>
+
+    <div class="artifact">
+      <p class="artifact-title">家賃 118,000円の内訳</p>
+      <div class="bar" id="bar1">
+        <span class="seg-a" style="width:0%" data-w="52"></span>
+        <span class="seg-b" style="width:0%" data-w="34"></span>
+        <span class="seg-c" style="width:0%" data-w="14"></span>
+      </div>
+      <div class="legend">
+        <div><i class="seg-a"></i><span>場所代<small>土地への支払い。誰も働いていない</small></span><b>61,360円</b></div>
+        <div><i class="seg-b"></i><span>箱代<small>建物への支払い。建てた人の働き</small></span><b>40,120円</b></div>
+        <div><i class="seg-c"></i><span>世話代<small>管理・掃除。働いている人</small></span><b>16,520円</b></div>
+      </div>
+      <p class="source">東京23区西側・1K の概算（社内推定係数 v0。公開版までに不動産鑑定の構成比データで再推定）</p>
+    </div>
+
+    <p>建物を建てた人と、管理や掃除をしてくれる人には、働きの対価を払っています。それは当然のことです。問題は、いちばん大きい「場所代」。これは誰の働きの対価でもありません。「いい場所を先に押さえていたこと」への支払いです。</p>
+  </section>
+
+  <section>
+    <h2>3. 200年前から、天才たちが同じことに気づいていた</h2>
+    <p><span class="who">リカード（1817年・イギリス）</span>　経済学者リカードは「地代は、土地の持ち主の努力からではなく、場所の“差”から生まれる」と見抜きました。駅から近い土地と遠い土地。同じ広さでも、便利さの差の分だけ、近い土地の持ち主は多く取れる。持ち主が何かをしたからではありません。</p>
+    <p><span class="who">ヘンリー・ジョージ（1879年・アメリカ）</span>　新聞記者だったジョージは、もっと大きな謎に挑みました。「社会がこれだけ進歩して豊かになったのに、なぜ貧困が消えないのか？」。彼の答えはこうです。<strong>進歩の利益は、最後には地価に吸い込まれるから</strong>。鉄道が通って街が便利になると、便利になった分だけ地価と家賃が上がり、働く人の取り分は結局増えない。この本『進歩と貧困』は、当時「聖書の次に読まれた」と言われるほど世界中で売れました。</p>
+    <p><span class="who">モノポリー（1904年）</span>　実は、ボードゲームのモノポリーの原型は、ジョージの思想を子どもに教えるために作られました（リジー・マギー『地主ゲーム』）。全員が平等に始めるのに、土地を独占した1人が全員からお金を吸い上げ、最後はかならず1人を残して全員が破産する——あのゲームはもともと、「土地の独占を放っておくとこうなる」という教材だったのです。</p>
+    <p><span class="who">エレベーター（19世紀末）</span>　技術者たちは別の答えを出しました。土地が高いなら、上に積めばいい。エレベーターの発明で摩天楼が生まれ、1枚の土地に100枚の床が載るようになりました。ところが——ジョージの予言どおり、家賃は安くなりませんでした。床が増えて街が便利になった分だけその土地の価値が上がり、儲けはまた地主に吸い込まれたのです。</p>
+    <p><span class="who">日本</span>　戦後の日本は一度だけ、土地を強制的に配り直したことがあります（1947年の農地改革）。ただし対象は農地だけで、都市の土地はそのままでした。そして1980年代、「地価は絶対に下がらない」という神話のもとで土地の値段が爆発し、1990年に崩壊。銀行も会社も巻き込んで、日本は30年間苦しみました。土地の問題は、それくらい大きいのです。</p>
+  </section>
+
+  <section>
+    <h2>4. 打ち出の小槌の式</h2>
+    <p>土地の値段は、実はシンプルな式で決まっています。</p>
+
+    <div class="artifact">
+      <p class="artifact-title">土地の値段が決まる仕組み</p>
+      <div class="frac-row">
+        <span class="frac-lead">土地の値段 ＝</span>
+        <span class="frac"><span class="num-t">毎年入ってくる家賃</span><span class="den">金利</span></span>
+      </div>
+      <p class="frac-note">家賃が年600万円入る土地、金利3％なら　600万 ÷ 0.03 ＝ <b>2億円</b></p>
+      <p class="source">収益還元法（不動産評価の基本式）の最も単純な形</p>
+    </div>
+
+    <p>この式が意味するのは恐ろしいことです。<strong>家賃を下げる事業は、地価を下げる事業と数学的に同じ</strong>なのです。そして日本の銀行は、土地を担保にして約200兆円（概算）を貸しています。地価が下がると銀行が困り、家を持っている多くの家庭も困る。だから政治も大企業も、この問題には絶対に手を突っ込みません。</p>
+    <p>ムカつく仕組みなのに誰も直さない理由——それは「直すと痛い人」が強くて多いから。逆に言えば、ここには<strong>大手が絶対に追いかけてこない空き地</strong>が広がっています。</p>
+  </section>
+
+  <section>
+    <h2>5. でも、式には「分母」がある</h2>
+    <p>大家さんと戦って家賃を下げさせることはできません。でも、もうひとつの式をよく見てください。</p>
+
+    <div class="artifact">
+      <p class="artifact-title">変えられないもの／変えられるもの</p>
+      <div class="frac-row">
+        <span class="frac-lead">1人あたりの場所代 ＝</span>
+        <span class="frac"><span class="num-t">その土地の場所代</span><span class="den">受け止める人数 × 時間</span></span>
+      </div>
+      <p class="frac-note">分子は変えられない。<b>分母は変えられる。</b></p>
+    </div>
+
+    <p>場所代の総額は下げられない。でも、<strong>同じ土地を「何人で・何時間」使うかは変えられる</strong>。あなたの部屋の24時間を見てみましょう。</p>
+
+    <div class="artifact">
+      <p class="artifact-title">一人暮らしの1K・平日の24時間</p>
+      <div class="day">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span class="empty"></span><span class="empty"></span><span class="empty"></span><span class="empty"></span>
+        <span class="empty"></span><span class="empty"></span><span class="empty"></span><span class="empty"></span>
+        <span class="empty"></span><span class="empty"></span><span class="empty"></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="ticks"><span>0時</span><span></span><span></span><span></span><span></span><span></span><span>6</span><span></span><span></span><span></span><span></span><span></span><span>12</span><span></span><span></span><span></span><span></span><span></span><span>18</span><span></span><span></span><span></span><span></span><span>23</span></div>
+      <div class="legend">
+        <div><i class="seg-b"></i><span>誰かがいる<small>寝ている・朝の支度・帰宅後</small></span><b>13時間</b></div>
+        <div><i style="background:transparent;border:1px dashed var(--faint)"></i><span>誰もいない<small>それでも家賃は発生している</small></span><b>11時間</b></div>
+      </div>
+      <p class="source">平日・会社員の標準的な在室パターンからの試算</p>
+    </div>
+
+    <p>トイレも、キッチンも、洗濯機も、お風呂も、1人に1個ずつ備え付けられているのに、1日の半分近くは誰も使っていません。この「空気に払っている分」を、みんなで重ね合わせて消すのです。</p>
+    <p>寝る場所（巣）だけは完全に自分専用に守る。それ以外——キッチン、仕事場、大浴場、洗濯——は建物まるごと共用にして、ホテル品質で運営する。混みそうな時間はアプリが先回りしてずらす。出張でいない夜は、自分の巣を休ませて旅行者に貸し、その分家賃が引かれる。</p>
+    <p class="claim">地主の取り分を1円も減らさないまま、1人あたりの家賃は大きく下がる。戦わずに、薄める。</p>
+    <p>これが200年間誰も解けなかった問題への、私たちの答えです。</p>
+  </section>
+
+  <section>
+    <h2>6. 「積んで薄める」なら、タワマンが先では？</h2>
+    <p>いい質問です。実はタワマンこそ、この式を100年前から使っている先輩です。ただし、決定的な違いが2つあります。</p>
+
+    <div class="artifact">
+      <p class="artifact-title">同じ「分母を増やす」でも</p>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th scope="col"></th><th scope="col" class="red">空間に積む（タワマン）</th><th scope="col" class="green">時間に積む（Living OS）</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">やり方</th><td>床を垂直にコピーする</td><td class="ours">同じ床を時間で重ねて使う</td></tr>
+            <tr><th scope="row">かかるもの</th><td>1棟500億円と5年</td><td class="ours">アプリと段取り</td></tr>
+            <tr><th scope="row">必要な許可</th><td>容積率（役所が配る権利）</td><td class="ours">いらない（今ある建物のまま）</td></tr>
+            <tr><th scope="row">儲けの行き先</th><td>地価へ＝地主・デベロッパー</td><td class="ours">住む人へ＝家賃が下がる</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="source">赤／緑は比較対象の識別であり、優劣の記号ではない</p>
+    </div>
+
+    <p>タワマンは床の枚数を増やしますが、コピーした一部屋一部屋は昔のままの売り方です——24時間分の専有、1人に1つのトイレ。つまり「空気が家賃を払う部屋」を大量生産しているだけで、部屋の中の無駄には手をつけていません。そして増えた儲けは、例の式（家賃÷金利）を通じて地価に吸い込まれ、上へ行きます。だからタワマンは安くならないのです。</p>
+    <p>時間の分母は箱を増やしません。だから浮いた分を、下に——住む人に——返せます。</p>
+  </section>
+
+  <section>
+    <h2>7. 浮いたお金はどこへ行くのか</h2>
+    <p>この仕組みで月3万円浮いたら、そのお金は土地ではなく、人生に行きます。英会話に。年2回の旅行に。子どもに。貯金に。</p>
+    <p>1万人分を集めると、<strong>年間36億円が「土地」から「人生」へ流れ替わります</strong>。私たちはこの金額を「移転額」と呼んで、売上よりも大事な目標にすることに決めました。</p>
+    <p>200年前にリカードが見つけ、ジョージが世界に訴え、モノポリーが子どもたちに教え、エレベーターが半分だけ解決した問題。残りの半分——<strong>増えた分母の利益を、地主ではなく住む人に返すこと</strong>——は、床の使われ方を1時間単位で編集できる時代になって、初めて手が届くようになりました。</p>
+    <p>家賃は、街の便利さの代金です。その便利さを作ったのは、街で働き、暮らしているあなたたち全員です。だったらその代金の一部は、あなたの人生に返っていい。</p>
+  </section>
+
+  <hr class="end">
+  <p class="colophon">
+    概算値について：家賃の3層比率はエリア別の推定係数、銀行の土地担保約200兆円は概算です。精緻化の予定と出典方針は事業計画に記載しています。<br>
+    デザイン：数理の弾丸テイスト（Document Kernel v1）
+  </p>
+
+</div>
+
+<script>
+  (function () {
+    var bar = document.getElementById("bar1");
+    if (!bar) return;
+    var segs = bar.querySelectorAll("span");
+    function fill() { segs.forEach(function (s) { s.style.width = s.dataset.w + "%"; }); }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { fill(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { fill(); io.disconnect(); } });
+    }, { threshold: 0.35 });
+    io.observe(bar);
+  })();
+</script>
+</body>
+</html>
