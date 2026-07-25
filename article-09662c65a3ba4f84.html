@@ -25,9 +25,15 @@
 
 body{
   background:var(--paper); color:var(--ink); font-family:var(--gothic);
-  font-feature-settings:"palt","chws","pkna","kern"; word-break:keep-all; line-break:strict;
+  font-feature-settings:"palt","chws","pkna","kern";
+  /* 原典の word-break:keep-all はスライド用。日本語長文では改行機会が消えて
+     横に突き抜けるため、縦長文書では normal / auto-phrase を使う */
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
   font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
 }
+.wrap,section,p,li,td,th,.legend div,.legend span,.frac-row{min-width:0}
+img,svg,video,pre,table{max-width:100%}
 .wrap{max-width:var(--measure); margin:0 auto}
 
 .mast{padding:56px 0 24px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:12px}
@@ -124,9 +130,9 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:56px 0 0}
     <div class="artifact">
       <p class="artifact-title">家賃 118,000円の内訳</p>
       <div class="bar" id="bar1">
-        <span class="seg-a" style="width:0%" data-w="52"></span>
-        <span class="seg-b" style="width:0%" data-w="34"></span>
-        <span class="seg-c" style="width:0%" data-w="14"></span>
+        <span class="seg-a" style="width:52%" data-w="52"></span>
+        <span class="seg-b" style="width:34%" data-w="34"></span>
+        <span class="seg-c" style="width:14%" data-w="14"></span>
       </div>
       <div class="legend">
         <div><i class="seg-a"></i><span>場所代<small>土地への支払い。誰も働いていない</small></span><b>61,360円</b></div>
@@ -250,13 +256,16 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:56px 0 0}
   (function () {
     var bar = document.getElementById("bar1");
     if (!bar) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!("IntersectionObserver" in window)) return;
     var segs = bar.querySelectorAll("span");
-    function fill() { segs.forEach(function (s) { s.style.width = s.dataset.w + "%"; }); }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { fill(); return; }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { fill(); io.disconnect(); } });
+    segs.forEach(function (s) { s.style.width = "0%"; });          // 演出用に一度畳む
+    var restore = function () { segs.forEach(function (s) { s.style.width = s.dataset.w + "%"; }); };
+    var done = false, io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting && !done) { done = true; restore(); io.disconnect(); } });
     }, { threshold: 0.35 });
     io.observe(bar);
+    setTimeout(function () { if (!done) { done = true; restore(); io.disconnect(); } }, 2500); // 保険
   })();
 </script>
 </body>
