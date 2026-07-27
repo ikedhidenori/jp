@@ -70,6 +70,7 @@ a:hover{text-decoration-color:var(--ink)}
 .node-q{font-size:18px; font-weight:800; line-height:1.45; margin:0; text-wrap:balance}
 .node-a{margin:0}
 .node-a em{font-style:normal; font-weight:700; background:linear-gradient(transparent 62%, var(--pale-red) 62%)}
+h2 em{font-style:normal; background:linear-gradient(transparent 60%, var(--pale-red) 60%)}
 
 /* artifact */
 .artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
@@ -125,7 +126,7 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 
 <header class="mast">
   <h1>Living OS 思考地図</h1>
-  <p class="subtitle">合宿でどこまで行ったか、その後どう考えが動いたか。<br>5つの問いを降りていったら、思っていたのと違う場所に着きました。<br>全部の主張に出典を付けてあります。気になったところは飛んでください。</p>
+  <p class="subtitle">合宿でどこまで行ったか、その後どう考えが動いたか。<br>5つの問いを降りていったら、思っていたのと違う場所に着きました。<br>そして3日で、壁だと思っていたものが3つ壁でなくなりました。<br>全部の主張に出典を付けてあります。気になったところは飛んでください。</p>
   <p class="meta">INNFRA ／ 2026-07-24 〜 07-27 の議論から　D2-internal</p>
 </header>
 
@@ -322,6 +323,37 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 </section>
 
 <section>
+  <h2>今日のニュース1本に、この背骨が全部入っていました</h2>
+  <p>2026年7月27日、<strong>東京23区の単身向けマンション平均家賃が11.4万円、25か月連続で過去最高</strong>と報じられました。そこへの反応を4つ並べると、いま説明した背骨の4つの面がそのまま出てきます。歴史から説明しなくても、今日のタイムラインで足ります。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">同じ1本のニュースへの、4つの反応</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>反応</th><th>見ている面</th></tr></thead>
+        <tbody>
+          <tr><td><strong>「春闘で給料上がっても結局 地主に回収されてしまう」</strong></td><td>分配<br><span class="source">＝リカードの地代論。200年前の話を、経済学の言葉を一切使わずに言い当てている</span></td></tr>
+          <tr><td>「賃料の遅効性という意味では、マンション高騰期間くらいは上がり続けるかと」（不動産鑑定士）</td><td>時間<br><span class="source">＝痛みは入口であって出口ではない</span></td></tr>
+          <tr><td>「うちの場合、大阪市内で2LDKで家賃10万円切ってるんですが…」</td><td>空間<br><span class="source">＝東京の1Rより大阪の2LDKが安い。差額は箱でも世話でもなく<strong>場所代</strong></span></td></tr>
+          <tr><td><strong>タワマン188棟の51%で、所有者の住所が物件所在地と一致しない</strong>（日経独自調査。新宿区はマンション全体で83%）</td><td>用途<br><span class="source">＝住むためでなく、持つために買われている</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">出典：NHK・日本経済新聞（家賃）／日経データ・調査報道（タワマン調査、TRUSTARTデータを町丁目単位で判定）</p>
+  </div>
+
+  <p class="claim">「地代に吸われている」は、もう説明のいらない共通認識になっている。</p>
+  <p>これは我々にとって追い風であり、同時に注意点でもあります。<strong>この認識を我々が発明したかのように語ると、かえって遠くなる</strong>。「よく言われていることですが」から入るのが正しい距離です。</p>
+  <p>ひとつ但し書きを付けます。<strong>タワマンの「住所不一致51%」は「空室51%」ではありません。</strong>法人所有・親族居住・賃貸運用・住民票を移していない実居住が全部そこに入ります。必ず誤読される形の数字なので、引用のたびに注記が要ります。</p>
+  <div class="srcrow">
+    <a class="src" href="https://news.web.nhk/newsweb/na/na-k10015187221000">NHK：23区単身向け平均家賃11.4万円・25か月連続最高</a>
+    <a class="src" href="https://x.com/nkinvestigation/status/2081665092450676919">日経データ・調査報道：タワマン188棟の51%が住所不一致</a>
+    <a class="src" href="https://x.com/take4_fire/status/2081591242308395267">「春闘で給料上がっても結局地主に回収される」</a>
+    <a class="src" href="https://x.com/ma_kanteishi/status/2081637540717862945">賃料の遅効性（鑑定士）</a>
+  </div>
+</section>
+
+<section>
   <h2>もうひとつ解けた謎: なぜ人は動けないのか</h2>
   <p>「引っ越せばいいのに」と言うのは簡単です。でもデータを見たら、<strong>物理的に無理でした</strong>。</p>
   <ul>
@@ -338,11 +370,56 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 </section>
 
 <section>
+  <h2>敵が変わりました: 持ち家でも賃貸でもなく、<em>二択しかないこと</em></h2>
+  <p>ここまで「賃貸で払い続けて何も残らない」側だけを見ていました。もう一方も見たら、同じ痛みが別の形で出ていました。</p>
+  <ul>
+    <li><strong>世帯主29歳以下の負債が2025年に過去最高</strong>。負債保有世帯の平均で<strong>3,000万円超</strong>、全年代で最多。<strong>その95%が住宅・土地</strong></li>
+    <li>都内20代の「夫婦で超長期」ローンは<strong>2割弱に急増。50年返済も</strong></li>
+    <li>年収も貯蓄も、負債の伸びに追いついていない</li>
+  </ul>
+  <p class="source">※この数字は「二人以上世帯」かつ「負債を持っている世帯」に限った平均です。単身は入っていません。若者一般の話ではなく、<strong>20代で家を買った二人以上世帯</strong>の姿として読んでください。</p>
+
+  <div class="turnbox">
+    <p class="t">ここで見え方が変わった</p>
+    <p>なぜ20代が50年ローンを組むのか。<strong>買うか借りるかの二択しかないからです。</strong></p>
+    <p>借りれば払い続けて何も残らない。買えば3,000万円の負債と50年の拘束。<strong>どちらも「住居費が人生の選択肢を奪う」という同じ痛みの、別の形</strong>にすぎません。</p>
+    <p class="claim">50年という数字は、その二択が貧しいことの実害。</p>
+  </div>
+
+  <p>だから我々が立つ位置も変わります。<strong>敵は持ち家でも賃貸でもなく、「二択しかないこと」</strong>。持ち家 vs 賃貸の対立に乗ると、この3,000万円の人たちとは無関係になってしまいます。売り文句も「安く住める」だけでなく<strong>「選択肢を取り戻す」</strong>が入ります。</p>
+
+  <p>ひとつ、慎重に扱っている点があります。「借金まみれの若者」と読むのは早いということです。<strong>インフレ下では長期固定の借金は実質的に目減りする</strong>ので、実物資産を持つのは合理的でもある。ただし<strong>固定か変動かで意味が正反対</strong>になります（変動だと金利上昇で打ち消される）。<strong>年代別の固定／変動比率が未確認</strong>なので、ここはまだ結論を出していません。</p>
+  <div class="srcrow">
+    <a class="src" href="https://www.nikkei.com/article/DGXZQOUB282B70Y6A620C2000000/">日経：20代以下の負債、全年代で最多に</a>
+    <a class="src" href="https://www.nikkei.com/article/DGXZQOUB127TV0S5A211C2000000/">日経：都内20代「夫婦で超長期」2割弱に急増</a>
+  </div>
+</section>
+
+<section>
   <h2>目指す世界</h2>
   <p>売上ではなく、この数字を目標にすることにしました。</p>
   <p class="claim">移転額 ＝ 土地に消えていたお金を、人生に流し替えた総額</p>
   <p>1人あたり月3万円が浮けば、英会話に、旅行に、子どもに、貯金に回ります。1万人分を集めると<strong>年間36億円が「土地」から「人生」へ流れ替わります</strong>。</p>
   <p>これは売上と対立しません。会員が増えれば両方増えます。そして投資家にも顧客にも、同じ数字で説明できます。</p>
+</section>
+
+<section>
+  <h2>国の成長戦略に、「住まい」はありません</h2>
+  <p>2026年7月21日、日本成長戦略が閣議決定されました。<strong>17の戦略分野・62の主要製品を名指し</strong>し、通常の歳出とは別に投資枠を作るという、産業政策としてはかなり踏み込んだ内容です。中核半導体68.0兆円、バーティカルAI23.1兆円、ゲーム24.5兆円（いずれも2040年度までの見込み、ゲームは2033年度まで）。</p>
+  <p class="claim">62の製品に、住宅・賃貸・不動産・空き家はひとつも入っていません。</p>
+  <p>いちばん近いのが防災技術と植物工場と次世代型倉庫です。そして<strong>17分野はすべて生産側</strong>。国が家計を楽にする経路として用意しているのは「生産性を上げる → 賃金が上がる → 可処分所得が増える」の一本道だけです。</p>
+  <p>ところが、その一本道の出口に地主が立っている、というのが今日の「春闘で給料上がっても結局 地主に回収されてしまう」でした。</p>
+
+  <div class="turnbox">
+    <p class="t">位置づけが1行で言えるようになった</p>
+    <p class="claim">国は「稼ぐ側」からしか可処分所得を増やそうとしていない。<br>我々は「払う側」から増やす。</p>
+  </div>
+
+  <p>この空白は両刃です。<strong>国策のお金・税制・規制改革のパッケージは我々に来ません</strong>。「成長戦略に乗って調達」は成立しない。一方で<strong>大企業の人と金も17分野に吸われます</strong>。「なぜ大手がやらないのか」への答えに、①満室で解く問題がない ②コミュニティという中核資産と正面衝突する ③制度の椅子に既に座っている、に続く<strong>4つ目の理由</strong>が付きました。</p>
+  <div class="srcrow">
+    <a class="src" href="https://x.com/shinsuke_amano/status/2079552697146171830">日本成長戦略 17分野・62製品（内閣官房資料）</a>
+    <a class="src" href="https://www.projectdesign.jp/articles/news/b2d92a94-18b5-4f6a-b8a8-9b1cbca53a4b">骨太方針2026と同時決定・投資枠の創設</a>
+  </div>
 </section>
 
 <section>
@@ -409,6 +486,71 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 </section>
 
 <section>
+  <h2>この3日で、動かせるものが3つ増えました</h2>
+  <p>壁だと思っていたものが、順番に壁でなくなりました。3つとも「調べ直した」のではなく、<strong>すでに例外が存在していた</strong>だけです。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">① 契約の器は、選べる</p>
+    <p>「借地借家法があるから入居審査を軽くできない」と書いていました。これは<strong>普通借家契約を選ぶなら、の話</strong>でした。器はメニューです。</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>器</th><th>借地借家法</th><th>審査・保証人</th></tr></thead>
+        <tbody>
+          <tr><td>普通借家</td><td>適用</td><td>借主保護が強く、退去が困難。だから審査が重くなる</td></tr>
+          <tr><td>定期借家</td><td>適用（更新なし）</td><td>やや軽い</td></tr>
+          <tr><td class="ours"><strong>旅館業（簡易宿所・ホテル）</strong></td><td class="ours"><strong>適用外</strong></td><td class="ours"><strong>基準は自由に設計できる。保証人不要。滞納にも早く動ける</strong></td></tr>
+          <tr><td>住宅宿泊事業／会員制・施設利用契約</td><td>適用外</td><td>用途と日数に制限</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>前例は既に手元にありました。</strong>ミレニアルズ渋谷は簡易宿所。ジョニーが住んでいた大橋会館は長期宿泊契約でした。<strong>賃貸ではなかった</strong>のです。</p>
+    <p>代償もはっきりしています。消費税が課税になる、住民票の扱いが変わる、そして<strong>借主保護がなくなる</strong>。最後の1つには答えの候補があります。<strong>法律が与える保護を、契約（約款）が与える保護で置き換える</strong> ── 憲法3箇条を契約に書き込む形です。</p>
+  </div>
+
+  <div class="artifact">
+    <p class="artifact-title">② 「会員に事業の持分」は、日本で既に実行されている</p>
+    <p>「金商法があるから会員に持分は配れない」も早すぎました。<strong>カブアンド</strong>が2024年11月から、株引換券を通じて<strong>初回69万人・約4.2億株</strong>を割り当てています。「できない」ではなく「<strong>どう設計したか</strong>」を突き止める問題でした。</p>
+    <p>ただし我々の案とは3点で決定的に違います。カブアンドの原資は<strong>顧客が払った料金</strong>（顧客が自分で自分の株を買っている構造という批判があります）、顧客と株主で<strong>利害が矛盾</strong>し、出口が<strong>上場一本</strong>。我々は原資が「地代を薄めて新しく生まれた余剰」なので、<strong>安くなることと事業成長が同じ方向を向きます</strong>。</p>
+    <p class="source">教訓として：持分を集客のフックにはしません。「安く住める」が先、持分は還元の形として後ろに置きます。</p>
+  </div>
+
+  <div class="artifact">
+    <p class="artifact-title">③ 家賃を下げる道は、1本ではなく2本ある</p>
+    <p>「大家に家賃を下げさせるのは不可能」と書いていましたが、<strong>間違いでした</strong>。反例が業界の主流として存在します ── <strong>サブリース（一括借上げ）</strong>。大家は満室想定より低い額で貸すことを自分から選んでいます。</p>
+    <p class="claim">家賃は下がる。下がる条件は「善意」ではなく「リスクの引き受け」だった。</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>道</th><th>仕組み</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A. 分母を増やす</strong></td><td>家賃総額は動かさず、受け止める人数×時間を増やす（稼働化・二毛作・デマンドレスポンス）</td></tr>
+          <tr><td><strong>B. リスクを引き受けて家賃自体を下げる</strong></td><td>空室・滞納・管理の手間を大家から買い取る対価として割り引かせる</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>そしてAとBは掛け算になります。</strong>空室リスクの引受コストは主体によって違う。<strong>稼働を上げられる主体ほど、同じリスクを安く引き受けられる</strong>。ここに「我々だけリスクが安い」という優位性の言い方が生まれます。</p>
+    <p class="source">ただしPoCでは採りません。サブリースはレオパレス・かぼちゃの馬車で社会的信用を失った領域で、固定マスターリースは空室リスクを全額こちらが背負います。「不可能」を「高い」に訂正したのが今回の成果であって、いま買う話ではありません。</p>
+  </div>
+</section>
+
+<section>
+  <h2>考え方の規律（3日で3回間違えたので）</h2>
+  <p>この3日、素子（AI側）は<strong>制度を「壁」として3回断定し、3回ともジョニーの一言でひっくり返りました</strong>。借地借家法、金商法、そして「制度に挑むには資本が要る」。3つ目はAirbnbとUberを例に出したのですが、<strong>Airbnbはエアベッド3つ、Uberはseed段階で当局と衝突していて、例そのものが反例</strong>でした。</p>
+  <p>原因は分かっています。「法律を守れ」と書かれた文章は世の中に無数にあり、「法律の適用範囲を設計せよ」と書かれた文章は圧倒的に少ない。だから確率的に「壁」側に倒れます。<strong>再現性のある偏りなので、仕組みで止めることにしました。</strong></p>
+
+  <div class="artifact">
+    <p class="artifact-title">制約を「できない」と書く前に、必ず3つ通す</p>
+    <ul style="margin:0">
+      <li><strong>① どの層の制約か</strong> ── ①物理法則 ②経済の恒等式 は受け入れる。③法律 ④規制の運用 ⑤業界慣行 ⑥信じられている前提 は疑う。<strong>⑥がいちばんおいしい</strong>（「家は所有か賃貸か」はここ）</li>
+      <li><strong>② すでに例外がないか探す</strong> ── 制約が本物なら例外は存在しない。<strong>例外があるなら、それは制約ではなく多数派の選択</strong>。今回の3件は全部これだけで解けました</li>
+      <li><strong>③ 位置を変える</strong> ── 「もっと調べる」は禁じ手。深さを足しても問いの位置は変わりません</li>
+    </ul>
+  </div>
+
+  <p>③の言葉は細田高広さんの<strong>「掘り下げる思考と掘り当てる思考」</strong>から借りました。分析を深めるのが掘り下げ、問いの位置を動かすのが掘り当て。今回の3件は<strong>どれも掘り下げでは絶対に出ない答え</strong>でした。</p>
+  <p class="source">補足として、疑うコストは対称ではありません。慣行を疑って外れても損は小さいが、法律を正面から破って外れると事業が飛びます。だから⑤⑥から疑い、③は「適用範囲の外に出る」形で回避します ── 上の「器の選択」がまさにそれで、<strong>あれは全部合法の中の選択</strong>です。</p>
+</section>
+
+<section>
   <h2>正直に、まだ分かっていないこと</h2>
   <ul>
     <li><strong>顧客が実在するかの証拠が、まだ3人分しかない</strong>。これがいちばん大きな穴です。だから検証LPとヒアリングを走らせています</li>
@@ -417,6 +559,9 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
     <li>居住サポート住宅の認定要件を満たせるのか（事業者要件・設備・人員）は未確認</li>
     <li>フリーランス人口は<strong>定義で3倍違う</strong>（本業ベース約462万人 ↔ 副業込み1,303万人）。対外資料には本業ベースを使います</li>
     <li>家賃の3層比率は社内推定。鑑定データでの再推定が必要</li>
+    <li><strong>年代別の固定／変動金利の比率</strong>。ここが分からないと「若者のローンは危ないのか」を判断できません</li>
+    <li><strong>タワマン「住所不一致51%」の内訳</strong>（法人／親族居住／賃貸運用／住民票未転居）。分からないと使い切れない数字です</li>
+    <li><strong>器を旅館業に寄せた場合の実務</strong> ── 消費税の負担増、住民票の扱い、建築基準法上の用途、そして許可要件を実際に満たせるか</li>
     <li>米国で先に生まれた同種のサービス（PadSplitなど）が、与信をどう解いて、なぜCommonは潰れたのか。調査中です</li>
   </ul>
 </section>
@@ -443,6 +588,15 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
         <tr><td>「最低居住面積水準」が国の計画から削除</td><td><a href="https://www.haseko.co.jp/hri/cri/report/report-202604/index.html">長谷工総合研究所</a> ／ <a href="https://news.web.nhk/newsweb/na/nb-1000127971">NHK</a></td></tr>
         <tr><td>2050年に単身世帯44.3%、高齢単身は1,084万世帯へ</td><td><a href="https://www.nippon.com/ja/japan-data/h02201/">nippon.com（社人研推計より）</a></td></tr>
         <tr><td>建設工事費が10年で約3割上昇（下がる見込みは薄い）</td><td><a href="https://news.build-app.jp/article/37202/">建設物価指数の解説</a></td></tr>
+        <tr><td>23区単身向け家賃11.4万円・25か月連続で過去最高</td><td><a href="https://news.web.nhk/newsweb/na/na-k10015187221000">NHK</a> ／ <a href="https://www.nikkei.com/article/DGXZQOUB22A8C0S5A720C2000000/">日本経済新聞</a></td></tr>
+        <tr><td>タワマン188棟の51%で所有者住所が不一致（新宿区83%）</td><td><a href="https://x.com/nkinvestigation/status/2081665092450676919">日経 データ・調査報道（TRUSTARTデータ）</a></td></tr>
+        <tr><td>「春闘で給料上がっても結局 地主に回収されてしまう」</td><td><a href="https://x.com/take4_fire/status/2081591242308395267">@take4_fire</a></td></tr>
+        <tr><td>賃料は価格に遅れて追随する（タイムラグ）</td><td><a href="https://x.com/ma_kanteishi/status/2081637540717862945">@ma_kanteishi（不動産鑑定士）</a></td></tr>
+        <tr><td>東京23区の単身向けより大阪市内2LDKが安い</td><td><a href="https://x.com/otalawyer/status/2081616311902417110">@otalawyer</a></td></tr>
+        <tr><td>20代以下の負債が過去最高・95%が住宅／都内20代の超長期ローン2割弱</td><td><a href="https://www.nikkei.com/article/DGXZQOUB282B70Y6A620C2000000/">日本経済新聞</a> ／ <a href="https://www.nikkei.com/article/DGXZQOUB127TV0S5A211C2000000/">同</a></td></tr>
+        <tr><td>日本成長戦略17分野・62製品に住宅が入っていない</td><td><a href="https://x.com/shinsuke_amano/status/2079552697146171830">内閣官房資料</a> ／ <a href="https://www.projectdesign.jp/articles/news/b2d92a94-18b5-4f6a-b8a8-9b1cbca53a4b">事業構想オンライン</a></td></tr>
+        <tr><td>カブアンド：株引換券で初回69万人・約4.2億株を割当</td><td><a href="https://kabu-and.jp/">カブアンド公式</a></td></tr>
+        <tr><td>「掘り下げる思考と掘り当てる思考」ほか創造的思考の手法</td><td><a href="https://youtu.be/BrvC__bjXkM">細田高広（THE CREATIVE ACADEMY）</a> ／ <a href="https://newspicks.com/news/11815036/body/">講座シラバス</a></td></tr>
         <tr><td>家賃で人が並び替えられている（東京40km圏の地図）</td><td><a href="https://x.com/machi_measure/status/2080484362697503007">@machi_measure（学歴）</a> ／ <a href="https://x.com/machi_measure/status/2079012575182987379">同（居住者タイプ）</a></td></tr>
       </tbody>
     </table>
@@ -451,10 +605,11 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 
 <hr class="end">
 <p class="colophon">
-  この地図は2026年7月24日〜27日の議論から作成しました。数字には出典を付け、社内推定には注記を入れています。<br>
+  この地図は2026年7月24日〜27日の議論から作成しました。7月27日夕に更新（今日のニュース／二択の実害／増えた選択肢3つ／考え方の規律を追加）。数字には出典を付け、社内推定には注記を入れています。<br>
   デザイン：数理の弾丸テイスト（Document Kernel v1）
 </p>
 
 </div>
+
 </body>
 </html>
