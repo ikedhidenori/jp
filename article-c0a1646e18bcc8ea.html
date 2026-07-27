@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Living OS 思考地図</title>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th,.node,.legend div{min-width:0}
+img,svg,video,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+/* masthead */
+.mast{padding:52px 0 22px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:11px}
+.mast h1{font-size:clamp(26px,5.6vw,34px); line-height:1.28; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:11px; height:37px; background:var(--ink)}
+.mast .subtitle{font-size:16px; line-height:1.65; margin:0 0 0 22px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 22px}
+
+section{padding:40px 0 0; display:flex; flex-direction:column; gap:15px}
+section > h2{font-size:clamp(19px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+p{margin:0}
+strong{font-weight:700}
+
+/* リンク: 出典に飛べることを見た目で示す */
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+a:hover{text-decoration-color:var(--ink)}
+.src{display:inline-block; font-size:11px; line-height:1.5; padding:1px 7px; margin:2px 4px 2px 0;
+  border:1px solid var(--rule); border-radius:2px; background:var(--artifact); color:var(--sub);
+  text-decoration:none; white-space:nowrap}
+.src:hover{border-color:var(--ink); color:var(--ink); text-decoration:none}
+.src::before{content:"↗ "; color:var(--faint)}
+.srcrow{display:flex; flex-wrap:wrap; gap:0; margin-top:2px}
+
+/* 思考の背骨 */
+.spine{border-left:2px solid var(--ink); margin:6px 0 0 6px; padding-left:26px;
+  display:flex; flex-direction:column; gap:34px}
+.node{position:relative; display:flex; flex-direction:column; gap:9px}
+.node::before{content:""; position:absolute; left:-33px; top:5px; width:12px; height:12px;
+  background:var(--paper); border:2px solid var(--ink); border-radius:50%}
+.node.turn::before{background:var(--red); border-color:var(--red)}
+.node-n{font-size:11px; letter-spacing:.16em; color:var(--faint); font-weight:700; margin:0}
+.node-q{font-size:18px; font-weight:800; line-height:1.45; margin:0; text-wrap:balance}
+.node-a{margin:0}
+.node-a em{font-style:normal; font-weight:700; background:linear-gradient(transparent 62%, var(--pale-red) 62%)}
+
+/* artifact */
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:17px 17px 13px; margin:2px 0; display:flex; flex-direction:column; gap:12px}
+.artifact-title{font-size:13px; font-weight:700; margin:0}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0}
+
+.bar{display:flex; height:28px; width:100%; border:1.5px solid var(--ink); overflow:hidden}
+.bar span{display:block}
+.seg-a{background:var(--red)} .seg-b{background:var(--ink)} .seg-c{background:var(--faint)}
+.legend{display:flex; flex-direction:column; gap:7px; font-size:13px; line-height:1.5}
+.legend div{display:grid; grid-template-columns:12px 1fr auto; gap:10px; align-items:baseline}
+.legend i{display:block; width:12px; height:12px; border:1px solid var(--ink)}
+.legend b{font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap}
+
+.frac-row{display:flex; align-items:center; gap:11px; flex-wrap:wrap; font-size:14px}
+.frac-lead{font-weight:700}
+.frac{display:inline-flex; flex-direction:column; align-items:center; gap:3px; text-align:center}
+.frac .den{padding:0 12px; border-top:1.5px solid var(--ink)}
+.frac .num-t{padding:0 12px}
+
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13px; line-height:1.55; min-width:22rem}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:11.5px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+.red{color:var(--red)} .green{color:var(--green)}
+td.ours{background:var(--pale-red)}
+
+.claim{border-left:4px solid var(--ink); padding-left:15px; font-weight:700; font-size:1.05em; line-height:1.7}
+.turnbox{border:2px solid var(--red); border-radius:3px; background:var(--artifact); padding:15px 16px;
+  display:flex; flex-direction:column; gap:8px}
+.turnbox .t{font-size:11px; letter-spacing:.14em; font-weight:700; color:var(--red); margin:0}
+
+ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:7px}
+li{line-height:1.7}
+
+hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:15px 0 0}
+
+@media (max-width:520px){
+  body{font-size:15px; padding:0 16px 64px}
+  .artifact,.turnbox{padding:13px}
+  .spine{padding-left:20px}
+  .node::before{left:-27px}
+}
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="mast">
+  <h1>Living OS 思考地図</h1>
+  <p class="subtitle">家賃の「あきらめ」から始まって、5つの問いを降りていったら、思っていたのと違う場所に着きました。<br>全部の主張に出典を付けてあります。気になったところは飛んでください。</p>
+  <p class="meta">INNFRA ／ 2026-07-24 〜 07-27 の議論から　D2-internal</p>
+</header>
+
+<section>
+  <h2>出発点</h2>
+  <p>「家賃が高い。コスパも悪い。でもどうしようもない。あきらめよう」</p>
+  <p>これが、たぶん日本のいちばん多い本音です。ここから始めて、<strong>「なんで?」を5回聞き直しました</strong>。以下がその降り方です。赤い点は<strong class="red">途中で考えが変わったところ</strong>です。</p>
+</section>
+
+<section>
+  <h2>思考の背骨</h2>
+
+  <div class="spine">
+
+    <div class="node">
+      <p class="node-n">問い 1</p>
+      <p class="node-q">そもそも家賃って、何に払っているの?</p>
+      <p class="node-a">分解したら3つでした。<strong>場所代・箱代・世話代</strong>。建てた人と掃除する人には、働きの対価を払っています。当然のことです。問題はいちばん大きい「場所代」で、<em>これは誰の働きの対価でもありません</em>。いい場所を先に押さえていたことへの支払いです。</p>
+
+      <div class="artifact">
+        <p class="artifact-title">家賃 118,000円の内訳</p>
+        <div class="bar">
+          <span class="seg-a" style="width:52%"></span>
+          <span class="seg-b" style="width:34%"></span>
+          <span class="seg-c" style="width:14%"></span>
+        </div>
+        <div class="legend">
+          <div><i class="seg-a"></i><span>場所代 — 土地へ。誰も働いていない</span><b>61,360円</b></div>
+          <div><i class="seg-b"></i><span>箱代 — 建物へ。建てた人の働き</span><b>40,120円</b></div>
+          <div><i class="seg-c"></i><span>世話代 — 管理・掃除。働いている人</span><b>16,520円</b></div>
+        </div>
+        <p class="source">東京23区西側・1Kの概算（社内推定係数 v0。公開版までに鑑定データで再推定）</p>
+      </div>
+
+      <div class="srcrow">
+        <a class="src" href="https://ikedhidenori.github.io/jp/article-09662c65a3ba4f84.html">解説記事「家賃はどこへ消えるのか」</a>
+      </div>
+    </div>
+
+    <div class="node">
+      <p class="node-n">問い 2</p>
+      <p class="node-q">こんなに変な仕組みなのに、なんで誰も直さないの?</p>
+      <p class="node-a">土地の値段は「<strong>家賃 ÷ 金利</strong>」というシンプルな式で決まっています。つまり<em>家賃を下げる事業は、地価を下げる事業と数学的に同じ</em>。そして日本の銀行は土地を担保に約200兆円を貸しています（概算）。地価が下がると銀行が困り、家を持つ家庭も困る。だから政治も大企業も、ここには手を突っ込みません。</p>
+
+      <div class="artifact">
+        <p class="artifact-title">土地の値段が決まる仕組み</p>
+        <div class="frac-row">
+          <span class="frac-lead">土地の値段 ＝</span>
+          <span class="frac"><span class="num-t">毎年入ってくる家賃</span><span class="den">金利</span></span>
+        </div>
+        <p class="source">収益還元法（不動産評価の基本式）の最も単純な形</p>
+      </div>
+
+      <p class="claim">ムカつく仕組みが直らない理由は、直すと痛い人が強くて多いから。<br>逆に言えば、ここには大手が絶対に追いかけてこない空き地がある。</p>
+    </div>
+
+    <div class="node">
+      <p class="node-q"><span class="node-n" style="display:block">問い 3</span>じゃあ、どうやって解くの?</p>
+      <p class="node-a">大家さんと戦って家賃を下げさせることはできません。でも式にはもう一段あります。<strong>1人あたりの場所代 = 場所代 ÷（受け止める人数 × 時間）</strong>。分子は動かせないけれど、<em>分母は動かせます</em>。</p>
+
+      <div class="artifact">
+        <p class="artifact-title">1Kの24時間（平日）</p>
+        <p style="margin:0;font-size:14px;line-height:1.7">寝ている7時間 ＋ 朝の支度1時間 ＋ 帰宅後5時間 ＝ <strong>誰かがいるのは13時間</strong>。<br>残り<strong>11時間は誰もいないのに、家賃だけが発生しています</strong>。</p>
+          <p class="source">平日・会社員の標準的な在室パターンからの試算</p>
+      </div>
+
+      <p>寝る場所（巣）だけは自分専用に守って、それ以外は建物まるごと共用にする。混む時間はアプリがずらす。出張でいない夜は巣を休ませて旅行者に貸す。こうすると<strong>大家さんの取り分を1円も減らさないまま、1人あたりの家賃が下がります</strong>。</p>
+
+      <div class="artifact">
+        <p class="artifact-title">同じ「分母を増やす」でも、タワマンとは正反対</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th></th><th class="red">空間に積む（タワマン）</th><th class="green">時間に積む（Living OS）</th></tr></thead>
+            <tbody>
+              <tr><th>やり方</th><td>床を垂直にコピーする</td><td class="ours">同じ床を時間で重ねて使う</td></tr>
+              <tr><th>かかるもの</th><td>1棟500億円と5年</td><td class="ours">アプリと段取り</td></tr>
+              <tr><th>必要な許可</th><td>容積率（役所が配る権利）</td><td class="ours">いらない（今ある建物のまま）</td></tr>
+              <tr><th>儲けの行き先</th><td>地価へ ＝ 地主・デベロッパー</td><td class="ours">住む人へ ＝ 家賃が下がる</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source">赤／緑は比較対象の識別であり、優劣の記号ではありません</p>
+      </div>
+    </div>
+
+    <div class="node turn">
+      <p class="node-n">問い 4 ／ 考えが変わったところ ①</p>
+      <p class="node-q">AIで世界が変わったら、この話はどうなる?</p>
+      <p class="node-a">最初はこう考えていました。「<strong>AIは放っておけば地代を太らせるだけだ</strong>」。実際そのとおりで、鉄道でもエレベーターでもインターネットでも、進歩の果実は最後に地価が吸ってきました。200年間ずっとです。</p>
+
+      <div class="turnbox">
+        <p class="t">ここで見方が変わりました</p>
+        <p style="margin:0">それは<strong>行き止まりの警告</strong>ではなく、<strong>出発点</strong>でした。地代が太る過程で、人にはどんな痛みが生まれるのか——そこが市場です。<br>だから調べる順番を変えました。<strong>トレンドではなく「痛み」を主語にする。</strong></p>
+      </div>
+
+      <p>そしてもう一本、需要側に経路があります。<strong>AIは地代の経済を変えないけれど、家計が長期の約束をする気持ちを変える</strong>。先が読めない時代に、35年や50年の約束を求める商品は売れなくなります。</p>
+
+      <p>実際、現実は逆方向に走っていました。<strong>29歳以下の負債は過去最高で、負債を持つ世帯の平均は3,000万円超。全年代で最多です。最長50年のローンが広がっています</strong>。3,000万円を50年で借りると、35年に比べて月々は約2.1万円下がりますが、<strong class="red">利息を約409万円多く払い、15年長く縛られます</strong>（金利1.5%と仮定した試算）。</p>
+
+      <p class="claim">業界の答えは、50年。<br>うちの答えは、約束をゼロにすること。</p>
+
+      <div class="srcrow">
+        <a class="src" href="https://x.com/nikkei/status/2081646611021656080">日経「20代以下の負債、全年代で最多に」</a>
+        <a class="src" href="https://x.com/manmosmosmos/status/2081231456454733940">AGI下で家を買うのは非合理という議論</a>
+        <a class="src" href="https://x.com/monorisujp/status/2081521450427851136">「単純に運が悪い世代」</a>
+      </div>
+    </div>
+
+    <div class="node turn">
+      <p class="node-n">問い 5 ／ 考えが変わったところ ②</p>
+      <p class="node-q">結局、本当の詰まりはどこにあるの?</p>
+      <p class="node-a">「床が足りない」でも「高すぎる」でもありませんでした。<em>詰まっているのは「誰に貸すか」の判定です。</em></p>
+
+      <ul>
+        <li><strong>空き家は900万戸あるのに、借りられない人は増えている</strong></li>
+        <li>単身高齢者は<strong>約7割の大家</strong>が孤独死や滞納を懸念して消極的（国が立法の理由として認めた数字）</li>
+        <li>フリーランス・非正規・転職直後は、収入があっても審査に落ちる</li>
+        <li>その一方で、<strong>20代には50年ローンで3,000万円の与信が出ている</strong></li>
+      </ul>
+
+      <p>つまり判定の基準が、<strong>保証人・年収・雇用形態という20世紀の指標のまま</strong>なんです。だから空き家だらけなのに借りられない人が増えるという、一見おかしな状態が起きる。</p>
+
+      <div class="turnbox">
+        <p class="t">ここが今回いちばん大きい発見</p>
+        <p style="margin:0">会員制で運用すると、<strong>支払い履歴・稼働・行動のデータが貯まります。それ自体が新しい与信になる。</strong><br>床は誰でも借りられます。でも「この人に貸して大丈夫か」を我々だけが知っている状態は、簡単には真似できません。</p>
+      </div>
+
+      <p>そして調べたら、<strong>制度側が先に動いていました</strong>。改正住宅セーフティネット法が<strong>2025年10月に施行済み</strong>です。柱は3つ:</p>
+      <ul>
+        <li><strong>居住サポート住宅</strong>の創設 — 安否確認・見守り・福祉への橋渡しを行う住宅を、自治体が認定する</li>
+        <li><strong>家賃債務保証業者の国認定制度</strong></li>
+        <li>終身建物賃貸借と残置物処理の見直し（単身高齢者に貸す手続きが簡単に）</li>
+      </ul>
+      <p><strong>うちの「共用＋見守り＋AI運用」は、居住サポート住宅の要件とほぼ一致しています。</strong>制度側の受け皿になれる可能性があります（認定要件の詳細は調査中）。</p>
+
+      <div class="srcrow">
+        <a class="src" href="https://www.homes.co.jp/cont/press/rent/rent_01299/">改正住宅セーフティネット法 3本柱の解説</a>
+        <a class="src" href="https://magazine.zennichi.or.jp/legal-reform/15357">空き家の固定資産税と法改正</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>もうひとつ解けた謎: なぜ人は動けないのか</h2>
+  <p>「引っ越せばいいのに」と言うのは簡単です。でもデータを見たら、<strong>物理的に無理でした</strong>。</p>
+  <ul>
+    <li><strong>貯蓄100万円未満の世帯が10.1%で、いちばん多い階級</strong>。1,000万円未満に44.7%（しかもこれは住宅ローンなどの負債を引く前の数字）</li>
+    <li>引っ越しの初期費用は家賃の4〜6ヶ月。11.8万円の部屋なら<strong>50〜70万円</strong></li>
+  </ul>
+  <p class="claim">家賃が高い → 貯金できない → 引っ越せない → 家賃が高いまま。<br>唯一の出口が、お金がないこと自体でふさがれている。</p>
+  <p>だから商品の主語が変わりました。<strong>「月3万円安い」より「60万円が要らない」のほうが効く可能性が高い</strong>。値引きではなく、<strong>参加資格を配ること</strong>です。</p>
+  <div class="srcrow">
+    <a class="src" href="https://x.com/sokawauso/status/2081358160187781437">「マス層の中身」貯蓄100万円未満が最多</a>
+    <a class="src" href="https://x.com/senkiwork/status/2081201800267587896">富裕層ピラミッドを実額で描き直すと</a>
+    <a class="src" href="https://x.com/edgeon4/status/2081616461311979623">日米比較（米国の下位8割は純資産マイナス）</a>
+  </div>
+</section>
+
+<section>
+  <h2>目指す世界</h2>
+  <p>売上ではなく、この数字を目標にすることにしました。</p>
+  <p class="claim">移転額 ＝ 土地に消えていたお金を、人生に流し替えた総額</p>
+  <p>1人あたり月3万円が浮けば、英会話に、旅行に、子どもに、貯金に回ります。1万人分を集めると<strong>年間36億円が「土地」から「人生」へ流れ替わります</strong>。</p>
+  <p>これは売上と対立しません。会員が増えれば両方増えます。そして投資家にも顧客にも、同じ数字で説明できます。</p>
+</section>
+
+<section>
+  <h2>いま分かっている商品の形</h2>
+  <p><strong>入口の壁と出口の壁を、両方外す住まい。</strong></p>
+  <div class="artifact">
+    <p class="artifact-title">外す壁</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>いまの賃貸</th><th class="green">Living OS</th></tr></thead>
+        <tbody>
+          <tr><th>入口：与信</th><td>年収・雇用形態・保証人</td><td class="ours">暮らし方のデータ</td></tr>
+          <tr><th>入口：初期費用</th><td>50〜70万円</td><td class="ours">0円</td></tr>
+          <tr><th>出口：契約</th><td>2年縛り・更新料</td><td class="ours">会員制・設定はタップ</td></tr>
+          <tr><th>月額</th><td>11.8万円＋更新料</td><td class="ours">9万円（上限保証つき）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">金額は東京23区の概算。当社は予定価格</p>
+  </div>
+  <p>ここに1つ足したいものがあります。<strong>収入が落ちたときに「解約」ではなく「縮小」できる権利</strong>。いまの設計は上限保証（超えたら返す）だけで、下振れ側が空いています。AIで収入が不安定になるのに家賃だけ固定、というミスマッチへの答えです。</p>
+</section>
+
+<section>
+  <h2>正直に、まだ分かっていないこと</h2>
+  <ul>
+    <li><strong>顧客が実在するかの証拠が、まだ3人分しかない</strong>。これがいちばん大きな穴です。だから検証LPとヒアリングを走らせています</li>
+    <li>居住サポート住宅の認定要件を満たせるのか（事業者要件・設備・人員）は未確認</li>
+    <li>フリーランス人口は<strong>定義で3倍違う</strong>（本業ベース約462万人 ↔ 副業込み1,303万人）。対外資料には本業ベースを使います</li>
+    <li>家賃の3層比率は社内推定。鑑定データでの再推定が必要</li>
+    <li>米国で先に生まれた同種のサービス（PadSplitなど）が、与信をどう解いて、なぜCommonは潰れたのか。調査中です</li>
+  </ul>
+</section>
+
+<section>
+  <h2>参考にしたもの（全リンク）</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>何が分かったか</th><th>出典</th></tr></thead>
+      <tbody>
+        <tr><td>家賃の解剖と、地代の200年の歴史</td><td><a href="https://ikedhidenori.github.io/jp/article-09662c65a3ba4f84.html">家賃はどこへ消えるのか（解説記事）</a></td></tr>
+        <tr><td>都心タワマン最上階の約半数が不在所有</td><td><a href="https://x.com/i/trending/2081142935534321725">日経調査（Xトレンド）</a></td></tr>
+        <tr><td>20代以下の負債が全年代最多・50年ローン拡大</td><td><a href="https://x.com/nikkei/status/2081646611021656080">日本経済新聞</a></td></tr>
+        <tr><td>資産の実態は「ピラミッド」でなく「平原と針」</td><td><a href="https://x.com/senkiwork/status/2081201800267587896">@SenkiWork</a></td></tr>
+        <tr><td>貯蓄100万円未満が最多階級</td><td><a href="https://x.com/sokawauso/status/2081358160187781437">@SoKawauso（総務省家計調査より）</a></td></tr>
+        <tr><td>日米比較：米国の下位8割は純金融資産がマイナス</td><td><a href="https://x.com/edgeon4/status/2081616461311979623">@EdgeOn4</a></td></tr>
+        <tr><td>AGI下で借金して家を買うのは非合理という議論</td><td><a href="https://x.com/manmosmosmos/status/2081231456454733940">@manmosmosmos</a></td></tr>
+        <tr><td>「単純に運が悪い世代」という捉え方</td><td><a href="https://x.com/monorisujp/status/2081521450427851136">モノリス・キャピタル</a></td></tr>
+        <tr><td>空室課税を求める世論（9,700いいね）</td><td><a href="https://x.com/jl175rv/status/2081227038254661911">@jl175rv</a></td></tr>
+        <tr><td>改正住宅セーフティネット法 3本柱（2025年10月施行）</td><td><a href="https://www.homes.co.jp/cont/press/rent/rent_01299/">LIFULL HOME'S PRESS</a></td></tr>
+        <tr><td>空き家の固定資産税・法改正（日本の空き家課税）</td><td><a href="https://magazine.zennichi.or.jp/legal-reform/15357">全日本不動産協会</a></td></tr>
+        <tr><td>英国：空き家の council tax 100%上乗せ（2024年4月〜）</td><td><a href="https://www.propertymark.co.uk/resource/double-tax-on-empty-homes-takes-effect-on-1-april-2024.html">Propertymark</a></td></tr>
+        <tr><td>フランス：空き家税 TLV の対象拡大</td><td><a href="https://www.connexionfrance.com/news/more-french-towns-are-imposing-empty-home-tax-in-2024/683532">Connexion France</a></td></tr>
+        <tr><td>「最低居住面積水準」が国の計画から削除</td><td><a href="https://www.haseko.co.jp/hri/cri/report/report-202604/index.html">長谷工総合研究所</a> ／ <a href="https://news.web.nhk/newsweb/na/nb-1000127971">NHK</a></td></tr>
+        <tr><td>2050年に単身世帯44.3%、高齢単身は1,084万世帯へ</td><td><a href="https://www.nippon.com/ja/japan-data/h02201/">nippon.com（社人研推計より）</a></td></tr>
+        <tr><td>建設工事費が10年で約3割上昇（下がる見込みは薄い）</td><td><a href="https://news.build-app.jp/article/37202/">建設物価指数の解説</a></td></tr>
+        <tr><td>家賃で人が並び替えられている（東京40km圏の地図）</td><td><a href="https://x.com/machi_measure/status/2080484362697503007">@machi_measure（学歴）</a> ／ <a href="https://x.com/machi_measure/status/2079012575182987379">同（居住者タイプ）</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="end">
+<p class="colophon">
+  この地図は2026年7月24日〜27日の議論から作成しました。数字には出典を付け、社内推定には注記を入れています。<br>
+  デザイン：数理の弾丸テイスト（Document Kernel v1）
+</p>
+
+</div>
+</body>
+</html>
