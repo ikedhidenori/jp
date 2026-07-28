@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Living OS ／ 7-28 岩崎さん討議メモ</title>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th,.legend div{min-width:0}
+img,svg,video,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+.mast{padding:48px 0 20px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:10px}
+.mast h1{font-size:clamp(25px,5.4vw,32px); line-height:1.28; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:11px; height:35px; background:var(--ink)}
+.mast .subtitle{font-size:16px; line-height:1.65; margin:0 0 0 22px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 22px}
+
+section{padding:38px 0 0; display:flex; flex-direction:column; gap:14px}
+section > h2{font-size:clamp(18px,4.1vw,22px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:27px; background:var(--ink)}
+h2 em{font-style:normal; background:linear-gradient(transparent 60%, var(--pale-red) 60%)}
+p{margin:0}
+strong{font-weight:700}
+
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+a:hover{text-decoration-color:var(--ink)}
+.src{display:inline-block; font-size:11px; line-height:1.5; padding:1px 7px; margin:2px 4px 2px 0;
+  border:1px solid var(--rule); border-radius:2px; background:var(--artifact); color:var(--sub);
+  text-decoration:none; white-space:nowrap}
+.src:hover{border-color:var(--ink); color:var(--ink); text-decoration:none}
+.src::before{content:"↗ "; color:var(--faint)}
+.srcrow{display:flex; flex-wrap:wrap; gap:0; margin-top:2px}
+
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:16px 16px 13px; margin:2px 0; display:flex; flex-direction:column; gap:11px}
+.artifact-title{font-size:13px; font-weight:700; margin:0}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0}
+
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13px; line-height:1.55; min-width:20rem}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:11.5px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+.red{color:var(--red)} .green{color:var(--green)}
+td.ours{background:var(--pale-red)}
+.num{font-variant-numeric:tabular-nums; white-space:nowrap}
+
+.claim{border-left:4px solid var(--ink); padding-left:15px; font-weight:700; font-size:1.05em; line-height:1.7}
+.turnbox{border:2px solid var(--red); border-radius:3px; background:var(--artifact); padding:15px 16px;
+  display:flex; flex-direction:column; gap:8px}
+.turnbox .t{font-size:11px; letter-spacing:.14em; font-weight:700; color:var(--red); margin:0}
+
+.q{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:15px 16px;
+  display:flex; flex-direction:column; gap:8px}
+.q .qn{font-size:11px; letter-spacing:.14em; font-weight:700; color:var(--faint); margin:0}
+.q .qt{font-size:17px; font-weight:800; line-height:1.45; margin:0; text-wrap:balance}
+
+ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:6px}
+li{line-height:1.7}
+
+hr.end{border:0; border-top:3px solid var(--ink); margin:48px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
+
+@media (max-width:520px){
+  body{font-size:15px; padding:0 16px 64px}
+  .artifact,.turnbox,.q{padding:13px}
+}
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="mast">
+  <h1>7-28 岩崎さん討議メモ</h1>
+  <p class="subtitle">合宿から3日で、商品の形と値段が決まりました。<br>今日ご相談したいのは3つです。</p>
+  <p class="meta">Living OS ／ INNFRA ／ 2026-07-28　D2-internal</p>
+</header>
+
+<section>
+  <h2>先に、3行</h2>
+  <ul>
+    <li><strong>商品の形が決まりました</strong> ── 大橋会館 ＋ ミレニアルズ ＋ SANU を足して3で割る</li>
+    <li><strong>値段も出ました</strong> ── 月15万。ジョニー本人が「これなら契約する」と言った額です</li>
+    <li><strong>そして計算が通りました</strong> ── しかも <em>多拠点であること自体が原資になる</em> という、想定していなかった構造で</li>
+  </ul>
+  <p class="source">※以下の数値はすべて社内の一次資料に紐づけてあります。未検証のものは「未検証」と明記します。</p>
+</section>
+
+<section>
+  <h2>まず、4月の議論が生きています</h2>
+  <p>岩崎さんが屋久島ビレッジのブレスト（4/21-22）で出した <strong>VLDK 論</strong>。あのときの「<strong>V = 約3.3畳が下限</strong>」という数字が、そのまま今の設計の芯になっています。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">「5m²」の来歴</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>時点</th><th>出てきた数字</th></tr></thead>
+        <tbody>
+          <tr><td class="num">2026-04-21</td><td>VLDK 論 ── <strong>V = 約3.3畳が下限</strong>（≒5.4m²）。「箱 → プロトコル」「V+I 移動性ジレンマ」</td></tr>
+          <tr><td class="num">2026-07-25</td><td>合宿ホワイトボード ── 「<strong>所有するのは5m²だけ</strong>（寝る・仕事する）」</td></tr>
+          <tr class="ours"><td class="num">2026-07-27</td><td>法的な裏付けが出た ── <strong>簡易宿所の面積目安は 1.5m²/人</strong>。ミレニアルズの3m²はその2倍の余裕。<strong>律速は面積ではなく、水回りの数と避難計画</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">3ヶ月、同じ数字が生き延びました。そして今回、それが「守るべき下限」ではなく<strong>「外部化の程度 × 移動頻度」の関数</strong>だと分かりました ── 何を外に出すか、どれだけ動くかで下限は変わる。単独の数字には意味がない。</p>
+  </div>
+</section>
+
+<section>
+  <h2>商品の形 ── 3社の足し算</h2>
+  <p>ジョニーの8年ぶんの体験（バンライフ→コリビング→多拠点DIY）から、欲しいものが名指しで出ました。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">大橋会館 ＋ ミレニアルズ ＋ SANU</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>出所</th><th>抽出する要素</th></tr></thead>
+        <tbody>
+          <tr><td><strong>大橋会館</strong></td><td>長期滞在できる<strong>ホテル</strong>（＝旅館業の器）／共有キッチン＝コリビング機能／<strong>不在時に貸し出してキャッシュイン</strong></td></tr>
+          <tr><td><strong>ミレニアルズ</strong></td><td>最小ポッド3m² ＋ 共有空間の<strong>サイズ感</strong>／<strong>清掃とサービスの品質</strong></td></tr>
+          <tr><td><strong>SANU</strong></td><td><strong>多拠点</strong>（品質が再現されて、どこでも同じように享受できる）</td></tr>
+          <tr class="ours"><td><strong>価格</strong></td><td><strong>月15万円</strong> ── 本人が「これなら契約する」と明言</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">面白いのは、これが「大橋会館の3つの不満（多拠点でない／高い／オペ品質が低い）」の引き算と同じ形になっていることです。ベストな形は既にあって、足りないものが3つだった。</p>
+  </div>
+</section>
+
+<section>
+  <h2>計算が通りました ── そして <em>多拠点は原資</em> でした</h2>
+  <p>「月15万でホテル品質＋多拠点」は、一見すると赤字に見えます。ミレニアルズ1拠点の per-pod 月売上が既に17-21万だからです。</p>
+  <p>ところが、ジョニーが挙げた「<strong>使わない時は貸し出してキャッシュイン</strong>」を入れると景色が変わります。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">ポッド1つあたりの収入（会費15万 ＋ 不在期間の転貸）</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>会員の不在率</th><th class="num">転貸</th><th class="num">転貸売上</th><th class="num">ポッド総収入</th><th>判定</th></tr></thead>
+        <tbody>
+          <tr class="ours"><td><strong>20%</strong></td><td class="num">6泊</td><td class="num">4.4万</td><td class="num"><strong>19.4万</strong></td><td class="green">✅ 17-21万レンジ内</td></tr>
+          <tr><td>30%</td><td class="num">9泊</td><td class="num">6.6万</td><td class="num">21.6万</td><td>余剰が出る</td></tr>
+          <tr><td>50%</td><td class="num">15泊</td><td class="num">10.9万</td><td class="num">25.9万</td><td>大幅に余剰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">前提：ミレニアルズ実勢 7,290円/泊、per-pod 月売上 17-21万（ミレニアルズ実地ブリーフ 7/23）。清掃の増分は未織り込み。</p>
+  </div>
+
+  <p>さらに余剰を会員に返すと、こうなります。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>還元率 × 不在率</th><th class="num">会員の実効月額</th></tr></thead>
+      <tbody>
+        <tr><td>30% × 不在30%</td><td class="num">13.0万</td></tr>
+        <tr><td>50% × 不在30%</td><td class="num">11.7万</td></tr>
+        <tr class="ours"><td>50% × 不在50%</td><td class="num"><strong>9.5万</strong> ← 7/23に置いた半額目標（10.5-12万）を下回る</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="turnbox">
+    <p class="t">ここが今回いちばんの発見です</p>
+    <p class="claim">多拠点はコストではなく、原資である。</p>
+    <p>直感は「多拠点＝拠点数×コスト＝贅沢」でした。実際は逆で、<strong>多拠点だから移動する → 元の巣が空く → 貸せる → 実効価格が下がる</strong>。</p>
+    <p>そして「巣は売らない」と両立します。<strong>優先権は会員に残したまま、不在の期間だけ他人が使う</strong>。所有権は売らず、空き時間だけ売る ── 憲法1条の実装そのものでした。</p>
+  </div>
+</section>
+
+<section>
+  <h2>正直に ── ここは弱いです</h2>
+  <p>上の計算は仮説の連鎖です。ひとつ外れると崩れます。先に自分から出しておきます。</p>
+  <ul>
+    <li><strong>転貸が7,290円で埋まる保証がない</strong>。立地・季節・OTA手数料で変わる。<strong>我々の物件での実測がない唯一の項目</strong>で、PoCで最初に潰すべきはここ</li>
+    <li><strong>不在率は会員の行動次第で、契約条件にできない</strong>。多拠点なら月6泊は容易ですが、保証はできません</li>
+    <li><strong>清掃コストの増分を織り込んでいない</strong>。転貸のたびにCO清掃が要る（3m²ポッドで5-10分/基）</li>
+    <li><strong>転貸は器に依存します</strong> ── 旅館業なら自然ですが、<strong>賃貸借だと転貸禁止条項に触れる</strong>。器の選択は法務の話だと思っていたら、価格設計の前提条件でもありました</li>
+    <li><strong>WTP は N=1</strong>。ジョニー本人の額であって、市場価格ではありません</li>
+  </ul>
+</section>
+
+<section>
+  <h2>「僕らは顧客なのか」問題</h2>
+  <p>ここは岩崎さんにも関わる話なので、正面から書きます。</p>
+  <p><strong>我々は顧客ではありません。でも外れ値でもありません。リードユーザーです。</strong>市場より8年早く痛みを体験し、市販品がないから自作した（バンの改造、LAC八ヶ岳の運営実験、多拠点DIY 33ヶ月）。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">需要を二層に分けて扱います</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>層</th><th>中身</th><th>8月末のGo/No-Goへの算入</th></tr></thead>
+        <tbody>
+          <tr><td><strong>痛み層</strong></td><td>払えない／借りられない／縛られる。統計とヒアリングで検証中</td><td class="green"><strong>✅ これだけで判断する</strong></td></tr>
+          <tr><td><strong>憧れ層</strong></td><td>多拠点 × 最小プライベート × 最大共有。我々・しぶ氏など N が小さい</td><td class="red">❌ 算入しない（オプションとして持つ）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">ただし混在には機能があります。3m²のポッドが「必要な人だけの箱」だと<strong>貧困の象徴</strong>になる。<strong>選べる人が同じ箱を選んで住んでいる</strong>ことが、必要な人からスティグマを剥がす。ティア混在は価格設計であると同時に<strong>スティグマ設計</strong>です。</p>
+  </div>
+
+  <p>そして今回、その混在に<strong>財務的な裏付け</strong>が付きました。上ティア（15万×不在20-30%）は per-pod 売上をレンジ内に保ったまま余剰を生む。<strong>その余剰が下ティアの原資になりうる</strong>。</p>
+</section>
+
+<section>
+  <h2>今日、決めていただきたいこと</h2>
+
+  <div class="q">
+    <p class="qn">01</p>
+    <p class="qt">v1 は「安くする」だけで行くか、「良くする」も併走させるか</p>
+    <p>コスパを上げる方法は2通り ── <strong>コストを下げるか、便益を上げるか</strong>。岩崎さんと当初から話していたことです。</p>
+    <p>いまの検証LPは<strong>下ティア（月9万・コストダウン）だけ</strong>を検証しています。今回出た月15万は<strong>上ティア（便益アップ）</strong>で、これは検証されていません。</p>
+    <p class="source">補足：23区の単身向け平均家賃は<strong>11.4万円</strong>（25か月連続で最高値更新中）。つまり「月15万でホテル暮らし」は贅沢価格ではなく、<strong>単身者が既に払っている水準の上に少し乗せた額</strong>です。ターゲットは思ったより狭くないかもしれません。</p>
+  </div>
+
+  <div class="q">
+    <p class="qn">02</p>
+    <p class="qt">Phase 1 の器を「旅館業」に寄せることを前提にしてよいか</p>
+    <p>今回、器の選択が3つのことを同時に決めていると分かりました。<strong>①入居審査を軽くできるか（借地借家法の適用外）②不在時の転貸ができるか（転貸禁止条項）③住民票を置けるか</strong>。</p>
+    <p>これは机上論ではありません。<strong>旅館業許可の法務レポート（6/18）と、保健所3件の連絡先を含むヒアリング準備が、既に社内にあります</strong>。動かせる状態です。</p>
+    <p class="source">代償も明確です：消費税が課税になる／借主保護がなくなる（→約款で置き換える＝憲法3箇条を契約に書き込む）／住民票の扱いは要検証。</p>
+  </div>
+
+  <div class="q">
+    <p class="qn">03</p>
+    <p class="qt">PoCで最初に潰すのは「転貸稼働率」でよいか</p>
+    <p>上の試算で、社内に実測がない唯一の変数がこれです。他（ポッド売上・清掃工数・DIY実測・家賃相場）は既にデータがあります。</p>
+    <p>ここが埋まれば「多拠点は原資」が仮説から事実になり、<strong>価格の自由度が一気に上がります</strong>。逆にここが外れると、15万も9万も根拠を失います。</p>
+  </div>
+</section>
+
+<section>
+  <h2>ご参考 ── この3日で動いたもの</h2>
+  <ul>
+    <li><strong>契約の器は選べる</strong>（借地借家法は普通借家を選んだ場合の話。旅館業なら適用外で、前例はミレニアルズと大橋会館）</li>
+    <li><strong>会員に持分を配る前例が2つある</strong>（カブアンド＝事業の持分／SANU Co-Owners＝不動産の持分。SANUは建物が共有持分、土地が30年の事業用定期借地）</li>
+    <li><strong>家賃を下げる道は4本</strong>（分母を増やす／リスクを引き受けて下げさせる／土地を買わない／場所に固定しない）</li>
+    <li><strong>国の成長戦略17分野に住宅はゼロ</strong>。補助金は来ないが、大企業の資本もそちらに吸われる</li>
+    <li><strong>「予約が取れない＝家を失う」</strong>という多拠点サービスの構造病（SANUで実測）。憲法に「ベッドは必ずある」を足す案が出ています</li>
+  </ul>
+  <p class="source">詳細は思考地図をご覧ください（全主張に出典リンク付き）。</p>
+  <div class="srcrow">
+    <a class="src" href="https://ikedhidenori.github.io/jp/article-c0a1646e18bcc8ea.html">Living OS 思考地図（更新版）</a>
+    <a class="src" href="https://ikedhidenori.github.io/jp/article-09662c65a3ba4f84.html">家賃はどこへ消えるのか（解説記事）</a>
+  </div>
+</section>
+
+<hr class="end">
+<p class="colophon">
+  2026-07-28 討議用。数値はすべて社内一次資料に紐づけ、未検証のものは明記しています。<br>
+  デザイン：数理の弾丸テイスト（Document Kernel v1）
+</p>
+
+</div>
+
+</body>
+</html>
