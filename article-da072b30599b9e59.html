@@ -92,6 +92,31 @@ td.ours{background:var(--pale-red)}
   display:flex; flex-direction:column; gap:8px}
 .turnbox .t{font-size:11px; letter-spacing:.14em; font-weight:700; color:var(--red); margin:0}
 
+/* 論証の構造図 — 上が商品、下が前提。下が折れると上は落ちる */
+.diagram{display:flex; flex-direction:column; align-items:center; gap:0; margin:4px 0 0; width:100%}
+.dconn{width:0; height:20px; border-left:2px solid var(--ink); flex:none}
+.dconn.dash{border-left-style:dashed; border-left-color:var(--red); height:26px}
+.dbox{width:100%; border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:13px 15px; display:flex; flex-direction:column; gap:5px}
+.dbox .lb{font-size:10.5px; letter-spacing:.14em; font-weight:700; color:var(--faint); margin:0}
+.dbox .hd{font-size:16px; font-weight:800; line-height:1.4; margin:0; text-wrap:balance}
+.dbox .nt{font-size:12px; line-height:1.6; color:var(--sub); margin:0}
+.dbox.warn{border-color:var(--red)} .dbox.warn .lb,.dbox.warn .hd{color:var(--red)}
+.dbox.open{border-style:dashed; border-color:var(--red); background:var(--pale-red)}
+.dbox.open .lb,.dbox.open .hd{color:var(--red)}
+
+.dgroups{display:grid; grid-template-columns:1fr 1fr; gap:11px; width:100%}
+.dgroup{border:1px solid var(--rule); border-radius:3px; background:var(--artifact);
+  padding:11px 12px 12px; display:flex; flex-direction:column; gap:9px}
+.dgroup.ours{border:2px solid var(--ink)}
+.dgroup .gh{font-size:10.5px; letter-spacing:.1em; font-weight:700; margin:0; color:var(--faint)}
+.dgroup.ours .gh{color:var(--green)}
+.dcell{font-size:12.5px; line-height:1.45; margin:0; color:var(--sub)}
+.dgroup.ours .dcell{color:var(--ink); font-weight:700}
+.dcell span{display:block; font-size:10.5px; font-weight:400; color:var(--faint); line-height:1.5}
+.dfloor{font-size:11.5px; line-height:1.7; color:var(--faint); text-align:center;
+  border-top:1px dashed var(--rule); padding-top:11px; margin:16px 0 0; width:100%}
+
 .qlist{display:flex; flex-direction:column; gap:13px}
 .qlist > div{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:baseline}
 .qlist b{font-size:12px; font-weight:700; color:var(--red); white-space:nowrap;
@@ -103,11 +128,15 @@ li{line-height:1.72}
 hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
 .colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
 
+@media (max-width:560px){
+  .dgroups{grid-template-columns:1fr}
+}
 @media (max-width:520px){
   body{font-size:15px; padding:0 16px 64px}
   .artifact,.turnbox{padding:13px}
   .step{padding-left:20px}
   .step::before{left:-7px; width:11px; height:11px}
+  .dbox{padding:12px 13px} .dbox .hd{font-size:15px}
 }
 :focus-visible{outline:2px solid var(--red); outline-offset:3px}
 </style>
@@ -125,12 +154,65 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
 </header>
 
 <section>
-  <h2>先に、いまの状態を3行で</h2>
-  <ul>
-    <li><strong>商品の形と値段は出た</strong> ── 大橋会館＋ミレニアルズ＋SANU、月15万。計算も通る</li>
-    <li><strong>個別の機能は、ほぼ全部すでに誰かがやっている</strong> ── 与信も初期費用ゼロも不在時転貸も、既存プレイヤーが実装済み</li>
-    <li class="red"><strong>そして最大の穴は「求めている人がいるのか」</strong> ── ここだけが、7年前から埋まっていない</li>
-  </ul>
+  <h2>先に1枚で ── いま、何の上に立っているか</h2>
+  <p>上ほど商品に近く、下ほど前提です。<strong>下の層が折れると、上は全部落ちます。</strong></p>
+
+  <div class="diagram">
+
+    <div class="dbox">
+      <p class="lb">商品</p>
+      <p class="hd">月15万で成立する住まい</p>
+      <p class="nt">大橋会館 ＋ ミレニアルズ ＋ SANU を足して3で割った形。ジョニー本人が「これが15万で実現できたら契約する」</p>
+    </div>
+
+    <div class="dconn"></div>
+
+    <div class="dgroups">
+      <div class="dgroup">
+        <p class="gh">すでに他社が埋めている</p>
+        <p class="dcell">与信・保証人不要<span>Hmlet</span></p>
+        <p class="dcell">初期費用ゼロ・敷礼ゼロ<span>goodroom ／ Hmlet</span></p>
+        <p class="dcell">不在時の転貸<span>Unito</span></p>
+        <p class="dcell">多拠点で住む<span>SANU ／ ADDress ／ HafH ／ goodroom</span></p>
+      </div>
+      <div class="dgroup ours">
+        <p class="gh">まだ空いている</p>
+        <p class="dcell">3m²まで圧縮 × 居住価格帯<span>ミレニアルズは宿泊のみ</span></p>
+        <p class="dcell">週1〜2回のリセット × 居住価格帯<span>ホテルのみ</span></p>
+        <p class="dcell">逆別荘（地方主軸・東京はおまけ）<span>該当なし・未確認</span></p>
+        <p class="dcell">法人出張ベース<span>大橋会館 ── ただしスケールせず</span></p>
+      </div>
+    </div>
+
+    <div class="dconn"></div>
+
+    <div class="dbox">
+      <p class="lb">だから</p>
+      <p class="hd">差分は、個別の機能ではなく「組み合わせ」にしかない</p>
+      <p class="nt">左の4つは誰でも買える。勝負しているのは右の4つを1つの器に入れられるかどうか。</p>
+    </div>
+
+    <div class="dconn"></div>
+
+    <div class="dbox warn">
+      <p class="lb">未回答 ／ 明日いちばん話すべき</p>
+      <p class="hd">では、なぜ我々がその組み合わせを作れるのか</p>
+      <p class="nt">組み合わせで勝つと言う以上、ここに答えがないと成立しません。いまは空欄です。</p>
+    </div>
+
+    <div class="dconn dash"></div>
+
+    <div class="dbox open">
+      <p class="lb">未検証 ／ 全部を支えている1点</p>
+      <p class="hd">そもそも、それを求めている人はいるのか</p>
+      <p class="nt">LACで一度、コロナという追い風のある局面で外しています ──「そもそもそれを求めてるユーザーが全然いない」。7年前から、ここだけが埋まっていません。</p>
+    </div>
+
+    <p class="dfloor">この下に、地面はまだ無い。<br>8月末のGo/No-Goは、ここを埋められたかどうかで決まる。</p>
+
+  </div>
+
+  <p><strong>読み方</strong> ── 上は太く、下は細い。商品の形も値段も機能も揃っているのに、全体はまだ誰も測っていない1点の上に載っています。<em>H4は最後のステップではなく、土台です。</em></p>
 </section>
 
 <section>
@@ -299,6 +381,7 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
   <ul>
     <li><strong>朝</strong> ── PART 1（思考の順序）とPART 2（仮説とデータ）を見ながら、決めたいこと3つを議論</li>
     <li><strong>夜</strong> ── PART 3の「本当の穴」だけ頭に置いて、質問7つを持っていく。<strong>説明しに行くのではなく、聞きに行く</strong></li>
+    <li>ホワイトボードで動かしたいときは<a href="https://ikedhidenori.github.io/jp/structure-da072b30599b9e59.svg">冒頭の構造図のSVG版</a>。Miro / FigJam / Figma にそのまま貼れて、箱も文字も動かせます</li>
     <li>全主張の出典と、そこに至った経緯は<a href="https://ikedhidenori.github.io/jp/article-c0a1646e18bcc8ea.html">思考地図</a>にあります</li>
   </ul>
 </section>

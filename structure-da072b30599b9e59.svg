@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1100" width="1440" height="1100" font-family="Hiragino Kaku Gothic ProN, Noto Sans JP, Helvetica Neue, Arial, sans-serif">
+  <desc>Living OS 論証の構造 — 上ほど商品に近く、下ほど前提。下が折れると上は全部落ちる。2026-07-28 / INNFRA 社内討議用 D2-internal</desc>
+
+  <rect x="0" y="0" width="1440" height="1100" fill="#f6f8f3"/>
+
+  <!-- title -->
+  <rect x="60" y="38" width="11" height="34" fill="#111111"/>
+  <text x="84" y="52" font-size="12" font-weight="700" letter-spacing="2.2" fill="#9a9a9a">INNFRA ／ 社内討議用　2026-07-28　D2-internal</text>
+  <text x="84" y="76" font-size="25" font-weight="800" fill="#111111">Living OS ／ 論証の構造 ── いま、何の上に立っているか</text>
+
+  <!-- L1 商品 -->
+  <rect x="60" y="110" width="1320" height="94" fill="#fdfffc" stroke="#111111" stroke-width="2" rx="3"/>
+  <text x="82" y="134" font-size="11.5" font-weight="700" letter-spacing="1.6" fill="#9a9a9a">商品</text>
+  <text x="82" y="163" font-size="23" font-weight="800" fill="#111111">月15万で成立する住まい</text>
+  <text x="82" y="188" font-size="14" fill="#555555">大橋会館 ＋ ミレニアルズ ＋ SANU を足して3で割った形。ジョニー本人が「これが15万で実現できたら契約する」</text>
+
+  <line x1="720" y1="204" x2="720" y2="244" stroke="#111111" stroke-width="2"/>
+
+  <!-- L2 左: すでに他社が埋めている -->
+  <rect x="60" y="244" width="650" height="290" fill="#fdfffc" stroke="#d9ddd6" stroke-width="1" rx="3"/>
+  <text x="82" y="276" font-size="12" font-weight="700" letter-spacing="1.4" fill="#9a9a9a">すでに他社が埋めている</text>
+  <text x="82" y="314" font-size="16" fill="#555555">与信・保証人不要</text>
+  <text x="82" y="334" font-size="12" fill="#9a9a9a">Hmlet</text>
+  <text x="82" y="371" font-size="16" fill="#555555">初期費用ゼロ・敷礼ゼロ</text>
+  <text x="82" y="391" font-size="12" fill="#9a9a9a">goodroom ／ Hmlet</text>
+  <text x="82" y="428" font-size="16" fill="#555555">不在時の転貸</text>
+  <text x="82" y="448" font-size="12" fill="#9a9a9a">Unito</text>
+  <text x="82" y="485" font-size="16" fill="#555555">多拠点で住む</text>
+  <text x="82" y="505" font-size="12" fill="#9a9a9a">SANU ／ ADDress ／ HafH ／ goodroom</text>
+
+  <!-- L2 右: まだ空いている -->
+  <rect x="730" y="244" width="650" height="290" fill="#fdfffc" stroke="#111111" stroke-width="2" rx="3"/>
+  <text x="752" y="276" font-size="12" font-weight="700" letter-spacing="1.4" fill="#18a36f">まだ空いている</text>
+  <text x="752" y="314" font-size="16" font-weight="700" fill="#111111">3m² まで圧縮 × 居住価格帯</text>
+  <text x="752" y="334" font-size="12" fill="#9a9a9a">ミレニアルズは宿泊のみ</text>
+  <text x="752" y="371" font-size="16" font-weight="700" fill="#111111">週1〜2回のリセット × 居住価格帯</text>
+  <text x="752" y="391" font-size="12" fill="#9a9a9a">ホテルのみ</text>
+  <text x="752" y="428" font-size="16" font-weight="700" fill="#111111">逆別荘（地方主軸・東京はおまけ）</text>
+  <text x="752" y="448" font-size="12" fill="#9a9a9a">該当なし・未確認</text>
+  <text x="752" y="485" font-size="16" font-weight="700" fill="#111111">法人出張ベース</text>
+  <text x="752" y="505" font-size="12" fill="#9a9a9a">大橋会館 ── ただしスケールせず</text>
+
+  <line x1="720" y1="534" x2="720" y2="574" stroke="#111111" stroke-width="2"/>
+
+  <!-- L3 だから -->
+  <rect x="60" y="574" width="1320" height="94" fill="#fdfffc" stroke="#111111" stroke-width="2" rx="3"/>
+  <text x="82" y="598" font-size="11.5" font-weight="700" letter-spacing="1.6" fill="#9a9a9a">だから</text>
+  <text x="82" y="627" font-size="21" font-weight="800" fill="#111111">差分は、個別の機能ではなく「組み合わせ」にしかない</text>
+  <text x="82" y="652" font-size="14" fill="#555555">左の4つは誰でも買える。勝負しているのは、右の4つを1つの器に入れられるかどうか。</text>
+
+  <line x1="720" y1="668" x2="720" y2="708" stroke="#111111" stroke-width="2"/>
+
+  <!-- L4 未回答 -->
+  <rect x="60" y="708" width="1320" height="100" fill="#fdfffc" stroke="#d84a32" stroke-width="2" rx="3"/>
+  <text x="82" y="733" font-size="11.5" font-weight="700" letter-spacing="1.6" fill="#d84a32">未回答 ／ 明日いちばん話すべき</text>
+  <text x="82" y="763" font-size="21" font-weight="800" fill="#d84a32">では、なぜ我々がその組み合わせを作れるのか</text>
+  <text x="82" y="789" font-size="14" fill="#555555">組み合わせで勝つと言う以上、ここに答えがないと成立しません。いまは空欄です。</text>
+
+  <line x1="720" y1="808" x2="720" y2="852" stroke="#d84a32" stroke-width="2" stroke-dasharray="7 6"/>
+
+  <!-- L5 未検証 = 土台 -->
+  <rect x="60" y="852" width="1320" height="123" fill="#f6d8d4" stroke="#d84a32" stroke-width="2" stroke-dasharray="9 6" rx="3"/>
+  <text x="82" y="877" font-size="11.5" font-weight="700" letter-spacing="1.6" fill="#d84a32">未検証 ／ 全部を支えている1点</text>
+  <text x="82" y="907" font-size="21" font-weight="800" fill="#d84a32">そもそも、それを求めている人はいるのか</text>
+  <text x="82" y="933" font-size="14" fill="#555555">LACで一度、コロナという追い風のある局面で外しています ──「そもそもそれを求めてるユーザーが全然いない」。</text>
+  <text x="82" y="956" font-size="14" fill="#555555">7年前から、ここだけが埋まっていません。</text>
+
+  <!-- floor: none -->
+  <line x1="60" y1="1010" x2="1380" y2="1010" stroke="#d9ddd6" stroke-width="1" stroke-dasharray="4 5"/>
+  <text x="720" y="1038" font-size="13" fill="#9a9a9a" text-anchor="middle">この下に、地面はまだ無い。</text>
+  <text x="720" y="1062" font-size="13" fill="#9a9a9a" text-anchor="middle">8月末の Go / No-Go は、ここを埋められたかどうかで決まる。</text>
+</svg>
