@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Living OS ／ 投資家向け概要</title>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th,.legend div,.node{min-width:0}
+img,svg,video,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+.mast{padding:52px 0 22px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:11px}
+.mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
+.mast h1{font-size:clamp(26px,5.8vw,34px); line-height:1.26; font-weight:800; margin:0;
+  padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:12px; height:38px; background:var(--ink)}
+.mast .subtitle{font-size:16px; line-height:1.65; margin:0 0 0 23px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 23px}
+
+section{padding:40px 0 0; display:flex; flex-direction:column; gap:14px}
+section > h2{font-size:clamp(18px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+section > h2 .no{font-size:11px; letter-spacing:.16em; color:var(--faint); display:block; margin-bottom:3px}
+h2 em{font-style:normal; background:linear-gradient(transparent 60%, var(--pale-red) 60%)}
+p{margin:0}
+strong{font-weight:700}
+
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+.src{display:inline-block; font-size:11px; line-height:1.5; padding:1px 7px; margin:2px 4px 2px 0;
+  border:1px solid var(--rule); border-radius:2px; background:var(--artifact); color:var(--sub);
+  text-decoration:none; white-space:nowrap}
+.src::before{content:"↗ "; color:var(--faint)}
+.srcrow{display:flex; flex-wrap:wrap; gap:0; margin-top:2px}
+
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:17px 17px 13px; margin:2px 0; display:flex; flex-direction:column; gap:12px}
+.artifact-title{font-size:13px; font-weight:700; margin:0}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0}
+
+.bar{display:flex; height:28px; width:100%; border:1.5px solid var(--ink); overflow:hidden}
+.bar span{display:block}
+.seg-a{background:var(--red)} .seg-b{background:var(--ink)} .seg-c{background:var(--faint)}
+.legend{display:flex; flex-direction:column; gap:7px; font-size:13px; line-height:1.5}
+.legend div{display:grid; grid-template-columns:12px 1fr auto; gap:10px; align-items:baseline}
+.legend i{display:block; width:12px; height:12px; border:1px solid var(--ink)}
+.legend b{font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap}
+
+.spine{border-left:2px solid var(--ink); margin:6px 0 0 6px; padding-left:26px;
+  display:flex; flex-direction:column; gap:24px}
+.node{position:relative; display:flex; flex-direction:column; gap:6px}
+.node::before{content:""; position:absolute; left:-33px; top:5px; width:12px; height:12px;
+  background:var(--paper); border:2px solid var(--ink); border-radius:50%}
+.node.turn::before{background:var(--red); border-color:var(--red)}
+.node-n{font-size:11px; letter-spacing:.16em; color:var(--faint); font-weight:700; margin:0}
+.node-q{font-size:17px; font-weight:800; line-height:1.42; margin:0; text-wrap:balance}
+
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13px; line-height:1.55; min-width:20rem}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:11.5px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+.red{color:var(--red)} .green{color:var(--green)}
+td.ours{background:var(--pale-red)}
+.num{font-variant-numeric:tabular-nums; white-space:nowrap; text-align:right}
+
+.claim{border-left:4px solid var(--ink); padding-left:15px; font-weight:700; font-size:1.05em; line-height:1.7}
+.turnbox{border:2px solid var(--red); border-radius:3px; background:var(--artifact); padding:15px 16px;
+  display:flex; flex-direction:column; gap:8px}
+.turnbox .t{font-size:11px; letter-spacing:.14em; font-weight:700; color:var(--red); margin:0}
+
+ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:6px}
+li{line-height:1.7}
+
+hr.end{border:0; border-top:3px solid var(--ink); margin:48px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
+
+@media (max-width:520px){
+  body{font-size:15px; padding:0 16px 64px}
+  .artifact,.turnbox{padding:13px}
+  .spine{padding-left:20px}
+  .node::before{left:-27px}
+}
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">INNFRA ／ 投資家向け概要</p>
+  <h1>Living OS</h1>
+  <p class="subtitle">同じ床を、より多くの人と時間で受け止める。<br>土地に消えていたお金を、人生に流し替える住まいの運用会社です。</p>
+  <p class="meta">2026-07-28 版　D2-internal　※検証フェーズ。数値には出典と確度を明記しています</p>
+</header>
+
+<section>
+  <h2><span class="no">01</span>課題</h2>
+  <p>東京23区の単身向けマンション平均家賃は<strong>11.4万円</strong>。<strong>25か月連続で過去最高</strong>を更新しています。そして家賃の内訳を見ると、半分は誰の労働にも変わっていません。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">月11.8万円の1Kの内訳（東京23区西側・社内推定）</p>
+    <div class="bar">
+      <span class="seg-a" style="width:52%"></span>
+      <span class="seg-b" style="width:34%"></span>
+      <span class="seg-c" style="width:14%"></span>
+    </div>
+    <div class="legend">
+      <div><i class="seg-a"></i><span><strong>場所代</strong> — 土地へ。生産に貢献しない</span><b>61,360円</b></div>
+      <div><i class="seg-b"></i><span>箱代 — 建物へ</span><b>40,120円</b></div>
+      <div><i class="seg-c"></i><span>世話代 — 管理・清掃</span><b>16,520円</b></div>
+    </div>
+    <p class="source">係数は社内推定 v0。鑑定データでの再推定が必要（未実施）。</p>
+  </div>
+
+  <p>そして出口が塞がっています。<strong>貯蓄100万円未満の世帯が10.1%で最も多い階級</strong>である一方、引っ越しの初期費用は家賃の4〜6か月分＝<strong>50〜70万円</strong>。<strong>家賃が高い → 貯金できない → 引っ越せない → 家賃が高いまま</strong>のループです。</p>
+
+  <p class="claim">賃上げをしても、時間差で家賃に回収される。<br>稼ぐ側から可処分所得を増やす経路には、上限がある。</p>
+</section>
+
+<section>
+  <h2><span class="no">02</span>なぜ日本で、なぜ今か</h2>
+  <p>同種のサービスは海外にもあります。それでも日本でやる理由が、5つ揃いました。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>条件</th><th>日本の状態</th></tr></thead>
+      <tbody>
+        <tr><td><strong>必要とする人が多い</strong></td><td>一人当たりGDPは伸びないが人口は多い。低所得層が薄く広く存在する</td></tr>
+        <tr><td><strong>共用が成立する秩序</strong></td><td>共用キッチン・シャワーが成り立つ治安と規範。米国co-livingの破綻要因のひとつが運営・トラブルコストだった<span class="source">（定量の裏取りは未実施）</span></td></tr>
+        <tr><td><strong>インフラ負担が上がる</strong></td><td>人口減で分母が縮む。総額固定・人数減＝1人あたり増</td></tr>
+        <tr><td><strong>国策資本が来ない</strong></td><td>2026-07-21閣議決定の日本成長戦略、17分野62製品に<strong>住宅はゼロ</strong>。補助金は来ないが、大企業の人と金もそちらへ向かう</td></tr>
+        <tr class="ours"><td><strong>制度の谷が広い</strong></td><td>普通借家・定期借家・簡易宿所・旅館業・住宅宿泊事業・マンスリーが<strong>合法のまま共存</strong>。米国はゾーニングで谷を潰している</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="source">最後の1点が事業設計の核です。契約の器を選ぶことで、入居審査の自由度・不在時の転貸可否・住民票の扱いが同時に決まります。</p>
+</section>
+
+<section>
+  <h2><span class="no">03</span>何を作るか</h2>
+  <p>創業者自身が8年かけて探し、既存サービスを組み合わせてDIYし、最後に「これが欲しい」と名指しした形です。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>参照</th><th>抽出する要素</th></tr></thead>
+      <tbody>
+        <tr><td><strong>大橋会館</strong></td><td>長期滞在できるホテル（旅館業の器）／共有キッチン／<strong>不在時の転貸</strong></td></tr>
+        <tr><td><strong>ミレニアルズ渋谷</strong></td><td>最小ポッド3m²＋共用部のサイズ感／清掃・サービス品質</td></tr>
+        <tr><td><strong>SANU</strong></td><td>多拠点（品質が再現される）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>商品は3つの床＋多拠点オプション。<strong>ポッド5〜6万／巣9万／ゆとり個室13万〜／＋多拠点15万</strong>。全床共通で<strong>初期費用ゼロ</strong>（敷金・礼金・保証会社なし）。</p>
+</section>
+
+<section>
+  <h2><span class="no">04</span><em>ユニットエコノミクス</em></h2>
+  <p>核心は1本の式です。<strong>1人あたり ＝ 総額 ÷（人数 × 時間）</strong>。地代は下げられませんが、分母は増やせます。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">ポッド1つあたりの月間収入（会費15万 ＋ 会員不在期間の転貸）</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>会員の不在率</th><th class="num">転貸</th><th class="num">転貸売上</th><th class="num">ポッド総収入</th><th>判定</th></tr></thead>
+        <tbody>
+          <tr class="ours"><td><strong>20%</strong></td><td class="num">6泊</td><td class="num">4.4万</td><td class="num"><strong>19.4万</strong></td><td class="green">既存水準内</td></tr>
+          <tr><td>30%</td><td class="num">9泊</td><td class="num">6.6万</td><td class="num">21.6万</td><td>余剰</td></tr>
+          <tr><td>50%</td><td class="num">15泊</td><td class="num">10.9万</td><td class="num">25.9万</td><td>余剰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">比較対象＝ミレニアルズ渋谷の per-pod 月売上 17〜21万（実勢7,290円/泊 × 30泊 ≒ 21.9万、2026-07-23 実地調査）。清掃の増分コストは未織り込み。</p>
+  </div>
+
+  <div class="turnbox">
+    <p class="t">構造上の発見</p>
+    <p class="claim">多拠点はコストではなく、原資である。</p>
+    <p>直感は「多拠点＝拠点数×コスト＝贅沢」。実際は逆で、<strong>会員が動くほど元の巣が空き、その空きが売上になり、実効価格が下がります</strong>。運営が稼働率を上げるのではなく、<strong>会員の移動が自動的に分母を増やす</strong>構造です。</p>
+    <p>さらに余剰を還元すると、会員の実効月額は <strong>還元50%×不在50%で9.5万</strong>まで下がります。上位ティアの余剰が、下位ティア（支払い困難層）の原資になりうる。</p>
+  </div>
+
+  <p class="source">⚠ 上表は仮説の連鎖です。転貸が同価格・同稼働で埋まる保証はなく、不在率は契約条件にできません。<strong>社内に実測がない唯一の変数が転貸稼働率</strong>で、PoCで最初に検証します。</p>
+</section>
+
+<section>
+  <h2><span class="no">05</span>なぜ我々か</h2>
+  <p>創業者は2018年から、この問題を体で解こうとしてきました。そして<strong>3つのボトルネック</strong>に順番にぶつかっています。</p>
+
+  <div class="spine">
+    <div class="node">
+      <p class="node-n">ボトルネック 01 ／ 車両</p>
+      <p class="node-q">動く家を、個人では製造できない</p>
+      <p>欲しい機能を要素分解してメルセデスのバンを自作。しかしスケールには車メーカーを動かす必要がある。<strong>→ 手段だと分かり、手放した</strong></p>
+    </div>
+    <div class="node">
+      <p class="node-n">ボトルネック 03 ／ 設備</p>
+      <p class="node-q">大自然で不自由なく過ごすには、水と電気が要る</p>
+      <p>オフグリッドの水循環設備を車載しようとして断念。直後にオフグリッドラボの話が舞い込む。<strong>→ これがINNFRA社になった</strong></p>
+    </div>
+    <div class="node turn">
+      <p class="node-n">ボトルネック 02 ／ 受け入れ網</p>
+      <p class="node-q">泊まる場所と、その先のインフラが無い</p>
+      <p>「泊まる場所が整備されていくことこそが豊かさを生む条件だった。<strong>それがないとただの貧困車中泊旅になってしまう</strong>」<br>都内に該当地が無く、交渉で開拓（永田町グリッド→みどり荘→横浜→神戸→富士見町→LAC八ヶ岳）。<strong>→ いま作るのがこれ＝Living OS</strong></p>
+    </div>
+  </div>
+
+  <p>加えて価格の目標線も一次実測から出ています。既存サービス（賃貸＋SANU＋車）を個人で組み合わせたDIYの<strong>33か月実測が月平均20.9万円</strong>。「これが半額以下になれば最高」が価格目標です。</p>
+
+  <p class="claim">願望・課題・価格の3点すべてが、創業者自身の実測から出ている。</p>
+  <p class="source">加えてINNFRA社は、オフグリッド水循環の技術と、旅館業許可の法務調査（保健所3件のヒアリング準備を含む）を既に保有しています。</p>
+</section>
+
+<section>
+  <h2><span class="no">06</span>市場</h2>
+  <p>ここは慎重に書きます。<strong>「移りたいのに移れない」人の厳密な人数は、公表統計だけでは算出できません</strong>（周辺分布の掛け合わせになるため）。同一調査の同一表から取れる範囲のみを示します。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>指標</th><th class="num">世帯数</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>住み替え意向あり</td><td class="num">3,603千</td><td>—</td></tr>
+        <tr><td>うち資金・収入不足が障害</td><td class="num">1,464千</td><td>40.6%</td></tr>
+        <tr><td>5年以内の意向 × 資金不足</td><td class="num">652千</td><td>37.6%</td></tr>
+        <tr class="ours"><td><strong>現在借家 × 64歳以下 × 単独 × 5年以内</strong></td><td class="num"><strong>364千</strong></td><td><strong>絞り込みの上限であってTAMではない</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="source">出典：住生活総合調査（同一表内クロス集計）。派遣56.5%／パート55.7%／母子52.0%が資金不足を障害に挙げています。</p>
+  <p>この364千世帯を市場規模として提示することはしません。<strong>実在と支払い意思は、30〜50名のヒアリングで確かめます</strong>（実施中）。</p>
+</section>
+
+<section>
+  <h2><span class="no">07</span>リスクと、まだ分かっていないこと</h2>
+  <ul>
+    <li><strong>顧客実在の証拠が、まだ3人分</strong>。これが最大の穴です。検証LPとヒアリングで埋めます</li>
+    <li><strong>転貸稼働率の実測がない</strong>。ユニットエコノミクスの唯一の未検証変数</li>
+    <li><strong>月9万円の住居体験は未実証</strong>。品質と価格の両立をPoCで確かめます</li>
+    <li><strong>器の選択が未確定</strong>。旅館業に寄せると審査・転貸・消費税・住民票が同時に動きます。法務レポートは取得済み、行政協議は未実施</li>
+    <li><strong>市場が縮むリスク</strong>。我々が晒されているのは金利リスクでも為替リスクでもなく、<strong>住居費の痛みが縮小するリスク</strong>です。ただし現時点で家賃は25か月連続上昇中</li>
+    <li>米国co-livingの先行企業には破綻例があります。生存企業は与信審査を撤廃したのではなく、<strong>損失エクスポージャーを短くする</strong>設計で乗り切っており、日本の借地借家法下では同じ手が使えません</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="no">08</span>目標にする数字</h2>
+  <p>売上ではなく、この1つを北極星に置きます。</p>
+  <p class="claim">移転額 ＝ 土地に消えていたお金を、人生に流し替えた総額<br><span style="font-weight:400;font-size:.92em">（現行家賃 − Living OS実効総額）× 会員数 × 月数</span></p>
+  <p>1人あたり月3万円が浮けば、1万人で<strong>年間36億円が「土地」から「人生」へ移ります</strong>。売上と対立しません。会員が増えれば両方増えます。そして投資家にも顧客にも、同じ数字で説明できます。</p>
+</section>
+
+<hr class="end">
+<p class="colophon">
+  2026-07-28 版。検証フェーズにつき、数値には社内一次資料の裏付けと確度を明記しています。<br>
+  詳細な思考過程と全出典は「Living OS 思考地図」を参照ください。<br>
+  デザイン：数理の弾丸テイスト（Document Kernel v1）
+</p>
+
+</div>
+
+</body>
+</html>
