@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Living OS 議論地図 v2 ／ 仮説・データ・思考の順序</title>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th,.step,.legend div{min-width:0}
+img,svg,video,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+.mast{padding:50px 0 22px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:11px}
+.mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
+.mast h1{font-size:clamp(26px,5.8vw,34px); line-height:1.26; font-weight:800; margin:0;
+  padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:12px; height:38px; background:var(--ink)}
+.mast .subtitle{font-size:16px; line-height:1.65; margin:0 0 0 23px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 23px}
+
+section{padding:42px 0 0; display:flex; flex-direction:column; gap:14px}
+section > h2{font-size:clamp(18px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+section > h2 .no{font-size:11px; letter-spacing:.16em; color:var(--faint); display:block; margin-bottom:3px}
+h2 em{font-style:normal; background:linear-gradient(transparent 60%, var(--pale-red) 60%)}
+p{margin:0}
+strong{font-weight:700}
+
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+.src{display:inline-block; font-size:11px; line-height:1.5; padding:1px 7px; margin:2px 4px 2px 0;
+  border:1px solid var(--rule); border-radius:2px; background:var(--artifact); color:var(--sub);
+  text-decoration:none; white-space:nowrap}
+.src::before{content:"↗ "; color:var(--faint)}
+.srcrow{display:flex; flex-wrap:wrap; gap:0; margin-top:2px}
+
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:17px 17px 13px; margin:2px 0; display:flex; flex-direction:column; gap:12px}
+.artifact-title{font-size:13px; font-weight:700; margin:0}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0}
+
+/* 思考の階段 */
+.stairs{display:flex; flex-direction:column; gap:0; border-left:2px solid var(--ink); margin-left:7px}
+.step{position:relative; padding:0 0 26px 26px}
+.step:last-child{padding-bottom:0}
+.step::before{content:""; position:absolute; left:-8px; top:6px; width:13px; height:13px;
+  background:var(--paper); border:2px solid var(--ink); border-radius:50%}
+.step.turn::before{background:var(--red); border-color:var(--red)}
+.step.gap::before{background:var(--paper); border-color:var(--red); border-style:dashed}
+.step .n{font-size:11px; letter-spacing:.16em; color:var(--faint); font-weight:700; margin:0 0 3px}
+.step .q{font-size:17px; font-weight:800; line-height:1.42; margin:0 0 4px; text-wrap:balance}
+.step .a{margin:0}
+.step .a em{font-style:normal; font-weight:700; background:linear-gradient(transparent 62%, var(--pale-red) 62%)}
+
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13px; line-height:1.55; min-width:22rem}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:11.5px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+.red{color:var(--red)} .green{color:var(--green)}
+td.ours{background:var(--pale-red)}
+.tag{display:inline-block; font-size:10.5px; font-weight:700; padding:0 6px; border-radius:2px;
+  border:1.5px solid currentColor; white-space:nowrap}
+.t-ok{color:var(--green)} .t-ng{color:var(--red)} .t-un{color:var(--faint)}
+
+.claim{border-left:4px solid var(--ink); padding-left:15px; font-weight:700; font-size:1.05em; line-height:1.7}
+.turnbox{border:2px solid var(--red); border-radius:3px; background:var(--artifact); padding:15px 16px;
+  display:flex; flex-direction:column; gap:8px}
+.turnbox .t{font-size:11px; letter-spacing:.14em; font-weight:700; color:var(--red); margin:0}
+
+.qlist{display:flex; flex-direction:column; gap:13px}
+.qlist > div{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:baseline}
+.qlist b{font-size:12px; font-weight:700; color:var(--red); white-space:nowrap;
+  border:1.5px solid var(--red); padding:1px 7px; border-radius:2px}
+
+ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:6px}
+li{line-height:1.72}
+
+hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
+
+@media (max-width:520px){
+  body{font-size:15px; padding:0 16px 64px}
+  .artifact,.turnbox{padding:13px}
+  .step{padding-left:20px}
+  .step::before{left:-7px; width:11px; height:11px}
+}
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">INNFRA ／ 社内討議用</p>
+  <h1>Living OS 議論地図 v2</h1>
+  <p class="subtitle">何を信じていて、それを支えるデータは何で、どこがまだ空いているか。<br>思考の順序をそのまま並べ直しました。</p>
+  <p class="meta">2026-07-28 版　D2-internal　／ 明日 朝定例 ＋ 夜の会 用</p>
+</header>
+
+<section>
+  <h2>先に、いまの状態を3行で</h2>
+  <ul>
+    <li><strong>商品の形と値段は出た</strong> ── 大橋会館＋ミレニアルズ＋SANU、月15万。計算も通る</li>
+    <li><strong>個別の機能は、ほぼ全部すでに誰かがやっている</strong> ── 与信も初期費用ゼロも不在時転貸も、既存プレイヤーが実装済み</li>
+    <li class="red"><strong>そして最大の穴は「求めている人がいるのか」</strong> ── ここだけが、7年前から埋まっていない</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="no">PART 1</span>思考の順序 ── 実際に辿った8段</h2>
+  <p>時系列ではなく、論理の順に並べ直したものです。赤い点が「見え方が変わった」ところ。</p>
+
+  <div class="stairs">
+    <div class="step">
+      <p class="n">01</p>
+      <p class="q">家賃が高い。では、その金はどこへ行くのか</p>
+      <p class="a">家賃を3つに分けると、<em>半分は「場所代」で、誰の労働にも変わっていない</em>。11.8万円の1Kなら約6.1万円。</p>
+    </div>
+    <div class="step">
+      <p class="n">02</p>
+      <p class="q">では、地代を下げられるか</p>
+      <p class="a">大家は下げない ── と思っていたが<strong>誤り</strong>だった。サブリースでは大家が自分から1〜2割下げている。<em>下がる条件は「善意」ではなく「リスクの引き受け」</em>。</p>
+    </div>
+    <div class="step turn">
+      <p class="n">03</p>
+      <p class="q">それでも、いちばん効くのは分母を増やすこと</p>
+      <p class="a"><strong>1人あたり ＝ 総額 ÷（人数 × 時間）</strong>。地代は動かさなくても、<em>同じ床をより多くの人と時間で受け止めれば1人あたりは下がる</em>。誰からも奪わない。</p>
+    </div>
+    <div class="step">
+      <p class="n">04</p>
+      <p class="q">分母を増やすには、何をすればいいか</p>
+      <p class="a">専有面積を圧縮し、共用の稼働を上げる。<strong>3m²のポッド＋街ごと共用部</strong>。簡易宿所の面積目安は1.5m²/人なので、3m²は2倍の余裕がある。律速は面積ではなく<strong>水回りの数と避難計画</strong>。</p>
+    </div>
+    <div class="step turn">
+      <p class="n">05</p>
+      <p class="q">それを多拠点にすると、何が起きるか</p>
+      <p class="a">会員が移動すれば元の巣が空く。空いた分は他人が泊まれる。<em>多拠点はコストではなく、原資だった</em>。しかも「巣は売らない」と両立する ── 売るのは所有権ではなく空き時間だけ。</p>
+    </div>
+    <div class="step turn">
+      <p class="n">06</p>
+      <p class="q">しかし東京の地価では、品質を落とさずに安くできない</p>
+      <p class="a">ここで<em>「東京でやる」という前提自体を疑った</em>。地方・郊外を主軸にして安く提供し、<strong>東京は「おまけ」＝逆別荘</strong>にする。地方6〜8万＋東京4泊で、会員負担は月9〜11万。23区平均11.4万より安く、広い。</p>
+    </div>
+    <div class="step">
+      <p class="n">07</p>
+      <p class="q">では、東京側の空きは誰が埋めるのか</p>
+      <p class="a"><strong>地方から東京への出張者。法人契約。</strong>予測可能で、まとまっていて、経費なので価格弾力性が低く、<em>与信の問題も消える（会社が払う）</em>。<br>これは思いつきではない ── <strong>大橋会館のメインユーザーがまさにそれだった</strong>（月10日来る地方出張者を法人契約で）。</p>
+    </div>
+    <div class="step gap">
+      <p class="n">08 ／ ここで止まっている</p>
+      <p class="q" style="color:var(--red)">では、それを求めている人はいるのか</p>
+      <p class="a">ここが空白です。しかも<strong>一度、外している</strong>（次のセクション）。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">PART 2</span>仮説と、それを支えるデータ</h2>
+  <p>信じていることを6つに割り、それぞれ「支持するもの」「反証するもの」「未検証」で並べました。</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>仮説</th><th>支持するデータ</th><th>反証・懸念</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>H1</strong> 痛みは実在する</td>
+          <td>23区単身 11.4万・<strong>25か月連続</strong>で最高値／貯蓄100万未満が最多階級／引越初期費用50〜70万／「春闘で上がっても地主に回収される」</td>
+          <td>岩崎「手取り40〜50万なら13万は<strong>全然コスパいい</strong>と判断する」＝納得している層も相当いる</td>
+          <td><span class="tag t-ok">部分的に支持</span></td>
+        </tr>
+        <tr>
+          <td><strong>H2</strong> それを解く商品が無い</td>
+          <td>—</td>
+          <td class="ours"><strong>ほぼ反証された。</strong>Hmlet 1,613室（保証人不要・敷礼ゼロ）／Unito 882室・会員7.7万（<strong>不在日に転用して減額</strong>）／goodroom 1,000室超・下限69,800円／ソーシャルアパートメントは郊外7〜8万から</td>
+          <td><span class="tag t-ng">反証</span></td>
+        </tr>
+        <tr>
+          <td><strong>H3</strong> 分母を増やせば1人あたりは下がる</td>
+          <td>恒等式なので真／ミレニアルズ per-pod 月17〜21万／逆別荘なら東京1ポッドを5〜7.5人で共有できる</td>
+          <td>転貸が同価格・同稼働で埋まる保証はない。<strong>自社実測がゼロ</strong></td>
+          <td><span class="tag t-un">機構は真・数値は未検証</span></td>
+        </tr>
+        <tr>
+          <td><strong>H4</strong> 求めている人がいる</td>
+          <td>ジョニー本人が「15万なら契約する」／SANU・ADDress・HafHが存在する</td>
+          <td class="ours"><strong>最弱。</strong>LACで一度外している ──「仕組みは見えても<strong>そもそも求めてるユーザーが全然いない</strong>」「<strong>コロナで移動できるようになったのは追い風だったはずなのに掴みきれなかった</strong>」／会議でも岩崎「なんでないんですかね」→ジョニー「<strong>そこまで求めてる人がいないんじゃないの</strong>」</td>
+          <td><span class="tag t-ng">要検証・最優先</span></td>
+        </tr>
+        <tr>
+          <td><strong>H5</strong> 住居だけ切り出して安くできる</td>
+          <td>法人需要なら「仕事とセット」になるので迂回できる</td>
+          <td>岩崎「<strong>社宅は5,000円。仕事も一緒にやってもらってるから5,000円で済む。だから暮らしだけ取り上げてブレイクスルーさせるのは難しいのかな</strong>」＝住居費が劇的に下がる既存例は<strong>すべて仕事とセット</strong></td>
+          <td><span class="tag t-un">条件付き</span></td>
+        </tr>
+        <tr>
+          <td><strong>H6</strong> 大手はやらない</td>
+          <td>—</td>
+          <td class="ours"><strong>誤りだった。</strong>三菱地所が2019年から参入、2026年4月にシンガポールHabytを買収、<strong>2035年度に国内外35,000室・営業利益100億円超を目標</strong></td>
+          <td><span class="tag t-ng">訂正済</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="turnbox">
+    <p class="t">H6 の訂正版 ── 従来より強い</p>
+    <p class="claim">大手が来ないのは、国策の空白ではない。単価とセグメントの問題。</p>
+    <p>三菱地所は<strong>通常賃貸の2倍</strong>の単価で、<strong>外国人駐在員（入居者の8割）</strong>に売り、35,000室を目指している。<strong>単価が数分の一のセグメントに、その会社は来ない。</strong>相手の公表目標から導けるぶん、政策論より強い。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">PART 3</span>残っている差分と、<em>本当の穴</em></h2>
+  <p>個別の機能はほぼ全部、既存プレイヤーがやっています。残っているのは4つだけ。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>要素</th><th>既にやっている人</th><th>我々の差分</th></tr></thead>
+      <tbody>
+        <tr><td>与信・初期費用ゼロ</td><td>Hmlet 1,613室</td><td class="red">なし</td></tr>
+        <tr><td>不在時の転貸で減額</td><td>Unito 882室・会員7.7万</td><td class="red">なし</td></tr>
+        <tr><td>多拠点</td><td>SANU／ADDress／HafH／goodroom</td><td class="red">なし</td></tr>
+        <tr class="ours"><td><strong>面積圧縮（3m²）× 居住価格帯</strong></td><td>ミレニアルズは宿泊のみ</td><td class="green">あり</td></tr>
+        <tr class="ours"><td><strong>リセット（週1〜2回の清掃）× 居住価格帯</strong></td><td>ホテルのみ</td><td class="green">あり</td></tr>
+        <tr class="ours"><td><strong>逆別荘（地方主軸・東京はおまけ）</strong></td><td>未確認</td><td class="green">あり</td></tr>
+        <tr class="ours"><td><strong>法人出張ベース</strong></td><td>大橋会館（ただしスケールせず）</td><td class="green">あり</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="turnbox">
+    <p class="t">だから、明日いちばん話すべきはここ</p>
+    <p class="claim">組み合わせで勝つなら、<br>「なぜ我々がその組み合わせを作れるのか」を言えないといけない。</p>
+    <p>そして<strong>それ以前に、H4（求めている人がいるか）が空いています</strong>。LACで一度、追い風のある局面で外している。<strong>この論点をGo/No-Goの主軸に据えるべきだと考えています。</strong></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">明日の朝</span>定例で決めたいこと</h2>
+  <div class="qlist">
+    <div><b>01</b><span><strong>検証の主語を「痛み」から「需要」に変えるか。</strong>いままでは「困っている人はいるか」を調べてきた。会議で出たのは「<strong>困っていても、この形を求めるとは限らない</strong>」という問い。LACの前例がある以上、<strong>needs ではなく wants を測る設計</strong>に切り替えるべきではないか</span></div>
+    <div><b>02</b><span><strong>逆別荘＋法人を、v1の主線にするか。</strong>そうすると顧客が「痛み層」から「業務需要＋地方居住者」に移る。<strong>いま準備中のヒアリング30〜50名では検証できなくなる</strong>ので、法人（総務・出張手配）へのヒアリングを別立てで組む必要がある</span></div>
+    <div><b>03</b><span><strong>大橋会館を「先行例」として解剖するか。</strong>メインユーザーが地方出張者・法人契約だったなら、モデルは既に実証されている。問いは<strong>「なぜスケールしなかったのか」</strong>に変わる。ここが分かれば、我々が繰り返す失敗を1つ減らせる</span></div>
+  </div>
+  <p class="source">補足：清掃は「毎日」ではなく<strong>週1〜2回で足りる</strong>ことが分かったので（本人談）、ユニットエコノミクスは引き直せます。原価が下がる方向です。</p>
+</section>
+
+<section>
+  <h2><span class="no">明日の夜</span>会で聞きたいこと</h2>
+  <p>シェアハウス在住の方が来られるとのことなので、<strong>その場でH1とH4を測れます</strong>。ただし聞き方が全てです。</p>
+
+  <div class="artifact">
+    <p class="artifact-title">⚠ 質問に結論を埋め込まない</p>
+    <p>先日こちらが「バンライフで<strong>二度とやりたくなかったこと</strong>は?」と聞いたとき、答えは「二度としたくないなんて言ったことはない」でした。<strong>質問が答えを作ってしまう。</strong></p>
+    <p class="source">✕「シェアハウスの不満は何ですか」→ 不満がある前提になる<br>◯「今の家に決めたとき、他に何と迷いましたか」→ 比較の実態が出る</p>
+  </div>
+
+  <div class="qlist">
+    <div><b>01</b><span><strong>いま住んでいるところに決めたとき、他に何と迷いましたか。決め手は何でしたか</strong><br><span class="source">→ 何と比較されているか（H2の競合が実際に誰か）</span></span></div>
+    <div><b>02</b><span><strong>前に住んでいたところを出たとき、何が起きましたか</strong><br><span class="source">→ 実際に人を動かすトリガー。「不満」ではなく「出来事」で聞く</span></span></div>
+    <div><b>03</b><span><strong>いま自分でやっていて、「これ誰かがやってくれたら」と思うことはありますか</strong><br><span class="source">→ リセット（清掃）の価値。こちらから「掃除」と言わない</span></span></div>
+    <div><b>04</b><span><strong>1か月まるまる家を空けるとしたら、その間の家賃はどうしますか</strong><br><span class="source">→ 転貸ニーズ。「貸せたらいいと思いますか」とは聞かない</span></span></div>
+    <div><b>05</b><span><strong>来月から家賃が2万円上がるとしたら、どうしますか</strong><br><span class="source">→ H1の強度。金額を先に置いて反応を見る</span></span></div>
+    <div><b>06</b><span><strong>いまの家に、あと何年住むと思いますか。その後は?</strong><br><span class="source">→「お試し的な住まい」という仮説の検証（流動性の実態）</span></span></div>
+    <div><b>07</b><span><strong>東京以外に住むことを考えたことはありますか。何が引っかかりましたか</strong><br><span class="source">→ 逆別荘の可否。仕事か、人間関係か、それ以外か</span></span></div>
+  </div>
+
+  <p class="source">聞いたことは、その場で解釈せず<strong>そのまま持ち帰る</strong>のが安全です。1人の話は1人の話であって、そこから事業を決めない ── これは6月に一度やった失敗です。</p>
+</section>
+
+<section>
+  <h2>この地図の使い方</h2>
+  <ul>
+    <li><strong>朝</strong> ── PART 1（思考の順序）とPART 2（仮説とデータ）を見ながら、決めたいこと3つを議論</li>
+    <li><strong>夜</strong> ── PART 3の「本当の穴」だけ頭に置いて、質問7つを持っていく。<strong>説明しに行くのではなく、聞きに行く</strong></li>
+    <li>全主張の出典と、そこに至った経緯は<a href="https://ikedhidenori.github.io/jp/article-c0a1646e18bcc8ea.html">思考地図</a>にあります</li>
+  </ul>
+</section>
+
+<hr class="end">
+<p class="colophon">
+  2026-07-28 版。会議の文字起こし原文と、社内一次資料に照合して作成しています。<br>
+  デザイン：数理の弾丸テイスト（Document Kernel v1）
+</p>
+
+</div>
+
+</body>
+</html>
