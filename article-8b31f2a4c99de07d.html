@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>INNFRA 議論地図 ／ 3年の地層と、まだ答えていない問い</title>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:44rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 90px; -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th,.ex,.row,.lay,.card{min-width:0}
+img,svg,video,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+p{margin:0} strong{font-weight:700}
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+
+.mast{padding:52px 0 22px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:11px}
+.mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
+.mast h1{font-size:clamp(25px,5.6vw,34px); line-height:1.26; font-weight:800; margin:0;
+  padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:12px; height:38px; background:var(--ink)}
+.mast .subtitle{font-size:16px; line-height:1.65; margin:0 0 0 23px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 23px}
+
+section{padding:46px 0 0; display:flex; flex-direction:column; gap:15px}
+section > h2{font-size:clamp(18px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+section > h2 .no{font-size:11px; letter-spacing:.16em; color:var(--faint); display:block; margin-bottom:3px}
+h3{font-size:15.5px; font-weight:800; margin:16px 0 -4px; line-height:1.5}
+em{font-style:normal; background:linear-gradient(transparent 62%, var(--pale-red) 62%); font-weight:700}
+.lead{font-size:15px; line-height:1.75; color:var(--sub)}
+.note{font-size:12.5px; line-height:1.7; color:var(--faint)}
+
+/* ── 地層 ── */
+.strata{display:flex; flex-direction:column; gap:0; border-left:2px solid var(--ink); margin-left:6px}
+.lay{position:relative; padding:0 0 23px 24px}
+.lay:last-child{padding-bottom:0}
+.lay::before{content:""; position:absolute; left:-7px; top:7px; width:11px; height:11px;
+  background:var(--paper); border:2px solid var(--ink); border-radius:50%}
+.lay.now::before{background:var(--red); border-color:var(--red)}
+.lay.void::before{background:var(--paper); border-color:var(--faint); border-style:dashed}
+.lay .per{font-size:11px; letter-spacing:.13em; color:var(--faint); font-weight:700; margin:0 0 2px}
+.lay .nm{font-size:16.5px; font-weight:800; line-height:1.42; margin:0 0 4px; text-wrap:balance}
+.lay.now .nm{color:var(--red)}
+.lay .qa{font-size:13.5px; line-height:1.68; color:var(--sub); margin:0}
+.lay .qa b{color:var(--ink); font-weight:700}
+.lay .mv{font-size:12.5px; line-height:1.65; color:var(--faint); margin:5px 0 0}
+.lay .mv b{color:var(--red); font-weight:700}
+
+/* ── C形式 対話 ── */
+.dia{display:flex; flex-direction:column; gap:27px}
+.ex{border-top:1px solid var(--rule); padding-top:13px; display:flex; flex-direction:column}
+.ex.open{border-top:2px solid var(--red)}
+.ex .era{font-size:10.5px; letter-spacing:.12em; font-weight:700; color:var(--faint); margin:0 0 7px}
+.ex.open .era{color:var(--red)}
+.row{display:grid; grid-template-columns:3.2em 1fr; gap:10px; align-items:baseline; padding:2.5px 0}
+.row .rl{font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--faint); white-space:nowrap;
+  text-align:right; line-height:1.9; padding-top:.15em}
+.row .rt{line-height:1.72; margin:0}
+.row.q .rl{color:var(--ink)}
+.row.q .rt{font-size:17px; font-weight:800; line-height:1.45; text-wrap:balance}
+.row.o .rl{color:var(--red)}
+.row.o .rt{color:var(--sub)}
+.row.blank .rl{color:var(--red)}
+.blankline{border-bottom:2px dashed var(--red); height:1.35em; width:min(100%,17rem); display:block}
+.verdict{font-size:11.5px; font-weight:700; letter-spacing:.07em; text-align:right; margin:9px 0 0; color:var(--faint)}
+.verdict.ng{color:var(--red)}
+.ex .cite{font-size:10.5px; color:var(--faint); margin:4px 0 0; line-height:1.6; text-align:right}
+
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13px; line-height:1.55; min-width:22rem}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:11.5px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+.red{color:var(--red)} .green{color:var(--green)} .faint{color:var(--faint)}
+
+.card{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:15px 16px; display:flex; flex-direction:column; gap:9px}
+.card.warn{border-color:var(--red)}
+.card .t{font-size:10.5px; letter-spacing:.13em; font-weight:700; color:var(--faint); margin:0}
+.card.warn .t{color:var(--red)}
+.card .h{font-size:16.5px; font-weight:800; line-height:1.45; margin:0; text-wrap:balance;
+  padding-left:14px; position:relative}
+.card .h::before{content:""; position:absolute; left:0; top:3px; width:5px; height:1.05em; background:var(--ink)}
+.card.warn .h{color:var(--red)} .card.warn .h::before{background:var(--red)}
+.card .b{font-size:14px; line-height:1.72; margin:0}
+
+.numlist{display:flex; flex-direction:column; gap:14px}
+.numlist > div{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:baseline}
+.numlist b{font-size:12px; font-weight:700; color:var(--red); white-space:nowrap;
+  border:1.5px solid var(--red); padding:1px 7px; border-radius:2px}
+.numlist .sub{display:block; font-size:12.5px; color:var(--faint); line-height:1.65; margin-top:2px}
+ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:6px}
+li{line-height:1.72}
+
+hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
+
+@media (max-width:520px){
+  body{font-size:15px; padding:0 15px 70px}
+  .row{grid-template-columns:3em 1fr; gap:8px}
+  .row.q .rt{font-size:16px}
+  .card{padding:13px}
+  .lay{padding-left:19px}
+  .lay::before{left:-6px; width:10px; height:10px}
+}
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">INNFRA ／ 社内討議用</p>
+  <h1>議論地図 ── 3年の地層と、<br>まだ答えていない問い</h1>
+  <p class="subtitle">問い、答え、反論、応答。<br>決着したものと、まだ空欄のものを、同じ形で並べました。</p>
+  <p class="meta">2026-07-28 版　D2-internal　／ 明日 朝定例 ＋ 夜の会 用</p>
+</header>
+
+<section>
+  <h2>先に、掘って出てきた5つ</h2>
+
+  <div class="card warn">
+    <p class="t">01 ／ 最重要（敵対検証済み）</p>
+    <p class="h">真に反復しているのは、<br>「需要検証を実行しないまま、次の事業へ移ること」。4回目です。</p>
+    <p class="b">前史の時点で<strong>「技術実証を需要実証と見なしてよいか」</strong>が未分離のまま残されたと、社内資料に明記されています。以後、オフグリッド電力/水 → モバイル住居（月8万）→ エクストリームステイ → Living OS と、<em>4つの事業すべてで、需要の測定を実行する前に次へ移りました</em>。<br><br>⚠ 当初この地図は「同じ穴に6回」と書きましたが、反証エージェントに崩されました。事業が変われば需要を問い直すのは正常です。<strong>異常なのは、問うたまま測らずに移ること。</strong>そして今日、私自身が同型をやりました（「ミレニアルズは3m²で満室」を居住の根拠にした。満室は泊まる証明であって、住む証明ではない）。</p>
+  </div>
+
+  <div class="card warn">
+    <p class="t">02 ／ 今日いちばん実務に効く訂正</p>
+    <p class="h">我々の帯は 15万ではない。9万です。<br>実在する成果物が、すべてそう言っている。</p>
+    <p class="b">検証LP v1 の hero は<strong>「ぜんぶ込み月9万円」</strong>。料金表はポッド5-6万／巣9万／ゆとり個室13万〜。思考地図の比較表は「11.8万＋更新料 → 9万」。<br><br><strong>15万は、ジョニー本人のWTP（VL-57）です。</strong>そして同じVL-57が「これは憧れ層の商品で、Go/No-Goには算入しない」と自分で書いていました。帯を15万のままにしたせいで、Hmlet（実勢15.6万）と同一帯に見え、「面積で負けている」という<em>誤った現在地</em>が投資家向け資料まで伝播していました。<br><br>帯を9万に固定すると、8月に潰す数字は<em>「9万の原価成立性」1本</em>に絞れます。</p>
+  </div>
+
+  <div class="card">
+    <p class="t">03</p>
+    <p class="h">「なぜ我々が作れるのか」は、空欄ではなかった。<br>4日前のスライドに6つ書いてある。ただし5つは未来形。</p>
+    <p class="b">7/24 の岩崎スライドに競争優位の源泉が6つ挙がっています。<strong>現在形で言えるのは⑥実装力（オフグリッド知見の一体実装）だけ</strong>。残り5つは拠点を運営してから貯まるもの。つまり<em>唯一いま示せる答えが、この3年の地層そのもの</em>です。</p>
+  </div>
+
+  <div class="card">
+    <p class="t">04</p>
+    <p class="h">処方箋も、すでに書かれている。</p>
+    <p class="b">7/21 の資料 §8 に<strong>「1〜2か月後の判断文を先に書く。継続・切替・追加検証・両案見送りの条件を事前登録する」</strong>とあります。書かれていて、実行されていない。8月末の Go/No-Go は、これをやるかどうかで決まります。</p>
+  </div>
+
+  <div class="card">
+    <p class="t">05 ／ 名誉のために先に書いておく</p>
+    <p class="h">今回の家賃の解剖は、堂々巡りではありません。<br>3年で初めて到達した場所です。</p>
+    <p class="b">「場所代」「土地プレミアム」「収益還元」「リカード」「ヘンリー・ジョージ」を vault 全体（root 288件＋summaries 594件＋全サブディレクトリ）に漢字・カタカナ・英語の3通りで掃いた結果、<strong>全ヒットが 2026-07-21 以降</strong>でした。中核式も同様。<br><br>つまり <em>3年間、家賃そのものを分解したことは一度もなかった</em>。今回のラリーは反復ではなく前進です。以下の「同じ穴」は、そこと分けて読んでください。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">PART 1</span>地層 ── 会社は何を問うてきたか</h2>
+  <p class="lead">設立は 2023-10-10。各層に「その時期に答えようとしていた問い」と「なぜ次へ移ったか」を置いています。<strong>移った理由が「答えが出たから」である層は、ひとつもありません。</strong></p>
+
+  <div class="strata">
+
+    <div class="lay">
+      <p class="per">前史 ／ 時期未同定</p>
+      <p class="nm">U3I ／ OL8 ／ ラボ</p>
+      <p class="qa"><b>問い</b> 系統・マイクログリッド・オフグリッドの境界を、最小単位の暮らしから考えられるか<br><b>到達</b> 技術的可能性と、法規・コスト・維持管理のボトルネックは見えた</p>
+      <p class="mv">移った理由 → <b>何を実証すれば事業化できるのかが明確でないまま。</b>「技術実証を需要実証と見なしてよいか」がここで未分離のまま残り、以後ずっと論点として続く</p>
+    </div>
+
+    <div class="lay void">
+      <p class="per">2023-10-11 〜 2025-02-27</p>
+      <p class="nm">史料の空白</p>
+      <p class="qa">日付つきの事業仮説討議を、今回参照した史料では確認できていません。<br><b>「議論がなかった」のではなく「史料が無い」</b>。推測で埋めていません。</p>
+    </div>
+
+    <div class="lay">
+      <p class="per">2025-02 〜 05</p>
+      <p class="nm">技術の会社から、暮らしの会社へ</p>
+      <p class="qa"><b>問い</b> 我々は何の会社か<br><b>到達</b> 「パンとバラ」「サバイバル＆ウェルビーイング」等を検討し、5月に Vision／Mission 採用</p>
+      <p class="mv">移った理由 → 自己定義は広がったが、<b>具体的な生活像は未決のまま</b></p>
+    </div>
+
+    <div class="lay">
+      <p class="per">2025-10 〜 11</p>
+      <p class="nm">描ける世界が無い</p>
+      <p class="qa"><b>問い</b> ビジョンから独占ニッチへ逆算するか、実践から積むか<br><b>到達</b> 「ビジョンと戦略は別」を確認</p>
+      <p class="mv">移った理由 → <b>「描ける世界」の不在が明示された</b>。旗は共有できたが、探索順序と「実践の証拠」の定義が分かれた</p>
+    </div>
+
+    <div class="lay">
+      <p class="per">2026-04</p>
+      <p class="nm">VLDK ／ 箱からプロトコルへ</p>
+      <p class="qa"><b>問い</b> 暮らしをアンバンドルして、月額でリバンドルできるか<br><b>到達</b> 単位が「設備」から「生活パッケージ」へ広がった。市場選定3軸を設定</p>
+      <p class="mv">移った理由 → <b>価格は置いたが、WTP は未検証</b>（1回目）</p>
+    </div>
+
+    <div class="lay">
+      <p class="per">2026-05</p>
+      <p class="nm">オフグリッドを、目的から手段へ降ろす</p>
+      <p class="qa"><b>問い</b> 「死なないシェルター」「隠れたインフラ需要」はどこにあるか<br><b>到達</b> 5/20「オフグリッドという手法に固執せず課題を再設定する」で合意。中城実証、<b>無料応募 約100組</b></p>
+      <p class="mv">移った理由 → <b>無料応募と有料需要を分けて考える必要が明確になった</b>（2回目。前史と同じ宿題）</p>
+    </div>
+
+    <div class="lay">
+      <p class="per">2026-06</p>
+      <p class="nm">株主ゲート ── どの市場で圧倒的に勝つか</p>
+      <p class="qa"><b>問い</b> 案件棚卸しで、いま最も強い実需シグナルはどこか<br><b>到達</b> 自衛隊が最も強い。ただし「そこへ全振りしたいのか」という緊張が同時に出た</p>
+      <p class="mv">移った理由 → 列挙から選別の段階へ。ただし <b>Will と Must が分離した</b>（勝てる市場と、やりたいことが一致しない）</p>
+    </div>
+
+    <div class="lay">
+      <p class="per">2026-07-03</p>
+      <p class="nm">堂々巡りを、構造として名指しした</p>
+      <p class="qa"><b>問い</b> なぜ議論は戻ってくるのか<br><b>到達</b> 個人差ではなく <b>①社会像 ②検証方法 ③案件ゲート の欠落</b>として構造化。最大の空白を「ビジョンの一歩手前の、描ける世界」と定義</p>
+      <p class="mv">移った理由 → <b>診断は出たが、②検証方法は今日まで埋まっていない</b>（3回目）</p>
+    </div>
+
+    <div class="lay">
+      <p class="per">2026-07-21</p>
+      <p class="nm">制約地を価値化するインフラテックデベロッパー</p>
+      <p class="qa"><b>問い</b> 4人（相馬・岩崎・川島・ジョニー）の主張をどう束ねるか<br><b>到達</b> 対立ではなく<b>階層差</b>と判明。共通の方向は近づいた</p>
+      <p class="mv">移った理由 → <b>顧客・支払者・最初の商品・勝ち筋・収益モデルは未決のまま</b>（4回目）</p>
+    </div>
+
+    <div class="lay now">
+      <p class="per">2026-07-23 〜 28 ／ 現在</p>
+      <p class="nm">Living OS ── 街を1つの家として運転する</p>
+      <p class="qa"><b>問い</b> 家賃を半分にして、暮らしを成立させられるか<br><b>到達</b> 商品の形と値段（月15万）、中核式（1人あたり＝総額÷（人数×時間））、逆別荘、法人出張。7/24 株主定例で「方向転換ではなくスピードアップ」と報告</p>
+      <p class="mv">現在地 → <b>「求めている人はいるのか」が空欄</b>（5回目）。加えて 7/24 の KPI 校正「50% は意見ベース」が<b>4日間 未伝達のまま</b>（6回目）</p>
+    </div>
+
+  </div>
+
+  <p class="note">出典 — <code>discussion-maps/innfra-business-hypothesis-history-comparison-2026-07-21.md</code> §2・§3・§6.4・§8 ／ <code>discussion-maps/innfra-living-os-handoff-2026-07-24.md</code> ／ <code>discussion-maps/innfra-house-concept-rally-log-2026-07.md</code> VL-1〜64。証拠ラベル（確定／本人発言／会議要約／分析／未検証）は原典に従っています。</p>
+</section>
+
+<section>
+  <h2><span class="no">PART 2</span>対話 ── 問い、答え、反論、応答</h2>
+  <p class="lead">左端が役割です。応答が書けなかったものは <span class="red">空欄のまま</span>にしてあります。埋まっているように見せると、また同じ場所で転ぶからです。<strong>時系列ではなく、論理の順に並べています。</strong></p>
+
+  <div class="dia">
+
+    <div class="ex">
+      <p class="era">前史 ／ ラボ・OL8</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">技術で、暮らしは成立させられるか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">できる。複数拠点で実生活を作り、法規・コスト・維持管理のボトルネックまで見えた。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">それは「作れる」の証明であって、「誰かが金を払う」の証明ではない</p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 未決着（3年前から）</p>
+      <p class="cite">この未分離が、その後も論点として残った ── 7/21 資料 §2</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-05 ／ 中城実証</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">需要はあるか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">ある。無料応募が<strong>約100組</strong>集まった。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">無料に100組集まることと、有料で1組が払うことは別だ</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">その通りだった。<em>「無料応募と有料需要を分けて考える必要が明確になった」</em>と、当時の記録にそのまま書いてある。</p></div>
+      <p class="verdict">── 決着（問いの立て方が誤りだった、と決着）</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-06 ／ 株主ゲート</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">どの市場で圧倒的に勝つのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">実需シグナルが最も強いのは<strong>自衛隊</strong>。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">そこへ全振りしたいのか</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">したくない。ここで <em>Will と Must が分離した</em>。以後の探索は、勝てる市場ではなく、やりたい市場の側で進んでいる。</p></div>
+      <p class="verdict">── 決着（ただし、選ばなかったという決着）</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-07 ／ 家賃の解剖</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">家賃が高いのは、誰かが儲けすぎているからか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">いいえ。家賃を3つに割ると、<em>半分は「場所代」</em>で、誰の労働にも変わっていない。11.8万円の1Kなら約6.1万円。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">では下げようがない。地主が持っている以上、動かせない</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">動く。サブリースでは<strong>大家が自分から1〜2割下げている</strong>。下がる条件は善意ではなく<em>リスクの引き受け</em>だった。</p></div>
+      <p class="verdict">── 決着</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-07 ／ 分母の発見</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">では、いちばん効く手は何か</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">分母を増やすこと。<strong>1人あたり ＝ 総額 ÷（人数 × 時間）</strong>。地代を動かさなくても、同じ床をより多くの人と時間で受け止めれば1人あたりは下がる。<em>誰からも奪わない。</em></p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">それは面積を削るということだ。人は狭い部屋には住まない</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">ミレニアルズは3m²で満室。簡易宿所の面積目安は1.5m²/人なので、3m²は2倍の余裕がある。律速は面積ではなく<strong>水回りの数と避難計画</strong>。</p></div>
+      <div class="row o"><p class="rl">再反論</p><p class="rt">満室なのは<em>泊まる人</em>であって、<em>住む人</em>ではない。しかも住む人には<strong>モノの置き場がない</strong></p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 未決着</p>
+      <p class="cite">この再反論は 2026-07-28 にジョニーが指摘。私は満室を居住の根拠に使っていた ── 前史からの同型、7回目</p>
+    </div>
+
+    <div class="ex open">
+      <p class="era">2026-07 ／ 分母への最強の反証【自社レポートに既出】</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">「時間の分母」は、本当に必要なのか</p></div>
+      <div class="row"><p class="rl">前提</p><p class="rt">我々は分母を<strong>空間（人数）×時間（稼働）</strong>の両方で増やすと言ってきた。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">QUQURI（スピリタス）は<em>空間の分母だけ</em>で成立している。64坪の土地で従来型12戸 → <strong>30戸</strong>、家賃収入 114.6万 → <strong>220.5万</strong>、表面利回り 4-5% → <strong>6%超</strong>、入居率 <strong>99%</strong>、平均入居日数 600日。9m²・73,500円。<br><em>時間の分母を回さなくても、もう儲かっている。</em></p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 未決着 ／ 投資家に効く反証</p>
+      <p class="cite">出典は<strong>自社の調査レポート</strong> <code>kyosho-relent-exchange-research-2026-07-22.md</code>。中核式を出した 7/25 の<em>3日前から手元にあった</em></p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-07 ／ 多拠点</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">多拠点はコストではないのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">逆だった。会員が移動すれば元の巣が空き、空いた分は他人が泊まれる。<em>多拠点は原資</em>。しかも「巣は売らない」と両立する ── 売るのは所有権ではなく空き時間だけ。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">ADDress・HafH・goodroom が居住価格帯で既にやっている。差分はない</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">その通り。<strong>多拠点そのものに差分はない</strong>。ただし既存はすべて<em>「モノを持たない人」に絞っている</em>。差分があるとすればそこ。</p></div>
+      <p class="verdict">── 決着（多拠点は差分にならない、と決着）</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-07 ／ 東京前提を疑う</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">東京の地価で、品質を落とさずに安くできるか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">できない。だから<em>「東京でやる」という前提の方を疑った</em>。地方・郊外を主軸にして安く提供し、東京は「おまけ」にする ── 逆別荘。地方6〜8万＋東京4泊で、会員負担は月9〜11万。23区平均11.4万より安く、広い。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">東京側の空きは誰が埋めるのか。埋まらなければ計算は崩れる</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">地方から東京への出張者、法人契約。予測可能で、まとまっていて、経費なので価格弾力性が低く、与信の問題も消える（会社が払う）。<strong>これは思いつきではなく、大橋会館のメインユーザーがまさにそれだった</strong>。</p></div>
+      <div class="row o"><p class="rl">再反論</p><p class="rt">では<em>なぜ大橋会館はスケールしなかったのか</em></p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 未決着（明日の朝、ここを決めたい）</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-07-28 ／ 競合判定の訂正</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">この機能の組み合わせは、もう誰かがやっているのではないか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">個別機能はほぼ全部やられている。与信不要は Hmlet、初期費用ゼロは goodroom、不在時転貸は Unito、多拠点は ADDress／HafH。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">それは<em>セグメントを見ていない</em>。Hmlet と我々は帯が違う、Unito は短期滞在帯。<strong>我々の帯で埋まっているのは1つだけ</strong></p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">正しい。判定を「ほぼ反証」から<em>「未判定」に戻す</em>。そして4つの未確認に共通する軸が<strong>「モノを持ち込む生活」</strong>だった。既存プレイヤーが揃って避けている。</p></div>
+      <div class="row o"><p class="rl">再反論</p><p class="rt">その訂正にも、出典のない数字が入っていた。「Hmlet は月20〜30万」── 自社の一次調査は<strong>蒲田 25.14㎡＝156,000円／森下 25.53㎡＝167,000円</strong>（URL付き）。実勢15.6万なら「我々の帯＝15万」と<em>同一帯</em>で、25㎡の個室に対し 3m²＋共用は面積で明確に劣位になる</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">認める。ただしこれは帯の誤設定が原因 ── <strong>我々の帯は9万</strong>（LP v1・料金表・思考地図がすべてそう書いている）。帯を9万に固定すればHmletとはずれる。判定は「未判定」からさらに<em>「帯が確定するまで判定不能」</em>へ差し戻し。</p></div>
+      <p class="verdict">── 決着（二重に差し戻す、と決着）</p>
+      <p class="cite">1段目はジョニー指摘（7/28昼）。2段目は反証エージェント（7/28夜）── セグメント軸の訂正を教わったその日に、訂正の中身へ未検証の数字を入れていた</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-07-28 ／ 失敗の読み替え</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">なぜ既存のポッドやコリビングは、居住に届かなかったのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">需要が無かったから ── と読んでいた。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">たまたま<em>パッケージが刺さらなかっただけ</em>では。Hmlet は高すぎ、大橋会館は狭すぎる。どちらも<strong>モノを持ち込む生活の人には合わない</strong>。ミニマリストがそんなにいなかった、という話ではないか</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">その読みの方が、事実に合う。だとすると分岐は2つ ──<strong>(a) モノを持つ人にフィットする提案を作る</strong>か、<strong>(b) ミニマリストが増える前提に張る</strong>か。(b) は時間軸の賭けで、外れたら止められない。</p></div>
+      <p class="verdict">── 決着（分岐が確定した）</p>
+    </div>
+
+    <div class="ex open">
+      <p class="era">2026-07-28 ／ (a) をどう作るか【新規・未検証】</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">モノを持つ人に、3m²は売れるのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">売るなら「圧縮」ではなく<em>「分離」</em>のはず。ジョニー自身の言葉は「最小のプライベート空間＋<strong>こだわりのもの</strong>＋最大の共有空間」── モノを捨てろとは言っていない。手元に置くものを選んでいる。<br>ならば <strong>人は都心、モノは郊外</strong>。3m²には愛着のあるものだけ置き、残りは安い床に預ける。<em>逆別荘とまったく同じ原理を、モノに適用しただけ</em>。収納用の床は水回りも避難計画も要らないので、面積の律速がない。</p></div>
+      <div class="row"><p class="rl">効果</p><p class="rt">必要な顧客が「捨てられる人（ミニマリスト）」から<strong>「選べる人」</strong>に変わる。母数が桁で違う。<em>(b) に張る必要がなくなる</em>。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">預けることへの心理的抵抗は測っていない。そして「狭小居住＋収納外部化＋多拠点」を居住価格帯でやっている例を探し切っていない</p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 未決着 ／ 明日の夜、ここを聞く</p>
+    </div>
+
+    <div class="ex open">
+      <p class="era">全層を貫く ／ 最大の空欄</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">そもそも、それを求めている人はいるのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">ジョニー本人が「15万で実現できたら契約する」と言っている。SANU・ADDress・HafH は存在する。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">それは <em>n=1</em> だ。しかも一度、外している ──「LAC も鶏と卵だったな。仕組みは見えても、<strong>そもそもそれを求めてるユーザーが全然いない</strong>から」「コロナで移動できるようになったのは<strong>めっちゃ追い風だったはずなのに、掴みきれなかった</strong>」</p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 空欄（3年前から、形を変えて6回）</p>
+      <p class="cite">ジョニー本人の LAC 失敗総括（2026-07-28 会議・文字起こし原文）</p>
+    </div>
+
+    <div class="ex open">
+      <p class="era">全層を貫く ／ 2つ目の空欄</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">なぜ我々が、その組み合わせを作れるのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">空欄ではなかった。7/24 の岩崎スライドに6つある ── ①統合設計アーキテクチャ ②ソフトウェア特許 ③<strong>弾力性データ</strong>（価格提示への個人別行動反応＝最大の競争資産）④AI最適化 ⑤ネットワーク効果 ⑥実装力。</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt"><em>5つは未来形だ</em>。弾力性データもネットワーク効果も、拠点を運営して初めて貯まる。いま持っていないものを competitive advantage とは呼べない</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">現在形で言えるのは <strong>⑥実装力だけ</strong>。そしてそれは <em>この3年の地層そのもの</em>。前史のラボ、中城、富士川、彩湖 ── インフラ・空間・体験を現場で一体に作ってきた実績が、唯一いま示せる答えになる。</p></div>
+      <div class="row o"><p class="rl">再反論</p><p class="rt">では、その実装力が<strong>住宅市場で</strong>効くことの証拠はあるか。3年の実績は制約地・防災の文脈で積まれている</p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 未決着 ／ 投資家に最初に聞かれる</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">PART 3</span>同じ穴 ── 「作れる」を「買われる」として通過してきた</h2>
+  <p class="lead">検証済みの反復は5本です（7系統の掘削 → 裏取り → 反証エージェントの敵対検証を生き残ったものだけ）。最大のものは「需要検証を実行しないまま次の事業へ移る」── 4事業で4回。<strong>毎回そこには「実証」があった。</strong>技術実証、体験実証、無料応募100組、満室。全部「作れる／人が来る」の証明であって、「金を払う」の証明ではありませんでした。</p>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>いつ</th><th>証拠として出したもの</th><th>実際に証明していたこと</th></tr></thead>
+    <tbody>
+      <tr><th>前史</th><td>複数拠点での実生活体験</td><td class="faint">技術的に成立する</td></tr>
+      <tr><th>2026-04</th><td>月額パッケージの価格設計</td><td class="faint">価格を置ける（WTP は未検証）</td></tr>
+      <tr><th>2026-05</th><td><strong>無料応募 約100組</strong></td><td class="faint">タダなら来る</td></tr>
+      <tr><th>2026-07-03</th><td>過去議論の地図化</td><td class="faint">診断はできた（検証方法は空欄のまま）</td></tr>
+      <tr><th>2026-07-21</th><td>4人の仮説の統合</td><td class="faint">言葉は揃った（支払者は未決）</td></tr>
+      <tr><th>2026-07-24</th><td>検証計画 KPI</td><td class="red"><strong>50% は意見ベース</strong> ── 校正済、ただし未伝達</td></tr>
+      <tr><th>2026-07-28</th><td>ミレニアルズ 3m² 満室</td><td class="red"><strong>泊まる人がいる</strong>（住む人ではない）</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="card warn">
+    <p class="t">なぜ繰り返すのか</p>
+    <p class="h">「作れる」の証拠は自分で作れて、<br>「買われる」の証拠は他人からしか取れないから。</p>
+    <p class="b">前者は資本と時間があれば必ず手に入る。後者は断られる可能性がある。<strong>だから毎回、手に入る方の証拠で前へ進んできた。</strong>個人の怠慢ではなく、構造です。<br><br>2026-07-03 の時点で、原因は既に <em>①社会像 ②検証方法 ③案件ゲートの欠落</em>として名指しされていました。3週間経って、②はまだ空欄です。</p>
+  </div>
+
+  <h3>もう1本ある。しかもこちらの方が、いま止血が要る</h3>
+
+  <div class="card warn">
+    <p class="t">堂々巡り 2 ／ 4日で4回、いま進行中</p>
+    <p class="h">「発見した」と言ったものが、自社の資料に既にあった。</p>
+    <p class="b">直近4日で4回、同じ形で起きています。</p>
+  </div>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>いつ</th><th>「発見」したもの</th><th>実際はどこにあったか</th></tr></thead>
+    <tbody>
+      <tr><th>7/25</th><td>器の選択（普通借家／旅館業／会員制…）</td><td class="red">自社 wiki の法務レポート（6/18）＋保健所3件の連絡先まで揃っていた</td></tr>
+      <tr><th>7/27</th><td>「大手はやらない」</td><td class="red">自社調査レポート ── 三菱地所は 2019年から Hmlet、2035年度に35,000室・営業利益100億円超を明言</td></tr>
+      <tr><th>7/28</th><td>不在時転貸「今回いちばんの発見」</td><td class="red">自社調査レポート（<strong>5日前に取得済</strong>）── Unito I-rent が121棟882室・会員7.7万人で実装済</td></tr>
+      <tr><th>7/28</th><td>VLDK の来歴は3ヶ月前（屋久島ブレスト）</td><td class="red">自社 Google Drive ── <strong>2019年8月</strong>の LP 原稿。V＝Van。7年遡る</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="card warn">
+    <p class="t">これが最も危険な理由</p>
+    <p class="h">対策が「次はここも見る」の列挙になっていて、<br>構造的に、常に一歩遅れる。</p>
+    <p class="b">4回とも、直後に対策を立てています。<em>wiki を見る → 調査レポートも見る → Drive も見る</em>。しかし次に見落とす場所は、そのリストにない場所です。<strong>探索範囲を後追いで足す限り、必ずまた起きます。</strong><br><br>掘削の結論はこうでした ──「8月末までにあと1〜2回起きる蓋然性が高い」。<br><br>構造的な塞ぎ方は1つだけ。<em>「発見した」と言う前に、必ず一度、自社資産を検索する</em>を工程に入れることです。範囲を広げるのではなく、順序を固定する。</p>
+  </div>
+
+  <div class="card">
+    <p class="t">副作用として分かったこと</p>
+    <p class="h">差分は「多拠点 × 地方主軸 × 法人」の3点まで縮んだ。</p>
+    <p class="b">4回の再発見を経て、機能の差分はかなり削れました。<strong>これは悪いニュースではありません。</strong>削れたぶん、どこで勝つかが明確になっています。<em>削れる前に投資家に出さなくてよかった</em>、という読み方もできます。</p>
+  </div>
+
+  <div class="card">
+    <p class="t">どう断ち切るか ── 処方箋はすでに書かれている</p>
+    <p class="h">「1〜2か月後の判断文を、先に書く」</p>
+    <p class="b">7/21 資料 §8-4 の原文です。<strong>継続・切替・追加検証・両案見送りの条件を、結果を見る前に登録する。</strong><br>これをやると「作れる」の証拠では通過できなくなります。事前に「何が起きたら No-Go か」を書いてしまうため、後から証拠の種類を差し替えられないからです。<br><br><em>8月末の Go/No-Go は、この1枚を先に書くかどうかで決まる</em>と考えています。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">PART 4</span>補助線 ── 過去に置いてあって、まだ使っていないもの</h2>
+  <p class="lead">別の文脈で作った資産のうち、いまの詰まりに効きそうなものです。</p>
+
+  <div class="card">
+    <p class="t">最強の1本 ／ 明日の朝、これを先に言う</p>
+    <p class="h">逆別荘は新規事業ではない。<br>INNFRA が創業以来やってきた型の、住宅版です。</p>
+    <p class="b">INNFRA がずっと扱ってきたのは<strong>制約地・中山間地・離島</strong> ── つまり<em>場所代の安い場所を選ぶ型</em>です。7/21 の ICC ピッチ（p.39-45）も「制約地を有価値化するインフラテックデベロッパー」。<br><br>逆別荘（地方主軸・東京はおまけ）は、<strong>その骨格とまったく同じもの</strong>です。私たちはこれを「東京前提を疑った新発見」としか書いていませんでしたが、<em>社内では「新規事業」ではなく「既にピッチしている型の住宅版」として提示できます</em>。<br><br>川島さんとの対立軸（統合開発 vs OSレイヤー）を減らす接合点にもなります。</p>
+  </div>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>補助線</th><th>出自</th><th>いまの何を解くか</th></tr></thead>
+    <tbody>
+      <tr><th class="red">逆別荘＝制約地論の住宅版</th><td>ICC v02 p.39-45 ／ 川島ポジショニング</td><td class="red"><strong>上記。社内合意コストを大きく下げる</strong></td></tr>
+      <tr><th>実装力 ＝ 3年の地層</th><td>ラボ・中城・富士川・彩湖</td><td>「なぜ我々が」への<strong>唯一いま示せる答え</strong>。ただし住宅市場での有効性は別途要証明</td></tr>
+      <tr><th>旅館業 法務レポート＋保健所3件</th><td>INNFRA Water／allbeans（6/18）</td><td>器の選択が「制度の外に出る」ではなく<strong>「既に準備してある道を使う」</strong>になる。旅館業3区分・構造設備基準・立地規制・欠格事由まで整理済</td></tr>
+      <tr><th>宿泊業態の系統樹</th><td>副業「宿泊ビジネス図鑑」（6/14）</td><td>法区分 × ADR/OCC/RevPAR/<strong>損益分岐稼働率</strong>の共通尺度。転貸稼働率（社内に実測がない唯一の変数）を語る言語がここにある</td></tr>
+      <tr><th>床の資本構造 3類型</th><td>カブアンド／SANU／ACCOSSA（7/28）</td><td>「多拠点の床の資本はどこから来るか」という<strong>放置していた前提</strong>。床を持たない型なら、建てる前に聞ける</td></tr>
+      <tr><th>「住み替え自由権」を売る案</th><td>素子 MOTTO 私案（7/24、未合意）</td><td>痛みの根を「高さ・狭さ」でなく<strong>「動けなさ」</strong>と診断し、床は原価で回して会員本体で稼ぐ。<em>面積で三菱地所に負ける論点を、正面から降りる論理</em></td></tr>
+      <tr><th>「逃げていい」と敵が同一</th><td>副業IP（住まいとは無関係の文脈）</td><td>職場から動けない／場所から動けない ── <strong>敵は「不動性」で同じ</strong>。「家賃は動けなさの最大の錠前」。ミッション一行の出所</td></tr>
+      <tr><th>山本理顕（プリツカー賞）</th><td>YouTube ingest（4/27）</td><td>「六本木ヒルズ系は証券化により<strong>証券購入者のために作られた富裕層の植民地</strong>」── <em>我々だけが言っている状態を避けられる</em>。SOHO型の提案は岩崎さんの「社宅は仕事とセット」への設計側の答えの候補</td></tr>
+      <tr><th>エクストリームステイの失敗記録</th><td>2026-05〜06（別ライン）</td><td>「場所3条件を定義したのに、案件選定ゲートとして運用しなかった」の一次記録。<strong>逆別荘で地方拠点を選ぶときの、同じ失敗を踏まないチェックリスト</strong></td></tr>
+      <tr><th>OL8 撤退・資産移設クラスタ</th><td>沖縄（3〜6月、後始末案件）</td><td>既築ストックの移設実コスト・保健所と建築確認のどこで止まるか。<strong>「地方6-8万」は素子の仮定</strong>で、実数はここから取れる</td></tr>
+      <tr><th class="red">測定器は完成している</th><td>LP計測プロトコル v0（7/25-27）</td><td class="red"><strong>deposit_intent ¥10,000（全額返金可）＋事前登録閾値＋第0問ゲート。</strong>「行動で測る器」は3日前に完成済 ── 残っているのは岩崎さんへの伝達（2分）と n=2 の実行（10分×2名）だけ</td></tr>
+      <tr><th>法人＝社宅代行という進入路</th><td>素子 position paper（7/25）</td><td>岩崎さんの「社宅は5,000円、仕事とセットだから成立する」への答え＝<strong>法人に売る＝仕事とセットにする</strong>。社宅代行（リロケーション）は実在の業界で、Living OS は「社宅の現代化」として B2B 進入できる</td></tr>
+      <tr><th>米コリビング4社の死因</th><td>世界の家賃怒りスキャン（7/25）</td><td>Common（Ch.7）/Quarters/HubHaus/The Collective の単一死因＝<strong>「短い顧客契約 × 長い固定賃料」の duration mismatch</strong>。市場は+20%成長中で、死んだのはモデル。床を持たない我々の設計が生存者型と一致 ── 投資家の「コリビングは死んだ市場では」への即答</td></tr>
+      <tr><th>N-24 書式（棄却の適用範囲を限定する）</th><td>hypothesis-map（6/27）</td><td>LAC に当てると「<strong>（多拠点・移動する人・低単価）帯への棄却であり、（主住居・モノを持つ人・月9万）帯には直接適用されない</strong>」と書ける。夜の会でも投資家でも使える</td></tr>
+      <tr><th>収納の解は3案（圧縮・共用・分離）</th><td>7/23 ブレスト＋VL-63</td><td>「分離（人は都心・モノは郊外）」は第3案で、①可変家具で圧縮 ②収納自体を予約制共用に、が5日前の自社ログに既出。<strong>②は Living OS の需給運用と同じ機構で回せる</strong>＝新規契約が要らない</td></tr>
+      <tr><th>「判断文を先に書く」</th><td>7/21 資料 §8-4</td><td>堂々巡りの唯一の断ち切り方（PART 3）</td></tr>
+      <tr><th>価格座標軸</th><td>SANU 33ヶ月実測（創業者家計）</td><td>実測21〜24万 → WTP 10〜20万 → 半額目標 10.5〜12万。<strong>史料が空白だった期間を貫く唯一の連続一次データ</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>逆に、警告として出てきたもの</h3>
+  <ul>
+    <li><strong>対外ピッチと内部の到達点がずれています。</strong>ICC v02 は川島側（制約地デベロッパー＝資本が重い）。内部の到達点は OS・会員レイヤー（＝軽い）。<span class="red">8月末の資金調達で、どちらを主語にするかが未決です</span></li>
+    <li><strong>「地方だから安い」を場所代だけで語ると、水で戻されます。</strong>飲用水の51項目適合には水質試験が1回10〜30万、継続発生（自社の6/18 レポート）</li>
+    <li><strong>人口減・地方デフレのシナリオで、逆別荘の地方拠点は最も晒されます。</strong>自社の長期シナリオ分析にシナリオ3として書いてあり、逆別荘との突き合わせは未実施</li>
+    <li><strong>LAC で、実は中核式に一度到達していた可能性があります。</strong>「客室9部屋に1人ずつは贅沢すぎて1日900円では採算が合わない。タコ部屋にしないと」── 分母を増やす発想そのもの。<em>到達して、失敗した</em>のだとすれば、今回との違いを言えないといけません</li>
+  </ul>
+
+  <p class="note">掘削は完了（7系統 × 裏取り × 敵対検証、24エージェント）。本セクションは敵対検証を生き残ったものだけを載せています。反証エージェントに崩された主張（「同じ穴に6回」「QUQURIが分岐(a)/(b)を解く」「判断ゲートを5回飛ばした」等）は削除または訂正済み。全根拠は rally-log VL-65 参照。</p>
+</section>
+
+<section>
+  <h2>明日の朝 ── 定例でやること（順番に意味があります）</h2>
+  <div class="numlist">
+    <div><b>01</b><p>帯を1問目で確定する ── 「商品はこれ、帯は9万」<span class="sub">LP v1 の料金表（ポッド5-6万／巣9万／ゆとり個室13万〜）を画面に出して言い切る。15万は本人WTPであって商品価格ではない（VL-57自身が「Go/No-Goに算入しない」と明記）。ここが決まらないと競合議論が全部空回りします</span></p></div>
+    <div><b>02</b><p>Hmlet の数字を口頭訂正する<span class="sub">「月20-30万」→「蒲田25.14㎡＝156,000円／森下25.53㎡＝167,000円（自社一次調査・URL付き）」。投資家向け資料に誤りが伝播していたことも隠さず言う（本地図は修正済み）</span></p></div>
+    <div><b>03</b><p class="red"><strong>KPI 主指標を「意見」から「行動」に差し替える ── 所要2分</strong><span class="sub">「住みたい50%+」→ deposit_intent ¥10,000（全額返金可）。測定器は3日前に完成しており、残っているのは伝達だけ。同時に <strong>8/31 を動かさない</strong>ことを合意する（撤回すると「公式に失敗と判定する点」が消え、pivot が起動しない ── 6/28 に別事業で診断済みの病）</span></p></div>
+    <div><b>04</b><p class="red"><strong>LP n=2 をその場でやる ── 岩崎さんに10分</strong><span class="sub">前説明ゼロ、第0問「これは何のサービス?」（スクロールさせず10秒）から。結果表が3日間空欄のままです。ここが埋まらない限り、30〜50名に出す資格がない</span></p></div>
+    <div><b>05</b><p>逆別荘＋法人を v1 主線にするか<span class="sub">採るなら顧客が「痛み層」から「業務需要＋地方居住者」に移り、法人（総務・出張手配）ヒアリングが別立てで要る。提示は「新規事業」ではなく<strong>「INNFRAが既にピッチしている制約地論の住宅版」</strong>として（PART 4 冒頭）</span></p></div>
+  </div>
+</section>
+
+<section>
+  <h2>明日の夜 ── 説明しに行くのではなく、聞きに行く</h2>
+  <p class="lead">シェアハウス在住の方が来られるとのことなので、その場で <strong>「求めている人はいるか」</strong>と<strong>「モノをどうしているか」</strong>を測れます。ただし<em>聞き方が全てです</em>。掘削で分かったこと：<strong>ペルソナ74行に「モノ・収納・荷物」の語が1つもありません</strong>。(a)モノを持つ人向けを検証したくても、被験者をその条件で選べない状態です。だから夜は、モノから聞く。</p>
+
+  <div class="card warn">
+    <p class="t">⚠ 質問に結論を埋め込まない</p>
+    <p class="h">先日こちらが「バンライフで二度とやりたくなかったことは?」と聞いたとき、答えは「二度としたくないなんて言ったことはない」でした。</p>
+    <p class="b"><strong>質問が答えを作ってしまう。</strong><br>× 「シェアハウスの不満は何ですか」→ 不満がある前提になる<br>○ 「今の家に決めたとき、他に何と迷いましたか」→ 比較の実態が出る</p>
+  </div>
+
+  <div class="numlist">
+    <div><b>01</b><p>いま住んでいるところに決めたとき、他に何と迷いましたか。決め手は何でしたか<span class="sub">→ 何と比較されているか（競合が実際に誰か）</span></p></div>
+    <div><b>02</b><p>前に住んでいたところを出たとき、何が起きましたか<span class="sub">→ 実際に人を動かすトリガー。「不満」ではなく「出来事」で聞く</span></p></div>
+    <div><b>03</b><p>いまの部屋に、置き場所に困っているものはありますか<span class="sub">→ モノの問題。「収納」とこちらから言わない</span></p></div>
+    <div><b>04</b><p>1年以上触っていないけど捨てられないものは、何がありますか<span class="sub">→ 分離仮説の核心。預けられるものと預けられないものの境界</span></p></div>
+    <div><b>05</b><p>1か月まるまる家を空けるとしたら、その間の家賃はどうしますか<span class="sub">→ 転貸ニーズ。「貸せたらいいと思いますか」とは聞かない</span></p></div>
+    <div><b>06</b><p>来月から家賃が2万円上がるとしたら、どうしますか<span class="sub">→ 痛みの強度。金額を先に置いて反応を見る</span></p></div>
+    <div><b>07</b><p>いまの家に、あと何年住むと思いますか。その後は?<span class="sub">→ 流動性の実態</span></p></div>
+    <div><b>08</b><p>東京以外に住むことを考えたことはありますか。何が引っかかりましたか<span class="sub">→ 逆別荘の可否。仕事か、人間関係か、それ以外か</span></p></div>
+    <div><b>09</b><p>（模型や図を見せながら）狭くする代わりに、①ベッドが壁にしまえる ②使うときだけ予約する ③使わないものは別の場所に預ける ── どれが一番マシで、どれが一番嫌ですか<span class="sub">→ 収納3案（圧縮・共用・分離）を選ばせる。こちらの推し（分離）だけを提示しない。「服・本・趣味のもの、どれを預けるのが一番嫌か」まで掘れたら最良</span></p></div>
+    <div><b>10</b><p>予約して使う場所（ジム・サウナ・会議室）で、取れなくて困った経験はありますか<span class="sub">→ 「予約が取れない＝家を失う」不安の一般化検証。SANU の一次証言（会員増で平日も取れない）が n=1 のまま。オーバーセル率の上限設計に直結</span></p></div>
+  </div>
+
+  <p class="note">聞いたことは、その場で解釈せず<strong>そのまま持ち帰る</strong>のが安全です。1人の話は1人の話であって、そこから事業を決めない ── これは6月に一度やった失敗です。<br>もう1つ、返ってきそうな一言への備え：<strong>「それってソーシャルアパートメントじゃん」</strong>。グローバルエージェンツは46棟3,000室・2期連続入居率100%・売上100億。この一言への答え（多拠点・逆別荘・法人・リセットの束）を、行く前に一度声に出しておくと安全です。</p>
+</section>
+
+<section>
+  <h2>投資家に対して</h2>
+  <ul>
+    <li><strong>地層（PART 1）が学習速度の証拠になります。</strong>3年で10層、各層に「何を信じ、何で終わったか」がある。ピボットの多さではなく、<em>撤回の速さ</em>として読ませる</li>
+    <li><strong>決着済の対話（PART 2 前半）が論証の強さです。</strong>「大家は下げない」を自分で反証している、「無料100組」を自分で無効化している ── <em>自社の証拠を自分で殺せる会社である</em>ことを示す</li>
+    <li><strong>空欄は隠さない。</strong>「求めている人はいるか」が空欄であることと、8月末までにそこだけを測ると宣言することが、いちばん強い。<em>空欄のない地図は嘘だと思われます</em></li>
+    <li><span class="red"><strong>先に聞かれるのは「なぜ我々が」です。</strong></span>現在形の答えは実装力ひとつ ── しかも挙げている実績のうち八ヶ岳・中城は、需要が付かなかった案件でもある。<em>問いを立て直して出す：「なぜ我々が多数の床を持てるのか」ではなく「なぜ多数のオーナーが、我々の仕様で建てたいと思うのか」</em>。後者は建てる前に聞け、検証コストが桁で安い</li>
+    <li><strong>LAC は能動的に出す。</strong>「追い風の局面（コロナ）で一度外している。だから今回は主指標を意見から行動（¥10,000デポジット）に変えた」。現状の投資家向け資料は<em>米国コリビングの破綻例を挙げながら、自社の同型経験を挙げていません</em>。DD で突かれてから出すのが最も痛い。同時に、死因を分けて説明する ── 需要不在だったのか、採算構造（9部屋に1人ずつ＝1日900円）だったのか</li>
+    <li><strong>大手の問いは2段で書く。</strong>三菱地所（Hmlet 1,613室、2035年度35,000室・営業利益100億円超）には「単価とセグメント」で。グローバルエージェンツ（46棟3,000室・入居率100%）には「満室・コミュニティ・制度の椅子」＋監視トリガー3本で。<em>1つの答えで両方に応えようとしない</em></li>
+  </ul>
+</section>
+
+<section>
+  <h2>8月末までに測るもの ── 優先順</h2>
+  <div class="numlist">
+    <div><b>01</b><p class="red"><strong>9万の原価は成立するか ── 床賃料を「円/坪/月」で取る</strong><span class="sub">東京側の成立ラインは 8,000円/坪/月 以下（事業計画v0 が自ら「支配変数」と名指し）。地方側は未取得（「地方6-8万」は素子の仮定）。両方を同じ単位で取らないと、逆別荘の粗試算 89,160円 は検証不能のままです</span></p></div>
+    <div><b>02</b><p class="red"><strong>断られうる行動を1件でも取る ── deposit_intent n=2 を今日</strong><span class="sub">¥10,000・全額返金可。第0問ゲート → Primary 2/2クリック → 諦めギャップ（提示前後のWTP差）の順。器は完成済み、所要10分×2名</span></p></div>
+    <div><b>03</b><p>法人・社宅代行市場の一次データ<span class="sub">規模・単価・不満・決裁構造。逆別荘＋法人が主線になりかけているのに artifact がゼロ。対象は総務・出張手配担当（痛み層30-50名では検証できない）</span></p></div>
+    <div><b>04</b><p>転貸稼働率<span class="sub">「社内に実測がない唯一の変数」（VL-57自認）。逆別荘（東京1ポッドを5〜7.5人で共有）はこの変数への依存が最大。Unito 約130棟1,400室（2026-06）から外部データは取れる</span></p></div>
+    <div><b>05</b><p>LAC の死因分解 ── ジョニーに5分<span class="sub">需要不足で止めたのか、採算構造（1日900円・分母不足）で止めたのか。vault に流入・会員数データが1件もなく、<strong>8月末の最重量論点が本人の記憶だけに立っています</strong></span></p></div>
+    <div><b>06</b><p>器（法区分）→ 価格 の順で<span class="sub">賃貸借は転貸禁止条項に触れるため、器が決まらないと逆別荘の転貸試算も価格設計も成立しない。行政書士/弁護士 1時間×2、8月中（事業計画v0 Open Q #1 が工数まで置いてある）</span></p></div>
+    <div><b>07</b><p>大橋会館は、いま営業しているのか<span class="sub">[UNVERIFIED]（閉業言及の口コミと 2026-02 の宿泊レビューが併存）。閉業なら逆別荘の補助線が逆向きの証拠に反転。問いも立て直す ── 誤「なぜスケールしなかったか」／正「<strong>なぜ Unito はリレント単一軸のまま1,400室まで伸びたのに、多拠点も逆別荘もやらないのか</strong>」</span></p></div>
+    <div><b>08</b><p>モノを預ける心理的抵抗<span class="sub">服・本・趣味のもの。(a)案の唯一の未検証の壁。「狭小居住＋収納外部化＋多拠点」の先行例は掃引しても0件のまま [UNVERIFIED]</span></p></div>
+  </div>
+</section>
+
+<hr class="end">
+<p class="colophon">
+  2026-07-28 版。INNFRA 設立（2023-10-10）以降の社内資料・会議文字起こし・概念在庫（VL-1〜65）に照合して作成。7系統の並列掘削＋裏取り＋敵対検証（24エージェント）を通過したものだけを載せています。<br>
+  証拠ラベルと [UNVERIFIED] 規律は原典に準拠。数字は出典のあるもののみ記載しています。<br>
+  この地図は結論ではなく<strong>反論の履歴</strong>です。新しい反論が出たら、そのまま1本足してください。<br>
+  デザイン：数理の弾丸テイスト（Document Kernel v1）
+</p>
+
+</div>
+
+</body>
+</html>
