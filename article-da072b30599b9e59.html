@@ -125,6 +125,33 @@ td.ours{background:var(--pale-red)}
 ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:6px}
 li{line-height:1.72}
 
+/* ── C形式 対話 (7/29追加) ── */
+.dia{display:flex; flex-direction:column; gap:27px}
+.ex{border-top:1px solid var(--rule); padding-top:13px; display:flex; flex-direction:column}
+.ex .era{font-size:10.5px; letter-spacing:.12em; font-weight:700; color:var(--faint); margin:0 0 7px}
+.row{display:grid; grid-template-columns:3.2em 1fr; gap:10px; align-items:baseline; padding:2.5px 0}
+.row .rl{font-size:11px; font-weight:700; color:var(--faint); white-space:nowrap; text-align:right; line-height:1.9; padding-top:.15em}
+.row .rt{line-height:1.72; margin:0}
+.row.q .rl{color:var(--ink)}
+.row.q .rt{font-size:17px; font-weight:800; line-height:1.45; text-wrap:balance}
+.row.o .rl{color:var(--red)}
+.row.o .rt{color:var(--sub)}
+.row .rt em{font-style:normal; font-weight:700; background:linear-gradient(transparent 62%, var(--pale-red) 62%)}
+.row.blank .rl{color:var(--red)}
+.blankline{border-bottom:2px dashed var(--red); height:1.35em; width:min(100%,17rem); display:block}
+.verdict{font-size:11.5px; font-weight:700; letter-spacing:.07em; text-align:right; margin:9px 0 0; color:var(--faint)}
+.verdict.ng{color:var(--red)}
+.lead{font-size:15px; line-height:1.75; color:var(--sub)}
+.card{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:15px 16px; display:flex; flex-direction:column; gap:9px}
+.card.warn{border-color:var(--red)}
+.card .t{font-size:10.5px; letter-spacing:.13em; font-weight:700; color:var(--faint); margin:0}
+.card.warn .t{color:var(--red)}
+.card .h{font-size:16px; font-weight:800; line-height:1.5; margin:0; padding-left:14px; position:relative; text-wrap:balance}
+.card .h::before{content:""; position:absolute; left:0; top:3px; width:5px; height:1.05em; background:var(--ink)}
+.card.warn .h{color:var(--red)} .card.warn .h::before{background:var(--red)}
+.card .b{font-size:14px; line-height:1.72; margin:0}
+.row,.ex,.card{min-width:0}
+
 hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
 .colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
 
@@ -150,7 +177,7 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
   <p class="eyebrow">INNFRA ／ 社内討議用</p>
   <h1>Living OS 議論地図 v2</h1>
   <p class="subtitle">何を信じていて、それを支えるデータは何で、どこがまだ空いているか。<br>思考の順序をそのまま並べ直しました。</p>
-  <p class="meta">2026-07-28 版　D2-internal　／ 明日 朝定例 ＋ 夜の会 用</p>
+  <p class="meta">2026-07-29 更新（第2版）　D2-internal　／ 7/29 夜の会 用。末尾に「7/29の転回」を追加 ── この地図は反論の履歴なので、古い層は書き換えず残している</p>
 </header>
 
 <section>
@@ -374,6 +401,52 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
   </div>
 
   <p class="source">聞いたことは、その場で解釈せず<strong>そのまま持ち帰る</strong>のが安全です。1人の話は1人の話であって、そこから事業を決めない ── これは6月に一度やった失敗です。</p>
+</section>
+
+<section>
+  <h2><span class="no">7/29 の転回</span>問いが変わった ── 「安くできるか」から「移転できるか」へ</h2>
+  <p class="lead">7/28までの地図は「家賃をどう下げるか」を問うていた。7/29、ジョニーの3連投（観光収益との抱き合わせ／A・B・C・Dの過不足マッチング／居抜き×可動産×傾斜）で、問いの位置が動いた。<strong>下げてもらうのではなく、観光の支払意欲を居住費に移転する。</strong>以下、新しい往復を古い層の上に積む。</p>
+
+  <div class="dia">
+
+    <div class="ex">
+      <p class="era">2026-07-29 ── 需要の二毛作（VL-66）</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">家賃は、誰かに下げてもらうしかないのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">いいえ。同じ床の同じ一夜に、住む人（1泊換算3,800円）と旅する人（1.5〜2.5万円）で<em>3〜6倍の価格差</em>がある。会員が旅している夜に自室を旅行者へ貸せば、<strong>会員負担＝総コスト−（不在夜×ADR×稼働）</strong>。P=R/i に指一本触れない道F</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">それはUnitoが130棟1,400室で既にやっている（リレント）。何が違う</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">機構の発明はUnitoが先で正しい。ただしUnitoは単拠点・短期滞在帯・共用部なし。上位帯ではNOT A HOTELが億単位の所有で「不在時ホテル化＋多拠点」を実証済み。<em>月10〜20万の会員帯だけが、上と下から挟まれて空いている</em></p></div>
+      <div class="row o"><p class="rl">再反論</p><p class="rt">「空いている」のは儲からないからでは。会員が月10泊も不在にならなければ補助は発生しない</p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 空欄。会員の不在パターンの実測はゼロ。V6（Unito入居実測）とV1（deposit）で埋める</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-07-29 ── 過不足マッチング（VL-67）</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">多拠点の空きは、誰が埋めるのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">相補ペア。A（地方8:都会2）とB（都会8:地方2）を組ませると<em>1人のA＋1人のBで都市1室と地方1室が両方埋まる</em>。都市平日の残りは法人出張（大橋会館の実証パターン）が埋める</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">月次では合うが週次で壊れる。B層の「地方2割」は同じ金土・盆正月に集中する。地方拠点は週末混雑・平日空洞になる</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">そこがインバウンド（C: 2週〜1ヶ月滞在／D: 長期周遊）の本当の役割 ── 補助金ではなく<em>脱相関装置</em>。日本の週次リズムと無相関に平日を埋める。Dは行き先をOSに委ねる代わりに最安（スタンバイ運賃と同型）。価格原理は1本に畳まれる: <strong>価格＝予定の自由度を差し出した量</strong>。OSの正体は、この占有パターンをスケジュールする資源配分エンジン</p></div>
+      <div class="row o"><p class="rl">再反論</p><p class="rt">Aは希少では。「地方8:都会2で暮らしたい人」の実在証拠は、いまのところ創業者n=1しかない</p></div>
+      <div class="row blank"><p class="rl">応答</p><p class="rt"><span class="blankline"></span></p></div>
+      <p class="verdict ng">── 空欄。V7（理想と現実の居住配分ヒアリング）で分布を取る</p>
+    </div>
+
+    <div class="ex">
+      <p class="era">2026-07-29 ── 資産戦略と傾斜（VL-68）</p>
+      <div class="row q"><p class="rl">問い</p><p class="rt">網を張る金は、どこから来るのか</p></div>
+      <div class="row"><p class="rl">答え</p><p class="rt">都市は老朽ビジホの<em>居抜き</em>（2026-05-28通知が新規転用コストを上げ、既許可物件の希少価値を上げた＝規制の買い場）。地方は<em>可動産×定借</em>（SANU実証型＋需要が外れたら箱を移す物理ヘッジ）。選定式は（ADR成長率÷資産価格）で福岡・金沢・札幌が甘い交差点の蓋然性</p></div>
+      <div class="row o"><p class="rl">反論</p><p class="rt">それはLACの死に方だ。拠点網を需要の前に作って「求めているユーザーが全然いない」で死んだ。設計が美しいほど、網を先に張りたくなる</p></div>
+      <div class="row"><p class="rl">応答</p><p class="rt">正しい。だから<strong>最小実証は2ノード</strong>（都市1棟×地方1拠点）── A/B/C/Dの行列は2ノードで完全に動く。6都市の名前は拡張計画のページにだけ書く。8月の実物はdeposit・法人LOI・居抜き査定3件・地方の場所代実数だけ</p></div>
+      <p class="verdict">── 決着（設計は完成、需要が未証明、という決着）</p>
+    </div>
+
+  </div>
+
+  <div class="card warn">
+    <p class="t">7/29時点の、最も誠実な要約</p>
+    <p class="h">機構は完成した。しかしこの3本の往復の空欄は、全部同じ1つの問いに還元される ──「求めている人はいるのか」（H4）。7年前から空いている穴の上に、より精巧な機械を建てた、というのが現在地である。</p>
+    <p class="b">精巧さは需要の証明ではない。deposit（V1）と法人LOI（V3)と不在夜販売実測（V2）だけが、この地図を次の版に進められる。</p>
+  </div>
 </section>
 
 <section>

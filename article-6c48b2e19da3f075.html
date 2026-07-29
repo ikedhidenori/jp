@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Living OS サービス提案 v1 ／ 旅するほど、家賃が下がる家</title>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1 */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+body{background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","kern"; word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; font-size:16px; line-height:1.85;
+  margin:0; padding:0 20px 90px; -webkit-font-smoothing:antialiased;}
+.wrap,section,p,li,td,th,.card{min-width:0}
+img,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+p{margin:0} strong{font-weight:700}
+.mast{padding:56px 0 26px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:13px}
+.mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
+.mast h1{font-size:clamp(28px,7vw,40px); line-height:1.28; font-weight:800; margin:0;
+  padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:4px; width:12px; height:44px; background:var(--ink)}
+.mast .subtitle{font-size:16.5px; line-height:1.75; margin:0 0 0 23px}
+.mast .meta{font-size:11px; color:var(--faint); margin:0 0 0 23px}
+section{padding:46px 0 0; display:flex; flex-direction:column; gap:14px}
+section > h2{font-size:clamp(19px,4.6vw,24px); line-height:1.4; font-weight:800; margin:0;
+  padding-left:22px; position:relative; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:2px; width:10px; height:28px; background:var(--ink)}
+em{font-style:normal; background:linear-gradient(transparent 62%, var(--pale-red) 62%); font-weight:700}
+.lead{font-size:15.5px; line-height:1.85; color:var(--sub)}
+.note{font-size:12.5px; line-height:1.7; color:var(--faint)}
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13.5px; line-height:1.6; min-width:22rem}
+th,td{border:1px solid var(--rule); padding:9px 10px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:11.5px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+td.ours{background:var(--pale-red); font-weight:700}
+.red{color:var(--red)} .green{color:var(--green)}
+.card{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:16px 17px; display:flex; flex-direction:column; gap:9px}
+.card .t{font-size:10.5px; letter-spacing:.13em; font-weight:700; color:var(--faint); margin:0}
+.card .h{font-size:17px; font-weight:800; line-height:1.5; margin:0; text-wrap:balance}
+.card .b{font-size:14px; line-height:1.75; margin:0}
+.mech{display:flex; flex-direction:column; gap:0; margin:6px 0 0}
+.mech .step{display:grid; grid-template-columns:2.2em 1fr; gap:12px; align-items:baseline; padding:7px 0}
+.mech .n{font-size:12px; font-weight:800; color:var(--red); border:1.5px solid var(--red);
+  border-radius:2px; text-align:center; padding:0 4px}
+.mech p.tx{line-height:1.75; margin:0}
+.vign{border-left:4px solid var(--ink); padding-left:15px; display:flex; flex-direction:column; gap:6px}
+.vign .who{font-size:12px; font-weight:800; letter-spacing:.05em; color:var(--faint); margin:0}
+.vign p{font-size:14.5px; line-height:1.8}
+ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:8px}
+li{line-height:1.75}
+.const{display:grid; grid-template-columns:1fr 1fr; gap:11px}
+.const .card .h{font-size:15.5px}
+@media (max-width:560px){ .const{grid-template-columns:1fr} }
+hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
+@media (max-width:520px){ body{font-size:15px; padding:0 15px 70px} .card{padding:14px} }
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">LIVING OS ／ サービス提案 v1（LP原案）</p>
+  <h1>旅するほど、<br>家賃が下がる家。</h1>
+  <p class="subtitle">あなたが留守の夜、あなたの部屋は旅行者を泊めて、あなたの家賃を払う。<br>都市と自然に点在する、会員制の住まいネットワーク。</p>
+  <p class="meta">2026-07-29 ／ D2-internal（社外提示可・数値は提案段階） ／ サービス名は仮</p>
+</header>
+
+<section>
+  <h2>いまの家賃には、使っていない夜の分も入っている</h2>
+  <p class="lead">東京で一人暮らしをすると、平均で月11.4万円。出張、帰省、旅行、恋人の家 ── あなたが部屋にいない夜も、家賃は満額かかる。<em>日本の家は、空いている夜を捨てている。</em></p>
+  <p class="lead">一方でこの国には年間4,000万人の旅行者が来て、ビジネスホテルの平均単価さえ1泊1.5万円を超えた。<strong>あなたの空けた夜には、あなたの家賃の1泊換算（約3,800円）の何倍もの値段がつく。</strong>それを、あなたに返す仕組みを作った。</p>
+</section>
+
+<section>
+  <h2>仕組みは4行</h2>
+  <div class="mech">
+    <div class="step"><p class="n">1</p><p class="tx"><strong>月額ひとつで、街の部屋と自然の家をどちらも使える。</strong>光熱・ネット・清掃・初期費用、ぜんぶ込み。敷金・礼金・保証人なし</p></div>
+    <div class="step"><p class="n">2</p><p class="tx"><strong>あなたが別の拠点にいる夜、自室は旅行者に貸し出される。</strong>その収益があなたの月額を下げる ── 旅するほど、安くなる</p></div>
+    <div class="step"><p class="n">3</p><p class="tx"><strong>帰ってくると、部屋はホテルのようにリセットされている。</strong>清掃チームが常駐しているから、暮らしの崩壊が連鎖しない</p></div>
+    <div class="step"><p class="n">4</p><p class="tx"><strong>あなたのモノは専用クロークに守られる。</strong>ミニマリストである必要はない。置き場所が分かれているだけ</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>3つの住まい方、3つの価格</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th>おまかせ型</th><th>ゾーン型</th><th>固定拠点型</th></tr></thead>
+    <tbody>
+      <tr><th>月額（仮）</th><td class="ours">9万円</td><td>12万円</td><td>15万円</td></tr>
+      <tr><th>部屋</th><td>OSのサジェストに従うほど安い</td><td>選んだエリア内で可変</td><td>いつも自分の部屋</td></tr>
+      <tr><th>モノ</th><td>クローク預かり</td><td>クローク＋一部室内</td><td>室内に置ける</td></tr>
+      <tr><th>向いている人</th><td>身軽に動ける人・長期旅行者</td><td>都会8:自然2で暮らしたい人</td><td>出張が多い人・自然主軸の人</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">価格が動くのは「どの自由をこちらに預けてくれるか」だけ。需要で吊り上げるサージ課金はしない（下の憲法）。</p>
+</section>
+
+<section>
+  <h2>4つの約束 ── 商品憲法</h2>
+  <div class="const">
+    <div class="card"><p class="t">約束 1</p><p class="h">ベッドは、必ずある。</p><p class="b">会員数に対する部屋数の比率に上限を設ける。「予約が取れなくて家がない」を起こさないことを、成長より優先する。</p></div>
+    <div class="card"><p class="t">約束 2</p><p class="h">月額に上限がある。</p><p class="b">どう使っても、請求はこの金額を超えない、という天井を先に約束する。家計の予測可能性は住まいの一部である。</p></div>
+    <div class="card"><p class="t">約束 3</p><p class="h">モノは守られる。</p><p class="b">施錠された専用クロークはあなたしか開けられない。旅行者はあなたの部屋に泊まるが、あなたの生活には触れない。</p></div>
+    <div class="card"><p class="t">約束 4</p><p class="h">いつでも、やめられる。</p><p class="b">違約金なし。合わなければ翌月やめて、普通の賃貸に戻ればいい。人生を賭けるものではなく、試せるものにする。</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>たとえば、こんな暮らし</h2>
+  <div class="vign">
+    <p class="who">都会8 : 自然2 ── いちばん多いはずの人</p>
+    <p>平日は福岡の部屋から出社。月に一度、金曜の夜から八ヶ岳の家で3日過ごす。その3日、福岡の部屋は旅行者が使い、翌月の請求が数千円下がっている。</p>
+  </div>
+  <div class="vign">
+    <p class="who">自然8 : 都会2 ── 逆転した人</p>
+    <p>主軸は山の家。月に4泊だけ東京のポッドに出てくる。東京に「家を持つ」のではなく「夜を持つ」。合計は、23区のワンルームより安い。</p>
+  </div>
+  <div class="vign">
+    <p class="who">月10泊の出張者（法人契約）</p>
+    <p>毎回違うホテルを予約して、毎回パッキングして、毎回領収書を精算する生活が終わる。定宿には自分の荷物が置いてあり、チェックインはない。会社は宿泊費が固定になって喜ぶ。</p>
+  </div>
+</section>
+
+<section>
+  <h2>よくある反論に、先に答える</h2>
+  <ul>
+    <li><strong>「部屋、狭くないの？」</strong>── 専有は小さい。そのかわり大浴場・ラウンジ・ワークスペースという「個人では持てないもの」が共用にある。狭さの問題の多くは、広さではなく<em>分離とリセットと環境制御</em>の問題だと考えている。ここは実物で判断してほしい</li>
+    <li><strong>「他人が自分の部屋に泊まるのは嫌だ」</strong>── 固定拠点型でも不在時貸出はオプトイン。貸さない選択もできる（そのぶん月額は下がらない）。生活痕はクロークに完全分離される</li>
+    <li><strong>「それってUnitoじゃないの？」</strong>── 不在日割引の発明はUnitoが先。我々が足すのは<em>多拠点の暮らし・自然側の拠点・共用部の豊かさ・モノの居場所</em>。「安く泊まる仕組み」ではなく「暮らしの形」を売る</li>
+    <li><strong>「住民票は？契約の性質は？」</strong>── <span class="red">検証中。</span>正直に言うと、ここはまだ設計が終わっていない。できる約束だけをする</li>
+  </ul>
+</section>
+
+<section>
+  <h2>先行登録（LPの転換点）</h2>
+  <div class="card">
+    <p class="t">CTA 案</p>
+    <p class="h">開業エリアと価格が確定したら、優先案内します。<br>本気の人は ¥10,000 の優先デポジット（全額返金可）へ。</p>
+    <p class="b">メール登録（無料）と優先デポジットの2段。デポジットは需要の実在を測る計器を兼ねる ── 我々は「住みたい」という言葉ではなく、行動だけを信じることにしている。</p>
+  </div>
+</section>
+
+<hr class="end">
+<p class="colophon">
+  2026-07-29 サービス提案 v1。価格・エリアは提案段階の仮値。<br>
+  事実に基づく主張（平均家賃・訪日客数）は公的統計に照合済み。機構の成立性は検証中の仮説であり、まだ運用実績はない。<br>
+  デザイン: 数理の弾丸テイスト（Document Kernel v1）
+</p>
+
+</div>
+
+</body>
+</html>
