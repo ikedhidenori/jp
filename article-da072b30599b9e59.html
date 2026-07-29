@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Living OS 議論地図 v2 ／ 仮説・データ・思考の順序</title>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Living OS 議論地図 v2 ／ 仮説・データ・思考の順序</title></head><body><title>Living OS 議論地図 v2 ／ 仮説・データ・思考の順序</title>
 <style>
 /* 数理の弾丸テイスト — Document Kernel v1
    SSoT: wiki/templates/document-kernel-math-bullet.css */
@@ -93,7 +87,7 @@ td.ours{background:var(--pale-red)}
 .turnbox .t{font-size:11px; letter-spacing:.14em; font-weight:700; color:var(--red); margin:0}
 
 /* 論証の構造図 — 上が商品、下が前提。下が折れると上は落ちる */
-.diagram{display:flex; flex-direction:column; align-items:center; gap:0; margin:4px 0 0; width:100%}
+.diagram{display:flex; flex-direction:column; align-items:center; gap:0; margin:4px 0 0; width:100%; overflow-x:auto}
 .dconn{width:0; height:20px; border-left:2px solid var(--ink); flex:none}
 .dconn.dash{border-left-style:dashed; border-left-color:var(--red); height:26px}
 .dbox{width:100%; border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
@@ -167,9 +161,6 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
 }
 :focus-visible{outline:2px solid var(--red); outline-offset:3px}
 </style>
-</head>
-<body>
-
 
 <div class="wrap">
 
@@ -177,7 +168,7 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
   <p class="eyebrow">INNFRA ／ 社内討議用</p>
   <h1>Living OS 議論地図 v2</h1>
   <p class="subtitle">何を信じていて、それを支えるデータは何で、どこがまだ空いているか。<br>思考の順序をそのまま並べ直しました。</p>
-  <p class="meta">2026-07-29 更新（第2版）　D2-internal　／ 7/29 夜の会 用。末尾に「7/29の転回」を追加 ── この地図は反論の履歴なので、古い層は書き換えず残している</p>
+  <p class="meta">2026-07-29 深夜 更新（第2版）　D2-internal　／ 末尾の「7/29の転回」に、深夜の4本（VL-71）を追記 ── この地図は反論の履歴なので、古い層は書き換えず残している</p>
 </header>
 
 <section>
@@ -312,8 +303,8 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
         </tr>
         <tr>
           <td><strong>H3</strong> 分母を増やせば1人あたりは下がる</td>
-          <td>恒等式なので真／ミレニアルズ per-pod 月17〜21万／逆別荘なら東京1ポッドを5〜7.5人で共有できる</td>
-          <td>転貸が同価格・同稼働で埋まる保証はない。<strong>自社実測がゼロ</strong></td>
+          <td>恒等式なので真／ミレニアルズ per-pod 月17〜21万／逆別荘なら東京1ポッドを5〜7.5人で共有できる<br><strong>7/29 深夜 追加：</strong>3m²は同じ床面積で20m²客室の<strong>約5.4倍</strong>の室数が取れる。深夜に清掃済みの空きが1基以上ある確率は10室・稼働95%で40.3%、120室で99.7%（20万回の試算。各室が独立に稼働率で埋まる仮定）<a class="src" href="https://www.livelyhotels.com/ja/themillennialsshibuya/rooms/">ミレニアルズ渋谷 120室</a></td>
+          <td>転貸が同価格・同稼働で埋まる保証はない。<strong>自社実測がゼロ</strong><br><strong>7/29 深夜 追加：</strong>会員がその部屋に生活の本拠を置くと、留守の夜の販売は住宅宿泊事業（年180日上限）の領域に落ちる → PART 3 の空白①</td>
           <td><span class="tag t-un">仕組みは真・数値は未検証</span></td>
         </tr>
         <tr>
@@ -337,6 +328,8 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
       </tbody>
     </table>
   </div>
+
+  <p class="source"><strong>7/29 深夜の検証（VL-71）では、どの仮説の判定も動いていません。</strong>分かったのは作り方 ── 刻みの細かさが何を買っているか、金をどこから集めるか、どの枝を切るか ── であって、求めている人がいるかどうかではない。H3に材料が2つ増えましたが、支持側（在庫の安定）と反証側（生活の本拠）が同時に増えたので、判定は「仕組みは真・数値は未検証」のままです。<em>H4は7年前から空いたまま動いていません。</em></p>
 
   <div class="turnbox">
     <p class="t">H6 の訂正版 ── 従来より強い</p>
@@ -368,21 +361,32 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
     <p class="claim">組み合わせで勝つなら、<br>「なぜ我々がその組み合わせを作れるのか」を言えないといけない。</p>
     <p>そして<strong>それ以前に、H4（求めている人がいるか）が空いています</strong>。LACで一度、追い風のある局面で外している。<strong>この論点をGo/No-Goの主軸に据えるべきだと考えています。</strong></p>
   </div>
-</section>
 
-<section>
-  <h2><span class="no">明日の朝</span>定例で決めたいこと</h2>
-  <div class="qlist">
-    <div><b>01</b><span><strong>検証の主語を「痛み」から「需要」に変えるか。</strong>いままでは「困っている人はいるか」を調べてきた。会議で出たのは「<strong>困っていても、この形を求めるとは限らない</strong>」という問い。LACの前例がある以上、<strong>needs ではなく wants を測る設計</strong>に切り替えるべきではないか</span></div>
-    <div><b>02</b><span><strong>逆別荘＋法人を、v1の主線にするか。</strong>そうすると顧客が「痛み層」から「業務需要＋地方居住者」に移る。<strong>いま準備中のヒアリング30〜50名では検証できなくなる</strong>ので、法人（総務・出張手配）へのヒアリングを別立てで組む必要がある</span></div>
-    <div><b>03</b><span><strong>大橋会館を「先行例」として解剖するか。</strong>メインユーザーが地方出張者・法人契約だったなら、モデルは既に実証されている。問いは<strong>「なぜスケールしなかったのか」</strong>に変わる。ここが分かれば、我々が繰り返す失敗を1つ減らせる</span></div>
+  <div class="artifact">
+    <p class="artifact-title">新しく開いた空白（7/29 深夜）── どちらも需要とは別系統の穴</p>
+    <ul>
+      <li><strong>① 会員は、住民票を置けるのか。</strong>置ければ「住まい」として売れる。しかし生活の本拠を置いた部屋の留守夜を売る行為は、旅館業ではなく住宅宿泊事業（年180日上限）の領域に落ち、<em>二毛作の分母が壊れる</em>。置けないなら、郵便の受け取り・居住の証明・法人所在地を何で代わりに渡すかを先に決めなければならない。前例はある（カプ住は簡易宿所の許可のまま月6万円の居住プランを売っている）が、我々の建て付けで取れるかは未判定。<strong>付帯サービスの話ではなく、収支を決める中心の変数</strong></li>
+      <li><strong>② 優先して使える権利と、収益の分配は、小規模不動産特定共同事業の枠内で同居できるのか。</strong>一次資料で確認できていない [UNVERIFIED]。リゾート会員権（エクシブ等）は使用権のみで収益分配が無く、前例としてそのままは使えない。払戻しを「値引き」と構成しても、施設全体の収益に連動して額が変わる設計は実質は分配と見られうる</li>
+    </ul>
+    <p class="source">どちらも8月に弁護士1名へ確認する。①が取れないと会員に渡せる価値が痩せ、②が取れないと資金の集め方が振り出しに戻る。<em>H4と違い、この2つはヒアリングでは埋まらない。</em></p>
   </div>
-  <p class="source">補足：清掃は「毎日」ではなく<strong>週1〜2回で足りる</strong>ことが分かったので（本人談）、ユニットエコノミクスは引き直せます。原価が下がる方向です。</p>
 </section>
 
 <section>
-  <h2><span class="no">明日の夜</span>会で聞きたいこと</h2>
-  <p>シェアハウス在住の方が来られるとのことなので、<strong>その場でH1とH4を測れます</strong>。ただし聞き方が全てです。</p>
+  <h2><span class="no">次の定例</span>決めたいこと ── 8月末から逆算して</h2>
+  <p>7/29 の朝に出ていた3つのうち、2つは決着しました（逆別荘＋法人を主線に／大橋会館の解剖はVL-70で完了）。残った1つと、深夜に増えた3つを並べ直します。Go/No-Goの主語が<strong>「金が集まるか」</strong>に寄ったぶん、8月に取りにいくものを先に確定させる必要があります。</p>
+  <div class="qlist">
+    <div><b>01</b><span><strong>資金の出所を、銀行から「使う人」に切り替えるか。</strong>小規模不動産特定共同事業なら1人100万円・1事業1億円の枠で、登録の要件も通常の第1号事業より一桁軽い。ただし<strong>登録前に出資を募ることはできない</strong>ので、8月に取れるのは無償の意向表明の数だけ。<strong>何件でGoとするか、その数を先に決める</strong>（VL-71では1拠点あたり10人を仮置き）</span></div>
+    <div><b>02</b><span><strong>「住民票を置けるか」を最優先の確認事項に格上げするか。</strong>生活の本拠を置かせると留守夜の販売が年180日で頭打ちになり、二毛作の式が壊れる。弁護士1名に聞くのは3点だけ ──（1）優先して使える権利と収益分配の同居（2）ポッドを動産として売らない構成の具体形（3）払戻しを「値引き」と構成したときの実質判断のリスク</span></div>
+    <div><b>03</b><span><strong>H4の測り方を、「聞く」から「申し込ませる」に変えるか。</strong>7/29 朝から持ち越した唯一の論点。LACで一度、追い風のある局面で外している以上、言葉で測れば同じ結果になる。意向表明は金の話でありながら、<strong>needsではなくwantsの代理指標</strong>になる ── 資金調達と需要検証が1つの行為に重なるのが、今回いちばん大きい変化</span></div>
+    <div><b>04</b><span><strong>8月の実物リストを、この4点に絞るか。</strong>意向表明の件数／法人の申込書／居抜き査定3件／地方の場所代の実数。<strong>清掃の自動化への投資はリストから外す</strong> ── シーツを交換する市販品は存在せず、床清掃ロボットは3m²の客室には効かない（効くのは共用部）</span></div>
+  </div>
+  <p class="source">補足：清掃は「毎日」ではなく<strong>週1〜2回で足りる</strong>（本人談）。ただしオゾンは転回ごとではなく<strong>月次に寄せる</strong>前提に変わったので、収支の組み立てはその形で引き直します。</p>
+</section>
+
+<section>
+  <h2><span class="no">次のヒアリング</span>聞きたいこと ── 言葉ではなく、起きたことで測る</h2>
+  <p>問いの重心が移りました。「痛みはあるか」ではなく、<strong>留守の夜が何泊あるか・住民票をどうしているか・いくらまで払った実績があるか</strong>。どれも仮定では測れないので、過去に起きたことで聞きます。</p>
 
   <div class="artifact">
     <p class="artifact-title">⚠ 質問に結論を埋め込まない</p>
@@ -390,14 +394,20 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
     <p class="source">✕「シェアハウスの不満は何ですか」→ 不満がある前提になる<br>◯「今の家に決めたとき、他に何と迷いましたか」→ 比較の実態が出る</p>
   </div>
 
+  <div class="artifact">
+    <p class="artifact-title">⚠ 100万円の話は、その場で募らない</p>
+    <p>小規模不動産特定共同事業は<strong>登録制</strong>です。登録が済む前に金額を提示して出資を募れば、それ自体が問題になります。<strong>ヒアリングで聞けるのは、過去にいくら払ったかまで。</strong>意向表明を集めるのは登録の見通しが立ってから、別立てで行います。</p>
+    <p class="source"><a class="src" href="https://www.mlit.go.jp/tochi_fudousan_kensetsugyo/tochi_fudousan_kensetsugyo_tk5_000001_00009.html">国土交通省</a></p>
+  </div>
+
   <div class="qlist">
-    <div><b>01</b><span><strong>いま住んでいるところに決めたとき、他に何と迷いましたか。決め手は何でしたか</strong><br><span class="source">→ 何と比較されているか（H2の競合が実際に誰か）</span></span></div>
-    <div><b>02</b><span><strong>前に住んでいたところを出たとき、何が起きましたか</strong><br><span class="source">→ 実際に人を動かすトリガー。「不満」ではなく「出来事」で聞く</span></span></div>
-    <div><b>03</b><span><strong>いま自分でやっていて、「これ誰かがやってくれたら」と思うことはありますか</strong><br><span class="source">→ リセット（清掃）の価値。こちらから「掃除」と言わない</span></span></div>
-    <div><b>04</b><span><strong>1か月まるまる家を空けるとしたら、その間の家賃はどうしますか</strong><br><span class="source">→ 転貸ニーズ。「貸せたらいいと思いますか」とは聞かない</span></span></div>
-    <div><b>05</b><span><strong>来月から家賃が2万円上がるとしたら、どうしますか</strong><br><span class="source">→ H1の強度。金額を先に置いて反応を見る</span></span></div>
-    <div><b>06</b><span><strong>いまの家に、あと何年住むと思いますか。その後は?</strong><br><span class="source">→「お試し的な住まい」という仮説の検証（流動性の実態）</span></span></div>
-    <div><b>07</b><span><strong>東京以外に住むことを考えたことはありますか。何が引っかかりましたか</strong><br><span class="source">→ 逆別荘の可否。仕事か、人間関係か、それ以外か</span></span></div>
+    <div><b>01</b><span><strong>この1年で、自分の家に寝なかった夜は何泊ありましたか。どこに泊まっていましたか</strong><br><span class="source">→ 留守の夜の実数＝二毛作の分母そのもの。「貸せたらいいと思いますか」とは絶対に聞かない</span></span></div>
+    <div><b>02</b><span><strong>いまの住まいに住民票を置いていますか。置けない住まいだとしたら、何が困りますか</strong><br><span class="source">→ 生活の本拠。困りごとが郵便だけなのか、証明書類なのかで、代わりに渡すものが決まる</span></span></div>
+    <div><b>03</b><span><strong>住まいのために一度にいちばん大きく払った金額はいくらでしたか。何のためでしたか</strong><br><span class="source">→ 100万円の現実味を、仮定ではなく支払いの履歴で測る。敷金・礼金・保証金・引越で実際にいくら動いたか</span></span></div>
+    <div><b>04</b><span><strong>いまの住まいを人に勧めたことはありますか。何と言って勧めましたか</strong><br><span class="source">→ 全体の稼働に連動する割引（会員が営業する構造）が効くかどうか。勧める言葉が出てこないなら効かない</span></span></div>
+    <div><b>05</b><span><strong>いま住んでいるところに決めたとき、他に何と迷いましたか。決め手は何でしたか</strong><br><span class="source">→ 何と比較されているか（H2の競合が実際に誰か）</span></span></div>
+    <div><b>06</b><span><strong>前に住んでいたところを出たとき、何が起きましたか</strong><br><span class="source">→ 実際に人を動かすきっかけ。「不満」ではなく「出来事」で聞く</span></span></div>
+    <div><b>07</b><span><strong>いま自分でやっていて、「これ誰かがやってくれたら」と思うことはありますか</strong><br><span class="source">→ リセット（清掃）の価値。こちらから「掃除」と言わない</span></span></div>
   </div>
 
   <p class="source">聞いたことは、その場で解釈せず<strong>そのまま持ち帰る</strong>のが安全です。1人の話は1人の話であって、そこから事業を決めない ── これは6月に一度やった失敗です。</p>
@@ -454,6 +464,56 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
     <p class="verdict">── 決着（4つの不満のうち2つの真因が特定され、両方とも設計で潰せると判明）</p>
   </div>
 
+  <div class="ex">
+    <p class="era">2026-07-29 深夜 ── 24時間受け入れの制約（VL-71 ①）</p>
+    <div class="row q"><p class="rl">問い</p><p class="rt">清掃を自動化すれば、24時間のチェックインができるようになるか</p></div>
+    <div class="row"><p class="rl">答え</p><p class="rt">ならない。<em>因果が逆立ちしていた</em>。深夜3時の受け入れを阻むのは清掃の値段ではなく、<strong>その時刻に清掃済みの空きが1基でも残っているか</strong>。値段が下がっても、深夜に人は張り付けられない。制約は費用ではなく在庫の数だった。<br>各室が独立に稼働率で埋まると仮定して20万回試すと、深夜に空きが1基以上ある確率は<strong>10室・稼働95%で40.3%、120室では99.7%</strong>。3m²ポッドは同じ床面積で20m²客室の<strong>約5.4倍</strong>の室数が取れる。<em>24時間の受け入れは、安さではなく規模が買う</em>。<a class="src" href="https://www.livelyhotels.com/ja/themillennialsshibuya/rooms/">ミレニアルズ渋谷 120室</a></p></div>
+    <div class="row o"><p class="rl">反論</p><p class="rt">では自動ベッドメイクへの投資はどうなる。それが出発点だったはずだ</p></div>
+    <div class="row"><p class="rl">応答</p><p class="rt">その機械は<strong>売られていない</strong>。研究（深度画像で毛布の被覆率92%、1/2スケールの実験台）と、商用化時期の発表がないデモ映像だけで、<strong>汚れたシーツを新品に替える市販品は1台も確認できない</strong>。<em>そして仮に実在しても効かない</em> ── 洗濯は自動化の対象外で、リネンはレンタルで1室あたり月6,000〜8,000円、シーツ1枚330円〜。消えるのは人手の側だけで、3m²はもともと手数が少ない。<br>一方、<strong>床清掃ロボットは実導入がある</strong>（裏磐梯レイクリゾート／星野リゾート奥入瀬渓流ホテル／ホテル&amp;リゾート バリタワー大阪）。ただしポッドは客室の床が3m²しかない。<em>効くのは客室ではなく共用部</em>。「ロボットに最適化した部屋のつくり」は、部屋ではなく<strong>共用部の設計要件</strong>（段差ゼロ・脚のない什器・壁付け・充電ドックの居場所）と読み替えるのが正しい。<br><a class="src" href="https://arxiv.org/abs/1809.09810">arXiv 1809.09810</a><a class="src" href="https://www.hakuyosha.co.jp/media/toB/linen00002">白洋舍</a><a class="src" href="https://bizcan.jp/column/seisourobot-hotel/">bizcan</a><a class="src" href="https://dfarobotics.com/case/48ot1mkzk/">DFA Robotics</a><a class="src" href="https://www.gizmodo.jp/2019/01/robots-ruin-robot-hotel.html">変なホテル 撤去</a></p></div>
+    <div class="row o"><p class="rl">再反論</p><p class="rt">刻みが細かいだけなら、それはただの安いカプセルホテルでは</p></div>
+    <div class="row"><p class="rl">応答</p><p class="rt">刻みの細かさは<em>二毛作の前提条件</em>だった。会員の留守という日々変わる在庫を売るには、細かいほど売り切れる。VL-66の式が回るかどうかは、実は粒度に依存していた。<br>そして<strong>荷物室（クローク）の意味が1つ増えた</strong> ── 部屋に私物が無ければ何度でも貸せる。荷物室は「モノを持てる」ための装置であると同時に、<em>部屋を何度でも貸せるようにする装置</em>だった。</p></div>
+    <p class="verdict">── 決着（ただし「安い」ではなく「刻みが細かい」に読み替えた上での決着）</p>
+  </div>
+
+  <div class="ex">
+    <p class="era">2026-07-29 深夜 ── 100万円という数字（VL-71 ②）</p>
+    <div class="row q"><p class="rl">問い</p><p class="rt">直感で置いた「100万円」は、何と一致していたのか</p></div>
+    <div class="row"><p class="rl">答え</p><p class="rt">独立した3つの数字と一致していた。<strong>小規模不動産特定共同事業の、投資家1人あたり出資上限が原則100万円</strong>（同時に1事業の出資総額の上限は1億円）。<strong>カプセルユニット1基の実勢価格が30〜100万円</strong>。そして1億円は<strong>ポッド約100基分</strong>で、ミレニアルズ渋谷の規模にほぼ重なる。制度自体が2017年改正で遊休不動産の再生を促すために作られた枠なので、老朽ビルを刈り上げてポッドを入れる用途は想定の中心にある。<br>→ これは失注分析の「銀行が金を貸せる形になっていない」への正面の答えになる。銀行を説得するのではなく、<em>使う人から先に集める</em>。しかも「100万円の申し込みが10人集まらない拠点は作らない」と決めれば、<strong>資金調達と需要の検証が同じ1つの行為になる</strong>。<br>⚠ 拠点ごとにSPCを立てれば合計10億円まで、登録の資本金要件は1,000万円とされるが、<strong>これは二次資料</strong>。原典で確認できたのは「1人100万円・1事業1億円」の2点だけ。<br><a class="src" href="https://www.mlit.go.jp/tochi_fudousan_kensetsugyo/tochi_fudousan_kensetsugyo_tk5_000001_00009.html">国土交通省（原典）</a><a class="src" href="https://biz.moneyforward.com/establish/basic/54310/">マネーフォワード</a><a class="src" href="https://www.shigyo.co.jp/search_post/fudosan/fudosan-tokutei/small-scale-venture/">二次資料 SPC10億円</a><a class="src" href="https://creal.jp/blogs/crowd-funding/8512/">二次資料 資本金</a></p></div>
+    <div class="row o"><p class="rl">反論</p><p class="rt">では「100万円でポッドを買ってもらう」でいいのか</p></div>
+    <div class="row"><p class="rl">応答</p><p class="rt">だめ。<em>言い方が法域を決める</em>。ポッドは動産（取り外せる）なので、モノとして売って施設に預け収益を返す形は<strong>預託等取引に関する法律の販売預託</strong>にあたり、原則禁止。内閣総理大臣の確認を受けた事業者は<strong>現在ゼロ</strong>。<br>→ 「ポッドを買う」ではなく<strong>「拠点の不動産に出資する。優先して使える権利は、サービス上の特典」</strong>という構造にする。<a class="src" href="https://www.caa.go.jp/policies/policy/consumer_transaction/act_on_deposit">消費者庁</a></p></div>
+    <div class="row o"><p class="rl">再反論</p><p class="rt">カブアンドは株でうまく抜けたのでは。同じ手が使えるはずだ</p></div>
+    <div class="row"><p class="rl">応答</p><p class="rt">抜けていない。<em>各募集回について有価証券届出書を関東財務局長宛に提出した、正規の公募</em>だった（株主101万4,297人・2026-06-19）。株でやるなら同じ重さがかかる。小規模不特事業のほうが一桁軽い。<br>借りるべきは仕組みではなく<strong>動機の設計</strong>だった ── 利用者が株主になると、値上がりが自分の得になるから人に勧める。我々に訳すと「<em>施設が繁盛すると自分の家賃が下がる</em>」。だから歩合制（VL-70）を二階建てに直す ── <strong>基礎部分は全拠点の稼働率に連動（施設に人を呼ぶ動機）、加算部分は自分が空けた夜数に連動（部屋を空ける動機）</strong>。保険の基本料率＋無事故割引と同じ形。VL-70の個別の明細と「稼働率で割引が増減する」は対立ではなく、二階建ての上下だった。<br><a class="src" href="https://f.irbank.net/pdf/E40136/etc/S100ULVR.pdf">届出書 2024-10</a><a class="src" href="https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/S100WX82.pdf">届出書 2025-10</a><a class="src" href="https://kabu-peace.co.jp/press/1million-shareholders">カブ＆ピース</a></p></div>
+    <p class="verdict ng">── 部分決着。集め方の形は決まったが、優先して使える権利と収益分配を枠内で同居させられるかは未確認（PART 3 の空白②）</p>
+  </div>
+
+  <div class="ex">
+    <p class="era">2026-07-29 深夜 ── ラブホ化と防音（VL-71 ③）</p>
+    <div class="row q"><p class="rl">問い</p><p class="rt">24時間の受け入れができるなら時間貸しもできる。ただし音が問題なので、防音の部屋が要るのでは</p></div>
+    <div class="row"><p class="rl">答え</p><p class="rt">この連鎖は、<em>3手目で入れた要素が4手目のコストを生んでいる</em>。3手目を抜けば、4手目は要らない。<br>切る理由: 大橋会館を「ベストな形ではあった」と評価したとき、不満は多拠点でない・高い・オペ品質の3つで、<strong>騒音は一度も挙がっていない</strong>。居住者のいる場所に短時間の利用者を入れると、訴求の軸である「リセット」の逆になる。カプ住が男性専用である理由と同根で<strong>女性が使えなくなる</strong>。そしてブランドは一度付くと剥がせない。</p></div>
+    <div class="row o"><p class="rl">反論</p><p class="rt">それは「時間貸し＝ラブホ」という思い込みでは。法律はそう書いていないはずだ</p></div>
+    <div class="row"><p class="rl">応答</p><p class="rt">そこは正しい。<strong>旅館業法に時間貸しを禁じる条文はない</strong>。風営法4号営業になるのは施行令が定める構造設備 ── 動力で振動・回転するベッド／1㎡以上の鏡／性的好奇心に応ずる設備／車庫が個室に接続する構造 ── を備えたときで、<em>境界を決めるのは時間ではなく構造</em>（施行令の条文は実務解説を経由しており原典未照合 [UNVERIFIED]）。<br>→ 正しい翻訳は「<strong>日中の一時利用（デイユース）を足して三毛作にする</strong>」。会員が留守の日中をさらに売る。荷物室のおかげで私物が部屋に無いから成立し、ラブホの構造要件には一切近づかない。<a class="src" href="https://hourei.net/law/323AC0000000122">風営法 第2条6項4号</a></p></div>
+    <div class="row o"><p class="rl">再反論</p><p class="rt">それでも防音は要る。通話は毎日発生する</p></div>
+    <div class="row"><p class="rl">応答</p><p class="rt">要るが、<strong>客室を防音室にする必要はない</strong>。0.8畳の防音ブースが<strong>77.0万円</strong>で、ポッド1基（30〜100万円）より高い。客室を防音にすると原価が2倍前後になり、3m²の経済性がそこで消える。共用部に電話ボックスを1〜2台置けば足りる。<a class="src" href="https://jp.yamaha.com/products/soundproofing/ready-made_rooms/size_08-15/index.html">ヤマハ アビテックス</a><a class="src" href="https://www.kawai-os.co.jp/product/unit02/">カワイ ナサール</a></p></div>
+    <p class="verdict">── 決着（枝を1本切った。切ったことで、防音のコストも一緒に消えた）</p>
+  </div>
+
+  <div class="ex">
+    <p class="era">2026-07-29 深夜 ── 本当の壁（VL-71 ④）</p>
+    <div class="row q"><p class="rl">問い</p><p class="rt">この連鎖のなかで、本物の制約はどれだったのか</p></div>
+    <div class="row"><p class="rl">答え</p><p class="rt">ラブホでも防音でも清掃でもなく、<em>住まわせた瞬間に旅館業でなくなる</em>ことだった。厚生省通知（昭和63-01-29 衛指第23号）は旅館業か賃貸借かを日数では切っておらず、①施設の衛生管理の責任が営業者にあるか ②<strong>宿泊者がその部屋に生活の本拠を有さないか</strong> の2つで総合的に判断するとしている。<strong>「1ヶ月以上なら賃貸借」という線は、条文にも通知にも無い</strong>。<a class="src" href="https://www.mhlw.go.jp/web/t_doc?dataId=00ta0406&amp;dataType=1&amp;pageNo=1">厚生労働省 通知</a></p></div>
+    <div class="row o"><p class="rl">反論</p><p class="rt">では会員に住民票を置かせなければ済む話では</p></div>
+    <div class="row"><p class="rl">応答</p><p class="rt">済まない。会員がそこに生活の本拠を置けば、その部屋は住居になり、<strong>留守の夜を売る行為は旅館業ではなく住宅宿泊事業（民泊新法・年180日上限）の領域に落ちる</strong>。180日で切られると、VL-66の式（不在の夜×1泊単価×売れる割合×還元率）の分母が壊れ、会員負担の計算そのものが成り立たなくなる。<em>つまり住民票の可否は付帯サービスの話ではなく、収支を決める中心の変数だった</em>。</p></div>
+    <div class="row o"><p class="rl">再反論</p><p class="rt">では住めない。この事業は成立しないのでは</p></div>
+    <div class="row"><p class="rl">応答</p><p class="rt">例外は<strong>既に営業している</strong>。安心お宿「カプ住」は簡易宿所の許可のまま、月額6万円の「住む」プランを実際に売っている。<em>旅館業のまま長期に滞在させる建て付けは実在する</em>。差は日数ではなく「生活の本拠を置かせるか」の設計にある。<br>ただし置かせない設計にするなら、会員には郵便の受け取り・居住の証明・法人所在地を別の形で渡さねばならない。ここは<strong>まだ何も決まっていない</strong>。</p></div>
+    <p class="verdict ng">── 未決着。8月の弁護士確認の最優先項目に格上げする。ここが取れないと、二毛作の分母が180日で頭打ちになる</p>
+  </div>
+
+  <div class="card warn">
+    <p class="t">7/29深夜 自己訂正 ── オゾンは「30分で終わる手軽な工程」ではなかった</p>
+    <p class="h">VL-70で「チェックアウト後にオゾン発生器 約30分」と書いたが、実務の相場は清掃後1.5〜2時間の運転で、業務用機は27万円から。2025年10月施行の労働安全衛生法改正で、化学物質管理者の選任と濃度の測定記録も義務になった（許容濃度0.1ppm）。</p>
+    <p class="b">1.5〜2時間の占有は、在庫の回転（VL-71 ①）と正面から競合する。<em>オゾンは、転回ごとに気軽に回せる工程ではない</em>。→ 転回ごとは<strong>洗える寝具の全交換・プロテクター・嗅いで確かめる検収</strong>に絞り、<strong>オゾンは月次の徹底清掃に寄せる</strong>（「回らない部屋は腐る」への対策と同じ枠に統合する）。<br><a class="src" href="https://www.karumoa.co.jp/product/ozonizer/">カルモア</a><a class="src" href="https://www.andes.co.jp/column/3255/">アンデス（労安法解説）</a>　労安法の条文原典は未照合 [UNVERIFIED]</p>
+  </div>
+
   <div class="card warn">
     <p class="t">7/29夜 訂正の訂正 ── v1の「赤字」判定は、前提が架空でした</p>
     <p class="h">「1LDKを18万円で借りて赤字」と書いたが、18万円の1LDKという前提を置いた者は誰もいなかった。商品はポッドで、参照実績はミレニアルズのポッド1基あたり月売上17〜21万円。</p>
@@ -467,17 +527,18 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
   </div>
 
   <div class="card warn">
-    <p class="t">7/29時点の、最も誠実な要約</p>
-    <p class="h">仕組みは組み上がった。しかしこの3本の往復の空欄は、全部同じ1つの問いに還元される ──「求めている人はいるのか」（H4）。7年前から空いている穴の上に、より精巧な機械を建てた、というのが現在地である。</p>
+    <p class="t">7/29 深夜時点の、最も誠実な要約</p>
+    <p class="h">仕組みは組み上がった。しかしここまでの往復の空欄は、ほぼ全部が同じ1つの問いに還元される ──「求めている人はいるのか」（H4）。7年前から空いている穴の上に、より精巧な機械を建てた、というのが現在地である。</p>
     <p class="b">精巧さは需要の証明ではない。優先予約金（V1）と法人の申込書（V3）と留守の夜の販売実測（V2）だけが、この地図を次の版に進められる。</p>
+    <p class="b">ただし深夜の4本で、この要約は2か所だけ動いた。ひとつは<strong>H4に還元されない空欄が初めて出た</strong>こと ── 会員が住民票を置けるかどうかは、需要ではなく法規の側の穴で、ヒアリングでは絶対に埋まらない。もうひとつは<strong>資金調達と需要検証を1つの行為にまとめる道が見えた</strong>こと ──「登録が済んだら100万円を申し込む」という無償の意向表明は、金の話でありながら wants の代理指標でもある。<em>穴が1つ増え、穴を埋める手も1つ増えた。</em></p>
   </div>
 </section>
 
 <section>
   <h2>この地図の使い方</h2>
   <ul>
-    <li><strong>朝</strong> ── PART 1（思考の順序）とPART 2（仮説とデータ）を見ながら、決めたいこと3つを議論</li>
-    <li><strong>夜</strong> ── PART 3の「本当の穴」だけ頭に置いて、質問7つを持っていく。<strong>説明しに行くのではなく、聞きに行く</strong></li>
+    <li><strong>定例</strong> ── PART 1（思考の順序）とPART 2（仮説とデータ）を見ながら、決めたいこと4つを議論。8月末から逆算して、取りにいくものを確定させる</li>
+    <li><strong>ヒアリング</strong> ── PART 3の「本当の穴」と「新しく開いた空白」を頭に置いて、質問7つを持っていく。<strong>説明しに行くのではなく、聞きに行く</strong>。100万円の話はその場で持ち出さない</li>
     <li>ホワイトボードで動かしたいときは<a href="https://ikedhidenori.github.io/jp/structure-da072b30599b9e59.svg">冒頭の構造図のSVG版</a>。Miro / FigJam / Figma にそのまま貼れて、箱も文字も動かせます</li>
     <li>全主張の出典と、そこに至った経緯は<a href="https://ikedhidenori.github.io/jp/article-c0a1646e18bcc8ea.html">思考地図</a>にあります</li>
   </ul>
@@ -490,6 +551,4 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
 </p>
 
 </div>
-
-</body>
-</html>
+</body></html>
