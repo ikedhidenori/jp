@@ -4,14 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Living OS 事業計画 v1 ／ 需要の二毛作</title>
+<title>Living OS 事業計画 v1 ／ 空いている夜を、家賃に変える</title>
 <style>
-/* 数理の弾丸テイスト — Document Kernel v1 */
 :root{
   --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
   --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
   --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
-  --measure:44rem;
+  --measure:45rem;
 }
 @media (prefers-color-scheme: dark){
   :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
@@ -23,56 +22,87 @@
         --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
 body{background:var(--paper); color:var(--ink); font-family:var(--gothic);
   font-feature-settings:"palt","chws","kern"; word-break:normal; word-break:auto-phrase;
-  overflow-wrap:break-word; line-break:strict; font-size:16px; line-height:1.8;
+  overflow-wrap:break-word; line-break:strict; font-size:16px; line-height:1.82;
   margin:0; padding:0 20px 90px; -webkit-font-smoothing:antialiased;}
-.wrap,section,p,li,td,th,.card{min-width:0}
+.wrap,section,p,li,td,th,.card,.sim,.bar{min-width:0}
 img,svg,table{max-width:100%}
 .wrap{max-width:var(--measure); margin:0 auto}
 p{margin:0} strong{font-weight:700}
 a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
 .mast{padding:52px 0 22px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:11px}
 .mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
-.mast h1{font-size:clamp(25px,5.6vw,34px); line-height:1.3; font-weight:800; margin:0;
+.mast h1{font-size:clamp(25px,5.8vw,35px); line-height:1.3; font-weight:800; margin:0;
   padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
-.mast h1::before{content:""; position:absolute; left:0; top:2px; width:12px; height:38px; background:var(--ink)}
-.mast .subtitle{font-size:15.5px; line-height:1.7; margin:0 0 0 23px}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:12px; height:40px; background:var(--ink)}
+.mast .subtitle{font-size:15.5px; line-height:1.75; margin:0 0 0 23px}
 .mast .meta{font-size:11px; color:var(--faint); margin:0 0 0 23px}
-section{padding:44px 0 0; display:flex; flex-direction:column; gap:14px}
-section > h2{font-size:clamp(18px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+section{padding:46px 0 0; display:flex; flex-direction:column; gap:14px}
+section > h2{font-size:clamp(18px,4.4vw,24px); line-height:1.4; font-weight:800; margin:0;
   padding-left:22px; position:relative; text-wrap:balance}
 section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
 section > h2 .no{font-size:11px; letter-spacing:.16em; color:var(--faint); display:block; margin-bottom:3px}
-h3{font-size:15.5px; font-weight:800; margin:14px 0 -4px}
+h3{font-size:15.5px; font-weight:800; margin:16px 0 -3px}
 em{font-style:normal; background:linear-gradient(transparent 62%, var(--pale-red) 62%); font-weight:700}
-.lead{font-size:15px; line-height:1.78; color:var(--sub)}
-.note{font-size:12.5px; line-height:1.7; color:var(--faint)}
+.lead{font-size:15px; line-height:1.85}
+.note{font-size:12.5px; line-height:1.72; color:var(--faint)}
 .formula{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
-  padding:16px 18px; font-size:17px; font-weight:800; line-height:1.6; text-align:center; text-wrap:balance}
-.formula small{display:block; font-size:11.5px; font-weight:400; color:var(--faint); margin-top:7px}
+  padding:17px 18px; font-size:clamp(15px,3.8vw,19px); font-weight:800; line-height:1.65; text-align:center; text-wrap:balance}
+.formula small{display:block; font-size:12px; font-weight:400; color:var(--faint); margin-top:8px; line-height:1.7}
 .tablewrap{overflow-x:auto}
-table{width:100%; border-collapse:collapse; font-size:13px; line-height:1.55; min-width:24rem}
+table{width:100%; border-collapse:collapse; font-size:13px; line-height:1.6; min-width:24rem}
 th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top}
 thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:11.5px}
 tbody th{font-weight:700; color:var(--sub)}
 .red{color:var(--red)} .green{color:var(--green)} .faint{color:var(--faint)}
 td.ours{background:var(--pale-red)}
 .card{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
-  padding:15px 16px; display:flex; flex-direction:column; gap:9px}
+  padding:16px 17px; display:flex; flex-direction:column; gap:9px}
 .card.warn{border-color:var(--red)}
 .card .t{font-size:10.5px; letter-spacing:.13em; font-weight:700; color:var(--faint); margin:0}
 .card.warn .t{color:var(--red)}
-.card .h{font-size:16px; font-weight:800; line-height:1.5; margin:0; padding-left:14px; position:relative; text-wrap:balance}
+.card .h{font-size:16px; font-weight:800; line-height:1.55; margin:0; padding-left:14px; position:relative; text-wrap:balance}
 .card .h::before{content:""; position:absolute; left:0; top:3px; width:5px; height:1.05em; background:var(--ink)}
 .card.warn .h{color:var(--red)} .card.warn .h::before{background:var(--red)}
-.card .b{font-size:14px; line-height:1.72; margin:0}
-.matrix{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:14px 16px;
-  font-size:13.5px; line-height:1.9; overflow-x:auto}
-.matrix pre{margin:0; font-family:inherit; white-space:pre}
-ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:7px}
-li{line-height:1.72}
+.card .b{font-size:14px; line-height:1.78; margin:0}
+
+/* 収支シミュレータ */
+.sim{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:18px 17px; display:flex; flex-direction:column; gap:15px}
+.sim .st{font-size:15.5px; font-weight:800; margin:0; line-height:1.5}
+.ctrl{display:flex; flex-direction:column; gap:5px}
+.ctrl label{font-size:13px; font-weight:700; display:flex; justify-content:space-between; gap:10px}
+.ctrl label b{color:var(--red); font-variant-numeric:tabular-nums; white-space:nowrap}
+.ctrl input[type=range]{width:100%; accent-color:var(--red); height:24px; margin:0; cursor:pointer}
+.simout{border-top:1px solid var(--rule); padding-top:14px; display:flex; flex-direction:column; gap:9px}
+.pl{display:grid; grid-template-columns:1fr auto; gap:8px; font-size:13.5px; line-height:1.6}
+.pl.sum{border-top:1px solid var(--rule); padding-top:9px; font-weight:800; font-size:15px}
+.pl b{font-variant-numeric:tabular-nums; white-space:nowrap}
+.verdictbox{border:2px solid var(--green); border-radius:3px; padding:11px 13px; font-size:14.5px;
+  font-weight:800; line-height:1.6; color:var(--green); background:var(--artifact)}
+.verdictbox.bad{border-color:var(--red); color:var(--red)}
+
+/* 需要マトリクス */
+.mx{display:grid; grid-template-columns:4.6em 1fr 1fr; gap:7px; font-size:12.5px; line-height:1.55}
+.mx > div{padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--artifact)}
+.mx > div.hd{border:0; background:none; font-weight:700; color:var(--faint); font-size:11px; padding:4px 2px; align-self:end}
+.mx > div.rh{border:0; background:none; font-weight:800; padding:9px 2px; display:flex; align-items:center}
+.mx b{display:block; font-weight:800; font-size:13px; margin-bottom:2px}
+.mx .fill{background:var(--pale-red); border-color:var(--red)}
+
+/* 競合図 */
+.plot{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:14px 12px 8px}
+.plot svg{display:block; width:100%; height:auto}
+.steps{display:flex; flex-direction:column; gap:0}
+.steps .stp{display:grid; grid-template-columns:2.3em 1fr; gap:13px; align-items:start; padding:11px 0; border-top:1px solid var(--rule)}
+.steps .stp:first-child{border-top:0}
+.steps .n{font-size:11.5px; font-weight:800; color:var(--red); border:1.5px solid var(--red); border-radius:2px; text-align:center; line-height:1.8}
+.steps .tx{line-height:1.78; margin:0}
+ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:8px}
+li{line-height:1.78}
 hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 .colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
-@media (max-width:520px){ body{font-size:15px; padding:0 15px 70px} .card,.formula{padding:13px} }
+@media (max-width:560px){ .mx{grid-template-columns:3.6em 1fr 1fr; font-size:11.5px} }
+@media (max-width:520px){ body{font-size:15px; padding:0 15px 70px} .card,.sim,.formula{padding:14px} }
 :focus-visible{outline:2px solid var(--red); outline-offset:3px}
 </style>
 </head>
@@ -82,175 +112,282 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 <div class="wrap">
 
 <header class="mast">
-  <p class="eyebrow">INNFRA ／ D2-internal ／ 投資家・事業家 個別開示用</p>
-  <h1>Living OS 事業計画 v1<br>── 需要の二毛作</h1>
-  <p class="subtitle">観光の支払意欲を、居住費の補助に変換する。<br>同じ床を「住む時間」と「旅する時間」で二毛作する会員制の住宅ネットワーク。</p>
-  <p class="meta">2026-07-29 版　仮説番号・検証閾値つき　／ 未検証の数字はすべて [仮] または [UNVERIFIED] と明記</p>
+  <p class="eyebrow">INNFRA ／ 社外秘 ／ 投資家・事業パートナー向け</p>
+  <h1>Living OS 事業計画 v1<br>── 空いている夜を、家賃に変える</h1>
+  <p class="subtitle">同じ部屋を、住む人と旅する人で分け合う。<br>旅行者が払う宿泊料が、住む人の家賃を肩代わりする会員制の住まいです。</p>
+  <p class="meta">2026-07-29　／　仮の数字には「目安」と書いています。裏の取れていない数字には「未確認」と書いています</p>
 </header>
 
 <section>
-  <h2>0. 一枚要約</h2>
+  <h2>まず、一枚で</h2>
   <div class="tablewrap"><table>
     <tbody>
-      <tr><th>何を</th><td>都市の居抜きビル＋地方の可動産キャビンを、<strong>会員の生活リズム × インバウンド宿泊</strong>で満たす会員制住宅ネットワーク。会員が旅している夜、自室は旅行者を泊め、その収益が会員の月額を下げる</td></tr>
-      <tr><th>誰に</th><td>①都会8:地方2で暮らしたい単身者（マス） ②地方8:都会2で暮らしたい人・地方法人 ③月10泊級の法人出張者 ④2週間以上滞在するインバウンド</td></tr>
-      <tr><th>価格</th><td>月9万〜15万（自由度ティア制・すべて込み・初期費用ゼロ）。<strong>サービスアパートメント33〜42万の暮らしの体験を、半額以下の帯で</strong></td></tr>
-      <tr><th>なぜ今</th><td>インバウンド消費9.5兆円（3年連続最高）がホテルADRと出張費を壊し、23区家賃は25ヶ月連続最高値。<strong>同じ潮が、我々の顧客の痛みと補助原資を同時に作っている</strong></td></tr>
-      <tr><th>なぜ我々</th><td>①旅館業3区分・保健所折衝の実務知（2026-05-28通知後の一次経験） ②創業者が市場の8年先を実測した一次データ（バン自作→LAC運営→SANU 33ヶ月家計実測→大橋会館・ミレニアルズ居住） ③可動産・移設の実コスト知見</td></tr>
-      <tr><th>現在地</th><td class="ours"><strong>機構設計は完成。需要は未証明。</strong>8月末までに deposit・法人LOI・居抜き査定で白黒をつける（§7）</td></tr>
+      <tr><th>何をするか</th><td>街の古いビルを居抜きで、地方には移築できる小屋を建てて、<strong>会員の生活と旅行者の宿泊で埋める</strong>住まいのネットワーク。会員が留守にした夜は旅行者が泊まり、その売上が会員の月額から引かれる</td></tr>
+      <tr><th>誰に売るか</th><td>①ふだんは街・たまに自然で暮らしたい単身者　②生活の中心を地方に置き、街には数泊だけ来たい人と地方企業　③月10泊出張する人（会社が払う）　④2週間以上滞在する訪日客</td></tr>
+      <tr><th>いくらか</th><td>月9万〜15万円。光熱・ネット・掃除込み、初期費用なし。<strong>月33万円のサービスアパートメントと同じ内容を、半分以下で</strong></td></tr>
+      <tr><th>なぜ今か</th><td>訪日客の消費が9.5兆円まで伸び、ホテルの単価が1.5万円を超えた。同じ波が出張費の規程を壊し、23区の家賃を25か月連続で最高値に押し上げている。<strong>顧客の痛みと、その痛みを埋める原資を、同じ波が同時に作っている</strong></td></tr>
+      <tr><th>なぜ我々か</th><td>①旅館業の許可と保健所との折衝を、規制が変わった直後に自分で通した経験　②創業者が8年ぶん先に自分で暮らして測ったデータ（自作バン→LAC運営→SANU 33か月の家計→大橋会館・ミレニアルズ居住）　③小屋を建てて、たたんで、運ぶ実費を知っている</td></tr>
+      <tr><th>いまどこか</th><td class="ours"><strong>仕組みは組み上がった。需要はまだ証明していない。</strong>加えて、収支は「部屋を借りて回す」形では合わないことが計算で判明した（§3）── だから居抜きで取得する。8月末までに、予約金・法人の申込書・物件の査定で白黒をつける（§7）</td></tr>
     </tbody>
   </table></div>
 </section>
 
 <section>
-  <h2><span class="no">1</span>市場の非対称 ── 同じ1泊に、2つの値段がついている</h2>
-  <p>東京23区の平均家賃11.4万円は、1泊に換算すると<strong>約3,800円</strong>。全国のビジネスホテル平均客室単価は<strong>1.5万円超で過去最高圏</strong>（HotelBank/メトロエンジン集計 2025-2026。大阪は万博期に2.29万円）。<em>同じ床の同じ一夜に、住む人と旅する人で3〜6倍の価格差がある。</em>この価格差は日本ではほぼ裁定されていない ── 住宅と宿泊が、法律・契約・業界で分断されているからだ。</p>
+  <h2><span class="no">1</span>同じ一夜に、二つの値段がついている</h2>
+  <p>東京23区の平均家賃11.4万円を1泊に直すと<strong>約3,800円</strong>。全国のビジネスホテルの平均単価は<strong>1.5万円を超えて過去最高</strong>（HotelBank／メトロエンジン集計、2025-2026年。大阪は万博期に2.29万円）。<em>同じ床の同じ一夜に、3〜6倍の差がある。</em>この差が埋まっていないのは、住まいと宿が、法律でも契約でも業界でも分かれているからです。</p>
   <ul>
-    <li><strong>痛み側（住む人）</strong>: 23区家賃は25ヶ月連続で最高値。引越初期費用は家賃5ヶ月分（50〜70万円）。貯蓄100万円未満が最多階級。固定家賃は収入変動に対して硬直</li>
-    <li><strong>原資側（旅する人）</strong>: 訪日消費9.5兆円・4,268万人（2025年、3年連続最高）。政府目標2030年15兆円。1人あたり旅行支出22.9万円</li>
-    <li><strong>法人側</strong>: 出張宿泊費の規程は一般社員 定額8,878円／実費上限10,490円（産労総合研究所2025年度調査）に対し、ホテル実勢は1.5万円超 ── <em>規程と実勢の逆転</em>が常態化し、直近3年で31.1%の企業が規程を増額。法人は構造的にホテルから押し出されている</li>
-    <li><strong>構造側</strong>: 世帯数は2030年にピーク（5,773万）。平均世帯人員は2033年に2人割れ、2050年に単独世帯44.3% ── <em>大きい家が余り、小さい住まいの需要が構造的に増える</em>（社人研2024推計）</li>
+    <li><strong>住む側の痛み</strong>　23区の家賃は25か月連続で最高値。引っ越しの初期費用は家賃5か月分（50〜70万円）。いちばん多い層の貯蓄は100万円未満。しかも家賃は、収入が減っても下がらない</li>
+    <li><strong>旅する側のお金</strong>　訪日消費9.5兆円・4,268万人（2025年、3年連続で最高）。政府目標は2030年に15兆円。ひとりあたりの支出は22.9万円</li>
+    <li><strong>会社側のねじれ</strong>　出張の宿泊費は一般社員で1泊8,878円（定額）／上限10,490円（実費）が相場（産労総合研究所 2025年度調査）。ホテルの実勢は1.5万円超。<em>規程で泊まれる宿がない</em>状態が続き、直近3年で31.1%の企業が金額を上げた</li>
+    <li><strong>人口の向き</strong>　世帯数は2030年に5,773万でピークを打ち、以後減る。ひと世帯あたりの人数は2033年に2人を割り、2050年には44.3%がひとり暮らしになる（社人研 2024年推計）。<em>大きい家が余り、小さい住まいが足りなくなる</em></li>
   </ul>
-  <p class="note">出典: 住宅・土地統計調査 / 観光庁 / 国立社会保障・人口問題研究所。個別数値の出典URLは自社調査レポート（living-os-pain-research-report）に整理済み。</p>
 </section>
 
 <section>
-  <h2><span class="no">2</span>機構 ── 会員負担 ＝ 総コスト − 観光収益</h2>
-  <div class="formula">会員負担 ＝ 部屋の総コスト − （不在夜 × 観光ADR × 稼働率）
-    <small>家賃を「下げてもらう」のではなく、観光の支払意欲が払う。地代（P=R/i）に指一本触れない。</small>
+  <h2><span class="no">2</span>仕組み ── 会員の負担は、引き算で決まる</h2>
+  <div class="formula">会員の負担 ＝ 部屋にかかる費用 − 留守の夜に入る宿泊料
+    <small>家賃を下げてくれと大家に頼むのではありません。旅行者が払います。<br>地価と家賃の関係（P=R/i）には、指一本触れていません。</small>
   </div>
 
-  <h3>需要を4層に積む ── 過不足マッチング</h3>
-  <div class="matrix"><pre>
-        平日              週末・繁忙
-都市    法人出張・B層      B層不在 → C/D・スポット宿泊
-地方    C/D（平日フラット） A層 ＋ B層の「地方2割」
-</pre></div>
+  <h3>四種類の人で、曜日と場所の穴を埋める</h3>
+  <div class="mx">
+    <div class="hd"></div><div class="hd">平日</div><div class="hd">週末・繁忙期</div>
+    <div class="rh">街</div>
+    <div class="fill"><b>出張者・街の会員</b>会社が払うので単価が読める</div>
+    <div class="fill"><b>訪日客・単発の宿泊</b>会員が旅に出て空く</div>
+    <div class="rh">地方</div>
+    <div class="fill"><b>訪日客（長期滞在）</b>曜日に関係なく埋まる</div>
+    <div class="fill"><b>地方が生活の中心の会員 ＋ 街の会員の遠出</b></div>
+  </div>
   <ul>
-    <li><strong>A層</strong>（地方8:都会2）と<strong>B層</strong>（都会8:地方2）は相補ペア ── <em>1人のA＋1人のBで、都市1室と地方1室が両方ほぼ埋まる</em>。希少なのはA。会員構成と物件比率の入場管理が運営の本体</li>
-    <li>相補性は月次で成立し、<strong>週次で壊れる</strong>（B層の地方需要は同じ週末に集中）。これを埋めるのが<strong>C/D（インバウンド）</strong> ── 日本の週次リズムと無相関で、平日を均等に埋める<em>脱相関装置</em></li>
-    <li><strong>D層</strong>（長期周遊）は行き先をOSに委ねる代わりに最安 ── 航空のスタンバイ運賃と同型の「スポット層」</li>
+    <li><strong>街が中心の人</strong>と<strong>地方が中心の人</strong>を組ませると、過不足がちょうど打ち消し合います。ひとりずつ入れば、街の1室と地方の1棟が両方ほぼ埋まる。<em>足りなくなるのは「地方が中心の人」のほう</em>で、会員の構成比を管理することが運営の本体になります</li>
+    <li>ただし、月でならすと合っていても<strong>週で見ると崩れます</strong>。街の会員が遠出したがるのは、みんな同じ金曜と連休だからです</li>
+    <li>そこで<strong>訪日客</strong>が効きます。彼らは日本の曜日感覚と関係なく動き、2週間以上いる人も多い。<em>混み方が国内客とずれている</em>から、平日の谷を埋められる。これが補助金ではなく、需要を平らにする装置です</li>
+    <li>行き先をこちらのおすすめに任せてくれる長期旅行者には、いちばん安い値段を出します。飛行機の空席待ち運賃と同じ考え方です</li>
   </ul>
 
-  <h3>価格原理 ── 予定の自由度を差し出した量で決まる</h3>
+  <h3>値段は「予定をどれだけ任せてくれるか」で決まる</h3>
   <div class="tablewrap"><table>
-    <thead><tr><th>ティア</th><th>中身</th><th>月額 [仮]</th><th>クラウドの対応物</th></tr></thead>
+    <thead><tr><th>選び方</th><th>中身</th><th>月額（目安）</th></tr></thead>
     <tbody>
-      <tr><td><strong>固定拠点型</strong></td><td>自分の部屋・モノ置ける・完全予測可能</td><td>15万</td><td>リザーブド</td></tr>
-      <tr><td><strong>ゾーン型</strong></td><td>エリア内で部屋は可変・専有クローク</td><td>12万</td><td>オンデマンド</td></tr>
-      <tr><td><strong>おまかせ型</strong></td><td>行き先サジェストに従うと最安</td><td>9万</td><td>スポット</td></tr>
+      <tr><td><strong>部屋決め</strong></td><td>いつも同じ部屋。荷物も置ける。予定が完全に読める</td><td>15万円</td></tr>
+      <tr><td><strong>エリア決め</strong></td><td>選んだ地域のなかで、部屋はそのつど</td><td>12万円</td></tr>
+      <tr><td class="ours"><strong>おまかせ</strong></td><td>こちらのおすすめに乗るほど安い</td><td class="ours">9万円</td></tr>
     </tbody>
   </table></div>
-  <p><strong>商品憲法（変えない約束）</strong>: ①ベッドは必ずある（オーバーセル率に上限） ②月額に変動上限cap（サージ課金はしない） ③モノは守られる（専有クローク） ④違約金なしでやめられる。</p>
-  <p class="note">「Living OS」の OS はブランド語ではなく実体 ── 異質な占有パターンを床にスケジュールする資源配分エンジンを指す。</p>
+  <p><strong>変えない約束</strong>　①ベッドは必ずある（会員数と部屋数の比率に上限を置く）　②月額に天井がある（混んでいるから高くする、はしない）　③荷物は鍵のかかる物置で守る　④違約金なしでやめられる。</p>
 </section>
 
 <section>
-  <h2><span class="no">3</span>資産戦略 ── 都市は居抜き、地方は可動産</h2>
+  <h2><span class="no">3</span>収支は、どこで壊れるか</h2>
+  <p class="lead">この事業の生死は、たった二つの数字で決まります。<strong>会員が本当に月に何泊留守にするか</strong>と、<strong>その夜がどれだけ売れるか</strong>です。動かして確かめてください。</p>
+
+  <div class="sim">
+    <p class="st">街の1室（1LDK相当）の、ひと月の収支</p>
+
+    <div class="ctrl">
+      <label><span>会員が留守にする夜</span><b><span id="vN">10</span> 泊</b></label>
+      <input type="range" id="sN" min="2" max="16" value="10" step="1" aria-label="会員が留守にする夜">
+    </div>
+    <div class="ctrl">
+      <label><span>その夜が売れる割合</span><b><span id="vO">70</span> %</b></label>
+      <input type="range" id="sO" min="20" max="95" value="70" step="5" aria-label="稼働率">
+    </div>
+    <div class="ctrl">
+      <label><span>1泊あたりの宿泊料</span><b><span id="vA">16,000</span> 円</b></label>
+      <input type="range" id="sA" min="8000" max="26000" value="16000" step="1000" aria-label="1泊あたりの宿泊料">
+    </div>
+    <div class="ctrl">
+      <label><span>部屋にかかる費用（月）<br><small class="note">借りると18万。居抜きで買うとここが下がる</small></span><b><span id="vR">180,000</span> 円</b></label>
+      <input type="range" id="sR" min="100000" max="200000" value="180000" step="5000" aria-label="部屋にかかる月額費用">
+    </div>
+
+    <div class="simout">
+      <div class="pl"><span>会員の月額（部屋決め・割引後）</span><b id="oMem">120,000 円</b></div>
+      <div class="pl"><span>旅行者の宿泊売上</span><b id="oTour">112,000 円</b></div>
+      <div class="pl sum"><span>売上 合計</span><b id="oRev">232,000 円</b></div>
+      <div class="pl"><span>部屋にかかる費用</span><b id="oRent">− 180,000 円</b></div>
+      <div class="pl"><span>掃除（1回4,000円）</span><b id="oClean">− 40,000 円</b></div>
+      <div class="pl"><span>予約サイト手数料（15%）</span><b id="oFee">− 16,800 円</b></div>
+      <div class="pl sum"><span>ひと月の粗利</span><b id="oGp">− 4,800 円</b></div>
+      <div class="verdictbox" id="oV">この設定では赤字です</div>
+    </div>
+    <p class="note">部屋にかかる費用の初期値18万円は「借りた場合」の目安です。会員の月額は「15万円 − 留守1泊につき3,000円」。掃除は会員向けの週1〜2回ぶんを旅行者の回転に相乗りさせる前提で、1回4,000円（大橋会館の実勢からの推定）。地方の小屋は借地と償却で月6〜8万円まで下がるので、同じ操作でも余裕が大きく出ます。</p>
+  </div>
+
+  <div class="card warn">
+    <p class="t">動かすと分かること（都合の悪い結論です）</p>
+    <p class="h">18万円で部屋を借りてくると、標準的な想定（10泊・7割・1.6万円）では<em>月1.3万円の赤字</em>です。</p>
+    <p class="b">これは私たちが7月28日版で「粗利2〜3万円」と書いた数字の訂正です。予約サイトの手数料と、旅行者の回転ぶんの掃除を正しく入れると、符号が逆になりました。<br><br>
+    黒字にする道は3本しかありません。<br>
+    <strong>①部屋の費用を下げる</strong>（借りずに、古いビルを居抜きで買う。スライダーを14万円まで下げると黒字に変わります＝§4の戦略はここから来ています）<br>
+    <strong>②留守を増やす</strong>（14泊以上。出張者のように<em>留守が読める</em>人ほど相性がいい＝法人を先に取りにいく理由）<br>
+    <strong>③単価を上げる</strong>（2万円以上。訪日客の帯に届くかどうか）<br><br>
+    地方の小屋は部屋の費用が月6〜8万円まで下がるので、同じ操作でも余裕がまったく違います。<strong>この事業は「街で借りて回す」形では成立しません。</strong>それが、この計算機がいちばんはっきり示していることです。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">4</span>部屋と土地の集め方</h2>
   <ul>
-    <li><strong>売買実勢の実在確認済み</strong>: 小規模・築古ホテルの譲渡案件は650万〜3億円でM&A市場に常時流通（バトンズ掲載実例: 新潟60-70室1,000万円等）。宿泊特化型の期待利回りは東京4.2%・福岡4.9%（日本不動産研究所 2025-10） ── V4の査定対象は実在する</li>
-    <li><strong>都市（居抜き）</strong>: 2026-05-28の旅館業通知（200㎡以下も建築士適合証明が実質必須化）が新規転用のコストを上げ、<em>既に旅館業許可を持つ老朽物件の希少価値を上げた</em>。許可継承つき居抜き取得はこの壁を回避する [継承条件は法務確認中]。狙う帯は機関投資家が買えない「小規模・EVなし・3点ユニット陳腐化」物件（Unitoが実在証明済みの帯）</li>
-    <li><strong>都市選定式</strong>: （インバウンドADR成長率）÷（資産価格）。東京都心は分母最悪、京都は宿泊税逆風。<em>福岡・金沢・札幌・大阪外縁が甘い交差点の蓋然性</em> [要実測]</li>
-    <li><strong>地方（可動産×定借）</strong>: 規格化キャビン＋定期借地はSANUが実証済みの低Capex型。可動産の本質は<em>需要リスクの物理ヘッジ</em> ── 拠点の需要が外れたら箱を移す。移設の実コスト知見は自社保有</li>
-    <li><strong>duration mismatch への4重防御</strong>（米コリビング4社 Common/Quarters/HubHaus/The Collective の単一死因＝短い顧客契約×長い固定賃料）: ①居抜き＝取得原価低 ②定借＝期限付き ③可動産＝動かせる ④観光収益＝第2需要源</li>
+    <li><strong>街は、古いビジネスホテルを居抜きで。</strong>2026年5月28日の通知で、200㎡以下でも建築士の適合証明が要ることになり、これから新しく宿に変えるのは高くつくようになりました。裏を返すと、<em>すでに旅館業の許可を持っている古い物件の価値が上がった</em>ということです。許可ごと引き継げば、この壁を越えずに済みます（引き継ぎの条件は法務確認中）</li>
+    <li><strong>買える帯は実在します。</strong>小さくて古いホテルは、650万円から3億円でM&amp;Aの市場に常時出ています（バトンズ掲載の実例。新潟の60〜70室で1,000万円など）。大きな投資家が買えない「小さい・エレベーターなし・水回りが古い」物件が、狙う場所です</li>
+    <li><strong>どの街から始めるか</strong>は、感覚ではなく<em>（宿泊単価の伸び）÷（物件の値段）</em>で決めます。東京都心は分母が重すぎ、京都は宿泊税が逆風。福岡・金沢・札幌あたりが有利な可能性が高い（要検証）</li>
+    <li><strong>地方は、移せる小屋を借地の上に。</strong>規格化した小屋＋定期借地は、SANUが先に成立させた形です。ここで移せることが効くのは、コストより<em>読み違えたときに撤退できる</em>点です。場所を外しても、建物を別の場所へ運べる。地方展開でいちばん怖いのは「この土地に人が来るか分からない」ことなので、その保険になります</li>
   </ul>
+  <div class="card">
+    <p class="t">アメリカのコリビングが全滅した理由</p>
+    <p class="h">Common・Quarters・HubHaus・The Collective は、市場が年20%伸びているのに揃って潰れました。死因はひとつ、<em>顧客の契約は短いのに、自分が背負った賃料は長かった</em>ことです。</p>
+    <p class="b">私たちの備えは4つ。①居抜きなので仕入れが安い　②借地なので期限が切ってある　③小屋は物理的に動かせる　④会員が減っても宿泊で埋まる。<strong>床のリスクを、四方向から薄めています。</strong></p>
+  </div>
 </section>
 
 <section>
-  <h2><span class="no">4</span>単位経済 ── 全て置き数字。ここを8月に実測で置換する</h2>
+  <h2><span class="no">5</span>すでに、上と下から証明されている</h2>
+  <p class="lead">この仕組みは思いつきではありません。<strong>上の価格帯と下の価格帯で、それぞれ別の会社が成立させています。</strong>まだ誰もいないのは、その真ん中だけです。</p>
+
+  <div class="plot">
+    <svg viewBox="0 0 640 380" role="img" aria-label="価格帯と多拠点性による競合の位置。上位帯はNOT A HOTEL、下位帯はUnito、中間の月10〜20万円帯が空いている">
+      <line x1="70" y1="330" x2="620" y2="330" stroke="#9a9a9a" stroke-width="1.5"/>
+      <line x1="70" y1="30" x2="70" y2="330" stroke="#9a9a9a" stroke-width="1.5"/>
+      <text x="345" y="362" font-size="13" fill="#555555" text-anchor="middle" font-weight="700">ひと月あたりの負担 →</text>
+      <text x="24" y="180" font-size="13" fill="#555555" text-anchor="middle" font-weight="700" transform="rotate(-90 24 180)">多拠点で暮らせる度合い →</text>
+      <text x="130" y="348" font-size="11" fill="#9a9a9a" text-anchor="middle">5万</text>
+      <text x="250" y="348" font-size="11" fill="#9a9a9a" text-anchor="middle">10万</text>
+      <text x="370" y="348" font-size="11" fill="#9a9a9a" text-anchor="middle">20万</text>
+      <text x="500" y="348" font-size="11" fill="#9a9a9a" text-anchor="middle">50万</text>
+      <text x="600" y="348" font-size="11" fill="#9a9a9a" text-anchor="middle">所有</text>
+
+      <rect x="248" y="60" width="128" height="120" fill="#f6d8d4" stroke="#d84a32" stroke-width="2.5" stroke-dasharray="8 5" rx="3"/>
+      <text x="312" y="112" font-size="14" fill="#d84a32" text-anchor="middle" font-weight="800">ここが空いている</text>
+      <text x="312" y="134" font-size="12" fill="#d84a32" text-anchor="middle">月10〜20万円</text>
+      <text x="312" y="153" font-size="12" fill="#d84a32" text-anchor="middle">Living OS</text>
+
+      <circle cx="560" cy="70" r="8" fill="#111111"/>
+      <text x="546" y="60" font-size="12.5" fill="#111111" text-anchor="end" font-weight="700">NOT A HOTEL</text>
+      <text x="546" y="78" font-size="11" fill="#9a9a9a" text-anchor="end">契約高650億円・オーナー1,100名</text>
+      <text x="546" y="94" font-size="11" fill="#9a9a9a" text-anchor="end">留守はホテルに ── 所有で実証済み</text>
+
+      <circle cx="480" cy="150" r="7" fill="#555555"/>
+      <text x="466" y="146" font-size="12" fill="#555555" text-anchor="end" font-weight="700">SANU 2nd Home</text>
+      <text x="466" y="163" font-size="11" fill="#9a9a9a" text-anchor="end">持分330万円〜／別荘</text>
+
+      <circle cx="205" cy="255" r="8" fill="#111111"/>
+      <text x="219" y="250" font-size="12.5" fill="#111111" font-weight="700">Unito</text>
+      <text x="219" y="268" font-size="11" fill="#9a9a9a">約130棟1,400室／留守の分だけ安くなる</text>
+      <text x="219" y="284" font-size="11" fill="#9a9a9a">単拠点・短期滞在で実証済み</text>
+
+      <circle cx="180" cy="300" r="6" fill="#555555"/>
+      <text x="194" y="305" font-size="11.5" fill="#555555">goodroom／HafH（留守は収益にならない）</text>
+
+      <circle cx="330" cy="300" r="6" fill="#555555"/>
+      <text x="344" y="305" font-size="11.5" fill="#555555">ソーシャルアパートメント（46棟・満室）</text>
+
+      <circle cx="300" cy="215" r="6" fill="#555555"/>
+      <text x="314" y="212" font-size="11.5" fill="#555555">Hmlet（15.6〜16.7万・駐在員向け）</text>
+    </svg>
+  </div>
+  <p class="note">縦軸・横軸の位置は各社の公表値をもとにした概念図です。<strong>上（NOT A HOTEL）で考え方が、下（Unito）で仕組みが、それぞれ証明済み。</strong>私たちが確かめるのは「真ん中の価格帯で成り立つか」だけです。</p>
+
+  <p><strong>Unitoについて、ひとつ重要な事実</strong>　留守の日を旅行者に貸す形について、Unitoは2023年3月に国のグレーゾーン解消制度で「利用者は旅館業の許可がいらない」という回答を得ています。<em>私たちが越えなければいけない法律の壁を、先に越えた例がある</em>ということです。ここを起点に法務を詰めます。</p>
+</section>
+
+<section>
+  <h2><span class="no">6</span>先に失敗した人たちから引いた線</h2>
+  <div class="steps">
+    <div class="stp"><p class="n">自社</p><p class="tx"><strong>LAC</strong>　「仕組みは見えていたが、求めている人がいなかった」。加えて9部屋に1人ずつでは1泊900円にしかならず採算が合わなかった。<em>→ 拠点は需要の後に作る。まず街1棟と地方1か所の、たった2か所で確かめる</em></p></div>
+    <div class="stp"><p class="n">他社</p><p class="tx"><strong>SANU</strong>　会員が増えて予約が取れなくなり、「家を失う感覚」が生まれた。<em>→ 会員数と部屋数の比率に上限を置き、それを商品の約束として先に公開する</em></p></div>
+    <div class="stp"><p class="n">他社</p><p class="tx"><strong>ミレニアルズ渋谷</strong>　フロントに人がおらず、空調も自分で変えられず、寒かった。<em>→ 建てる費用は削っても、掃除の質と、暑さ寒さを自分で決められることは削らない</em></p></div>
+    <div class="stp"><p class="n">米国</p><p class="tx"><strong>コリビング4社</strong>　短い顧客契約と長い固定賃料のずれ。<em>→ §4の四つの備え</em></p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">7</span>8月末までに、何をどう測るか</h2>
+  <p class="lead">合格ラインは<strong>データを見る前に</strong>決めてあります。あとから基準を動かさないためです。</p>
   <div class="tablewrap"><table>
-    <thead><tr><th>項目</th><th>都市1室（1LDK級）[仮]</th><th>地方1棟（キャビン）[仮]</th></tr></thead>
+    <thead><tr><th>確かめること</th><th>やり方</th><th>合格ライン</th><th>期日</th><th>費用</th></tr></thead>
     <tbody>
-      <tr><th>素コスト/月</th><td>18万（賃借＋共益）</td><td>6〜8万（定借＋償却）</td></tr>
-      <tr><th>会員収入</th><td>15万（固定拠点型）</td><td>会員配分で按分</td></tr>
-      <tr><th>観光収入</th><td>不在10泊 × ADR1.6万 × 稼働70% ＝ 11.2万</td><td>週末・繁忙 8泊 × 2.5万 × 60% ＝ 12万</td></tr>
-      <tr><th>運営費</th><td>清掃10回×4千＋OTA手数料 ≈ 5〜6万</td><td>清掃＋管理 ≈ 4〜5万</td></tr>
-      <tr><th>粗利/月</th><td class="ours"><strong>+2〜3万（薄い）</strong></td><td class="ours"><strong>+3〜5万</strong></td></tr>
-    </tbody>
-  </table></div>
-  <p><strong>生死を分ける変数は3つだけ</strong>: ①会員は本当に月10泊不在になるか ②不在夜は本当に売れるか（ADR×稼働） ③ターンオーバー費。<em>感度: 不在が10泊→6泊、または稼働70%→45%で粗利ゼロ</em>。だから検証計画（§7）はこの3変数に集中する。</p>
-  <p class="note">清掃1回3,000〜5,000円は大橋会館の実勢推定（創業者一次証言）。会員向けリセットは週1〜2回で足りる（本人実測）＝ホテル運営チームの限界コストに吸収できる。</p>
-</section>
-
-<section>
-  <h2><span class="no">5</span>競合 ── 上と下から実証済み。空いているのは真ん中の帯</h2>
-  <div class="tablewrap"><table>
-    <thead><tr><th>プレイヤー</th><th>実証したこと</th><th>やっていないこと</th></tr></thead>
-    <tbody>
-      <tr><th>Unito（約130棟1,400室）</th><td>リレント＝不在日割引を下位帯で実証。<strong>グレーゾーン解消制度で「利用者は旅館業許可不要」の回答を2023年に取得済み＝器の法的先行例</strong>。法人プランに問い合わせ400社</td><td>多拠点の暮らし・共用部の豊かさ・コミュニティ</td></tr>
-      <tr><th>NOT A HOTEL</th><td>不在時ホテル化＋多拠点＋越境を<strong>所有で実証 ── 累計契約高650億円・オーナー1,100名超・9拠点</strong>（2026-02、シリーズC時公表）</td><td>月10〜20万の会員帯</td></tr>
-      <tr><th>SANU（2nd Home）</th><td>定借×規格キャビンの低Capex。Subscription to Own</td><td>主住居・都市側・不在収益の会員還元</td></tr>
-      <tr><th>goodroomホテルパス / HafH</th><td>ホテル暮らし／旅のサブスク</td><td>自室不在の収益化（補助構造がない）</td></tr>
-      <tr><th>東急ステイ / ビジホ</th><td>出張長期滞在（洗濯機付き）</td><td>固定性（自分の部屋・荷物置きっぱなし）・法人固定額</td></tr>
-      <tr><th>ソーシャルアパートメント（46棟3,000室・入居率100%）</th><td>共用部の豊かさ×居住。<strong>最強の隣接競合</strong></td><td>多拠点・不在収益化・ホテルライク運営</td></tr>
-      <tr><th>大橋会館（先行例）</th><td>法人出張×居住の混載（月10日出張者・法人契約）</td><td><strong>スケールしなかった ── 理由未解明 [最重要の宿題]</strong></td></tr>
-    </tbody>
-  </table></div>
-  <p><em>概念は上位帯（NOT A HOTEL）で、機構は下位帯（Unito）で証明済み。未証明なのは「月10〜20万の帯で成立するか」だけ</em> ── そこがこの事業の全部である。</p>
-</section>
-
-<section>
-  <h2><span class="no">6</span>先行する失敗から引いた設計制約</h2>
-  <ul>
-    <li><strong>LAC（自社）</strong>: 「仕組みは見えても、求めているユーザーがいない」＋分母不足（9部屋に1人＝1日900円）。→ 制約: <em>網は需要の後。最小実証は2ノード（都市1棟×地方1拠点）</em>。A/B/C/Dの行列は2ノードで完全に動く</li>
-    <li><strong>SANU（会員体験）</strong>: 会員増で予約が取れず「家を失う」感覚。→ 制約: オーバーセル率capを商品憲法に</li>
-    <li><strong>ミレニアルズ（運営品質）</strong>: フロント不在・空調制御不能・寒い。→ 制約: Capexは削ってもリセットの質と個室の環境制御は削らない</li>
-    <li><strong>米コリビング4社</strong>: duration mismatch。→ §3の4重防御</li>
-  </ul>
-</section>
-
-<section>
-  <h2><span class="no">7</span>検証計画 ── 仮説 × 指標 × 閾値 × 期日 × 費用</h2>
-  <div class="tablewrap"><table>
-    <thead><tr><th>#</th><th>仮説</th><th>測り方</th><th>合格閾値（事前固定）</th><th>期日</th><th>費用</th></tr></thead>
-    <tbody>
-      <tr><td><strong>V1</strong></td><td>この帯に需要がある</td><td>LP deposit_intent ¥10,000（全額返金可）コピーA/B:「ぜんぶ込み月9万」vs「33万相当の暮らしを15万で」。第0問ゲート併用</td><td>提示n=30で деposit≥3、かつ第0問不明0名</td><td>8/17</td><td>広告3〜5万</td></tr>
-      <tr><td><strong>V2</strong></td><td>不在夜は売れる</td><td>既存1室（戸田等）をインバウンドチャネルに出しADR・稼働を実測</td><td>10泊中6泊以上、目標ADRの80%以上</td><td>8/31</td><td>ほぼゼロ</td></tr>
-      <tr><td><strong>V3</strong></td><td>法人が払う</td><td>「月8万・東京の定宿ポッド10席」を総務・経理に口頭提案</td><td>LOI（金額入り）1枚</td><td>8/31</td><td>ゼロ</td></tr>
-      <tr><td><strong>V4</strong></td><td>居抜きが買える</td><td>売りビジホ実案件3件の査定（坪単価・許可継承・改修Capex）</td><td>選定式を満たす案件1件以上</td><td>8/31</td><td>ゼロ</td></tr>
-      <tr><td><strong>V5</strong></td><td>器が組める</td><td>行政書士/弁護士 1h×2（住戸⇄客室の交互運用・住民票・許可継承）。<strong>Unitoのグレーゾーン解消制度回答（2023-03-03）を先行例として精査</strong></td><td>適法スキーム1本の確認</td><td>8月中</td><td>数万</td></tr>
-      <tr><td><strong>V6</strong></td><td>機構の実像</td><td>創業者がUnitoに1ヶ月入居し実測（リレント実効・モノ・体験の穴）</td><td>比較レポート1本</td><td>9月上旬</td><td>〜15万</td></tr>
-      <tr><td><strong>V7</strong></td><td>B層は実在する</td><td>ヒアリングに「1年の何割を東京の外で過ごしたいか。理想と現実」を追加</td><td>理想−現実ギャップの分布取得</td><td>随時</td><td>ゼロ</td></tr>
+      <tr><td><strong>この値段で欲しい人がいるか</strong></td><td>紹介ページを出し、1万円の優先予約（全額返金）を取る。文面はA「ぜんぶ込み月9万円」／B「33万円の暮らしを15万円で」の2種</td><td>30人に見せて3人が払う</td><td>8/17</td><td>3〜5万</td></tr>
+      <tr><td><strong>留守の夜が売れるか</strong></td><td>手持ちの1室を訪日客向けの予約サイトに出し、単価と埋まり方を測る</td><td>10泊中6泊以上、目標単価の8割以上</td><td>8/31</td><td>ほぼゼロ</td></tr>
+      <tr><td><strong>会社が払うか</strong></td><td>総務・経理に「月8万円で東京の定宿10席」を口頭で提案</td><td>金額入りの申込書が1枚</td><td>8/31</td><td>ゼロ</td></tr>
+      <tr><td><strong>物件が買えるか</strong></td><td>売りに出ているホテル3件を実際に査定（坪単価・許可の引き継ぎ・改修費）</td><td>基準を満たす物件が1件</td><td>8/31</td><td>ゼロ</td></tr>
+      <tr><td><strong>法律が通るか</strong></td><td>行政書士・弁護士に各1時間。Unitoの2023年の回答を起点に、住民票と契約の性質を詰める</td><td>通る形が1本</td><td>8月中</td><td>数万</td></tr>
+      <tr><td><strong>実際どうなのか</strong></td><td>創業者がUnitoに1か月住み、割引の実額・荷物の扱い・不満を記録</td><td>比較記録1本</td><td>9月上旬</td><td>〜15万</td></tr>
+      <tr><td><strong>地方が中心の人はいるか</strong></td><td>ヒアリングに「1年のうち何割を東京の外で過ごしたいですか。理想と、現実は」を足す</td><td>分布が取れる</td><td>随時</td><td>ゼロ</td></tr>
     </tbody>
   </table></div>
   <div class="card warn">
-    <p class="t">判断文（データを見る前に固定）</p>
-    <p class="h">V1〜V3のうち2つ以上が合格なら、2ノード実証（都市1棟×地方1拠点）へ資金投入。V1が不合格なら、この帯の需要仮説を棄却し、法人単軸（V3）か撤退を判断する。期日8/31は動かさない。</p>
-    <p class="b">撤回条件を消さないための原則: 期日を延ばした瞬間、公式に失敗と判定する点が消え、ピボットが起動しなくなる（自社の別事業レビューで診断済みの病理）。</p>
+    <p class="t">先に書いておく判断</p>
+    <p class="h">上の3つのうち2つが合格したら、2か所での実証にお金を入れます。1つ目（優先予約）が不合格なら、この価格帯の需要は無かったと結論し、法人向けだけに絞るか、やめるかを決めます。8月31日という日付は動かしません。</p>
+    <p class="b">期日を延ばすと、失敗と認める瞬間が消えます。そうすると方向転換も起きません。これは自社の別の事業で、すでに一度診断された症状です。</p>
   </div>
 </section>
 
 <section>
-  <h2><span class="no">8</span>正直な空欄 ── 強引に埋めていない問い</h2>
+  <h2><span class="no">8</span>まだ答えが無いこと</h2>
+  <p class="lead">埋まっていない穴を、埋まっているように書くことはしません。</p>
   <ul>
-    <li><strong>大橋会館はなぜスケールしなかったのか</strong>（現況も未確認）。このモデルの最重要の反証候補。あわせて問い直す: なぜUnitoはリレント単一軸のまま1,400室まで伸びたのに、多拠点も逆別荘もやらないのか</li>
-    <li><strong>A層（地方8:都会2）の頭数</strong>。創業者n=1以外の実在証拠がまだない</li>
-    <li><strong>器と住民票</strong>。旅館業側の契約は借家権なし。「家」と呼べる法的実体の設計はV5待ち</li>
-    <li><strong>インバウンドの地方分散</strong>は政策目標であって実績ではない。管外・自然地まで来るかは先行例（NIPPONIA等）の実数で確認する</li>
-    <li><strong>会員の不在パターンの実在</strong>。月10泊不在は設計上の願望であり、実測はゼロ</li>
-    <li><strong>インバウンド比率の上限</strong>。パンデミックで一夜にゼロになった需要である。収支のインバウンド依存度に上限を置く設計が未着手</li>
+    <li><strong>大橋会館は、なぜ大きくならなかったのか。</strong>月10泊の出張者を法人契約で集めるという、いま私たちが描いている形をそのままやっていた施設です。いま営業しているのかも確認できていません。この事業の最大の反証になりうる</li>
+    <li><strong>地方を中心に暮らしたい人が、何人いるのか。</strong>いまのところ創業者ひとりしか確認できていません</li>
+    <li><strong>住民票と契約の性質。</strong>宿の側の契約になると、借家人としての権利がありません。「家」と呼べる形をどう作るかは、法務の確認待ちです</li>
+    <li><strong>訪日客が、地方の奥まで来るのか。</strong>地方分散は政府の目標であって、実績ではありません</li>
+    <li><strong>会員が本当に月10泊も留守にするのか。</strong>§3で見たとおり、ここが崩れると赤字です。実測はゼロです</li>
+    <li><strong>訪日客への依存をどこまで許すか。</strong>感染症で一夜にしてゼロになった需要です。上限を決める設計が、まだできていません</li>
   </ul>
 </section>
 
 <section>
-  <h2><span class="no">9</span>資金計画の骨子</h2>
+  <h2><span class="no">9</span>お金の話</h2>
   <ul>
-    <li><strong>現況</strong>: 残存資金は2027年前半まで。年内プレシリーズA調達が前提</li>
-    <li><strong>調達使途（案）</strong>: 2ノード実証（居抜き1棟の取得・改修＋地方1拠点＋OS v0＝需給マッチングの運用系）。<em>6都市展開はKPI条件付きの拡張計画としてのみ提示</em></li>
-    <li><strong>投資家への提示順</strong>: §7の検証結果 →「他人が払った証拠」→ 機構 → 拡張。<em>検証前に拡張を語らない</em></li>
-    <li><strong>LACは能動的に開示する</strong>: 追い風の局面で一度外した。だから今回は主指標を意見でなく行動（deposit）に置いた ── 失敗の一次データは、このチームだけが持っている資産である</li>
+    <li><strong>使い道</strong>　街に1棟、地方に1か所。それと、誰をどの部屋に入れるかを回す仕組み。<em>6都市への展開は、条件を満たしたら進む計画として示すだけで、いま資金を入れる先ではありません</em></li>
+    <li><strong>お見せする順番</strong>　§7の結果 →「他人が実際に払った金額」→ 仕組み → 広げ方。<em>確かめる前に、広げ方の話はしません</em></li>
+    <li><strong>LACの失敗は、こちらから話します。</strong>コロナという追い風のなかで一度外しています。だから今回は、判断の基準を「住みたいと言った人の数」ではなく「1万円払った人の数」に変えました。<em>あの失敗の記録は、他のどのチームも持っていません</em></li>
   </ul>
 </section>
 
 <hr class="end">
 <p class="colophon">
-  2026-07-29 版。概念在庫 VL-1〜68（discussion-maps/innfra-house-concept-rally-log-2026-07.md）と自社一次調査に照合。<br>
-  [仮] = 設計上の置き数字（実測で置換予定）。[UNVERIFIED] = 出典未照合。数字の捏造はこの文書の最大の失敗と定義する。ADR・出張規程・Unito・NOT A HOTEL・SANU・売買実勢は2026-07-29に7系統並列で裏取り済み（SANUの建設CAPEXのみ非公表で取得不能）。<br>
-  関連: 議論地図（argument map）／ サービス提案書 v1 ／ 検証LP計測プロトコル v0。<br>
-  デザイン: 数理の弾丸テイスト（Document Kernel v1）
+  2026-07-29。数字の裏取りは7系統を並行して実施（ホテル単価・出張規程・Unito・NOT A HOTEL・SANU・物件売買・競合価格）。SANUの建設費だけは非公表で取れませんでした。<br>
+  「目安」は仮に置いた数字、「未確認」は出典にあたれていない数字です。数字をでっち上げることを、この資料の最大の失敗と定めています。
 </p>
 
 </div>
+
+<script>
+(function(){
+  var sN=document.getElementById('sN'), sO=document.getElementById('sO'), sA=document.getElementById('sA'), sR=document.getElementById('sR');
+  if(!sN) return;
+  var BASE=150000, PER=3000, CLEAN=4000, FEE=0.15;
+  var ids=['vN','vO','vA','vR','oMem','oRent','oTour','oRev','oClean','oFee','oGp','oV'], E={};
+  ids.forEach(function(i){ E[i]=document.getElementById(i); });
+  function f(n){ var s=Math.round(Math.abs(n)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,','); return (n<0?'− ':'')+s; }
+  function draw(){
+    var n=+sN.value, occ=+sO.value/100, adr=+sA.value, RENT=+sR.value;
+    var sold=n*occ;
+    var mem=BASE-n*PER;
+    var tour=sold*adr;
+    var rev=mem+tour;
+    var clean=(n+2)*CLEAN;          // 旅行者の回転 + 会員向け週1-2回の一部
+    var fee=tour*FEE;
+    var gp=rev-RENT-clean-fee;
+    E.vN.textContent=n; E.vO.textContent=Math.round(occ*100); E.vA.textContent=f(adr); E.vR.textContent=f(RENT);
+    E.oRent.textContent='− '+f(RENT)+' 円';
+    E.oMem.textContent=f(mem)+' 円';
+    E.oTour.textContent=f(tour)+' 円';
+    E.oRev.textContent=f(rev)+' 円';
+    E.oClean.textContent='− '+f(clean)+' 円';
+    E.oFee.textContent='− '+f(fee)+' 円';
+    E.oGp.textContent=(gp<0?'− ':'')+f(Math.abs(gp))+' 円';
+    E.oGp.style.color = gp<0 ? 'var(--red)' : 'var(--green)';
+    if(gp<0){ E.oV.className='verdictbox bad'; E.oV.textContent='この設定では赤字です（月 '+f(Math.abs(gp))+' 円の不足）'; }
+    else if(gp<20000){ E.oV.className='verdictbox bad'; E.oV.textContent='かろうじて黒字。ぶれると沈みます（月 '+f(gp)+' 円）'; }
+    else { E.oV.className='verdictbox'; E.oV.textContent='成立します（月 '+f(gp)+' 円）'; }
+  }
+  [sN,sO,sA,sR].forEach(function(s){ s.addEventListener('input',draw); });
+  draw();
+})();
+</script>
 
 </body>
 </html>
