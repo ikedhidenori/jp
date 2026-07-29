@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>旅するほど、家賃が下がる家。／ Living OS</title>
+<title>旅した月は、家賃が返ってくる家。／ Living OS</title>
 <style>
 :root{
   --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
@@ -30,7 +30,7 @@ img,table,svg{max-width:100%}
 p{margin:0} strong{font-weight:700}
 .mast{padding:56px 0 26px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:13px}
 .mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
-.mast h1{font-size:clamp(28px,7.2vw,42px); line-height:1.26; font-weight:800; margin:0;
+.mast h1{font-size:clamp(27px,6.9vw,40px); line-height:1.28; font-weight:800; margin:0;
   padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
 .mast h1::before{content:""; position:absolute; left:0; top:4px; width:12px; height:46px; background:var(--ink)}
 .mast .subtitle{font-size:16.5px; line-height:1.75; margin:0 0 0 23px}
@@ -42,8 +42,6 @@ section > h2::before{content:""; position:absolute; left:0; top:2px; width:10px;
 em{font-style:normal; background:linear-gradient(transparent 62%, var(--pale-red) 62%); font-weight:700}
 .lead{font-size:15.5px; line-height:1.9}
 .note{font-size:12.5px; line-height:1.75; color:var(--faint)}
-
-/* 計算機 */
 .calc{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:19px 18px 17px;
   display:flex; flex-direction:column; gap:14px}
 .calc .q{font-size:16.5px; font-weight:800; line-height:1.5; margin:0; text-wrap:balance}
@@ -61,17 +59,14 @@ em{font-style:normal; background:linear-gradient(transparent 62%, var(--pale-red
 .callegend span::before{content:""; display:inline-block; width:9px; height:9px; border-radius:2px;
   background:var(--ink); margin-right:5px; vertical-align:baseline}
 .callegend span.a::before{background:transparent; border:1.5px solid var(--red)}
-
-/* 比較バー */
 .bars{display:flex; flex-direction:column; gap:11px; margin-top:2px}
 .bar{display:grid; grid-template-columns:1fr; gap:4px}
-.bar .bl{display:flex; justify-content:space-between; font-size:12.5px; line-height:1.4; gap:10px}
+.bar .bl{display:flex; justify-content:space-between; font-size:12.5px; line-height:1.45; gap:10px}
 .bar .bl b{font-weight:700; white-space:nowrap; font-variant-numeric:tabular-nums}
 .bar .tr{height:15px; background:var(--rule); border-radius:2px; overflow:hidden}
 .bar .fl{height:100%; background:var(--faint); transition:width .28s ease}
 .bar.us .fl{background:var(--red)}
 .bar.us .bl{font-weight:700}
-
 .tablewrap{overflow-x:auto}
 table{width:100%; border-collapse:collapse; font-size:13.5px; line-height:1.6; min-width:22rem}
 th,td{border:1px solid var(--rule); padding:9px 10px; text-align:left; vertical-align:top}
@@ -118,101 +113,87 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 <div class="wrap">
 
 <header class="mast">
-  <p class="eyebrow">LIVING OS ／ サービスのご提案（LP原案）</p>
-  <h1>旅するほど、<br>家賃が下がる家。</h1>
-  <p class="subtitle">留守にした夜、あなたの部屋は旅行者が泊まります。<br>その宿泊料が、あなたの家賃を肩代わりします。</p>
+  <p class="eyebrow">LIVING OS ／ サービスのご提案（LP原案 v2）</p>
+  <h1>旅した月は、<br>家賃が返ってくる家。</h1>
+  <p class="subtitle">あなたが留守のあいだ、部屋は旅行者に貸されます。<br>売れた夜のぶんだけ、翌月あなたに返金されます。</p>
   <p class="meta">2026-07-29 ／ 価格とエリアは検討中の目安です ／ サービス名は仮</p>
 </header>
 
 <section>
   <h2>いまの家賃には、いない夜の分も入っています</h2>
-  <p class="lead">東京でひとり暮らしをすると、家賃は平均で月11.4万円。出張、帰省、旅行、恋人の家。<em>部屋にいない夜も、家賃は満額かかります。</em></p>
-  <p class="lead">一方でこの国には、年に4,000万人の旅行者が来ています。ビジネスホテルの平均でさえ1泊1.5万円を超えました。あなたの家賃を1泊あたりに直すと、およそ3,800円。<strong>同じ一夜に、4倍近い値段がついている。</strong>その差を、あなたに返します。</p>
+  <p class="lead">東京でひとり暮らしをすると、家賃は平均で月11.4万円。出張、帰省、旅行。<em>部屋にいない夜も、家賃は満額かかります。</em></p>
+  <p class="lead">一方でこの国には、年に4,000万人の旅行者が来ていて、ビジネスホテルの平均でさえ1泊1.5万円を超えました。あなたの家賃を1泊に直すと約3,800円。<strong>同じ一夜に、まるで違う値段がついている。</strong>その差を、あなたに返します。</p>
 </section>
 
 <section>
-  <h2>ひと月に何泊、家を空けますか</h2>
+  <h2>家の中身を、仕分けました</h2>
+  <div class="steps">
+    <div class="st"><p class="n">1</p><p class="tx"><strong>眠る場所は、小さく、良く。</strong>3m²の個室ポッド。遮光、静音、空調は自分で調整。寝具はホテル品質で、シーツは毎回替わっています</p></div>
+    <div class="st"><p class="n">2</p><p class="tx"><strong>広さは、共用で持つ。</strong>大浴場、ラウンジ、仕事場、共用キッチン。ひとりでは持てないものを、みんなの月額で持ちます</p></div>
+    <div class="st"><p class="n">3</p><p class="tx"><strong>荷物には、鍵のかかる自分の置き場。</strong>ものを減らす必要はありません。眠る場所と置き場所が分かれているだけです</p></div>
+    <div class="st"><p class="n">4</p><p class="tx"><strong>拠点は、街にも自然にも。</strong>ひとつの月額で、どの拠点に何泊してもかまいません。掃除された部屋に、手ぶらで着くだけ</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>旅した月に、何が起きるか</h2>
 
   <div class="calc">
-    <p class="q">スライダーを動かしてみてください。</p>
-    <input type="range" min="0" max="15" value="6" step="1" id="nights"
-           aria-label="ひと月に家を空ける泊数">
-    <div class="rowlab"><span>ずっと家にいる</span><span>半月いない</span></div>
+    <p class="q">ひと月に何泊、よその拠点や出張先で過ごしますか。</p>
+    <input type="range" min="0" max="15" value="9" step="1" id="nights"
+           aria-label="ひと月によその拠点で過ごす泊数">
+    <div class="rowlab"><span>ずっと自分の巣にいる</span><span>半月は外にいる</span></div>
 
     <div class="out">
-      <span class="nn">月に <b id="nOut">6</b> 泊 空けると</span>
-      <span class="yen" id="priceOut">132,000</span><span class="unit">円 / 月</span>
-      <span class="save" id="saveOut">18,000円 おトク</span>
+      <span class="nn"><b id="nOut">9</b> 泊 留守にすると、目安</span>
+      <span class="yen" id="priceOut">127,000</span><span class="unit">円 / 月</span>
+      <span class="save" id="saveOut">約 23,000円 返金</span>
     </div>
 
     <div class="cal" id="calGrid" aria-hidden="true"></div>
     <div class="callegend">
-      <span>あなたがいる夜</span>
-      <span class="a">旅行者が泊まる夜</span>
+      <span>あなたが巣にいる夜</span>
+      <span class="a">旅行者に貸される夜</span>
     </div>
 
     <div class="bars">
       <div class="bar"><div class="bl"><span>東京23区の平均家賃<br><small class="note">家賃だけ。光熱・ネット・掃除は別</small></span><b>114,000円</b></div>
         <div class="tr"><div class="fl" style="width:33%"></div></div></div>
-      <div class="bar"><div class="bl"><span>同じ内容を別々に買うと<br><small class="note">家賃＋光熱＋ネット＋月2回の掃除</small></span><b>約137,000円</b></div>
-        <div class="tr"><div class="fl" style="width:41%"></div></div></div>
-      <div class="bar us"><div class="bl"><span>この家（空けた分が引かれます）</span><b id="barLabel">132,000円</b></div>
+      <div class="bar us"><div class="bl"><span>この家の実質負担（月額15万円 − 返金）</span><b id="barLabel">127,000円</b></div>
         <div class="tr"><div class="fl" id="barUs" style="width:38%"></div></div></div>
-      <div class="bar"><div class="bl"><span>同じ設備のサービスアパートメント</span><b>330,000円〜</b></div>
+      <div class="bar"><div class="bl"><span>近い内容のサービスアパートメント<br><small class="note">掃除・家具・光熱込み。ただし専有は21㎡〜で広い</small></span><b>330,000円〜</b></div>
         <div class="tr"><div class="fl" style="width:96%"></div></div></div>
     </div>
 
-    <p class="note">基本料金15万円から、留守にした1泊につき3,000円を差し引きます（最大15泊・4.5万円まで）。数字は検討中の目安で、実際の割引は宿泊の入り具合で前後します。だから下の「約束2」で上限を先に決めています。</p>
+    <p class="note">月額は15万円（目安）で固定。留守の夜に部屋が実際に売れたら、宿泊料の半分をお返しします（表示は1泊約7,300円・売れる割合7割で計算した目安）。<strong>返金は「売れたぶんだけ」です。</strong>確実な割引を約束する代わりに、留守の申告を予約が入る直前まで取り消せる自由と、売れた夜の明細をそのままお見せする透明さを選びました。</p>
   </div>
 </section>
 
 <section>
-  <h2>仕組みは、これだけです</h2>
-  <div class="steps">
-    <div class="st"><p class="n">1</p><p class="tx"><strong>ひとつの月額で、街の部屋と自然のなかの家を、どちらも使えます。</strong>光熱費もネットも掃除も込み。敷金・礼金・保証人はありません。</p></div>
-    <div class="st"><p class="n">2</p><p class="tx"><strong>あなたが別の場所にいる夜、部屋は旅行者に貸します。</strong>その宿泊料が、翌月の請求から引かれます。</p></div>
-    <div class="st"><p class="n">3</p><p class="tx"><strong>帰ってくると、部屋は片づいています。</strong>ホテルと同じ掃除のチームがいるので、散らかりが積み重なりません。</p></div>
-    <div class="st"><p class="n">4</p><p class="tx"><strong>荷物は、鍵のかかる自分の物置に入れておけます。</strong>ものを減らす必要はありません。置き場所が分かれているだけです。</p></div>
-  </div>
-</section>
-
-<section>
-  <h2>3つの選び方</h2>
-  <p class="lead">値段が変わるのは、<em>予定をどれだけこちらに任せてくれるか</em>だけです。混んでいるから高くする、ということはしません。</p>
-  <div class="tablewrap"><table>
-    <thead><tr><th></th><th>おまかせ</th><th>エリア決め</th><th>部屋決め</th></tr></thead>
-    <tbody>
-      <tr><th>月額（目安）</th><td class="ours">9万円</td><td>12万円</td><td>15万円</td></tr>
-      <tr><th>泊まる場所</th><td>こちらのおすすめに乗るほど安くなります</td><td>選んだ地域のなかで、そのつど</td><td>いつも同じ、自分の部屋</td></tr>
-      <tr><th>荷物</th><td>物置に預けます</td><td>物置＋室内に少し</td><td>部屋に置けます</td></tr>
-      <tr><th>向いている人</th><td>身軽な人、長く旅をする人</td><td>ふだんは街、たまに自然という人</td><td>出張が多い人、自然が主な生活の人</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<section>
-  <h2>4つの約束</h2>
+  <h2>5つの約束</h2>
   <div class="const">
-    <div class="card"><p class="t">約束 1</p><p class="h">ベッドは、必ずあります。</p><p class="b">会員の数が部屋の数を追い越さないように、上限を決めます。「予約が取れなくて帰る家がない」は、絶対に起こしません。会員を増やすことより優先します。</p></div>
-    <div class="card"><p class="t">約束 2</p><p class="h">請求には、上限があります。</p><p class="b">どう使っても、この金額は超えません、という天井を先に決めます。家計が読めることも、住まいの一部だと思っています。</p></div>
-    <div class="card"><p class="t">約束 3</p><p class="h">荷物には、誰も触れません。</p><p class="b">鍵のかかる物置は、あなたしか開けられません。旅行者が泊まるのは部屋であって、あなたの生活ではありません。</p></div>
-    <div class="card"><p class="t">約束 4</p><p class="h">いつでも、やめられます。</p><p class="b">違約金はありません。合わなければ翌月にやめて、ふつうの賃貸に戻ってください。人生を賭けるものではなく、試せるものにします。</p></div>
+    <div class="card"><p class="t">約束 1</p><p class="h">ベッドは、必ずあります。</p><p class="b">会員の数が床の数を追い越さないよう、上限を決めます。「予約が取れなくて帰る家がない」は、会員を増やすことより優先して防ぎます。</p></div>
+    <div class="card"><p class="t">約束 2</p><p class="h">請求には、天井があります。</p><p class="b">どう使っても月額を超えません。返金で下がることはあっても、混んでいるからと上がることはありません。</p></div>
+    <div class="card"><p class="t">約束 3</p><p class="h">荷物には、誰も触れません。</p><p class="b">鍵のかかる置き場はあなたしか開けられません。旅行者が使うのはポッドであって、あなたの生活ではありません。</p></div>
+    <div class="card"><p class="t">約束 4</p><p class="h">予定は、変えられます。</p><p class="b">留守の申告は1タップ、予約が入る直前まで取り消せます。急に帰りたくなったら、帰ってください。</p></div>
+    <div class="card"><p class="t">約束 5</p><p class="h">いつでも、やめられます。</p><p class="b">違約金はありません。合わなければ翌月やめて、ふつうの賃貸に戻ってください。試せるものにします。</p></div>
+    <div class="card"><p class="t">きれいの裏側</p><p class="h">掃除は、最後に必ず人が検めます。</p><p class="b">シーツ交換と脱臭を含む清掃のあと、拠点の品質責任者が写真と現物で確認してから、次の人を迎えます。回転しない部屋にも月1回、点検つきの徹底清掃が入ります。</p></div>
   </div>
 </section>
 
 <section>
   <h2>たとえば、こんな暮らし</h2>
   <div class="vign">
-    <p class="who">ふだんは街、たまに自然</p>
-    <p>平日は福岡の部屋から会社へ。月に一度、金曜の夜から八ヶ岳の家で3日過ごす。その3日は福岡の部屋に旅行者が泊まっていて、翌月の請求が1万円ほど下がっている。</p>
+    <p class="who">ふだんは街、月に一度は山</p>
+    <p>平日は福岡の巣から会社へ。月に一度、金曜の夜から八ヶ岳の拠点で3日過ごす。留守の3泊が旅行者に売れて、翌月の請求が数千円下がっている。</p>
   </div>
   <div class="vign">
-    <p class="who">ふだんは自然、たまに街</p>
-    <p>生活の中心は山の家。東京へは月に4泊だけ出てくる。東京に「部屋を借りる」のではなく「4泊分を持つ」。合わせても、23区でワンルームを借りるより安い。</p>
+    <p class="who">ふだんは山、月に4泊だけ東京</p>
+    <p>巣は自然のなかに置いて、東京へは月に4泊だけ。東京に部屋を借りるのではなく、東京の夜だけを使う。地方に家を持ったまま東京にもう一部屋借りるのと比べれば、合計はずっと軽い。</p>
   </div>
   <div class="vign">
     <p class="who">月に10泊、出張する人（会社が契約）</p>
-    <p>毎回ホテルを探して、毎回荷物を詰めて、毎回領収書を出す生活が終わる。決まった部屋に自分の荷物が置いてあり、チェックインもない。会社は宿泊費が読めるようになる。</p>
+    <p>毎回ホテルを探して、毎回荷物を詰めて、毎回領収書を出す生活が終わる。決まったポッドに自分の荷物が置いてあり、チェックインもない。会社は宿泊費が読めるようになる。</p>
   </div>
 </section>
 
@@ -220,28 +201,28 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
   <h2>気になること</h2>
 
   <details>
-    <summary>部屋、狭いのでは？</summary>
-    <p class="ans">自分だけの部屋は小さいです。そのかわり、大きな風呂、ラウンジ、仕事場といった「ひとりでは持てないもの」が共用にあります。狭さのつらさの多くは、広さそのものより、荷物の置き場がないこと、散らかりが戻らないこと、暑さ寒さを自分で決められないことだと考えています。ここは実物を見て決めてください。</p>
+    <summary>3m²って、狭すぎませんか。</summary>
+    <p class="ans">眠るためだけの部屋としては足ります。カプセルホテルの定住プラン（月6万円）が完売するほど、仮住まいとしてこの形で暮らす人は既にいます。私たちが足しているのは、そこに無かったもの ── 固定の自分のポッド、鍵のかかる荷物置き場、複数拠点、そして掃除の品質です。広さが必要な時間は、大浴場とラウンジと仕事場が受け持ちます。実物を見て決めてください。</p>
   </details>
 
   <details>
-    <summary>知らない人が自分の部屋に泊まるのは、正直いやです。</summary>
-    <p class="ans">貸すかどうかは選べます。貸さない場合は、そのぶん安くなりません。貸す場合も、生活のものはすべて鍵のかかる物置に移します。旅行者から見ると、ふつうの宿と同じ状態です。</p>
+    <summary>知らない人が自分のポッドに泊まるのは、いやです。</summary>
+    <p class="ans">貸すかどうかは毎回選べます。貸さなければ返金がないだけで、ペナルティはありません。貸す場合、私物はすべて鍵のかかる置き場に移り、旅行者から見えるのはただの清潔な寝室です。戻る日にはシーツが替わり、脱臭まで済んでいます。</p>
   </details>
 
   <details>
-    <summary>Unito と同じでは？</summary>
-    <p class="ans">留守の分だけ安くなる、という発明はUnitoが先です。私たちが足すのは、街と自然の両方に住めること、共用の広さと質、荷物の居場所です。「安く泊まる方法」ではなく「暮らしの形」をつくっています。</p>
+    <summary>返金って、本当にされるんですか。</summary>
+    <p class="ans">売れた夜の明細（日付と金額）をそのままお見せします。逆に言うと、売れなかった夜の返金はありません。ここを曖昧にしないために、確実な割引ではなく「売れたら返す」という形を選んでいます。</p>
+  </details>
+
+  <details>
+    <summary>月6万円のカプセルホテル暮らしと、何が違うんですか。</summary>
+    <p class="ans">あちらは「カバンひとつで」が前提です。荷物を持つ人、同じ場所を自分の巣にしたい人、街と自然を行き来したい人は、6万円では暮らせません。その差が、この価格の中身です。</p>
   </details>
 
   <details>
     <summary>住民票は置けますか。契約はどうなりますか。</summary>
-    <p class="ans"><span class="red">まだ確定していません。</span>正直に言うと、ここは設計の途中です。似た形で先に進んでいるサービスもあるので、そこを確かめながら詰めています。できる約束だけをします。</p>
-  </details>
-
-  <details>
-    <summary>いつ、どこで始まりますか。</summary>
-    <p class="ans">まず街に1か所、自然のなかに1か所から始めます。場所と時期は、登録してくださった方の住んでいる地域を見て決めます。</p>
+    <p class="ans"><span class="red">まだ確定していません。</span>正直に言うと、ここは設計の途中です。似た形で先に進んでいるサービスが国の制度で確認を取った例があり、それを起点に専門家と詰めています。できる約束だけをします。</p>
   </details>
 </section>
 
@@ -250,13 +231,13 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
   <div class="card">
     <p class="t">ご登録</p>
     <p class="h">場所と料金が決まったら、まずご連絡します。<br>本気で検討したい方は、1万円の優先予約もどうぞ（全額お返しします）。</p>
-    <p class="b">メールでの登録は無料です。優先予約の1万円は、いつでも全額返金します。<br>ここまで読んで「いい話だな」と思った方と、「じゃあ1万円出す」と思った方は、まったく違う人です。私たちは後者の数だけを見て、つくるかどうかを決めます。</p>
+    <p class="b">メール登録は無料です。優先予約の1万円は、いつでも全額返金します。<br>「いい話だな」と思う方と「1万円出す」方は、まったく違う人です。私たちは後者の数だけを見て、つくるかどうかを決めます。</p>
   </div>
 </section>
 
 <hr class="end">
 <p class="colophon">
-  2026-07-29。料金・エリアは検討中の目安です。<br>
+  2026-07-29 夜版（v2）。料金・エリア・返金率は検討中の目安です。<br>
   平均家賃・訪日客数・ホテル単価は公的統計と業界集計にあたっています。仕組みが成り立つかどうかは、これから確かめます。まだ運営の実績はありません。
 </p>
 
@@ -265,18 +246,19 @@ hr.end{border:0; border-top:3px solid var(--ink); margin:52px 0 0}
 <script>
 (function(){
   var s=document.getElementById('nights'); if(!s) return;
-  var BASE=150000, PER=3000, MAXN=15, SA=330000;
+  var BASE=150000, ADR=7300, OCC=0.7, K=0.5, SA=330000;
   var nO=document.getElementById('nOut'), pO=document.getElementById('priceOut'),
       vO=document.getElementById('saveOut'), bU=document.getElementById('barUs'),
       bL=document.getElementById('barLabel'), grid=document.getElementById('calGrid');
   for(var i=0;i<30;i++){ grid.appendChild(document.createElement('i')); }
-  function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function fmt(n){ return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
   function draw(){
-    var n=Math.min(parseInt(s.value,10),MAXN);
-    var price=BASE-n*PER, save=n*PER;
+    var n=parseInt(s.value,10);
+    var back=Math.round(n*ADR*OCC*K/1000)*1000;
+    var price=BASE-back;
     nO.textContent=n; pO.textContent=fmt(price);
-    vO.textContent = save>0 ? fmt(save)+'円 おトク' : '';
-    var pct=Math.max(4, Math.round(price/SA*100));
+    vO.textContent = back>0 ? '約 '+fmt(back)+'円 返金' : '返金なし（巣にいた月）';
+    var pct=Math.max(4, Math.round(price/SA*96));
     bU.style.width=pct+'%'; bL.textContent=fmt(price)+'円';
     var dots=grid.children;
     for(var i=0;i<dots.length;i++){ dots[i].className = (i>=30-n) ? 'away' : ''; }
