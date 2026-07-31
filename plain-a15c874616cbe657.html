@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>INNFRA — インフラアクセス領域 整理ボード v0.1</title>
+<style>
+  :root{
+    --paper:#f6f8f3; --ink:#111; --faint:#666; --line:#111;
+    --red:#d84a32; --green:#18a36f; --panel:#fff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{line-break:strict;}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:"Helvetica Neue", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    font-size:15px; line-height:1.9;
+    word-break:normal; overflow-wrap:break-word;
+    padding:32px 20px 80px;
+  }
+  main{max-width:760px; margin:0 auto;}
+  header.doc{border-bottom:3px solid var(--ink); padding-bottom:16px; margin-bottom:36px;}
+  .kicker{font-size:11px; letter-spacing:.18em; color:var(--faint); margin-bottom:8px;}
+  h1{font-size:26px; line-height:1.4; font-weight:700;}
+  .meta{font-size:12px; color:var(--faint); margin-top:10px;}
+  h2{
+    font-size:19px; font-weight:700; margin:52px 0 18px;
+    padding-left:14px; border-left:11px solid var(--ink); line-height:1.5;
+  }
+  h3{font-size:15px; font-weight:700; margin:28px 0 10px;}
+  p{margin:0 0 14px;}
+  .note{font-size:12.5px; color:var(--faint); line-height:1.8;}
+  .artifact{
+    background:var(--panel); border:2px solid var(--ink);
+    padding:18px 16px 12px; margin:18px 0 6px;
+  }
+  .src{font-size:10.5px; color:var(--faint); margin:4px 0 22px; padding-left:2px;}
+  table{width:100%; border-collapse:collapse; font-size:12.5px; line-height:1.6;}
+  th,td{border:1px solid #bbb; padding:7px 8px; text-align:left; vertical-align:top;}
+  th{background:#eef1ea; font-weight:700; white-space:nowrap;}
+  .tblwrap{overflow-x:auto;}
+  .r{color:var(--red); font-weight:700;}
+  .g{color:var(--green); font-weight:700;}
+  .tag{display:inline-block; font-size:10.5px; font-weight:700; padding:1px 7px; border:1.5px solid var(--ink); margin:2px 3px 2px 0; white-space:nowrap;}
+  .tag.have{border-color:var(--green); color:var(--green);}
+  .tag.gap{border-color:var(--red); color:var(--red);}
+  .chain{display:flex; flex-wrap:wrap; gap:6px; align-items:stretch;}
+  .chain .step{
+    flex:1 1 100px; min-width:96px; background:var(--panel);
+    border:2px solid var(--ink); padding:10px 8px; text-align:center;
+  }
+  .chain .step b{display:block; font-size:13.5px;}
+  .chain .step span{font-size:11px; color:var(--faint); line-height:1.5; display:block; margin-top:4px;}
+  .chain .arrow{align-self:center; font-weight:700; color:var(--faint);}
+  .cross{display:flex; gap:0; margin:6px 0;}
+  .cross .circ{
+    flex:1; border:2px solid var(--ink); padding:14px 10px; background:var(--panel);
+    font-size:12.5px; line-height:1.7;
+  }
+  .cross .mid{
+    flex:1.2; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
+    background:#eef1ea; padding:14px 10px; font-size:12.5px; line-height:1.7;
+  }
+  .steps{counter-reset:s;}
+  .steps .st{
+    background:var(--panel); border:2px solid var(--ink);
+    padding:12px 14px 12px 54px; margin:10px 0; position:relative;
+  }
+  .steps .st::before{
+    counter-increment:s; content:"S" counter(s);
+    position:absolute; left:0; top:0; bottom:0; width:40px;
+    background:var(--ink); color:#fff; font-weight:700;
+    display:flex; align-items:center; justify-content:center; font-size:15px;
+  }
+  .steps .st b{font-size:14px;}
+  .steps .st .w{font-size:11.5px; color:var(--faint); display:block; margin-top:2px;}
+  footer{margin-top:64px; border-top:1px solid #bbb; padding-top:14px; font-size:11px; color:var(--faint);}
+  @media (max-width:400px){
+    body{padding:24px 14px 60px; font-size:14px;}
+    h1{font-size:22px;}
+    .chain .step{min-width:84px;}
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--paper:#181a17; --ink:#e8eae5; --faint:#9aa096; --panel:#22241f; --line:#e8eae5;}
+    th{background:#2a2d26;}
+    .cross .mid{background:#2a2d26;}
+    th,td{border-color:#555;}
+    .steps .st::before{background:#e8eae5; color:#181a17;}
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="doc">
+  <div class="kicker">INNFRA / STRATEGY BOARD</div>
+  <h1>インフラアクセス領域の整理<br>— 電気と水、どこを獲りにいくか</h1>
+  <div class="meta">v0.1 ブレスト中断時点の思考整理 ｜ 2026-07-31 ｜ 岩崎 × 川島 討議の下敷き</div>
+</header>
+
+<h2>0. 今回固まった前提</h2>
+<div class="artifact">
+  <table>
+    <tr><th style="width:9em">会社の立ち位置</th><td><b>「インフラアクセスの課題を解決する」</b>会社。作る会社でも売る会社でもなく、<b>届いていない/維持できない場所に届ける</b>会社。</td></tr>
+    <tr><th>インフラの定義</th><td><b>電気</b> と <b>水</b> の2本(今回スコープ)。熱・通信は隣接領域として保留。</td></tr>
+    <tr><th>組織上の含意</th><td>この定義により<b>川島の立場・役割が明確化</b>。事業ドメインと人の配置が一致した。</td></tr>
+  </table>
+</div>
+<div class="src">出典: 2026-07-31 岩崎×川島ブレスト (口頭合意)。</div>
+
+<h2>1. MECE整理 — 3軸で領域を切る</h2>
+<p>「インフラアクセス」は1軸では切れない。<b>①流れ(バリューチェーン) × ②障壁の種類 × ③誰の問題か</b> の3軸で立体的に切ると、議論の置き場所が決まる。</p>
+
+<h3>軸① 資源の流れ (電気・水 共通の6段階)</h3>
+<div class="artifact">
+  <div class="chain">
+    <div class="step"><b>つくる</b><span>発電・取水<br>浄水・造水</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>ためる</b><span>蓄電池<br>貯水・受水槽</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>はこぶ</b><span>送配電<br>配管・給水</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>つかう</b><span>需要側設備<br>節電・節水</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>もどす</b><span>排水処理<br>再利用・売電</span></div>
+  </div>
+  <div class="chain" style="margin-top:8px">
+    <div class="step" style="flex-basis:100%; background:#eef1ea"><b>はかる・まもる (横断)</b><span>監視・データ化・保守 O&amp;M・最適化 — 全段階にかかる横串。<span class="g">INNFRAの現有主戦場</span></span></div>
+  </div>
+</div>
+<div class="src">図1: バリューチェーン6分類。電気と水は同じ骨格で語れる。</div>
+
+<h3>軸② アクセス障壁の5分類 — 「なぜ届かないのか」</h3>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th>障壁</th><th>中身</th><th>例</th></tr>
+    <tr><td><b>物理</b></td><td>網・管が来ていない/引けない</td><td>離島・山間・オフグリッド地、仮設地</td></tr>
+    <tr><td><b>経済</b></td><td>接続・維持コストが払えない</td><td>引込工事費、老朽更新費、料金高騰</td></tr>
+    <tr><td><b>制度</b></td><td>許認可・規制で使えない</td><td>水利権、電気事業法、旅館業の水質基準</td></tr>
+    <tr><td><b>運用</b></td><td>保守できる人・技術がない</td><td>設備管理者の高齢化、点検の属人化</td></tr>
+    <tr><td><b>情報</b></td><td>状態が見えず判断できない</td><td>水質・稼働の未計測、故障の事後発覚</td></tr>
+  </table></div>
+</div>
+<div class="src">図2: 障壁5分類。「物理的に無い」だけがアクセス課題ではない、が今回の肝。</div>
+
+<h3>軸③ 誰のアクセス問題か (主体5分類)</h3>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th>主体</th><th>典型課題</th><th>財布</th></tr>
+    <tr><td>未接続地 (離島・山間・新規開発地)</td><td>物理障壁そのもの。オフグリッド需要</td><td>開発者・補助金</td></tr>
+    <tr><td>施設・事業者 (宿泊・工場・農場)</td><td>運用・情報障壁。止まると事業が止まる</td><td>事業者 <span class="g">◎払える</span></td></tr>
+    <tr><td>集合住宅・建物オーナー</td><td>受水槽・ポンプ等の老朽と管理不全</td><td>管理組合・オーナー</td></tr>
+    <tr><td>自治体・地域</td><td>維持限界。人口減で網の採算が崩壊</td><td>財政 <span class="r">▲細る</span></td></tr>
+    <tr><td>個人・世帯</td><td>単価小。直接顧客にはなりにくい</td><td><span class="r">▲薄い</span></td></tr>
+  </table></div>
+</div>
+<div class="src">図3: 主体5分類。受益者と支払者がズレる領域(自治体・組合)は契約設計が本体になる。</div>
+
+<h2>2. 出てきた論点・アイデアのプロット (現時点)</h2>
+<p>ブレストの発散内容をマトリクスに落とすとこうなる。<span class="g">緑 = 既に資産がある</span> / <span class="r">赤 = 空白</span>。</p>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th></th><th>つくる</th><th>ためる</th><th>はこぶ</th><th>つかう</th><th>もどす</th><th>はかる・まもる</th></tr>
+    <tr>
+      <th>水</th>
+      <td><span class="tag have">造水・浄水運用</span></td>
+      <td><span class="tag">受水槽管理</span></td>
+      <td><span class="tag gap">空白</span></td>
+      <td><span class="tag">節水最適化</span></td>
+      <td><span class="tag gap">排水・再利用</span></td>
+      <td><span class="tag have">Water監視 3拠点</span><span class="tag have">Optimizer</span></td>
+    </tr>
+    <tr>
+      <th>電気</th>
+      <td><span class="tag">太陽光</span><span class="tag">水素(北杜・検討)</span></td>
+      <td><span class="tag">蓄電池</span></td>
+      <td><span class="tag gap">空白</span></td>
+      <td><span class="tag">需要最適化</span></td>
+      <td><span class="tag gap">売電・融通</span></td>
+      <td><span class="tag gap">監視の電気版</span></td>
+    </tr>
+  </table></div>
+</div>
+<div class="src">図4: 資産プロット v0.1。水×「はかる・まもる」に実績が集中 — ここが橋頭堡。</div>
+
+<h3>電気×水のクロス領域 — 実は一番おいしい交点</h3>
+<div class="artifact">
+  <div class="cross">
+    <div class="circ"><b>電気だけ</b><br>発電・蓄電・売電<br>需要最適化</div>
+    <div class="mid"><b>交点 (両方に跨る)</b><br>・ポンプ/水処理は<b>電力大食い</b><br>・水素 = 電気で作り水から出る<br>・監視データ基盤は共通化可能<br>・オフグリッド拠点は必ず両方要る</div>
+    <div class="circ"><b>水だけ</b><br>取水・浄水・水質<br>排水処理</div>
+  </div>
+</div>
+<div class="src">図5: 「電気と水を別事業にしない」ことが、電気単体・水単体の専業と差別化する根拠になる。</div>
+
+<h2>3. 抜け漏れ・盲点の示唆 (6点)</h2>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th style="width:11em">盲点</th><th>指摘</th></tr>
+    <tr><td>①「もどす」の空白</td><td>ブレストは「つくる・届ける」に寄りがち。排水処理・再利用・売電の<b>出口側</b>は競合も薄く、規制知識が参入障壁になる。</td></tr>
+    <tr><td>② 新設よりストック</td><td>日本の主戦場は「無い所に作る」より<b>「あるが維持できない」</b>。老朽受水槽・ポンプ・浄化槽の維持限界は構造的に増える一方。</td></tr>
+    <tr><td>③ ソフトの障壁</td><td>制度・契約・金融(初期費ゼロ化、サブスク設備)・保険。ハードを持たずに<b>アクセスを設計する側</b>に回れる。</td></tr>
+    <tr><td>④ 「はかる」が入口</td><td>監視は単価が小さいが<b>解約されにくく、次の工事・更新案件の一次情報が全部入ってくる</b>。営業装置として位置づけ直す。</td></tr>
+    <tr><td>⑤ 支払者のズレ</td><td>困っている人(住民)と払う人(自治体・組合)が違う領域では、技術でなく<b>合意形成と契約設計</b>が商品になる。</td></tr>
+    <tr><td>⑥ 電気側の実績不足</td><td>図4の通り電気側はほぼ空白。水の実績を「電気にも同じ骨格で効く」と言える<b>共通データ基盤</b>で橋渡しするのが現実的。</td></tr>
+  </table></div>
+</div>
+<div class="src">図6: 盲点マップ。②④が既存資産と最も接続が良い。</div>
+
+<h2>4. 今後のアプローチ (4ステップ)</h2>
+<div class="steps">
+  <div class="st"><b>ブレスト内容の転記・全プロット</b><span class="w">今回の発散メモ(前半・後半Docs)を図4のマトリクスに全件落とす。落ちないアイデアが出たら軸を修正 ｜ 〜1週間</span></div>
+  <div class="st"><b>資産棚卸しを重ねて「勝ち筋セル」特定</b><span class="w">実績・人脈・許認可・失敗経験をセルに重ね、緑が濃い×市場が伸びるセルを特定 ｜ 〜2週間</span></div>
+  <div class="st"><b>セル別に「誰が・いくら払うか」を1枚化 → 2〜3セルに絞る</b><span class="w">顧客・支払者・単価・競合を1セル1枚。絞る勇気がここの成果物 ｜ 〜1ヶ月</span></div>
+  <div class="st"><b>既存案件をリファレンス化して営業装置に</b><span class="w">Water監視3拠点の実績を事例資料化し、絞ったセルの初回商談に載せる ｜ 並行</span></div>
+</div>
+<div class="src">図7: 進め方。発散(済) → 構造化(本資料) → 絞り込み → 実弾化。</div>
+
+<h2>付記</h2>
+<p class="note">本資料はブレスト直後の即時整理版(v0.1)。共有いただいた前半・後半のGoogle Docsは閲覧権限の都合で本版には未反映のため、図4のプロットは既知情報からの仮置き。権限共有またはテキスト展開をいただければ、ブレスト全論点を反映したv1.0に即時更新する。</p>
+
+<footer>
+  INNFRA インフラアクセス領域 整理ボード v0.1 ｜ 内部検討用 ｜ このページは 2026-08-03 20:41 JST に自動削除されます
+</footer>
+
+</main>
+</body>
+</html>
