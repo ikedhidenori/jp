@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>INNFRA インフラアクセス・フレームワーク v0.1</title>
+<style>
+  :root{
+    --paper:#f6f8f3; --ink:#111; --faint:#666;
+    --red:#d84a32; --green:#18a36f; --panel:#fff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{line-break:strict;}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:"Helvetica Neue", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    font-size:15px; line-height:1.9;
+    word-break:normal; overflow-wrap:break-word;
+    padding:32px 20px 80px;
+  }
+  main{max-width:860px; margin:0 auto;}
+  header.doc{border-bottom:3px solid var(--ink); padding-bottom:16px; margin-bottom:36px;}
+  .kicker{font-size:11px; letter-spacing:.18em; color:var(--faint); margin-bottom:8px;}
+  h1{font-size:25px; line-height:1.45; font-weight:700;}
+  .meta{font-size:12px; color:var(--faint); margin-top:10px;}
+  h2{
+    font-size:19px; font-weight:700; margin:52px 0 18px;
+    padding-left:14px; border-left:11px solid var(--ink); line-height:1.5;
+  }
+  h3{font-size:15px; font-weight:700; margin:26px 0 10px;}
+  p{margin:0 0 14px;}
+  .note{font-size:12.5px; color:var(--faint); line-height:1.8;}
+  .artifact{background:var(--panel); border:2px solid var(--ink); padding:16px 14px 12px; margin:16px 0 6px;}
+  .src{font-size:10.5px; color:var(--faint); margin:4px 0 22px; padding-left:2px;}
+  table{width:100%; border-collapse:collapse; font-size:12px; line-height:1.6;}
+  th,td{border:1px solid #bbb; padding:6px 7px; text-align:left; vertical-align:top;}
+  th{background:#eef1ea; font-weight:700;}
+  .tblwrap{overflow-x:auto;}
+  .matrix td{min-width:150px;}
+  .matrix .qq{display:block; font-size:11.5px; font-weight:700; margin-bottom:3px;}
+  .matrix .ex{display:block; font-size:10.5px; color:var(--faint); line-height:1.55;}
+  .matrix th.rowh{white-space:nowrap; vertical-align:middle;}
+  .r{color:var(--red); font-weight:700;}
+  .g{color:var(--green); font-weight:700;}
+  .flow{display:flex; flex-wrap:wrap; gap:6px; align-items:stretch;}
+  .flow .step{flex:1 1 120px; min-width:118px; background:var(--panel); border:2px solid var(--ink); padding:10px 8px; text-align:center;}
+  .flow .step b{display:block; font-size:12.5px;}
+  .flow .step span{font-size:10.5px; color:var(--faint); line-height:1.5; display:block; margin-top:3px;}
+  .flow .arrow{align-self:center; font-weight:700; color:var(--faint);}
+  .cat{display:flex; gap:10px; flex-wrap:wrap;}
+  .cat .box{flex:1 1 190px; border:2px solid var(--ink); background:var(--panel); padding:11px 11px;}
+  .cat .box h4{font-size:13px; margin-bottom:5px;}
+  .cat .box p{font-size:11.5px; color:#333; margin:0; line-height:1.7;}
+  .rule{background:#eef1ea; border-left:6px solid var(--ink); padding:10px 14px; margin:14px 0; font-size:13px;}
+  footer{margin-top:64px; border-top:1px solid #bbb; padding-top:14px; font-size:11px; color:var(--faint);}
+  @media (max-width:400px){
+    body{padding:24px 12px 60px; font-size:14px;}
+    h1{font-size:21px;}
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--paper:#181a17; --ink:#e8eae5; --faint:#9aa096; --panel:#22241f;}
+    th{background:#2a2d26;}
+    th,td{border-color:#555;}
+    .rule{background:#2a2d26;}
+    .cat .box p{color:#c6cabf;}
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="doc">
+  <div class="kicker">INNFRA / FRAMEWORK</div>
+  <h1>インフラアクセス・フレームワーク<br>— 課題発見から事業判断までの共通の型</h1>
+  <div class="meta">v0.1 ｜ 2026-07-31 ブレスト3ラウンドから抽出 ｜ 対象資源: 電気・水・(熱=論点1で採否決定)</div>
+</header>
+
+<h2>全体の流れ — 5ステップ</h2>
+<div class="artifact">
+  <div class="flow">
+    <div class="step"><b>STEP 1<br>課題を見つける</b><span>4W×6類型<br>マトリクスに置く</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>STEP 2<br>解像度テスト</b><span>モバ充テスト<br>3問に通す</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>STEP 3<br>WTP採点</b><span>払ってまで<br>解決したいか</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>STEP 4<br>解決の型を選ぶ</b><span>A供給/B需要/<br>C隙間/Dはかる</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>STEP 5<br>現場で検証</b><span>戸田・富士川・<br>ラボ・熊本</span></div>
+  </div>
+  <p class="note" style="margin-top:10px">合意済みの原則を型に埋め込んである: <b>課題起点(手段はその後)</b> / <b>「お金を払ってまで」フィルタ</b> / <b>オフグリッドは手段の一つ</b> / <b>「もしも」封印(平時価値で語る)</b>。この型に沿って話す限り、原則から外れない。</p>
+</div>
+<div class="src">図F1: パイプライン全体。ブレストで出たアイデアは必ずSTEP1のセル番地から言う(例:「これは②途絶×WHERE」)。</div>
+
+<h2>STEP 1 — 4W×6類型マトリクス (課題発見の24の問い)</h2>
+<p>各セルは「問い」。ブレストではセルを順に読み上げて課題を出し切る。<span class="g">緑 = 今日すでに出た課題</span>。空欄セルが次の金脈候補。</p>
+<div class="artifact">
+  <div class="tblwrap"><table class="matrix">
+    <tr>
+      <th style="min-width:6em"></th>
+      <th>WHEN いつ</th>
+      <th>WHERE どこで</th>
+      <th>WHO 誰が</th>
+      <th>WHAT 何のため</th>
+    </tr>
+    <tr>
+      <th class="rowh">① ない<br><span style="font-weight:400;font-size:10px">未接続</span></th>
+      <td><span class="qq">いつ(時間帯・季節に)手段が無くなるか?</span><span class="ex g">夜間の外出先 (未探索と自覚)</span></td>
+      <td><span class="qq">どこに供給が来ていないか?</span><span class="ex g">山奥・移動中・屋外 (モバ充)</span></td>
+      <td><span class="qq">誰が接続から漏れているか?</span><span class="ex">(空欄)</span></td>
+      <td><span class="qq">何の用途に手段が無いか?</span><span class="ex g">外でのスマホ充電</span></td>
+    </tr>
+    <tr>
+      <th class="rowh">② 途絶える<br><span style="font-weight:400;font-size:10px">災害・事故</span></th>
+      <td><span class="qq">いつ切れるか?</span><span class="ex g">災害時(100→0)・停電時</span></td>
+      <td><span class="qq">チェーンのどこで切れるか?</span><span class="ex g">中継ポンプ場 (電源断水)</span></td>
+      <td><span class="qq">切れた時、誰から順に詰むか?</span><span class="ex g">避難所 (灼熱の体育館)</span></td>
+      <td><span class="qq">切れた時、何が最初に致命的か?</span><span class="ex g">熱(冷蔵庫・エアコン)・EV移動</span></td>
+    </tr>
+    <tr>
+      <th class="rowh">③ 先細る<br><span style="font-weight:400;font-size:10px">人口減・老朽化</span></th>
+      <td><span class="qq">何年後に維持限界が来るか?</span><span class="ex">(空欄)</span></td>
+      <td><span class="qq">どの地域・設備から撤退が始まるか?</span><span class="ex g">人口減地域 (会社紹介の原点)</span></td>
+      <td><span class="qq">維持負担が誰に残るか?</span><span class="ex">(空欄)</span></td>
+      <td><span class="qq">まず何のサービス水準が落ちるか?</span><span class="ex">(空欄)</span></td>
+    </tr>
+    <tr>
+      <th class="rowh">④ 足りない<br><span style="font-weight:400;font-size:10px">量の逼迫</span></th>
+      <td><span class="qq">いつ需要が供給を超えるか?</span><span class="ex g">猛暑ピーク (供給50%事態)</span></td>
+      <td><span class="qq">どこで逼迫するか?</span><span class="ex">(空欄)</span></td>
+      <td><span class="qq">制限時に誰が削られるか?</span><span class="ex">(空欄)</span></td>
+      <td><span class="qq">何を削れば少量で暮らせるか?</span><span class="ex g">90で暮らせる暮らし・夜シフト</span></td>
+    </tr>
+    <tr>
+      <th class="rowh">⑤ 質が<br>満たされない</th>
+      <td><span class="qq">いつ質が揺らぐか?</span><span class="ex">(空欄)</span></td>
+      <td><span class="qq">どこの水・電気が信用できないか?</span><span class="ex g">水道水への不安 (PFAS)</span></td>
+      <td><span class="qq">誰が質に不安を持つか?</span><span class="ex g">浄水器・宅配水を買う層</span></td>
+      <td><span class="qq">何の用途に質が足りないか?</span><span class="ex g">飲用。電気の質は未探索</span></td>
+    </tr>
+    <tr>
+      <th class="rowh">⑥ 偏っている<br><span style="font-weight:400;font-size:10px">同時同所の格差</span></th>
+      <td><span class="qq">同じ時に誰かだけ使えない瞬間は?</span><span class="ex">(空欄)</span></td>
+      <td><span class="qq">同じ建物・地域のどこに段差が?</span><span class="ex g">部屋間格差・水利の上下流</span></td>
+      <td><span class="qq">所有・設備の段差で誰が詰むか?</span><span class="ex g">トイレ10ヶ月直らない住人</span></td>
+      <td><span class="qq">同じ料金で受ける中身に何の差が?</span><span class="ex">(空欄)</span></td>
+    </tr>
+  </table></div>
+  <p class="note" style="margin-top:10px">運用ルール: 資源(電気/水/熱)はセル内のタグで区別し、マトリクスは1枚で回す。<b>セルに置けないアイデアが出たら、アイデアではなく軸を疑い、この表を更新する</b>(フレームワーク自体もバージョン管理)。空欄セルは9つ — 次回ブレストはここから。</p>
+</div>
+<div class="src">図F2: 課題発見マトリクス。24問中15問に今日の議論が既に入った = 受け皿として機能実証済み。</div>
+
+<h2>STEP 2 — 解像度テスト (モバ充テスト)</h2>
+<p>「漠然と家に供給」の解像度では課題は見えない。モバ充の発想は「いつでもスマホを使いたい」まで落ちて初めて出た — この基準をテスト化する。</p>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th style="width:3em">Q</th><th>問い</th><th>合格例</th><th>不合格例</th></tr>
+    <tr><td>Q1</td><td><b>主語は特定の人か</b></td><td>「外回り中に電池が切れた営業」</td><td>「みんな」「世の中」</td></tr>
+    <tr><td>Q2</td><td><b>場面が目に浮かぶか</b></td><td>「駅で地図が見られず立ち尽くす」</td><td>「電力が不安定」</td></tr>
+    <tr><td>Q3</td><td><b>その人の今の代替行動が言えるか</b></td><td>「カフェを探してコンセントを借りる」</td><td>言えない(=実は困っていない)</td></tr>
+  </table></div>
+  <p class="note" style="margin-top:8px">3問すべてに答えられない課題はSTEP3に進めない。答えられるまで解像度を上げるか、捨てる。</p>
+</div>
+<div class="src">図F3: 解像度テスト。後半 19:26-20:19 の「何をしたいのかがめっちゃ大事」を運用可能にしたもの。</div>
+
+<h2>STEP 3 — WTP採点 (お金を払ってまで解決したいか)</h2>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th>軸</th><th>1点</th><th>3点</th><th>5点</th></tr>
+    <tr><td><b>困り度</b><br>その瞬間の切実さ</td><td>不便どまり</td><td>予定・仕事に支障</td><td>生命・事業・資産に直結</td></tr>
+    <tr><td><b>支払者の明確さ</b></td><td>誰が払うか不明</td><td>個人が小額(都度)</td><td>事業者・自治体が予算で払う</td></tr>
+    <tr><td><b>既存代替の弱さ</b></td><td>安い代替が普及済<br>(例: 飲料水=ボトル)</td><td>代替はあるが不便</td><td>代替が無い/機能していない</td></tr>
+  </table></div>
+  <div class="rule">運用: 合計 <b>11点以上 → STEP4へ</b> / 7-10点 → 保留プール / 6点以下 → 捨てる。<br>⚠ 教訓を組込済み: モバ充ですら「追加でお金を払いたくない」と言った(20:56回) — <b>課題の実在とWTPは別物</b>。困り度が高くても支払者が曖昧なら進めない。</div>
+</div>
+<div class="src">図F4: WTP採点。「人々がお金を払ってまで解決したくなる課題」(前半 08:11) を宣言から採点表に。</div>
+
+<h2>STEP 4 — 解決の型カタログ (4型)</h2>
+<div class="artifact">
+  <div class="cat">
+    <div class="box"><h4>A. 供給を作る・守る</h4><p>途絶えないインフラ構築・ポンプ電源・再エネ・オフグリッド供給。既存事業者が「できない部分」を狙う。</p></div>
+    <div class="box"><h4>B. 需要を変える</h4><p>90で暮らせる建築・省エネ・行動変容・AI最適化。「そっちの方がインパクトでかい」。供給側の売上と衝突する点に注意。</p></div>
+    <div class="box"><h4>C. 隙間インフラ</h4><p>網を作らずスポットで埋める小レイヤー。モバ充・冷房スポット・店舗の水。都市型。遮断(日傘・UV)も含む。</p></div>
+    <div class="box"><h4>D. はかる・まもる</h4><p>監視・見える化・O&amp;M。「充電できているつもりができていない」を潰す。水で実証済み、電気・熱へ横展開。</p></div>
+  </div>
+  <p class="note" style="margin-top:10px">1つの課題に複数の型が刺さることがある(例: 避難所の暑さ = A電源+C スポットクーラー+D 監視)。<b>型を選んでからチェーン位置(大元/幹線/中継/建物/宅内)を確認し、電気×水×熱の交点なら加点</b> — 交点は自社が「1社でやる」根拠が立つ場所。</p>
+</div>
+<div class="src">図F5: 解決の型。ソリューション議論はSTEP1-3を通過した課題にだけ許可する(手段先行の再発防止)。</div>
+
+<h2>STEP 5 — 検証フィールドと運用ルール</h2>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th>フィールド</th><th>検証できる課題</th></tr>
+    <tr><td>戸田</td><td>施設の電力(④逼迫・②途絶)。自分たちが苦しんだ一次情報</td></tr>
+    <tr><td>富士川</td><td>施設の電力まわり</td></tr>
+    <tr><td>ラボ</td><td>オフグリッドの供給上限・B需要側(建築)の実地</td></tr>
+    <tr><td>熊本</td><td>②途絶×熱(避難所)・電源断水。9/1防災企画のフィールド</td></tr>
+  </table></div>
+  <div class="rule">
+    <b>ブレスト運用 3ルール</b><br>
+    1. アイデアは必ずセル番地から言う(「これは②×WHERE の課題で…」)。番地が言えない=解像度不足<br>
+    2. 手段(オフグリッド・製品名)から話し始めたら、一度STEP1に差し戻す<br>
+    3. 週次でマトリクスを見て、<b>空欄セルを意図的に1つ埋める</b>
+  </div>
+</div>
+<div class="src">図F6: 検証フィールド+運用ルール。「もしも」封印に従い、熊本も「平時価値+非常時にも効く」の順で語る。</div>
+
+<h2>未確定 (このフレームワーク自体の宿題)</h2>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><td style="width:2.5em"><b>1</b></td><td>「熱」を資源軸に正式採用するか (採用ならマトリクスの全セルを熱でもう一周する)</td></tr>
+    <tr><td><b>2</b></td><td>⑤質の線引き — 恐怖ビジネスとの境界基準をどこに置くか</td></tr>
+    <tr><td><b>3</b></td><td>逆転アプローチ(無インフラ地に価値を埋める)は本フレームの外にある別の型。反例調査の結果で採否</td></tr>
+    <tr><td><b>4</b></td><td>WTP採点の閾値(11点)は仮置き。10件ほど採点して較正する</td></tr>
+  </table></div>
+</div>
+<div class="src">図F7: 宿題4件。フレームワークは使いながら直す前提 (v0.1)。</div>
+
+<footer>
+  INNFRA インフラアクセス・フレームワーク v0.1 ｜ 2026-07-31 ブレスト3ラウンド(19:27/19:42/20:56)から抽出 ｜ 内部検討用 ｜ このページは 2026-08-07 21:26 JST に自動削除されます (7日TTL)
+</footer>
+
+</main>
+</body>
+</html>
