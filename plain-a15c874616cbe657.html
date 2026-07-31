@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>INNFRA — インフラアクセス領域 整理ボード v0.1</title>
+<title>INNFRA — インフラアクセス整理ボード v1.0</title>
 <style>
   :root{
-    --paper:#f6f8f3; --ink:#111; --faint:#666; --line:#111;
+    --paper:#f6f8f3; --ink:#111; --faint:#666;
     --red:#d84a32; --green:#18a36f; --panel:#fff;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -19,10 +19,10 @@
     word-break:normal; overflow-wrap:break-word;
     padding:32px 20px 80px;
   }
-  main{max-width:760px; margin:0 auto;}
+  main{max-width:780px; margin:0 auto;}
   header.doc{border-bottom:3px solid var(--ink); padding-bottom:16px; margin-bottom:36px;}
   .kicker{font-size:11px; letter-spacing:.18em; color:var(--faint); margin-bottom:8px;}
-  h1{font-size:26px; line-height:1.4; font-weight:700;}
+  h1{font-size:25px; line-height:1.45; font-weight:700;}
   .meta{font-size:12px; color:var(--faint); margin-top:10px;}
   h2{
     font-size:19px; font-weight:700; margin:52px 0 18px;
@@ -33,60 +33,61 @@
   .note{font-size:12.5px; color:var(--faint); line-height:1.8;}
   .artifact{
     background:var(--panel); border:2px solid var(--ink);
-    padding:18px 16px 12px; margin:18px 0 6px;
+    padding:16px 14px 12px; margin:16px 0 6px;
   }
   .src{font-size:10.5px; color:var(--faint); margin:4px 0 22px; padding-left:2px;}
-  table{width:100%; border-collapse:collapse; font-size:12.5px; line-height:1.6;}
+  table{width:100%; border-collapse:collapse; font-size:12.5px; line-height:1.65;}
   th,td{border:1px solid #bbb; padding:7px 8px; text-align:left; vertical-align:top;}
   th{background:#eef1ea; font-weight:700; white-space:nowrap;}
   .tblwrap{overflow-x:auto;}
   .r{color:var(--red); font-weight:700;}
   .g{color:var(--green); font-weight:700;}
-  .tag{display:inline-block; font-size:10.5px; font-weight:700; padding:1px 7px; border:1.5px solid var(--ink); margin:2px 3px 2px 0; white-space:nowrap;}
-  .tag.have{border-color:var(--green); color:var(--green);}
-  .tag.gap{border-color:var(--red); color:var(--red);}
-  .chain{display:flex; flex-wrap:wrap; gap:6px; align-items:stretch;}
-  .chain .step{
-    flex:1 1 100px; min-width:96px; background:var(--panel);
-    border:2px solid var(--ink); padding:10px 8px; text-align:center;
+  .q{
+    border-left:4px solid #999; padding:2px 0 2px 12px; margin:10px 0 14px;
+    font-size:13px; color:#333; line-height:1.8;
   }
-  .chain .step b{display:block; font-size:13.5px;}
-  .chain .step span{font-size:11px; color:var(--faint); line-height:1.5; display:block; margin-top:4px;}
+  .chain{display:flex; flex-wrap:wrap; gap:6px; align-items:stretch; margin:4px 0;}
+  .chain .step{flex:1 1 96px; min-width:92px; background:var(--panel); border:2px solid var(--ink); padding:9px 7px; text-align:center;}
+  .chain .step b{display:block; font-size:13px;}
+  .chain .step span{font-size:10.5px; color:var(--faint); line-height:1.5; display:block; margin-top:3px;}
+  .chain .step.hot{border-color:var(--red);}
+  .chain .step.hot b{color:var(--red);}
   .chain .arrow{align-self:center; font-weight:700; color:var(--faint);}
-  .cross{display:flex; gap:0; margin:6px 0;}
-  .cross .circ{
-    flex:1; border:2px solid var(--ink); padding:14px 10px; background:var(--panel);
-    font-size:12.5px; line-height:1.7;
+  .duo{display:flex; gap:10px; flex-wrap:wrap;}
+  .duo .box{flex:1 1 240px; border:2px solid var(--ink); background:var(--panel); padding:12px 12px;}
+  .duo .box h4{font-size:13.5px; margin-bottom:6px;}
+  .duo .box ul{padding-left:18px; font-size:12.5px;}
+  .duo .box li{margin-bottom:4px;}
+  .agenda{counter-reset:a;}
+  .agenda .it{background:var(--panel); border:2px solid var(--ink); padding:11px 13px 11px 52px; margin:10px 0; position:relative; font-size:13.5px;}
+  .agenda .it::before{
+    counter-increment:a; content:"論" counter(a);
+    position:absolute; left:0; top:0; bottom:0; width:38px;
+    background:var(--ink); color:#fff; font-weight:700; font-size:13px;
+    display:flex; align-items:center; justify-content:center;
   }
-  .cross .mid{
-    flex:1.2; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
-    background:#eef1ea; padding:14px 10px; font-size:12.5px; line-height:1.7;
-  }
+  .agenda .it .w{font-size:11.5px; color:var(--faint); display:block; margin-top:2px;}
   .steps{counter-reset:s;}
-  .steps .st{
-    background:var(--panel); border:2px solid var(--ink);
-    padding:12px 14px 12px 54px; margin:10px 0; position:relative;
-  }
+  .steps .st{background:var(--panel); border:2px solid var(--ink); padding:11px 13px 11px 52px; margin:10px 0; position:relative;}
   .steps .st::before{
     counter-increment:s; content:"S" counter(s);
-    position:absolute; left:0; top:0; bottom:0; width:40px;
-    background:var(--ink); color:#fff; font-weight:700;
-    display:flex; align-items:center; justify-content:center; font-size:15px;
+    position:absolute; left:0; top:0; bottom:0; width:38px;
+    background:var(--ink); color:#fff; font-weight:700; font-size:14px;
+    display:flex; align-items:center; justify-content:center;
   }
-  .steps .st b{font-size:14px;}
+  .steps .st b{font-size:13.5px;}
   .steps .st .w{font-size:11.5px; color:var(--faint); display:block; margin-top:2px;}
   footer{margin-top:64px; border-top:1px solid #bbb; padding-top:14px; font-size:11px; color:var(--faint);}
   @media (max-width:400px){
     body{padding:24px 14px 60px; font-size:14px;}
-    h1{font-size:22px;}
-    .chain .step{min-width:84px;}
+    h1{font-size:21px;}
   }
   @media (prefers-color-scheme: dark){
-    :root{--paper:#181a17; --ink:#e8eae5; --faint:#9aa096; --panel:#22241f; --line:#e8eae5;}
+    :root{--paper:#181a17; --ink:#e8eae5; --faint:#9aa096; --panel:#22241f;}
     th{background:#2a2d26;}
-    .cross .mid{background:#2a2d26;}
     th,td{border-color:#555;}
-    .steps .st::before{background:#e8eae5; color:#181a17;}
+    .q{color:#c6cabf; border-left-color:#666;}
+    .agenda .it::before,.steps .st::before{background:#e8eae5; color:#181a17;}
   }
 </style>
 </head>
@@ -94,134 +95,173 @@
 <main>
 
 <header class="doc">
-  <div class="kicker">INNFRA / STRATEGY BOARD</div>
-  <h1>インフラアクセス領域の整理<br>— 電気と水、どこを獲りにいくか</h1>
-  <div class="meta">v0.1 ブレスト中断時点の思考整理 ｜ 2026-07-31 ｜ 岩崎 × 川島 討議の下敷き</div>
+  <div class="kicker">INNFRA / BRAINSTORM SYNTHESIS</div>
+  <h1>インフラアクセス課題の整理<br>— 2026-07-31 ブレスト全文の構造化</h1>
+  <div class="meta">v1.0 ｜ 19:27〜20:13 の討議文字起こし(前半・後半)を全件反映 ｜ 再開ディスカッション用</div>
 </header>
 
-<h2>0. 今回固まった前提</h2>
+<h2>0. 今日ブレない軸として確定したこと</h2>
 <div class="artifact">
-  <table>
-    <tr><th style="width:9em">会社の立ち位置</th><td><b>「インフラアクセスの課題を解決する」</b>会社。作る会社でも売る会社でもなく、<b>届いていない/維持できない場所に届ける</b>会社。</td></tr>
-    <tr><th>インフラの定義</th><td><b>電気</b> と <b>水</b> の2本(今回スコープ)。熱・通信は隣接領域として保留。</td></tr>
-    <tr><th>組織上の含意</th><td>この定義により<b>川島の立場・役割が明確化</b>。事業ドメインと人の配置が一致した。</td></tr>
-  </table>
+  <div class="tblwrap"><table>
+    <tr><th style="width:8.5em">出発点</th><td><b>エネルギーと水への「アクセス」に関する課題起点</b>で事業をやる。結果として住宅・建築に行き着くのは否定しないが、インフラ課題起点で始まっていないものはやらない。ここはブラさない。</td></tr>
+    <tr><th>オフグリッドの位置づけ</th><td><b>手段であって目的ではない</b>。「アクセスできない」から出発していれば、ソリューションはオフグリッドでなくてもよい。</td></tr>
+    <tr><th>需要側もスコープ内</th><td>「100必要な暮らしを90で暮らせる暮らしに」して途絶に強くするのも、アクセス課題の解決。<b>供給を作る/守る × 需要を変える の両輪</b>で捉える(§1-4)。「そっちの方がインパクトでかい」。</td></tr>
+    <tr><th>原点の価値観</th><td>「<b>必要な時に、必要な分だけ手に入る状態が豊か</b>」。</td></tr>
+    <tr><th>課題ドリブン</th><td>まず<b>「人々がお金を払ってまで解決したくなるアクセス課題」を見つける</b>。手段(何を作るか)はその後。「色々考えた上でこれ、と言えるようにする」。</td></tr>
+    <tr><th>言葉の封印</th><td>「<b>もしものために</b>」(防災枕詞)は封印。「<b>いつでも・どこでも・誰でも</b>」で語る。防災は火付け役であって本丸ではない(§5 論3)。</td></tr>
+  </table></div>
 </div>
-<div class="src">出典: 2026-07-31 岩崎×川島ブレスト (口頭合意)。</div>
+<div class="src">出典: 前半 00:00-02:16 / 05:12-06:54 / 08:11-08:56、後半 00:02-01:29。</div>
 
-<h2>1. MECE整理 — 3軸で領域を切る</h2>
-<p>「インフラアクセス」は1軸では切れない。<b>①流れ(バリューチェーン) × ②障壁の種類 × ③誰の問題か</b> の3軸で立体的に切ると、議論の置き場所が決まる。</p>
+<h2>1. MECE整理 — 議論から立ち上がった4つの切り口</h2>
 
-<h3>軸① 資源の流れ (電気・水 共通の6段階)</h3>
+<h3>1-1. 4Wフレーム (会話内で提案された問いの立て方)</h3>
+<div class="q">「いつアクセスできない時があるのか / どこでアクセスできない場所があるのか / アクセスできない人がいるのか / 何のアクセスができなくなるのか — で考えてもらったら」(後半 06:15)</div>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th style="width:5.5em">W</th><th>問い</th><th>今日出た具体例</th></tr>
+    <tr><td><b>WHEN</b><br>いつ</td><td>いつアクセスが切れるか</td><td>災害時(100→0)/猛暑の逼迫時(需要の50%しか供給できない)/停電の数時間〜数日/<b>夜間(未探索と自覚)</b>/人口減で先細る長期</td></tr>
+    <tr><td><b>WHERE</b><br>どこ</td><td>どこで切れているか</td><td>山奥・未接続地/被災地(熊本)/<b>外出先・移動中(モバ充)</b>/都市の建物の中(部屋単位)/水利の下流</td></tr>
+    <tr><td><b>WHO</b><br>誰</td><td>同じ時・同じ場所でも誰が切れるか</td><td>集合住宅で「あの部屋だけ停電」「トイレが10ヶ月直らない」= <b>設備と所有関係の段差</b>/水源に近い上流が強い(今も清掃を怠ると下流に流れず揉める)/昔は身分で水が分かれた</td></tr>
+    <tr><td><b>WHAT</b><br>何のため</td><td>その電気・水で何をしたいのか</td><td>スマホ充電/<b>冷蔵庫・エアコン=熱が最重量でクリティカル</b>/EV100%時代は電気途絶=移動途絶/飲み水の安心</td></tr>
+  </table></div>
+</div>
+<div class="src">図1: 4Wフレーム。「漠然と家に供給」の解像度では課題は見えない —「いつでもスマホを使いたい」まで落ちて初めてモバ充の発想が出る (後半 19:26-20:19)。</div>
+
+<h3>1-2. アクセスが損なわれる6類型 — 今日の事例を全部ここに置ける</h3>
+<div class="artifact">
+  <div class="tblwrap"><table>
+    <tr><th>類型</th><th>中身</th><th>今日出た例</th></tr>
+    <tr><td>① <b>ない</b></td><td>そもそも未接続</td><td>山奥に住みたい人、外出先の充電</td></tr>
+    <tr><td>② <b>途絶える</b></td><td>災害・事故で切れる</td><td>熊本、東京直下、停電→ポンプ停止→断水</td></tr>
+    <tr><td>③ <b>先細る</b></td><td>構造的に維持できなくなる</td><td>人口減少→老朽化→撤退 (会社紹介記載の原点)</td></tr>
+    <tr><td>④ <b>足りない</b></td><td>量の逼迫</td><td>猛暑で需要の50%しか供給できない事態</td></tr>
+    <tr><td>⑤ <b>質が満たされない</b></td><td>あるが安心・品質が揺らぐ</td><td>水質不安(PFAS)、浄水器・宅配水が売れる構造、トレーサビリティ(この水・電気どこから)、再エネ由来</td></tr>
+    <tr><td>⑥ <b>偏っている</b></td><td>同じ場所でも人により差</td><td>部屋間格差、水利の上下流、空調服を着られる人/着られない人</td></tr>
+  </table></div>
+</div>
+<div class="src">図2: 阻害6類型。「⑤質」は恐怖ビジネスと紙一重だが「泥水でいいわけがない」= 質的アクセスも正当な課題と合意 (後半 02:04-03:40)。</div>
+
+<h3>1-3. 供給チェーンのどこで切れるか — 急所は「中継ポンプ×電源」</h3>
 <div class="artifact">
   <div class="chain">
-    <div class="step"><b>つくる</b><span>発電・取水<br>浄水・造水</span></div>
+    <div class="step"><b>大元</b><span>発電<br>取水・浄水</span></div>
     <div class="arrow">→</div>
-    <div class="step"><b>ためる</b><span>蓄電池<br>貯水・受水槽</span></div>
+    <div class="step"><b>幹線</b><span>送配電<br>水道本管</span></div>
     <div class="arrow">→</div>
-    <div class="step"><b>はこぶ</b><span>送配電<br>配管・給水</span></div>
+    <div class="step hot"><b>中継</b><span>ポンプ場<br>★急所</span></div>
     <div class="arrow">→</div>
-    <div class="step"><b>つかう</b><span>需要側設備<br>節電・節水</span></div>
+    <div class="step"><b>建物</b><span>所有者の設備<br>受水槽・分電</span></div>
     <div class="arrow">→</div>
-    <div class="step"><b>もどす</b><span>排水処理<br>再利用・売電</span></div>
+    <div class="step"><b>宅内</b><span>ユーザー設備<br>自分で直せる域</span></div>
   </div>
-  <div class="chain" style="margin-top:8px">
-    <div class="step" style="flex-basis:100%; background:#eef1ea"><b>はかる・まもる (横断)</b><span>監視・データ化・保守 O&amp;M・最適化 — 全段階にかかる横串。<span class="g">INNFRAの現有主戦場</span></span></div>
+  <p class="note" style="margin-top:10px">被災地の断水は「管の破裂」より<b>途中のポンプ停止</b>が多く、そこを復旧させれば早期解消することが多い(電源断水)。しかも<span class="r">ポンプは電気で動く = 水と電気は切り離せない</span> — 停電したら井戸も水道も出ない。この相互依存が「電気と水を1社でやる」根拠になる。</p>
+</div>
+<div class="src">図3: チェーン分解 (後半 09:00-14:30)。「運ぶ〜使うの間が細かく分かれ、建物所有者の段階・宅内設備の段階がある」— Whoの段差(図1)はここで生まれる。</div>
+
+<h3>1-4. ソリューションの2方向 — どちらもスコープ内と合意</h3>
+<div class="artifact">
+  <div class="duo">
+    <div class="box">
+      <h4>A. 供給を作る・守る</h4>
+      <ul>
+        <li>途絶えないインフラの構築</li>
+        <li>ポンプ場の電源確保 (断水の早期復旧)</li>
+        <li>再エネ電気 (「最高の電気にみんなアクセスすべき」なら)</li>
+        <li>オフグリッド供給 (手段の一つとして)</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h4>B. 需要を変える <span class="g">← インパクト大と発言</span></h4>
+      <ul>
+        <li>90で暮らせる建築・省エネ (10減っても暮らせる)</li>
+        <li>逼迫時に50%供給でも回る暮らしへの全体削減</li>
+        <li>行動変容: 「夏は夜にシフトし昼は寝る」</li>
+        <li>AI最適化・思考家電 (除湿vs冷房の最適解)</li>
+      </ul>
+    </div>
   </div>
+  <p class="note" style="margin-top:10px">順番が重要: 「山奥に住みたい→インフラがない→オフグリッドで供給→上限があるから建築・行動も工夫→建築まで面倒を見る」<b>この順ならOK</b>。家から始めるのはNG。⚠ 未消化: Bは供給事業者の売上を減らす。誰の味方として立つか(マクロでは国富流出の抑制)は §5 論4。</p>
 </div>
-<div class="src">図1: バリューチェーン6分類。電気と水は同じ骨格で語れる。</div>
+<div class="src">図4: 2方向 (前半 03:57-06:22、後半 38:18-39:00)。</div>
 
-<h3>軸② アクセス障壁の5分類 — 「なぜ届かないのか」</h3>
+<h2>2. 今日の発見 — スコープが「熱」に広がった</h2>
 <div class="artifact">
   <div class="tblwrap"><table>
-    <tr><th>障壁</th><th>中身</th><th>例</th></tr>
-    <tr><td><b>物理</b></td><td>網・管が来ていない/引けない</td><td>離島・山間・オフグリッド地、仮設地</td></tr>
-    <tr><td><b>経済</b></td><td>接続・維持コストが払えない</td><td>引込工事費、老朽更新費、料金高騰</td></tr>
-    <tr><td><b>制度</b></td><td>許認可・規制で使えない</td><td>水利権、電気事業法、旅館業の水質基準</td></tr>
-    <tr><td><b>運用</b></td><td>保守できる人・技術がない</td><td>設備管理者の高齢化、点検の属人化</td></tr>
-    <tr><td><b>情報</b></td><td>状態が見えず判断できない</td><td>水質・稼働の未計測、故障の事後発覚</td></tr>
+    <tr><th style="width:11em">発見</th><th>中身</th></tr>
+    <tr><td>停電で本当に困るのは熱</td><td>使途を解像度高く見ると、エアコン・冷蔵庫 = <b>熱に関わるものが最も電気を食い、最もクリティカル</b>。30年前は扇風機で過ごせた夏が、今はエアコンなしでは不可能。熊本の避難所は灼熱の体育館。</td></tr>
+    <tr><td>温冷熱インフラ市場</td><td>「温かさへのアクセス」「涼しさへのアクセス」。冷房より暖房が電気を食う。<b>熱は熱で獲る</b>(太陽熱温水・地熱)。首掛け扇風機・ネッククーラーも「涼しさアクセス」の商品。この市場が今まで無かったのは<b>地球が過ごしやすかったから</b> — 気温上昇で構造的に立ち上がる。生物は急に進化できない。</td></tr>
+    <tr><td>不快の本質は湿度</td><td>暑さより湿度。除湿はエアコンで最も電気を食うモード。「自分の周辺の湿度だけ下げる」は未解決領域。逆手に取ればサウナ(笑いから出たが着眼は残す)。</td></tr>
+    <tr><td>排熱の視点</td><td>「車で移動して東京を温めている」— 排熱・再利用側は今日ほぼ未探索。</td></tr>
   </table></div>
 </div>
-<div class="src">図2: 障壁5分類。「物理的に無い」だけがアクセス課題ではない、が今回の肝。</div>
+<div class="src">図5: 熱への拡張 (後半 22:34-28:27)。「電気・水」の2本に「熱」を正式に足すかが再開後の最大論点 (§5 論1)。</div>
 
-<h3>軸③ 誰のアクセス問題か (主体5分類)</h3>
+<h2>3. 出てきたアイデア・事例の全プロット</h2>
 <div class="artifact">
   <div class="tblwrap"><table>
-    <tr><th>主体</th><th>典型課題</th><th>財布</th></tr>
-    <tr><td>未接続地 (離島・山間・新規開発地)</td><td>物理障壁そのもの。オフグリッド需要</td><td>開発者・補助金</td></tr>
-    <tr><td>施設・事業者 (宿泊・工場・農場)</td><td>運用・情報障壁。止まると事業が止まる</td><td>事業者 <span class="g">◎払える</span></td></tr>
-    <tr><td>集合住宅・建物オーナー</td><td>受水槽・ポンプ等の老朽と管理不全</td><td>管理組合・オーナー</td></tr>
-    <tr><td>自治体・地域</td><td>維持限界。人口減で網の採算が崩壊</td><td>財政 <span class="r">▲細る</span></td></tr>
-    <tr><td>個人・世帯</td><td>単価小。直接顧客にはなりにくい</td><td><span class="r">▲薄い</span></td></tr>
+    <tr><th>事例・アイデア</th><th style="width:4.5em">種別</th><th>4W×類型の位置</th><th>示唆</th></tr>
+    <tr><td>ChargeSPOT/モバイルバッテリー</td><td>参考企業</td><td>Where外出先 × ①ない</td><td><b>インフラアクセス企業の分かりやすい原型</b>。ただし「追加でお金を払いたくない」= WTPの壁も同時に発見</td></tr>
+    <tr><td>ボトルウォーター/コンビニ</td><td>参考</td><td>Where外出先 × ①</td><td>「水を小分けで持ち歩ける」は偉大な発明。飲料水は既に解決済み領域</td></tr>
+    <tr><td>浄水器・宅配水</td><td>参考</td><td>⑤質</td><td>普及済みの上で暮らす人のマインドセットが変わると一気に取れる</td></tr>
+    <tr><td>トレーサビリティ</td><td>アイデア</td><td>⑤質</td><td>「この水・この電気、どこから来てますか」。ソース開示</td></tr>
+    <tr><td>再エネ電気の会社</td><td>アイデア</td><td>⑤質</td><td>「最高の電気にアクセスすべき」と定義した場合の帰結</td></tr>
+    <tr><td>ポンプ場×電源で断水早期復旧</td><td>アイデア</td><td>Where中継 × ②途絶</td><td>被災地断水の実態に直結。<span class="g">電気×水の交点で最も具体的</span></td></tr>
+    <tr><td>9/1 防災の日打ち上げ (熊本×自衛隊筋)</td><td>進行中</td><td>②途絶(フック)</td><td>メディア露出→引き合い→営業ネタ化。<b>本丸との整合整理が先</b> (§5 論3)</td></tr>
+    <tr><td>首掛け扇風機/ネッククーラー/局所湿度制御</td><td>アイデア</td><td>What熱 × ④⑥</td><td>涼しさへのパーソナルアクセス。湿度制御は未解決で難度高</td></tr>
+    <tr><td>思考家電・AI再最適化</td><td>アイデア</td><td>B需要側</td><td>除湿vs冷房など「考えるのがだるい」領域をAIが最適化</td></tr>
+    <tr><td>夏の夜シフト (行動変容)</td><td>アイデア</td><td>B需要側 × When</td><td>「一番手軽なのは行動変容」。夜間のインフラ確度は未検討と自覚</td></tr>
+    <tr><td>乾電池</td><td>参考</td><td>①ない</td><td>枯れた技術でも「コンセント不要」のインパクトは巨大 — 発明の型として記憶</td></tr>
+    <tr><td>EV100%時代の停電</td><td>視点</td><td>What移動 × ②</td><td>電気途絶=移動途絶になる未来。Whatの拡張先</td></tr>
   </table></div>
 </div>
-<div class="src">図3: 主体5分類。受益者と支払者がズレる領域(自治体・組合)は契約設計が本体になる。</div>
+<div class="src">図6: アイデア全プロット。全て図1-2の座標に置けた = 4W×6類型はブレストの受け皿として機能する。</div>
 
-<h2>2. 出てきた論点・アイデアのプロット (現時点)</h2>
-<p>ブレストの発散内容をマトリクスに落とすとこうなる。<span class="g">緑 = 既に資産がある</span> / <span class="r">赤 = 空白</span>。</p>
+<h3>自社の実体験 = 課題の一次情報 (会話で挙がったもの)</h3>
 <div class="artifact">
   <div class="tblwrap"><table>
-    <tr><th></th><th>つくる</th><th>ためる</th><th>はこぶ</th><th>つかう</th><th>もどす</th><th>はかる・まもる</th></tr>
-    <tr>
-      <th>水</th>
-      <td><span class="tag have">造水・浄水運用</span></td>
-      <td><span class="tag">受水槽管理</span></td>
-      <td><span class="tag gap">空白</span></td>
-      <td><span class="tag">節水最適化</span></td>
-      <td><span class="tag gap">排水・再利用</span></td>
-      <td><span class="tag have">Water監視 3拠点</span><span class="tag have">Optimizer</span></td>
-    </tr>
-    <tr>
-      <th>電気</th>
-      <td><span class="tag">太陽光</span><span class="tag">水素(北杜・検討)</span></td>
-      <td><span class="tag">蓄電池</span></td>
-      <td><span class="tag gap">空白</span></td>
-      <td><span class="tag">需要最適化</span></td>
-      <td><span class="tag gap">売電・融通</span></td>
-      <td><span class="tag gap">監視の電気版</span></td>
-    </tr>
+    <tr><th>実体験</th><th>位置</th></tr>
+    <tr><td>戸田 — 電力で「我々苦しんだ」</td><td>Who施設 × ④/②</td></tr>
+    <tr><td>富士川 — 電力まわりの混乱</td><td>Who施設</td></tr>
+    <tr><td>ラボ — 夏暑く冬寒い。オフグリッドの供給上限を体感、「建築から変えなきゃ」</td><td>B需要側の実地</td></tr>
+    <tr><td>自宅トイレ10ヶ月不通 — 建物内の設備・所有段差で個人が詰む</td><td>Who建物内 × ⑥</td></tr>
+    <tr><td>熊本 — 灼熱の体育館、スポットクーラーの限界、電源断水</td><td>② × 熱</td></tr>
   </table></div>
 </div>
-<div class="src">図4: 資産プロット v0.1。水×「はかる・まもる」に実績が集中 — ここが橋頭堡。</div>
+<div class="src">図7: 実体験カード。「課題をまず見つけたい」の最短ルートは自分たちが苦しんだ場所 (前半 08:56)。</div>
 
-<h3>電気×水のクロス領域 — 実は一番おいしい交点</h3>
-<div class="artifact">
-  <div class="cross">
-    <div class="circ"><b>電気だけ</b><br>発電・蓄電・売電<br>需要最適化</div>
-    <div class="mid"><b>交点 (両方に跨る)</b><br>・ポンプ/水処理は<b>電力大食い</b><br>・水素 = 電気で作り水から出る<br>・監視データ基盤は共通化可能<br>・オフグリッド拠点は必ず両方要る</div>
-    <div class="circ"><b>水だけ</b><br>取水・浄水・水質<br>排水処理</div>
-  </div>
-</div>
-<div class="src">図5: 「電気と水を別事業にしない」ことが、電気単体・水単体の専業と差別化する根拠になる。</div>
-
-<h2>3. 抜け漏れ・盲点の示唆 (6点)</h2>
+<h2>4. 抜け漏れ・盲点の示唆 (AI視点)</h2>
 <div class="artifact">
   <div class="tblwrap"><table>
-    <tr><th style="width:11em">盲点</th><th>指摘</th></tr>
-    <tr><td>①「もどす」の空白</td><td>ブレストは「つくる・届ける」に寄りがち。排水処理・再利用・売電の<b>出口側</b>は競合も薄く、規制知識が参入障壁になる。</td></tr>
-    <tr><td>② 新設よりストック</td><td>日本の主戦場は「無い所に作る」より<b>「あるが維持できない」</b>。老朽受水槽・ポンプ・浄化槽の維持限界は構造的に増える一方。</td></tr>
-    <tr><td>③ ソフトの障壁</td><td>制度・契約・金融(初期費ゼロ化、サブスク設備)・保険。ハードを持たずに<b>アクセスを設計する側</b>に回れる。</td></tr>
-    <tr><td>④ 「はかる」が入口</td><td>監視は単価が小さいが<b>解約されにくく、次の工事・更新案件の一次情報が全部入ってくる</b>。営業装置として位置づけ直す。</td></tr>
-    <tr><td>⑤ 支払者のズレ</td><td>困っている人(住民)と払う人(自治体・組合)が違う領域では、技術でなく<b>合意形成と契約設計</b>が商品になる。</td></tr>
-    <tr><td>⑥ 電気側の実績不足</td><td>図4の通り電気側はほぼ空白。水の実績を「電気にも同じ骨格で効く」と言える<b>共通データ基盤</b>で橋渡しするのが現実的。</td></tr>
+    <tr><th style="width:12em">盲点</th><th>指摘</th></tr>
+    <tr><td>① WTPフィルタが未装着</td><td>「お金を払ってまで」と宣言した直後に、モバ充で「追加で払いたくない」という反例も自ら発見している。<b>課題の存在とWTPは別物</b>。各課題に「困り度×支払者×既存代替」の採点を仕組みとして付けるべき。</td></tr>
+    <tr><td>② Whoが個人・暮らしに寄った</td><td>後半は個人目線(スマホ・自宅停電・暑さ)が中心。だが自社の一次情報(戸田・富士川・熊本)は<b>施設・事業者・避難所の課題</b>で、単価も支払者も明確。個人向けと事業者向けは商売の作り方が別 — どちらから攻めるか未討議。</td></tr>
+    <tr><td>③ 電気の「質」が未探索</td><td>水質(PFAS・浄水器)は盛り上がったが、電気側の質(瞬停・周波数・再エネ比率・CO2)はほぼ触れず。⑤質×電気のセルが空白。</td></tr>
+    <tr><td>④ 時間軸は連続している</td><td>平時→逼迫→災害→衰退は同じ線上。災害だけ切り出すと封印した「もしも」に戻る。<b>「平時に日常価値があり、非常時にも効く」設計</b>が封印方針と整合する唯一の形。</td></tr>
+    <tr><td>⑤ 「もどす」側の空白</td><td>排熱(車が東京を温める)・排水・再利用は入口だけで未探索。熱を正式スコープにするなら排熱利用は対になる。</td></tr>
+    <tr><td>⑥ 供給側との関係が未定義</td><td>需要削減は電力会社・水道事業者の売上減。「それではできない部分をやる」と言った以上、<b>既存事業者の補完者か、競合か、代理人か</b>のポジション定義が要る。</td></tr>
   </table></div>
 </div>
-<div class="src">図6: 盲点マップ。②④が既存資産と最も接続が良い。</div>
+<div class="src">図8: 盲点6点。①②は次の30分で潰せる。③⑤は宿題でよい。</div>
 
-<h2>4. 今後のアプローチ (4ステップ)</h2>
-<div class="steps">
-  <div class="st"><b>ブレスト内容の転記・全プロット</b><span class="w">今回の発散メモ(前半・後半Docs)を図4のマトリクスに全件落とす。落ちないアイデアが出たら軸を修正 ｜ 〜1週間</span></div>
-  <div class="st"><b>資産棚卸しを重ねて「勝ち筋セル」特定</b><span class="w">実績・人脈・許認可・失敗経験をセルに重ね、緑が濃い×市場が伸びるセルを特定 ｜ 〜2週間</span></div>
-  <div class="st"><b>セル別に「誰が・いくら払うか」を1枚化 → 2〜3セルに絞る</b><span class="w">顧客・支払者・単価・競合を1セル1枚。絞る勇気がここの成果物 ｜ 〜1ヶ月</span></div>
-  <div class="st"><b>既存案件をリファレンス化して営業装置に</b><span class="w">Water監視3拠点の実績を事例資料化し、絞ったセルの初回商談に載せる ｜ 並行</span></div>
+<h2>5. 再開後に決める論点 → 進め方</h2>
+<div class="agenda">
+  <div class="it"><b>「熱」を電気・水に並ぶ3本目として正式採用するか</b><span class="w">採用なら会社の課題定義文を「エネルギー(電気・熱)と水」に更新。今日一番スコープを動かした発見</span></div>
+  <div class="it"><b>「質的アクセス」(⑤) をどこまで含めるか</b><span class="w">泥水NGの延長として正当 / 恐怖ビジネスとの線引きをどこに置くか</span></div>
+  <div class="it"><b>9/1防災打ち上げと「もしも封印」の整合ストーリー</b><span class="w">防災=WHENの一断面(②途絶)として本丸(いつでも・どこでも)に接続する言い方を先に固める</span></div>
+  <div class="it"><b>最初のWho: 個人か、施設・事業者か</b><span class="w">一次情報と支払者の明確さでは施設・事業者(戸田・富士川・熊本型)が先行候補</span></div>
 </div>
-<div class="src">図7: 進め方。発散(済) → 構造化(本資料) → 絞り込み → 実弾化。</div>
 
-<h2>付記</h2>
-<p class="note">本資料はブレスト直後の即時整理版(v0.1)。共有いただいた前半・後半のGoogle Docsは閲覧権限の都合で本版には未反映のため、図4のプロットは既知情報からの仮置き。権限共有またはテキスト展開をいただければ、ブレスト全論点を反映したv1.0に即時更新する。</p>
+<div class="steps" style="margin-top:22px">
+  <div class="st"><b>4W×6類型マトリクスで課題を出し切る</b><span class="w">今日の続き。図1-2を受け皿に、まだ出ていないセル(夜間・電気の質・もどす側)を意図的に埋める</span></div>
+  <div class="st"><b>各課題にWTP採点をつける</b><span class="w">困り度 × 誰が払うか × 既存代替の有無。「お金を払ってまで」を宣言で終わらせず仕組みにする</span></div>
+  <div class="st"><b>実体験5件を課題カード化し、上位2-3課題を現場検証</b><span class="w">戸田・富士川・ラボ・熊本は既にアクセスできる検証フィールド</span></div>
+  <div class="st"><b>9/1打ち上げを短期フックに、本丸課題と並走</b><span class="w">露出→引き合いを、論3で固めたストーリーで本丸に接続する</span></div>
+</div>
+<div class="src">図9: 論点4つと4ステップ。S1-S2は再開後の30分でここまで行ける。</div>
 
 <footer>
-  INNFRA インフラアクセス領域 整理ボード v0.1 ｜ 内部検討用 ｜ このページは 2026-08-03 20:41 JST に自動削除されます
+  INNFRA インフラアクセス整理ボード v1.0 ｜ 2026-07-31 ブレスト文字起こし(19:27/19:42)全文反映 ｜ 内部検討用 ｜ このページは 2026-08-03 20:54 JST に自動削除されます
 </footer>
 
 </main>
