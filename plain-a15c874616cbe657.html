@@ -132,6 +132,26 @@
   .bigstat .s .l{font-size:11px; color:var(--faint); display:block; margin-top:5px; line-height:1.5;}
   .verdict-y{border-left:6px solid var(--green);}
   .verdict-n{border-left:6px solid var(--red);}
+  .hbar{margin:9px 0;}
+  .hbar .hl{display:flex; justify-content:space-between; align-items:baseline; font-size:11.5px; margin-bottom:2px; gap:8px;}
+  .hbar .hl b{font-size:12px;}
+  .hbar .hl span{color:var(--faint); font-size:10.5px; text-align:right;}
+  .hbar .tr{background:var(--band); border:1px solid #bbb; height:18px; position:relative;}
+  .hbar .fl{background:var(--ink); height:100%; min-width:3px;}
+  .hbar .fl.red{background:var(--red);}
+  .hbar .fl.green{background:var(--green);}
+  .hbar .fl.gray{background:#9aa096;}
+  .chart-note{font-size:10.5px; color:var(--faint); margin-top:6px; line-height:1.6;}
+  .qa{border:2px solid var(--ink); background:var(--panel); margin:16px 0;}
+  .qa .qh{background:var(--ink); color:var(--paper); padding:8px 13px; font-size:13.5px; font-weight:700; line-height:1.5;}
+  .qa .qb{padding:12px 14px 10px;}
+  .qa .qb .ans{font-size:14px; font-weight:700; margin-bottom:7px; line-height:1.7;}
+  .qa .qb p{font-size:12.5px; margin-bottom:8px; line-height:1.8;}
+  .tl{display:flex; gap:6px; flex-wrap:wrap; align-items:stretch; margin:10px 0 4px;}
+  .tl .n{flex:1 1 110px; border:2px solid var(--ink); background:var(--panel); padding:8px 8px; text-align:center;}
+  .tl .n b{display:block; font-size:12.5px;}
+  .tl .n span{font-size:10.5px; color:var(--faint); display:block; line-height:1.5; margin-top:2px;}
+  .tl .a{align-self:center; font-weight:700; color:var(--faint);}
 
   /* ===== TOC ===== */
   .toc{
@@ -185,6 +205,8 @@
     #tab-fw:checked ~ .tabbar label[for="tab-fw"]{background:#e8eae5; color:#181a17;}
     .toc li a{color:#e8eae5; border-bottom-color:#444;}
     .totop{box-shadow:2px 2px 0 #555;}
+    .qa .qh{color:#181a17;}
+    .hbar .tr{border-color:#555;}
   }
 </style>
 </head>
@@ -743,18 +765,19 @@
   <header class="doc">
     <div class="kicker">INNFRA / RESEARCH</div>
     <h1>日本でEVは本当に普及するのか<br>— 普及上限と律速要因の判定</h1>
-    <div class="meta">2026-07-31 調査 ｜ 5面(系統/充電/住宅/価格/政策)を並列調査 → 各面を敵対的検証 → 統合 ｜ 数値は一次情報優先・出典と時点を併記</div>
+    <div class="meta">2026-07-31 調査 v2 ｜ 5面(系統/充電/住宅/価格/政策)を並列調査 → 敵対的検証 → 統合 ｜ v2でチャート化+質疑4問+8類型接続を追加</div>
   </header>
 
   <nav class="toc">
     <div class="toc-title">目次 — EV調査</div>
     <ol>
-      <li><a href="#e0">結論 (1段落)</a></li>
-      <li><a href="#e1">現在地と上限の距離</a></li>
-      <li><a href="#e2">上限の推計 — 3シナリオ</a></li>
-      <li><a href="#e3">律速要因ランキング (8位まで)</a></li>
+      <li><a href="#e0">結論</a></li>
+      <li><a href="#e1">現在地</a></li>
+      <li><a href="#eqa">今日の疑問に答える (4問)</a></li>
+      <li><a href="#e2">上限の推計 — どこまで行けるか</a></li>
+      <li><a href="#e3">律速要因ランキング</a></li>
       <li><a href="#e4">通説の答え合わせ</a></li>
-      <li><a href="#e5">INNFRAへの示唆</a></li>
+      <li><a href="#e5">EV×8類型 — 次回の議論へ</a></li>
       <li><a href="#e6">確度の低い箇所</a></li>
     </ol>
   </nav>
@@ -777,44 +800,107 @@
   </div>
   <div class="src">図E1: 現在地。分母は自家用乗用車61,832,213台 (自検協 2025年3月末)。</div>
 
-  <h2 id="e2">3. 上限の推計 — 3シナリオ</h2>
-  <p>主軸は「自宅充電できる世帯からのボトムアップ」。新車販売の分母は約380〜390万台/年。</p>
+  <h2 id="eqa">3. 今日の疑問に答える (4問)</h2>
+
+  <div class="qa">
+    <div class="qh">Q1. 「乗用車を全数BEV化」って、2026年時点の話? 最大普及した年の予測?</div>
+    <div class="qb">
+      <p class="ans">どちらでもない。上限を測るための仮想計算 (感度分析)。</p>
+      <p>「いま走っている乗用車6,218万台が仮に全部BEVだったら、年間いくら電気を使うか」を機械的に計算したもの。答えが48〜111TWh = 発電量の6〜13%で、<b>「最悪ケースを仮定してもこの程度」という天井の確認</b>のための数字。年次の予測ではない。</p>
+      <div class="tl">
+        <div class="n"><b>2026 (現在)</b><span>保有 0.58%<br>35.8万台</span></div>
+        <div class="a">→</div>
+        <div class="n"><b>2035 (現実解)</b><span>保有 6.5〜12%<br>400〜750万台</span></div>
+        <div class="a">→</div>
+        <div class="n"><b>2050年以降</b><span>全数化が理論上<br>可能になる最速</span></div>
+      </div>
+      <p class="chart-note">保有の入替は年約6%。新車が100%BEVになった日からでも全数入替に16年かかる。だから2035年時点の実際の追加需要は全数仮定の1/10程度 = <b>約5〜13TWh、発電量の1%前後</b>。</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <div class="qh">Q2. じゃあEVが増えても電力は逼迫しない、ということ?</div>
+    <div class="qb">
+      <p class="ans">年間の総量では逼迫しない。ピークは「設計次第」— そして日本はその設計を未整備。</p>
+      <div class="hbar"><div class="hl"><b>日本の年間発電量</b><span>853.75TWh (FY2024)</span></div><div class="tr"><div class="fl gray" style="width:100%"></div></div></div>
+      <div class="hbar"><div class="hl"><b>乗用車が全数BEVの場合の追加 (仮想)</b><span>48〜111TWh = 6〜13%</span></div><div class="tr"><div class="fl green" style="width:9.4%"></div></div></div>
+      <div class="hbar"><div class="hl"><b>2035年の現実解での追加</b><span>約5〜13TWh = 1%前後</span></div><div class="tr"><div class="fl green" style="width:1%"></div></div></div>
+      <p class="chart-note">総量の心配は要らない。しかも全国の需要電力量は8年で2.3%減少している (OCCTO)。</p>
+      <p style="margin-top:12px"><b>ただしピーク (瞬間の同時使用) は、充電が集中する時間帯次第で12倍振れる:</b></p>
+      <div class="hbar"><div class="hl"><b>24時間に平準化</b><span>+928万kW = 現ピーク比 +6%</span></div><div class="tr"><div class="fl" style="width:5.8%"></div></div></div>
+      <div class="hbar"><div class="hl"><b>深夜8時間に集約</b><span>+2,785万kW = +17%</span></div><div class="tr"><div class="fl" style="width:17.3%"></div></div></div>
+      <div class="hbar"><div class="hl"><b>夕方4時間に集中 (無管理)</b><span>+5,569万kW = +35%</span></div><div class="tr"><div class="fl red" style="width:34.6%"></div></div></div>
+      <div class="hbar"><div class="hl"><b>2時間に集中 (最悪)</b><span>+11,139万kW = +69%</span></div><div class="tr"><div class="fl red" style="width:69.3%"></div></div></div>
+      <p class="chart-note">バーの長さ = 現在の年間ピーク16,084万kW (2024年8月) に対する追加分の比率。全数BEV仮定。</p>
+      <p><b>結論: 夕方の帰宅後にみんな同時に挿すと痛いが、深夜に寄せるだけで夜間の谷に収まる</b>。英国は2022年から充電器のオフピーク初期設定を法律で義務化済み。日本は未義務化 — 逼迫リスクの実体は物理ではなく<span class="r">未整備の制度</span>。</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <div class="qh">Q3. EVより先に来る電力逼迫のドライバーはあるのか?</div>
+    <div class="qb">
+      <p class="ans">既に来ている。データセンターと半導体工場。EVはその後ろ。</p>
+      <div class="hbar"><div class="hl"><b>データセンター・半導体工場の新増設</b><span>+715万kW (2034年度需要見通しに計上済)</span></div><div class="tr"><div class="fl red" style="width:100%"></div></div></div>
+      <div class="hbar"><div class="hl"><b>EV</b><span>同見通しに個別計上なし</span></div><div class="tr"><div class="fl" style="width:1.5%"></div></div></div>
+      <p class="chart-note">資源エネルギー庁 第85回電力・ガス基本政策小委員会 (2025年1月)。政府自身が「次の逼迫要因はDC・半導体」と見ており、EVは需要見通しの主役ですらない。</p>
+      <p>順番としては <b>①DC・半導体 (いま) → ②猛暑の冷房・暖房の電化 (熱、進行中) → ③EV (2030年代後半〜)</b>。今日のブレストで「熱がクリティカル」に到達したのは、この順番とも整合している。</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <div class="qh">Q4. 素人感覚では「EVが一番電気を食いそう」なんだけど、気のせい?</div>
+    <div class="qb">
+      <p class="ans">半分正しい。家の中では正しく、国全体では小さい。その非対称が直感のズレの正体。</p>
+      <p><b>家庭 (ミクロ) — 直感は正しい:</b></p>
+      <div class="hbar"><div class="hl"><b>平均世帯の年間電力消費</b><span>約4,000〜4,300kWh</span></div><div class="tr"><div class="fl gray" style="width:100%"></div></div></div>
+      <div class="hbar"><div class="hl"><b>EV 1台の追加分 (年8,500km走行)</b><span>約1,300kWh = <b>+約3割</b></span></div><div class="tr"><div class="fl red" style="width:31%"></div></div></div>
+      <p class="chart-note">エアコンや冷蔵庫を抜いて、家庭に来る単一機器として最大級の電気食いになる (概算)。</p>
+      <p style="margin-top:10px"><b>国全体 (マクロ) — 効き方が小さい:</b></p>
+      <div class="hbar"><div class="hl"><b>年間発電量</b><span>853.75TWh</span></div><div class="tr"><div class="fl gray" style="width:100%"></div></div></div>
+      <div class="hbar"><div class="hl"><b>乗用車が全数BEVでも</b><span>+6〜13% (しかも到達は2050年以降)</span></div><div class="tr"><div class="fl green" style="width:9.4%"></div></div></div>
+      <p><b>ミクロの正しい直感を、マクロにそのまま外挿すると桁を誤る</b>。家庭では+3割、国では+1割弱を15年以上かけて。加えてEVは目に見えて動く(=印象に残る)が、DCは見えない所で1施設数十万kW級を一気に食う。</p>
+    </div>
+  </div>
+  <div class="src">図E2: 4つの疑問への回答。数値の出典はすべて調査本編 (図E3以降) と同一。</div>
+
+  <h2 id="e2">4. 上限の推計 — どこまで行けるか</h2>
+  <p>ものさしは乗用車保有 6,218万台 (=バーの全長)。<b>主軸は「自宅充電できる世帯」からのボトムアップ</b>。</p>
   <div class="artifact">
-    <div class="tblwrap"><table>
-      <tr><th style="width:12em">シナリオ</th><th>新車比率</th><th>2035年保有</th><th>乗用車保有比</th></tr>
-      <tr><td><b>① 物理的上限</b><br>(自宅充電依存)</td><td>—</td><td><b>2,450万〜3,750万台</b></td><td><b>40〜60%</b></td></tr>
-      <tr><td><b>①' 物理的上限</b><br>(充電接続権が解けた場合)</td><td>—</td><td>制約消滅 (〜6,200万台)</td><td>〜100% (2050年以降)</td></tr>
-      <tr><td><b>② 現実的到達点</b></td><td>2030年 10〜13%<br>→ 2035年 <b>20〜30%</b></td><td><b>400万〜750万台</b><br>(中心 約500万)</td><td><b>6.5〜12%</b></td></tr>
-      <tr><td><b>③ 悲観ケース</b></td><td>2030年 5〜6%<br>→ 2035年 <b>12〜15%</b></td><td><b>200万〜320万台</b><br>(中心 約290万)</td><td><b>3〜5%</b></td></tr>
-    </table></div>
-    <p class="note" style="margin-top:10px"><b>①のボトムアップ計算</b>: 自家用乗用車61,832,213台 → 一戸建居住のクルマ保有分52.7〜67.3% (3,257万〜4,159万台) → うち敷地内駐車+200V回路が引ける割合75〜90%［推計］ → 集合住宅からの上積み+100万〜300万台。<br>
-    <b>②の外部整合</b>: IEA STEPS日本2035年30% / 豊田章男会長「BEVはどれだけ進んでも30%」/ S&amp;P Global「2030年に日本は10%未満」/ BNEF「日本は最下位群」と矛盾しない。<br>
-    <b>①'の意味</b>: 乗用車を全数BEV化しても追加電力需要は年48〜111TWh (発電量の6〜13%)。<b>充電接続権と配電の局所増強が解ければ物理要因は消える</b>。ただし保有の入替は年約6%で、新車100%でも全数入替に16年かかる。</p>
+    <div class="hbar"><div class="hl"><b>現在 (2026)</b><span>35.8万台 = 0.58%</span></div><div class="tr"><div class="fl red" style="width:0.6%"></div></div></div>
+    <div class="hbar"><div class="hl"><b>③ 悲観ケース (2035)</b><span>200〜320万台 = 3〜5%</span></div><div class="tr"><div class="fl" style="width:4.7%"></div></div></div>
+    <div class="hbar"><div class="hl"><b>② 現実的到達点 (2035)</b><span>400〜750万台 = 6.5〜12%</span></div><div class="tr"><div class="fl" style="width:8%"></div></div></div>
+    <div class="hbar"><div class="hl"><b>① 物理天井 (自宅充電依存)</b><span>2,450〜3,750万台 = 40〜60%</span></div><div class="tr"><div class="fl green" style="width:50%"></div></div></div>
+    <div class="hbar"><div class="hl"><b>乗用車保有全体</b><span>6,218万台 = 100% (①' 接続権が解ければここまで理論上可、2050年以降)</span></div><div class="tr"><div class="fl gray" style="width:100%"></div></div></div>
+    <p class="chart-note"><b>読み方: 現在(赤)と物理天井(緑)の間に40〜100倍の空きがある</b>。つまり「住宅事情の物理」はまだ全く効いておらず、いま普及を止めているのは別の要因 (次章)。</p>
+    <p class="note" style="margin-top:12px">
+    <b>①の計算</b>: 乗用車6,183万台 → 一戸建居住の保有分52.7〜67.3% → うち敷地内駐車+200V可 75〜90%［推計、最大の不確実性］ → 集合住宅の上積み+100〜300万台。<br>
+    <b>②の計算</b>: 起点35.8万 + 新車比率が2030年10〜13%→2035年20〜30%と伸びた場合の累積 ≒ 511万台。IEA (2035年30%) / 豊田章男会長「BEVはどれだけ進んでも3割」/ S&amp;P「2030年10%未満」と整合。<br>
+    <b>③の分岐条件</b>: 補助金縮小 + 国産低価格車の投入遅れ + 2028年からのEV重量税加算が重なった場合。</p>
   </div>
-  <div class="src">図E2: 3シナリオ。②の計算 = 起点35.8万台 + 2026-30年累計133万台 + 2031-35年累計342万台 ≒ 511万台。</div>
+  <div class="src">図E3: 上限バー。データ: NeV/AIRIA/総務省住調/JAMA (詳細出典は各調査面)。</div>
 
-  <h2 id="e3">4. 律速要因ランキング</h2>
-  <p>判定基準は「<b>現在の0.58%を説明できるか</b>」。天井の高さと現在の律速は別物として扱う。</p>
+  <h2 id="e3">5. 律速要因ランキング — 何が止めているのか</h2>
+  <p>判定基準は「<b>現在の0.58%を説明できるか</b>」。天井の高さと、いまの律速は別物。</p>
   <div class="rank">
-    <div class="rk"><b>車種と供給意思の不在 <span class="r">★現在の律速</span></b><span class="w">日本で買えるBEVは61車種、うち国産は10車種。ホンダはEV投資を10兆→7兆円、2030年度販売目標を200万→75万台に下方修正 (2026年5月)。日産は米ミシシッピ工場のEV生産計画を中止 (2026年4月)。<b>買いたくても選択肢がない</b>。日本メーカーは中国・EU向けにBEVを量産済みで「作れない」のではなく日本市場に出していない。→ 経営判断なので規制変更より速く動きうる</span></div>
-    <div class="rk"><b>価格と補助金設計 <span class="r">★現在の律速</span></b><span class="w">電池は価格差の主因ではない (BEVパック$99/kWh、軽EVの20kWh分は概算30万円規模)。BYD RACCOが22.4kWh LFPで214.5万円を実証。差の大半は<b>量産規模と開発費償却</b>。<br>⚠ 決定的な論点: CEV補助金はメーカー取組を200点満点で評価して配分するため、RACCOは一律15万円 (実質199.5万円)、サクラSは58万円 (実質186.9万円)。<b>予算制約と供給制約は独立した2つの壁ではなく、単一の政策変数の表と裏</b>。かつ2028年5月からEV・PHEVに重量税の特例加算、2025年末にガソリン暫定税率廃止と<b>ブレーキも同時に設計されている</b></span></div>
-    <div class="rk"><b>目標設計に強制装置がない <span class="r">★構造的律速</span></b><span class="w">2035年目標は「電動車100%」で脚注に<b>「*EV、FCV、PHEV、HV」</b>と明記。電動車比率は2023年度で既に<b>53.19%</b>に到達しており、<b>目標を100%達成してもBEVが1台も増えない設計</b>。CAFE未達の罰金上限は100万円 (EUはCO2超過1g/km×95ユーロ×台数)。ZEV規制・NEVクレジットも不在。<br>2026年に外圧も弱まった: EUが2035年100%削減→90%へ後退提案 (2025年12月)、米EPAがエンダンジャーメント・ファインディング撤廃 (2026年2月)</span></div>
-    <div class="rk"><b>集合住宅の充電接続権 <span class="g">★天井、着手は今</span></b><span class="w">分譲マンションの設置率<b>5.7%</b> (棟ベース。内訳は1台1.7%/2〜4台2.1%/5〜9台1.2%/10台以上0.6%なので<b>区画ベースは一桁小さい</b>)。集合住宅居住のBEVユーザーの<b>65%が「自宅で充電しない」</b> (一戸建は9%)。<br>いま台数では効いていないが、<b>購入検討の入口で既に完全に効いている</b>。区分所有法改正が2026年4月施行、標準管理規約は2025年10月改正、東京都は2025年4月から新築義務化。<br>💡 設計論点: 必要なのは1台1口の高出力充電器ではない。1日の走行50km以下が約9割 = 約10kWh = <b>3kWで4時間</b>あれば足りる。低出力+負荷平準化+課金に変えれば受電容量増強のコスト構造が根本から変わる。<b>補助金でもOEM規制でも動かない唯一の領域</b></span></div>
-    <div class="rk"><b>公共充電の質と偏在 (数ではない)</b><span class="w">公共用急速充電器9,797口 (経産省2025年3月)、2024年度純増+697口。2030年目標3万口に対しこのペースでは数十年。<b>90kW未満が72%</b> (50kW未満だけで24%)。ただし販売主力の軽BEVは受入約30kWなので、この問題は輸入車・登録車の長距離利用に限定。高速SA/PAでは90kW以上が44%→67%へ1年で改善しており改善速度は速い。<br>消費者認識では第1位の障壁 (「充電できる場所が少ない」58%) だが、購入検討経験なしが81%であり<b>「使って不足だった」ではなく「不安で土俵に乗らない」段階</b></span></div>
-    <div class="rk"><b>ピーク (充電タイミング) — 制度で解ける</b><span class="w">充電窓の幅で必要kWが<b>12倍振れる</b>: 24時間平坦なら+928万kW / 深夜8時間なら+2,785万kW / 夕方4時間集中なら+5,569万kW / 2時間集中なら+11,139万kW。深夜に均せば夏季夜間トラフ+2,785万kW ≒ 1.3億kW &lt; 現ピーク1.6億kWで収まる。<br>英国は<b>2022年6月から</b>充電器のオフピーク初期設定とランダム遅延を法的義務化。<b>日本は未義務化 = 放置された制度律速</b>。最安・最速・全国一律で効く</span></div>
-    <div class="rk cool"><b>ローカル配電 (柱上変圧器) — 検証で緩んだ</b><span class="w">当初「最も硬い制約」と見立てたが根拠が弱いと判明。6kW前提の同時充電試算は日本の実勢 (3kW) と合わない。かつ日本は<b>深夜電力でエコキュート級の夜間集中負荷を数百万台規模で同じ配電網に載せた前例</b>を持つ (1台1〜1.5kW×5〜8時間)。年8,500km走行のEVが必要とする一晩約3.6kWhはこれより小さい。柱上変圧器は先回りの固定在庫ではなく<b>需要駆動の事後更新プロセス</b>。資本計画の問題であって天井ではない</span></div>
-    <div class="rk cool"><b>発電総量・資源 — 律速ではない (棄却)</b><span class="w">次章参照</span></div>
+    <div class="rk"><b>車種がない <span class="r">★いまの律速</span></b><span class="w">買えるBEV61車種のうち国産10車種。ホンダはEV投資3割減・日産は米EV工場中止 (2026年)。日本メーカーは中国・EU向けには量産済み = <b>作れないのではなく、日本に出していない</b>。経営判断なので最速で反転しうる</span></div>
+    <div class="rk"><b>価格と補助金の設計 <span class="r">★いまの律速</span></b><span class="w">補助金+40万円で販売+106% (2026年) — 価格が効くことは実証済み。ただし電池は主因でない (BYD RACCO 22.4kWh 214.5万円が証拠)。CEV補助金はメーカー評価で配分され国産に厚い = <b>供給と価格を同じダイヤルで縛っている</b>。2028年からEVに重量税加算というブレーキも設計済み</span></div>
+    <div class="rk"><b>目標に強制力がない <span class="r">★構造</span></b><span class="w">「2035年電動車100%」は脚注でHV込み。2023年度で既に53%達成 = <b>目標を100%達成してもBEVは1台も増えない設計</b>。CAFE罰金上限100万円 (EUは1g/km×95ユーロ×台数)。2026年はEU後退・米EPA規制撤廃で外圧も消えた</span></div>
+    <div class="rk"><b>集合住宅の充電接続権 <span class="g">★天井、着手は今</span></b><span class="w">分譲マンション設置率<b>5.7%</b> (棟ベース、区画ベースは一桁小さい)。集合住宅のBEVユーザー65%が自宅充電なし = <b>購入検討の入口で脱落する層</b>。区分所有法改正2026年4月施行で制度は動き出した。走行50km/日以下が9割 = <b>3kW×4時間で足りる</b> — 低出力+輪番+課金に設計を変えれば受電容量の壁が崩せる。<b>補助金でもOEM規制でも動かない唯一の領域</b> → 詳細は次々章・論A</span></div>
+    <div class="rk"><b>公共充電は数より質</b><span class="w">急速9,797口の<b>72%が90kW未満</b>。ただし軽BEV (受入30kW) には無関係で、効くのは登録車の長距離のみ。消費者障壁1位「充電場所が少ない」58%の実態は「使って困った」でなく<b>「不安で土俵に乗らない」</b> (検討経験なし81%)</span></div>
+    <div class="rk"><b>ピーク制御の未義務化 — 制度で解ける</b><span class="w">Q2参照。英国2022年義務化・日本未着手。最安・最速・全国一律で効く対策が放置されている</span></div>
+    <div class="rk cool"><b>ローカル配電 — 検証で棄却寄り</b><span class="w">エコキュート数百万台を深夜の同じ配電網に載せた前例あり。EVの一晩3.6kWhはそれより軽い。事後増強で回る資本計画の問題</span></div>
+    <div class="rk cool"><b>発電総量・資源 — 棄却</b><span class="w">Q2/Q3参照。総量は6〜13%、鉱物は「埋蔵量制約なし」(IEA)</span></div>
   </div>
-  <div class="src">図E3: 律速ランキング。1〜3位が「いま止めている要因」、4位が「今着手すべき天井」、7〜8位は検証で棄却。</div>
+  <div class="src">図E4: 律速ランキング。1〜3位がいま止めている要因、4位が次の天井、7〜8位は敵対的検証で棄却。</div>
 
-  <h2 id="e4">5. 通説の答え合わせ</h2>
+  <h2 id="e4">6. 通説の答え合わせ</h2>
   <div class="artifact verdict-n">
     <h3 style="margin-top:0">否定されたもの</h3>
     <div class="tblwrap"><table>
       <tr><th style="width:11em">通説</th><th>調査結果</th></tr>
-      <tr><td><b>「発電が足りない」</b></td><td><span class="r">否定</span>。乗用車全数BEV化の追加需要は<b>48〜111TWh = 発電量の6〜13%</b>。しかも全国需要電力量は8年で2.3%減少している。政府の2034年度需要見通しの増加要因はデータセンター・半導体工場 (+715万kW) で、<b>EVは個別計上すらされていない</b>。入替15〜20年を踏まえると年率+0.4〜0.6%で、既存の減少トレンドを相殺して概ね横ばい</td></tr>
+      <tr><td><b>「発電が足りない」</b></td><td><span class="r">否定</span>。全数BEV化でも発電量の6〜13% (Q2)。政府の需要見通しの増加要因はDC・半導体で<b>EVは個別計上すらされていない</b> (Q3)</td></tr>
       <tr><td><b>「リチウム・コバルトが足りない」</b></td><td><span class="r">否定</span>。IEAは「調査した全鉱物で埋蔵量制約は存在しない」と明言。真のボトルネックは<b>精錬の一国集中</b> (上位3カ国シェア86%) と地政学であり物理的枯渇ではない</td></tr>
-      <tr><td><b>「日本人は保守的だから買わない」</b></td><td><span class="r">否定</span>。HVは1997年ほぼ0%から乗用車の相当部分へ置き換わった = パワートレインの総入替は実行済み。ただしHVは<b>ドロップイン代替</b> (インフラ変更ゼロ・行動変更ゼロ) でBEVは条件が違う。より正確な診断は<b>「購入を検討したことがない」81%</b> = 保守性ではなく認知の問題</td></tr>
+      <tr><td><b>「日本人は保守的だから買わない」</b></td><td><span class="r">否定</span>。HVで1997年0%→乗用車の相当部分への総入替を実行済み。正確な診断は<b>「購入を検討したことがない」81%</b> = 保守性でなく認知の問題。ただしHVはインフラ変更ゼロのドロップイン代替でBEVは条件が違う点は留意</td></tr>
       <tr><td><b>「日本の住宅事情が根本的制約」</b></td><td><span class="r">半分否定</span>。天井としては実在 (40〜60%) だが現在の律速ではない (物理枠2,450万台 vs BEV35.8万台 = 1/70)。かつ中国は集合住宅比率が日本より高いのにNEV浸透率50.8%。IEAはむしろ「<b>高層住宅居住者が多いことが公共充電の大量整備を促した</b>」と分析 — 住宅形態は決定論ではない</td></tr>
       <tr><td><b>「電池が高いからEVが高い」</b></td><td><span class="r">部分否定</span>。軽EVでは電池は価格差の一部。BYD RACCO (22.4kWh LFP、214.5万円) が実在証拠。差の大半は量産規模・開発費償却・内製率</td></tr>
     </table></div>
@@ -823,22 +909,35 @@
     <h3 style="margin-top:0">支持されたもの</h3>
     <p class="note" style="margin:0"><b>「価格が高い」= 支持 (条件付き)</b> — 補助金なしでは同クラスHV比で明確に高い。国産BEV平均353万円/輸入BEV737万円に対し市場平均329万円。2026年の自然実験 (補助金+40万円+bZ4X値下げ) で前年同月比+106%の反応が出たことが価格弾力性の証拠。ただし補助金ショックの規模に対し反応が限定的だった点で、価格「だけ」ではない。</p>
   </div>
-  <div class="src">図E4: 通説の検証。「発電が足りない」の否定が最も確度が高く、影響も大きい。</div>
+  <div class="src">図E5: 通説の検証。「発電が足りない」の否定が最も確度が高く、影響も大きい。</div>
 
-  <h2 id="e5">6. INNFRAへの示唆 (本ブレストとの接続)</h2>
+  <h2 id="e5">7. EV × インフラアクセス8類型 — 次回の議論へ</h2>
+  <p>今日のブレストで作った8類型にEVを載せると、<b>全類型が実演できる</b>。EVはフレームワークの教材であり、同時に事業機会の在庫表になる。</p>
   <div class="artifact">
     <div class="tblwrap"><table>
-      <tr><th style="width:11em">接続点</th><th>中身</th></tr>
-      <tr><td>WHATの拡張が裏づいた</td><td>ブレストで出た「EV100%時代は電気途絶=移動途絶」は<b>2050年以降の話</b>。ただし部分普及でも「移動のためのアクセス」というWHATは既に成立する</td></tr>
-      <tr><td><span class="g">④集合住宅の充電接続権 = INNFRAの射程</span></td><td>調査で判明した「<b>補助金でもOEM規制でも動かない唯一の領域</b>」。かつ本ブレストの<b>⑥偏っている (同じ建物内の設備・所有の段差)</b> と完全に一致する。区分所有法改正 (2026年4月施行) で制度が動き始めたが、既築の合意形成・受電容量・機械式駐車場が残る = <b>解決を担う主体が空いている</b></td></tr>
-      <tr><td>低出力充電という設計解</td><td>「1台1口の高出力」ではなく<b>3kW×4時間+負荷平準化+課金</b>で足りる (走行50km以下が9割)。受電容量増強のコスト構造が変わる = <b>B需要を変える型 × D はかる・まもる型</b>の組み合わせ。既存の水監視の知見が効く領域</td></tr>
-      <tr><td>ピーク制御の未義務化</td><td>英国は2022年から義務化、日本は未着手。<b>制度の空白 = 先行者の余地</b>。V2H/スマート充電は「災害時に効く」文脈で既に評価されており、本ブレストの「平時価値+非常時にも効く」設計原則と整合</td></tr>
-      <tr><td>⚠ 「電気が足りない」を根拠にしない</td><td>調査で明確に否定された。EV文脈で電力逼迫を語ると<b>事実でない前提に立つことになる</b>。逼迫を語るなら夏季ピーク (④足りない) を根拠にすべき</td></tr>
+      <tr><th style="width:7.5em">類型</th><th>EVでの実例</th><th style="width:5.5em">INNFRA射程</th></tr>
+      <tr><td><b>① ない</b></td><td>集合住宅・月極/青空駐車場に基礎充電がない。ガソリン車にはSSがあった場所に、EVの「自宅給油」に当たるものが無い</td><td><span class="g">◎ 論A</span></td></tr>
+      <tr><td><b>② 途絶える</b></td><td>停電=充電不能=移動途絶 (ただし効くのは2050年代)。逆向きが強い: <b>V2H = EVが家の非常用電源</b> (サクラ級20kWhで一般家庭2〜3日分)</td><td>○ 論C</td></tr>
+      <tr><td><b>③ 先細る</b></td><td><b>SS過疎</b>: ガソリンスタンド撤退地域では「給油アクセスの先細り」が既に現実。その地域は戸建て・駐車場ありが多い = <b>基礎充電の条件が揃っている</b>という逆説</td><td><span class="g">◎ 論B</span></td></tr>
+      <tr><td><b>④ 足りない</b></td><td>連休の高速SAの充電渋滞 = <b>需要同期の典型</b> (第5Rの判別式どおりシェアでなく常設大容量が要る)。ピーク制度は未整備</td><td>△</td></tr>
+      <tr><td><b>⑤ 質</b></td><td>急速充電器の72%が90kW未満 / 故障・停止中の充電器 / 充電した電気の由来 (再エネか)</td><td>○ D型</td></tr>
+      <tr><td><b>⑥ 偏っている</b></td><td><b>同じEVでも、戸建ては自宅で安く・集合住宅は公共で高く充電する</b> = 住形態で燃料単価が変わる格差。管理組合の合意形成・按分は<b>共用部電気の割り勘問題 (第5R) と同型</b></td><td><span class="g">◎ 論A</span></td></tr>
+      <tr><td><b>⑦ 使われていない</b></td><td><b>EVの電池は時間の9割以上、駐車場で遊んでいる巨大な遊休蓄電池</b> (V2G/V2H)。低稼働の公共充電器も⑦</td><td><span class="g">◎ 型E</span></td></tr>
+      <tr><td><b>⑦' 知られていない</b></td><td>どの充電器が空いているか・壊れていないか。「時間×場所」の情報 — Living OSの文法がそのままハマる</td><td>○ 型E</td></tr>
     </table></div>
+    <p class="note" style="margin-top:10px">今日の判別式もそのまま効く: 基礎充電は<b>需要が非同期</b> (帰宅後に各自バラバラ) → シェア・輪番が成立 / 経路充電は<b>同期</b> (連休に一斉) → 常設大容量。そして「モノでなくフロー」— ユーザーは充電器もEVすら欲しくない、<b>移動と安心が欲しい</b>。</p>
   </div>
-  <div class="src">図E5: 本ブレストのフレームワークへの接続。④集合住宅の充電接続権は ⑥偏り × WHO建物内 のセルに入る。</div>
+  <div class="src">図E6: EVの8類型プロット。◎3つが次回の論点。</div>
 
-  <h2 id="e6">7. 確度の低い箇所 (使う前に読む)</h2>
+  <h3>次回の議論に持ち込む論点 3つ</h3>
+  <div class="agenda">
+    <div class="it"><b>集合住宅の充電接続権をINNFRAの射程に入れるか</b><span class="w">⑥偏り×⑤質×D型。「補助金でもOEM規制でも動かない唯一の領域」で、区分所有法改正 (2026年4月施行) 直後の制度の追い風。中身は<b>合意形成+按分+はかる</b> = 共用部割り勘問題 (第5R) と同じ骨格で、水監視の知見が使える。3kW低出力+輪番+課金の設計が鍵</span></div>
+    <div class="it"><b>SS過疎地帯こそEV適地、の逆説を検証するか</b><span class="w">③先細り×①ない。給油アクセスが先細る地方 = 戸建て・駐車場あり = 基礎充電の条件が揃う。「<b>インフラが先細る場所に、別のインフラの形で応える</b>」— 会社の課題定義のど真ん中。過疎地の空き家 (⑦) とも同じ地域で重なる</span></div>
+    <div class="it"><b>V2Hを⑦遊休の最大例として位置づけるか</b><span class="w">EV電池は9割以上の時間遊休。非常用電源としてのV2Hは「平時価値 (電気代最適化) + 非常時にも効く」の語り方が既に成立している = <b>もしも封印と整合する数少ない防災文脈</b>。熊本以降の提案にも接続可能</span></div>
+  </div>
+  <div class="src">図E7: 次回論点。いずれも「EVを売る」のではなく「EVまわりのアクセス不整合を解く」立ち位置。</div>
+
+  <h2 id="e6">8. 確度の低い箇所 (使う前に読む)</h2>
   <div class="artifact">
     <div class="tblwrap"><table>
       <tr><th style="width:11em">箇所</th><th>問題</th></tr>
@@ -846,7 +945,7 @@
       <tr><td>一戸建比率の幅</td><td>住宅ストックベース52.7% vs クルマ保有世帯ベース67.3%。後者はWEBモニター抽出への変更を調査主体自身が注記しているため、片方を採らず幅で扱っている</td></tr>
       <tr><td>中国比較</td><td>検証で「分子と分母を別系統から取る」誤りが2件指摘された。<b>本調査で最も検証が甘い領域</b>。中国との倍率比較は幅を持って扱うこと</td></tr>
       <tr><td>車種数61/国産10</td><td>一次情報での確認が取れていない (JATO経由の二次情報)</td></tr>
-      <tr><td>検証者からの異論</td><td>「律速 = OEMへの強制装置の不在」という同定に対し、検証者は<b>「効くレバーはZEV規制ではなく、充電接続権と軽規格である」</b>と反論。軽は新車の約4割を占め、輸出がないため<b>外圧が永久に届かない一方、日本の政策だけで動かせる唯一の領域</b>で、短距離・戸建駐車が多くBEV適合が最も良い。この論点は統合結論に十分反映しきれていない</td></tr>
+      <tr><td>検証者からの異論</td><td>「効くレバーはZEV規制ではなく<b>充電接続権と軽規格</b>」。軽は新車の約4割・輸出ゼロで外圧が永久に届かない = <b>日本の政策だけで動かせる唯一の領域</b>、かつ短距離・戸建駐車でBEV適合が最良。→ 論A・論Bと同じ方向を指しており、次回論点の妥当性を補強する</td></tr>
     </table></div>
   </div>
   <div class="src">図E6: 確度。特に「駐車場統計の不在」は日本のEV政策論全体の盲点でもある。</div>
@@ -854,7 +953,7 @@
   </section>
 
   <footer>
-    INNFRA インフラアクセス 整理ボード v1.5 + フレームワーク v0.3 + EV調査 ｜ 2026-07-31 ブレスト7ラウンド(19:27〜22:01)全文反映 ｜ 内部検討用 ｜ このページは 2026-08-07 23:17 JST に自動削除されます (7日TTL)
+    INNFRA インフラアクセス 整理ボード v1.5 + フレームワーク v0.3 + EV調査 ｜ 2026-07-31 ブレスト7ラウンド(19:27〜22:01)全文反映 ｜ 内部検討用 ｜ このページは 2026-08-07 23:36 JST に自動削除されます (7日TTL)
   </footer>
 
   </main>
