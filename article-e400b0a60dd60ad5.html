@@ -11,6 +11,8 @@
     <a href="article-6c48b2e19da3f075.html">サービス提案</a>
     <a href="article-e400b0a60dd60ad5.html" class="on" aria-current="page">投資家概要</a>
     <a href="article-09662c65a3ba4f84.html">エッセイ</a>
+    <span class="lo-sep" aria-hidden="true">ブランド</span>
+    <a href="article-b7c3e9f14a06d582.html">イメージボード</a>
     <span class="lo-sep" aria-hidden="true">デッキ</span>
     <a href="article-3485bde10955a9a2.html" class="ext">投資家デッキ</a>
     <a href="article-1d6dab11a41fe876.html" class="ext">ユーザーデッキ</a>
@@ -452,7 +454,8 @@ body{padding-top:calc(var(--lo-nav-h) + 8px)}
     var noEl=h.querySelector(".no");
     var no=noEl?noEl.textContent.trim():"";
     var clone=h.cloneNode(true);
-    var c=clone.querySelector(".no"); if(c) c.remove();
+    // 見出し内の装飾要素（章番号・補助ラベル・アンカー）は目次のラベルから外す
+    [].slice.call(clone.querySelectorAll(".no,.hint,.lo-a")).forEach(function(x){ x.remove(); });
     var label=clone.textContent.replace(/\s+/g," ").trim();
     items.push({id:sec.id,no:no,label:label,el:sec});
     var a=d.createElement("a");

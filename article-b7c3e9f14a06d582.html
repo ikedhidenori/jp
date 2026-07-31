@@ -1,0 +1,773 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>STAYME イメージボード v1 ／ 言葉より先に、絵で合わせる</title></head><body>
+<div class="lo-prog" aria-hidden="true"><i id="loProgBar"></i></div>
+<nav class="lo-nav" aria-label="Living OS 資料">
+  <div class="lo-tabs" id="loTabs">
+    <span class="lo-sep lo-sep-first" aria-hidden="true">地図</span>
+    <a href="article-da072b30599b9e59.html">議論地図</a>
+    <a href="article-e4f2a1c60b7d8395.html">実行地図</a>
+    <a href="article-c0a1646e18bcc8ea.html">思考地図</a>
+    <span class="lo-sep" aria-hidden="true">資料</span>
+    <a href="article-f3e9a12c77b0d584.html">事業計画</a>
+    <a href="article-6c48b2e19da3f075.html">サービス提案</a>
+    <a href="article-e400b0a60dd60ad5.html">投資家概要</a>
+    <a href="article-09662c65a3ba4f84.html">エッセイ</a>
+    <span class="lo-sep" aria-hidden="true">ブランド</span>
+    <a href="article-b7c3e9f14a06d582.html" class="on" aria-current="page">イメージボード</a>
+    <span class="lo-sep" aria-hidden="true">デッキ</span>
+    <a href="article-3485bde10955a9a2.html" class="ext">投資家デッキ</a>
+    <a href="article-1d6dab11a41fe876.html" class="ext">ユーザーデッキ</a>
+  </div>
+  <button class="lo-theme" id="loTheme" type="button" aria-label="表示テーマを切り替える" title="テーマ切替">◐</button>
+</nav>
+<aside class="lo-toc" id="loToc" aria-label="目次"><p class="lo-toc-h">目次</p><ol id="loTocList"></ol></aside>
+<div class="lo-fab">
+  <button type="button" id="loTop" aria-label="先頭へ戻る" title="先頭へ">↑</button>
+  <button type="button" id="loTocBtn" aria-expanded="false" aria-controls="loSheet"><span class="i">☰</span><span class="l" id="loHere">目次</span></button>
+</div>
+<div class="lo-sheet" id="loSheet" hidden>
+  <div class="lo-sheet-in" role="dialog" aria-modal="true" aria-label="目次">
+    <div class="lo-sheet-hd"><p>目次</p><button type="button" id="loClose" aria-label="閉じる">✕</button></div>
+    <ol id="loSheetList"></ol>
+  </div>
+</div>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* STAYME イメージボード — ブランド定義 v0 (wiki/30-wiki/slides/STAYME-brand.md) に準拠。
+   共通ナビ (chrome) が読む変数名に、STAYME の値を入れている。 */
+:root{
+  --paper:#F7F4EE; --paper2:#F0EAE0; --artifact:#FCFAF6; --ink:#22221F; --sub:#5F5C56; --faint:#9C968C;
+  --sage:#17A34A; --sage-d:#0C6B3C; --sage-l:#D8F0DC;
+  --coral:#F0805C; --coral-d:#CF5A32; --coral-l:#FBDACC;
+  --rule:#DDD7CC; --red:#F0805C; --green:#17A34A; --pale-red:#FBDACC;
+  --en:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --lb:"Jost",-apple-system,"Helvetica Neue",sans-serif;
+  --jp:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  --gothic:var(--jp);
+  --measure:52rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#17161A; --paper2:#1E1D21; --artifact:#201F24; --ink:#EDEAE3; --sub:#B0ABA2; --faint:#847E75;
+        --rule:#33312F; --sage-l:#12301F; --coral-l:#3A211A;}
+}
+:root[data-theme="dark"]{--paper:#17161A; --paper2:#1E1D21; --artifact:#201F24; --ink:#EDEAE3; --sub:#B0ABA2;
+  --faint:#847E75; --rule:#33312F; --sage-l:#12301F; --coral-l:#3A211A;}
+:root[data-theme="light"]{--paper:#F7F4EE; --paper2:#F0EAE0; --artifact:#FCFAF6; --ink:#22221F; --sub:#5F5C56;
+  --faint:#9C968C; --rule:#DDD7CC; --sage-l:#D8F0DC; --coral-l:#FBDACC;}
+
+body{background:var(--paper); color:var(--ink); font-family:var(--jp);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase; overflow-wrap:break-word; line-break:strict;
+  font-size:16px; line-height:1.85; margin:0; padding:0 20px 90px; -webkit-font-smoothing:antialiased}
+.wrap,section,p,li,td,th{min-width:0}
+img{max-width:100%; display:block}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+.mast{padding:52px 0 24px; border-bottom:2px solid var(--ink); display:flex; flex-direction:column; gap:13px}
+.mast .eyebrow{font-family:var(--lb); font-size:10.5px; letter-spacing:.3em; font-weight:400; color:var(--faint); margin:0}
+.mast h1{font-family:var(--en); font-size:clamp(38px,9vw,66px); line-height:1.02; font-weight:300; margin:0;
+  letter-spacing:.02em}
+.mast .sub{font-size:clamp(17px,3.6vw,21px); line-height:1.55; margin:0; font-weight:500}
+.mast .meta{font-size:11.5px; color:var(--faint); margin:0; line-height:1.7}
+
+section{padding:52px 0 0; display:flex; flex-direction:column; gap:16px}
+section > h2{font-family:var(--jp); font-size:clamp(19px,4.4vw,25px); line-height:1.4; font-weight:700; margin:0;
+  padding-bottom:11px; border-bottom:1px solid var(--rule); text-wrap:balance}
+section > h2 .no{font-family:var(--lb); font-size:10.5px; letter-spacing:.24em; color:var(--sage);
+  font-weight:500; display:inline-block; margin-right:11px; vertical-align:2px; white-space:nowrap}
+section > h2 .hint{font-family:var(--lb); font-size:10px; letter-spacing:.14em; color:var(--faint);
+  font-weight:400; display:inline-block; margin-left:11px; vertical-align:2px; white-space:nowrap}
+p{margin:0} strong{font-weight:700}
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+.lead{font-size:16.5px; line-height:1.85}
+.note{font-size:12.5px; line-height:1.72; color:var(--sub)}
+.tiny{font-size:11px; line-height:1.65; color:var(--faint)}
+em{font-style:normal; background:linear-gradient(transparent 62%, var(--sage-l) 62%); padding:0 1px}
+.co{background:linear-gradient(transparent 62%, var(--coral-l) 62%)}
+
+/* 断り書き */
+.warnbox{border:1.5px solid var(--coral-d); border-radius:4px; background:var(--coral-l);
+  padding:17px 18px; display:flex; flex-direction:column; gap:9px}
+.warnbox .t{font-family:var(--lb); font-size:10.5px; letter-spacing:.2em; font-weight:500; color:var(--coral-d); margin:0}
+.warnbox .h{font-size:17px; font-weight:700; line-height:1.5; margin:0; color:var(--coral-d)}
+.warnbox p:not(.t):not(.h){font-size:13.5px; line-height:1.75}
+
+/* 画像グリッド */
+.grid{display:grid; grid-template-columns:1fr; gap:26px}
+@media (min-width:700px){ .grid{grid-template-columns:1fr 1fr; gap:24px} .grid .wide{grid-column:1 / -1} }
+figure{margin:0; display:flex; flex-direction:column; gap:0}
+figure button.shot{padding:0; border:0; background:none; cursor:zoom-in; display:block; width:100%; position:relative;
+  border-radius:3px; overflow:hidden; line-height:0}
+figure button.shot img{width:100%; height:auto; transition:transform .4s ease}
+figure button.shot:hover img{transform:scale(1.022)}
+figure button.shot::after{content:"＋"; position:absolute; right:9px; bottom:9px; width:24px; height:24px;
+  border-radius:50%; background:rgba(255,255,255,.86); color:#22221F; font-size:13px; line-height:24px;
+  text-align:center; opacity:0; transition:opacity .2s; font-family:var(--lb)}
+figure button.shot:hover::after{opacity:1}
+figcaption{padding:11px 2px 0; display:flex; flex-direction:column; gap:6px}
+figcaption .fn{font-family:var(--lb); font-size:10px; letter-spacing:.16em; color:var(--faint); margin:0}
+figcaption .ft{font-size:15px; font-weight:700; line-height:1.45; margin:0}
+figcaption .fd{font-size:12.8px; line-height:1.7; color:var(--sub); margin:0}
+figcaption .fj{font-size:12px; line-height:1.68; margin:0; padding:7px 10px; border-radius:3px;
+  background:var(--artifact); border-left:2px solid var(--rule)}
+figcaption .fj b{font-family:var(--lb); font-size:9.5px; letter-spacing:.16em; display:block; margin-bottom:2px}
+figcaption .fj.ok{border-left-color:var(--sage)} figcaption .fj.ok b{color:var(--sage-d)}
+figcaption .fj.ng{border-left-color:var(--coral-d)} figcaption .fj.ng b{color:var(--coral-d)}
+figcaption .use{font-family:var(--lb); font-size:10px; letter-spacing:.1em; color:var(--faint); margin:0}
+
+/* 色 */
+.sw{display:grid; grid-template-columns:repeat(auto-fill,minmax(128px,1fr)); gap:10px}
+.sw div{border:1px solid var(--rule); border-radius:3px; overflow:hidden; background:var(--artifact)}
+.sw .chip{height:66px; display:block}
+.sw p{margin:0; padding:7px 9px 9px}
+.sw .nm{display:block; font-size:12px; font-weight:700; line-height:1.35}
+.sw .hx{display:block; font-family:var(--lb); font-size:10.5px; letter-spacing:.09em; color:var(--faint); margin-top:1px}
+.sw .ro{display:block; font-size:10.5px; color:var(--sub); line-height:1.5; margin-top:4px}
+
+/* 書体見本 */
+.type{display:flex; flex-direction:column; gap:0; border:1px solid var(--rule); border-radius:4px;
+  background:var(--artifact); overflow:hidden}
+.type > div{padding:19px 18px; border-bottom:1px solid var(--rule); display:flex; flex-direction:column; gap:7px}
+.type > div:last-child{border-bottom:0}
+.type .lb{font-family:var(--lb); font-size:10px; letter-spacing:.2em; color:var(--faint); margin:0}
+.type .sp-en{font-family:var(--en); font-size:clamp(30px,7.6vw,48px); font-weight:300; line-height:1.1; margin:0; letter-spacing:.03em}
+.type .sp-lb{font-family:var(--lb); font-size:clamp(15px,3.4vw,20px); font-weight:400; letter-spacing:.16em; margin:0}
+.type .sp-jp{font-family:var(--jp); font-size:clamp(18px,4.2vw,24px); font-weight:500; line-height:1.6; margin:0}
+.type .ro{font-size:12px; color:var(--sub); line-height:1.65; margin:0}
+
+/* 形 */
+.shapes{display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px}
+.shapes div{background:var(--artifact); border:1px solid var(--rule); padding:16px 14px; display:flex;
+  flex-direction:column; align-items:center; gap:11px; border-radius:3px}
+.shapes .demo{width:66px; height:78px; background:var(--sage-l); border:1.5px solid var(--sage-d)}
+.shapes .arch{border-radius:999px 999px 18px 18px}
+.shapes .soft{border-radius:8px; background:var(--coral-l); border-color:var(--coral-d); height:52px; width:96px}
+.shapes .pill{border-radius:999px; height:34px; width:96px; background:var(--paper2); border-color:var(--rule)}
+.shapes .sq{border-radius:0; height:66px; width:66px; background:var(--paper2); border-color:var(--ink)}
+.shapes p{font-size:11.5px; line-height:1.55; text-align:center; margin:0; color:var(--sub)}
+.shapes p b{display:block; color:var(--ink); font-size:12.5px; margin-bottom:2px}
+
+/* 表 */
+.tablewrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
+table{width:100%; border-collapse:collapse; font-size:13px}
+th,td{border:1px solid var(--rule); padding:9px 10px; text-align:left; vertical-align:top; line-height:1.6}
+thead th{background:var(--artifact); font-size:11.5px; font-weight:700; white-space:nowrap}
+td.miss{background:var(--coral-l)}
+
+.checks{display:flex; flex-direction:column; gap:11px}
+.checks > div{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:baseline}
+.checks b{font-family:var(--lb); font-size:11px; letter-spacing:.1em; color:var(--coral-d); white-space:nowrap}
+.checks span{font-size:13.5px; line-height:1.72}
+
+hr.end{border:0; border-top:2px solid var(--ink); margin:56px 0 16px}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:0}
+
+/* ライトボックス */
+.lb-ov{position:fixed; inset:0; z-index:90; background:rgba(20,19,17,.985); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:16px; gap:12px}
+.lb-ov[hidden]{display:none}
+.lb-ov img{max-width:100%; max-height:78vh; width:auto; object-fit:contain; border-radius:2px}
+.lb-ov .cap{color:#EDEAE3; font-size:13px; line-height:1.6; text-align:center; max-width:44rem; margin:0}
+.lb-ov .cap b{display:block; font-size:15px; margin-bottom:3px}
+.lb-ov .bar{display:flex; gap:10px; align-items:center}
+.lb-ov button{background:transparent; border:1px solid rgba(237,234,227,.5); color:#EDEAE3; border-radius:999px;
+  width:40px; height:40px; font-size:16px; cursor:pointer; font-family:var(--lb)}
+.lb-ov button:hover{background:rgba(237,234,227,.14)}
+.lb-ov .x{position:absolute; top:14px; right:14px}
+.lb-ov .n{font-family:var(--lb); font-size:11px; letter-spacing:.14em; color:#9C968C; min-width:4em; text-align:center}
+:focus-visible{outline:2px solid var(--sage); outline-offset:3px}
+@media print{ .lb-ov{display:none !important} figure button.shot{cursor:default} }
+</style>
+<style id="lo-chrome">
+/* ── Living OS 共通ナビゲーション ─────────────────────────
+   ソースの Document Kernel 変数 (--paper/--ink/--sub/--faint/--red/--rule/--artifact) に乗る */
+:root{--lo-nav-h:46px}
+/* テーマ手動切替（元ドキュメントが prefers-color-scheme しか持たない場合の保険） */
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+  --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{padding-top:calc(var(--lo-nav-h) + 8px)}
+.wrap > section{scroll-margin-top:calc(var(--lo-nav-h) + 16px)}
+.wrap > header{scroll-margin-top:calc(var(--lo-nav-h) + 16px)}
+/* セクションの切れ目を視覚化（走査性） */
+.wrap > section + section{border-top:1px solid var(--rule); margin-top:8px}
+
+/* 読書プログレス */
+.lo-prog{position:fixed; top:0; left:0; right:0; height:3px; background:transparent; z-index:60; pointer-events:none}
+.lo-prog i{display:block; height:100%; width:0; background:var(--red); transition:width .08s linear}
+
+/* 上部タブ */
+.lo-nav{position:fixed; top:0; left:0; right:0; height:var(--lo-nav-h); z-index:50;
+  transition:transform .22s ease;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter:saturate(180%) blur(12px); backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--rule); display:flex; align-items:stretch; gap:0}
+@supports not (backdrop-filter:blur(2px)){.lo-nav{background:var(--paper)}}
+@media (max-width:1119px){ .lo-nav.lo-hide{transform:translateY(-100%)} }
+@media (prefers-reduced-motion:reduce){ .lo-nav{transition:none} }
+.lo-tabs{flex:1 1 auto; display:flex; align-items:center; gap:3px; overflow-x:auto; overflow-y:hidden;
+  padding:0 4px 0 12px; scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-behavior:smooth}
+.lo-tabs::-webkit-scrollbar{display:none}
+.lo-tabs a{flex:0 0 auto; font-family:var(--gothic); font-size:12.5px; font-weight:700; line-height:1;
+  color:var(--sub); text-decoration:none; padding:7px 11px; border-radius:3px; white-space:nowrap;
+  border:1px solid transparent}
+.lo-tabs a:hover{background:var(--artifact); border-color:var(--rule); color:var(--ink)}
+.lo-tabs a.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.lo-tabs a.ext{color:var(--faint)}
+.lo-tabs a.ext::after{content:" ↗"; font-size:9px; vertical-align:1px}
+.lo-sep{flex:0 0 auto; font-size:9.5px; letter-spacing:.16em; font-weight:700; color:var(--faint);
+  padding:0 8px 0 12px; border-left:1px solid var(--rule); margin-left:4px; align-self:center; line-height:1.9}
+.lo-sep-first{border-left:0; margin-left:0; padding-left:0}
+.lo-theme{flex:0 0 auto; width:42px; border:0; border-left:1px solid var(--rule); background:transparent;
+  color:var(--sub); font-size:15px; cursor:pointer; font-family:var(--gothic)}
+.lo-theme:hover{color:var(--ink); background:var(--artifact)}
+
+/* デスクトップ：左サイドバー目次 */
+.lo-toc{display:none}
+@media (min-width:1120px){
+  body{padding-left:280px}
+  .lo-toc{display:block; position:fixed; top:calc(var(--lo-nav-h) + 18px); width:246px;
+    left:max(18px, calc(50vw - var(--measure)/2 - 130px));
+    max-height:calc(100vh - var(--lo-nav-h) - 40px); overflow-y:auto; z-index:40;
+    font-family:var(--gothic); scrollbar-width:thin}
+  .lo-toc-h{font-size:9.5px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0 0 9px 11px}
+  .lo-toc ol{list-style:none; margin:0; padding:0; border-left:2px solid var(--rule)}
+  .lo-toc li{margin:0}
+  .lo-toc a{display:block; padding:6px 10px 6px 11px; font-size:12.5px; line-height:1.45; color:var(--sub);
+    text-decoration:none; border-left:2px solid transparent; margin-left:-2px}
+  .lo-toc a:hover{color:var(--ink); background:var(--artifact)}
+  .lo-toc a .n{display:block; font-size:9px; letter-spacing:.13em; color:var(--faint); margin-bottom:1px}
+  .lo-toc a.on{color:var(--ink); font-weight:700; border-left-color:var(--red); background:var(--artifact)}
+  .lo-toc a.on .n{color:var(--red)}
+}
+@media (min-width:1500px){ body{padding-left:0}
+  .lo-toc{left:max(18px, calc(50vw - var(--measure)/2 - 270px))} }
+
+/* 右下フローティング */
+.lo-fab{position:fixed; right:14px; bottom:14px; z-index:45; display:flex; flex-direction:column;
+  align-items:flex-end; gap:8px; font-family:var(--gothic)}
+.lo-fab button{border:1.5px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer;
+  border-radius:999px; box-shadow:0 2px 10px rgba(0,0,0,.13); font-family:var(--gothic); font-weight:700}
+#loTop{width:40px; height:40px; font-size:16px; line-height:1; opacity:0; transform:translateY(6px);
+  transition:opacity .18s, transform .18s; pointer-events:none}
+#loTop.show{opacity:1; transform:none; pointer-events:auto}
+#loTocBtn{display:flex; align-items:center; gap:7px; padding:9px 14px; font-size:12.5px; max-width:52vw}
+#loTocBtn .i{font-size:13px}
+#loTocBtn .l{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+@media (min-width:1120px){ #loTocBtn{display:none} }
+
+/* モバイル目次シート */
+.lo-sheet{position:fixed; inset:0; z-index:70; background:rgba(0,0,0,.42); display:flex; align-items:flex-end}
+.lo-sheet[hidden]{display:none}
+.lo-sheet-in{width:100%; max-height:76vh; background:var(--paper); border-top:3px solid var(--ink);
+  border-radius:14px 14px 0 0; display:flex; flex-direction:column; font-family:var(--gothic);
+  animation:loUp .2s ease-out}
+@keyframes loUp{from{transform:translateY(14px); opacity:.6} to{transform:none; opacity:1}}
+@media (prefers-reduced-motion:reduce){.lo-sheet-in{animation:none}}
+.lo-sheet-hd{display:flex; align-items:center; justify-content:space-between; padding:14px 16px 10px;
+  border-bottom:1px solid var(--rule)}
+.lo-sheet-hd p{margin:0; font-size:11px; letter-spacing:.16em; font-weight:700; color:var(--faint)}
+.lo-sheet-hd button{border:0; background:transparent; font-size:17px; color:var(--sub); cursor:pointer; padding:2px 4px}
+.lo-sheet ol{list-style:none; margin:0; padding:6px 0 26px; overflow-y:auto; -webkit-overflow-scrolling:touch}
+.lo-sheet a{display:block; padding:12px 18px; font-size:14.5px; line-height:1.5; color:var(--ink);
+  text-decoration:none; border-bottom:1px solid var(--rule); border-left:3px solid transparent}
+.lo-sheet a .n{display:block; font-size:9.5px; letter-spacing:.14em; color:var(--faint); margin-bottom:2px}
+.lo-sheet a.on{border-left-color:var(--red); background:var(--artifact); font-weight:700}
+.lo-sheet a.on .n{color:var(--red)}
+
+/* 見出しのアンカー（共有用） */
+.wrap > section > h2 .lo-a{opacity:0; margin-left:8px; font-size:12px; color:var(--faint);
+  text-decoration:none; font-weight:400; transition:opacity .12s; vertical-align:2px}
+.wrap > section > h2:hover .lo-a, .lo-a:focus-visible{opacity:1}
+@media (hover:none){.wrap > section > h2 .lo-a{display:none}}
+
+/* 横スクロールする表であることを示す */
+.tablewrap{position:relative}
+.tablewrap.lo-ovf::after{content:"→ 横にスクロールできます"; position:absolute; right:2px; bottom:-3px;
+  font-size:9.5px; color:var(--faint); font-family:var(--gothic); letter-spacing:.04em; pointer-events:none}
+.tablewrap.lo-ovf{padding-bottom:13px}
+
+@media print{
+  .lo-nav,.lo-prog,.lo-toc,.lo-fab,.lo-sheet{display:none !important}
+  body{padding-top:0 !important; padding-left:0 !important}
+  .wrap > section{break-inside:auto}
+}
+</style>
+
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">INNFRA ／ STAYME ／ 社内討議用</p>
+  <h1>Image&nbsp;Board</h1>
+  <p class="sub">言葉より先に、絵で合わせる。<br>STAYME が「どう見えるべきか」の現在地。</p>
+  <p class="meta">2026-07-31 作成（v1）　D2-internal　／ 素材は 2026-07-29〜30 に生成した12点。<br>
+  ブランド定義 v0（<code>slides/STAYME-brand.md</code>）と生成依頼書（<code>slides/IMAGE-BRIEF.md</code>）に照合しています。</p>
+</header>
+
+<section>
+  <h2><span class="no">00</span>先に、いちばん大事な断り</h2>
+
+  <div class="warnbox">
+    <p class="t">READ FIRST</p>
+    <p class="h">この8枚は全部 AI が描いた絵で、物件の写真ではありません。</p>
+    <p>STAYME の拠点は<strong>まだ1つも存在しません</strong>。ここにあるのは「こう見えてほしい」という設計意図であって、<strong>実績ではない</strong>。<span class="co">対外資料に使うときは必ずイメージと明記する</span>——実在すると誤解させたら、そこで信用を1回で失います。</p>
+    <p>実在するものは <a href="#s6">06 実在するもの</a> に3点だけ置きました。<em>絵が8枚、実物が3点</em>。この比率そのものが、いまの現在地です（→ <a href="article-e4f2a1c60b7d8395.html">実行地図</a>）。</p>
+  </div>
+
+  <p class="lead">イメージボードの役目はひとつで、<strong>言葉で合意したつもりのことが、絵にすると合っていない</strong>のを先に見つけることです。「ホテルに住む」も「豪華な共用部」も、頭の中では全員ちがう絵を見ています。</p>
+</section>
+
+<section>
+  <h2><span class="no">01</span>世界観</h2>
+  <p class="lead">メロウで、先進的。<em>夜の静けさに、灯りの温かみ。</em>ホテルライクで豪華だけれど、気取っていない。20〜30代がふつうに選べる顔をしている。</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>要素</th><th>決めていること</th></tr></thead>
+      <tbody>
+        <tr><td><strong>時間</strong></td><td>いつも<strong>夜か薄明</strong>。STAYME が売っているのは「留守にした夜」なので、昼は撮らない</td></tr>
+        <tr><td><strong>照明</strong></td><td>間接照明のみ、暖色 2700K。影はやわらかく、白飛びさせない</td></tr>
+        <tr><td><strong>素材</strong></td><td>オーク／アッシュの木、マットな塗り壁、ブラッシュドアルミ、リネン</td></tr>
+        <tr><td><strong>カメラ</strong></td><td>24〜35mm 相当、<strong>水平垂直を保つ</strong>（煽らない）。建築写真の質感、微細なグレイン</td></tr>
+        <tr><td><strong>人</strong></td><td>入れない。入れても<strong>後ろ姿・遠景で1人まで</strong>。顔は作らない</td></tr>
+        <tr><td><strong>文字</strong></td><td>画の中に<strong>一切入れない</strong>。看板もロゴも。文字は後から重ねる</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note"><strong>禁止したもの</strong>——紫のグラデーション／サイバーパンクのネオン／レンズフレア／鏡面の反射／プラスチックの光沢／魚眼／傾いた水平線／青白い蛍光灯／散らかった小物／観葉植物の多用。<span class="tiny">いわゆる「AIが描いた絵」に見える要素を、先に名指しで潰しています。</span></p>
+</section>
+
+<section>
+  <h2><span class="no">02</span>空間 ─ 8枚<span class="hint">クリックで拡大</span></h2>
+  <p class="lead">デッキで実際に使っている8枚。各カットに「何を外せないと決めたか」と、<strong>そのとおりに出たかどうかの自己評価</strong>を付けています。</p>
+
+  <div class="grid" id="board">
+
+    <figure class="wide">
+      <button class="shot" type="button" data-i="0"><img src="assets/stayme/pod-minimal.jpg" alt="暗い廊下に面して、内側だけが暖色に灯る角丸開口のスリーピングポッド" loading="lazy" width="1000" height="667"></button>
+      <figcaption>
+        <p class="fn">POD-MINIMAL</p>
+        <p class="ft">ポッド ─ 3m²、眠るためだけの装置</p>
+        <p class="use">ユーザー向けデッキ 5枚目の主役 ／ ブランドの顔</p>
+        <p class="fd">角丸の開口、内側だけが暖色に光る。カーテンは半分開き、廊下は暗い。私物は何も残っていない。</p>
+        <p class="fj ok"><b>外せなかった点 → 出た</b>狭さを「窮屈」でなく<strong>巣ごもり</strong>に見せること。清潔さ最優先（シーツに皺を出さない）。廊下を暗くしてポッドだけを光らせること。<strong>8枚でいちばん強い1枚</strong>で、ここから全部が始められる。</p>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <button class="shot" type="button" data-i="1"><img src="assets/stayme/pod-private.jpg" alt="9平米ほどの個室。ベッド、窓際の小机、夕景の街明かり" loading="lazy" width="1000" height="667"></button>
+      <figcaption>
+        <p class="fn">POD-PRIVATE</p>
+        <p class="ft">個室 ─ 9m²、一段広い選択肢</p>
+        <p class="use">部屋のグレード比較</p>
+        <p class="fd">低いベッド、窓際の机と椅子、細身のペンダント。窓の外は夕景の街。</p>
+        <p class="fj ok"><b>外せなかった点 → 出た</b>ポッドと<strong>同じ世界観のまま「一段広い」</strong>と一目で分かること。豪華にしすぎないこと。価格の段を作るなら、この2枚が対になる。</p>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <button class="shot" type="button" data-i="2"><img src="assets/stayme/cloak.jpg" alt="木とアルミのロッカーが並ぶ荷物室。1つ開いてスーツケースと畳んだ衣類が見える" loading="lazy" width="1000" height="667"></button>
+      <figcaption>
+        <p class="fn">CLOAK</p>
+        <p class="ft">クローク ─ 鍵のかかる荷物室</p>
+        <p class="use">差別化の中核</p>
+        <p class="fd">木とアルミの背の高いロッカー。1つだけ開いていて、スーツケースと畳んだ衣類。天井に細い間接照明。</p>
+        <p class="fj ok"><b>外せなかった点 → 出た</b><strong>「部屋が小さくても、モノには居場所がある」</strong>。多拠点サービスが全部「荷物なし前提」で落ちているところを、ここで拾う。同時に<em>部屋に私物がないから何度でも貸せる</em>という二毛作の前提条件でもある。</p>
+      </figcaption>
+    </figure>
+
+    <figure class="wide">
+      <button class="shot" type="button" data-i="3"><img src="assets/stayme/lounge.jpg" alt="高天井に黒い露出構造、モジュラーソファと長い共用テーブル、窓の外は夜の街" loading="lazy" width="1000" height="667"></button>
+      <figcaption>
+        <p class="fn">LOUNGE</p>
+        <p class="ft">ラウンジ ─ ひとりでは持てない広さ</p>
+        <p class="use">ユーザー向けデッキ 6枚目の主役</p>
+        <p class="fd">高天井、マットチャコールに塗った露出構造。灰色リネンのモジュラーソファ、オークの長い共用テーブル、暖色の光だまり。無人。</p>
+        <p class="fj ok"><b>外せなかった点 → 出た</b><strong>「部屋は小さいが、ここが広い」</strong>という対比。天井高と床の余白。</p>
+        <p class="fj ng"><b>ただし気になる</b>長机と椅子の列が効きすぎて、<strong>くつろぐ場所というよりコワーキングに見える</strong>。「ホテルに住む」の憧れを担う1枚なので、ソファ側をもっと主役にした差し替え版が要る。</p>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <button class="shot" type="button" data-i="4"><img src="assets/stayme/bath-sauna.jpg" alt="石の浴槽に静かな湯面、ガラス越しに木のサウナが暖色に灯る" loading="lazy" width="1000" height="667"></button>
+      <figcaption>
+        <p class="fn">BATH-SAUNA</p>
+        <p class="ft">大浴場とサウナ</p>
+        <p class="use">第4の柱「ひとりでは持てないもの」</p>
+        <p class="fd">石の浴槽に静かな湯面。暗いスレートの床、檜のベンチ。ガラスの向こうにサウナが暖色に灯る。湯気は控えめ。</p>
+        <p class="fj ok"><b>外せなかった点 → 出た</b>湯気を出しすぎず<strong>静けさを撮る</strong>こと。人を入れないこと。<span class="tiny">⚠ ただし実務では、宿泊者以外に浴場を使わせるには旅館業とは<strong>別に</strong>公衆浴場法の許可が要ります。絵の話ではなく設計の話。</span></p>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <button class="shot" type="button" data-i="5"><img src="assets/stayme/kitchen-free.jpg" alt="ステンレスのカウンターにコーヒーマシン、整列したマグとグラス、果物" loading="lazy" width="1000" height="667"></button>
+      <figcaption>
+        <p class="fn">KITCHEN-FREE</p>
+        <p class="ft">共用キッチンとフリーサービス</p>
+        <p class="use">第4の柱／日常の質</p>
+        <p class="fd">長いステンレスカウンター、コーヒーマシン、整然と並んだマグとグラス。棚下の暖色照明。色は果物だけ。</p>
+        <p class="fj ok"><b>外せなかった点 → 出た</b>「フリー」を<strong>整然と並んだ数の多さ</strong>で表すこと。散らかさないこと。<em>ひとりの冷蔵庫では持てないものを、人数で持つ</em>という原理がいちばん素直に写っている。</p>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <button class="shot" type="button" data-i="6"><img src="assets/stayme/exterior-city.jpg" alt="6階建てコンクリートの建物。全部の窓が暖色に灯り、1階の入口が奥まって光る" loading="lazy" width="1000" height="667"></button>
+      <figcaption>
+        <p class="fn">EXTERIOR-CITY</p>
+        <p class="ft">都市拠点 ─ 老朽ビルの居抜き</p>
+        <p class="use">床の集め方／投資家向け</p>
+        <p class="fd">6階建てのコンクリート。既存の躯体を残し、窓枠だけ黒く更新。全窓が暖色に灯り、1階の入口が奥まって光る。看板なし。</p>
+        <p class="fj ng"><b>ここは狙いから外れた</b>「<strong>古い建物を安く手に入れて中身だけ新しくした</strong>」が伝わってほしかったのに、<strong>躯体がきれいすぎて新築に見える</strong>。汚れ・補修跡・経年のムラを残した版が要る。<em>この1枚は「規制の買い場」という事業の核を背負っている</em>ので、ここが弱いと投資家に効かない。</p>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <button class="shot" type="button" data-i="7"><img src="assets/stayme/exterior-nature.jpg" alt="落葉松の林に低く長い板張りの建物。窓が暖色に灯り、地面に霧" loading="lazy" width="1000" height="667"></button>
+      <figcaption>
+        <p class="fn">EXTERIOR-NATURE</p>
+        <p class="ft">自然拠点 ─ 同じブランドの別拠点</p>
+        <p class="use">多拠点（柱からは降ろした）</p>
+        <p class="fd">落葉松と白樺の林、低く長い板張りの棟、地面に霧、奥に山。窓が暖色に灯る。</p>
+        <p class="fj ok"><b>外せなかった点 → 出た</b>高級別荘にせず、<strong>都市拠点と同じブランドの別の顔</strong>に見せること。</p>
+        <p class="fj ng"><b>ただし気になる</b>窓の中に椅子が整列して見え、<strong>研修所・保養所の気配</strong>がある。⚠ そもそも多拠点は柱から降ろした（2026-07-29）ので、<em>この1枚の出番自体が今は少ない</em>。</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">03</span>色</h2>
+  <p class="lead">面はペールの紙のまま、<strong>差し色だけ彩度を上げる</strong>。全面を高彩度にすると疲れます。参照はランウェイの<span class="co">ケリーグリーン × コーラル</span>。</p>
+
+  <div class="sw">
+    <div><span class="chip" style="background:#F7F4EE"></span><p><span class="nm">紙</span><span class="hx">#F7F4EE</span><span class="ro">既定の背景。純白にしない</span></p></div>
+    <div><span class="chip" style="background:#F0EAE0"></span><p><span class="nm">紙・2段目</span><span class="hx">#F0EAE0</span><span class="ro">面を分けるとき</span></p></div>
+    <div><span class="chip" style="background:#22221F"></span><p><span class="nm">墨</span><span class="hx">#22221F</span><span class="ro">本文。純黒にしない</span></p></div>
+    <div><span class="chip" style="background:#5F5C56"></span><p><span class="nm">副</span><span class="hx">#5F5C56</span><span class="ro">補足</span></p></div>
+    <div><span class="chip" style="background:#9C968C"></span><p><span class="nm">薄</span><span class="hx">#9C968C</span><span class="ro">出典・キャプション</span></p></div>
+    <div><span class="chip" style="background:#17A34A"></span><p><span class="nm">ケリーグリーン</span><span class="hx">#17A34A</span><span class="ro">差し色。数字・タグ・図</span></p></div>
+    <div><span class="chip" style="background:#0C6B3C"></span><p><span class="nm">深いグリーン</span><span class="hx">#0C6B3C</span><span class="ro">全幅バンドの地</span></p></div>
+    <div><span class="chip" style="background:#D8F0DC"></span><p><span class="nm">ペールグリーン</span><span class="hx">#D8F0DC</span><span class="ro">面・タグ</span></p></div>
+    <div><span class="chip" style="background:#F0805C"></span><p><span class="nm">コーラル</span><span class="hx">#F0805C</span><span class="ro">差し色。バー・数字・注意</span></p></div>
+    <div><span class="chip" style="background:#CF5A32"></span><p><span class="nm">濃いコーラル</span><span class="hx">#CF5A32</span><span class="ro">コーラル地の上の文字</span></p></div>
+    <div><span class="chip" style="background:#FBDACC"></span><p><span class="nm">ペールコーラル</span><span class="hx">#FBDACC</span><span class="ro">面。金額のページの地</span></p></div>
+    <div><span class="chip" style="background:#DDD7CC"></span><p><span class="nm">罫</span><span class="hx">#DDD7CC</span><span class="ro">1px の線</span></p></div>
+  </div>
+
+  <p class="note"><strong>退けた色</strong>——深緑 <code>#003c33</code>・ネイビー <code>#071829</code>（濃すぎ）、セージ <code>#7C8A72</code>・くすんだコーラル <code>#DE9080</code>（だるい）。<span class="tiny">2026-07-29 のジョニー指示「今のだとだるすぎる」で彩度を上げた履歴です。</span></p>
+
+  <p class="note co" style="display:inline-block"><strong>⚠ 写真とUIで色系統が違います。</strong>8枚の空間写真は<strong>藍と琥珀</strong>（夜・間接照明）、UIは<strong>ペール紙とグリーン／コーラル</strong>。並べると別ブランドに見えかねないので、写真の上に文字を置くときは<strong>琥珀側に寄せた白</strong>を使い、グリーンは面の側だけに置くこと。</p>
+</section>
+
+<section>
+  <h2><span class="no">04</span>書体 ─ 三層</h2>
+
+  <div class="type">
+    <div>
+      <p class="lb">DISPLAY ／ 欧文</p>
+      <p class="sp-en">STAYME</p>
+      <p class="ro"><strong>Cormorant Garamond</strong> 300／400。ブランド名、大見出しの欧文、章番号。<em>細いセリフでアンニュイを出す</em>。太くしない。</p>
+    </div>
+    <div>
+      <p class="lb">LABEL ／ 欧文</p>
+      <p class="sp-lb">STAY ／ 15,000 ／ NIGHTS</p>
+      <p class="ro"><strong>Jost</strong> 300／400。大文字の小ラベル、数字、UI。字間を広めに開ける（.16em 前後）。</p>
+    </div>
+    <div>
+      <p class="lb">TEXT ／ 和文</p>
+      <p class="sp-jp">憧れのホテル暮らしが、ふつうの家賃で。</p>
+      <p class="ro"><strong>Zen Kaku Gothic New</strong> 400／500。見出しと本文。ジョニー指定のゴシック。<code>font-feature-settings:"palt"</code> を必ず入れ、本文の行間は 1.8 前後。</p>
+    </div>
+  </div>
+  <p class="tiny">⚠ この3書体は Google Fonts から読んでいます。ネットワークが切れると Georgia／システムゴシックに落ちます（読めなくはなりません）。印刷物や納品物に使うときはライセンス（すべて SIL OFL）を確認のこと。</p>
+</section>
+
+<section>
+  <h2><span class="no">05</span>形</h2>
+  <p class="lead">LP のトンマナ（2026-07-25 承認）。<strong>丸ゴシック、広めのカーニング、円形のドット、角丸8px。</strong>アーチはポッドの開口そのものの形なので、<em>ブランドの記号として使える唯一の形</em>です。</p>
+
+  <div class="shapes">
+    <div><span class="demo arch"></span><p><b>アーチ</b>999px 999px 18px 18px<br>ポッドの開口。写真枠・見出しの地に</p></div>
+    <div><span class="demo soft"></span><p><b>角丸 8px</b>カード・面。<br>それ以上は丸めない</p></div>
+    <div><span class="demo pill"></span><p><b>ピル</b>タグ・ボタン<br>1つの画面に1〜2個まで</p></div>
+    <div><span class="demo sq"></span><p><b>直角</b>表・図版<br>証拠を見せる面は丸めない</p></div>
+  </div>
+  <p class="note"><strong>影は使わない。</strong>面の分離は色（紙／紙2段目）と1pxの罫で行う。ドロップシャドウを足した瞬間に、量産のテンプレートに見えます。</p>
+</section>
+
+<section id="s6">
+  <h2><span class="no">06</span>実在するもの ─ 3点だけ</h2>
+  <p class="lead">ここから下は<strong>AI が描いたものではありません</strong>。8枚の絵に対して、実物はこれだけ、という比率をそのまま見せます。</p>
+
+  <div class="grid">
+    <figure>
+      <button class="shot" type="button" data-i="8"><img src="assets/stayme/whiteboard.jpg" alt="ホワイトボードに手書きされた「暮らし、住まいのアンバンドル、リバンドル」の議論メモ" loading="lazy" width="1000" height="1333"></button>
+      <figcaption>
+        <p class="fn">REAL ／ 2026-07-25</p>
+        <p class="ft">合宿 Day2 のホワイトボード</p>
+        <p class="fd">「暮らし、住まいのアンバンドル、リバンドル」。岩崎の手書き。<strong>このプロジェクトで撮れている、数少ない実地の記録</strong>。</p>
+        <p class="fj ok"><b>なぜ載せるか</b>絵は意図を伝えるが、<em>ここで何かが実際に起きた証拠にはならない</em>。ボードの写真1枚のほうが、8枚のレンダリングより「本当にやっている」を伝える。</p>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <button class="shot" type="button" data-i="9"><img src="assets/stayme/pod-lp.jpg" alt="木の内装に角丸開口のポッド。寝具が整えられ、下部に引き出しがある" loading="lazy" width="1000" height="1000"></button>
+      <figcaption>
+        <p class="fn">LP v0 ／ 比較用</p>
+        <p class="ft">LP で使ったポッドのカット</p>
+        <p class="fd">LP v0 の比較セクション用。上の <code>POD-MINIMAL</code> より<strong>木が明るく、丸みが強い</strong>。</p>
+        <p class="fj ng"><b>ここが揃っていない</b>デッキ側は「夜・藍・間接照明」、LP 側は「昼・木・やわらかい」。<strong>同じ商品が2つの顔で出ている</strong>。どちらを正にするかを決めていない。<em>先に決めるべきはロゴより、これ</em>。</p>
+      </figcaption>
+    </figure>
+
+    <figure class="wide">
+      <div class="grid" style="grid-template-columns:1fr 1fr; gap:14px">
+        <button class="shot" type="button" data-i="10"><img src="assets/stayme/fig-female.jpg" alt="線画で描かれた立ち姿の女性のイラスト" loading="lazy" width="1000" height="1000"></button>
+        <button class="shot" type="button" data-i="11"><img src="assets/stayme/fig-male.jpg" alt="線画で描かれた立ち姿の男性のイラスト" loading="lazy" width="1000" height="1000"></button>
+      </div>
+      <figcaption>
+        <p class="fn">LP v0 ／ 人物</p>
+        <p class="ft">人は、写真でなく線画にした</p>
+        <p class="fd">顔を描き込まない細い線画。<strong>AI が人の顔を作ると必ず破綻する</strong>のと、特定の年齢・所得を名指ししてしまうのを同時に避けられる。</p>
+        <p class="fj ok"><b>この判断は正しい</b>STAYME の客は「28歳の会社員」1人ではなく、単身赴任・外国人・夜勤者まで幅がある。<em>顔を描かないほうが、間口が閉じない</em>。</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">07</span>足りていないもの</h2>
+  <p class="lead">絵が揃うと「できている」気分になるので、<strong>空いている枠を先に並べます</strong>。</p>
+
+  <div class="checks">
+    <div><b>未生成</b><span><strong>ペルソナ3枚</strong>（persona-a／b／c）。ユーザー向け11枚目「Voices」用に依頼書は書いたが、生成されていない。<em>いま写真枠は空のまま</em></span></div>
+    <div><b>未着手</b><span><strong>ロゴ。</strong>欧文のワードマークにするか、専用に字を組むか未決。<span class="tiny">先に <code>stayme.jp</code> / <code>stayme.co</code> の空き確認と、第43類・第36類の商標調査が要る</span></span></div>
+    <div><b>未決</b><span><strong>デッキとLPで世界観が割れている</strong>（夜・藍 ／ 昼・木）。どちらを正にするか。<em>ロゴより先に決めるべき</em></span></div>
+    <div><b>差替え</b><span><strong>exterior-city</strong>（きれいすぎて新築に見える）と <strong>lounge</strong>（コワーキングに見える）。事業の核を背負う2枚なので優先度が高い</span></div>
+    <div><b>ゼロ</b><span><strong>実在の拠点の写真。</strong>物件が決まるまで撮れない。8月の居抜き査定3件が最初の機会</span></div>
+    <div><b>ゼロ</b><span><strong>人が使っている場面。</strong>顔を避ける方針は正しいが、<em>誰も居ない絵ばかりだと「空いている建物」に見える</em>リスクがある。後ろ姿・手元・気配で1〜2枚要る</span></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">08</span>どこで、どれを使うか</h2>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>面</th><th>主役</th><th>置き方</th></tr></thead>
+      <tbody>
+        <tr><td>ユーザー向けデッキ</td><td><code>pod-minimal</code> → <code>lounge</code> → <code>bath-sauna</code></td><td>憧れを先に見せ、疑問（高いのでは）を相手に立てさせてから価格へ</td></tr>
+        <tr><td>投資家向けデッキ</td><td><code>exterior-city</code> ／ <code>cloak</code></td><td>床の集め方と差別化。<em>憧れの絵で押さない</em>——投資家が見るのは器と原価</td></tr>
+        <tr><td>LP</td><td><code>pod-lp</code>（昼・木）</td><td>案件固有トンマナ。<span class="co">既定の「数理の弾丸」を自動適用しない面</span></td></tr>
+        <tr><td>議論地図・実行地図・事業計画</td><td><strong>使わない</strong></td><td>検証者向けの面。<em>証拠を見せて信用させる文法</em>なので、イメージ写真を入れると弱くなる</td></tr>
+        <tr><td>SNS・note</td><td>未定</td><td>1:1 と 1.91:1 の書き出しがまだない</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note"><strong>置き方の原則</strong>——写真の上に文字を重ねるときは<strong>暗部に置く</strong>（灯りの上に置かない）。コントラスト比 4.5:1 を必ず満たすこと。<span class="tiny">白飛びしていない絵ばかりなので、下1/3の暗部が使えます。</span></p>
+</section>
+
+<hr class="end">
+<p class="colophon">
+  2026-07-31 版（v1）。素材：<code>wiki/30-wiki/slides/assets/</code> 8点 ＋ <code>discussion-maps/_media/</code> 4点。<br>
+  準拠：<code>slides/STAYME-brand.md</code>（ブランド定義 v0）／ <code>slides/IMAGE-BRIEF.md</code>（生成依頼書）／ <code>.claude/rules/design-pipeline.md</code>。<br>
+  自己評価（→出た／→外れた）は素子が付けたもので、ジョニー承認はまだ取っていません。
+</p>
+
+</div>
+
+<div class="lb-ov" id="lbOv" hidden>
+  <button class="x" type="button" id="lbX" aria-label="閉じる">✕</button>
+  <img id="lbImg" alt="">
+  <p class="cap" id="lbCap"></p>
+  <div class="bar">
+    <button type="button" id="lbPrev" aria-label="前の画像">‹</button>
+    <span class="n" id="lbNum"></span>
+    <button type="button" id="lbNext" aria-label="次の画像">›</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var d=document, shots=[].slice.call(d.querySelectorAll('.shot')), i=0;
+  var ov=d.getElementById('lbOv'), im=d.getElementById('lbImg'), cap=d.getElementById('lbCap'), num=d.getElementById('lbNum');
+  function meta(n){
+    var b=shots[n], fig=b.closest('figure'), img=b.querySelector('img');
+    var t=fig?fig.querySelector('.ft'):null, f=fig?fig.querySelector('.fn'):null;
+    return {src:img.getAttribute('src').replace(/\.jpg$/,'@2x.jpg'), alt:img.alt,
+            t:t?t.textContent:'', f:f?f.textContent:''};
+  }
+  function show(n){
+    i=(n+shots.length)%shots.length; var m=meta(i);
+    im.src=m.src; im.alt=m.alt;
+    cap.innerHTML='<b>'+m.t+'</b>'+m.f;
+    num.textContent=(i+1)+' / '+shots.length;
+    ov.hidden=false; d.body.style.overflow='hidden';
+  }
+  function hide(){ ov.hidden=true; d.body.style.overflow=''; im.removeAttribute('src'); }
+  shots.forEach(function(b,n){ b.addEventListener('click',function(){ show(n); }); });
+  d.getElementById('lbX').addEventListener('click',hide);
+  d.getElementById('lbPrev').addEventListener('click',function(e){ e.stopPropagation(); show(i-1); });
+  d.getElementById('lbNext').addEventListener('click',function(e){ e.stopPropagation(); show(i+1); });
+  ov.addEventListener('click',function(e){ if(e.target===ov||e.target===im) hide(); });
+  d.addEventListener('keydown',function(e){
+    if(ov.hidden) return;
+    if(e.key==='Escape') hide();
+    else if(e.key==='ArrowLeft') show(i-1);
+    else if(e.key==='ArrowRight') show(i+1);
+  });
+  // スワイプ
+  var x0=null;
+  ov.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+  ov.addEventListener('touchend',function(e){
+    if(x0===null) return; var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>52) show(i+(dx<0?1:-1));
+    x0=null;
+  },{passive:true});
+})();
+</script>
+
+<script id="lo-chrome-js">
+(function(){
+  "use strict";
+  var d=document, root=d.documentElement;
+
+  /* ── テーマ切替（auto → light → dark） ───────────── */
+  var KEY="lo-theme", order=["auto","light","dark"], mark={auto:"◐",light:"☀",dark:"☾"};
+  function applyTheme(v){
+    if(v==="auto"){ root.removeAttribute("data-theme"); } else { root.setAttribute("data-theme",v); }
+    var b=d.getElementById("loTheme"); if(b){ b.textContent=mark[v]; b.title="テーマ: "+v; }
+  }
+  var saved="auto";
+  try{ saved=localStorage.getItem(KEY)||"auto"; }catch(e){}
+  applyTheme(saved);
+  var tb=d.getElementById("loTheme");
+  if(tb) tb.addEventListener("click",function(){
+    saved=order[(order.indexOf(saved)+1)%order.length];
+    try{ localStorage.setItem(KEY,saved); }catch(e){}
+    applyTheme(saved);
+  });
+
+  /* ── 目次の生成 ─────────────────────────────── */
+  var secs=[].slice.call(d.querySelectorAll(".wrap > section"));
+  var items=[];
+  secs.forEach(function(sec,i){
+    var h=sec.querySelector("h2"); if(!h) return;
+    if(!sec.id) sec.id="s"+(i+1);
+    var noEl=h.querySelector(".no");
+    var no=noEl?noEl.textContent.trim():"";
+    var clone=h.cloneNode(true);
+    // 見出し内の装飾要素（章番号・補助ラベル・アンカー）は目次のラベルから外す
+    [].slice.call(clone.querySelectorAll(".no,.hint,.lo-a")).forEach(function(x){ x.remove(); });
+    var label=clone.textContent.replace(/\s+/g," ").trim();
+    items.push({id:sec.id,no:no,label:label,el:sec});
+    var a=d.createElement("a");
+    a.className="lo-a"; a.href="#"+sec.id; a.textContent="#";
+    a.setAttribute("aria-label","この節へのリンク");
+    h.appendChild(a);
+  });
+
+  function fill(ol,cls){
+    ol.innerHTML="";
+    items.forEach(function(it){
+      var li=d.createElement("li"), a=d.createElement("a");
+      a.href="#"+it.id; a.dataset.t=it.id;
+      if(it.no){ var n=d.createElement("span"); n.className="n"; n.textContent=it.no; a.appendChild(n); }
+      a.appendChild(d.createTextNode(it.label));
+      li.appendChild(a); ol.appendChild(li);
+    });
+    ol.className=cls||"";
+  }
+  var tocList=d.getElementById("loTocList"), sheetList=d.getElementById("loSheetList");
+  if(tocList) fill(tocList);
+  if(sheetList) fill(sheetList);
+
+  /* ── スクロール連動（現在地） ────────────────── */
+  var here=d.getElementById("loHere");
+  var links=function(){ return [].slice.call(d.querySelectorAll('.lo-toc a[data-t], .lo-sheet a[data-t]')); };
+  var cur=null;
+  function setActive(id){
+    if(id===cur) return; cur=id;
+    links().forEach(function(a){ a.classList.toggle("on", a.dataset.t===id); });
+    var it=items.filter(function(x){return x.id===id;})[0];
+    if(here&&it) here.textContent=(it.no? it.no+" ":"")+it.label;
+    var on=d.querySelector(".lo-toc a.on");
+    if(on&&on.offsetParent){
+      var box=on.closest(".lo-toc");
+      if(box && (on.offsetTop<box.scrollTop || on.offsetTop>box.scrollTop+box.clientHeight-40))
+        box.scrollTop=on.offsetTop-box.clientHeight/2;
+    }
+  }
+  function onScroll(){
+    var navH=parseFloat(getComputedStyle(root).getPropertyValue("--lo-nav-h"))||46;
+    var y=window.scrollY+navH+40, best=items[0];
+    for(var i=0;i<items.length;i++){ if(items[i].el.offsetTop<=y) best=items[i]; else break; }
+    if(best) setActive(best.id);
+    var h=d.body.scrollHeight-window.innerHeight;
+    var bar=d.getElementById("loProgBar");
+    if(bar) bar.style.width=(h>0? Math.min(100,Math.max(0,window.scrollY/h*100)) : 0)+"%";
+    var top=d.getElementById("loTop");
+    if(top) top.classList.toggle("show", window.scrollY>600);
+    // 下へ読み進めている間はタブを隠して画面を広く使う（上に戻ると即出る）
+    var nav=d.querySelector(".lo-nav"), y2=window.scrollY;
+    if(nav){
+      if(y2<160 || y2<lastY-4) nav.classList.remove("lo-hide");
+      else if(y2>lastY+8) nav.classList.add("lo-hide");
+    }
+    lastY=y2;
+  }
+  var lastY=0;
+  var ticking=false;
+  window.addEventListener("scroll",function(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){ onScroll(); ticking=false; });
+  },{passive:true});
+  window.addEventListener("resize",onScroll,{passive:true});
+  onScroll();
+
+  /* ── モバイル目次シート ─────────────────────── */
+  var sheet=d.getElementById("loSheet"), btn=d.getElementById("loTocBtn"), close=d.getElementById("loClose");
+  function open(){ if(!sheet) return; sheet.hidden=false; btn.setAttribute("aria-expanded","true");
+    var on=sheet.querySelector("a.on"); if(on) on.scrollIntoView({block:"center"}); }
+  function shut(){ if(!sheet) return; sheet.hidden=true; btn.setAttribute("aria-expanded","false"); }
+  if(btn) btn.addEventListener("click",open);
+  if(close) close.addEventListener("click",shut);
+  if(sheet) sheet.addEventListener("click",function(e){ if(e.target===sheet) shut(); });
+  if(sheetList) sheetList.addEventListener("click",function(e){ if(e.target.closest("a")) shut(); });
+  d.addEventListener("click",function(e){
+    var a=e.target.closest && e.target.closest('a[href^="#"]');
+    if(a){ var n=d.querySelector(".lo-nav"); if(n) n.classList.remove("lo-hide"); }
+  });
+  d.addEventListener("keydown",function(e){
+    if(e.key==="Escape") shut();
+    if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
+    if(e.key==="t"||e.key==="T"){ if(sheet&&sheet.hidden&&btn&&btn.offsetParent) open(); else shut(); }
+  });
+
+  var topBtn=d.getElementById("loTop");
+  if(topBtn) topBtn.addEventListener("click",function(){ window.scrollTo({top:0,behavior:"smooth"}); });
+
+  /* ── 現在のタブを可視位置へ ─────────────────── */
+  var tabs=d.getElementById("loTabs"), on=tabs&&tabs.querySelector("a.on");
+  if(tabs&&on){ var l=on.offsetLeft-tabs.clientWidth/2+on.clientWidth/2;
+    if(l>0) tabs.scrollLeft=l; }
+
+  /* ── はみ出す表に印をつける ─────────────────── */
+  function markOverflow(){
+    [].slice.call(d.querySelectorAll(".tablewrap")).forEach(function(w){
+      w.classList.toggle("lo-ovf", w.scrollWidth>w.clientWidth+2);
+    });
+  }
+  markOverflow(); window.addEventListener("resize",markOverflow,{passive:true});
+})();
+</script>
+
+</body></html>
