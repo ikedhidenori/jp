@@ -1,0 +1,495 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Living OS 実行地図 v1 ／ どこで何をやったか</title></head><body><title>Living OS 実行地図 v1 ／ どこで何をやったか</title>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th,.step,.legend div{min-width:0}
+img,svg,video,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+.mast{padding:50px 0 22px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:11px}
+.mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
+.mast h1{font-size:clamp(26px,5.8vw,34px); line-height:1.26; font-weight:800; margin:0;
+  padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:12px; height:38px; background:var(--ink)}
+.mast .subtitle{font-size:16px; line-height:1.65; margin:0 0 0 23px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 23px}
+
+section{padding:42px 0 0; display:flex; flex-direction:column; gap:14px}
+section > h2{font-size:clamp(18px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+section > h2 .no{font-size:11px; letter-spacing:.16em; color:var(--faint); display:block; margin-bottom:3px}
+h2 em{font-style:normal; background:linear-gradient(transparent 60%, var(--pale-red) 60%)}
+p{margin:0}
+strong{font-weight:700}
+
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+.src{display:inline-block; font-size:11px; line-height:1.5; padding:1px 7px; margin:2px 4px 2px 0;
+  border:1px solid var(--rule); border-radius:2px; background:var(--artifact); color:var(--sub);
+  text-decoration:none; white-space:nowrap}
+.src::before{content:"↗ "; color:var(--faint)}
+.srcrow{display:flex; flex-wrap:wrap; gap:0; margin-top:2px}
+
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:17px 17px 13px; margin:2px 0; display:flex; flex-direction:column; gap:12px}
+.artifact-title{font-size:13px; font-weight:700; margin:0}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0}
+
+/* 思考の階段 */
+.stairs{display:flex; flex-direction:column; gap:0; border-left:2px solid var(--ink); margin-left:7px}
+.step{position:relative; padding:0 0 26px 26px}
+.step:last-child{padding-bottom:0}
+.step::before{content:""; position:absolute; left:-8px; top:6px; width:13px; height:13px;
+  background:var(--paper); border:2px solid var(--ink); border-radius:50%}
+.step.turn::before{background:var(--red); border-color:var(--red)}
+.step.gap::before{background:var(--paper); border-color:var(--red); border-style:dashed}
+.step .n{font-size:11px; letter-spacing:.16em; color:var(--faint); font-weight:700; margin:0 0 3px}
+.step .q{font-size:17px; font-weight:800; line-height:1.42; margin:0 0 4px; text-wrap:balance}
+.step .a{margin:0}
+.step .a em{font-style:normal; font-weight:700; background:linear-gradient(transparent 62%, var(--pale-red) 62%)}
+
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13px; line-height:1.55; min-width:22rem}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:11.5px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+.red{color:var(--red)} .green{color:var(--green)}
+td.ours{background:var(--pale-red)}
+.tag{display:inline-block; font-size:10.5px; font-weight:700; padding:0 6px; border-radius:2px;
+  border:1.5px solid currentColor; white-space:nowrap}
+.t-ok{color:var(--green)} .t-ng{color:var(--red)} .t-un{color:var(--faint)}
+
+.claim{border-left:4px solid var(--ink); padding-left:15px; font-weight:700; font-size:1.05em; line-height:1.7}
+.turnbox{border:2px solid var(--red); border-radius:3px; background:var(--artifact); padding:15px 16px;
+  display:flex; flex-direction:column; gap:8px}
+.turnbox .t{font-size:11px; letter-spacing:.14em; font-weight:700; color:var(--red); margin:0}
+
+/* 論証の構造図 — 上が商品、下が前提。下が折れると上は落ちる */
+.diagram{display:flex; flex-direction:column; align-items:center; gap:0; margin:4px 0 0; width:100%; overflow-x:auto}
+.dconn{width:0; height:20px; border-left:2px solid var(--ink); flex:none}
+.dconn.dash{border-left-style:dashed; border-left-color:var(--red); height:26px}
+.dbox{width:100%; border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:13px 15px; display:flex; flex-direction:column; gap:5px}
+.dbox .lb{font-size:10.5px; letter-spacing:.14em; font-weight:700; color:var(--faint); margin:0}
+.dbox .hd{font-size:16px; font-weight:800; line-height:1.4; margin:0; text-wrap:balance}
+.dbox .nt{font-size:12px; line-height:1.6; color:var(--sub); margin:0}
+.dbox.warn{border-color:var(--red)} .dbox.warn .lb,.dbox.warn .hd{color:var(--red)}
+.dbox.open{border-style:dashed; border-color:var(--red); background:var(--pale-red)}
+.dbox.open .lb,.dbox.open .hd{color:var(--red)}
+
+.dgroups{display:grid; grid-template-columns:1fr 1fr; gap:11px; width:100%}
+.dgroup{border:1px solid var(--rule); border-radius:3px; background:var(--artifact);
+  padding:11px 12px 12px; display:flex; flex-direction:column; gap:9px}
+.dgroup.ours{border:2px solid var(--ink)}
+.dgroup .gh{font-size:10.5px; letter-spacing:.1em; font-weight:700; margin:0; color:var(--faint)}
+.dgroup.ours .gh{color:var(--green)}
+.dcell{font-size:12.5px; line-height:1.45; margin:0; color:var(--sub)}
+.dgroup.ours .dcell{color:var(--ink); font-weight:700}
+.dcell span{display:block; font-size:10.5px; font-weight:400; color:var(--faint); line-height:1.5}
+.dfloor{font-size:11.5px; line-height:1.7; color:var(--faint); text-align:center;
+  border-top:1px dashed var(--rule); padding-top:11px; margin:16px 0 0; width:100%}
+
+.qlist{display:flex; flex-direction:column; gap:13px}
+.qlist > div{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:baseline}
+.qlist b{font-size:12px; font-weight:700; color:var(--red); white-space:nowrap;
+  border:1.5px solid var(--red); padding:1px 7px; border-radius:2px}
+
+ul{margin:0; padding-left:1.25em; display:flex; flex-direction:column; gap:6px}
+li{line-height:1.72}
+
+/*。C形式 対話 (7/29追加)。*/
+.dia{display:flex; flex-direction:column; gap:27px}
+.ex{border-top:1px solid var(--rule); padding-top:13px; display:flex; flex-direction:column}
+.ex .era{font-size:10.5px; letter-spacing:.12em; font-weight:700; color:var(--faint); margin:0 0 7px}
+.row{display:grid; grid-template-columns:3.2em 1fr; gap:10px; align-items:baseline; padding:2.5px 0}
+.row .rl{font-size:11px; font-weight:700; color:var(--faint); white-space:nowrap; text-align:right; line-height:1.9; padding-top:.15em}
+.row .rt{line-height:1.72; margin:0}
+.row.q .rl{color:var(--ink)}
+.row.q .rt{font-size:17px; font-weight:800; line-height:1.45; text-wrap:balance}
+.row.o .rl{color:var(--red)}
+.row.o .rt{color:var(--sub)}
+.row .rt em{font-style:normal; font-weight:700; background:linear-gradient(transparent 62%, var(--pale-red) 62%)}
+.row.blank .rl{color:var(--red)}
+.blankline{border-bottom:2px dashed var(--red); height:1.35em; width:min(100%,17rem); display:block}
+.verdict{font-size:11.5px; font-weight:700; letter-spacing:.07em; text-align:right; margin:9px 0 0; color:var(--faint)}
+.verdict.ng{color:var(--red)}
+.lead{font-size:15px; line-height:1.75; color:var(--sub)}
+.card{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:15px 16px; display:flex; flex-direction:column; gap:9px}
+.card.warn{border-color:var(--red)}
+.card .t{font-size:10.5px; letter-spacing:.13em; font-weight:700; color:var(--faint); margin:0}
+.card.warn .t{color:var(--red)}
+.card .h{font-size:16px; font-weight:800; line-height:1.5; margin:0; padding-left:14px; position:relative; text-wrap:balance}
+.card .h::before{content:""; position:absolute; left:0; top:3px; width:5px; height:1.05em; background:var(--ink)}
+.card.warn .h{color:var(--red)} .card.warn .h::before{background:var(--red)}
+.card .b{font-size:14px; line-height:1.72; margin:0}
+.row,.ex,.card{min-width:0}
+
+hr.end{border:0; border-top:3px solid var(--ink); margin:50px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:14px 0 0}
+
+@media (max-width:560px){
+  .dgroups{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  body{font-size:15px; padding:0 16px 64px}
+  .artifact,.turnbox{padding:13px}
+  .step{padding-left:20px}
+  .step::before{left:-7px; width:11px; height:11px}
+  .dbox{padding:12px 13px} .dbox .hd{font-size:15px}
+}
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+<style>
+/* ── 実行地図 追加コンポーネント ───────────────────── */
+/* 凡例：3層 */
+.legend{display:flex; flex-direction:column; gap:0; border:2px solid var(--ink); border-radius:3px; background:var(--artifact); overflow:hidden}
+.legend div{display:flex; gap:11px; align-items:flex-start; padding:13px 15px; border-bottom:1px solid var(--rule)}
+.legend div:last-child{border-bottom:0}
+.legend .mk{flex:0 0 34px; font-size:22px; line-height:1.1; text-align:center; font-weight:700}
+.legend .tx{font-size:13.5px; line-height:1.62}
+.legend .tx b{display:block; font-size:14px; margin-bottom:2px}
+.legend .tx s{color:var(--faint); text-decoration:none; font-size:11.5px; display:block; margin-top:3px}
+.mk-real{color:var(--ink)} .mk-2nd{color:var(--sub)} .mk-sim{color:var(--red)}
+
+/* 棒グラフ（JS非依存・実幅をinlineで持つ） */
+.bars{display:flex; flex-direction:column; gap:9px; border:2px solid var(--ink); border-radius:3px;
+  background:var(--artifact); padding:16px 15px}
+.bars .brow{display:grid; grid-template-columns:5.2em 1fr auto; gap:9px; align-items:center}
+.bars .blab{font-size:12px; font-weight:700; line-height:1.3}
+.bars .btrk{height:19px; background:var(--rule); border-radius:1px; overflow:hidden}
+.bars .bfil{height:100%; display:block}
+.bars .bval{font-size:12px; font-variant-numeric:tabular-nums; color:var(--sub); white-space:nowrap}
+.f-real{background:var(--ink)} .f-2nd{background:var(--faint)}
+.f-sim{background:repeating-linear-gradient(45deg,var(--red),var(--red) 4px,transparent 4px,transparent 8px); border:1px solid var(--red); box-sizing:border-box}
+.f-none{background:transparent; border:1px dashed var(--red); box-sizing:border-box}
+
+/* タイムライン */
+.tl{display:flex; flex-direction:column; gap:0; border-left:3px solid var(--ink); padding-left:0; margin-left:6px}
+.tl .day{display:grid; grid-template-columns:3.6em 1fr; gap:11px; padding:9px 0 9px 13px; border-bottom:1px solid var(--rule); position:relative}
+.tl .day:last-child{border-bottom:0}
+.tl .day::before{content:""; position:absolute; left:-7px; top:15px; width:11px; height:11px; border-radius:50%;
+  background:var(--paper); border:2.5px solid var(--faint)}
+.tl .day.hasreal::before{background:var(--ink); border-color:var(--ink)}
+.tl .dt{font-size:11.5px; font-weight:700; color:var(--sub); letter-spacing:.02em; padding-top:1px; font-variant-numeric:tabular-nums}
+.tl .ev{display:flex; flex-direction:column; gap:5px}
+.tl .ev p{font-size:13.5px; line-height:1.58; margin:0; padding-left:23px; position:relative}
+.tl .ev p .m{position:absolute; left:0; top:0; font-weight:700; font-size:14px; line-height:1.58}
+.tl .ev p .m.r{color:var(--ink)} .tl .ev p .m.s{color:var(--red)} .tl .ev p .m.d{color:var(--faint)}
+.tl .ev .pl{font-size:11px; color:var(--faint); display:block; margin-top:1px}
+
+/* カバレッジ行列 */
+.mx{width:100%; border-collapse:collapse; font-size:12.5px}
+.mx th,.mx td{border:1px solid var(--rule); padding:8px 7px; text-align:left; vertical-align:top; line-height:1.5}
+.mx thead th{background:var(--artifact); font-size:11.5px; font-weight:700; white-space:nowrap}
+.mx td.c{text-align:center; font-size:16px; font-weight:700; width:2.6em}
+.mx .hit{color:var(--ink)} .mx .part{color:var(--faint)} .mx .miss{color:var(--red)}
+.mx tbody tr.bad td{background:var(--pale-red)}
+.mx td.hn{font-weight:700; white-space:nowrap}
+
+/* 仮説カバレッジ（カード型・モバイルで切れない） */
+.hyp{display:flex; flex-direction:column; gap:0; border:2px solid var(--ink); border-radius:3px;
+  background:var(--artifact); overflow:hidden}
+.hyp > div{display:grid; grid-template-columns:1fr; gap:7px; padding:14px 15px; border-bottom:1px solid var(--rule)}
+.hyp > div:last-child{border-bottom:0}
+.hyp > div.bad{background:var(--pale-red)}
+.hyp .hd{display:flex; flex-wrap:wrap; gap:9px 13px; align-items:baseline}
+.hyp .nm{font-size:14.5px; font-weight:800; line-height:1.4}
+.hyp .mks{display:flex; gap:11px; font-size:11px; color:var(--faint); white-space:nowrap; letter-spacing:.02em}
+.hyp .mks span b{font-size:15px; margin-left:3px; vertical-align:-1px}
+.hyp .mks .hit b{color:var(--ink)} .hyp .mks .part b{color:var(--faint)} .hyp .mks .miss b{color:var(--red)}
+.hyp .nt{font-size:12.8px; line-height:1.68; color:var(--sub)}
+.hyp .nt strong{color:var(--ink)}
+@media (min-width:620px){
+  .hyp > div{grid-template-columns:15.5em 1fr; gap:16px; align-items:start}
+  .hyp .hd{flex-direction:column; gap:6px}
+}
+
+/* 距離図（地面からの距離） */
+.dist{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:0; overflow:hidden}
+.dist .lv{display:grid; grid-template-columns:1fr; gap:3px; padding:14px 15px; border-bottom:1px solid var(--rule)}
+.dist .lv:last-child{border-bottom:0}
+.dist .lv .h{font-size:13.5px; font-weight:700; display:flex; gap:8px; align-items:baseline}
+.dist .lv .h span{font-size:11px; color:var(--faint); font-weight:400}
+.dist .lv .b{font-size:12.5px; line-height:1.6; color:var(--sub)}
+.dist .lv.g0{background:var(--pale-red)}
+.dist .gap{padding:7px 15px; font-size:11px; color:var(--red); font-weight:700; letter-spacing:.04em;
+  border-bottom:1px solid var(--rule); background:var(--paper)}
+
+@media (max-width:430px){
+  .bars .brow{grid-template-columns:4.4em 1fr auto; gap:7px}
+  .tl .day{grid-template-columns:3.2em 1fr; gap:8px}
+  .legend .mk{flex-basis:26px; font-size:19px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">INNFRA ／ 社内討議用</p>
+  <h1>Living OS 実行地図 v1</h1>
+  <p class="subtitle">どこで、誰と、実際に何をやったか。<br>そして、やったつもりで<strong>やっていないこと</strong>は何か。</p>
+  <p class="meta">2026-07-31 作成　D2-internal　／ 対になる資料：<a href="https://ikedhidenori.github.io/jp/article-da072b30599b9e59.html">議論地図 v3</a>（何を信じているか）・<a href="https://ikedhidenori.github.io/jp/article-c0a1646e18bcc8ea.html">思考地図</a>（どう考えたか）。この地図は<strong>手と足の記録</strong></p>
+</header>
+
+<section>
+  <h2>いちばん先に、これだけ</h2>
+  <p>この11日間（7/21〜7/31）で起きたことを、<strong>自分の身体を通したか</strong>で3つに分けました。分ける理由はひとつで、<em>この3つは証拠としての強さがまったく違うのに、資料の上では同じ顔で並んでいたから</em>です。</p>
+
+  <div class="legend">
+    <div>
+      <p class="mk mk-real">●</p>
+      <p class="tx"><b>実地</b>自分の身体で確かめた。泊まった・住んだ・会って話した・自分の金で払った。
+      <s>強さ：いちばん強い。ただし n が小さく、自分に都合よく解釈しやすい</s></p>
+    </div>
+    <div>
+      <p class="mk mk-2nd">◐</p>
+      <p class="tx"><b>二次</b>他人が作った記録を読んだ。統計・公式サイト・SNS・他社の実績・会議の文字起こし。
+      <s>強さ：中。n は大きいが、我々の商品について何も言っていない</s></p>
+    </div>
+    <div>
+      <p class="mk mk-sim">○</p>
+      <p class="tx"><b>仮想</b>AI に計算させた。ペルソナ判定・機構分析・敵対的検証・試算。
+      <s>強さ：<strong>証拠としてはゼロ</strong>資料の内部矛盾は正確に検出するが、需要は1ミリも測れない</s></p>
+    </div>
+  </div>
+
+  <div class="artifact">
+    <p class="artifact-title">🚨 7/30 の「17人のペルソナ判定」は ○ 仮想です</p>
+    <p>13の機構を17人に当てて「無条件で入る人はゼロ」という結果が出ましたが、<strong>17人は全員こちらが作った人形で、実在しません。</strong>これは需要の測定ではありません。</p>
+    <p>ではあれが何を測ったかというと、<em>資料の内部矛盾</em>です。価格の帯と条件が噛み合っていない、機構Kの定義と実装がずれている、共用部と留守が同じ会員から取れない——どれも<strong>こちらの資料の穴</strong>であって、市場の事実ではない。人形でも資料の穴は正確に踏みますが、人形は財布を持っていません。</p>
+    <p class="source">議論地図 v3 でも「17人に通した」と書きました。<strong>これは書き方が悪い。</strong>同じ版で「仮想」と明記するよう直します。</p>
+  </div>
+
+  <p><strong>3つを積み上げると、いま立っている場所が見えます。</strong>上ほど早く厚くなり、下ほど遅くて薄い。</p>
+
+  <div class="dist">
+    <div class="lv"><p class="h">つくったもの<span>いちばん厚い</span></p><p class="b">13の機構／契約設計／投資家13枚＋ユーザー12枚／地図3本。<strong>11日で、ここまでは行った</strong></p></div>
+    <div class="lv"><p class="h">○ 仮想で確かめた<span>6件</span></p><p class="b">17人のペルソナ判定、敵対的検証、各種試算。<em>資料の穴は出るが、人の意思は出ない</em></p></div>
+    <div class="lv"><p class="h">◐ 二次で確かめた<span>14件</span></p><p class="b">統計・他社の実績・原典。<strong>「市場はこうなっている」までは言える</strong>が、我々の商品については何も言っていない</p></div>
+    <div class="lv"><p class="h">● 実地で確かめた<span>7件（うち社外に会ったのは1回）</span></p><p class="b">ミレニアルズに1泊、身内と6回、社外4名と1回。<em>ここから下が急に薄くなる</em></p></div>
+    <p class="gap">↓ ここに距離がある</p>
+    <div class="lv g0"><p class="h">▁ 地面<span>まだ一度も触れていない</span></p><p class="b"><strong>買う人が、実際に金を出すかどうか。</strong>deposit も、法人の申込書も、留守の実測も、まだゼロ。<em>8月末の判断は、この1行を埋められたかどうかで決まる</em></p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">1</span>件数で見る ── <em>何をどれだけやったか</em></h2>
+  <p>7/21〜7/31 の11日間。1件＝1回の行動（1つの会議、1泊、1本の調査レポート、1つの分析ジョブ）。</p>
+
+  <div class="bars">
+    <div class="brow"><p class="blab">● 実地</p><p class="btrk"><span class="bfil f-real" style="width:50%"></span></p><p class="bval">7件</p></div>
+    <div class="brow"><p class="blab">◐ 二次</p><p class="btrk"><span class="bfil f-2nd" style="width:100%"></span></p><p class="bval">14件</p></div>
+    <div class="brow"><p class="blab">○ 仮想</p><p class="btrk"><span class="bfil f-sim" style="width:43%"></span></p><p class="bval">6件</p></div>
+  </div>
+  <p class="source">計27件。次の「時系列」に載っている行動を数えたものです。<em>⚠ 1件の重さは揃っていません</em>——たとえば ○ の1件（13機構×17ペルソナ）は14体を並列で回した大仕事で、◐ の1件（SNS1本）とは桁が違う。<strong>件数は「何回動いたか」であって「どれだけやったか」ではない。</strong></p>
+
+  <div class="bars">
+    <div class="brow"><p class="blab">買う側に<br>会った</p><p class="btrk"><span class="bfil f-real" style="width:14.3%"></span></p><p class="bval">1回</p></div>
+    <div class="brow"><p class="blab">その結果<br>「住む」</p><p class="btrk"><span class="bfil f-none" style="width:100%"></span></p><p class="bval">0 / 6名</p></div>
+  </div>
+  <p class="source">実地7件のうち、6件の相手は身内（岩崎・川島・自分）です。<strong>買う側になりうる他人に会ったのは、7/29 の飲み会 1回だけ。</strong>社外4名が同席しました——吉川／シェアリングエコノミー協会の政策担当／女性B／さくら（21歳・来春ヘアメイク＝まさに当事者）。<br><strong>そこでの結果は、同席6名全員が「自分は住まない、ただし刺さる人は名指しできる」でした。</strong><em>これがいま持っている唯一の、身内以外からの一次反応です</em>——そして中身は否定寄り。<br>⚠ ただしこの6名は<strong>選んで会った相手ではなく、たまたま同席した人</strong>です。標本になっていないので「需要がない」の証拠にもなりません。<em>肯定にも否定にも使えない</em>のが正確なところ。</p>
+</section>
+
+<section>
+  <h2><span class="no">2</span>時系列 ── <em>11日間で、どこで何をやったか</em></h2>
+  <p>● のついた日だけが、身体が動いた日です。</p>
+
+  <div class="tl">
+    <div class="day"><p class="dt">7/21</p><div class="ev">
+      <p><span class="m d">◐</span>「家賃たけえな」から壁打ち開始。壊す対象を3つに整理<span class="pl">オンライン（素子との往復）</span></p>
+    </div></div>
+    <div class="day"><p class="dt">7/22</p><div class="ev">
+      <p><span class="m d">◐</span>「枕元の8問」を手渡し<span class="pl">⚠ 回答は受領していない</span></p>
+    </div></div>
+    <div class="day hasreal"><p class="dt">7/23</p><div class="ev">
+      <p><span class="m r">●</span><strong>岩崎と対話</strong>（家コンセプト）。ホワイトボードで「暮らしのアンバンドル」<span class="pl">対面・記録あり（meeting-notes）</span></p>
+      <p><span class="m d">◐</span>ミレニアルズ渋谷の事前調査（簡易宿所・面積1.5m²/人・律速は水回りと避難計画）</p>
+      <p><span class="m d">◐</span>インタビューガイド v0 を作成<span class="pl">⚠ 以後、外部に使われていない</span></p>
+    </div></div>
+    <div class="day hasreal"><p class="dt">7/24</p><div class="ev">
+      <p><span class="m r">●</span><strong>株主定例</strong>で報告。ランウェイの算数で冷や水<span class="pl">川島 Slack 14:32</span></p>
+      <p><span class="m r">●</span><strong>合宿 Day1：ミレニアルズ渋谷に宿泊</strong>（岩崎＋ジョニーの2名）。「住むように泊まる」実証<span class="pl">🔑 この11日間で唯一の、現物に泊まった夜</span></p>
+    </div></div>
+    <div class="day hasreal"><p class="dt">7/25</p><div class="ev">
+      <p><span class="m r">●</span><strong>合宿 Day2</strong>。岩崎のホワイトボード（アンバンドル／リバンドル）→ Day1 総括<span class="pl">対面</span></p>
+      <p><span class="m s">○</span>9万円検算の4レバー、per-pod 収支の試算</p>
+      <p><span class="m d">◐</span>巣鴨サンフラワー（3千円台／泊）を SNS で発見 →「住める線」の下限アンカー</p>
+    </div></div>
+    <div class="day"><p class="dt">7/26</p><div class="ev">
+      <p><span class="m d">◐</span>物差しによる抵抗の議論（SNS）</p>
+    </div></div>
+    <div class="day"><p class="dt">7/27</p><div class="ev">
+      <p><span class="m d">◐</span><strong>痛み実証レポート</strong>着弾。統計8本で仮説4本が死に1本が復活<span class="pl">外部データのみ。人には会っていない</span></p>
+      <p><span class="m s">○</span>ペルソナ仮説 v1（交点で作る方法に是正）</p>
+      <p><span class="m d">◐</span>SNS・記事から20本超を取り込み（貯蓄100万未満／与信／50年ローン／SANU共同所有／カブアンド）</p>
+      <p><span class="m d">◐</span><strong>自分の一次証言を言語化</strong>：バンライフ8年、DIY多拠点33か月の実測<span class="pl">⚠ 過去の ● を掘り起こした日。新しい実地ではないので ◐ に数える</span></p>
+    </div></div>
+    <div class="day hasreal"><p class="dt">7/28</p><div class="ev">
+      <p><span class="m r">●</span><strong>岩崎と会議</strong>。訴求軸が「安さ」から「解放とリセット」へ<span class="pl">対面・文字起こしあり</span></p>
+      <p><span class="m d">◐</span>三菱地所の公表目標を確認 →「大手はやらない」が誤りと判明</p>
+      <p><span class="m d">◐</span>文字起こし原文と照合し、AI要約が結論を落としていたのを発見</p>
+    </div></div>
+    <div class="day hasreal"><p class="dt">7/29</p><div class="ev">
+      <p><span class="m s">○</span>需要の二毛作／過不足マッチング／ネットワーク設計を作る（3本とも机上）</p>
+      <p><span class="m r">●</span><strong>飲み会で3回プレゼン</strong>（岩崎2本＋ジョニー1本）。音声ログあり<span class="pl">🔑 <strong>社外4名が同席した唯一の回</strong>（吉川／シェアエコ協会 政策担当／女性B／さくら21歳）。同席6名全員が「自分は住まない」。決定5件・保留6件</span></p>
+      <p><span class="m d">◐</span>カプ住（月6万・完売→復活）を発見</p>
+    </div></div>
+    <div class="day hasreal"><p class="dt">7/30</p><div class="ev">
+      <p><span class="m r">●</span><strong>川島にプレゼン</strong>。合意に至らず<span class="pl">🔑 争点は事業ではなくミッションの必然性＝順序</span></p>
+      <p><span class="m s">○</span><strong>13機構 × 17ペルソナ ＋ 敵対的検証</strong>（14体の並列分析）<span class="pl">⚠ 全員が仮想。実在しない</span></p>
+      <p><span class="m d">◐</span>東京カンテイの原典を取得 → 渡していた3数字が全部違うと判明</p>
+      <p><span class="m d">◐</span>令和7年国勢調査 速報を一次確認 → Why Now を組み直し</p>
+    </div></div>
+    <div class="day"><p class="dt">7/31</p><div class="ev">
+      <p><span class="m s">○</span>議論地図 v3／本地図。降りる条件を新設</p>
+    </div></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">3</span>この11日より前の ● ── <em>事業の土台は、ここにある</em></h2>
+  <p>いちばん強い実地データは、この期間の外にあります。<strong>全部ジョニー個人の生活史</strong>で、他人のものはひとつもありません。</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>いつ・どこで</th><th>何をした</th><th>そこから出た、この事業の部品</th></tr></thead>
+      <tbody>
+        <tr class="ours"><td><strong>大橋会館</strong><span class="source">長期宿泊契約で居住</span></td><td>「長く泊まれるホテル＋共有キッチン＋ホテル品質の個室」に実際に住んだ。<strong>住人として大クレームを出した</strong></td><td class="green">商品の原型そのもの。<strong>不満3つ（多拠点でない／高い／オペ品質）が、そのまま仕様になった</strong>「貸し出さない部屋は腐る」という設計の核も、この一次体験から</td></tr>
+        <tr class="ours"><td><strong>LAC 八ヶ岳</strong><span class="source">運営側として実験</span></td><td>多拠点コリビングを<em>運営する側</em>で経験。追い風のある局面で「そもそも求めてるユーザーが全然いない」に行き当たった</td><td class="green">H4（求めている人がいるか）を<strong>最優先に据えている唯一の根拠</strong>この失敗がなければ、今も需要を疑っていない</td></tr>
+        <tr class="ours"><td><strong>バンライフ 8年</strong><span class="source">自分の生活</span></td><td>移動しながら住む。「予約が取れない＝家を失う」を体で知っている</td><td class="green">「巣は売らない」の理由。多拠点サービスの危うさの一次証言</td></tr>
+        <tr class="ours"><td><strong>賃貸＋SANU＋車の多拠点</strong><span class="source">33か月の自分の支払い実測</span></td><td>月20.9万円を実際に払い続けた。「これが半額以下になれば最高」</td><td class="green"><strong>価格目標線が、創業者の実測から出ている</strong>願望・課題・価格の3点が全部一次データ</td></tr>
+        <tr><td><strong>ぶんじ寮</strong><span class="source">観察（記録は残っていない）</span></td><td>善意のコモンズがフリーライダーと問題人物で汚染されるのを見た。<em>自分もフリーライドしていたと自認</em>（「本当は自分もっと払うべき」）</td><td>「コミュニティ味を持ち込まない、機械的に解く」＝ 運営を内製にする方針の出どころ。<br><span style="color:var(--red)">⚠ ここでヒアリングも実施したはずですが、<strong>日付・相手・内容の記録がリポジトリに1件もありません</strong>誰に何を聞いたかを思い出せるうちに書き起こすべきです</span></td></tr>
+        <tr><td><strong>ミレニアルズ渋谷／巣鴨サンフラワー</strong><span class="source">宿泊</span></td><td>「ミレニアルズ＝住める／サンフラワー＝1泊なら十分だが住みたくない」の一次判定</td><td>住める最小線＝3〜7千円/泊の品質空間。<strong>「サンフラワーの価格で、ミレニアルズの住み心地を」</strong>という商品定義の1行が、この2泊から出た</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="source"><strong>この表がいちばん強い資産です。</strong>投資家に対して「なぜ我々がやるのか」に答えられるのは、機構13個ではなくこの6行のほう。<em>ただし全部 n=1 で、しかも同じ1人の n=1</em>強さと弱さが同じ場所から来ています。</p>
+</section>
+
+<section>
+  <h2><span class="no">4</span>仮説ごとに ── <em>どの層で触ったか</em></h2>
+  <p>7本の仮説を、3層のどれで触ったかで並べました。<strong>● が1つも無い行が、いま危ない行です。</strong></p>
+
+  <div class="hyp">
+    <div>
+      <p class="hd"><span class="nm">H1 痛みは実在する</span>
+        <span class="mks"><span class="part">実地<b>△</b></span><span class="hit">二次<b>●</b></span><span class="hit">仮想<b>●</b></span></span></p>
+      <p class="nt">統計は揃った。<strong>実地は「自分の家賃が高い」だけ</strong>。痛がっている他人に会っていない。</p>
+    </div>
+    <div>
+      <p class="hd"><span class="nm">H2 解く商品が無い</span>
+        <span class="mks"><span class="part">実地<b>△</b></span><span class="hit">二次<b>●</b></span><span class="part">仮想<b>△</b></span></span></p>
+      <p class="nt">他社調査は厚い。実地はミレニアルズとサンフラワーの2泊のみ。<strong>Hmlet・Unito・goodroom に泊まっていない</strong>——競合と言いながら、中に入ったことがない。</p>
+    </div>
+    <div>
+      <p class="hd"><span class="nm">H3 分母を増やせば下がる</span>
+        <span class="mks"><span class="miss">実地<b>—</b></span><span class="part">二次<b>△</b></span><span class="hit">仮想<b>●</b></span></span></p>
+      <p class="nt">恒等式なので真。<strong>実測ゼロ</strong>。留守が何泊出るか、その夜が売れるか、どちらも一度も数えていない。</p>
+    </div>
+    <div class="bad">
+      <p class="hd"><span class="nm">H4 求めている人がいる</span>
+        <span class="mks"><span class="part">実地<b>△</b></span><span class="miss">二次<b>—</b></span><span class="hit">仮想<b>●</b></span></span></p>
+      <p class="nt">🚨 実地は<strong>7/29 の社外4名だけ</strong>。しかも選んで会っていない（たまたま同席）うえ、<strong>6名全員が「自分は住まない」</strong>。二次は他社が存在するという事実だけ、仮想は17人の人形。<em>7年前から空いたまま、しかも唯一の一次反応が否定寄り</em>。</p>
+    </div>
+    <div>
+      <p class="hd"><span class="nm">H5 住居だけ切り出せる</span>
+        <span class="mks"><span class="part">実地<b>△</b></span><span class="hit">二次<b>●</b></span><span class="miss">仮想<b>—</b></span></span></p>
+      <p class="nt">岩崎の社宅証言（5,000円で済むのは仕事とセットだから）が実質いちばん強い。<strong>この1件は本物の反証データ</strong>で、しかも身内から出ている。</p>
+    </div>
+    <div>
+      <p class="hd"><span class="nm">H6 大手はやらない</span>
+        <span class="mks"><span class="miss">実地<b>—</b></span><span class="hit">二次<b>●</b></span><span class="miss">仮想<b>—</b></span></span></p>
+      <p class="nt">二次で訂正済（三菱地所の公表目標）。<strong>ここは決着</strong>。実地が要らない唯一の行。</p>
+    </div>
+    <div class="bad">
+      <p class="hd"><span class="nm">H7 留守が金を生む＝差別化</span>
+        <span class="mks"><span class="miss">実地<b>—</b></span><span class="miss">二次<b>—</b></span><span class="hit">仮想<b>●</b></span></span></p>
+      <p class="nt">🚨 <strong>仮想でしか触っていないのに、投資家資料の見出しになっている</strong>（10枚目「払う側から、受け取る側へ」）。しかもその仮想で、15人が全員デメリット欄に書いた。</p>
+    </div>
+  </div>
+
+  <div class="turnbox">
+    <p class="t">この表を1行にすると</p>
+    <p class="claim">7本の仮説のうち、<br><strong>買う側の他人から取った実地データがあるのは1本だけ。</strong><br>そしてその1本は、否定寄りに出ている。</p>
+    <p>H4 の △ は 7/29 の飲み会（社外4名）のことで、結果は「6名全員が自分は住まない」でした。他の △ は中身が「ジョニー自身」か「岩崎」で、<em>買う側の他人ではありません</em>。<br>11日間で作ったものは、ほぼ<strong>身内と統計と人形</strong>でできている。これは怠慢という意味ではなく（11日で機構13個と契約設計まで行ったのは速い）、<strong>次の1手が何かを一意に決めるという意味</strong>です。<br>🔑 しかも飲み会では<em>「会うべき実在の当事者」が具体名で挙がっています</em>（若手美容師・専門学校卒のヘアメイク）。<strong>次に会う相手は、既に名前で分かっている。</strong></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">5</span>やる予定だったのに、<em>やっていないこと</em></h2>
+  <p>計画には出てくるのに、実施の記録がリポジトリに1件も無いものです。<strong>ラベルは「予定」なのに、話の中では済んだことのように扱われている</strong>ものが混ざっています。</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>やる予定だったこと</th><th>いつ計画に出たか</th><th>いまの状態</th></tr></thead>
+      <tbody>
+        <tr class="ours"><td><strong>LP n=2 の deposit（1万円・全額返金可を押すか）</strong><br><span class="source">主指標。「意見ではなく金で測る」ための唯一の器</span></td><td><strong>3回</strong>7/25 プロトコル作成 → 7/27 第0問ゲート追加 → 7/28「今日やる」</td><td><span class="tag t-ng">結果の記録 0件</span>器（LP v1）は完成している。<em>10分×2名で終わる作業が、6日間止まっている</em></td></tr>
+        <tr class="ours"><td><strong>外部ヒアリング 30〜50名</strong></td><td>7/23 ガイド v0 作成、7/25「入口＝被験者1・2号」</td><td><span class="tag t-ng">実施 0件</span>ガイドはあるが、身内以外に1度も使われていない</td></tr>
+        <tr><td>物件の居抜き査定 3件</td><td>7/29「8月の実物リスト」</td><td><span class="tag t-un">未着手</span></td></tr>
+        <tr><td>法人の申込書（単身赴任ベース）</td><td>7/29 同上</td><td><span class="tag t-un">未着手</span>相手企業の名前も未定</td></tr>
+        <tr><td>弁護士に3点確認</td><td>7/29</td><td><span class="tag t-un">8/11 予定</span>器・優先使用権と分配の同居・預託法まわり</td></tr>
+        <tr><td>ぶんじ寮ヒアリングの記録化</td><td>—（実施済のはずだが記録がない）</td><td><span class="tag t-ng">記録 0件</span>思い出せるうちに書く</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card warn">
+    <p class="t">なぜ止まっているのか（仮説）</p>
+    <p class="h">deposit は10分×2名で終わり、器も完成しています。にもかかわらず6日間動いていない。同じ6日間で、機構は10個から13個に増え、契約設計と17人の分析ができました。</p>
+    <p class="b"><strong>作るほうが面白く、測るほうは怖い</strong>——という以上の説明は、いまのところ見つかりません。LAC の「そもそも求めてるユーザーが全然いない」は、<em>測った後にしか出てこない言葉</em>です。<br>ここは仕組みで潰すのが速い。<strong>deposit の結果が出るまで、機構を1つも増やさない</strong>と決めるだけで足ります。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">6</span>8月 ── <em>● を増やすための順番</em></h2>
+  <p>8月末は Go / No-Go の判断。走行10か月。<strong>実地を増やす行動から先に並べます</strong>（机上の設計はいったん凍結）。</p>
+
+  <div class="qlist">
+    <div><b>今日</b><span><strong>deposit を n=2 で実行する。</strong>10分×2名。器は完成済み。<em>これをやらずに8月に入ると、6日の遅れが1か月の遅れになる</em>第0問（「これは何のサービス?」）で『不明』が1名でも出たら、その時点で LP v1 は FAIL</span></div>
+    <div><b>8/1〜5</b><span><strong>身内以外に、最初の3人に会う。</strong>相手は「単身赴任を出している会社の総務2社」と「月20泊空けられる二拠点の人1名」。<em>この3人は仮想の分析が【条件つき】と判定した層で、条件はこちら側の未決事項</em>だから、会えば答えが出る</span></div>
+    <div><b>8/1〜5</b><span><strong>二毛作の手取りを1枚出す</strong>（清掃込み）。9泊×清掃実費×検収時間。実働1日。<em>これが赤なら、機構Dが折れて他の全部が変わる</em></span></div>
+    <div><b>8/4〜31</b><span><strong>留守の実測</strong>n=20、LINEで1日1問、第3〜4週は実際に送金する。H3を ● に変える唯一の手</span></div>
+    <div><b>8/11</b><span><strong>弁護士1回。</strong>器を1つに決める。ここが決まらないと契約も価格も書けない</span></div>
+    <div><b>随時</b><span><strong>ぶんじ寮ヒアリングを記録に起こす。</strong>実施したのに残っていない ● は、無かったのと同じ扱いになる</span></div>
+  </div>
+
+  <div class="artifact">
+    <p class="artifact-title">この地図の更新ルール</p>
+    <p>行動したら、その日のうちに1行足す。<strong>足すときは必ず ● ◐ ○ のどれかを付ける。</strong>付けられないものは、まだ起きていない。</p>
+    <p class="source">議論地図（何を信じているか）とこの地図（何をやったか）は対になります。<em>議論地図だけが厚くなって実行地図が薄いままなら、それは考えているのであって、検証していない</em>という意味です。</p>
+  </div>
+</section>
+
+<hr class="end">
+<p class="colophon">
+  2026-07-31 版（v1）。社内の一次資料・会議の文字起こし・リポジトリの記録に照合して作成しています。<br>
+  「やっていないこと」の判定は<strong>リポジトリ内に結果の記録が存在しないこと</strong>を根拠にしています。実施したが記録していないものがあれば、そう教えてください。<br>
+  デザイン：数理の弾丸テイスト（Document Kernel v1）
+</p>
+
+</div>
+
+</body></html>
