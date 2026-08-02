@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
+  <title>暮らしを、実装する。｜八ヶ岳ラボ動画 再編集指示書</title>
+  <style>
+    :root {
+      --paper: #f6f8f3;
+      --artifact: #fdfffc;
+      --ink: #111111;
+      --sub: #555555;
+      --faint: #777b75;
+      --rule: #d9ddd6;
+      --red: #c83f2b;
+      --green: #147c57;
+      --pale-red: #f6d8d4;
+      --pale-green: #dcefe6;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+      font-feature-settings: "palt", "chws", "pkna", "kern";
+      line-height: 1.75;
+    }
+
+    a { color: inherit; }
+
+    .topline {
+      border-bottom: 1px solid var(--rule);
+      background: var(--artifact);
+    }
+
+    .topline__inner,
+    .hero-shell,
+    main,
+    footer {
+      width: min(calc(100% - 36px), var(--max));
+      margin-inline: auto;
+    }
+
+    .topline__inner {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+    }
+
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .hero {
+      padding: clamp(46px, 8vw, 104px) 0 42px;
+      border-bottom: 3px solid var(--ink);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--sub);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 980px;
+      margin: 0;
+      font-size: clamp(43px, 7vw, 80px);
+      line-height: .98;
+      letter-spacing: -.055em;
+      font-weight: 900;
+    }
+
+    .hero h1 span {
+      display: block;
+      margin-top: 18px;
+      color: var(--sub);
+      font-size: clamp(17px, 2.5vw, 26px);
+      line-height: 1.45;
+      letter-spacing: -.02em;
+      font-weight: 600;
+    }
+
+    .hero__lead {
+      max-width: 850px;
+      margin: 30px 0 0;
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 650;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 3px solid var(--ink);
+    }
+
+    .metric {
+      min-height: 122px;
+      padding: 22px 18px;
+      border-right: 1px solid var(--ink);
+    }
+
+    .metric:last-child { border-right: 0; }
+
+    .metric__label {
+      display: block;
+      color: var(--sub);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .metric__value {
+      display: block;
+      margin-top: 11px;
+      font-size: clamp(18px, 2.3vw, 28px);
+      line-height: 1.35;
+      font-weight: 850;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin-bottom: 56px;
+      border-bottom: 1px solid var(--ink);
+      background: color-mix(in srgb, var(--paper) 94%, transparent);
+      backdrop-filter: blur(10px);
+    }
+
+    nav .nav__inner {
+      width: min(calc(100% - 36px), var(--max));
+      margin-inline: auto;
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    nav a {
+      flex: 0 0 auto;
+      padding: 13px 0 11px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
+
+    section { margin: 0 0 74px; }
+
+    .section-title {
+      position: relative;
+      margin: 0 0 24px;
+      padding-left: 22px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15;
+      letter-spacing: -.035em;
+      font-weight: 900;
+    }
+
+    .section-title::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .05em;
+      width: 10px;
+      height: 1em;
+      background: var(--ink);
+    }
+
+    .section-lead {
+      max-width: 820px;
+      margin: -8px 0 28px 22px;
+      color: var(--sub);
+      font-size: 16px;
+    }
+
+    .decision {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr);
+      border: 2px solid var(--ink);
+      background: var(--artifact);
+    }
+
+    .decision__main,
+    .decision__side { padding: clamp(22px, 4vw, 38px); }
+
+    .decision__side { border-left: 2px solid var(--ink); }
+
+    .decision h3,
+    .chapter h3,
+    .note h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    .decision p { margin: 0; }
+
+    .cut {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 2px 8px;
+      color: var(--artifact);
+      background: var(--red);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    .storyline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .chapter {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr) minmax(220px, .5fr);
+      align-items: stretch;
+      min-height: 118px;
+      border: 1.5px solid var(--ink);
+      border-radius: 7px;
+      overflow: hidden;
+    }
+
+    .chapter__num {
+      display: grid;
+      place-items: center;
+      border-right: 1.5px solid var(--ink);
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .chapter__body,
+    .chapter__outcome { padding: 22px 24px; }
+
+    .chapter__body p,
+    .chapter__outcome p { margin: 0; }
+
+    .chapter__outcome {
+      display: flex;
+      align-items: center;
+      border-left: 1px solid var(--rule);
+      color: var(--sub);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-top: 3px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      background: var(--artifact);
+    }
+
+    table {
+      width: 100%;
+      min-width: 920px;
+      border-collapse: collapse;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    th,
+    td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--rule);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--sub);
+      font-size: 10px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td:first-child,
+    td:nth-child(2),
+    td:nth-child(3) {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .tag {
+      display: inline-block;
+      padding: 1px 7px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .tag--must { color: var(--red); }
+    .tag--should { color: var(--green); }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .note {
+      padding: 25px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--artifact);
+    }
+
+    .note--green { background: var(--pale-green); }
+    .note--red { background: var(--pale-red); }
+
+    .note ul,
+    .checklist { margin: 12px 0 0; padding-left: 1.25em; }
+
+    .note li,
+    .checklist li { margin: 7px 0; }
+
+    .asset-bands {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .asset-band {
+      padding: 18px;
+      border: 1.5px solid var(--ink);
+      border-radius: 7px;
+    }
+
+    .asset-band strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .asset-band span {
+      display: block;
+      margin-top: 8px;
+      color: var(--sub);
+      font-size: 13px;
+    }
+
+    .open-items {
+      counter-reset: item;
+      display: grid;
+      gap: 0;
+      border-top: 3px solid var(--ink);
+    }
+
+    .open-item {
+      counter-increment: item;
+      display: grid;
+      grid-template-columns: 60px minmax(0, 1fr);
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .open-item::before {
+      content: counter(item, decimal-leading-zero);
+      color: var(--red);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .open-item strong { display: block; margin-bottom: 4px; }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 3px solid var(--ink);
+    }
+
+    .source-link {
+      min-height: 118px;
+      padding: 20px;
+      border-right: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      text-decoration: none;
+      background: var(--artifact);
+    }
+
+    .source-link:nth-child(even) { border-right: 0; }
+    .source-link:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
+
+    .source-link strong { display: block; font-size: 17px; line-height: 1.4; }
+    .source-link span { display: block; margin-top: 8px; color: var(--sub); font-size: 12px; }
+    .source-link:hover strong { text-decoration: underline; text-underline-offset: 4px; }
+
+    .privacy {
+      padding: 26px;
+      color: var(--artifact);
+      background: var(--ink);
+    }
+
+    .privacy p { margin: 0; }
+
+    .privacy strong { color: #fff; }
+
+    footer {
+      padding: 28px 0 48px;
+      border-top: 1px solid var(--rule);
+      color: var(--sub);
+      font-size: 11px;
+    }
+
+    @media (max-width: 820px) {
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--ink); }
+      .decision { grid-template-columns: 1fr; }
+      .decision__side { border-top: 2px solid var(--ink); border-left: 0; }
+      .chapter { grid-template-columns: 64px 1fr; }
+      .chapter__outcome { grid-column: 1 / -1; border-top: 1px solid var(--rule); border-left: 0; }
+      .asset-bands { grid-template-columns: repeat(2, 1fr); }
+      .edl-wrap { overflow: visible; border-bottom: 0; background: transparent; }
+      .edl-table { min-width: 0; background: transparent; }
+      .edl-table thead { display: none; }
+      .edl-table,
+      .edl-table tbody,
+      .edl-table tr,
+      .edl-table td { display: block; width: 100%; }
+      .edl-table tr {
+        margin: 0 0 12px;
+        padding: 9px 12px;
+        border: 1.5px solid var(--ink);
+        border-radius: 7px;
+        background: var(--artifact);
+      }
+      .edl-table td {
+        display: grid;
+        grid-template-columns: 68px minmax(0, 1fr);
+        gap: 10px;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--rule);
+        white-space: normal;
+      }
+      .edl-table td:last-child { border-bottom: 0; }
+      .edl-table td::before { color: var(--sub); font-size: 11px; font-weight: 850; letter-spacing: .05em; }
+      .edl-table td:nth-child(1)::before { content: "#"; }
+      .edl-table td:nth-child(2)::before { content: "元TC"; }
+      .edl-table td:nth-child(3)::before { content: "尺"; }
+      .edl-table td:nth-child(4)::before { content: "役割"; }
+      .edl-table td:nth-child(5)::before { content: "テロップ"; }
+      .edl-table td:nth-child(6)::before { content: "画"; }
+    }
+
+    @media (max-width: 560px) {
+      .topline__inner { align-items: flex-start; flex-direction: column; padding: 10px 0; gap: 2px; }
+      .hero { padding-top: 42px; }
+      .metrics { grid-template-columns: 1fr; }
+      .metric { min-height: 0; border-right: 0; border-bottom: 1px solid var(--ink); }
+      .metric:last-child { border-bottom: 0; }
+      .grid2, .asset-bands { grid-template-columns: 1fr; }
+      .source-list { grid-template-columns: 1fr; }
+      .source-link { min-height: 0; border-right: 0; }
+      .chapter { grid-template-columns: 54px 1fr; }
+      .chapter__body { padding: 18px; }
+      .section-lead { margin-left: 0; }
+      nav .nav__inner { gap: 18px; }
+      #proof .table-wrap { overflow: visible; border-bottom: 0; background: transparent; }
+      .proof-table { min-width: 0; background: transparent; }
+      .proof-table thead { display: none; }
+      .proof-table,
+      .proof-table tbody,
+      .proof-table tr,
+      .proof-table td { display: block; width: 100%; }
+      .proof-table tr {
+        margin: 0 0 12px;
+        padding: 9px 12px;
+        border: 1.5px solid var(--ink);
+        border-radius: 7px;
+        background: var(--artifact);
+      }
+      .proof-table td {
+        display: grid;
+        grid-template-columns: 82px minmax(0, 1fr);
+        gap: 10px;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--rule);
+        white-space: normal;
+      }
+      .proof-table td:last-child { border-bottom: 0; }
+      .proof-table td::before { color: var(--sub); font-size: 11px; font-weight: 850; letter-spacing: .05em; }
+      .proof-table td:nth-child(1)::before { content: "項目"; }
+      .proof-table td:nth-child(2)::before { content: "現在"; }
+      .proof-table td:nth-child(3)::before { content: "完成版ルール"; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #121412;
+        --artifact: #191c19;
+        --ink: #f2f4ef;
+        --sub: #b7bcb6;
+        --faint: #949a94;
+        --rule: #3c423d;
+        --red: #ff7d68;
+        --green: #77d7ad;
+        --pale-red: #3c211f;
+        --pale-green: #18352a;
+      }
+    }
+
+    @media print {
+      nav { display: none; }
+      body { color: #111; background: #fff; }
+      .topline, .note, .decision, .table-wrap { background: #fff; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topline">
+    <div class="topline__inner">
+      <span class="status">DRAFT 01 / 編集方針確定・素材未確定</span>
+      <span>Updated 2026-08-02 · D1 PUBLIC-SAFE BRIEF</span>
+    </div>
+  </header>
+
+  <div class="hero-shell">
+    <header class="hero">
+      <p class="eyebrow">INNFRA / YATSUGATAKE LAB / VIDEO RE-EDIT</p>
+      <h1>暮らしを、<br>実装する。<span>八ヶ岳ラボからINNFRAの次へ</span></h1>
+      <p class="hero__lead">過去の回顧ではなく、INNFRAが「何を実装してきた会社か」「次に誰と何をつくるか」を約10分で伝える。</p>
+    </header>
+
+    <div class="metrics" aria-label="編集方針の要点">
+      <div class="metric"><span class="metric__label">Target Length</span><span class="metric__value">約 09:53</span></div>
+      <div class="metric"><span class="metric__label">Primary Audience</span><span class="metric__value">企業・自治体</span></div>
+      <div class="metric"><span class="metric__label">Primary CTA</span><span class="metric__value">実証・事業共創</span></div>
+      <div class="metric"><span class="metric__label">Secondary CTA</span><span class="metric__value">採用</span></div>
+    </div>
+  </div>
+
+  <nav aria-label="ページ内ナビゲーション">
+    <div class="nav__inner">
+      <a href="#decision">編集判断</a>
+      <a href="#story">ストーリー</a>
+      <a href="#edl">EDL</a>
+      <a href="#assets">素材</a>
+      <a href="#proof">校閲</a>
+      <a href="#sources">根拠</a>
+      <a href="#ops">運用</a>
+      <a href="#open">未決事項</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="decision">
+      <h2 class="section-title">編集判断</h2>
+      <p class="section-lead">動画の主語を「一施設の振り返り」から「実装を続ける会社」へ変える。</p>
+      <div class="decision">
+        <div class="decision__main">
+          <span class="cut">CUT</span>
+          <h3>自己紹介章と長い振り返りは、ダイジェストから外す</h3>
+          <p>自己紹介 <b>00:22–01:38</b> は全削除。各人の最初の有効発言に氏名＋確認済み役割を4〜5秒だけ表示する。経緯説明は冒頭の章扉1枚に限定する。</p>
+        </div>
+        <div class="decision__side">
+          <h3>視聴後に残す4点</h3>
+          <ol>
+            <li>INNFRAは何者か</li>
+            <li>何を実装したか</li>
+            <li>次に何をつくるか</li>
+            <li>どう関われるか</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <h2 class="section-title">一本のストーリー</h2>
+      <p class="section-lead">元映像の時間順ではなく、思想から実績、未来、共創へ並び替える。</p>
+      <div class="storyline">
+        <article class="chapter">
+          <div class="chapter__num">01</div>
+          <div class="chapter__body"><h3>暮らしまで実証した</h3><p>完全オフグリッドでもQOLを下げない。発電・蓄電、水循環、トイレを同時に運用し、滞在体験までつくった。</p></div>
+          <div class="chapter__outcome"><p>技術展示ではなく、暮らしと運用を検証する会社だと伝える。</p></div>
+        </article>
+        <article class="chapter">
+          <div class="chapter__num">02</div>
+          <div class="chapter__body"><h3>構想を現場実装した</h3><p>中城城跡の宿泊体験とINNFRA Base。規制・設備・運用を越え、役立つ形までやり切った。</p></div>
+          <div class="chapter__outcome"><p>「できるかより、まずやる」を実績で証明する。</p></div>
+        </article>
+        <article class="chapter">
+          <div class="chapter__num">03</div>
+          <div class="chapter__body"><h3>住宅・地域・防災へ広げる</h3><p>オフグリッドは目的ではなく手段。自立とコミュニティを両立する次の暮らしへ。</p></div>
+          <div class="chapter__outcome"><p>過去の記録を、次の事業構想へ接続する。</p></div>
+        </article>
+        <article class="chapter">
+          <div class="chapter__num">04</div>
+          <div class="chapter__body"><h3>企業と仲間を求める</h3><p>パートナーの課題から次の実装をつくる。年齢や立場を越えて議論し、現場で試す仲間を迎える。</p></div>
+          <div class="chapter__outcome"><p>主CTAは企業・自治体との共創。採用は第二導線。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="edl">
+      <h2 class="section-title">約9分53秒版 EDL</h2>
+      <p class="section-lead">発話9分28秒＋タイトル8秒＋章扉9秒＋エンドカード8秒。IN/OUTは原音確認後に±2秒調整。</p>
+      <div class="table-wrap edl-wrap">
+        <table class="edl-table">
+          <thead><tr><th>#</th><th>元TC</th><th>尺</th><th>役割</th><th>要約テロップ</th><th>主な画</th></tr></thead>
+          <tbody>
+            <tr><td>01</td><td>21:01–21:32</td><td>0:31</td><td>会社の核</td><td>オフグリッドは、目的ではなく手段。</td><td>ラボ外観、暮らし、設備</td></tr>
+            <tr><td>T</td><td>新規</td><td>0:08</td><td>タイトル</td><td>暮らしを、実装する。</td><td>八ヶ岳→中城城→Base</td></tr>
+            <tr><td>02</td><td>03:20–03:49</td><td>0:29</td><td>原点</td><td>完全オフグリッドでも、QOLを下げない。</td><td>生活、給水、照明、料理</td></tr>
+            <tr><td>03</td><td>10:46–11:13</td><td>0:27</td><td>統合実証</td><td>発電・蓄電／水循環／トイレを同時に試す。</td><td>太陽光、蓄電池、水、トイレ</td></tr>
+            <tr><td>04</td><td>06:14–06:32</td><td>0:18</td><td>体験設計</td><td>R&amp;Dを、滞在体験までつくる。</td><td>宿泊、料理、来訪者</td></tr>
+            <tr><td>05</td><td>08:26–08:56</td><td>0:30</td><td>実践知</td><td>暮らして、課題を見つけ、事業へ返す。</td><td>運用、点検、議論</td></tr>
+            <tr><td>06</td><td>23:06–23:35</td><td>0:29</td><td>実証成果</td><td>周辺停電時も、ラボの暮らしは続いた。</td><td>夜景、点灯室内、設備</td></tr>
+            <tr><td>07</td><td>29:42–30:16</td><td>0:34</td><td>課題設定</td><td>人口減少 × 自然災害</td><td>地域、インフラ概念図</td></tr>
+            <tr><td>08</td><td>25:26–25:56</td><td>0:30</td><td>実装実績</td><td>中城城跡ポップアップリゾート</td><td>全景、設営、宿泊、水・電気</td></tr>
+            <tr><td>09</td><td>26:11–26:51</td><td>0:40</td><td>実行文化</td><td>できるかより、まずやってみる。</td><td>運搬、試運転、現場チーム</td></tr>
+            <tr><td>10</td><td>30:47–31:34</td><td>0:47</td><td>Base誕生</td><td>災害時に使える水循環インフラへ。</td><td>外観、搬入、内部、利用</td></tr>
+            <tr><td>11</td><td>32:22–32:54</td><td>0:32</td><td>価値定義</td><td>平常時に使い、災害時に役立つ。</td><td>平常時利用→災害時価値</td></tr>
+            <tr><td>12</td><td>11:57–12:33</td><td>0:36</td><td>次の住宅</td><td>次は、INNFRAがつくる住まいへ。</td><td>構想、模型、居住風景</td></tr>
+            <tr><td>13</td><td>12:42–13:20</td><td>0:38</td><td>地域</td><td>自立は、孤立ではない。</td><td>食事、焚き火、共同作業</td></tr>
+            <tr><td>14</td><td>21:41–22:21</td><td>0:40</td><td>共創への橋</td><td>パートナーの課題から、次の実装をつくる。</td><td>企業WS、視察、企画会議</td></tr>
+            <tr><td>15</td><td>17:04–17:41</td><td>0:37</td><td>組織文化</td><td>年齢や立場を越えて、一緒に考える。</td><td>多世代議論、ホワイトボード</td></tr>
+            <tr><td>16</td><td>24:25–24:42</td><td>0:17</td><td>採用導線</td><td>新しい仲間を募集しています。</td><td>現場チーム、集合</td></tr>
+            <tr><td>17</td><td>25:04–25:20</td><td>0:16</td><td>人物像</td><td>現場で試し、自分たちで切り開く。</td><td>DIY、点検、現場会話</td></tr>
+            <tr><td>18</td><td>36:00–36:37</td><td>0:37</td><td>共創CTA</td><td>次の実装を、一緒につくりませんか。</td><td>実績とチームの総括</td></tr>
+            <tr><td>E</td><td>新規</td><td>0:08</td><td>エンド</td><td>企業共創のご相談／採用情報</td><td>ロゴ、URL、QR</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="assets">
+      <h2 class="section-title">必要な写真・映像</h2>
+      <p class="section-lead">B-rollは装飾ではなく、発話の証拠として使う。静止画に加え、各章3〜8秒の短尺動画を1〜2本。</p>
+      <div class="asset-bands">
+        <div class="asset-band"><strong>12–15点</strong><span>八ヶ岳ラボ：外観、四季、夜景、生活、視察、冬、焚き火</span></div>
+        <div class="asset-band"><strong>6–8点</strong><span>中城城跡：全景、設営、設備、宿泊体験、現場チーム</span></div>
+        <div class="asset-band"><strong>8–10点</strong><span>INNFRA Base：外観、内部、製造、搬送、設置、平常時利用</span></div>
+        <div class="asset-band"><strong>5–7点</strong><span>企業・行政共創：会議、視察、共同作業、検証</span></div>
+        <div class="asset-band"><strong>5–6点</strong><span>採用・チーム：若手の現場、多世代議論、顧客対応</span></div>
+        <div class="asset-band"><strong>最大2点</strong><span>構想比較：初期スケッチと実装後の同アングル</span></div>
+      </div>
+      <div class="grid2" style="margin-top:16px">
+        <article class="note note--green"><h3>Must</h3><ul><li>発電・蓄電、水循環、トイレが暮らしにつながる画</li><li>中城城跡の設営前後と宿泊体験</li><li>INNFRA Baseの製造→搬送→設置→平常時利用</li><li>企業・自治体との現場共創</li></ul></article>
+        <article class="note note--red"><h3>公開前に止めて確認</h3><ul><li>顔、未成年、企業・行政ロゴ</li><li>文化財、ドローン、撮影者著作権</li><li>機密資料、試作機、画面、車番</li><li>EXIF、GPS、Photos共有URL</li></ul></article>
+      </div>
+    </section>
+
+    <section id="proof">
+      <h2 class="section-title">校閲と事実確認</h2>
+      <p class="section-lead">自動字幕は全625行・全時間帯を覆うが、完成字幕ではない。採用区間だけでも必ず原音で確定する。</p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>項目</th><th>現在</th><th>完成版ルール</th></tr></thead>
+          <tbody>
+            <tr><td>固有名詞</td><td><span class="tag tag--must">要校閲</span></td><td>INNFRA、八ヶ岳ラボ、中城城跡、INNFRA Baseを統一</td></tr>
+            <tr><td>製品仕様</td><td><span class="tag tag--should">一次情報あり</span></td><td>最大5,000L/日、100人が4週間シャワー利用できる水量。短縮しない</td></tr>
+            <tr><td>停電エピソード</td><td><span class="tag tag--must">要事実確認</span></td><td>日時・状況を出演者に確認。再現映像なら明記</td></tr>
+            <tr><td>企業・行政関係</td><td><span class="tag tag--must">要権利確認</span></td><td>公表済みの関係だけ。ロゴ、写真、名称の利用を個別確認</td></tr>
+            <tr><td>災害映像・記事・テレビ</td><td><span class="tag tag--must">未確認</span></td><td>転載許諾がなければ使用しない</td></tr>
+            <tr><td>避ける表現</td><td><span class="tag tag--must">カット</span></td><td>「服は黒いけどホワイト」、行政関係の軽い表現、笑いだけの「稼ぐ防災」</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="ops">
+      <h2 class="section-title">編集・公開オペレーション</h2>
+      <div class="grid2">
+        <article class="note"><h3>編集者へ</h3><ul class="checklist"><li>固定ワイドは連続8秒以内</li><li>字幕は1画面1メッセージ、2行以内</li><li>時間ジャンプは章扉、B-roll、J/Lカットで隠す</li><li>BGMはタイトル、章扉、終盤を基本にする</li><li>氏名＋役割は初回有効発言に4〜5秒</li><li>版番号、IN/OUT、素材IDをレビューコメントに残す</li></ul></article>
+        <article class="note"><h3>公開担当へ</h3><ul class="checklist"><li>タイトル、概要欄、サムネ、字幕、チャプターを一括確認</li><li>CTAは企業共創を先、採用を次にする</li><li>顔、写真、ロゴ、文化財、撮影者の許諾を確認</li><li>スマホ／PC、字幕、音量、リンクを公開後確認</li><li>Slack、DM、メールでの告知は公開と別承認</li><li>出資・資本提携は本編CTAへ入れない</li></ul></article>
+      </div>
+    </section>
+
+    <section id="sources">
+      <h2 class="section-title">公開一次情報</h2>
+      <p class="section-lead">固有名詞・仕様・実装実績は、完成字幕と概要欄を確定する際に以下へ戻る。</p>
+      <div class="source-list">
+        <a class="source-link" href="https://u3i.jp/information/pr-livinglab-20220228-01/" target="_blank" rel="noopener noreferrer"><strong>オフグリッド・リビングラボ八ヶ岳 開所</strong><span>U3イノベーションズ／施設構成、実証目的、パートナー</span></a>
+        <a class="source-link" href="https://innfra.jp/posts/press-20251202" target="_blank" rel="noopener noreferrer"><strong>中城城跡ポップアップリゾート</strong><span>INNFRA／中城村との実証、文化財環境での滞在価値</span></a>
+        <a class="source-link" href="https://innfra.jp/innfrabase" target="_blank" rel="noopener noreferrer"><strong>INNFRA Base 製品情報</strong><span>日量最大5,000L、100人が4週間シャワー利用できる水量</span></a>
+        <a class="source-link" href="https://innfra.jp/posts/press20260305" target="_blank" rel="noopener noreferrer"><strong>「稼ぐ防災」／道の駅富士川</strong><span>平常時利用と災害時価値を両立する社会実装</span></a>
+        <a class="source-link" href="https://innfra.jp/contact" target="_blank" rel="noopener noreferrer"><strong>企業共創・視察・相談窓口</strong><span>第一CTAの暫定リンク。最終公開前に導線を再確認</span></a>
+      </div>
+    </section>
+
+    <section id="open">
+      <h2 class="section-title">決めれば次へ進めること</h2>
+      <div class="open-items">
+        <div class="open-item"><div><strong>共有範囲</strong>誰でも閲覧可能な公開ページか、編集会社だけの権限付き共有か。限定公開原版と未校閲全文をpublic repoへ載せる場合は、公開範囲拡大の承認が必要。</div></div>
+        <div class="open-item"><div><strong>尺とCTA</strong>約10分、第一CTA=企業共創、第二CTA=採用で確定するか。CTA先URLまたはメールも確定する。</div></div>
+        <div class="open-item"><div><strong>写真素材</strong>業務アカウントの対象アルバム名またはリンク、人物・企業ロゴを含む写真の利用可否を確認する。</div></div>
+        <div class="open-item"><div><strong>氏名・役割</strong>4人の正式役職、元メンバーの現所属表示、初回テロップ位置を映像で確定する。</div></div>
+      </div>
+    </section>
+
+    <section class="privacy" aria-label="公開範囲について">
+      <p><strong>このページはD1公開用の編集brief。</strong> 限定公開の第一校、未校閲全文、Slack原文、Google Photos原本・URL、内部議事録は権限付きD2素材庫へ分離する。noindex、ランダムURL、72時間TTLはアクセス制御ではなく、Git履歴も消さない。</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>INNFRA Yatsugatake Lab Video Re-edit Brief · Draft 01 · 2026-08-02</p>
+    <p>目的・EDL・素材リクエストは作成済み。写真棚卸し、逐語校閲、権利確認、CTA先、共有方式は未確定。</p>
+  </footer>
+</body>
+</html>
