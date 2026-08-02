@@ -430,7 +430,7 @@
 
     .privacy p { margin: 0; }
 
-    .privacy strong { color: #fff; }
+    .privacy strong { color: inherit; }
 
     footer {
       padding: 28px 0 48px;
@@ -548,7 +548,7 @@
 <body>
   <header class="topline">
     <div class="topline__inner">
-      <span class="status">DRAFT 01 / 編集方針確定・素材未確定</span>
+      <span class="status">DRAFT 01 / CTAリンク確認済・素材未確定</span>
       <span>Updated 2026-08-02 · D1 PUBLIC-SAFE BRIEF</span>
     </div>
   </header>
@@ -561,7 +561,7 @@
     </header>
 
     <div class="metrics" aria-label="編集方針の要点">
-      <div class="metric"><span class="metric__label">Target Length</span><span class="metric__value">約 09:53</span></div>
+      <div class="metric"><span class="metric__label">Target Length</span><span class="metric__value">約 09:53（ラフ）</span></div>
       <div class="metric"><span class="metric__label">Primary Audience</span><span class="metric__value">企業・自治体</span></div>
       <div class="metric"><span class="metric__label">Primary CTA</span><span class="metric__value">実証・事業共創</span></div>
       <div class="metric"><span class="metric__label">Secondary CTA</span><span class="metric__value">採用</span></div>
@@ -625,14 +625,14 @@
         <article class="chapter">
           <div class="chapter__num">04</div>
           <div class="chapter__body"><h3>企業と仲間を求める</h3><p>パートナーの課題から次の実装をつくる。年齢や立場を越えて議論し、現場で試す仲間を迎える。</p></div>
-          <div class="chapter__outcome"><p>主CTAは企業・自治体との共創。採用は第二導線。</p></div>
+          <div class="chapter__outcome"><p>現時点の暫定順位は、企業・自治体との共創が第一、採用が第二。ユーザー確認で反転可能。</p></div>
         </article>
       </div>
     </section>
 
     <section id="edl">
       <h2 class="section-title">約9分53秒版 EDL</h2>
-      <p class="section-lead">発話9分28秒＋タイトル8秒＋章扉9秒＋エンドカード8秒。IN/OUTは原音確認後に±2秒調整。</p>
+      <p class="section-lead">発話9分28秒＋タイトル8秒＋章扉9秒＋エンドカード8秒のラフ。IN/OUTは原音確認後に±2秒調整するため、本番尺は未確定。</p>
       <div class="table-wrap edl-wrap">
         <table class="edl-table">
           <thead><tr><th>#</th><th>元TC</th><th>尺</th><th>役割</th><th>要約テロップ</th><th>主な画</th></tr></thead>
@@ -700,8 +700,8 @@
     <section id="ops">
       <h2 class="section-title">編集・公開オペレーション</h2>
       <div class="grid2">
-        <article class="note"><h3>編集者へ</h3><ul class="checklist"><li>固定ワイドは連続8秒以内</li><li>字幕は1画面1メッセージ、2行以内</li><li>時間ジャンプは章扉、B-roll、J/Lカットで隠す</li><li>BGMはタイトル、章扉、終盤を基本にする</li><li>氏名＋役割は初回有効発言に4〜5秒</li><li>版番号、IN/OUT、素材IDをレビューコメントに残す</li></ul></article>
-        <article class="note"><h3>公開担当へ</h3><ul class="checklist"><li>タイトル、概要欄、サムネ、字幕、チャプターを一括確認</li><li>CTAは企業共創を先、採用を次にする</li><li>顔、写真、ロゴ、文化財、撮影者の許諾を確認</li><li>スマホ／PC、字幕、音量、リンクを公開後確認</li><li>Slack、DM、メールでの告知は公開と別承認</li><li>出資・資本提携は本編CTAへ入れない</li></ul></article>
+        <article class="note"><h3>編集者へ</h3><ul class="checklist"><li>固定ワイドは連続8秒以内</li><li>字幕は1画面1メッセージ、2行以内</li><li>時間ジャンプは章扉、B-roll、J/Lカットで隠す</li><li>BGMはタイトル、章扉、終盤を基本にする</li><li>氏名＋役割は初回有効発言に4〜5秒。ラフはplaceholder可、本番書き出し前に出演者またはproducer確認</li><li>版番号、IN/OUT、素材IDをレビューコメントに残す</li></ul></article>
+        <article class="note"><h3>公開担当へ</h3><ul class="checklist"><li>タイトル、概要欄、サムネ、字幕、チャプターを一括確認</li><li>CTAは暫定で企業共創を先、採用を次にする。ユーザー確認で反転可能</li><li>顔、写真、ロゴ、文化財、撮影者の許諾を確認</li><li>スマホ／PC、字幕、音量、リンクを公開後確認</li><li>Slack、DM、メールでの告知は公開と別承認</li><li>出資・資本提携は経営・法務判断が済むまで本編CTAへ入れない</li></ul></article>
       </div>
     </section>
 
@@ -709,11 +709,13 @@
       <h2 class="section-title">公開一次情報</h2>
       <p class="section-lead">固有名詞・仕様・実装実績は、完成字幕と概要欄を確定する際に以下へ戻る。</p>
       <div class="source-list">
+        <a class="source-link" href="https://innfra.jp/" target="_blank" rel="noopener noreferrer"><strong>INNFRA公式サイト</strong><span>会社の事業、実装事例、採用導線</span></a>
         <a class="source-link" href="https://u3i.jp/information/pr-livinglab-20220228-01/" target="_blank" rel="noopener noreferrer"><strong>オフグリッド・リビングラボ八ヶ岳 開所</strong><span>U3イノベーションズ／施設構成、実証目的、パートナー</span></a>
         <a class="source-link" href="https://innfra.jp/posts/press-20251202" target="_blank" rel="noopener noreferrer"><strong>中城城跡ポップアップリゾート</strong><span>INNFRA／中城村との実証、文化財環境での滞在価値</span></a>
         <a class="source-link" href="https://innfra.jp/innfrabase" target="_blank" rel="noopener noreferrer"><strong>INNFRA Base 製品情報</strong><span>日量最大5,000L、100人が4週間シャワー利用できる水量</span></a>
         <a class="source-link" href="https://innfra.jp/posts/press20260305" target="_blank" rel="noopener noreferrer"><strong>「稼ぐ防災」／道の駅富士川</strong><span>平常時利用と災害時価値を両立する社会実装</span></a>
-        <a class="source-link" href="https://innfra.jp/contact" target="_blank" rel="noopener noreferrer"><strong>企業共創・視察・相談窓口</strong><span>第一CTAの暫定リンク。最終公開前に導線を再確認</span></a>
+        <a class="source-link" href="https://innfra.jp/contact" target="_blank" rel="noopener noreferrer"><strong>企業共創・視察・相談窓口</strong><span>第一CTAの確認済みリンク。CTA優先順位はユーザー確認待ち</span></a>
+        <a class="source-link" href="https://www.wantedly.com/companies/innfra/projects" target="_blank" rel="noopener noreferrer"><strong>INNFRA 採用情報</strong><span>公式サイトのRECRUIT導線から確認した第二CTAリンク</span></a>
       </div>
     </section>
 
@@ -721,9 +723,9 @@
       <h2 class="section-title">決めれば次へ進めること</h2>
       <div class="open-items">
         <div class="open-item"><div><strong>共有範囲</strong>誰でも閲覧可能な公開ページか、編集会社だけの権限付き共有か。限定公開原版と未校閲全文をpublic repoへ載せる場合は、公開範囲拡大の承認が必要。</div></div>
-        <div class="open-item"><div><strong>尺とCTA</strong>約10分、第一CTA=企業共創、第二CTA=採用で確定するか。CTA先URLまたはメールも確定する。</div></div>
+        <div class="open-item"><div><strong>尺とCTA</strong>約9分53秒はラフ。第一CTA=企業共創、第二CTA=採用という暫定順位を確定するか。リンク先は企業共創窓口とWantedly採用ページを確認済み。</div></div>
         <div class="open-item"><div><strong>写真素材</strong>業務アカウントの対象アルバム名またはリンク、人物・企業ロゴを含む写真の利用可否を確認する。</div></div>
-        <div class="open-item"><div><strong>氏名・役割</strong>4人の正式役職、元メンバーの現所属表示、初回テロップ位置を映像で確定する。</div></div>
+        <div class="open-item"><div><strong>氏名・役割</strong>ラフはplaceholder可。4人の正式役職、元メンバーの現所属表示、初回テロップ位置を本番書き出し前に出演者またはproducerが確定する。</div></div>
       </div>
     </section>
 
@@ -734,7 +736,7 @@
 
   <footer>
     <p>INNFRA Yatsugatake Lab Video Re-edit Brief · Draft 01 · 2026-08-02</p>
-    <p>目的・EDL・素材リクエストは作成済み。写真棚卸し、逐語校閲、権利確認、CTA先、共有方式は未確定。</p>
+    <p>目的・EDL・素材リクエストとCTAリンクは作成・確認済み。写真棚卸し、逐語校閲、権利確認、CTA優先順位、共有方式は未確定。</p>
   </footer>
 </body>
 </html>
