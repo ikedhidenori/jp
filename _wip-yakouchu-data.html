@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<style>
+:root{--cyan:#5cf0d4;--cyan2:#37d6ff;--bay:#8afcff;--green:#ffcb47;--ink:#eef6f9;--dim:#8ba0b2;--line:rgba(92,240,212,.16)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000}
+body{font-family:"Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.frame{width:1080px;height:1350px;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,#050d1a 0%,#040b16 50%,#020912 100%);color:var(--ink)}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:9;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+svg.topglow{position:absolute;top:0;left:0;width:1080px;height:200px;z-index:0}
+
+.head{position:relative;z-index:3;padding:78px 64px 0}
+.kick{font-family:"Noto Sans JP";font-weight:500;font-size:23px;letter-spacing:.4em;color:var(--cyan);
+  text-shadow:0 0 16px rgba(92,240,212,.45);margin-bottom:24px}
+.kick .bar{display:inline-block;width:46px;height:1.5px;background:var(--cyan);vertical-align:middle;margin-right:18px;box-shadow:0 0 10px var(--cyan);opacity:.9}
+h1{font-family:"Noto Serif JP";font-weight:700;font-size:68px;line-height:1.22;letter-spacing:.02em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+h1 .hl{color:var(--cyan);text-shadow:0 0 28px rgba(92,240,212,.5)}
+.lead{margin-top:22px;font-weight:300;font-size:26px;line-height:1.65;color:#c4d3dd;max-width:880px}
+
+.rows{position:relative;z-index:3;padding:40px 64px 0}
+.row{display:grid;grid-template-columns:128px 1fr;gap:30px;padding:30px 0;border-top:1px solid rgba(255,255,255,.09)}
+.row:first-child{border-top:none}
+.row .idx{font-family:"Noto Serif JP";font-weight:900;font-size:78px;line-height:.8;color:var(--cyan);
+  text-shadow:0 0 30px rgba(92,240,212,.4)}
+.row.amber .idx{color:var(--green);text-shadow:0 0 30px rgba(255,203,71,.35)}
+.row h3{font-family:"Noto Serif JP";font-weight:600;font-size:36px;line-height:1.3;color:#fff;margin-bottom:12px}
+.row p{font-weight:300;font-size:21px;line-height:1.62;color:#aebecb;max-width:790px}
+.row p b{color:#dce7ee;font-weight:400}
+.chip{display:inline-flex;align-items:center;gap:10px;margin-top:16px;padding:8px 16px;border-radius:999px;
+  background:rgba(92,240,212,.1);border:1px solid var(--line);font-size:16px;color:#cfe7e1;font-weight:400}
+.row.amber .chip{background:rgba(255,203,71,.1);border-color:rgba(255,203,71,.25);color:#f3dca0}
+.chip .lab{font-weight:500;color:var(--cyan)}
+.row.amber .chip .lab{color:var(--green)}
+.chip .src{color:#7e93a3;font-size:14.5px}
+
+.jp{position:relative;z-index:3;margin:8px 64px 0;display:flex;align-items:center;gap:24px;
+  background:rgba(92,240,212,.05);border:1px solid var(--line);border-radius:16px;padding:22px 28px}
+.jp .h{font-family:"Noto Serif JP";font-weight:600;font-size:22px;color:var(--cyan);white-space:nowrap}
+.jp .items{display:flex;gap:34px;flex-wrap:wrap}
+.jp .it{font-size:18px;color:#d3dee6}
+.jp .it b{color:#fff;font-weight:500}
+.jp .it span{display:block;color:#8597a6;font-size:14.5px;margin-top:3px}
+
+.foot{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:22px 64px 26px;
+  border-top:1px solid rgba(255,255,255,.08);background:linear-gradient(0deg,rgba(4,7,15,.9),transparent)}
+.foot .src{font-size:14px;color:#74879a;line-height:1.65}
+.foot .src b{color:#9fb3c2;font-weight:500}
+.foot .brand{position:absolute;right:64px;bottom:24px;font-family:"Noto Serif JP";font-weight:600;font-size:20px;
+  color:var(--cyan);letter-spacing:.14em;text-shadow:0 0 14px rgba(92,240,212,.5)}
+</style>
+</head>
+<body>
+<div class="frame">
+  <svg class="topglow" id="topglow" viewBox="0 0 1080 200" preserveAspectRatio="none"></svg>
+
+  <div class="head">
+    <div class="kick"><span class="bar"></span>気候変動 × 光る海</div>
+    <h1>その地図は、いま<br><span class="hl">静かに描き替え</span>られている。</h1>
+    <p class="lead">温暖化は「光る海」に何をしているのか。わかっていること、わからないこと——誇張せずに3つだけ。</p>
+  </div>
+
+  <div class="rows">
+    <div class="row">
+      <div class="idx">01</div>
+      <div>
+        <h3>温帯の発光は、高緯度へ“にじむ”。</h3>
+        <p>青く光る赤色ヤコウチュウは、温暖化で分布が極方向へ拡大。<b>タスマニアは近年ほぼ通年化</b>し、中国沿岸でも発生海域が北上した。</p>
+        <span class="chip"><span class="lab">確度：地域で実測</span><span class="src">豪・中／Lin 2025・McLeod 2012</span></span>
+      </div>
+    </div>
+    <div class="row amber">
+      <div class="idx">02</div>
+      <div>
+        <h3>貧酸素が、“緑の海”を広げる。</h3>
+        <p>アラビア海では珪藻が緑色ヤコウチュウに置換。海の酸素低下が後押ししている。<b>ただしこれは「発光」ではなく、環境悪化のシグナル。</b></p>
+        <span class="chip"><span class="lab">確度：機構は確実</span><span class="src">Gomes 2014, Nature Communications</span></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="idx">03</div>
+      <div>
+        <h3>“いつ光る”は、まだ誰も言えない。</h3>
+        <p>有害藻類ブルームは1980年代以降の増加傾向。だが<b>「何年に、この海が光る」と断じる論文は存在しない。</b>地図の空白は、正直さの証でもある。</p>
+        <span class="chip"><span class="lab">確度：傾向のみ</span><span class="src">IPCC SROCC（海洋・雪氷圏特別報告書）</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="jp">
+    <div class="h">日本から狙うなら</div>
+    <div class="items">
+      <div class="it"><b>相模湾</b><span>5〜9月・新月／国内</span></div>
+      <div class="it"><b>馬祖列島（台湾）</b><span>4〜6月／“藍眼涙”</span></div>
+      <div class="it"><b>モルディブ</b><span>6〜10月／Sea of Stars</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="src"><b>出典</b>　Gomes et al. 2014 <i>Nature Communications</i> 5:4862／Lin et al. 2025 <i>Molecular Ecology</i> 10.1111/mec.17709／McLeod et al. 2012 <i>J. Plankton Res.</i> 34(4):332／IPCC SROCC／NASA Earth Observatory／Scripps Institution of Oceanography／Guinness World Records<br>※ 将来予測には不確実性があります。青く“発光する”赤色型と、非発光の“緑色型”（アラビア海）は別現象です。</div>
+    <div class="brand">SEA SPARKLE MAP</div>
+  </div>
+</div>
+
+<script>
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const rnd=mulberry32(20260602);
+(function topglow(){
+  const W=1080,H=200,svg=d3.select("#topglow"),defs=svg.append("defs");
+  const g=defs.append("radialGradient").attr("id","tg").attr("cx",.7).attr("cy",-.1).attr("r",.9);
+  g.append("stop").attr("offset","0%").attr("stop-color","#37d6ff").attr("stop-opacity",.16);
+  g.append("stop").attr("offset","65%").attr("stop-color","#37d6ff").attr("stop-opacity",0);
+  svg.append("rect").attr("width",W).attr("height",H).attr("fill","url(#tg)");
+  const f=defs.append("filter").attr("id","b").attr("x","-50%").attr("y","-50%").attr("width","200%").attr("height","200%");
+  f.append("feGaussianBlur").attr("stdDeviation",4);
+  const sg=svg.append("g");
+  for(let i=0;i<46;i++){const x=rnd()*W,y=rnd()*H,r=.5+rnd()*1.6;sg.append("circle").attr("cx",x).attr("cy",y).attr("r",r).attr("fill",rnd()<.4?"#8afcff":"#5cf0d4").attr("opacity",.1+rnd()*.4).attr("filter",r>1.2?"url(#b)":null);}
+})();
+</script>
+</body>
+</html>

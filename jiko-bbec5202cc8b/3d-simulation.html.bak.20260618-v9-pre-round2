@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>事故 3D シミュレーション V9 — 板橋区坂下3丁目</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0a0c10; color: #e8eaed; font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; overflow: hidden; }
+  #scene { position: fixed; inset: 0; }
+  #ui { position: fixed; top: 12px; left: 12px; background: rgba(0,0,0,.78); padding: 14px 16px; border-radius: 10px; max-width: 360px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 4px 20px rgba(0,0,0,.4); transition: all .3s ease; }
+  #ui.collapsed { max-width: 140px; padding: 8px 12px; }
+  #ui.collapsed > *:not(h1):not(.toggle) { display: none; }
+  #ui .toggle { position: absolute; top: 8px; right: 10px; cursor: pointer; color: #ffd54f; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; font-size: 13px; font-weight: bold; }
+  #ui .toggle:hover { background: rgba(255,255,255,.15); }
+  #ui h1 { font-size: 14px; margin: 0 0 8px; color: #ffd54f; padding-right: 36px; }
+  #ui p { font-size: 11px; margin: 4px 0; line-height: 1.55; color: #c5cdd6; }
+  #ui .stat { color: #ff7775; font-weight: bold; }
+  #controls { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.82); padding: 10px 16px; border-radius: 10px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); }
+  button { background: linear-gradient(180deg, #4054b8, #3949ab); color: white; border: 1px solid rgba(255,255,255,.1); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: inherit; transition: all .15s; }
+  button:hover { background: linear-gradient(180deg, #5c6bc0, #4054b8); transform: translateY(-1px); }
+  button.active { background: linear-gradient(180deg, #ff7775, #d93025); }
+  button.runthrough { background: linear-gradient(180deg, #43a047, #2e7d32); }
+  button.runthrough.active { background: linear-gradient(180deg, #ff7775, #d93025); }
+  #time { color: #ffd54f; font-size: 12px; min-width: 90px; text-align: center; font-weight: bold; padding: 6px 10px; background: rgba(0,0,0,.5); border-radius: 4px; }
+  #compass { position: fixed; top: 14px; right: 14px; background: rgba(0,0,0,.7); padding: 10px; border-radius: 50%; width: 96px; height: 96px; display: flex; align-items: center; justify-content: center; font-size: 11px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); }
+  #compass .n { position: absolute; top: 4px; color: #ff7775; font-weight: bold; font-size: 15px; }
+  #compass .s { position: absolute; bottom: 4px; color: #bbc; font-weight: bold; font-size: 15px; }
+  #compass .w { position: absolute; left: 6px; color: #bbc; font-weight: bold; font-size: 15px; }
+  #compass .e { position: absolute; right: 6px; color: #bbc; font-weight: bold; font-size: 15px; }
+  #compass .arrow { position: absolute; top: 50%; left: 50%; width: 4px; height: 36px; background: linear-gradient(to bottom, #ff7775 50%, #666 50%); transform: translate(-50%, -50%); border-radius: 2px; }
+  #legend { position: fixed; bottom: 100px; right: 14px; background: rgba(0,0,0,.7); padding: 12px 14px; border-radius: 8px; font-size: 11px; line-height: 1.7; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); transition: all .3s ease; }
+  #legend.collapsed { padding: 6px 10px; }
+  #legend.collapsed > div:not(.toggle) { display: none; }
+  #legend .toggle { cursor: pointer; color: #ffd54f; padding: 2px 6px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 4px; font-size: 12px; font-weight: bold; text-align: center; margin-bottom: 6px; }
+  @media (max-width: 720px) {
+    #ui { max-width: 280px; font-size: 11px; }
+    #ui.collapsed { max-width: 110px; }
+    #legend { font-size: 10px; bottom: 110px; }
+    #controls { padding: 8px 10px; gap: 6px; }
+    button { padding: 6px 10px; font-size: 11px; }
+  }
+  .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; margin-right: 7px; }
+  #collision-banner { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #ff5757, #d93025); color: #fff; padding: 22px 32px; border-radius: 14px; font-size: 20px; font-weight: bold; display: none; z-index: 100; box-shadow: 0 12px 40px rgba(217,48,37,.5); border: 2px solid rgba(255,255,255,.2); }
+  #collision-banner.show { display: block; animation: pulse 2.5s ease-out; }
+  @keyframes pulse { 0% { transform: translate(-50%,-50%) scale(1.6); opacity: 0; } 30% { transform: translate(-50%,-50%) scale(1); opacity: 1; } 100% { opacity: 1; } }
+  .hint { font-size: 10px; color: #ffd54f; margin-top: 8px; }
+  #loading { position: fixed; inset: 0; background: #0a0c10; display: flex; align-items: center; justify-content: center; z-index: 200; transition: opacity .8s; }
+  #loading.hidden { opacity: 0; pointer-events: none; }
+  #loading .spinner { width: 56px; height: 56px; border: 3px solid rgba(255,213,79,.15); border-top: 3px solid #ffd54f; border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div id="loading"><div class="spinner"></div></div>
+<div id="scene"></div>
+
+<div id="collision-banner">★ 衝突 09:28:18.5<br><span style="font-size:14px;font-weight:normal">ドラッグで視点回転 → 相手車の状態確認</span></div>
+
+<div id="ui">
+  <span class="toggle" onclick="document.getElementById('ui').classList.toggle('collapsed')">⊖</span>
+  <h1>事故 3D V12(ドラレコ SSOT)</h1>
+  <p style="color:#ffd54f">座標: 35.7879444N, 139.6845833E ✓</p>
+  <p>2026-06-11 09:28:18.5 (PCM 飽和 32768)</p>
+  <p>本線=南北優先 / 脇道=<strong>西側</strong>(一時停止)</p>
+  <p>左側通行: 南行き=<strong>東側</strong>(A 本来=左車線)</p>
+  <p class="stat">★ A は終始東側車線(本来車線)で南進、車線変更なし</p>
+  <p class="stat">★ B は脇道で停止 → A が②通過中に突発右折</p>
+  <p class="stat">★ B は衝突瞬間まで両ドラレコ死角(A 右真横)</p>
+  <p class="stat">★ 衝突 t=2.5s (09:28:18.5)、PCM 飽和が唯一の物理証拠</p>
+  <p>A: 国産SUV (4.71×1.86m)</p>
+  <p>B: 輸入SUV (5.02×2.01m)</p>
+  <p class="hint">▼ 緑ボタン=一人称ランスルー / 衝突で自動停止 → ドラッグで視点グリグリ</p>
+</div>
+
+<div id="compass">
+  <span class="n">N</span><span class="s">S</span><span class="w">W</span><span class="e">E</span>
+  <div class="arrow"></div>
+</div>
+
+<div id="legend">
+  <div class="toggle" onclick="document.getElementById('legend').classList.toggle('collapsed')">凡例 ⊖</div>
+  <div><span class="sw" style="background:#1a73e8"></span>A (依頼者)</div>
+  <div><span class="sw" style="background:#d93025"></span>B (相手)</div>
+  <div><span class="sw" style="background:#fff;border:1px solid #888"></span>信号待ち 2 台</div>
+  <div><span class="sw" style="background:repeating-linear-gradient(45deg,#fbbc04,#fbbc04 4px,#444 4px,#444 8px)"></span>工事車両</div>
+  <div><span class="sw" style="background:#f9ab00;border-radius:50%"></span>誘導員</div>
+  <div><span class="sw" style="background:#fff;clip-path:polygon(50% 0,100% 100%,0 100%)"></span>一時停止標識</div>
+  <div><span class="sw" style="background:#d93025;border-radius:50%"></span>★衝突地点</div>
+</div>
+
+<div id="controls">
+  <button id="cam-overhead" class="active">上空</button>
+  <button id="cam-johnny-fp" class="runthrough">A 一人称</button>
+  <button id="cam-shibata-fp" class="runthrough">B 一人称</button>
+  <button id="cam-guide">誘導員視点</button>
+  <button id="cam-cinema">シネマ</button>
+  <button id="play">▶ 再生</button>
+  <span id="time">t=0.0s</span>
+  <button id="reset">⟲</button>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+// =========================================================================
+// 座標系: X=東(+)/西(-), Z=南(+)/北(-), Y=上(+) / 左側通行
+// =========================================================================
+
+const scene = new THREE.Scene();
+
+// === 空 (グラデーション スカイドーム) ===
+const skyGeo = new THREE.SphereGeometry(300, 32, 32);
+const skyCanvas = document.createElement('canvas');
+skyCanvas.width = 256; skyCanvas.height = 512;
+const skyCtx = skyCanvas.getContext('2d');
+const skyGrad = skyCtx.createLinearGradient(0, 0, 0, 512);
+skyGrad.addColorStop(0, '#74a4d4');   // 上空
+skyGrad.addColorStop(0.55, '#bcd5ea'); // 中
+skyGrad.addColorStop(1, '#e8eef4');   // 地平線
+skyCtx.fillStyle = skyGrad;
+skyCtx.fillRect(0, 0, 256, 512);
+// 薄い雲
+skyCtx.fillStyle = 'rgba(255,255,255,0.35)';
+for (let i = 0; i < 12; i++) {
+  const cx = Math.random() * 256, cy = 30 + Math.random() * 120;
+  skyCtx.beginPath();
+  skyCtx.ellipse(cx, cy, 30 + Math.random() * 40, 8 + Math.random() * 12, 0, 0, Math.PI * 2);
+  skyCtx.fill();
+}
+const skyTex = new THREE.CanvasTexture(skyCanvas);
+const skyMat = new THREE.MeshBasicMaterial({ map: skyTex, side: THREE.BackSide });
+const sky = new THREE.Mesh(skyGeo, skyMat);
+scene.add(sky);
+
+scene.fog = new THREE.Fog(0xbcd5ea, 100, 250);
+
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 500);
+camera.position.set(0, 38, 30);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+document.getElementById('scene').appendChild(renderer.domElement);
+
+// === ポストプロセシング (Bloom) ===
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.35, 0.6, 0.85);
+composer.addPass(bloomPass);
+composer.addPass(new OutputPass());
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.target.set(0, 0, 0);
+controls.maxPolarAngle = Math.PI * 0.495;
+controls.minDistance = 3;
+controls.maxDistance = 120;
+
+// === 照明 ===
+const hemi = new THREE.HemisphereLight(0xc8dcf0, 0x6b7c8a, 0.55);
+scene.add(hemi);
+
+const sun = new THREE.DirectionalLight(0xfff2dc, 1.4);
+sun.position.set(38, 65, 22);
+sun.castShadow = true;
+sun.shadow.mapSize.set(4096, 4096);
+sun.shadow.camera.left = -60; sun.shadow.camera.right = 60;
+sun.shadow.camera.top = 60; sun.shadow.camera.bottom = -60;
+sun.shadow.camera.near = 0.1; sun.shadow.camera.far = 220;
+sun.shadow.bias = -0.0008;
+sun.shadow.radius = 4;
+scene.add(sun);
+
+// 補助光
+const fill = new THREE.DirectionalLight(0xc8dcf0, 0.35);
+fill.position.set(-30, 25, -20);
+scene.add(fill);
+
+// === 地面 (アスファルト風テクスチャ) ===
+function makeAsphaltTexture() {
+  const c = document.createElement('canvas');
+  c.width = 512; c.height = 512;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#3a3a3c';
+  ctx.fillRect(0, 0, 512, 512);
+  // ノイズで質感
+  const imgData = ctx.getImageData(0, 0, 512, 512);
+  for (let i = 0; i < imgData.data.length; i += 4) {
+    const n = (Math.random() - 0.5) * 28;
+    imgData.data[i] = Math.max(0, Math.min(255, imgData.data[i] + n));
+    imgData.data[i+1] = Math.max(0, Math.min(255, imgData.data[i+1] + n));
+    imgData.data[i+2] = Math.max(0, Math.min(255, imgData.data[i+2] + n));
+  }
+  ctx.putImageData(imgData, 0, 0);
+  // 細かいヒビ
+  ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+  ctx.lineWidth = 0.4;
+  for (let i = 0; i < 30; i++) {
+    ctx.beginPath();
+    ctx.moveTo(Math.random() * 512, Math.random() * 512);
+    ctx.lineTo(Math.random() * 512, Math.random() * 512);
+    ctx.stroke();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(8, 8);
+  return tex;
+}
+const asphaltTex = makeAsphaltTexture();
+
+// === グラウンドタイル (土) ===
+function makeGrassTexture() {
+  const c = document.createElement('canvas');
+  c.width = 256; c.height = 256;
+  const ctx = c.getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 0, 256);
+  grad.addColorStop(0, '#d6dccd');
+  grad.addColorStop(1, '#c2c8b8');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 256, 256);
+  ctx.fillStyle = 'rgba(80,90,60,0.2)';
+  for (let i = 0; i < 200; i++) {
+    ctx.fillRect(Math.random() * 256, Math.random() * 256, 1.5, 1.5);
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(10, 10);
+  return tex;
+}
+const groundTex = makeGrassTexture();
+
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(220, 220),
+  new THREE.MeshStandardMaterial({ map: groundTex, roughness: 0.92 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// === 道路 ===
+const roadMat = new THREE.MeshStandardMaterial({ map: asphaltTex, roughness: 0.85, metalness: 0.05 });
+
+const mainRoad = new THREE.Mesh(new THREE.PlaneGeometry(6, 100), roadMat);
+mainRoad.rotation.x = -Math.PI / 2;
+mainRoad.position.y = 0.01;
+mainRoad.receiveShadow = true;
+scene.add(mainRoad);
+
+const sideRoad = new THREE.Mesh(new THREE.PlaneGeometry(50, 4), roadMat);
+sideRoad.rotation.x = -Math.PI / 2;
+sideRoad.position.set(-25, 0.01, 0);
+sideRoad.receiveShadow = true;
+scene.add(sideRoad);
+
+// === 中央線 (黄色破線) ===
+function addCenterLine(z1, z2) {
+  const len = Math.abs(z2 - z1);
+  const dashCount = Math.floor(len / 1.8);
+  for (let i = 0; i < dashCount; i++) {
+    const dash = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.15, 1.0),
+      new THREE.MeshStandardMaterial({ color: 0xf9ab00, emissive: 0xb87800, emissiveIntensity: 0.15 })
+    );
+    dash.rotation.x = -Math.PI / 2;
+    dash.position.set(0, 0.025, z1 + i * 1.8 + 0.5);
+    scene.add(dash);
+  }
+}
+addCenterLine(-50, -2.5);
+addCenterLine(2.5, 50);
+
+// === 路肩線 ===
+const shoulderMat = new THREE.MeshStandardMaterial({ color: 0xf8f8f8, roughness: 0.6 });
+[
+  { p: [3, 0.025, 0], s: [0.15, 100] },
+  { p: [-3, 0.025, -25], s: [0.15, 50] },
+  { p: [-3, 0.025, 25], s: [0.15, 50] },
+  { p: [-25, 0.025, -2], s: [50, 0.15] },
+  { p: [-25, 0.025, 2], s: [50, 0.15] },
+].forEach(c => {
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(c.s[0], c.s[1]), shoulderMat);
+  m.rotation.x = -Math.PI / 2;
+  m.position.set(c.p[0], c.p[1], c.p[2]);
+  scene.add(m);
+});
+
+const stopLine = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 4), shoulderMat);
+stopLine.rotation.x = -Math.PI / 2;
+stopLine.position.set(-3.5, 0.035, 0);
+scene.add(stopLine);
+
+// === 一時停止標識 (実物風) ===
+function makeStopSign(x, z) {
+  const group = new THREE.Group();
+  const pole = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.04, 0.04, 2.4),
+    new THREE.MeshStandardMaterial({ color: 0x999, roughness: 0.7, metalness: 0.6 })
+  );
+  pole.position.y = 1.2;
+  pole.castShadow = true;
+  group.add(pole);
+  // 標識本体 (逆三角)
+  const signGeo = new THREE.CircleGeometry(0.42, 3);
+  const signMat = new THREE.MeshStandardMaterial({ color: 0xd93025, side: THREE.DoubleSide, roughness: 0.5, emissive: 0x501010, emissiveIntensity: 0.1 });
+  const sign = new THREE.Mesh(signGeo, signMat);
+  sign.position.y = 2.45;
+  sign.rotation.z = Math.PI;
+  sign.castShadow = true;
+  group.add(sign);
+  // 「止まれ」白文字 (CanvasTexture)
+  const tc = document.createElement('canvas');
+  tc.width = 128; tc.height = 128;
+  const tctx = tc.getContext('2d');
+  tctx.fillStyle = '#d93025';
+  tctx.fillRect(0, 0, 128, 128);
+  tctx.fillStyle = '#fff';
+  tctx.font = 'bold 36px sans-serif';
+  tctx.textAlign = 'center';
+  tctx.fillText('止', 64, 60);
+  tctx.fillText('まれ', 64, 98);
+  const ttex = new THREE.CanvasTexture(tc);
+  const textPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.5, 0.5),
+    new THREE.MeshStandardMaterial({ map: ttex, transparent: true })
+  );
+  textPlane.position.set(0, 2.4, 0.02);
+  group.add(textPlane);
+  group.position.set(x, 0, z);
+  scene.add(group);
+}
+makeStopSign(-4, 3);
+
+// === 信号機 (実物風、グロー付き) ===
+function makeTrafficLight(x, z) {
+  const group = new THREE.Group();
+  const pole = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.09, 0.09, 5.8),
+    new THREE.MeshStandardMaterial({ color: 0x555, roughness: 0.7, metalness: 0.6 })
+  );
+  pole.position.y = 2.9;
+  pole.castShadow = true;
+  group.add(pole);
+  const arm = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.05, 0.05, 2.5),
+    new THREE.MeshStandardMaterial({ color: 0x555, roughness: 0.7, metalness: 0.6 })
+  );
+  arm.position.set(-1.2, 5.6, 0);
+  arm.rotation.z = Math.PI / 2;
+  arm.castShadow = true;
+  group.add(arm);
+  const box = new THREE.Mesh(
+    new THREE.BoxGeometry(1.3, 0.45, 0.32),
+    new THREE.MeshStandardMaterial({ color: 0x222, roughness: 0.6, metalness: 0.3 })
+  );
+  box.position.set(-2.3, 5.6, 0);
+  box.castShadow = true;
+  group.add(box);
+  const red = new THREE.Mesh(
+    new THREE.SphereGeometry(0.14),
+    new THREE.MeshStandardMaterial({ color: 0xff2020, emissive: 0xff2020, emissiveIntensity: 2.5 })
+  );
+  red.position.set(-1.85, 5.6, 0.19);
+  group.add(red);
+  // 赤信号の光源
+  const redLight = new THREE.PointLight(0xff3030, 1.2, 4);
+  redLight.position.set(-1.85, 5.6, 0.5);
+  group.add(redLight);
+  group.position.set(x, 0, z);
+  scene.add(group);
+}
+// 信号機: 分析班仕様 (3, -12) 北行き車両用、②の北 12m
+makeTrafficLight(3, -12);
+
+// === 建物 (改良版:屋根+窓ディテール) ===
+function makeBuilding(x, z, w, d, h, wallColor = 0xd0d3c8, roofColor = 0x7a4a35) {
+  const group = new THREE.Group();
+  // 壁 (テクスチャ風: 簡易ノイズで質感)
+  const wallCanvas = document.createElement('canvas');
+  wallCanvas.width = 64; wallCanvas.height = 64;
+  const wctx = wallCanvas.getContext('2d');
+  wctx.fillStyle = `rgb(${(wallColor>>16)&0xff},${(wallColor>>8)&0xff},${wallColor&0xff})`;
+  wctx.fillRect(0, 0, 64, 64);
+  wctx.fillStyle = 'rgba(0,0,0,0.07)';
+  for (let i = 0; i < 30; i++) {
+    wctx.fillRect(Math.random() * 64, Math.random() * 64, 2, 2);
+  }
+  const wallTex = new THREE.CanvasTexture(wallCanvas);
+  wallTex.wrapS = wallTex.wrapT = THREE.RepeatWrapping;
+  wallTex.repeat.set(2, 2);
+  const body = new THREE.Mesh(
+    new THREE.BoxGeometry(w, h, d),
+    new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.88, metalness: 0.02 })
+  );
+  body.position.y = h / 2;
+  body.castShadow = true;
+  body.receiveShadow = true;
+  group.add(body);
+  // 屋根 (切妻風: 三角プリズム)
+  const roofH = 1.2;
+  const roofShape = new THREE.Shape();
+  roofShape.moveTo(-d/2 - 0.15, 0);
+  roofShape.lineTo(d/2 + 0.15, 0);
+  roofShape.lineTo(0, roofH);
+  roofShape.closePath();
+  const roofGeo = new THREE.ExtrudeGeometry(roofShape, { depth: w + 0.3, bevelEnabled: false });
+  const roof = new THREE.Mesh(
+    roofGeo,
+    new THREE.MeshStandardMaterial({ color: roofColor, roughness: 0.9 })
+  );
+  roof.rotation.y = Math.PI / 2;
+  roof.position.set(w/2 + 0.15, h, -d/2);
+  roof.castShadow = true;
+  group.add(roof);
+  // 窓 (ガラス感)
+  const winMat = new THREE.MeshStandardMaterial({
+    color: 0x6b8eb0, roughness: 0.15, metalness: 0.5, envMapIntensity: 1.5
+  });
+  const winCount = Math.max(1, Math.floor(h / 1.5));
+  const winW = w * 0.18, winH = 0.7;
+  for (let f = 0; f < winCount; f++) {
+    const y = 1.0 + f * 1.5;
+    if (y > h - 0.3) break;
+    for (let i = 0; i < 3; i++) {
+      const xOff = -w * 0.3 + i * w * 0.3;
+      const win = new THREE.Mesh(new THREE.PlaneGeometry(winW, winH), winMat);
+      win.position.set(xOff, y, d / 2 + 0.01);
+      group.add(win);
+      const winBack = new THREE.Mesh(new THREE.PlaneGeometry(winW, winH), winMat);
+      winBack.position.set(xOff, y, -d / 2 - 0.01);
+      winBack.rotation.y = Math.PI;
+      group.add(winBack);
+    }
+  }
+  group.position.set(x, 0, z);
+  scene.add(group);
+  return group;
+}
+
+// 西側
+makeBuilding(-20, -35, 18, 12, 12, 0xd8d6cb, 0x6b3e2c);
+makeBuilding(-38, -35, 12, 12, 10, 0xccc8bd, 0x7a4a35);
+makeBuilding(-20, -18, 14, 8, 9, 0xd0d3c8, 0x5e3625);
+makeBuilding(-38, -18, 14, 8, 8, 0xccc8bd, 0x7a4a35);
+makeBuilding(-20, 18, 14, 8, 7, 0xc8ccc0, 0x654030);
+makeBuilding(-38, 18, 14, 8, 8, 0xd8d6cb, 0x7a4a35);
+makeBuilding(-20, 35, 14, 12, 9, 0xd8d6cb, 0x5e3625);
+makeBuilding(-38, 35, 14, 12, 8, 0xccc8bd, 0x7a4a35);
+// 東側
+makeBuilding(10, -35, 8, 18, 8, 0xc4c4b8, 0x6b3e2c);
+makeBuilding(22, -35, 8, 18, 7, 0xb8b8a8, 0x5e3625);
+makeBuilding(10, -16, 8, 10, 9, 0xf2c9b0, 0x8a4525);  // ピンクっぽい (SHIN-EI ビル)
+makeBuilding(22, -10, 8, 18, 6, 0xc8c4b8, 0x7a4a35);
+makeBuilding(10, 15, 8, 20, 7, 0xc8c4b8, 0x654030);
+makeBuilding(22, 15, 8, 12, 8, 0xd0c8bc, 0x7a4a35);
+makeBuilding(10, 35, 8, 12, 6, 0xb8b8a8, 0x5e3625);
+makeBuilding(22, 35, 8, 12, 7, 0xc8c4b8, 0x7a4a35);
+
+// 青シート建設足場
+const blueSheet = new THREE.Mesh(
+  new THREE.BoxGeometry(0.3, 4.2, 8),
+  new THREE.MeshStandardMaterial({ color: 0x1a5d8a, roughness: 0.65, metalness: 0.1 })
+);
+blueSheet.position.set(3.5, 2.1, 9);
+blueSheet.castShadow = true;
+scene.add(blueSheet);
+// 足場の骨組み (細いシリンダ)
+for (let i = 0; i < 4; i++) {
+  const post = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.06, 0.06, 4.5),
+    new THREE.MeshStandardMaterial({ color: 0x888, roughness: 0.5, metalness: 0.7 })
+  );
+  post.position.set(3.6, 2.25, 5.5 + i * 2);
+  post.castShadow = true;
+  scene.add(post);
+}
+
+// === 木 (改良: 円錐+球で松風) ===
+function makeTree(x, z, s = 1.0) {
+  const group = new THREE.Group();
+  const trunk = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.14 * s, 0.22 * s, 1.7 * s),
+    new THREE.MeshStandardMaterial({ color: 0x4a2f1f, roughness: 0.95 })
+  );
+  trunk.position.y = 0.85 * s;
+  trunk.castShadow = true;
+  group.add(trunk);
+  // 葉 (重なり)
+  for (let i = 0; i < 3; i++) {
+    const leaves = new THREE.Mesh(
+      new THREE.SphereGeometry((1.0 + i * 0.1) * s),
+      new THREE.MeshStandardMaterial({ color: 0x3a6028 + i * 0x1, roughness: 0.95 })
+    );
+    leaves.position.set((Math.random() - 0.5) * 0.3, (1.8 + i * 0.5) * s, (Math.random() - 0.5) * 0.3);
+    leaves.castShadow = true;
+    group.add(leaves);
+  }
+  group.position.set(x, 0, z);
+  scene.add(group);
+}
+makeTree(-7, -28); makeTree(7, -22); makeTree(-7, 28, 1.1); makeTree(7, 28);
+makeTree(-15, 0, 0.9); makeTree(15, 0, 0.9);
+makeTree(-9, -10); makeTree(9, 25);
+
+// =========================================================================
+// 車両モデル (改良: ヘッドライト、グリル、ホイール詳細、サイドミラー)
+// =========================================================================
+function makeSUV(opts) {
+  const { length, width, height, color, accentColor, label, plateText, hasGrille } = opts;
+  const group = new THREE.Group();
+
+  // メタリック塗装
+  const paintMat = new THREE.MeshStandardMaterial({
+    color, roughness: 0.32, metalness: 0.7, envMapIntensity: 1.5
+  });
+
+  // メインボディ (下半分)
+  const bodyHeight = height * 0.5;
+  const body = new THREE.Mesh(new THREE.BoxGeometry(width, bodyHeight, length), paintMat);
+  body.position.y = bodyHeight / 2 + 0.42;
+  body.castShadow = true;
+  body.receiveShadow = true;
+  group.add(body);
+
+  // キャビン (上半分、少し小さい)
+  const cabinHeight = height * 0.42;
+  const cabin = new THREE.Mesh(
+    new THREE.BoxGeometry(width * 0.94, cabinHeight, length * 0.58),
+    paintMat
+  );
+  cabin.position.set(0, bodyHeight + 0.42 + cabinHeight / 2, -length * 0.06);
+  cabin.castShadow = true;
+  group.add(cabin);
+
+  // ウインドウ (黒っぽい、メタリック)
+  const glassMat = new THREE.MeshStandardMaterial({
+    color: 0x0a0a14, roughness: 0.05, metalness: 1.0, envMapIntensity: 2.0,
+    transparent: true, opacity: 0.75
+  });
+  // 前面 (フロントガラス)
+  const windshield = new THREE.Mesh(
+    new THREE.BoxGeometry(width * 0.86, cabinHeight * 0.78, 0.03),
+    glassMat
+  );
+  windshield.position.set(0, bodyHeight + 0.42 + cabinHeight * 0.45, -length * 0.06 + length * 0.29);
+  group.add(windshield);
+  // 後面
+  const rearGlass = new THREE.Mesh(
+    new THREE.BoxGeometry(width * 0.86, cabinHeight * 0.7, 0.03),
+    glassMat
+  );
+  rearGlass.position.set(0, bodyHeight + 0.42 + cabinHeight * 0.5, -length * 0.06 - length * 0.29);
+  group.add(rearGlass);
+  // 側面 (左右)
+  [-width * 0.475, width * 0.475].forEach(sx => {
+    const sideGlass = new THREE.Mesh(
+      new THREE.BoxGeometry(0.03, cabinHeight * 0.7, length * 0.52),
+      glassMat
+    );
+    sideGlass.position.set(sx, bodyHeight + 0.42 + cabinHeight * 0.5, -length * 0.06);
+    group.add(sideGlass);
+  });
+
+  // ヘッドライト (前方、白く光る)
+  const headlightMat = new THREE.MeshStandardMaterial({
+    color: 0xfff8e0, emissive: 0xfff8e0, emissiveIntensity: 0.8, roughness: 0.2
+  });
+  [[-width * 0.32, length / 2], [width * 0.32, length / 2]].forEach(([hx, hz]) => {
+    const hl = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.18, 0.06), headlightMat);
+    hl.position.set(hx, bodyHeight * 0.55 + 0.42, hz);
+    group.add(hl);
+  });
+
+  // テールライト (後方、赤く光る)
+  const taillightMat = new THREE.MeshStandardMaterial({
+    color: 0xff2020, emissive: 0xff2020, emissiveIntensity: 0.6, roughness: 0.3
+  });
+  [[-width * 0.32, -length / 2], [width * 0.32, -length / 2]].forEach(([tx, tz]) => {
+    const tl = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.16, 0.06), taillightMat);
+    tl.position.set(tx, bodyHeight * 0.6 + 0.42, tz);
+    group.add(tl);
+  });
+
+  // フロントグリル (黒い細かい縦線)
+  if (hasGrille !== false) {
+    const grilleGroup = new THREE.Group();
+    for (let i = 0; i < 7; i++) {
+      const bar = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.3, 0.03),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.4, metalness: 0.5 })
+      );
+      bar.position.x = -width * 0.22 + i * (width * 0.44 / 6);
+      grilleGroup.add(bar);
+    }
+    grilleGroup.position.set(0, bodyHeight * 0.35 + 0.42, length / 2 + 0.01);
+    group.add(grilleGroup);
+  }
+
+  // サイドミラー
+  const mirrorMat = new THREE.MeshStandardMaterial({
+    color: accentColor || color, roughness: 0.3, metalness: 0.5
+  });
+  [[-width / 2 - 0.04, 0.05], [width / 2 + 0.04, 0.05]].forEach(([mx, mz]) => {
+    const mirror = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, 0.16), mirrorMat);
+    mirror.position.set(mx, bodyHeight + 0.42 + cabinHeight * 0.3, mz + length * 0.14);
+    mirror.castShadow = true;
+    group.add(mirror);
+  });
+
+  // ホイール (タイヤ + リム)
+  const tireMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.85, metalness: 0.05 });
+  const rimMat = new THREE.MeshStandardMaterial({ color: 0xc8c8c8, roughness: 0.3, metalness: 0.9 });
+  const wb = length * 0.32;
+  const tw = width * 0.46;
+  [[tw, -wb], [-tw, -wb], [tw, wb], [-tw, wb]].forEach(([wx, wz]) => {
+    const tire = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.38, 0.38, 0.26),
+      tireMat
+    );
+    tire.position.set(wx, 0.38, wz);
+    tire.rotation.z = Math.PI / 2;
+    tire.castShadow = true;
+    group.add(tire);
+    // リム (内側、銀色)
+    const rim = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.24, 0.24, 0.27),
+      rimMat
+    );
+    rim.position.set(wx, 0.38, wz);
+    rim.rotation.z = Math.PI / 2;
+    group.add(rim);
+  });
+
+  // ナンバープレート
+  if (plateText) {
+    const pc = document.createElement('canvas');
+    pc.width = 256; pc.height = 96;
+    const pctx = pc.getContext('2d');
+    pctx.fillStyle = '#ffffff';
+    pctx.fillRect(0, 0, 256, 96);
+    pctx.strokeStyle = '#222'; pctx.lineWidth = 4;
+    pctx.strokeRect(2, 2, 252, 92);
+    pctx.fillStyle = '#222'; pctx.font = 'bold 36px sans-serif'; pctx.textAlign = 'center';
+    pctx.fillText(plateText, 128, 62);
+    const ptex = new THREE.CanvasTexture(pc);
+    const plate = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.55, 0.2),
+      new THREE.MeshStandardMaterial({ map: ptex })
+    );
+    plate.position.set(0, 0.55, -length / 2 - 0.01);
+    plate.rotation.y = Math.PI;
+    group.add(plate);
+  }
+
+  // ラベル (sprite)
+  const lc = document.createElement('canvas');
+  lc.width = 256; lc.height = 64;
+  const lctx = lc.getContext('2d');
+  lctx.fillStyle = 'rgba(0,0,0,0.75)';
+  lctx.fillRect(0, 0, 256, 64);
+  lctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  lctx.lineWidth = 2;
+  lctx.strokeRect(1, 1, 254, 62);
+  lctx.fillStyle = '#fff';
+  lctx.font = 'bold 32px sans-serif';
+  lctx.textAlign = 'center';
+  lctx.fillText(label, 128, 44);
+  const ltex = new THREE.CanvasTexture(lc);
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: ltex, depthTest: false }));
+  sprite.scale.set(3, 0.75, 1);
+  sprite.position.y = height + 1.2;
+  sprite.renderOrder = 999;
+  group.add(sprite);
+
+  return group;
+}
+
+const johnny = makeSUV({
+  length: 4.71, width: 1.86, height: 1.74,
+  color: 0x1a73e8, accentColor: 0x0d47a1,
+  label: 'A', plateText: 'A'
+});
+scene.add(johnny);
+
+const shibata = makeSUV({
+  length: 5.02, width: 2.01, height: 1.97,
+  color: 0x1a1a1c, accentColor: 0x000000,
+  label: 'B', plateText: 'B', hasGrille: true
+});
+scene.add(shibata);
+
+const van1 = makeSUV({
+  length: 4.2, width: 1.7, height: 1.95,
+  color: 0xf2f2f2, accentColor: 0xcccccc,
+  label: '信号待ち①', plateText: '-'
+});
+// 信号待ち車両①: 分析班仕様 (-1.5, -14.5) 信号機 z=-12 の停止線手前、② から 14.5m 北
+van1.position.set(-1.5, 0, -14.5);
+van1.rotation.y = Math.PI;
+scene.add(van1);
+
+const van2 = makeSUV({
+  length: 4.4, width: 1.8, height: 1.55,
+  color: 0xc8c8c8, accentColor: 0xa8a8a8,
+  label: '信号待ち②', plateText: '-'
+});
+// 信号待ち車両②: ①の 4m 後ろ
+van2.position.set(-1.5, 0, -18.5);
+van2.rotation.y = Math.PI;
+scene.add(van2);
+
+const shinei = makeSUV({
+  length: 4.5, width: 1.9, height: 2.4,
+  color: 0xfbbc04, accentColor: 0xc88a00,
+  label: '工事車両', plateText: '-', hasGrille: true
+});
+shinei.position.set(1.5, 0, 8);
+shinei.rotation.y = 0;
+scene.add(shinei);
+
+// 工事コーン (オレンジ + 白帯)
+function makeCone(x, z) {
+  const group = new THREE.Group();
+  const cone = new THREE.Mesh(
+    new THREE.ConeGeometry(0.22, 0.6, 16),
+    new THREE.MeshStandardMaterial({ color: 0xff8a3a, roughness: 0.6 })
+  );
+  cone.position.y = 0.3;
+  cone.castShadow = true;
+  group.add(cone);
+  // 白帯
+  for (let i = 0; i < 2; i++) {
+    const band = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.18 - i * 0.06, 0.16 - i * 0.06, 0.06),
+      new THREE.MeshStandardMaterial({ color: 0xfafafa, roughness: 0.5 })
+    );
+    band.position.y = 0.15 + i * 0.25;
+    group.add(band);
+  }
+  group.position.set(x, 0, z);
+  scene.add(group);
+}
+makeCone(2.5, 5); makeCone(0.5, 5);
+makeCone(2.5, 12); makeCone(0.5, 12);
+
+// === 誘導員 (改良: ジャケット+ヘルメット+棒) ===
+function makeGuide(x, z) {
+  const group = new THREE.Group();
+  // 脚
+  const legs = new THREE.Mesh(
+    new THREE.BoxGeometry(0.35, 0.7, 0.25),
+    new THREE.MeshStandardMaterial({ color: 0x222, roughness: 0.8 })
+  );
+  legs.position.y = 0.35;
+  legs.castShadow = true;
+  group.add(legs);
+  // ジャケット (蛍光オレンジ)
+  const jacket = new THREE.Mesh(
+    new THREE.BoxGeometry(0.45, 0.7, 0.3),
+    new THREE.MeshStandardMaterial({ color: 0xff7820, emissive: 0xff5500, emissiveIntensity: 0.2, roughness: 0.7 })
+  );
+  jacket.position.y = 1.05;
+  jacket.castShadow = true;
+  group.add(jacket);
+  // 反射ベスト (白い帯)
+  const strap = new THREE.Mesh(
+    new THREE.BoxGeometry(0.46, 0.06, 0.31),
+    new THREE.MeshStandardMaterial({ color: 0xeeeeee, emissive: 0xffffff, emissiveIntensity: 0.4 })
+  );
+  strap.position.y = 1.15;
+  group.add(strap);
+  // 頭
+  const head = new THREE.Mesh(
+    new THREE.SphereGeometry(0.16, 16, 16),
+    new THREE.MeshStandardMaterial({ color: 0xf4d4b0, roughness: 0.6 })
+  );
+  head.position.y = 1.6;
+  head.castShadow = true;
+  group.add(head);
+  // ヘルメット (白)
+  const helmet = new THREE.Mesh(
+    new THREE.SphereGeometry(0.19, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2.2),
+    new THREE.MeshStandardMaterial({ color: 0xfafafa, roughness: 0.4 })
+  );
+  helmet.position.y = 1.7;
+  helmet.castShadow = true;
+  group.add(helmet);
+  // 誘導棒 (赤、グロー)
+  const stick = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.025, 0.025, 1.0),
+    new THREE.MeshStandardMaterial({ color: 0xff2020, emissive: 0xff2020, emissiveIntensity: 1.0, roughness: 0.3 })
+  );
+  stick.position.set(0.35, 1.2, 0);
+  stick.rotation.z = -Math.PI / 5;
+  group.add(stick);
+
+  group.position.set(x, 0, z);
+  return group;
+}
+const guide = makeGuide(1.5, 3);
+scene.add(guide);
+
+// === 衝突地点マーカー ===
+function makeStarMarker(x, z, label) {
+  const shape = new THREE.Shape();
+  const outer = 1.3, inner = 0.55;
+  for (let i = 0; i < 10; i++) {
+    const r = i % 2 === 0 ? outer : inner;
+    const angle = (i / 10) * Math.PI * 2 - Math.PI / 2;
+    const px = Math.cos(angle) * r, py = Math.sin(angle) * r;
+    if (i === 0) shape.moveTo(px, py); else shape.lineTo(px, py);
+  }
+  shape.closePath();
+  const star = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(shape, { depth: 0.18, bevelEnabled: false }),
+    new THREE.MeshStandardMaterial({ color: 0xff3030, emissive: 0xff2020, emissiveIntensity: 0.8 })
+  );
+  star.rotation.x = -Math.PI / 2;
+  star.position.set(x, 0.06, z);
+  scene.add(star);
+
+  const c = document.createElement('canvas');
+  c.width = 768; c.height = 140;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = 'rgba(217, 48, 37, 0.92)';
+  ctx.fillRect(0, 0, 768, 140);
+  ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(2, 2, 764, 136);
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 52px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(label, 384, 88);
+  const tex = new THREE.CanvasTexture(c);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false }));
+  sp.scale.set(13, 2.4, 1);
+  sp.position.set(x, 6.5, z);
+  sp.renderOrder = 998;
+  scene.add(sp);
+}
+// ドラレコ SSOT: 衝突地点 (2.6, -2.25) 東側車線・②内、A 右側面 (中央〜後部) と B フロント左コーナーが擦り
+makeStarMarker(2.6, -2.25, '★ 衝突 09:28:18.5 (A 右側面 + B フロント左)');
+
+// =========================================================================
+// アニメーション
+// =========================================================================
+function lerp(a, b, t) { return a + (b - a) * t; }
+function smooth(t) { return t * t * (3 - 2 * t); }
+function clamp(t, lo, hi) { return Math.max(lo, Math.min(hi, t)); }
+
+const COLLISION_TIME = 2.5; // ドラレコ SSOT: 09:28:18.5 (before_collision t=0 起点で +2.5s)
+
+// ドラレコ分析班 SSOT: A は終始東側車線、車線変更なし、緩やか減速
+const A_keyframes = [
+  { t: 0.0, x: 2.0,  z: -25.0, heading: 0.0 },  // before_collision (09:28:16)
+  { t: 0.5, x: 2.05, z: -20.5, heading: 0.0 },
+  { t: 1.0, x: 2.1,  z: -16.0, heading: 0.0 },
+  { t: 1.5, x: 2.13, z: -12.0, heading: 0.0 },  // 減速開始
+  { t: 2.0, x: 2.17, z: -7.5,  heading: 0.0 },
+  { t: 2.4, x: 2.2,  z: -3.0,  heading: 0.0 },  // right_before (09:28:18.4)
+  { t: 2.5, x: 2.3,  z: -2.0,  heading: 0.0 },  // ★ 衝突 (09:28:18.5)
+  { t: 2.8, x: 2.3,  z: -1.6,  heading: 0.0 },
+  { t: 3.5, x: 2.3,  z: -1.0,  heading: 0.0 },  // stopped (09:28:19.5)
+  { t: 5.0, x: 2.3,  z: 0.0,   heading: 0.0 }
+];
+
+// B 軌跡 (ドラレコ + ジョニー体験統合): 西脇道で停止 → A 通過中に突発右折 → 東側車線で A 右側面と擦り合い
+//   ドラレコ SSOT: B は衝突瞬間まで両カメラ死角、衝突は t=2.5、A 右側面と並行擦り、B 衝突姿勢 = ほぼ南向き
+const B_keyframes = [
+  { t: 0.0, x: -10.0, z: -1.0, heading: Math.PI / 2 },  // 西脇道で東進
+  { t: 0.5, x: -7.5,  z: -1.0, heading: Math.PI / 2 },  // 減速
+  { t: 1.0, x: -5.0,  z: -1.0, heading: Math.PI / 2 },
+  { t: 1.3, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // 停止線到達、完全停止
+  { t: 1.8, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // ★ 静止中 (A 交差点侵入観察)
+  { t: 2.0, x: -3.5,  z: -1.0, heading: Math.PI / 2 },  // ★ まだ静止
+  { t: 2.1, x: -3.4,  z: -0.9, heading: 1.45 },         // ★ 突発発進 (A 通過中なのに右折開始)
+  { t: 2.3, x: -1.5,  z: -1.0, heading: 1.0 },          // 急加速右折カーブ
+  { t: 2.5, x: 1.5,   z: -2.0, heading: 0.3 },          // ★ 衝突: A の右側面 (x=2.3) に擦り、ほぼ南向き
+  { t: 2.8, x: 2.0,   z: -1.0, heading: 0.1 },          // 衝突後 A と並走停止へ
+  { t: 3.5, x: 2.2,   z: 0.5,  heading: 0.0 },          // stopped: B は A の真後ろやや右
+  { t: 5.0, x: 2.2,   z: 1.5,  heading: 0.0 }           // identification: ナンバー読める距離
+];
+
+// キーフレーム間の滑らかな補間 (Catmull-Rom-like、cubic Hermite)
+function interpKeyframes(kf, t) {
+  if (t <= kf[0].t) return kf[0];
+  if (t >= kf[kf.length - 1].t) return kf[kf.length - 1];
+  let i = 0;
+  for (; i < kf.length - 1; i++) {
+    if (t < kf[i + 1].t) break;
+  }
+  const k0 = kf[Math.max(0, i - 1)];
+  const k1 = kf[i];
+  const k2 = kf[i + 1];
+  const k3 = kf[Math.min(kf.length - 1, i + 2)];
+  const span = k2.t - k1.t;
+  if (span <= 0) return k2;
+  const u = (t - k1.t) / span;
+  // Catmull-Rom (centripetal)
+  function cr(p0, p1, p2, p3, u) {
+    const u2 = u * u;
+    const u3 = u2 * u;
+    return 0.5 * (
+      (2 * p1) +
+      (-p0 + p2) * u +
+      (2 * p0 - 5 * p1 + 4 * p2 - p3) * u2 +
+      (-p0 + 3 * p1 - 3 * p2 + p3) * u3
+    );
+  }
+  return {
+    x: cr(k0.x, k1.x, k2.x, k3.x, u),
+    z: cr(k0.z, k1.z, k2.z, k3.z, u),
+    heading: cr(k0.heading, k1.heading, k2.heading, k3.heading, u)
+  };
+}
+
+function setJohnny(t) {
+  const p = interpKeyframes(A_keyframes, t);
+  johnny.position.set(p.x, 0, p.z);
+  johnny.rotation.y = p.heading;
+}
+
+function setShibata(t) {
+  const p = interpKeyframes(B_keyframes, t);
+  shibata.position.set(p.x, 0, p.z);
+  shibata.rotation.y = p.heading;
+}
+
+// === 視点 ===
+let cameraMode = 'overhead';
+const camPresets = {
+  overhead: { pos: [0, 50, 30], target: [0, 0, 0] },
+  guide:    { pos: [1.5, 1.7, -2], target: [-1.5, 0.5, 2] },
+  cinema:   { pos: [22, 22, -22], target: [0, 1, 0] },
+};
+
+function applyPreset(name) {
+  const p = camPresets[name];
+  if (!p) return;
+  camera.position.set(...p.pos);
+  controls.target.set(...p.target);
+  controls.update();
+}
+
+function setCameraMode(mode) {
+  cameraMode = mode;
+  document.querySelectorAll('#controls button[id^="cam-"]').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById(`cam-${mode === 'fp-johnny' ? 'johnny-fp' : mode === 'fp-shibata' ? 'shibata-fp' : mode}`);
+  if (btn) btn.classList.add('active');
+  if (camPresets[mode]) {
+    applyPreset(mode);
+    controls.enabled = true;
+  } else {
+    controls.enabled = playing ? false : true;
+  }
+}
+
+let cameraJustEnabled = false;
+function updateFPCamera(mode) {
+  let target;
+  if (mode === 'fp-johnny') target = johnny;
+  else if (mode === 'fp-shibata') target = shibata;
+  else return;
+
+  const isJohnny = mode === 'fp-johnny';
+  const seatX = isJohnny ? 0.45 : 0.5;
+  const seatY = isJohnny ? 1.35 : 1.40;
+  const seatZ = isJohnny ? 0.6 : 0.7;
+
+  target.updateMatrixWorld(true);
+  const seat = new THREE.Vector3(seatX, seatY, seatZ);
+  seat.applyMatrix4(target.matrixWorld);
+  const lookAt = new THREE.Vector3(0, 1.0, 10);
+  lookAt.applyMatrix4(target.matrixWorld);
+
+  if (playing) {
+    camera.position.lerp(seat, 0.85);
+    controls.target.lerp(lookAt, 0.85);
+    controls.enabled = false;
+  } else {
+    if (!cameraJustEnabled) {
+      camera.position.copy(seat);
+      const otherCar = isJohnny ? shibata : johnny;
+      controls.target.copy(otherCar.position).add(new THREE.Vector3(0, 1, 0));
+      controls.enabled = true;
+      cameraJustEnabled = true;
+    }
+  }
+}
+
+document.getElementById('cam-overhead').onclick = () => { cameraJustEnabled = false; setCameraMode('overhead'); };
+document.getElementById('cam-johnny-fp').onclick = () => { cameraJustEnabled = false; setCameraMode('fp-johnny'); };
+document.getElementById('cam-shibata-fp').onclick = () => { cameraJustEnabled = false; setCameraMode('fp-shibata'); };
+document.getElementById('cam-guide').onclick = () => { cameraJustEnabled = false; setCameraMode('guide'); };
+document.getElementById('cam-cinema').onclick = () => { cameraJustEnabled = false; setCameraMode('cinema'); };
+
+let t = 0;
+let playing = false;
+let lastTs = 0;
+let collisionTriggered = false;
+
+const playBtn = document.getElementById('play');
+const collisionBanner = document.getElementById('collision-banner');
+
+playBtn.onclick = () => {
+  playing = !playing;
+  playBtn.textContent = playing ? '⏸ 停止' : '▶ 再生';
+  lastTs = performance.now();
+  if (playing) {
+    collisionBanner.classList.remove('show');
+    collisionTriggered = false;
+    cameraJustEnabled = false;
+    if (cameraMode === 'fp-johnny' || cameraMode === 'fp-shibata') controls.enabled = false;
+  } else {
+    if (cameraMode === 'fp-johnny' || cameraMode === 'fp-shibata') controls.enabled = true;
+  }
+};
+
+document.getElementById('reset').onclick = () => {
+  t = 0; playing = false; collisionTriggered = false; cameraJustEnabled = false;
+  playBtn.textContent = '▶ 再生';
+  collisionBanner.classList.remove('show');
+  setJohnny(t); setShibata(t);
+  document.getElementById('time').textContent = `t=${t.toFixed(1)}s`;
+};
+
+function loop(ts) {
+  if (playing) {
+    const dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+    t += dt;
+    if (!collisionTriggered && t >= COLLISION_TIME) {
+      t = COLLISION_TIME;
+      playing = false;
+      collisionTriggered = true;
+      playBtn.textContent = '▶ 再生';
+      collisionBanner.classList.add('show');
+      if (cameraMode === 'fp-johnny' || cameraMode === 'fp-shibata') {
+        cameraJustEnabled = false;
+      }
+      setTimeout(() => collisionBanner.classList.remove('show'), 4500);
+    }
+    if (t > 5.5) { t = 0; collisionTriggered = false; }
+    setJohnny(t); setShibata(t);
+    document.getElementById('time').textContent = `t=${t.toFixed(1)}s`;
+  }
+  if (cameraMode === 'fp-johnny' || cameraMode === 'fp-shibata') updateFPCamera(cameraMode);
+  controls.update();
+  composer.render();
+  requestAnimationFrame(loop);
+}
+
+setJohnny(0);
+setShibata(0);
+setCameraMode('overhead');
+requestAnimationFrame(loop);
+
+// ローディング解除
+setTimeout(() => {
+  document.getElementById('loading').classList.add('hidden');
+}, 600);
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+  bloomPass.resolution.set(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>

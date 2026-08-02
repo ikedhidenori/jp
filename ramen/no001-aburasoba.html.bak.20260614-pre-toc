@@ -231,17 +231,6 @@ details[open] .logic-toggle::before{content:"▼ ";}
 .chapter-fig{margin:22px 0 6px;}
 .chapter-img{display:block; width:100%; max-width:100%; height:auto; border-radius:4px; border:1px solid var(--rule);}
 .chapter-cap{font-family:"Noto Serif JP",serif; font-size:12px; font-weight:700; color:var(--cha); letter-spacing:.07em; margin:7px 2px 0;}
-/* entry layer: TL;DR + 目次 (2026-06-14、長尺の入口レイヤー) */
-.tldr{background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--shu); border-radius:5px; padding:16px 18px; margin:22px 0;}
-.tldr .tl-h{font-family:"Noto Serif JP",serif; font-size:13px; font-weight:700; color:var(--cha); letter-spacing:.06em; margin-bottom:10px;}
-.tldr .tl-num{font-size:13px; line-height:1.72; margin-bottom:7px;}
-.tldr .tl-num b{color:var(--shu);}
-.tldr .tl-who{font-size:12px; color:var(--sub); border-top:1px solid var(--rule); padding-top:9px; margin-top:4px; line-height:1.75;}
-.toc{margin:16px 0 6px; border:1px solid var(--rule); border-radius:5px; padding:12px 16px; background:var(--card);}
-.toc summary{font-family:"Noto Serif JP",serif; font-size:13px; font-weight:700; color:var(--cha); cursor:pointer; letter-spacing:.06em;}
-.toc ol{margin:11px 0 2px; padding-left:1.5em; font-size:12.5px; line-height:1.95;}
-.toc a{color:var(--ink); text-decoration:none; border-bottom:1px solid transparent;}
-.toc a:hover{border-bottom-color:var(--shu);}
 
 /* ===== 自己チェックリスト (2026-06-13 v2 追加) ===== */
 .checklist{background:var(--card); border:1px solid var(--rule); border-top:3px solid var(--kon); border-radius:4px; padding:18px 18px 14px; margin:30px 0 8px;}
@@ -312,33 +301,9 @@ details[open] .logic-toggle::before{content:"▼ ";}
     <p class="secprose">この記事は、油そば一杯を検死台に乗せるところから始める。一杯の原価と損益を解剖し、そのうえで視野を一段引く。油そばは単独の業態ではなく、「スープを炊かない」という一つの選択から枝分かれした、一群の入口にすぎないからだ。</p>
   </section>
 
-  <!-- ============ ENTRY LAYER (TL;DR + 目次) 2026-06-14 ============ -->
-  <section class="tldr" aria-label="この標本の要点">
-    <div class="tl-h">この標本で分かる3つの数字</div>
-    <div class="tl-num"><b>16.7〜18% ↔ 30〜34%</b> ── 油そばの原価率。仕入れだけ見るか、容器・廃棄・オペレーションまで含めるかで割れる（どちらかに寄せず両論で記録する）。</div>
-    <div class="tl-num"><b>880円</b> ── 価格の天井。安さがブランドの業態では、値上げの余地がほぼない。</div>
-    <div class="tl-num"><b>72件</b> ── 2024年のラーメン店倒産、過去最多 <span class="t t-gov">gov-stat</span>。原価が軽い業態ほど、価格競争に引きずり込まれやすい。</div>
-    <div class="tl-who">読むべき人＝開業前に損益の骨格を確かめたい人／既存店の業態選択を数字で疑いたい人。　読まなくていい人＝レシピや接客の参考を探している人（この記事に技法の処方箋はない）。先に下の目次から、必要な節だけ読んでも構わない。</div>
-  </section>
-
-  <details class="toc" open>
-    <summary>目次</summary>
-    <ol>
-      <li><a href="#s1-kansatsu">観察 ― スープのない厨房</a></li>
-      <li><a href="#s2-genka">原価の解剖 ― スープゼロという三重の引き算</a></li>
-      <li><a href="#s3-soneki">損益の構造 ― 八百八十円という天井</a></li>
-      <li><a href="#s4-recipe">なぜレシピが堀にならないのか</a></li>
-      <li><a href="#s5-shiya">視野を引く ― 油そばだけではない、スープレスという一群</a></li>
-      <li><a href="#s6-senryaku">一原理・二戦略 ― 浮いた余力をどこに振るか</a></li>
-      <li><a href="#s7-hikaku">比較と布置 ― 同じ原理が、価格で二・六倍に広がる</a></li>
-      <li><a href="#s8-seizon">生存と撤退 ― 相対的に強い、無傷ではない</a></li>
-      <li><a href="#s9-gani">含意 ― 同じ引き算が、規模の店と味の店を分ける</a></li>
-    </ol>
-  </details>
-
   <!-- ============ §1 観察 ============ -->
   <section>
-    <div class="shead" id="s1-kansatsu"><span class="sn">§1</span><h2>観察 ― スープのない厨房</h2></div>
+    <div class="shead"><span class="sn">§1</span><h2>観察 ― スープのない厨房</h2></div>
     <p class="secprose">昼の十一時半。大学の正門から徒歩三分、雑居ビルの一階。十四坪の店に、客が入りはじめる。券売機の前で迷う時間は短い。並、大、ダブル。サイズが違っても値段は同じだから、迷うのは麺の量だけだ。</p>
     <p class="secprose">厨房を見る。寸胴がない。ラーメン屋にあるはずの、骨を何時間も炊く大きな鍋が、ここにはない。あるのは麺を茹でる湯と、タレの容器と、調合された油の瓶。注文が通ると、麺を茹で、湯を切り、タレと油で和えて、具をのせる。提供までの動きに、よどみがない。</p>
     <p class="secprose">ラーメンが「スープに何時間かけたか」を競う料理だとすれば、油そばはその土俵に上がらない。スープという工程ごと、捨てている。捨てたぶんだけ、厨房は軽い。一時間ほどの仕込みで店が開き、未経験の手でも味がぶれない。「給油しに行く」という言葉が客のあいだで流通するほど、その軽さは支持されてきた <span class="t t-press">press</span>。</p>
@@ -351,7 +316,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
 
   <!-- ============ §2 原価の解剖 ============ -->
   <section>
-    <div class="shead" id="s2-genka"><span class="sn">§2</span><h2>原価の解剖 ― スープゼロという三重の引き算</h2></div>
+    <div class="shead"><span class="sn">§2</span><h2>原価の解剖 ― スープゼロという三重の引き算</h2></div>
     <figure class="chapter-fig"><img class="chapter-img" src="img/no001-ch2-genka-v4.jpg" alt="§2 原価の解剖 章扉 ― スープのない一杯を真上から検める現代図版"><figcaption class="chapter-cap">§2 原価の解剖 ― スープゼロという三重の引き算</figcaption></figure>
     <p class="secprose">一杯を分解する。スープがないという事実は、原価表の上で三つの引き算になって現れる。</p>
     <p class="secprose">第一に、食材費。骨も背脂もないから、その仕入れがゼロになる <span class="t t-interp">interpretation</span>。第二に、光熱費。寸胴を長時間炊き続けるガスと電気が要らない。第三に、労務費。仕込みの中心だった「炊き場」の人手と時間が消える。スープを持たないとは、原価の三つの源泉を同時に断つということだ。</p>
@@ -451,7 +416,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
 
   <!-- ============ §3 損益の構造 ============ -->
   <section>
-    <div class="shead" id="s3-soneki"><span class="sn">§3</span><h2>損益の構造 ― 八百八十円という天井</h2></div>
+    <div class="shead"><span class="sn">§3</span><h2>損益の構造 ― 八百八十円という天井</h2></div>
     <p class="secprose">原価が軽いなら、儲かるはずだ。図鑑が立ち止まるのは、ここからだ。</p>
     <p class="secprose">代表的な標本価格を置く。東京油組総本店は、並 (160g)・大 (240g)・ダブル (320g) のどのサイズでも、一律で八百八十円 <span class="t t-official">official</span>（日経クロストレンド 2025年4月）。量が二倍でも値段は変わらない。この「八百八十円」という数字は、ただのメニュー価格ではなく、業態の天井を示している。</p>
 
@@ -586,7 +551,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
 
   <!-- ============ §4 なぜレシピが堀にならないか ============ -->
   <section>
-    <div class="shead" id="s4-recipe"><span class="sn">§4</span><h2>なぜレシピが堀にならないのか</h2></div>
+    <div class="shead"><span class="sn">§4</span><h2>なぜレシピが堀にならないのか</h2></div>
     <p class="secprose">ここまでで、油そばが「原価が軽く、損益に余裕のある業態」だと見えてくる。では、その強さはどこから来て、なぜ続かないのか。鍵は、レシピが堀にならない、という一点にある。</p>
     <p class="secprose">ラーメンのスープは、何時間も炊く暗黙知のかたまりだ。透明度、炊き時間、配合。簡単には真似できないから、それ自体が参入障壁、つまり堀になる。油そばには、その堀がない。タレと調合油の配合が肝だが、配合は比較的たやすく模倣・リバースされる。そして業態の本質は「単純なオペレーションで、誰でも均質に作れる」ことにある <span class="t t-interp">interpretation</span>。</p>
     <p class="secprose">ここに、この業態の二面性がある。「誰でも作れる」ことは、未経験者でも開けて味がぶれない、という業態成立の理由であると同時に、味では誰も堀を築けない、という弱点でもある。同じ事実が、強みと弱みの両方になっている <span class="t t-interp">interpretation</span>。</p>
@@ -607,7 +572,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
 
   <!-- ============ §5 視野を引く ============ -->
   <section>
-    <div class="shead" id="s5-shiya"><span class="sn">§5</span><h2>視野を引く ― 油そばだけではない、スープレスという一群</h2></div>
+    <div class="shead"><span class="sn">§5</span><h2>視野を引く ― 油そばだけではない、スープレスという一群</h2></div>
     <figure class="chapter-fig"><img class="chapter-img" src="img/no001-ch5-group-v4.jpg" alt="§5 スープレスという一群 章扉 ― 油そば・まぜそば・汁なし担々麺・台湾まぜそばを並べた現代図版"><figcaption class="chapter-cap">§5 視野を引く ― 油そばだけではない、スープレスという一群</figcaption></figure>
     <p class="secprose">ここまで、油そば一杯を解剖してきた。そろそろ、検死台から一歩離れて、棚の全体を見渡す。</p>
     <p class="secprose">油そばで観測した「スープゼロ＝三重の引き算」は、油そば固有の特性ではなかった。汁なし担々麺、台湾まぜそば、進化系油そば。これらを横並びにすると、見えてくるものがある。<b>いずれも「寸胴を炊かない」という一つの選択から枝分かれした、ひとつの群（クラスター）</b>なのだ。油そばは、その群の入口の標本にすぎない。</p>
@@ -632,7 +597,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
 
   <!-- ============ §6 一原理・二戦略 ============ -->
   <section>
-    <div class="shead" id="s6-senryaku"><span class="sn">§6</span><h2>一原理・二戦略 ― 浮いた余力をどこに振るか</h2></div>
+    <div class="shead"><span class="sn">§6</span><h2>一原理・二戦略 ― 浮いた余力をどこに振るか</h2></div>
     <p class="secprose">同じ原理から出発しながら、群は二つの方向へ分かれる。引き算で生まれた余力の、<b>投下先</b>が違うのだ。冒頭の問い ── 八百八十円と千三百円の差 ── の答えが、ここにある。</p>
     <p class="secprose">なお、この「二戦略」は、きれいに二つの箱へ分かれるという話ではない。連続したスペクトラムの上で、力点をどちらに置いたか、という理念型（ideal type）として読んでほしい <span class="t t-interp">interpretation</span>。</p>
 
@@ -654,7 +619,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
         <div class="body">
           <p>余力を、高単価のタレ・具・体験設計に振り、汁なしでも単価千円前後を成立させる型。消したスープ原価を別費目へ「再投資」する。</p>
           <ul>
-            <li><b>汁なし担々麺</b>：175°DENO 千円 <span class="t t-official">official</span>、ピリリ 千円 <span class="t t-press">press</span>、ほおずき 千三百円 <span class="t t-press">press</span>。芝麻醤の原価は使用量で大きく振れ、少量設計なら一杯20円台、40cc以上なら115円近くまで跳ねる <span class="t t-official">official</span><span class="t t-est">estimate</span>。原価率は約15〜25%へ下方修正済み。</li>
+            <li><b>汁なし担々麺</b>：175°DENO 千円 <span class="t t-official">official</span>、ピリリ 千円 <span class="t t-press">press</span>、ほおずき 千三百円 <span class="t t-press">press</span>。芝麻醤のタレは一杯80〜120円、総原価の35〜50%を占めると見られる <span class="t t-est">estimate</span></li>
             <li><b>台湾まぜそば</b>：麺屋はなび 1,090〜1,100円 <span class="t t-official">official</span>、チーズ台湾まぜそば 1,040円 <span class="t t-press">press</span>。台湾ミンチ60gは約134円 <span class="t t-official">official</span>。追い飯（白飯原価10〜20円 <span class="t t-est">estimate</span>）で体験を延長</li>
             <li><b>高付加価値油そば</b>：斑鳩のうにまぜそば 千円・時間限定 <span class="t t-press">press</span>、己巳はトリュフオイル漬け卵と数量限定 <span class="t t-press">press</span> <span class="t t-official">official</span>。一杯あたり原価は <span class="t t-need">要追加取材</span></li>
           </ul>
@@ -673,7 +638,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
 
   <!-- ============ §7 比較と布置 ============ -->
   <section>
-    <div class="shead" id="s7-hikaku"><span class="sn">§7</span><h2>比較と布置 ― 同じ原理が、価格で二・六倍に広がる</h2></div>
+    <div class="shead"><span class="sn">§7</span><h2>比較と布置 ― 同じ原理が、価格で二・六倍に広がる</h2></div>
     <p class="secprose">群を一枚の表に並べる。戦略Bの原価率が、戦略A（十六〜十八パーセント）を大きく上回る点が核心だ。</p>
 
     <div class="tbl-scroll">
@@ -701,8 +666,8 @@ details[open] .logic-toggle::before{content:"▼ ";}
         </tr>
         <tr>
           <td>汁なし担々麺</td><td>800〜1,300円 <span class="t t-press">press</span><span class="t t-official">official</span></td>
-          <td>芝麻醤20〜115円/杯(使用量で大幅変動)+花椒・肉味噌 <span class="t t-official">official</span><span class="t t-est">estimate</span></td>
-          <td><span class="num">約15〜25%</span> <span class="t t-est">estimate</span></td>
+          <td>芝麻醤80〜120円/杯(芝麻醤2,000〜2,860円/kg)+花椒・肉味噌 <span class="t t-official">official</span></td>
+          <td><span class="num">約25〜33%</span> <span class="t t-est">estimate</span></td>
           <td class="col-strat"><span class="sB">B</span></td>
         </tr>
         <tr>
@@ -715,7 +680,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
     </table>
     </div>
 
-    <p class="secprose">戦略Bの一部、とくに台湾まぜそばの原価率は、通常ラーメン（二十五〜四十パーセント <span class="t t-press">press</span>）の水準まで近づく。スープを外して浮いた余力を、芝麻醤や台湾ミンチという高単価のタレ・具へ再投資した結果だ。ただし汁なし担々麺は芝麻醤の使用量で幅が大きく、少量設計では油そば上限と重なる。高原価が最も明確なのは台湾まぜそばである <span class="t t-est">estimate</span><span class="t t-interp">interpretation</span>。</p>
+    <p class="secprose">戦略Bの原価率は、通常ラーメン（二十五〜四十パーセント <span class="t t-press">press</span>）の水準まで近づく。スープを外して浮いた余力を、芝麻醤や台湾ミンチという高単価のタレ・具へ再投資した結果だ。それでも光熱費・仕込み労務・廃棄が構造的に軽いため、営業利益率は維持されやすい <span class="t t-interp">interpretation</span>。</p>
     <p class="secprose">価格と職人特化の二軸で布置すると、同じ群が広い範囲に展開していることがわかる。</p>
 
     <figure class="svg-fig">
@@ -773,7 +738,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
         <text x="630" y="503" font-size="14" fill="#5c564c" text-anchor="middle">¥980〜1,100／F26〜38%</text>
         <circle cx="720" cy="420" r="11" fill="#5f6b3e"/>
         <text x="720" y="403" font-size="16" font-weight="700" fill="#23201b" text-anchor="middle">汁なし担々麺</text>
-        <text x="720" y="448" font-size="14" fill="#5c564c" text-anchor="middle">¥1,000〜1,300／F15〜25%</text>
+        <text x="720" y="448" font-size="14" fill="#5c564c" text-anchor="middle">¥1,000〜1,300／F25〜33%</text>
         <text x="745" y="168" font-size="14" fill="#5c564c" text-anchor="middle" font-style="italic">スープが主役の</text>
         <text x="745" y="186" font-size="14" fill="#5c564c" text-anchor="middle" font-style="italic">名店域は届きにくい</text>
         <rect x="140" y="606" width="15" height="15" fill="#b5402e"/>
@@ -783,7 +748,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
         <text x="492" y="619" font-size="16" font-weight="700" fill="#5f6b3e">戦略B</text>
         <text x="545" y="619" font-size="14" fill="#544e44">タレ・具で付加価値 → 単価アップ</text>
         <line x1="48" y1="638" x2="832" y2="638" stroke="#8a8175" stroke-width="0.75"/>
-        <text x="48" y="656" font-size="11" fill="#5c564c">出典: ぶらぶら¥500均一・東京油組¥880均一・歌志軒原価約30% [official]／台湾まぜそば¥980〜1,100・F26〜38%・汁なし担々麺¥1,000〜1,300・F15〜25% [official/press/estimate]／個人系F16〜18% [press]。</text>
+        <text x="48" y="656" font-size="11" fill="#5c564c">出典: ぶらぶら¥500均一・東京油組¥880均一・歌志軒原価約30% [official]／台湾まぜそば¥980〜1,100・F26〜38%・汁なし担々麺¥1,000〜1,300・F25〜33% [official/press/estimate]／個人系F16〜18% [press]。</text>
         <text x="48" y="672" font-size="11" fill="#5c564c">「死の谷」=900円前後×差別化中途半端の中間帯 [interpretation]。A↔Bは連続スペクトラム上の力点差（理念型）。Y軸位置は構造解釈 [interpretation]。</text>
       </svg>
       <figcaption><b>価格 × 職人特化の布置</b>。低価格・規模効率の戦略A（朱）と、高単価・職人特化の戦略B（鈍緑）が、同一原理から価格で約2.6倍に展開する。中央の朱の帯は<b>「死の谷」── 900円前後で差別化が中途半端な中間価格帯</b>で、ここが構造的に最も撤退リスクが高い。主要業態がこの帯の<b>外</b>に分布していること自体、「既存店に避けられている」空白＝危険信号と読める。<span class="src">布置は <span class="t t-interp">interpretation</span>／各点の価格・原価率は <span class="t t-official">official</span><span class="t t-press">press</span><span class="t t-est">estimate</span> 混在（本文 tier 参照）</span></figcaption>
@@ -801,7 +766,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
 
   <!-- ============ §8 生存と撤退 ============ -->
   <section>
-    <div class="shead" id="s8-seizon"><span class="sn">§8</span><h2>生存と撤退 ― 相対的に強い、無傷ではない</h2></div>
+    <div class="shead"><span class="sn">§8</span><h2>生存と撤退 ― 相対的に強い、無傷ではない</h2></div>
     <figure class="chapter-fig"><img class="chapter-img" src="img/no001-ch8-survival-v4.jpg" alt="§8 生存と撤退 章扉 ― 空に近い器に箸を渡した静かな現代図版"><figcaption class="chapter-cap">§8 生存と撤退 ― 相対的に強い、無傷ではない</figcaption></figure>
     <p class="secprose">二〇二四年、ラーメン店の倒産は過去最多を記録した。帝国データバンクの集計で七十二件、前年の五十三件から三割超の増加（負債千万円以上の法的整理）<span class="t t-gov">gov-stat</span>。東京商工リサーチは別スコープで五十七件 <span class="t t-press">press</span>。二〇二三年度に業績が悪化した店は六十一・五パーセント <span class="t t-gov">gov-stat</span>。主因は、人件費と原材料の高騰を、千円の壁のせいで価格に転嫁しきれないことだった。</p>
 
@@ -834,7 +799,7 @@ details[open] .logic-toggle::before{content:"▼ ";}
 
   <!-- ============ §9 含意 ============ -->
   <section class="closing-sec">
-    <div class="shead" id="s9-gani"><span class="sn">§9</span><h2>含意 ― 同じ引き算が、規模の店と味の店を分ける</h2></div>
+    <div class="shead"><span class="sn">§9</span><h2>含意 ― 同じ引き算が、規模の店と味の店を分ける</h2></div>
     <p class="secprose">冒頭の問いに戻る。八百八十円で回す店と、千三百円で売る店の違いは何か。</p>
     <p class="secprose">スープを炊かない、という引き算は、どの店にとっても同じだった。違ったのは、引き算で浮いた余力の行き先だ。八百八十円の油そばは、それを回転と価格据置へ流し、規模で生きる店になった。千三百円の汁なし担々麺は、同じ余力を芝麻醤（一キロあたり二千〜二千八百六十円 <span class="t t-official">official</span>）というタレへ注ぎ込み、味で立つ店になった。スープを消した一手が、片方を「規模の店」に、もう片方を「味の店」に分けた。</p>
     <p class="secprose">ラーメン屋が骨を炊き、その暗黙知を堀にして、千円の壁と格闘しながら過去最多の倒産を出していくなかで、この群は寸胴ごと捨てることで軽さを手に入れた。原価率の余白、仕込み一時間、八坪、未経験者でも回せる軽さ。だがその軽さは、誰でも真似できることと同じ意味でもあった。味で堀を築けない店が最後に握るのは、立地と規模、あるいは具とタレの差別化だけになる。</p>
@@ -855,14 +820,14 @@ details[open] .logic-toggle::before{content:"▼ ";}
       <div class="cta-card">
         <div class="card-ttl">ケース① <span>開業検討者</span></div>
         <div class="card-body">この図鑑で見た損益の構造（FL比率・損益分岐・二戦略・撤退四パターン）を、自分の候補立地と数字に当てはめた検証を、開業前に一度受けてみませんか。<br><br>次のシリーズ（No.002 汁なし担々麺 ほか）の先行通知と、開業相談のウェイトリスト登録を準備中です。</div>
-        <a class="cbtn" href="https://note.com/zukan_jp">noteプロフィールへ（暫定）</a>
-        <div class="cbtn-note">Kitフォーム準備中 ── 暫定でnoteプロフィールへ案内</div>
+        <a class="cbtn" href="#">開業相談ウェイトリストへ（準備中）</a>
+        <div class="cbtn-note">メール基盤準備中 ── 登録は開業前のみ受付予定</div>
       </div>
       <div class="cta-card">
         <div class="card-ttl">ケース② <span>既存店オーナー</span></div>
         <div class="card-body">自店の原価率・月商・戦略（A/B）を図鑑の比較表と照合し、「どこにズレがあるか」を構造的に診断します。<br><br>改善診断のウェイトリスト登録と、次の標本の先行通知を準備中です。</div>
-        <a class="cbtn" href="https://note.com/zukan_jp">noteプロフィールへ（暫定）</a>
-        <div class="cbtn-note">Kitフォーム準備中 ── 暫定でnoteプロフィールへ案内</div>
+        <a class="cbtn" href="#">改善診断ウェイトリストへ（準備中）</a>
+        <div class="cbtn-note">メール基盤準備中 ── 既存店オーナー限定受付予定</div>
       </div>
     </div>
   </div>

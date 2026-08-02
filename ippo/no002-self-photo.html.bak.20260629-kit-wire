@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一坪ビジネス図鑑 No.002 ｜ セルフ写真館</title>
+<!--
+  一坪ビジネス図鑑 / 共通デザイン規約 (トンマナ) — rev.2 (designer skill + AD監修反映)
+  Concept : 昭和の博物図鑑 × 現代データビジュアライゼーション
+  Voice   : 低体温・観察者・数字主語・非煽り・推定明示
+  Color   : paper #f4efe4 / ink #23201b / 朱(衰退/警告) #b5402e / 朱soft #d98a78 / 醤油茶 #80652f (AA 4.79:1) / 鈍緑(成長) #5b7553 / 紺 #1a3a5c = 構造図の箱・帯 (カバー画像整合の準トークン、チャート軸は墨 #23201b)
+  Type    : 見出し=Noto Serif JP / 本文・数値=Noto Sans JP
+  SVG rule: 1図1メッセージ / 高データインク比 / 直接ラベル / 色=意味 / 出典明記 / AIスロップ回避
+  SVG type-scale: 値=22-24 / 主要ラベル=17 / 軸・補助=16 (モバイル可読性 floor) / 長文は figcaption へ退避
+  ── No.002 = No.001 装丁踏襲 (2026-06-13 design-apply)。本文テキストは v1.1 + ¥54 統一版を逐語維持、装丁・構造マークアップのみ適用。CTA は note フォローURLへ暫定配線済み（メール配布フォームは Kit action URL 待ち）。
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4efe4; --paper2:#ece2cf; --card:#fbf7ee;
+  --ink:#23201b; --sub:#6b6052; --rule:#d8ccb5; --rule2:#e7dcc6;
+  --shu:#b5402e; --shu-soft:#d98a78; --cha:#80652f; --midori:#4d6647; --kin:#c79a3b; --kon:#1a3a5c;
+  --maxw:760px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--paper); color:var(--ink); font-family:"Noto Sans JP",-apple-system,sans-serif; font-size:16px; line-height:1.85; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 18px 80px;}
+.serif{font-family:"Noto Serif JP",serif;}
+
+.cover{padding:46px 0 30px; border-bottom:3px double var(--ink); margin-bottom:6px;}
+.brandline{display:flex; align-items:center; gap:10px; font-size:12.5px; letter-spacing:.2em; color:var(--cha); font-weight:700;}
+.brandline .seal{display:inline-flex; align-items:center; justify-content:center; width:34px;height:34px;border:1.5px solid var(--shu); color:var(--shu); border-radius:50%; font-family:"Noto Serif JP",serif; font-size:15px; font-weight:700; letter-spacing:0;}
+.brandsub{font-family:"Noto Serif JP",serif; font-size:14px; color:var(--sub); margin-top:10px; letter-spacing:.08em;}
+.no{font-family:"Noto Serif JP",serif; font-size:13px; color:var(--shu); letter-spacing:.18em; margin:22px 0 6px; font-weight:700;}
+h1{font-family:"Noto Serif JP",serif; font-weight:700; font-size:clamp(30px,8vw,46px); line-height:1.18; margin:0 0 16px; letter-spacing:.01em;}
+.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+.tag{font-size:12px; font-weight:700; letter-spacing:.04em; padding:4px 11px; border-radius:2px; border:1px solid var(--rule); background:var(--card); color:var(--sub);}
+.tag.cat{border-color:var(--cha); color:var(--cha);}
+.tag.trend{border-color:var(--shu); color:#fff; background:var(--shu);}
+.tag.diff{border-color:var(--midori); color:var(--midori);}
+
+.lead{font-size:16.5px; line-height:2.0; margin:26px 0 8px;}
+.lead .big{font-family:"Noto Serif JP",serif; font-size:21px; color:var(--shu); font-weight:700;}
+
+section{margin:46px 0 0;}
+.shead{display:flex; align-items:baseline; gap:12px; margin:0 0 6px; padding-bottom:8px; border-bottom:1.5px solid var(--ink);}
+.shead .sn{font-family:"Noto Serif JP",serif; color:var(--shu); font-weight:700; font-size:15px;}
+.shead h2{font-family:"Noto Serif JP",serif; font-weight:700; font-size:20px; margin:0; letter-spacing:.02em;}
+.shead h3{font-family:"Noto Serif JP",serif; font-weight:700; font-size:16.5px; margin:0; letter-spacing:.02em;}
+.note{font-size:13px; color:var(--sub); line-height:1.8;}
+p{margin:12px 0;}
+.secprose{font-size:15.5px; line-height:1.95; margin:14px 0 10px; color:var(--ink);}
+.secprose strong{font-weight:700;}
+.takeaway{font-family:"Noto Serif JP",serif; font-weight:700; font-size:16px; color:var(--ink); border-left:4px solid var(--shu); background:#fbf3ea; padding:10px 14px; margin:12px 0 16px; line-height:1.6;}
+.closing-sec .secprose{font-size:16px;}
+.closing-sec .takeaway{font-size:17px;}
+.subhead{font-family:"Noto Serif JP",serif; font-weight:700; font-size:15.5px; color:var(--ink); margin:22px 0 4px; padding-left:12px; border-left:3px solid var(--cha);}
+
+.spec{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0 6px;}
+.specbox{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:13px 14px;}
+.specbox .k{font-size:11.5px; letter-spacing:.06em; color:var(--cha); font-weight:700;}
+.specbox .v{font-family:"Noto Serif JP",serif; font-size:18px; font-weight:700; margin-top:3px; line-height:1.35;}
+.specbox .v.sm{font-size:14.5px; line-height:1.45;}
+.specbox .u{font-size:12px; color:var(--sub); font-weight:500;}
+.specbox .tier{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; color:var(--cha); border:1px solid var(--rule); border-radius:2px; padding:1px 6px; margin-top:6px;}
+@media(min-width:560px){.spec{grid-template-columns:repeat(2,1fr);}}
+
+figure{margin:20px 0 6px;}
+.fig{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:14px 12px 8px;}
+.figttl{font-family:"Noto Serif JP",serif; font-size:15.5px; font-weight:700; margin:2px 4px 8px;}
+.figttl .accent{color:var(--shu);}
+svg, .figimg{display:block; width:100%; height:auto;}
+.figimg{border-radius:3px;}
+figcaption{font-size:12.5px; color:var(--sub); margin:8px 4px 2px; line-height:1.75;}
+figcaption b{color:var(--ink);}
+.src{font-size:11px; color:var(--cha); margin-top:4px;}
+.img-placeholder{background:var(--paper2); border:1px dashed var(--rule); border-radius:4px; padding:30px 16px; text-align:center; font-size:12px; color:var(--sub); font-family:"Noto Serif JP",serif; letter-spacing:.05em;}
+
+.paywall{margin:48px 0 8px; text-align:center; position:relative;}
+.paywall:before{content:""; position:absolute; top:50%; left:0; right:0; height:1px; background:repeating-linear-gradient(90deg,var(--rule) 0 8px,transparent 8px 16px);}
+.paywall span{position:relative; background:var(--paper); padding:0 16px; font-family:"Noto Serif JP",serif; font-weight:700; color:var(--shu); font-size:14px; letter-spacing:.1em;}
+.premium-note{background:#fbf3ea; border:1px dashed var(--shu-soft); border-radius:4px; padding:12px 14px; font-size:13px; color:var(--sub); margin:14px 0 0;}
+.premium-note b{color:var(--shu);}
+
+.locgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:9px; margin:16px 0 4px;}
+@media(min-width:560px){.locgrid{grid-template-columns:repeat(3,1fr);}}
+.loc{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:12px; display:flex; align-items:center; gap:11px;}
+.loc .mark{font-family:"Noto Serif JP",serif; font-size:26px; font-weight:700; width:30px; text-align:center;}
+.loc .m-yes{color:var(--midori);} .loc .m-ok{color:var(--cha);} .loc .m-na{color:var(--sub);} .loc .m-no{color:var(--shu);}
+.loc .lt{font-size:14px; font-weight:700;} .loc .ld{font-size:11.5px; color:var(--sub); line-height:1.6;}
+
+.risk{display:grid; grid-template-columns:1fr; gap:9px; margin:16px 0 4px;}
+.riskrow{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:11px 13px; display:grid; grid-template-columns:auto 1fr; gap:11px; align-items:start;}
+.riskrow .w{font-family:"Noto Serif JP",serif; font-weight:700; font-size:13px; padding:2px 9px; border-radius:2px; white-space:nowrap; align-self:start;}
+.riskrow .w-hi{background:var(--shu); color:#fff;}
+.riskrow .w-mid{background:var(--cha); color:#fff;}
+.riskrow .rt{font-size:13.5px; font-weight:700; color:var(--ink);}
+.riskrow .rd{font-size:12px; color:var(--sub); line-height:1.7; margin-top:2px;}
+
+.series{margin:50px 0 0; background:var(--paper2); border-radius:5px; padding:22px 18px;}
+.series h2{font-family:"Noto Serif JP",serif; font-size:18px; margin:0 0 4px;}
+.series .row{display:grid; grid-template-columns:1fr; gap:9px; margin-top:14px;}
+@media(min-width:560px){.series .row{grid-template-columns:1fr 1fr 1fr;}}
+.scard{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:12px;}
+.scard .sno{font-size:11px; color:var(--shu); font-weight:700; letter-spacing:.1em;}
+.scard .stt{font-family:"Noto Serif JP",serif; font-size:14.5px; font-weight:700; margin:3px 0;}
+.scard .ss{font-size:11.5px; color:var(--sub); line-height:1.6;}
+.scard.current{border-color:var(--shu);}
+.scard.future{opacity:.7;} .scard.future .stt:after{content:" （準備中）"; font-size:10px; color:var(--sub); font-weight:400;}
+
+.sources{margin-top:36px; padding-top:16px; border-top:1px solid var(--rule); font-size:11.5px; color:var(--sub); line-height:1.85;}
+.sources b{color:var(--ink);}
+.disclaim{margin-top:14px; font-size:11px; color:var(--sub); background:var(--card); border-left:3px solid var(--cha); padding:10px 13px; line-height:1.8;}
+.disclaim b{color:var(--ink);}
+.colophon{margin-top:24px; text-align:center; font-size:11px; color:var(--cha); letter-spacing:.12em; font-family:"Noto Serif JP",serif;}
+.hero-img{width:100%; border:1px solid var(--rule); border-radius:4px; margin:18px 0 4px; display:block;}
+.method-box{background:#fbf3ea; border:1px solid var(--shu-soft); border-radius:4px; padding:13px 16px; margin:16px 0; font-size:13.5px; line-height:1.85; color:var(--sub);}
+.method-box b{color:var(--shu); font-family:"Noto Serif JP",serif;}
+.tierkey{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:12px 15px; margin:14px 0; font-size:12.5px; line-height:1.9; color:var(--sub);}
+.tierkey b{color:var(--ink); font-family:"Noto Serif JP",serif;}
+.tierkey .t{display:inline-block; font-weight:700; color:var(--cha); margin-right:2px;}
+.note-fig{margin:24px 0 6px;}
+.note-fig img{width:100%; border:1px solid var(--rule); border-radius:4px; display:block;}
+.note-fig .nlabel{font-family:"Noto Serif JP",serif; font-size:12px; color:var(--cha); font-weight:700; letter-spacing:.08em; margin-bottom:6px;}
+.note-fig figcaption{font-size:12.5px; color:var(--sub); margin:8px 4px 2px; line-height:1.75;}
+.cta-box{background:var(--ink); color:var(--paper); border-radius:5px; padding:22px 18px; margin:24px 0; text-align:center;}
+.cta-box .ct{font-family:"Noto Serif JP",serif; font-size:18px; font-weight:700; margin-bottom:6px; color:var(--paper);}
+.cta-box .cd{font-size:13.5px; color:#d8ccb5; line-height:1.85;}
+.cta-box .cbtn{display:inline-block; margin-top:14px; background:var(--shu); color:#fff; font-weight:700; padding:11px 24px; border-radius:3px; font-size:14px; text-decoration:none;}
+.cta-mini{border:1px dashed var(--cha); border-radius:4px; padding:10px 14px; margin:16px 0; font-size:13px; color:var(--cha); text-align:center; font-weight:700; line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ COVER ============ -->
+  <header class="cover">
+    <div class="brandline"><span class="seal">坪</span>一坪ビジネス図鑑　STREET SPECIMENS</div>
+    <div class="brandsub">開業と閉店を、同じ物差しで。</div>
+    <div class="no">No.002 ／ 無人・省人系</div>
+    <h1>セルフ写真館</h1>
+    <div class="tags">
+      <span class="tag cat">分類：無人セルフ／体験消費</span>
+      <span class="tag trend">趨勢：📈 急拡大 → 頭打ち</span>
+      <span class="tag diff">開業難易度：易〜中（★★☆）</span>
+      <span class="tag">標本年代：2021–2024</span>
+    </div>
+  </header>
+
+  <!-- ============ 章扉 HERO + 方法論 + CTA(冒頭) ============ -->
+  <!-- cover-no002.png 未生成: 画像確定後、下記 placeholder を <img class="hero-img" src="cover-no002.png" alt="..."> に差し替える -->
+  <div class="img-placeholder">章扉ビジュアル ｜ cover-no002.png（生成準備中）</div>
+  <div class="method-box"><b>この図鑑について</b> ── 公的統計・業界統計（経済センサス・東京商工リサーチ・日本フォトイメージング協会等）に基づく分析と、編集部による推計で構成しています。金額・利益率・損益分岐は参考値であり、特定事業者の経営実態を示すものではありません。店内に人の声は登場しません。数字で記録する図鑑です。</div>
+  <div class="cta-mini">▶ 新しい標本（次号）の通知は note のフォローで ／「一坪ビジネス原価ブック（PDF）」無料配布 準備中</div>
+
+  <!-- tier 凡例 -->
+  <div class="tierkey">
+    <b>数字の出どころ（tier 凡例）</b><br>
+    <span class="t">［公式］</span>＝事業者公式　／　<span class="t">［公的統計］</span>＝公的統計・大手調査　／　<span class="t">［業界統計］</span>＝業界団体の統計・推計　／　<span class="t">［報道］</span>＝報道・FC公開値　／　<span class="t">［二次推計］</span>＝業界・メディアの推計値　／　<span class="t">［推定］</span>＝編集部推計
+  </div>
+
+  <!-- ============ LEAD ============ -->
+  <p class="lead">
+    カーテンを引いて、椅子に座って、リモコンを握る。店員はいない。シャッターを切るのは、撮られる本人だ。<br>
+    <span class="big">韓国の路地から渡ってきた、一坪の無人空間。</span>
+    「盛らない」という逆さまの欲望に火をつけて、2021年あたりから東京の繁華街に増えはじめた。背景紙とライトと据置のプリンタ。それだけで、人は自分の15分を買いに来る。プリクラが「加工して別人になる」装置だったとすれば、これは「そのまま残す」ための装置だ。撮るのではなく、撮らせてもらう。その逆転が、なぜ街角の標本になったのか。原価と損益分岐と、撤退の輪郭で記録しておく。
+  </p>
+
+  <!-- ============ §1 標本データ ============ -->
+  <section>
+    <div class="shead"><span class="sn">§1</span><h2>標本データ（スペック）</h2></div>
+    <p class="secprose">セルフ写真館が売っているのは「写真」ではない。<strong>撮影という15分の体験</strong>である。韓国で2017〜2018年ごろに誕生し、日本へは2021年・新大久保1号店以降に広がった。一坪・個人運営なら初期投資は47〜60万円、損益分岐は月20万円売上 ≒ 1日3件。無人・省人であることが、この業態を成立させる設計の中心にある。</p>
+    <div class="takeaway">高い限界利益率、薄い初期投資、無人運営が三位一体。</div>
+    <div class="spec">
+      <div class="specbox"><div class="k">業態</div><div class="v sm">無人・省人セルフ撮影<span class="u">（韓国「人生4カット」系）</span></div></div>
+      <div class="specbox"><div class="k">発祥</div><div class="v sm">韓国 2017–18 →<span class="u">日本 2021・新大久保1号店</span></div><span class="tier">［報道］</span></div>
+      <div class="specbox"><div class="k">客単価</div><div class="v">3,000〜4,000<span class="u">円/組（15分・2名）</span></div><span class="tier">［報道］</span></div>
+      <div class="specbox"><div class="k">料金実例</div><div class="v sm">セルフィア ¥3,500／¥5,000／¥8,000</div><span class="tier">［公式］</span></div>
+      <div class="specbox"><div class="k">低価格帯</div><div class="v sm">freeme(渋谷) 学生¥1,500・一般¥1,800<span class="u">/人</span></div><span class="tier">［公式］</span></div>
+      <div class="specbox"><div class="k">初期投資（一坪・個人）</div><div class="v">約47〜60<span class="u">万円</span></div><span class="tier">［報道］</span></div>
+      <div class="specbox"><div class="k">初期投資（FC・セルフィア）</div><div class="v sm">加盟80万＋機材50万〜＋立上85万〜</div><span class="tier">［公式］</span></div>
+      <div class="specbox"><div class="k">損益分岐</div><div class="v sm">月20万円 ≒ 月67件 ≒ 1日3件</div><span class="tier">［報道］</span></div>
+      <div class="specbox"><div class="k">月利益（個人運営）</div><div class="v sm">確たる一次値なし。下=1年目大赤字／上=韓国実績で月¥54万相当と振れ幅大</div><span class="tier">［推定］</span></div>
+      <div class="specbox"><div class="k">立地</div><div class="v sm">駅徒歩5分圏／繁華街・商業施設／地方は駐車場必須</div><span class="tier">［報道］</span></div>
+      <div class="specbox"><div class="k">主な客層</div><div class="v sm">多くが10〜20代女性。20代会社員中心の指摘も</div><span class="tier">［報道］</span></div>
+      <div class="specbox"><div class="k">堀（参入障壁）</div><div class="v sm">設備・無人運営とも模倣容易＝低い</div><span class="tier">［推定］</span></div>
+    </div>
+    <p class="note">成立を支えた条件は4つ［報道］［推定］：①「盛らない」自然志向（Z世代のリアル志向と噛み合った）、②SNS最適のサイズ（Instagramストーリーズの縦長に収まる）、③韓流文化との親和（センイルフォト等）、④無人で人目を気にせず撮れる。重要なのは、後半2つが「<b>他者が容易に真似できる</b>」性質を裏に持つこと。無人で15分の体験を売る ── その設計は、そのまま参入障壁の低さでもある。追い風が止んだとき、堀のなさが露わになる構造は、No.001 無人餃子と同じ骨格をしている。</p>
+  </section>
+
+  <!-- ============ §2 栄枯盛衰タイムライン ============ -->
+  <section>
+    <div class="shead"><span class="sn">§2</span><h2>栄枯盛衰の時間軸</h2></div>
+    <p class="secprose">韓国では2017〜2018年ごろに誕生し、若者の間で広がった［報道］。本場の規模は出典によって幅があり、<strong>韓国全国でおよそ1,000〜2,300店</strong>とされる（出典間で2倍超の開きがあるため幅で記す）［推定］。日本では2021年の新大久保1号店から始まり、2022〜2023年にかけて東京中心に急速に広がった［報道］。丸井グループは2023年6月、渋谷モディB1Fに<strong>400/500/1,000円の3種・5台</strong>のフォトブースを設置している［報道］。なお、これは「機の設置」であって、Photoismブランドの日本本格上陸（2024年9月とされる）とは別の出来事である点に注意したい。</p>
+    <div class="takeaway">韓国発の「自分で撮る」入口が、写真業の淘汰の只中に滑り込んだ。</div>
+    <p class="secprose">そして、この急増の隣で、<strong>旧来の写真ビジネスは静かに畳まれていた</strong>。写真業の事業所数は <strong>2016年17,555 → 2018年11,931</strong>、2年で<strong>▲32.0%</strong>（経済センサス／東京商工リサーチ集計）［公的統計］。写真店の倒産は <strong>2023年1-8月で20件</strong>、前年同期3件比 <strong>+566.6%</strong>、過去20年で最多ペース。原因の9割が販売不振だった（東京商工リサーチ）［公的統計］。スマホとデジカメが、証明写真機とDPEと町の写真館を置き換える。その淘汰の只中に、韓国発のセルフ写真館が「自分で撮る」という新しい入口で滑り込んだ。<strong>消えるものと生まれるものが、同じ街角で入れ替わっている。</strong></p>
+    <figure><div class="fig">
+      <div class="figttl">消える写真業と、生まれる<span class="accent">セルフ写真館</span> ── 同じ街角の新陳代謝</div>
+      <img class="figimg" src="no002-fig2-shinchintaisha.svg" alt="図2 新陳代謝 ── 消える写真業（事業所▲32.0%・倒産+566.6%）と、生まれるセルフ写真館（2021新大久保→2024初ピーク）">
+      <figcaption>左：写真業の事業所が2年で<b>▲32.0%</b>、倒産は<b>+566.6%</b>と過去20年で最多ペース。右：セルフ写真館は2021新大久保1号店から2024初のピーク感まで急増。<b>職能が消えて、体験が残った</b>新陳代謝。</figcaption>
+      <div class="src">出典：経済センサス／東京商工リサーチ（左・公的統計）／各社プレス・報道（右）</div>
+    </div></figure>
+    <p class="secprose">市場全体はすでに飽和か、緩やかな縮小の局面にある。フォトイメージング市場は <strong>2024年度見込みで1,617億円（前年比99%）</strong>と微減基調にある（日本フォトイメージング協会）［業界統計］。同協会はセルフ写真館を独立カテゴリとしては計上していない ── つまり、急増していると言われるこの業態の正確な国内店舗数を、一次統計から知る術は、いまのところ無い。</p>
+  </section>
+
+  <!-- ============ §3 原価構造 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§3</span><h2>原価構造 ── 5つの物差しで解剖する</h2></div>
+
+    <div class="subhead">① 売価の分解</div>
+    <p class="secprose">セルフィアのベーシックは <strong>¥3,500/組（モノクロ全データ・2名・15分）</strong>［公式］。カラーで¥5,000、30分のゴールドで¥8,000、人数追加は+¥1,000/名、補正で+¥1,000と積み上がる［公式］。一方、低価格帯のfreeme(渋谷)は <strong>学生¥1,500・一般¥1,800/人</strong>、カラー変更+¥800/組、プリント+¥200/枚［公式］。2人で来れば一般¥3,600で、相場の客単価3,000〜4,000円とおおむね重なる。なお通常料金がこの水準で、キャンペーン期にはさらに下の表示も出る ── この「底の浅さ」が後段のリスクに効いてくる。</p>
+
+    <div class="subhead">② 原価率</div>
+    <p class="secprose">セルフ写真館の変動原価は、撮影そのものにはほとんど発生しない。発生するのは<strong>プリントの消耗品</strong>だけだ。据置インクジェット（Canon TS8730）で <strong>L判 約22.9〜25.7円/枚</strong>（インク＋用紙）［報道］。外注のネットプリントなら <strong>L判6〜10円/枚</strong>まで下がる［報道］。客単価¥3,500の組がプリントを2枚持ち帰ると仮定すると、変動原価はおよそ <strong>¥50/組</strong>。売上に対する<strong>限界利益率は約98%</strong>という計算になる［推定］。</p>
+    <p class="secprose">ただしこの98%は「<strong>消耗品しか引いていない限界利益</strong>」であって、家賃・機材の減価償却・人件費を引いた粗利ではない。フォトスタジオ業態の一般値では、撮影サービスの利益率は20〜50%、プリント・物販の販売で50〜70%とされる［報道］。<strong>限界利益率（98%）と粗利率（20〜50%）は別の数字</strong>であり、両者を混同しないことが、この業態の採算を読む第一歩になる。</p>
+    <div class="takeaway">限界利益率98%と粗利率20〜50%は別の数字。混同が採算を見誤らせる。</div>
+    <p class="note">注：店舗が昇華型（dye-sub）プリンタを使う場合、専用ペーパーとリボンで原価は変わる（おおよそ15〜40円/枚と推定／未確証）［推定］。</p>
+
+    <div class="subhead">③ 初期投資と回収</div>
+    <p class="secprose">ここで業態をはっきり分けておく。<strong>一坪のセルフ撮影ブース（個人・最小構成）</strong> の総初期投資は <strong>約47〜60万円</strong>［報道］。内訳は物件約18万円（家賃6万＋礼金6万＋仲介6万、20㎡）、カメラ・ライトなど機材15〜20万円（Sony α6100=92,999円、背景スタンド約18,000円ほか）、小物・備品で数万円。著者実例として一次性のある数字だ。<strong>フランチャイズ（セルフィア）</strong> なら、加盟料80万＋機材・備品50万〜＋1スペース立ち上げ85万〜、最短2週間で開業可能とされる［公式］。ロイヤリティは「売上に応じて」で、率は非公開と明記されている［公式］。</p>
+    <p class="note"><b>参考（業態が違う数字）</b>：開業支援メディアでは初期投資560万〜1,460万円というレンジも示されるが［推定］、これは内装に金をかけた<b>大型の有人スタジオ</b>の値で、本図鑑が標本にしている「一坪の無人ブース」とは20倍ほど乖離する。同じ「セルフ写真館」の看板でも、中身が別物である点に注意。</p>
+    <p class="secprose">回収期間は、FC85万円モデルなら<strong>約8〜10ヶ月</strong>、個人60万円モデルなら<strong>約3〜4ヶ月</strong>と単純逆算できる［推定］。ただし分母にあたる月利益が後述のとおり一次確認できていないため、この回収期間も同じ不確かさを引き継いでいる。</p>
+  </section>
+
+  <!-- ============ PAYWALL ============ -->
+  <div class="paywall"><span>🔒 ここから先は プレミアム図鑑</span></div>
+  <div class="premium-note">
+    <b>※これはフリーミアム設計のデモ表示です。</b> 通常はこの線から下（損益分岐の中身・撤退要因・立地戦略）を有料に閉じます。「概要は無料で見せ、儲けの構造と失敗の理由で課金する」── 収益エンジンの実物見本として、今回は全文を表示しています。
+  </div>
+  <div class="cta-mini">▶ 損益分岐の精密版・立地スコアシートは続きで。次号通知は note フォローで／「原価ブックPDF」無料配布 準備中</div>
+
+  <!-- ============ §4 損益分岐 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§4</span><h2>損益分岐点</h2></div>
+    <p class="secprose">固定費が軽いこの業態でも、生命線はやはり<strong>稼働率</strong>にある。理論上の天井は高い。¥3,000 × 8組 × 26日で <strong>月商の理論最大は約62.4万円</strong>、撮影枠を30分に切れば最大124万円まで伸びる［報道］。ただし出典自身が「予約が毎日すべて埋まることはほぼない」と注記している。<strong>これはあくまで満枠の天井</strong>だ。現実的な分岐ラインはずっと手前にある。<strong>月20万円の売上 ＝ 月67件 ≒ 週17件 ≒ 1日3件</strong>（週6営業）［報道］。一坪の箱を維持できるかどうかは、ここを超え続けられるかにかかっている。</p>
+    <div class="takeaway">天井（1日8組）と分岐（1日3件）の間の、埋まらない空白が核心。</div>
+    <figure><div class="fig">
+      <div class="figttl">稼働の物差し ──<span class="accent">分岐（1日3件）と天井（1日8組）</span>のあいだ</div>
+      <img class="figimg" src="no002-fig1-bunki.svg" alt="図1 稼働の物差し ── 損益分岐（月商20万≒1日3件）と理論天井（月商62.4万≒1日8組）のあいだの、埋まらない空白。月利益は別軸で一次確定値なし">
+      <figcaption>損益分岐は<b>月商20万（≒1日3件）</b>、理論天井は<b>月商62.4万（≒1日8組・満枠）</b>。両者の間が「埋まらない空白」。月利益は別軸で<b>一次確定値なし</b>、下振れ・上振れの実例だけが振れ幅として残る。</figcaption>
+      <div class="src">出典：ozlog開業シミュレーション［報道/個人ブログ］。巷説「月20〜25万が上限」は当該出典に該当記述なし＝誤帰属。</div>
+    </div></figure>
+    <p class="secprose">月利益の実感値は、ここがこの標本のもっとも柔らかい部分だ。「良くて月20〜25万円が上限、月50万円は現実的でない」という見方が巷では出回っている。だが、出典とされる記事の本文を直接たどると、その文言は見当たらない。むしろその記事（個人運営者のブログ）は、月商20万円を「月67件の予約が取れれば達成できるライン」、売上の理論最大値を月62万円と書いている ──「上限」ではなく「到達ライン」として20万円を置いているのだ。「20〜25万が上限」という巷説は、出典を取り違えた数字の可能性が高い［推定］。</p>
+    <p class="secprose">実際の利益は、確たる一次値が無いまま、振れ幅だけが大きい。下を見れば、個人の開業1年目で黒字になったのは12ヶ月中わずか2ヶ月、大赤字で畳んだという運営者の記録がある（個人ブログの一例）［推定］。上を見れば、本場・韓国の人生4カット系では1店あたり月純利益が₩500万（約54万円・利益率およそ40%）という業界推計の数字もある（為替前提に注意）［二次推計］。ただしこの₩500万は6〜10坪・複数機・人件費ゼロという韓国の店の数字で、日本の一坪ブースとは条件が違う。日本の個人運営の確たる月利益を、一次資料から言い当てる術は、いまのところ無い。</p>
+    <div class="takeaway">天井と分岐の間を、いくらの利益で埋められるか ── 誰も確言できない。</div>
+  </section>
+
+  <!-- ============ §5 リスクプロファイル ============ -->
+  <section>
+    <div class="shead"><span class="sn">§5</span><h2>リスク・プロファイル</h2></div>
+    <p class="secprose">最大のリスクは、商品ではなく<strong>ビジネスモデルそのものの模倣されやすさ</strong>にある［推定］。リスクを6軸で並べると、堀の低さ・過当競争・価格競争が「高」、需要の陳腐化・季節依存・無人ゆえの管理が「中」で浮かぶ。設備も無人運営も真似できる業態の弱点は、そのまま運営方式そのものにある。</p>
+    <div class="takeaway">無人・低投資という利点が、そのまま模倣容易という弱点になった。</div>
+    <div class="risk">
+      <div class="riskrow"><span class="w w-hi">高</span><div><div class="rt">堀の低さ（模倣容易）</div><div class="rd">設備も無人運営も真似できる。初期60万で参入できる</div></div></div>
+      <div class="riskrow"><span class="w w-hi">高</span><div><div class="rt">過当競争・供給過剰</div><div class="rd">参入容易ゆえ近接出店が起きやすい</div></div></div>
+      <div class="riskrow"><span class="w w-hi">高</span><div><div class="rt">価格競争</div><div class="rd">freeme学生¥1,500のような底値。差別化なしだと巻き込まれる</div></div></div>
+      <div class="riskrow"><span class="w w-mid">中</span><div><div class="rt">需要の陳腐化</div><div class="rd">流行依存。ブームが一巡すれば需要が薄れる</div></div></div>
+      <div class="riskrow"><span class="w w-mid">中</span><div><div class="rt">季節・イベント依存</div><div class="rd">センイル・卒業・記念日など需要にムラ</div></div></div>
+      <div class="riskrow"><span class="w w-mid">中</span><div><div class="rt">無人ゆえの管理</div><div class="rd">機器メンテ、肖像権・プライバシー、予約キャパ管理</div></div></div>
+    </div>
+    <p class="secprose">具体的な失敗の輪郭として、こんな一例が記録されている ── 競合のいない県でセルフ写真館を開いたところ、開業後に後発が2店参入して計3店になり、その人口規模では需要が足りず、売上が落ちて閉店した（20代女性運営者の話）［推定］。これは個人ブログの匿名事例なので「一例」として読むべきで、淘汰が始まったという統計的な主張の根拠にはしない。だが構造としては典型的だ。差別化できなければ、同じ品質を安く売る価格競争に落ち、付加価値へ投資する原資を失う。</p>
+    <p class="note">市場全体が<b>2024年度見込み1,617億円・前年比99%</b>と頭打ちに入り［業界統計］、平日限定プランのような価格・稼働率のテコ入れ策が出はじめたこと［推定］は、ブーム初期の勢いが鈍りはじめた局面と整合する。</p>
+  </section>
+
+  <!-- ============ §6 立地適性 ============ -->
+  <section>
+    <div class="shead"><span class="sn">§6</span><h2>立地適性マップ</h2></div>
+    <p class="secprose">無人・省人で人件費がほぼゼロだからこそ［報道］、この業態は<strong>立地で採算のほぼすべてが決まる</strong>。向いているのは乗降客数の多い駅から徒歩5分以内、若者・ファミリー層の通行量が多いエリアや観光スポット近接、商業施設・カフェ・アパレルが密集してついでに寄れる場所、地方は駐車場必須［報道］。逆に避けたいのは、すでに同型店が近接している商圏、客層の合わないエリア、一回性の集客しか見込めない場所だ。</p>
+    <div class="takeaway">設備と無人運営は堀にならない。模倣できるものは、堀ではない。</div>
+    <div class="locgrid">
+      <div class="loc"><div class="mark m-yes">◎</div><div><div class="lt">駅徒歩5分圏</div><div class="ld">乗降客数の多い駅近。本命立地</div></div></div>
+      <div class="loc"><div class="mark m-yes">◎</div><div><div class="lt">繁華街・観光地</div><div class="ld">若者・ファミリーの通行量</div></div></div>
+      <div class="loc"><div class="mark m-yes">◎</div><div><div class="lt">商業施設内</div><div class="ld">カフェ・アパレル密集。ついで寄り</div></div></div>
+      <div class="loc"><div class="mark m-ok">○</div><div><div class="lt">地方ロードサイド</div><div class="ld">駐車場が必須条件</div></div></div>
+      <div class="loc"><div class="mark m-no">×</div><div><div class="lt">同型店の近接商圏</div><div class="ld">価格競争に直行</div></div></div>
+      <div class="loc"><div class="mark m-no">×</div><div><div class="lt">一回性の集客地</div><div class="ld">客層不一致・反復が見込めない</div></div></div>
+    </div>
+    <p class="note">差別化の堀になりうるのは、編集部の見立てでは3点に限られる［推定］：①<b>好立地の先行確保</b>（後発が入る前に商圏を押さえる）、②<b>IPコラボ／ブランド</b>（韓国大手はZB1/RIIZE等とのコラボで差をつける）、③<b>コンセプト特化のニッチ独占</b>（ペット同伴／ビジネスプロフィール撮影／カフェ併設／韓国カフェ風内装など）。</p>
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section class="closing-sec">
+    <div class="shead"><span class="sn">§</span><h2>標本所見</h2></div>
+    <p class="secprose">セルフ写真館は、写真館の「衰退」と「再発明」が同じ箱の中で起きている、めずらしい標本だ。町の写真館が2年で3割消え［公的統計］、写真店の倒産が過去最多ペースを記録する隣で［公的統計］、韓国発の無人ブースが「自分で撮る」という入口で増えていった。プロのカメラマンが要らなくなった代わりに、撮られる本人がシャッターを押す。職能が消えて、体験が残った。だがその箱は、参入が容易だ。初期60万、無人、設備は真似できる。だからこそ、追い風のあいだは急増し、風が止めば同じ速度でしぼむ ── No.001 無人餃子と同じ曲線を、この標本もたどりつつあるように見える。</p>
+    <div class="takeaway">開業も閉店も、同じ物差しの上にある。</div>
+    <p class="secprose">次に街角でカーテンの引かれた小さな箱を見かけたら、その15分が、誰の何を残しているのかを、少しだけ数えてみてほしい。</p>
+  </section>
+
+  <!-- ============ CTA(末尾) ============ -->
+  <div class="cta-box">
+    <div class="ct">この図鑑を、続けて受け取る</div>
+    <div class="cd">次号の通知は、noteのフォローで届きます。<br>「一坪ビジネス原価ブック（PDF）」の無料配布は、メール便の準備が整い次第はじめます。<br>煽りません。街角の商いを、数字で記録します。</div>
+    <a class="cbtn" href="https://note.com/zukan_jp">note でフォローして受け取る</a>
+  </div>
+
+  <!-- ============ SERIES / FOOTER ============ -->
+  <div class="series">
+    <h2>このシリーズについて</h2>
+    <p class="note">街角の極小ビジネスを、共通フォーマット（標本データ・栄枯盛衰・原価構造・損益分岐・リスク・立地）で解剖する図鑑です。「消えゆくもの」と「生まれるもの」を同じ物差しで記録します。</p>
+    <div class="row">
+      <div class="scard"><div class="sno">No.001</div><div class="stt">無人餃子直売所</div><div class="ss">急拡大→淘汰を辿った先行標本</div></div>
+      <div class="scard current"><div class="sno">No.002</div><div class="stt">セルフ写真館</div><div class="ss">いま読んでいる標本</div></div>
+      <div class="scard future"><div class="sno">姉妹編</div><div class="stt">絶滅職種図鑑</div><div class="ss">「消える仕事」を同じ物差しで</div></div>
+    </div>
+  </div>
+
+  <div class="sources">
+    <b>主な出典</b><br>
+    ・スタジオセルフィア 公式（料金・FC加盟）／ freeme(渋谷) 公式（料金）［公式］<br>
+    ・日本フォトイメージング協会 2024市場動向（市場1,617億円・前年比99%、2024年度見込み）［業界統計］ jpia.jp/fromjpia/pi-market/pi-2024/2024/09_4438/<br>
+    ・経済センサス／東京商工リサーチ（写真業事業所数▲32.0%・写真店倒産2023年1-8月20件）［公的統計］<br>
+    ・丸井グループ PRTIMES（Photoism渋谷モディ）［報道］<br>
+    ・ozlog（開業費用・損益分岐・月商シミュレーション）／ ロロント／ ecotte／ next-business ほか開業支援・比較メディア［報道］<br>
+    ・韓国相場・店舗数：JNEWS／Kvillage／各種まとめ媒体（出典間に幅あり）［報道／推定］
+  </div>
+  <div class="disclaim">
+    ※ 本図鑑の金額・利益率・損益分岐は、公開統計・報道・FC公開資料をもとにした<b>参考値および編集部のモデル推計</b>です。実際の数値は立地・規模・運営方針・時期により大きく異なります。特定事業者の経営実態を示すものではありません。月利益・回収期間は一次確認できていない推定値を含みます。
+  </div>
+  <div class="colophon">一坪ビジネス図鑑 ／ No.002 ／ セルフ写真館</div>
+
+</div>
+</body>
+</html>

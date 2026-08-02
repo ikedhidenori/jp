@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>宿泊業態ポジショニング地図（draft preview）</title>
+<style>
+  :root{ --ink:#1a1d22; --sumi:#23272e; --sub:#7c8590; --paper:#eef1f4; --card:#ffffff; --rule:#d3dae1; --ai:#2f5168; --camp:#9aa6b0; --prem:#3d7a6a; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{background:var(--paper); color:var(--ink); font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; line-height:1.6; -webkit-text-size-adjust:100%;}
+  .banner{background:var(--ai); color:#fff; font-size:10.5px; padding:5px 12px; line-height:1.5;}
+  .wrap{max-width:1100px; margin:0 auto; padding:14px 16px 40px;}
+  h1{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:19px; margin:6px 0 2px;}
+  .lead{font-size:12px; color:var(--sub); margin:0 0 6px;}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; font-size:11.5px; margin:8px 0 4px; align-items:center;}
+  .legend .k{display:flex; gap:5px; align-items:center;}
+  .legend .dot{width:12px; height:12px; border-radius:50%; display:inline-block;}
+  .gwrap{background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:10px 10px 4px; margin:8px 0;}
+  canvas{width:100%!important;}
+  .axisnote{font-size:10.5px; color:var(--sub); margin:2px 0 10px;}
+  table{border-collapse:collapse; width:100%; font-size:12px; margin:8px 0;}
+  th,td{border:1px solid var(--rule); padding:5px 7px; text-align:right;}
+  th:first-child,td:first-child{text-align:left;}
+  th{background:#e3e9ee; font-weight:700;}
+  .pivot{color:var(--ai); font-weight:700;}
+  .note{font-size:10.5px; color:var(--sub); background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--ai); border-radius:4px; padding:8px 11px; margin:8px 0; line-height:1.6;}
+  .foot{margin-top:10px; font-size:10px; color:var(--sub); border-top:1px solid var(--rule); padding-top:8px;}
+</style>
+</head>
+<body>
+  <div class="banner">⚠ 社内確認用 draft preview（noindex・未公開）。宿泊ビジネス図鑑 No.001 グランピングの「ポジショニング地図」。データは positioning-map-glamping.md（tier付き）。価格・公開はジョニー判断（G5）。</div>
+  <div class="wrap">
+    <h1>宿泊業態ポジショニング地図 ── グランピングはどこに立つか</h1>
+    <p class="lead">横軸＝ADR（客室単価・対数）、縦軸＝体験の希少性、円の大きさ＝初期投資/客室（棟）。キャンプ場から高級villaまでの連続体の上で、グランピングが「区画売り⇄棟売りの変換点」に立つことを示す。</p>
+    <div class="legend">
+      <span class="k"><span class="dot" style="background:#9aa6b0"></span>キャンプ系（区画売り）</span>
+      <span class="k"><span class="dot" style="background:#2f5168"></span>グランピング系（変換点）</span>
+      <span class="k"><span class="dot" style="background:#3d7a6a"></span>エクストリーム／villa（棟売り）</span>
+      <span class="k">○ 点線＝初期投資 [要追加取材]</span>
+    </div>
+    <div class="gwrap"><canvas id="map" height="200"></canvas></div>
+    <p class="axisnote">円が大きいほど1ユニットの初期投資が重い。点線円＝公的統計に初期投資データが無く [要追加取材]（便宜上の小円）。ADRは出典付き数値レンジの中央値で布置。</p>
+
+    <p class="note"><b>地図の読み:</b> グランピング3型（トレーラー／ドーム／ヴィラ）は ADR 2.5万〜7万・体験希少性3〜4の帯に集まり、キャンプ系（ADR〜1.5万・希少性1〜2）と、エクストリームステイ／高級villa（ADR4万〜・希少性4〜5）の<span class="pivot">あいだの「変換点」</span>に立つ。左へ寄れば価格競争（区画売り）、右へ抜けるには「立地の希少性」か「可動・off-grid化」で体験希少性を上げる必要がある。初期投資はトレーラー型500万〜ヴィラ型4,000万と業態内の幅が最大。</p>
+
+    <table>
+      <thead><tr><th>業態</th><th>ADR帯（円）</th><th>希少性</th><th>初期投資/棟（万円）</th><th>季節変動</th><th>tier</th></tr></thead>
+      <tbody id="tbl"></tbody>
+    </table>
+
+    <p class="foot">社内 draft preview。体験希少性・季節変動は公的統計が無い定性指標（本稿が業態構造から付与した相対値、estimate）。ADR・初期投資は出典付き数値レンジ（press/estimate、一部 [要追加取材]）。詳細・出典は positioning-map-glamping.md。価格・公開はジョニー判断（G5）。</p>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+const AI='#2f5168', CAMP='#9aa6b0', PREM='#3d7a6a', SUB='#7c8590';
+// positioning-map-glamping.md の JSON データ（tier付き）
+// px=対数軸上の描画位置（同一ADR帯の業態を見やすく分離。tier/数値は adr 帯が正）, ld=ラベル方向(u上/d下)
+const D = [
+  {name:'キャンプ場',              adr:[1000,4000],   rarity:1, capex:null,        season:5, tier:'estimate',     grp:'camp',  ld:'u'},
+  {name:'オートキャンプ',          adr:[3000,8000],   rarity:1, capex:null,        season:5, tier:'estimate',     grp:'camp',  ld:'u'},
+  {name:'高規格キャンプ',          adr:[5000,15000],  rarity:2, capex:null,        season:4, tier:'estimate',     grp:'camp',  ld:'u'},
+  {name:'グランピング(トレーラー)',adr:[25000,50000], px:31000, rarity:3, capex:[500,1000],  season:4, tier:'press',     grp:'glamp', ld:'d'},
+  {name:'グランピング(ドーム)',    adr:[25000,50000], px:46000, rarity:3, capex:[800,1000],  season:4, tier:'press',     grp:'glamp', ld:'u'},
+  {name:'グランピング(ヴィラ)',    adr:[50000,70000], px:59000, rarity:4, capex:[1500,4000], season:4, tier:'press/est', grp:'glamp', ld:'u'},
+  {name:'高級villa・一棟貸し',     adr:[40000,150000],px:90000, rarity:4, capex:[1000,8000], season:3, tier:'press/est', grp:'prem',  ld:'d'},
+  {name:'エクストリームステイ',    adr:[60000,560000],px:230000,rarity:5, capex:null,        season:3, tier:'press/est', grp:'prem',  ld:'u'},
+];
+const mid=a=>Math.round(Math.sqrt(a[0]*a[1]));          // 対数中央値（対数軸に自然）
+const plotX=d=> d.px!=null? d.px : mid(d.adr);
+const capMid=c=> c? (c[0]+c[1])/2 : null;
+const rOf=c=> c==null? 7 : 7+Math.sqrt(capMid(c))/7;    // 円半径 ∝ √初期投資
+const col={camp:CAMP, glamp:AI, prem:PREM};
+
+function ds(grp){ return {
+  label:grp,
+  data: D.filter(d=>d.grp===grp).map(d=>({x:plotX(d), y:d.rarity, r:rOf(d.capex), _d:d})),
+  backgroundColor: D.find(d=>d.grp===grp) ? col[grp]+'cc':'#ccc',
+  borderColor: col[grp], borderWidth:2,
+  // null capex は点線円で表現
+  pointStyle:'circle',
+}; }
+const datasets=['camp','glamp','prem'].map(ds);
+
+const labelPlugin={ id:'lbl', afterDatasetsDraw(c){ const ctx=c.ctx; ctx.save();
+  ctx.font='10.5px "Hiragino Sans",sans-serif'; ctx.fillStyle='#23272e'; ctx.textAlign='center';
+  c.data.datasets.forEach((d,di)=>{ const meta=c.getDatasetMeta(di);
+    meta.data.forEach((pt,i)=>{ const dd=d.data[i]._d; const r=pt.options.radius;
+      const dy = dd.ld==='d' ? r+13 : -(r+5); ctx.fillText(dd.name, pt.x, pt.y+dy); }); });
+  ctx.restore(); } };
+
+new Chart(document.getElementById('map'),{
+  type:'bubble', data:{datasets},
+  options:{ responsive:true, maintainAspectRatio:false,
+    layout:{padding:{top:18,right:20,left:4,bottom:4}},
+    plugins:{ legend:{display:false},
+      tooltip:{callbacks:{label:c=>{const d=c.raw._d; return `${d.name}: ADR ${d.adr[0].toLocaleString()}〜${d.adr[1].toLocaleString()}円 / 希少性${d.rarity} / 初期投資${d.capex?d.capex[0]+'〜'+d.capex[1]+'万':'[要追加取材]'} / 季節変動${d.season} [${d.tier}]`;}}} },
+    scales:{
+      x:{type:'logarithmic', min:1500, max:650000,
+         title:{display:true,text:'ADR 客室単価（円・対数）',font:{size:11},color:SUB},
+         ticks:{color:SUB,font:{size:9},callback:v=>([2000,5000,10000,30000,100000,300000].includes(v)? v.toLocaleString():'')},
+         grid:{color:'#dde4ea'}},
+      y:{min:0.5, max:5.5, title:{display:true,text:'体験の希少性（1代替容易 → 5唯一無二）',font:{size:11},color:SUB},
+         ticks:{stepSize:1,color:SUB,font:{size:9}}, grid:{color:'#dde4ea'}}
+    }},
+  plugins:[labelPlugin]
+});
+
+// テーブル
+document.getElementById('tbl').innerHTML = D.map(d=>{
+  const cap = d.capex? `${d.capex[0].toLocaleString()}〜${d.capex[1].toLocaleString()}` : '[要追加取材]';
+  const pv = d.grp==='glamp'? ' class="pivot"':'';
+  return `<tr><td${pv}>${d.name}</td><td>${d.adr[0].toLocaleString()}〜${d.adr[1].toLocaleString()}</td><td>${d.rarity}</td><td>${cap}</td><td>${d.season}</td><td>${d.tier}</td></tr>`;
+}).join('');
+</script>
+</body>
+</html>

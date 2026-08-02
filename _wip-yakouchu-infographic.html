@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光る海 世界地図</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@300;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<style>
+:root{
+  --bg0:#04070f; --bg1:#070d1a; --land:#10192b; --landline:#1d2c44;
+  --cyan:#4ff0d0; --cyan2:#37d6ff; --bay:#7afcff; --green:#ffcb47; --ink:#eaf3f7; --dim:#7d8 fa0;
+  --dim:#7f90a2; --line:rgba(79,240,208,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;font-family:"Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased}
+.frame{
+  width:1080px;height:1350px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(120% 70% at 50% -8%, rgba(55,214,255,.10), transparent 55%),
+    radial-gradient(90% 60% at 88% 30%, rgba(79,240,208,.07), transparent 60%),
+    radial-gradient(80% 50% at 8% 75%, rgba(122,252,255,.05), transparent 60%),
+    linear-gradient(180deg,#04070f 0%,#060c18 45%,#081424 100%);
+  color:var(--ink);
+}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* header */
+.head{padding:40px 56px 0;position:relative;z-index:3}
+.eyebrow{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:21px;letter-spacing:.32em;
+  color:var(--cyan);text-transform:uppercase;text-shadow:0 0 16px rgba(79,240,208,.5)}
+h1{font-weight:900;font-size:54px;line-height:1.18;letter-spacing:.01em;margin:12px 0 0;color:#fff;
+  text-shadow:0 0 30px rgba(55,214,255,.35)}
+h1 .hl{color:var(--cyan);text-shadow:0 0 26px rgba(79,240,208,.6)}
+.sub{margin-top:16px;font-size:20px;line-height:1.75;color:#b9c7d2;font-weight:300;max-width:980px}
+.sub b{color:var(--cyan);font-weight:500}
+/* map */
+.mapwrap{position:relative;width:1080px;height:578px;margin-top:6px}
+svg.map{width:1080px;height:578px;display:block}
+.country{fill:var(--land);stroke:var(--landline);stroke-width:.6}
+.grat{fill:none;stroke:rgba(120,160,190,.07);stroke-width:.5}
+.pin-core{}
+.lbl{font-family:"Noto Sans JP";font-weight:500;font-size:15px;fill:#dbe8ef;paint-order:stroke;stroke:#04070f;stroke-width:3px;stroke-linejoin:round}
+.lbl.you{font-weight:700;fill:#fff;font-size:17px}
+.lbl.sm{font-size:13px;fill:#aebecb}
+.arrowlbl{font-size:12.5px;fill:#8fa6b6;font-style:italic;font-family:"Cormorant Garamond",serif;letter-spacing:.04em}
+/* legend overlay */
+.legend{position:absolute;left:40px;bottom:14px;z-index:4;display:flex;flex-direction:column;gap:9px;
+  background:rgba(6,12,24,.55);border:1px solid var(--line);border-radius:10px;padding:14px 16px;backdrop-filter:blur(4px)}
+.legend .li{display:flex;align-items:center;gap:11px;font-size:14px;color:#c7d4dd}
+.legend .dot{width:13px;height:13px;border-radius:50%;flex:none}
+.d-bay{background:var(--bay);box-shadow:0 0 10px var(--bay),0 0 20px var(--bay)}
+.d-noc{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.d-grn{background:var(--green);box-shadow:0 0 8px var(--green)}
+.d-you{background:#fff;box-shadow:0 0 10px #fff,0 0 18px var(--cyan)}
+/* body */
+.lower{position:relative;z-index:3;padding:8px 56px 0}
+.km{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:6px}
+.kmc{background:linear-gradient(160deg,rgba(13,22,38,.9),rgba(8,16,28,.7));border:1px solid var(--line);
+  border-radius:12px;padding:18px 18px 16px;position:relative;overflow:hidden}
+.kmc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--cyan),var(--cyan2))}
+.kmc.grn::before{background:linear-gradient(var(--green),#ff8f3a)}
+.kmc .tag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--cyan);display:inline-block;margin-bottom:7px}
+.kmc.grn .tag{color:var(--green)}
+.kmc h3{font-size:17px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:7px}
+.kmc p{font-size:12.5px;line-height:1.65;color:#9fb0bd}
+.kmc .conf{margin-top:9px;font-size:10.5px;letter-spacing:.06em;color:#6f8294;border-top:1px solid rgba(255,255,255,.06);padding-top:7px}
+.kmc .conf b{color:var(--cyan)}
+.kmc.grn .conf b{color:var(--green)}
+/* japan strip */
+.jp{margin-top:20px;display:flex;align-items:center;gap:16px;background:rgba(79,240,208,.05);
+  border:1px solid var(--line);border-radius:12px;padding:15px 20px}
+.jp .h{font-family:"Noto Serif JP";font-weight:500;font-size:15px;color:var(--cyan);white-space:nowrap;letter-spacing:.04em}
+.jp .items{display:flex;gap:22px;flex-wrap:wrap}
+.jp .it{font-size:13.5px;color:#cdd9e1}
+.jp .it b{color:#fff;font-weight:500}
+.jp .it span{color:#7f90a2;font-size:12px}
+/* footer */
+.foot{position:absolute;left:0;right:0;bottom:0;padding:16px 56px 22px;z-index:3;
+  border-top:1px solid rgba(255,255,255,.07);background:linear-gradient(0deg,rgba(4,7,15,.9),transparent)}
+.foot .src{font-size:11px;color:#67788a;line-height:1.6}
+.foot .note{font-size:11.5px;color:#90a2b2;margin-top:5px}
+.foot .note b{color:var(--cyan)}
+.foot .brand{position:absolute;right:56px;bottom:20px;font-family:"Cormorant Garamond",serif;font-style:italic;
+  font-size:17px;color:var(--cyan);letter-spacing:.12em;text-shadow:0 0 14px rgba(79,240,208,.5)}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+  <div class="head">
+    <div class="eyebrow">Where the Sea Glows &middot; 2026</div>
+    <h1>夜の海が青く光る、<br>世界の<span class="hl">13</span>ヶ所</h1>
+    <p class="sub">相模湾の「夜光虫」は、その入口にすぎない。プランクトンが放つ青い光は世界の海に点在し、<b>温暖化がいま、この地図を静かに描き替えはじめている。</b></p>
+  </div>
+
+  <div class="mapwrap">
+    <svg class="map" id="map" viewBox="0 0 1080 578"></svg>
+    <div class="legend">
+      <div class="li"><span class="dot d-you"></span>相模湾（日本）＝今ここ</div>
+      <div class="li"><span class="dot d-bay"></span>発光湾／通年・世界最高輝度</div>
+      <div class="li"><span class="dot d-noc"></span>夜光虫など／季節・不定期に発光</div>
+      <div class="li"><span class="dot d-grn"></span>アラビア海・緑の大発生／発光でなく“環境シグナル”</div>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="km">
+      <div class="kmc">
+        <span class="tag">Shift 01</span>
+        <h3>温帯の発光は<br>高緯度へ“にじむ”</h3>
+        <p>発光する赤色ヤコウチュウは、温暖化で分布が極方向へ拡大。タスマニアは近年ほぼ通年化した。</p>
+        <div class="conf">確度：<b>地域で実測（豪・中）</b>／全球一般化は示唆</div>
+      </div>
+      <div class="kmc grn">
+        <span class="tag">Shift 02</span>
+        <h3>貧酸素が<br>“緑の海”を広げる</h3>
+        <p>アラビア海では珪藻が緑色ヤコウチュウに置換。海の酸素低下が後押し。ただしこれは発光ではない。</p>
+        <div class="conf">確度：<b>機構は確実（Gomes 2014）</b></div>
+      </div>
+      <div class="kmc">
+        <span class="tag">Shift 03</span>
+        <h3>“いつ・どこで”の<br>断言はできない</h3>
+        <p>有害藻類ブルームは1980年代以降の増加傾向。だが「何年にこの海が光る」と断じる論文は無い。</p>
+        <div class="conf">確度：<b>傾向のみ（IPCC・中）</b></div>
+      </div>
+    </div>
+
+    <div class="jp">
+      <div class="h">日本から狙うなら</div>
+      <div class="items">
+        <div class="it"><b>相模湾</b> <span>5〜9月・新月／国内</span></div>
+        <div class="it"><b>馬祖列島（台湾）</b> <span>4〜6月／“藍眼涙”</span></div>
+        <div class="it"><b>モルディブ</b> <span>6〜10月／Sea of Stars</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="src">出典：Gomes et al. 2014 <i>Nature Communications</i>／Lin et al. 2025 <i>Molecular Ecology</i>／McLeod et al. 2012 <i>J. Plankton Res.</i>／IPCC SROCC／NASA Earth Observatory／Scripps Inst. of Oceanography／Guinness World Records ほか</div>
+    <div class="note">※ <b>予測には不確実性</b>があります。青く“発光する”赤色型と、非発光の“緑色型”（アラビア海）は別現象です。緯度経度は地図描画用の概数。</div>
+    <div class="brand">Sea Sparkle Map</div>
+  </div>
+</div>
+
+<script>
+const W=1080,H=578;
+const spots=[
+  {n:"相模湾",lon:139.48,lat:35.30,c:"you",lbl:"相模湾（今ここ）",show:1,dy:-14},
+  {n:"三河湾",lon:137.10,lat:34.70,c:"noc",show:0},
+  {n:"ホバート",lon:147.41,lat:-42.99,c:"noc",lbl:"タスマニア",show:1,dy:18,dx:6},
+  {n:"サンディエゴ",lon:-117.25,lat:32.87,c:"noc",lbl:"カリフォルニア",show:1,dy:-12,dx:-4,anchor:"end"},
+  {n:"ペンモン",lon:-4.05,lat:53.31,c:"noc",lbl:"英ウェールズ",show:1,dy:-12,anchor:"end",dx:-6},
+  {n:"香港",lon:114.20,lat:22.45,c:"noc",show:0},
+  {n:"馬祖",lon:120.00,lat:26.22,c:"noc",lbl:"馬祖・藍眼涙",show:1,dy:26,dx:4},
+  {n:"Mosquito Bay",lon:-65.45,lat:18.10,c:"bay",show:0},
+  {n:"Laguna Grande",lon:-65.63,lat:18.36,c:"bay",show:0},
+  {n:"La Parguera",lon:-67.05,lat:17.97,c:"bay",lbl:"プエルトリコ（世界最明の発光湾）",show:1,dy:24,anchor:"middle",dx:0},
+  {n:"Luminous Lagoon",lon:-77.65,lat:18.49,c:"bay",lbl:"ジャマイカ",show:1,dy:-12,anchor:"end",dx:-6},
+  {n:"モルディブ",lon:72.99,lat:5.97,c:"noc",lbl:"モルディブ",show:1,dy:22,dx:4},
+  {n:"オマーン湾",lon:58.5,lat:24.5,c:"grn",lbl:"アラビア海（緑の大発生）",show:1,dy:-12,anchor:"middle",dx:0}
+];
+const colors={you:"#ffffff",bay:"#7afcff",noc:"#4ff0d0",grn:"#ffcb47"};
+const glow={you:"#4ff0d0",bay:"#7afcff",noc:"#4ff0d0",grn:"#ffcb47"};
+
+const svg=d3.select("#map");
+const proj=d3.geoNaturalEarth1();
+const path=d3.geoPath(proj);
+
+// defs: glow filters
+const defs=svg.append("defs");
+["you","bay","noc","grn"].forEach(c=>{
+  const f=defs.append("filter").attr("id","g-"+c).attr("x","-200%").attr("y","-200%").attr("width","500%").attr("height","500%");
+  f.append("feGaussianBlur").attr("stdDeviation",c==="bay"?5:c==="you"?5:3.5).attr("result","b");
+  const m=f.append("feMerge");m.append("feMergeNode").attr("in","b");m.append("feMergeNode").attr("in","SourceGraphic");
+});
+
+d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(world=>{
+  const land=topojson.feature(world,world.objects.countries);
+  proj.fitExtent([[8,6],[W-8,H-30]],land);
+  // graticule
+  const grat=d3.geoGraticule().step([30,30]);
+  svg.append("path").datum(grat()).attr("class","grat").attr("d",path);
+  // countries
+  svg.append("g").selectAll("path").data(land.features).join("path").attr("class","country").attr("d",path);
+
+  // climate "nijimi" arrows (subtle, poleward) — Japan/China northward, Tasmania southward
+  const arrowG=svg.append("g").attr("opacity",.8);
+  function nijimi(lon,lat,dlat,txt,tx,ty){
+    const a=proj([lon,lat]), b=proj([lon,lat+dlat]);
+    const grad="ng"+Math.round(lon);
+    const lg=defs.append("linearGradient").attr("id",grad).attr("x1",a[0]).attr("y1",a[1]).attr("x2",b[0]).attr("y2",b[1]).attr("gradientUnits","userSpaceOnUse");
+    lg.append("stop").attr("offset","0%").attr("stop-color","#4ff0d0").attr("stop-opacity",.7);
+    lg.append("stop").attr("offset","100%").attr("stop-color","#4ff0d0").attr("stop-opacity",0);
+    arrowG.append("line").attr("x1",a[0]).attr("y1",a[1]).attr("x2",b[0]).attr("y2",b[1])
+      .attr("stroke","url(#"+grad+")").attr("stroke-width",3).attr("stroke-dasharray","2 4").attr("stroke-linecap","round");
+    arrowG.append("circle").attr("cx",b[0]).attr("cy",b[1]).attr("r",2.4).attr("fill","#4ff0d0").attr("opacity",.5);
+  }
+  nijimi(132,40,12,"",0,0);   // 東アジア 北へ
+  nijimi(150,-40,-12,"",0,0); // タスマニア 南へ
+
+  // pins
+  const g=svg.append("g");
+  spots.forEach(s=>{
+    const p=proj([s.lon,s.lat]); if(!p) return;
+    const r=s.c==="bay"?7:s.c==="you"?7:s.c==="grn"?7:5.5;
+    // halo
+    g.append("circle").attr("cx",p[0]).attr("cy",p[1]).attr("r",r+5).attr("fill",glow[s.c]).attr("opacity",.14);
+    g.append("circle").attr("cx",p[0]).attr("cy",p[1]).attr("r",r).attr("fill",colors[s.c])
+      .attr("filter","url(#g-"+s.c+")").attr("stroke",s.c==="you"?"#4ff0d0":"none").attr("stroke-width",s.c==="you"?2:0);
+    if(s.c==="you"){ // ring
+      g.append("circle").attr("cx",p[0]).attr("cy",p[1]).attr("r",13).attr("fill","none").attr("stroke","#fff").attr("stroke-width",1.4).attr("opacity",.7);
+    }
+    if(s.show){
+      g.append("text").attr("x",p[0]+(s.dx||7)).attr("y",p[1]+(s.dy||4))
+        .attr("text-anchor",s.anchor|| (s.dx&&s.dx<0?"end":"start"))
+        .attr("class","lbl"+(s.c==="you"?" you":"")+(s.lbl&&s.lbl.length>8&&s.c!=="you"&&s.c!=="bay"&&s.c!=="grn"?" sm":""))
+        .text(s.lbl);
+    }
+  });
+
+  // arrow labels
+  svg.append("text").attr("class","arrowlbl").attr("x",proj([132,52])[0]+8).attr("y",proj([132,52])[1]).text("→ 高緯度へにじむ");
+  window.__done=true;
+});
+</script>
+</body>
+</html>

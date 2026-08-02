@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>宿泊損益シミュレーター（draft preview）</title>
+<style>
+  :root{ --ink:#1a1d22; --sumi:#23272e; --sub:#7c8590; --paper:#eef1f4; --card:#ffffff; --rule:#d3dae1; --ai:#2f5168; --ainav:#34607a; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{background:var(--paper); color:var(--ink); font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; line-height:1.6; -webkit-text-size-adjust:100%;}
+  .banner{background:var(--ai); color:#fff; font-size:10.5px; padding:5px 12px; line-height:1.5;}
+  .sticky{position:sticky; top:0; z-index:100; background:var(--sumi); color:var(--paper); padding:8px 12px; display:flex; gap:8px; justify-content:space-around;}
+  .sticky .s{text-align:center; line-height:1.25; flex:1;}
+  .sticky .s .lab{font-size:10px; color:#aeb7c2;}
+  .sticky .s .val{font-size:14.5px; font-weight:700; font-family:"Hiragino Mincho ProN","Noto Serif JP",serif;}
+  .sticky .s .val.neg{color:#ff9a7a;}
+  .wrap{max-width:1180px; margin:0 auto; padding:10px 16px 40px;}
+  h1{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:18px; margin:6px 0 2px;}
+  .lead{font-size:11.5px; color:var(--sub); margin:0 0 4px;}
+  .upd{font-size:11px; color:var(--sub); margin:2px 0 8px;}
+  .presets{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 12px;}
+  .presets button{font-family:inherit; font-size:11.5px; padding:5px 10px; border:1px solid var(--rule); border-radius:14px; background:var(--card); color:var(--ink); cursor:pointer;}
+  .presets button.on{background:var(--ai); color:#fff; border-color:var(--ai);}
+  .presets .plab{font-size:10.5px; color:var(--sub); align-self:center; margin-right:2px;}
+  .layout{display:grid; grid-template-columns:1fr; gap:14px;}
+  @media(min-width:880px){
+    .layout{grid-template-columns:348px 1fr; gap:24px; align-items:start;}
+    .lead{font-size:12px;}
+  }
+  .inputs{display:grid; grid-template-columns:1fr; gap:9px;}
+  @media(min-width:880px){ .inputs{gap:7px;} }
+  .sld .row{display:flex; justify-content:space-between; align-items:baseline;}
+  .sld label{font-size:12px; color:var(--ink);}
+  .sld .cur{font-size:15px; font-weight:700; font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; color:var(--ai);}
+  .sld input[type=range]{width:100%; height:30px; accent-color:var(--ai); margin:0;}
+  @media(min-width:880px){ .sld input[type=range]{height:26px;} }
+  .nums{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:10px 0 0;}
+  .nums .fld{display:flex; flex-direction:column;}
+  .nums label{font-size:10.5px; color:var(--sub); margin-bottom:2px;}
+  .nums input{font-size:14px; padding:6px 8px; border:1px solid var(--rule); border-radius:4px; background:#fff; font-family:inherit; width:100%;}
+  .toggles{display:flex; flex-direction:column; gap:5px; margin:10px 0 0; font-size:11.5px;}
+  .toggles label{display:flex; gap:6px; align-items:center; color:var(--ink); cursor:pointer;}
+  .out{display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:10px 0 0;}
+  .out .o{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:6px 8px;}
+  .out .o .lab{font-size:10px; color:var(--sub);}
+  .out .o .val{font-size:14px; font-weight:700; font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; color:var(--sumi);}
+  .out .o .val.neg{color:var(--ai);}
+  .warn{display:none; background:#fbeee9; border:1px solid var(--ai); border-left:3px solid var(--ai); border-radius:4px; padding:6px 9px; font-size:10.5px; color:var(--ai); margin:8px 0 0;}
+  .warn.show{display:block;}
+  .gblock{margin:0 0 10px;}
+  .gblock h2{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:13px; border-bottom:1px solid var(--rule); padding-bottom:3px; margin:0 0 2px;}
+  .gcap{font-size:10.5px; color:var(--sub); margin:0 0 3px;}
+  .gwrap{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:6px 6px 2px;}
+  canvas{width:100%!important;}
+  table{border-collapse:collapse; width:100%; font-size:12px; margin:6px 0;}
+  th,td{border:1px solid var(--rule); padding:5px 7px; text-align:right;}
+  th:first-child,td:first-child{text-align:left;}
+  th{background:#e3e9ee; font-weight:700;}
+  td.pos{color:var(--sumi);} td.neg{color:var(--ai);}
+  details{margin:8px 0;} summary{cursor:pointer; color:var(--ai); font-weight:700; font-size:12.5px;}
+  .note{font-size:10.5px; color:var(--sub); background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--ai); border-radius:4px; padding:7px 10px; margin:8px 0; line-height:1.6;}
+  .foot{margin-top:10px; font-size:10px; color:var(--sub); border-top:1px solid var(--rule); padding-top:8px;}
+  details.formula .f{font-size:10.5px; color:var(--sub); font-family:ui-monospace,monospace; line-height:1.7; background:#e6ecf0; border-radius:4px; padding:7px 10px; margin-top:5px;}
+</style>
+</head>
+<body>
+  <div class="banner">⚠ 社内確認用 draft preview（noindex・未公開）。宿泊ビジネス図鑑 同梱の損益シミュレーター。計算は sim-model-spec.md の四則演算をそのまま実装（捏造ゼロ）。価格・公開はジョニー判断（G5）。</div>
+  <div class="sticky">
+    <div class="s"><div class="lab">月商（ネット）</div><div class="val" id="s-sales">—</div></div>
+    <div class="s"><div class="lab" id="s-op-lab">営業利益</div><div class="val" id="s-op">—</div></div>
+    <div class="s"><div class="lab">投資回収</div><div class="val" id="s-pay">—</div></div>
+  </div>
+  <div class="wrap">
+    <h1>あなたの物件を計算する ── 宿泊損益シミュレーター</h1>
+    <p class="lead">スライダーを動かすと、損益分岐稼働率・営業利益・回収がリアルタイムで変わります。宿泊業態（旅館・ホテル・簡易宿所・民泊・一棟貸し・グランピング）の開業／投資判断に。</p>
+    <p class="upd">既定値は「グランピング 5棟モデル」の参考値（kpi-anatomy データ集からの estimate）。<b>業態ボタンで切替、実際の見積もりを入れて読んでください。</b></p>
+
+    <div class="presets" id="presets"><span class="plab">業態プリセット ▸</span></div>
+
+    <div class="layout">
+      <div class="col-in">
+        <div class="inputs" id="sliders"></div>
+        <div class="nums">
+          <div class="fld"><label>家賃／借入返済（万円/月）</label><input id="rent" type="number" value="130"></div>
+          <div class="fld"><label>その他固定費（万円/月）</label><input id="other" type="number" value="30"></div>
+          <div class="fld"><label>初期投資 CAPEX（万円）</label><input id="capex" type="number" value="8000"></div>
+          <div class="fld"><label>償却年数（年）</label><input id="life" type="number" value="15"></div>
+        </div>
+        <div class="toggles">
+          <label><input type="checkbox" id="t-dep" checked> 減価償却を費用に含める（会計ベース／外すとキャッシュベース）</label>
+          <label><input type="checkbox" id="t-min"> 民泊新法モード（年180日＝稼働率上限 約50%）</label>
+        </div>
+        <div class="warn" id="warn">民泊新法は年180日が上限。稼働率50%超は法的に不可（180÷365≒49.3%）。表示中の稼働率は上限を超えています。</div>
+        <div class="out">
+          <div class="o"><div class="lab">RevPAR（円/室・日）</div><div class="val" id="o-revpar">—</div></div>
+          <div class="o"><div class="lab">損益分岐稼働率</div><div class="val" id="o-bep">—</div></div>
+          <div class="o"><div class="lab">会計営業利益（償却込）</div><div class="val" id="o-opacc">—</div></div>
+          <div class="o"><div class="lab">キャッシュCF（償却前）</div><div class="val" id="o-cf">—</div></div>
+        </div>
+        <details>
+          <summary>感応度 ── どの一手が一番効くか</summary>
+          <table id="sens"><thead><tr><th>変数</th><th>+10%</th><th>−10%</th></tr></thead><tbody></tbody></table>
+          <p class="note">営業利益への月次インパクト。宿泊は一般に「ADR ＞ 稼働率 ＞ OTA手数料」の順で効きやすい（固定費が重く、単価1段の底上げが効く構造）。</p>
+        </details>
+        <details class="formula">
+          <summary>計算式（電卓で追える四則演算）</summary>
+          <div class="f">月商グロス = 客室数 × 稼働率 × ADR × 30<br>ネット月商 = 月商グロス × (1 − OTA率)<br>RevPAR = ADR × 稼働率<br>変動費 = ネット月商 × (清掃率 + 人件費率)<br>減価償却 = 初期投資 ÷ (償却年数 × 12)<br>会計営業利益 = ネット月商 − 変動費 − 家賃返済 − 固定費 − 減価償却<br>キャッシュCF = ネット月商 − 変動費 − 家賃返済 − 固定費<br>損益分岐稼働率 = 固定費 ÷ (客室数 × ADR × 30 × (1−OTA率) × (1−清掃率−人件費率))<br>投資回収月数 = 初期投資 ÷ キャッシュCF</div>
+        </details>
+      </div>
+      <div class="col-g">
+        <div class="gblock">
+          <h2>損益分岐 ── あと何%稼働で黒字か</h2>
+          <p class="gcap">藍＝ネット売上、灰＝総費用。交点が損益分岐稼働率。破線＝今の稼働率。</p>
+          <div class="gwrap"><canvas id="chartBE" height="170"></canvas></div>
+        </div>
+        <div class="gblock">
+          <h2>営業利益カーブ ── 稼働を上げると利益はどう動くか</h2>
+          <p class="gcap">ゼロ線の上が黒字、下が赤字。実線＝会計利益（償却込）、灰破線＝キャッシュCF（償却前）。丸＝今の稼働率。</p>
+          <div class="gwrap"><canvas id="chartOP" height="170"></canvas></div>
+        </div>
+      </div>
+    </div>
+    <p class="foot">社内 draft preview。フル版はキット同梱予定。価格・公開はジョニー判断（G5）。tier: 業態プリセット初期値は kpi-anatomy データ集（gov-stat/official/press/estimate）からの参考 estimate。全数値は四則演算（捏造ゼロ）。自物件の見積りで上書きして読むこと。消費税は除外（税抜統一）。</p>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+const AI='#2f5168', SUMI='#23272e', SUB='#7c8590', GRY='#9aa6b0';
+const SLD = [
+  {id:'rooms', label:'客室数／棟数',  min:1,    max:50,    step:1,   val:5,     unit:'室'},
+  {id:'occ',   label:'稼働率 OCC',    min:0,    max:100,   step:1,   val:50,    unit:'%'},
+  {id:'adr',   label:'ADR（客室単価）',min:5000, max:100000,step:500, val:40000, unit:'円'},
+  {id:'ota',   label:'OTA手数料率',   min:0,    max:25,    step:0.5, val:10,    unit:'%'},
+  {id:'cl',    label:'清掃・変動費率', min:0,    max:30,    step:0.5, val:12,    unit:'%'},
+  {id:'lb',    label:'人件費率',       min:0,    max:45,    step:0.5, val:13,    unit:'%'},
+];
+// 業態プリセット（kpi-anatomy データ集からの参考 estimate、自物件で上書き前提）
+const PRE = {
+  'グランピング':  {rooms:5,  occ:50, adr:40000, ota:10, cl:12, lb:13, rent:130, other:30,  capex:8000,  life:15, min:false},
+  '一棟貸し':      {rooms:1,  occ:50, adr:25000, ota:15, cl:12, lb:5,  rent:8,   other:5,   capex:500,   life:10, min:false},
+  '民泊(住宅宿泊)':{rooms:1,  occ:42, adr:12000, ota:15, cl:15, lb:25, rent:8,   other:5,   capex:500,   life:10, min:true},
+  '簡易宿所(GH)':  {rooms:8,  occ:40, adr:5000,  ota:15, cl:12, lb:20, rent:15,  other:8,   capex:1500,  life:12, min:false},
+  'ビジネスH':     {rooms:50, occ:72, adr:10000, ota:12, cl:8,  lb:30, rent:400, other:200, capex:80000, life:30, min:false},
+  '旅館':          {rooms:20, occ:37, adr:50000, ota:10, cl:20, lb:32, rent:300, other:200, capex:60000, life:25, min:false},
+};
+const $=id=>document.getElementById(id);
+const man=y=>(y/10000).toLocaleString('ja-JP',{maximumFractionDigits:1})+'万';
+const fmtCur=(v,u)=> u==='円'? v.toLocaleString('ja-JP')+'円' : v+u;
+
+// sliders
+$('sliders').innerHTML = SLD.map(s=>`
+  <div class="sld"><div class="row"><label>${s.label}</label><span class="cur" id="cur-${s.id}"></span></div>
+  <input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.val}"></div>`).join('');
+// presets
+$('presets').innerHTML += Object.keys(PRE).map(k=>`<button data-k="${k}">${k}</button>`).join('');
+
+function applyPreset(k){
+  const p=PRE[k]; if(!p)return;
+  $('rooms').value=p.rooms; $('occ').value=p.occ; $('adr').value=p.adr;
+  $('ota').value=p.ota; $('cl').value=p.cl; $('lb').value=p.lb;
+  $('rent').value=p.rent; $('other').value=p.other; $('capex').value=p.capex; $('life').value=p.life;
+  $('t-min').checked=p.min;
+  document.querySelectorAll('.presets button').forEach(b=>b.classList.toggle('on', b.dataset.k===k));
+  render();
+}
+document.querySelectorAll('.presets button').forEach(b=>b.addEventListener('click',()=>applyPreset(b.dataset.k)));
+
+function inputs(){ const g=id=>+$(id).value;
+  const life=Math.max(g('life'),0.5);
+  const capex=g('capex')*10000;
+  return {rooms:g('rooms'), occ:g('occ')/100, adr:g('adr'),
+          ota:g('ota')/100, cl:g('cl')/100, lb:g('lb')/100,
+          rent:g('rent')*10000, other:g('other')*10000,
+          capex:capex, dep:capex/(life*12),
+          depOn:$('t-dep').checked, minp:$('t-min').checked}; }
+
+function revAt(o,i){ return i.rooms*o*i.adr*30*(1-i.ota); }            // ネット売上（OTA控除後）
+function vcAt(o,i){ return revAt(o,i)*(i.cl+i.lb); }
+function fcAcc(i){ return i.rent+i.other+i.dep; }
+function fcCash(i){ return i.rent+i.other; }
+function opAccAt(o,i){ return revAt(o,i)-vcAt(o,i)-fcAcc(i); }
+function cfAt(o,i){ return revAt(o,i)-vcAt(o,i)-fcCash(i); }
+function opActiveAt(o,i){ return i.depOn? opAccAt(o,i): cfAt(o,i); }
+
+const OMIN=0, OMAX=1;
+function series(i,fn){ const a=[]; for(let p=0;p<=100+1e-9;p+=2.5)a.push({x:+p.toFixed(1),y:fn(p/100,i)}); return a; }
+let beChart, opChart;
+function common(ylabel){ return {responsive:true, maintainAspectRatio:false, animation:false,
+  plugins:{legend:{display:false},tooltip:{enabled:false}}, elements:{point:{radius:0}},
+  scales:{x:{type:'linear',min:0,max:100,title:{display:true,text:'稼働率 OCC（%）',font:{size:9},color:SUB},ticks:{font:{size:9},color:SUB},grid:{color:'#dde4ea'}},
+          y:{title:{display:true,text:'万円/月',font:{size:9},color:SUB},ticks:{font:{size:9},color:SUB,callback:v=>v/10000},grid:{color:'#dde4ea'}}}}; }
+
+function buildCharts(i){
+  const cont=(1-i.ota)*(1-i.cl-i.lb);
+  const denom=i.rooms*i.adr*30*cont;
+  const fc=i.depOn?fcAcc(i):fcCash(i);
+  const bep = (cont>0 && denom>0)? fc/denom : Infinity;           // 0..1
+  const bepValid = isFinite(bep) && bep<=1, bx=bep*100, cx=i.occ*100;
+  const capX = i.minp? 49.3 : null;
+  // 損益分岐チャート: ネット売上線 vs 総費用線
+  const revSeries=series(i,(o,ii)=>revAt(o,ii));
+  const costSeries=series(i,(o,ii)=>revAt(o,ii)*(ii.cl+ii.lb)+fc);
+  const beData={datasets:[
+    {data:revSeries,borderColor:AI,borderWidth:2,tension:0},
+    {data:costSeries,borderColor:GRY,borderWidth:2,tension:0},
+    {data:[{x:cx,y:0},{x:cx,y:revAt(i.occ,i)}],borderColor:'#888',borderWidth:1,borderDash:[4,3],tension:0},
+    {data:bepValid?[{x:bx,y:revAt(bep,i)}]:[],borderColor:AI,backgroundColor:AI,pointRadius:5,showLine:false},
+    capX!==null?{data:[{x:capX,y:0},{x:capX,y:revAt(0.493,i)}],borderColor:'#c98',borderWidth:1,borderDash:[2,2],tension:0}:{data:[]},
+  ]};
+  if(!beChart)beChart=new Chart($('chartBE'),{type:'line',data:beData,options:common()});
+  else{beChart.data=beData;beChart.update('none');}
+  // 営業利益カーブ: 会計OP（実線）+ キャッシュCF（灰破線）
+  const opData={datasets:[
+    {data:series(i,(o,ii)=>opAccAt(o,ii)),borderWidth:2,tension:0,segment:{borderColor:c=>(c.p1.parsed.y<0||c.p0.parsed.y<0)?'#c0584a':SUMI}},
+    {data:series(i,(o,ii)=>cfAt(o,ii)),borderColor:GRY,borderWidth:1.5,borderDash:[5,3],tension:0},
+    {data:[{x:cx,y:opActiveAt(i.occ,i)}],borderColor:AI,backgroundColor:opActiveAt(i.occ,i)<0?'#c0584a':SUMI,pointRadius:6,showLine:false},
+    {data:[{x:0,y:0},{x:100,y:0}],borderColor:'#c3b0a8',borderWidth:1,tension:0},
+    capX!==null?{data:[{x:capX,y:Math.min(opAccAt(0,i),cfAt(0,i))},{x:capX,y:Math.max(opAccAt(1,i),cfAt(1,i))}],borderColor:'#c98',borderWidth:1,borderDash:[2,2],tension:0}:{data:[]},
+  ]};
+  if(!opChart)opChart=new Chart($('chartOP'),{type:'line',data:opData,options:common()});
+  else{opChart.data=opData;opChart.update('none');}
+  return {bep:bepValid?bx:Infinity};
+}
+
+function render(){
+  const i=inputs();
+  SLD.forEach(s=>$('cur-'+s.id).textContent=fmtCur(+$(s.id).value,s.unit));
+  const rev=revAt(i.occ,i), opAcc=opAccAt(i.occ,i), cf=cfAt(i.occ,i);
+  const opActive=i.depOn?opAcc:cf;
+  const pay= cf>0? i.capex/cf : Infinity;
+  const revpar=i.adr*i.occ;
+  // sticky
+  $('s-sales').textContent=man(rev)+'円';
+  $('s-op-lab').textContent= i.depOn?'会計営業利益':'キャッシュCF';
+  const e=$('s-op'); e.textContent=(opActive>=0?'+':'−')+man(Math.abs(opActive))+'円'; e.className='val'+(opActive<0?' neg':'');
+  $('s-pay').textContent=isFinite(pay)?Math.round(pay)+'ヶ月':'回収不能';
+  // output panel
+  $('o-revpar').textContent=Math.round(revpar).toLocaleString('ja-JP')+'円';
+  const ob=$('o-opacc'); ob.textContent=(opAcc>=0?'+':'−')+man(Math.abs(opAcc))+'円'; ob.className='val'+(opAcc<0?' neg':'');
+  const oc=$('o-cf'); oc.textContent=(cf>=0?'+':'−')+man(Math.abs(cf))+'円'; oc.className='val'+(cf<0?' neg':'');
+  // 民泊 warn
+  $('warn').classList.toggle('show', i.minp && i.occ*100>49.3);
+  // 感応度（active利益への影響）
+  const base=opActive;
+  const sens=[
+    ['ADR',     {...i,adr:i.adr*1.1},{...i,adr:i.adr*0.9}],
+    ['稼働率',  {...i,occ:Math.min(i.occ*1.1,1)},{...i,occ:i.occ*0.9}],
+    ['OTA手数料',{...i,ota:i.ota*1.1},{...i,ota:i.ota*0.9}],
+  ];
+  $('sens').querySelector('tbody').innerHTML=sens.map(([n,u,d])=>{
+    const a=opActiveAt(u.occ,u)-base, b=opActiveAt(d.occ,d)-base;
+    const c=v=>`<td class="${v>=0?'pos':'neg'}">${v>=0?'+':'−'}${man(Math.abs(v))}円</td>`;
+    return `<tr><td>${n}</td>${c(a)}${c(b)}</tr>`;}).join('');
+  const r=buildCharts(i);
+  $('o-bep').textContent=isFinite(r.bep)?r.bep.toFixed(0)+'%':'達成不能';
+}
+[...SLD.map(s=>s.id),'rent','other','capex','life','t-dep','t-min'].forEach(id=>$(id).addEventListener('input',render));
+// 初期プリセット highlight
+document.querySelector('.presets button[data-k="グランピング"]').classList.add('on');
+render();
+</script>
+</body>
+</html>

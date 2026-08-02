@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>交通事故案件 弁護士相談パッケージ(伏字版・完全版)</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; max-width: 920px; margin: 0 auto; padding: 1em; line-height: 1.7; }
+  h1, h2, h3 { border-bottom: 2px solid #888; padding-bottom: .3em; }
+  h1 { font-size: 1.5em; color: #1a3a5e; }
+  h2 { font-size: 1.2em; color: #2d5a8e; margin-top: 2em; }
+  .meta { color: #777; font-size: .95em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: .95em; }
+  th, td { border: 1px solid #888; padding: .5em .7em; text-align: left; vertical-align: top; }
+  th { background: rgba(128,128,128,.18); }
+  a { color: #0a64c4; word-break: break-all; }
+  @media (prefers-color-scheme: dark) { a { color: #6db1ff; } body { color: #ddd; } }
+  .key { color: #c41a1a; font-weight: bold; }
+  .ok { color: #0a7a0a; font-weight: bold; }
+  img { max-width: 100%; height: auto; border: 1px solid #888; border-radius: 4px; }
+  .box { background: #fff8e1; border: 1.5px solid #aa8800; padding: 1em; border-radius: 6px; margin: 1em 0; }
+  .box-warn { background: #fee0e0; border: 1.5px solid #c41a1a; padding: 1em; border-radius: 6px; margin: 1em 0; }
+  .box-info { background: #e0f0fe; border: 1.5px solid #1a64c4; padding: 1em; border-radius: 6px; margin: 1em 0; }
+  .box-medical { background: #e8f4e8; border: 1.5px solid #4a8a4a; padding: 1em; border-radius: 6px; margin: 1em 0; }
+  .toc { background: rgba(128,128,128,.1); padding: 1em; border-radius: 6px; }
+  .download { display: inline-block; background: #1a3a5e; color: white !important; padding: .4em .9em; border-radius: 4px; text-decoration: none; font-weight: bold; margin: .3em 0; }
+  .stamp { color: #999; font-size: .85em; margin-top: 3em; text-align: center; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+  @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+  .caption { text-align: center; font-size: .9em; color: #777; margin-top: .3em; }
+</style>
+</head>
+<body>
+
+<div class="box-info">
+  <strong>📌 本資料について(弁護士向け・伏字版)</strong><br>
+  本パッケージは <strong>第三者(B 当事者)の特定可能情報を全て伏字化</strong> したインターネット公開版です。<br>
+  実名・ナンバー・勤務先・保険会社名・電話番号などの実情報は LINE 個別 or 電話でお伝えします。<br>
+  URL を知る者のみアクセス可、検索エンジン非公開、72 時間後に自動削除予定。
+</div>
+
+<h1>🚗 交通事故案件 弁護士相談パッケージ</h1>
+
+<div class="meta">
+  <strong>事故日時:</strong> 2026 年 6 月 11 日(木)09:28:18.5 JST<br>
+  <strong>事故現場:</strong> 東京都板橋区坂下 3 丁目 T 字路(優先道路 vs 脇道一時停止、35.7879N, 139.6846E)<br>
+  <strong>作成:</strong> 2026 年 6 月 17 日
+</div>
+
+<div class="box-warn">
+  <strong>主訴(戦略 γ):</strong><br>
+  ① 過失割合 A 5% : B 95% を目標(訴訟ベース 0:100 射程)<br>
+  ② 人身切替 → 後遺障害 14 級認定狙い<br>
+  ③ A 側 弁護士費用特約 300 万限度内で完結<br>
+  ④ <strong>書面処理型・月 1 進捗報告</strong>の受任契約希望
+</div>
+
+<div class="toc">
+  <strong>📋 目次</strong>
+  <ol>
+    <li><a href="#summary">事案サマリ</a></li>
+    <li><a href="#map">現場地図(Google 衛星)</a></li>
+    <li><a href="#plan">現場平面図(自作)</a></li>
+    <li><a href="#video">ドラレコ動画(LINE 個別共有)</a></li>
+    <li><a href="#moments">重要瞬間 5 枚(ドラレコ静止画)</a></li>
+    <li><a href="#waveform">音声波形 — 物理的衝撃の客観証拠</a></li>
+    <li><a href="#damage">両車損傷写真</a></li>
+    <li><a href="#medical">医療(武藤クリニック 6/17 初診)</a></li>
+    <li><a href="#strategy">戦略 γ + 過失主張</a></li>
+    <li><a href="#qa">弁護士へ確認したい事項</a></li>
+  </ol>
+</div>
+
+<h2 id="summary">1. 事案サマリ(ドラレコ SSOT 反映)</h2>
+<table>
+  <tr><th width="22%">日時</th><td>2026-06-11(木)09:28:18.5(音声 PCM 飽和で確定)</td></tr>
+  <tr><th>場所</th><td>東京都内 T 字路(板橋区坂下 3 丁目)</td></tr>
+  <tr><th>A(依頼者)車</th><td>国産 SUV(プレート伏字、A 本人運転、北→南進行)</td></tr>
+  <tr><th>B(相手)車</th><td>輸入 SUV(プレート伏字)</td></tr>
+  <tr><th>B 属性</th><td><span class="key">★ 損害保険特級認定代理店</span>(保険業界トップ専門資格)、輸入車ディーラー勤務</td></tr>
+  <tr><th>B 保険</th><td>大手損保(伏字)</td></tr>
+  <tr><th>A 保険</th><td>大手損保(伏字)+ 弁護士費用特約 300 万円付帯</td></tr>
+</table>
+
+<h3>事故動態(ドラレコ + 体験ベース)</h3>
+<ol>
+  <li>A: 南北優先道路を北→南進行、本来車線=東側(左側通行の左車線)、~10-15 km/h</li>
+  <li>道路状況: ① 信号付き交差点(北) → ② T 字路(信号なし、脇道は西側、一時停止あり)</li>
+  <li>② の南側に工事車両(業者伏字、特定済)が東側車線寄りに停車。誘導員 1 名介在、青シート建設足場で A 左視界制限</li>
+  <li>A: 誘導員「進め」合図確認後、東側車線で南進(ドラレコ全フレームで東側車線一貫)</li>
+  <li>B: 脇道で一時停止後、**ずっと静止**(誘導員の「止まれ」合図を「自分への進め」と誤認、ディーラー納車を急いでいた、と本人自白)</li>
+  <li><strong>A が ② 交差点を通過中に B が突発的に右折開始</strong></li>
+  <li><strong>09:28:18.5 衝突</strong>(B フロント左コーナーが A 右側面 中央〜後部に並行擦り、B はほぼ南向き)</li>
+  <li>★ B は衝突瞬間まで A の FRONT/REAR 両ドラレコに**一切映っていない**(A 右側面真横の死角に潜入)</li>
+  <li>衝突直後 REAR ドラレコに B(輸入 SUV)が初めて映り、A の真後ろやや右に並んで停止</li>
+  <li>A が警察 110 + 自保険に即時報告。警察官関与確定後、B が「免許証だけ見せて約 15 分立ち去り」</li>
+</ol>
+
+<h2 id="map">2. 現場地図(Google 衛星)</h2>
+<img src="map/site-map.jpg" alt="現場地図(衛星)">
+<div class="caption">座標 35.7879444N, 139.6845833E / Google Maps 衛星(Maps SSOT)</div>
+
+<h2 id="plan">3. 現場平面図(自作・伏字版)</h2>
+<img src="heimen-zu.png" alt="現場平面図">
+<div class="caption">A 軌跡(青)/ B 軌跡(赤)/ 誘導員(黄)/ 衝突位置(★)/ 信号待ち 2 台 / 工事車両</div>
+
+<h2 id="video">4. ドラレコ動画(LINE 個別共有)</h2>
+<div class="box">
+  ⚠️ ドラレコ動画は **Google Drive で LINE 個別共有** いたします(動画内にナンバー・社名・電話番号が映るため、公開 URL では未収録)。<br>
+  61 秒、2560×720 合成、F+R 同期、衝突瞬間 22.5 秒で赤フラッシュ + 音声 PCM 飽和注釈。
+</div>
+
+<h2 id="moments">5. 重要瞬間 5 枚(ドラレコ静止画・伏字版)</h2>
+
+<h3>① 09:28:16.0 衝突 2.5 秒前 — 誘導員視認、A は ① と ② の間 東側車線</h3>
+<img src="moments/before_collision.png" alt="衝突 2.5 秒前">
+
+<h3>② 09:28:18.4 衝突直前 0.1 秒 — A は ② 交差点直前(B は両カメラ死角)</h3>
+<img src="moments/right_before.png" alt="衝突直前">
+
+<h3>🚨 ③ 09:28:18.5 衝突瞬間 — 音声 PCM 飽和 32768</h3>
+<img src="moments/collision.png" alt="衝突瞬間">
+
+<h3>④ 09:28:19.5 衝突直後 — A 急停止、REAR に B が初出現</h3>
+<img src="moments/stopped.png" alt="衝突直後">
+
+<h3>⑤ 後方視点 — B 車・工事業者 特定(伏字)</h3>
+<img src="moments/identification.png" alt="加害者特定">
+
+<h2 id="waveform">6. 音声波形 — 物理的衝撃の客観証拠(最重要)</h2>
+<div class="box">
+  <strong>📊 PCM 16bit 飽和 32768 = 録音範囲(±32768)を超える物理衝撃の確定証拠</strong><br>
+  通常音は ±10,000 程度の振幅、衝突音のみ ±32768 の天井に「張り付き」。<br>
+  → 相手保険会社の「軽微事故 / 衝突力学疑い」反論を物理的に粉砕。<br>
+  → ドラレコ視覚は B 死角で映らないが、**音声飽和が唯一の物理 ground truth**。
+</div>
+<p><strong>全体波形(30 秒間):</strong></p>
+<img src="onsei-haket.png" alt="音声波形 全体">
+<p><strong>衝突瞬間 1.5 秒拡大(振幅 ±32768 に張り付き):</strong></p>
+<img src="onsei-zoom.png" alt="音声波形 衝突拡大">
+
+<h2 id="damage">7. 両車損傷写真</h2>
+
+<h3>A 車(依頼者・国産 SUV)右後方側面の損傷</h3>
+<img src="damage/A-damage-right-side.jpg" alt="A 車 右側面損傷">
+<div class="caption">右リアフェンダー〜リアドア下部に<strong>直線的擦り傷</strong>(後輪・ホイールは無傷)</div>
+
+<h3>A 車 追加被害写真(2026-06-17 撮影)</h3>
+<div class="grid2">
+  <div><img src="damage/A-extra-IMG_0419.jpeg" alt="A 損傷詳細 1"><div class="caption">詳細 1</div></div>
+  <div><img src="damage/A-extra-IMG_0420.jpeg" alt="A 損傷詳細 2"><div class="caption">詳細 2</div></div>
+  <div><img src="damage/A-extra-IMG_0421.jpeg" alt="A 損傷詳細 3"><div class="caption">詳細 3</div></div>
+  <div><img src="damage/A-extra-IMG_0422.jpeg" alt="A 損傷詳細 4"><div class="caption">詳細 4</div></div>
+</div>
+
+<div class="box-warn">
+  <strong>⚠️ 衝突メカニズム訂正(ドラレコ + 損傷写真 + 体験ベース)</strong><br>
+  ・<strong>B 車は衝突瞬間に停止していた</strong>(右折開始位置、まだ曲がっていない)<br>
+  ・<strong>A は車線変更を完了した状態</strong>で B を視認後の停止位置に近づいた<br>
+  ・接触: <strong>B の左前 × A の右後方側面</strong>(B の左フロントコーナーが A 右後ろ側面に接触)<br>
+  ・平面図 / 3D の B 車向き・位置は更新中(本面談後に修正版を提供します)
+</div>
+
+<h3>B 車(輸入 SUV)フロント右の損傷(ナンバー伏字)</h3>
+<img src="damage/B-damage-front-redacted.jpg" alt="B 車 フロント損傷 伏字">
+<div class="caption">フロントバンパー右側 + ナンバープレート右下部に擦り傷 = フロント左コーナーが A 右側面に接触</div>
+
+<div class="box">
+  <strong>物理整合分析</strong>:<br>
+  A 右側面の<strong>直線的擦り傷</strong> + B フロント左コーナーの擦り傷 = 両車が**並行に近い角度で擦り合った**ことを示す。<br>
+  → 「正面衝突的な突っ込み」ではなく、B が A の右側面に**左方向に切れ込んで接触**した形。<br>
+  → B 衝突姿勢 = ほぼ南向き(0.2-0.3 rad)= A の進行方向に近い角度。
+</div>
+
+<h2 id="medical">8. 医療(武藤クリニック 6/17 初診)</h2>
+
+<div class="box-medical">
+  <strong>🏥 初診サマリ(2026-06-17 受診済)</strong>
+  <ul>
+    <li>レントゲン診断済(頸椎)</li>
+    <li>主訴: 右肩・右首痛、首が右に回らない</li>
+    <li>処方箋: 受領済(薬は別途)</li>
+    <li>電気治療: 今日は時間なく後日</li>
+    <li>会計: 自費 10,000 円超(保険診療切替は 6 月中まで可)</li>
+    <li>診断書: 作成可(費用未確認)</li>
+  </ul>
+</div>
+
+<h3>医師所見(録音より要約)</h3>
+<table>
+  <tr><th>項目</th><th>所見</th></tr>
+  <tr><td>頸椎の骨</td><td>健全(隙間 OK)</td></tr>
+  <tr><td>体質</td><td>元々肩こりが起こりやすい姿勢・骨格</td></tr>
+  <tr><td>首の曲がり(姿勢)</td><td>元々のもの = 医師見解「事故とは関係ない」</td></tr>
+  <tr><td>右首が右に回らない</td><td>筋肉痛(電気治療で対応可)</td></tr>
+  <tr><td>右肩痛</td><td>同上(電気治療継続予定)</td></tr>
+  <tr><td>下向きの痺れ</td><td>元々の頸椎の形状由来、事故と無関係</td></tr>
+  <tr><td>神経学的所見</td><td>重大所見なし</td></tr>
+</table>
+
+<div class="box-warn">
+  <strong>⚠️ 弁護士確認最優先事項</strong>
+  <ul>
+    <li>🚨 <strong>保険診療切替期限: 6/30(残り 13 日)</strong> → 切替判断を早急に</li>
+    <li>🚨 医師の「事故と関係ない」発言の取扱い → 後遺障害 14 級認定への影響、診断書記載方針</li>
+    <li>診断書に「頸椎捻挫 / 外傷性頸部症候群」「事故との因果関係あり」と書いてもらえるか</li>
+    <li>電気治療の頻度・期間方針(14 級認定基準は 通院 70 日 + 症状固定 3 ヶ月以上が目安)</li>
+    <li>代車特約なしで修理期間中の代車費用を相手保険から請求可能か</li>
+  </ul>
+</div>
+
+<h2 id="strategy">9. 戦略 γ + 過失主張</h2>
+
+<h3>視認対称性論点(ドラレコ SSOT 基準)</h3>
+<div class="box">
+  <strong>📍 双方の視界対称性 + B 死角接触</strong><br>
+  A は北行き信号待ち 2 台 + 工事車両 + 青シートで t&lt;2.5 秒まで西脇道の B を視認困難。<br>
+  B も同様に北からの A を視認困難。<br>
+  さらに、B は衝突瞬間まで A の<strong>両ドラレコ視野外(右側面真横の死角)</strong>に位置。<br>
+  → A は誘導員「進め」合図に従って通常走行(東側車線、一貫)。<br>
+  → B は<strong>静止していたにも関わらず</strong>、A が交差点通過中に突発右折で発進。<br>
+  → <strong>B の右折開始判断ミスが主因</strong>(対称的視認不能 + B の突発発進 + A 死角接触)。
+</div>
+
+<h3>過失割合主張(目標: A 5% : B 95%)</h3>
+<table>
+  <tr><th width="50%">論点</th><th>修正値</th></tr>
+  <tr><td>判タ別冊 38 号【107】基本(優先道路直進 vs 脇道右折)</td><td>15:85</td></tr>
+  <tr><td>B 著しい前方不注視(誘導員指示誤認、本人自白)</td><td class="ok">B +10〜15</td></tr>
+  <tr><td>A が誘導員「進め」合図に従っていた(東京高判平 17.2.23)</td><td class="ok">A −5〜10</td></tr>
+  <tr><td>B が静止後 A 通過中に突発右折(直進優先 道交法 36 条違反)</td><td class="ok">B +5</td></tr>
+  <tr><td>A 接触位置=右側面 並行擦り(B が左切れ込み)</td><td class="ok">A −5</td></tr>
+  <tr><td>B = 損保特級代理店の現場放棄</td><td>慰謝料 1.05-1.1 倍 加算</td></tr>
+</table>
+<p><strong>最終レンジ: A 0〜10% : B 90〜100%(訴訟ベース中央値 5:95)</strong></p>
+
+<h3>戦略 γ(5:95 + 後遺障害 14 級狙い)</h3>
+<table>
+  <tr><th width="22%">期待回収</th><td>250-450 万円(車両修理 + 慰謝料 + 休業損害 + 後遺障害 14 級 慰謝料 110 万 + 逸失利益 200 万)</td></tr>
+  <tr><th>A 稼働</th><td>15-18h / 10 ヶ月(月 1.5-1.8h)</td></tr>
+  <tr><th>期間</th><td>8-10 ヶ月</td></tr>
+  <tr><th>達成確率</th><td>14 級認定 60-70%(初診医師所見次第で再評価)</td></tr>
+  <tr><th>弁護士特約</th><td>300 万限度内完結(鑑定費用 62 万 + 弁護士費用 200 万 = 計 262 万、余裕)</td></tr>
+  <tr><th>撤回条件</th><td>12 月時点で 14 級認定不可 → β 即示談(150-200 万)に転換</td></tr>
+</table>
+
+<h3>受任契約の希望条件</h3>
+<ul>
+  <li><strong>書面処理型・月 1 進捗報告</strong>(A 本業の時間軸維持のため)</li>
+  <li><strong>裁判前提でなく示談主導</strong>(訴訟移行は中央値以下で膠着時のみ)</li>
+  <li><strong>判断要請のみ通知</strong>(処理タスクは弁護士主導で代行)</li>
+</ul>
+
+<h2 id="qa">10. 弁護士へ確認したい事項</h2>
+<ol>
+  <li><strong>過失割合 5:95 〜 0:100 の現実的着地ライン</strong>(B=損保特級代理店、誘導員介在、ドラレコ + 音声 PCM 飽和取得済、両車損傷物理整合)</li>
+  <li><strong>14 級認定の現実的可能性</strong>(週末発症の頸椎捻挫、医師見解「事故と関係薄」、初診済)</li>
+  <li><strong>保険診療切替期限 6/30</strong> までの判断 — 切替 vs 自費継続のメリット/デメリット</li>
+  <li><strong>診断書記載方針</strong> — 「頸椎捻挫」「事故との因果関係」を書いてもらえるか</li>
+  <li><strong>B 側ドラレコの開示要請</strong>と相手保険会社への提出強制手順(証拠隠滅可能性の対抗)</li>
+  <li><strong>工事業者(特定済)への内容証明送付</strong>で工事業者責任の心理圧力をかけるべきか</li>
+  <li><strong>書面処理型・月 1 進捗報告契約</strong>は可能か</li>
+  <li><strong>代車費用(特約なし)</strong>を相手保険から請求できるか</li>
+</ol>
+
+<div class="box-info">
+  <strong>📞 実情報のご提供について</strong><br>
+  ご依頼決定後 LINE 個別 or 電話で即時お伝えします:
+  <ul>
+    <li>A・B 実名 / プレート / 保険会社 / 弁護士特約事故番号</li>
+    <li>工事業者社名 + 電話番号</li>
+    <li>原本ドラレコ動画(伏字なし、Google Drive 共有)</li>
+    <li>診断書 / 修理見積もり(別途取得後)</li>
+  </ul>
+</div>
+
+<div class="stamp">
+  本パッケージ作成: 2026-06-17<br>
+  検索エンジン非公開(robots: noindex,nofollow)<br>
+  72 時間後に自動削除予定
+</div>
+
+</body>
+</html>
