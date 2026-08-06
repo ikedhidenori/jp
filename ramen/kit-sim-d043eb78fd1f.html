@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>スープレス店 損益シミュレーター｜ラーメン屋図鑑 No.001</title>
+<style>
+  :root{ --ink:#1c1a17; --sumi:#2c2c2c; --sub:#8a8275; --paper:#f4efe6; --card:#fffdf8; --rule:#ddd4c4; --shu:#b5462e; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{background:var(--paper); color:var(--ink); font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; line-height:1.6; -webkit-text-size-adjust:100%;}
+  .banner{background:var(--shu); color:#fff; font-size:10.5px; padding:5px 12px; line-height:1.5;}
+  .sticky{position:sticky; top:0; z-index:100; background:var(--sumi); color:var(--paper); padding:8px 16px; display:flex; gap:10px; justify-content:space-around;}
+  .sticky .s{text-align:center; line-height:1.25;}
+  .sticky .s .lab{font-size:10px; color:#bdb5a5;}
+  .sticky .s .val{font-size:15px; font-weight:700; font-family:"Hiragino Mincho ProN","Noto Serif JP",serif;}
+  .sticky .s .val.neg{color:#ff9a7a;}
+  .wrap{max-width:1180px; margin:0 auto; padding:10px 16px 40px;}
+  h1{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:18px; margin:6px 0 2px;}
+  .lead{font-size:11.5px; color:var(--sub); margin:0 0 4px;}
+  .upd{font-size:11px; color:var(--sub); margin:2px 0 8px;}
+  /* layout: PC=2カラム / mobile=1カラム */
+  .layout{display:grid; grid-template-columns:1fr; gap:14px;}
+  @media(min-width:880px){
+    .layout{grid-template-columns:340px 1fr; gap:24px; align-items:start;}
+    .lead{font-size:12px;}
+  }
+  .col-in{}
+  .inputs{display:grid; grid-template-columns:1fr; gap:9px;}
+  @media(min-width:880px){ .inputs{gap:7px;} }
+  .sld .row{display:flex; justify-content:space-between; align-items:baseline;}
+  .sld label{font-size:12px; color:var(--ink);}
+  .sld .cur{font-size:15px; font-weight:700; font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; color:var(--shu);}
+  .sld input[type=range]{width:100%; height:30px; accent-color:var(--shu); margin:0;}
+  @media(min-width:880px){ .sld input[type=range]{height:26px;} }
+  .nums{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin:10px 0 0;}
+  .nums .fld{display:flex; flex-direction:column;}
+  .nums label{font-size:10.5px; color:var(--sub); margin-bottom:2px;}
+  .nums input{font-size:14px; padding:6px 8px; border:1px solid var(--rule); border-radius:4px; background:#fff; font-family:inherit; width:100%;}
+  .gblock{margin:0 0 10px;}
+  .gblock h2{font-family:"Hiragino Mincho ProN","Noto Serif JP",serif; font-size:13px; border-bottom:1px solid var(--rule); padding-bottom:3px; margin:0 0 2px;}
+  .gcap{font-size:10.5px; color:var(--sub); margin:0 0 3px;}
+  .gwrap{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:6px 6px 2px;}
+  canvas{width:100%!important;}
+  table{border-collapse:collapse; width:100%; font-size:12px; margin:6px 0;}
+  th,td{border:1px solid var(--rule); padding:5px 7px; text-align:right;}
+  th:first-child,td:first-child{text-align:left;}
+  th{background:#efe7d8; font-weight:700;}
+  td.pos{color:var(--sumi);} td.neg{color:var(--shu);}
+  details{margin:8px 0;} summary{cursor:pointer; color:var(--shu); font-weight:700; font-size:12.5px;}
+  .note{font-size:10.5px; color:var(--sub); background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--shu); border-radius:4px; padding:7px 10px; margin:8px 0; line-height:1.6;}
+  .foot{margin-top:10px; font-size:10px; color:var(--sub); border-top:1px solid var(--rule); padding-top:8px;}
+  details.formula .f{font-size:10.5px; color:var(--sub); font-family:ui-monospace,monospace; line-height:1.7; background:#f0e8d8; border-radius:4px; padding:7px 10px; margin-top:5px;}
+</style>
+</head>
+<body>
+  <div class="sticky">
+    <div class="s"><div class="lab">月商</div><div class="val" id="s-sales">—</div></div>
+    <div class="s"><div class="lab">営業利益</div><div class="val" id="s-op">—</div></div>
+    <div class="s"><div class="lab">投資回収</div><div class="val" id="s-pay">—</div></div>
+  </div>
+  <div class="wrap">
+    <h1>あなたの店を計算する ── 損益シミュレーター</h1>
+    <p class="lead">スライダーを動かすと、損益分岐・営業利益・回収がリアルタイムで変わります。スープレス業態（油そば・まぜそば・担々麺・台湾まぜそば）の開業/改善判断に。</p>
+    <p class="upd">既定値は「ぶらぶら型 14坪18席モデル」の参考値（official実績への逆算 estimate 含む）。<b>実際の見積もりを入れて読んでください。</b></p>
+
+    <div class="layout">
+      <div class="col-in">
+        <div class="inputs" id="sliders"></div>
+        <div class="nums">
+          <div class="fld"><label>家賃（万円/月）</label><input id="rent" type="number" value="65"></div>
+          <div class="fld"><label>その他固定（万円/月）</label><input id="other" type="number" value="33"></div>
+          <div class="fld"><label>初期投資（万円）</label><input id="invest" type="number" value="1313"></div>
+        </div>
+        <details>
+          <summary>感応度 ── どの一手が一番効くか</summary>
+          <table id="sens"><thead><tr><th>変数</th><th>+10%</th><th>−10%</th></tr></thead><tbody></tbody></table>
+          <p class="note">営業利益への月次インパクト。一般に「客単価＞回転＞原価率」の順で効く（低原価業態は原価を削る余地が薄い）。</p>
+        </details>
+        <details class="formula">
+          <summary>計算式（電卓で追える四則演算）</summary>
+          <div class="f">限界利益率 = (1 − F) − L<br>損益分岐月商 = (家賃 + その他固定) ÷ 限界利益率<br>必要回転 = 損益分岐月商 ÷ 客単価 ÷ 営業日数 ÷ 席数<br>月商 = 席数 × 回転 × 客単価 × 営業日数<br>営業利益 = 月商 − 月商×F − 月商×L − 家賃 − その他固定<br>回収月数 = 初期投資 ÷ 月営業利益</div>
+        </details>
+      </div>
+      <div class="col-g">
+        <div class="gblock">
+          <h2>損益分岐 ── あと何回転で黒字か</h2>
+          <p class="gcap">墨＝売上、朱＝総費用。交点が損益分岐。破線＝今の回転。</p>
+          <div class="gwrap"><canvas id="chartBE" height="170"></canvas></div>
+        </div>
+        <div class="gblock">
+          <h2>営業利益カーブ ── 回転を上げると利益はどう動くか</h2>
+          <p class="gcap">ゼロ線の上が黒字（墨）、下が赤字（朱）。丸＝今の回転。</p>
+          <div class="gwrap"><canvas id="chartOP" height="170"></canvas></div>
+        </div>
+      </div>
+    </div>
+    <p class="foot">「スープを炊かない店の損益解剖キット」(ラーメン屋図鑑 No.001) 同梱の損益シミュレーター。計算はキット本文・付録に明記した四則演算をそのまま実装。初期値は official 実績 (ぶらぶら月商320万・営業利益62万) への逆算 estimate。自店の数字に置き換えて使う。</p>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+const SHU='#b5462e', SUMI='#2c2c2c', SUB='#8a8275';
+const SLD = [
+  {id:'seats', label:'席数',        min:4,  max:40,  step:1,  val:18,  unit:'席'},
+  {id:'turns', label:'回転数/日',    min:0.5,max:12,  step:0.1,val:8.8, unit:'回転'},
+  {id:'check', label:'客単価',       min:600,max:2500,step:10, val:780, unit:'円'},
+  {id:'f',     label:'食材原価率 F',  min:15, max:50,  step:0.5,val:30,  unit:'%'},
+  {id:'l',     label:'人件費率 L',    min:10, max:45,  step:0.5,val:20,  unit:'%'},
+  {id:'days',  label:'営業日数/月',   min:20, max:31,  step:1,  val:26,  unit:'日'},
+];
+const $=id=>document.getElementById(id);
+const man=y=>(y/10000).toLocaleString('ja-JP',{maximumFractionDigits:1})+'万';
+const fmtCur=(v,u)=> u==='円'? v.toLocaleString('ja-JP')+'円' : (u==='回転'? v.toFixed(1)+u : v+u);
+$('sliders').innerHTML = SLD.map(s=>`
+  <div class="sld"><div class="row"><label>${s.label}</label><span class="cur" id="cur-${s.id}"></span></div>
+  <input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.val}"></div>`).join('');
+function inputs(){ const g=id=>+$(id).value;
+  return {seats:g('seats'),turns:g('turns'),check:g('check'),F:g('f')/100,L:g('l')/100,
+          days:g('days'),rent:g('rent')*10000,other:g('other')*10000,invest:g('invest')*10000}; }
+function salesAt(r,i){ return i.seats*r*i.check*i.days; }
+function costAt(r,i){ const s=salesAt(r,i); return s*(i.F+i.L)+i.rent+i.other; }
+function opAt(r,i){ const s=salesAt(r,i); return s-s*i.F-s*i.L-i.rent-i.other; }
+const RMIN=0.5, RMAX=12;
+function series(i,fn){ const o=[]; for(let r=RMIN;r<=RMAX+1e-9;r+=0.25)o.push({x:+r.toFixed(2),y:fn(r,i)}); return o; }
+let beChart, opChart;
+function common(){ return {responsive:true, maintainAspectRatio:false, animation:false,
+  plugins:{legend:{display:false},tooltip:{enabled:false}}, elements:{point:{radius:0}},
+  scales:{x:{type:'linear',min:RMIN,max:RMAX,title:{display:true,text:'回転数/日',font:{size:9},color:SUB},ticks:{font:{size:9},color:SUB},grid:{color:'#eee6d6'}},
+          y:{title:{display:true,text:'万円/月',font:{size:9},color:SUB},ticks:{font:{size:9},color:SUB,callback:v=>v/10000},grid:{color:'#eee6d6'}}}}; }
+function buildCharts(i){
+  const cont=(1-i.F)-i.L, fixed=i.rent+i.other;
+  const r_be = cont>0 ? fixed/(i.seats*i.check*i.days*cont) : Infinity;
+  const beValid = isFinite(r_be) && r_be<=RMAX, cx=i.turns;
+  const beData={datasets:[
+    {data:series(i,salesAt),borderColor:SUMI,borderWidth:2,tension:0},
+    {data:series(i,costAt),borderColor:SHU,borderWidth:2,tension:0},
+    {data:[{x:cx,y:0},{x:cx,y:salesAt(cx,i)}],borderColor:'#999',borderWidth:1,borderDash:[4,3],tension:0},
+    {data:beValid?[{x:r_be,y:salesAt(r_be,i)}]:[],borderColor:SHU,backgroundColor:SHU,pointRadius:5,showLine:false},
+  ]};
+  if(!beChart)beChart=new Chart($('chartBE'),{type:'line',data:beData,options:common()});
+  else{beChart.data=beData;beChart.update('none');}
+  const opData={datasets:[
+    {data:series(i,opAt),borderWidth:2,tension:0,segment:{borderColor:c=>(c.p1.parsed.y<0||c.p0.parsed.y<0)?SHU:SUMI}},
+    {data:[{x:cx,y:opAt(cx,i)}],borderColor:SHU,backgroundColor:opAt(cx,i)<0?SHU:SUMI,pointRadius:6,showLine:false},
+    {data:[{x:RMIN,y:0},{x:RMAX,y:0}],borderColor:'#caa',borderWidth:1,tension:0},
+  ]};
+  if(!opChart)opChart=new Chart($('chartOP'),{type:'line',data:opData,options:common()});
+  else{opChart.data=opData;opChart.update('none');}
+}
+function render(){
+  const i=inputs();
+  SLD.forEach(s=>$('cur-'+s.id).textContent=fmtCur(+$(s.id).value,s.unit));
+  const sales=salesAt(i.turns,i), op=opAt(i.turns,i), pay=op>0?i.invest/op:Infinity;
+  $('s-sales').textContent=man(sales)+'円';
+  const e=$('s-op'); e.textContent=(op>=0?'+':'−')+man(Math.abs(op))+'円'; e.className='val'+(op<0?' neg':'');
+  $('s-pay').textContent=isFinite(pay)?pay.toFixed(0)+'ヶ月':'回収不能';
+  const base=op, sens=[['客単価',{...i,check:i.check*1.1},{...i,check:i.check*0.9}],['原価率F',{...i,F:i.F*1.1},{...i,F:i.F*0.9}],['回転数',{...i,turns:i.turns*1.1},{...i,turns:i.turns*0.9}]];
+  $('sens').querySelector('tbody').innerHTML=sens.map(([n,u,d])=>{const a=opAt(u.turns,u)-base,b=opAt(d.turns,d)-base;const c=v=>`<td class="${v>=0?'pos':'neg'}">${v>=0?'+':'−'}${man(Math.abs(v))}円</td>`;return `<tr><td>${n}</td>${c(a)}${c(b)}</tr>`;}).join('');
+  buildCharts(i);
+}
+[...SLD.map(s=>s.id),'rent','other','invest'].forEach(id=>$(id).addEventListener('input',render));
+render();
+</script>
+</body>
+</html>
