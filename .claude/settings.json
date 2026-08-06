@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '--- HANDOFF (前回の引き継ぎ。続きはここから) ---'; cat content-engine/HANDOFF.md 2>/dev/null | head -60; echo '--- /retro で振り返り＆起票。「引き継いで」でも可 ---'"
+          }
+        ]
+      }
+    ]
+  }
+}
