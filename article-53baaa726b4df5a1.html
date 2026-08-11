@@ -1,0 +1,494 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>市場仮説の検死報告 ／ 7本立てて12体に壊させた</title></head><body>
+<div class="lo-prog" aria-hidden="true"><i id="loProgBar"></i></div>
+<nav class="lo-nav" aria-label="Living OS 資料">
+  <div class="lo-tabs" id="loTabs">
+    <span class="lo-sep lo-sep-first" aria-hidden="true">地図</span>
+    <a href="article-da072b30599b9e59.html">議論地図</a>
+    <a href="article-e4f2a1c60b7d8395.html">実行地図</a>
+    <a href="article-c0a1646e18bcc8ea.html">思考地図</a>
+    <span class="lo-sep" aria-hidden="true">資料</span>
+    <a href="article-f3e9a12c77b0d584.html">事業計画</a>
+    <a href="article-6c48b2e19da3f075.html">サービス提案</a>
+    <a href="article-e400b0a60dd60ad5.html">投資家概要</a>
+    <a href="article-09662c65a3ba4f84.html">エッセイ</a>
+    <a href="article-38ba43cf490fed24.html">住宅トレンド</a>
+    <a href="article-53baaa726b4df5a1.html" class="on" aria-current="page">仮説検死</a>
+    <span class="lo-sep" aria-hidden="true">ブランド</span>
+    <a href="article-b7c3e9f14a06d582.html">イメージボード</a>
+    <span class="lo-sep" aria-hidden="true">デッキ</span>
+    <a href="article-3485bde10955a9a2.html" class="ext">投資家デッキ</a>
+    <a href="article-1d6dab11a41fe876.html" class="ext">ユーザーデッキ</a>
+  </div>
+  <button class="lo-theme" id="loTheme" type="button" aria-label="表示テーマを切り替える" title="テーマ切替">◐</button>
+</nav>
+<aside class="lo-toc" id="loToc" aria-label="目次"><p class="lo-toc-h">目次</p><ol id="loTocList"></ol></aside>
+<div class="lo-fab">
+  <button type="button" id="loTop" aria-label="先頭へ戻る" title="先頭へ">↑</button>
+  <button type="button" id="loTocBtn" aria-expanded="false" aria-controls="loSheet"><span class="i">☰</span><span class="l" id="loHere">目次</span></button>
+</div>
+<div class="lo-sheet" id="loSheet" hidden>
+  <div class="lo-sheet-in" role="dialog" aria-modal="true" aria-label="目次">
+    <div class="lo-sheet-hd"><p>目次</p><button type="button" id="loClose" aria-label="閉じる">✕</button></div>
+    <ol id="loSheetList"></ol>
+  </div>
+</div>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th{min-width:0}
+img,svg,video,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+.mast{padding:50px 0 22px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:11px}
+.mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
+.mast h1{font-size:clamp(26px,5.8vw,34px); line-height:1.26; font-weight:800; margin:0;
+  padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:12px; height:38px; background:var(--ink)}
+.mast .subtitle{font-size:16px; line-height:1.65; margin:0 0 0 23px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 23px}
+
+section{padding:42px 0 0; display:flex; flex-direction:column; gap:14px}
+section > h2{font-size:clamp(18px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+section > h2 .no{font-size:11px; letter-spacing:.16em; color:var(--faint); display:block; margin-bottom:3px}
+h2 em{font-style:normal; background:linear-gradient(transparent 60%, var(--pale-red) 60%)}
+h3{font-size:14.5px; font-weight:800; margin:8px 0 0; letter-spacing:.01em}
+p{margin:0}
+strong{font-weight:700}
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:17px 17px 13px; margin:2px 0; display:flex; flex-direction:column; gap:12px}
+.artifact-title{font-size:13px; font-weight:700; margin:0}
+.artifact.warn{border-color:var(--red)}
+.artifact.warn .artifact-title{color:var(--red)}
+.artifact.win{border-color:var(--green)}
+.artifact.win .artifact-title{color:var(--green)}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0; line-height:1.6}
+.note{font-size:12.5px; color:var(--sub); line-height:1.7}
+
+.stamp{display:inline-block; font-size:10px; font-weight:700; letter-spacing:.08em; padding:1px 7px;
+  border-radius:2px; border:1.5px solid var(--green); color:var(--green); vertical-align:2px; margin-left:6px}
+.stamp.ng{border-color:var(--red); color:var(--red)}
+
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:12.5px; line-height:1.6}
+th,td{border:1px solid var(--rule); padding:7px 9px; text-align:left; vertical-align:top}
+th{background:var(--artifact); font-size:11px; letter-spacing:.05em; white-space:nowrap}
+td .ok{color:var(--green); font-weight:700}
+td .ng{color:var(--red); font-weight:700}
+
+.pair{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.pair .p{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:12px 13px}
+.pair .p .h{font-size:11px; letter-spacing:.08em; color:var(--faint); font-weight:800; margin:0 0 4px}
+.pair .p .v{font-size:20px; font-weight:800; margin:0; letter-spacing:-.01em}
+.pair .p .s{font-size:11px; color:var(--sub); margin:3px 0 0; line-height:1.55}
+@media (max-width:560px){ .pair{grid-template-columns:1fr} }
+</style>
+<style id="lo-chrome">
+/* ── Living OS 共通ナビゲーション ─────────────────────────
+   ソースの Document Kernel 変数 (--paper/--ink/--sub/--faint/--red/--rule/--artifact) に乗る */
+:root{--lo-nav-h:46px}
+/* テーマ手動切替（元ドキュメントが prefers-color-scheme しか持たない場合の保険） */
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+  --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{padding-top:calc(var(--lo-nav-h) + 8px)}
+.wrap > section{scroll-margin-top:calc(var(--lo-nav-h) + 16px)}
+.wrap > header{scroll-margin-top:calc(var(--lo-nav-h) + 16px)}
+/* セクションの切れ目を視覚化（走査性） */
+.wrap > section + section{border-top:1px solid var(--rule); margin-top:8px}
+
+/* 読書プログレス */
+.lo-prog{position:fixed; top:0; left:0; right:0; height:3px; background:transparent; z-index:60; pointer-events:none}
+.lo-prog i{display:block; height:100%; width:0; background:var(--red); transition:width .08s linear}
+
+/* 上部タブ */
+.lo-nav{position:fixed; top:0; left:0; right:0; height:var(--lo-nav-h); z-index:50;
+  transition:transform .22s ease;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter:saturate(180%) blur(12px); backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--rule); display:flex; align-items:stretch; gap:0}
+@supports not (backdrop-filter:blur(2px)){.lo-nav{background:var(--paper)}}
+@media (max-width:1119px){ .lo-nav.lo-hide{transform:translateY(-100%)} }
+@media (prefers-reduced-motion:reduce){ .lo-nav{transition:none} }
+.lo-tabs{flex:1 1 auto; display:flex; align-items:center; gap:3px; overflow-x:auto; overflow-y:hidden;
+  padding:0 4px 0 12px; scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-behavior:smooth}
+.lo-tabs::-webkit-scrollbar{display:none}
+.lo-tabs a{flex:0 0 auto; font-family:var(--gothic); font-size:12.5px; font-weight:700; line-height:1;
+  color:var(--sub); text-decoration:none; padding:7px 11px; border-radius:3px; white-space:nowrap;
+  border:1px solid transparent}
+.lo-tabs a:hover{background:var(--artifact); border-color:var(--rule); color:var(--ink)}
+.lo-tabs a.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.lo-tabs a.ext{color:var(--faint)}
+.lo-tabs a.ext::after{content:" ↗"; font-size:9px; vertical-align:1px}
+.lo-sep{flex:0 0 auto; font-size:9.5px; letter-spacing:.16em; font-weight:700; color:var(--faint);
+  padding:0 8px 0 12px; border-left:1px solid var(--rule); margin-left:4px; align-self:center; line-height:1.9}
+.lo-sep-first{border-left:0; margin-left:0; padding-left:0}
+.lo-theme{flex:0 0 auto; width:42px; border:0; border-left:1px solid var(--rule); background:transparent;
+  color:var(--sub); font-size:15px; cursor:pointer; font-family:var(--gothic)}
+.lo-theme:hover{color:var(--ink); background:var(--artifact)}
+
+/* デスクトップ：左サイドバー目次 */
+.lo-toc{display:none}
+@media (min-width:1120px){
+  body{padding-left:280px}
+  .lo-toc{display:block; position:fixed; top:calc(var(--lo-nav-h) + 18px); width:246px;
+    left:max(18px, calc(50vw - var(--measure)/2 - 130px));
+    max-height:calc(100vh - var(--lo-nav-h) - 40px); overflow-y:auto; z-index:40;
+    font-family:var(--gothic); scrollbar-width:thin}
+  .lo-toc-h{font-size:9.5px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0 0 9px 11px}
+  .lo-toc ol{list-style:none; margin:0; padding:0; border-left:2px solid var(--rule)}
+  .lo-toc li{margin:0}
+  .lo-toc a{display:block; padding:6px 10px 6px 11px; font-size:12.5px; line-height:1.45; color:var(--sub);
+    text-decoration:none; border-left:2px solid transparent; margin-left:-2px}
+  .lo-toc a:hover{color:var(--ink); background:var(--artifact)}
+  .lo-toc a .n{display:block; font-size:9px; letter-spacing:.13em; color:var(--faint); margin-bottom:1px}
+  .lo-toc a.on{color:var(--ink); font-weight:700; border-left-color:var(--red); background:var(--artifact)}
+  .lo-toc a.on .n{color:var(--red)}
+}
+@media (min-width:1500px){ body{padding-left:0}
+  .lo-toc{left:max(18px, calc(50vw - var(--measure)/2 - 270px))} }
+
+/* 右下フローティング */
+.lo-fab{position:fixed; right:14px; bottom:14px; z-index:45; display:flex; flex-direction:column;
+  align-items:flex-end; gap:8px; font-family:var(--gothic)}
+.lo-fab button{border:1.5px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer;
+  border-radius:999px; box-shadow:0 2px 10px rgba(0,0,0,.13); font-family:var(--gothic); font-weight:700}
+#loTop{width:40px; height:40px; font-size:16px; line-height:1; opacity:0; transform:translateY(6px);
+  transition:opacity .18s, transform .18s; pointer-events:none}
+#loTop.show{opacity:1; transform:none; pointer-events:auto}
+#loTocBtn{display:flex; align-items:center; gap:7px; padding:9px 14px; font-size:12.5px; max-width:52vw}
+#loTocBtn .i{font-size:13px}
+#loTocBtn .l{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+@media (min-width:1120px){ #loTocBtn{display:none} }
+
+/* モバイル目次シート */
+.lo-sheet{position:fixed; inset:0; z-index:70; background:rgba(0,0,0,.42); display:flex; align-items:flex-end}
+.lo-sheet[hidden]{display:none}
+.lo-sheet-in{width:100%; max-height:76vh; background:var(--paper); border-top:3px solid var(--ink);
+  border-radius:14px 14px 0 0; display:flex; flex-direction:column; font-family:var(--gothic);
+  animation:loUp .2s ease-out}
+@keyframes loUp{from{transform:translateY(14px); opacity:.6} to{transform:none; opacity:1}}
+@media (prefers-reduced-motion:reduce){.lo-sheet-in{animation:none}}
+.lo-sheet-hd{display:flex; align-items:center; justify-content:space-between; padding:14px 16px 10px;
+  border-bottom:1px solid var(--rule)}
+.lo-sheet-hd p{margin:0; font-size:11px; letter-spacing:.16em; font-weight:700; color:var(--faint)}
+.lo-sheet-hd button{border:0; background:transparent; font-size:17px; color:var(--sub); cursor:pointer; padding:2px 4px}
+.lo-sheet ol{list-style:none; margin:0; padding:6px 0 26px; overflow-y:auto; -webkit-overflow-scrolling:touch}
+.lo-sheet a{display:block; padding:12px 18px; font-size:14.5px; line-height:1.5; color:var(--ink);
+  text-decoration:none; border-bottom:1px solid var(--rule); border-left:3px solid transparent}
+.lo-sheet a .n{display:block; font-size:9.5px; letter-spacing:.14em; color:var(--faint); margin-bottom:2px}
+.lo-sheet a.on{border-left-color:var(--red); background:var(--artifact); font-weight:700}
+.lo-sheet a.on .n{color:var(--red)}
+
+/* 見出しのアンカー（共有用） */
+.wrap > section > h2 .lo-a{opacity:0; margin-left:8px; font-size:12px; color:var(--faint);
+  text-decoration:none; font-weight:400; transition:opacity .12s; vertical-align:2px}
+.wrap > section > h2:hover .lo-a, .lo-a:focus-visible{opacity:1}
+@media (hover:none){.wrap > section > h2 .lo-a{display:none}}
+
+/* 横スクロールする表であることを示す */
+.tablewrap{position:relative}
+.tablewrap.lo-ovf::after{content:"→ 横にスクロールできます"; position:absolute; right:2px; bottom:-3px;
+  font-size:9.5px; color:var(--faint); font-family:var(--gothic); letter-spacing:.04em; pointer-events:none}
+.tablewrap.lo-ovf{padding-bottom:13px}
+
+@media print{
+  .lo-nav,.lo-prog,.lo-toc,.lo-fab,.lo-sheet{display:none !important}
+  body{padding-top:0 !important; padding-left:0 !important}
+  .wrap > section{break-inside:auto}
+}
+</style>
+
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">INNFRA ／ チーム用インテリジェンス</p>
+  <h1>市場仮説の検死報告</h1>
+  <p class="subtitle">13日間・45票のコーパスから市場仮説を7本立て、<strong>7本すべてを壊すことだけを目標にした独立の検証12体</strong>にかけた。3本が死に、4本は別の形で生き残った。生き残った断片は元の仮説より強い ── そして一番の収穫は、外向きの仮説ではなく、<strong>うち自身に刺さった6つの発見</strong>だった。</p>
+  <p class="meta">2026-08-11 作成　D2-internal　／ 方法：コーパス45票 × 5レンズ採掘 ＋ 仮説7本 × 敵対検証（独立12エージェント）。対になる資料：<a href="article-38ba43cf490fed24.html">住宅トレンドの記録 v3</a>・<a href="article-da072b30599b9e59.html">議論地図 v3</a></p>
+</header>
+
+<section>
+  <h2>いちばん先に、これだけ</h2>
+  <div class="artifact">
+    <p class="artifact-title">結論 4つ</p>
+    <p>① <strong>7本中、無傷で生き残った仮説はゼロ。</strong>3本が反証され（REFUTED）、4本に要修正の欠陥（WEAK）。ただし全てに「生き残る形」の書き直しと、追加コストほぼゼロの反証テストが付いた。仮説は減ったが、使える主張は増えた。</p>
+    <p>② <strong>一番強い発見は内向きだった。</strong>うちの検算文化は「数字の大きさ」を高精度で撃ってきたが、<em>命題の向きを一度も撃っていない</em>（13日間の追い風の語 32回 vs 向かい風 14回）。向きはバズが決め、数字だけ直して上塗りする ── この癖が7本の仮説全部に入っていた。</p>
+    <p>③ <strong>8月末に足すべきは新しい主張ではなく、事前登録テスト7本</strong>（§5）。どれも既存の LP・ヒアリング・タームシートに相乗りでき、閾値を先に書いておけば8月末に自動で判定が出る。</p>
+    <p>④ <strong>このコーパス自体に限界がある。</strong>毎日拾えば毎日トレンドに見える（観測者バイアス）。話者はほぼ全員が住宅を資産として語る側。そして<em>うちが客と定義した層の一次発話は45票中ゼロ</em>（§3-A6）。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">1</span>検死表 ── 7本の判定</h2>
+  <div class="tablewrap"><table>
+    <tr><th>仮説</th><th>判定</th><th>死因（最致命の1本）</th><th>生き残った形</th></tr>
+    <tr><td>H1 約束インフレ<br>（長い約束の価格が3市場同時上昇）</td><td><span class="ng">WEAK</span></td><td>定借の2〜3割引は 1/(1+r)<sup>50</sup> の機械的帰結で、金利が上がれば割引は<b>縮む</b>（符号が逆）。供給側は長い約束を売り渋るどころか50年ローン・定借を増産中</td><td>上がっているのは約束の長さの値段ではなく<b>「価格改定権」の値段</b>。空白は「2年と35年の間」（ここは商品で満杯）ではなく<b>「支払いは可変 × 居住の安定は長い」の分離</b>（§2-S3）</td></tr>
+    <tr><td>H2 場所代係数<br>（家計に占める場所代シェアの構造上昇）</td><td><span class="ng">REFUTED</span></td><td>成約賃料は横ばい・他費目が上昇中 → 係数はむしろ<b>下がる</b>向き。AIデフレの脚は実データが逆（建築費・清掃人件費とも上昇）。しかも出自が、自分で証拠使用を禁じた paji_a 票の逐語的昇格だった</td><td>「住宅は調整不能」ではなく<b>「調整が遅い」（硬直性と取引費用）</b>。新指標は作らず、家計調査 × REINS × 建設デフレーターの公的系列で語る（§5-T6）</td></tr>
+    <tr><td>H3 製造された単身中年市場<br>（氷河期塊 = コア顧客）</td><td><span class="ng">WEAK</span></td><td>自社の17ペルソナ検証が既にこの人物を「条件つき」で落としている ── 留守を出さない・荷物が3㎡に入らない・在居割引を失う = <b>現行モデルで単位経済が最悪の顧客</b>。「参加費3倍で締め出された」は Z 世代の痛みの誤輸入（氷河期の資産入口はむしろ最良だった）</td><td><b>顧客は年齢でなくイベントと属性で定義する</b>（転居イベント・法人が動かす人・審査に落ちる人）。氷河期塊は市場そのものではなく、この3母集団を厚くする<b>上流の貯水池</b>（§2-S6）</td></tr>
+    <tr><td>H4 検算が商品になる<br>（明細先出し = 競争優位）</td><td><span class="ng">WEAK</span></td><td>検算は減衰する運用であって持てる資産ではない ── 旗手自身が看板数字（募集/成約）で失敗し、<b>LP には検算の語が1語もなく、v0 の推定係数を5桁精度で出荷していた</b>。到達データは負の相関（検算通過票のfavsは2桁、誇張票は5桁）</td><td>明細先出しは競争優位ではなく<b>参入衛生（欠けば失点、備えても加点されない）</b>。ただし LP の A/B で8月末窓内に測定可能（§5-T1）── 測って「SKU属性」に昇格させるか捨てる</td></tr>
+    <tr><td>H5 解の言語化ウィンドウ<br>（カテゴリ定義権が空く）</td><td><span class="ng">REFUTED</span></td><td>解の語彙は空席ではなく既に3者が分割保有 ── unito（121棟882室・会員7.7万人）等が約款と会員基盤で商品を占有、日経が概念名を保有、嘲笑枠（高級ネカフェ）が待機。「急速に言語化」はうちのサンプリング速度と分離できない</td><td>取れるのは新カテゴリの命名権ではなく<b>既存カテゴリ内の差分の命名権</b>（住所・保管・水回り・契約上の受け皿義務）。8月末 LP は「言語を張る場」でなく<b>語彙占有を測る試験装置</b>（§5-T3）</td></tr>
+    <tr><td>H6 供給側の押し出し<br>（逆ざや大家が仕入れに流れ込む）</td><td><span class="ng">WEAK</span></td><td>逆ざやの典拠（金利4%の6波）自身が「4%はできない」と結論。中心シナリオ＝金融抑圧は<b>大家を救済する側</b>に働く。実観測は真逆（定借化・ラチェット = 貸す側の価格決定権の回復）。営業の base rate は実質ゼロ（意見交換止まり・返信なし）</td><td>「押し出し」は願望として殺し、日経・田中歩の二極化（第三者言明）1行に縮退。<b>10/15 に inbound ≥3件・LOI ≥1件</b>を No Go 条件に追加（§5-T5）</td></tr>
+    <tr><td>H7 調整はPで来てRは粘る<br>（賃料フロー事業の耐性）</td><td><span class="ng">REFUTED</span></td><td>「R が粘る」の経済学的意味は<b>調整が価格でなく空室（数量）で起きる</b>ということ ── STAYME の P&amp;L は稼働に完全レバレッジされており、粘着は保護でなく曝露。しかも現行タームは大家に固定100%・減額請求権放棄、会員に約束ゼロ = <b>費用の硬直 × 可変な収入</b>で、非対称が逆向き。今回は R が P に先行して止まっており平成と順序も逆</td><td>耐性は市場の R からは出ない。<b>仕入れ契約に減額請求権 or 稼働連動が入った床についてのみ</b>主張できる ── タームシートのストレステストを Go/No Go 条件に格上げ（§5-T4）</td></tr>
+  </table></div>
+  <p class="note">全ての検証者は「守るな、壊しに行け」で起動し、各仮説に反証・未検証前提・より退屈な代替説明・機械的な反証テストを返した。ここに載せたのは最致命の1本ずつ ── 全文は検証ログに保存済み。</p>
+</section>
+
+<section>
+  <h2><span class="no">2</span>生き残った仮説 ── 書き直された6本</h2>
+  <p>元の7本より強い、と判定できる根拠は2つ：複数票にまたがる第二階の観測であること、そして反証条件が書けること。</p>
+
+  <div class="artifact win">
+    <p class="artifact-title">S1　入場料は4通貨で徴収されている ── 所得線1本の市場定義は誤診</p>
+    <p>締め出しの通貨は ①フロー所得（上位20%線）②入口の一括現金（諸費用 ≈ 価格の7%、頭金なし層ほど直撃する逆進性）③時間予算（共働きの通勤×2＋送迎）④金融リテラシー（1億の借金の正解が IRS と割引現在価値の理解に依存）── の4つで、<strong>互いにほぼ直交する</strong>。各票は自分の1通貨だけを扱い同じ結論（買えない）に着地するので、単票では1つの現象の言い換えに見える。並べると落ちる母集団が通貨ごとに違う。</p>
+    <p class="note"><strong>帰結：価格が下がっても締め出しは解けない</strong>（緩むのは金銭次元だけ）。8/3 に価格が頭打ちし、8/4 に「買えるのは上位20%」が連載になったのは矛盾ではない。うちの Why Now は価格水準ではなく<em>次元の数</em>に依拠して書ける ── 反証条件：価格調整局面で購入率が所得線どおりに回復したら、非金銭次元は幻だったことになる。</p>
+  </div>
+
+  <div class="artifact win">
+    <p class="artifact-title">S2　逃げ道が完全に閉じているのは、共働き子育て世帯だけ</p>
+    <p>「都心が高いなら郊外へ」は世帯構成ごとに別々に開閉している。単身・リモートには開いたまま（通勤は細り、中核市は元気で床も安い）。高齢層は駅前へ政策誘導される（立地適正化）。<strong>共働き子育てだけが、時間予算で郊外を失い、価格で都心を失い、しかも参加費上昇がペアローン（共働き固定）を強制するので閉塞が自己強化する</strong>。地方票同士の見かけの矛盾（元気 vs 機能不全）は、世帯で分解すると消える。</p>
+    <p class="note">使いどころ：ペルソナと LP の訴求は「世帯構成 × どの逃げ道が閉じているか」で切る。反証条件：RTO の全面化（単身リモートの逃げ道も閉じる＝対象世帯が広がる方向の反証）。</p>
+  </div>
+
+  <div class="artifact win">
+    <p class="artifact-title">S3　空白は「約束の短さ」ではなく、「支払いの可変性 × 居住の安定」の分離</p>
+    <p>H1 の検死から出た生存形。定期借家の拡大も定借分譲も実質賃金の目減りも、共通項は<strong>貸し手・雇い主が「価格改定権」を取り戻した</strong>こと。借り手が望んでいるのは短い約束ではなく（定借への借主の声は一貫して否定的）、<strong>長く安定して居られて、支払いだけが可変</strong>という組合せ ── 長さと価格を分離した商品はスペクトラム上に存在しない。「2年と35年の間」は定借・50年ローン・マンスリー・会員権で最も混雑した帯であり、空白はそこにない。</p>
+    <p class="note"><strong>8月末に検定すべきは「約束の短さへの WTP」ではなく「支払い可変 × 居住安定への WTP」</strong>。これは7/30 に置いた対案（賃料据え置き＋稼働連動を大家に渡す）の需要側の言い直しでもある。反証条件：LP で「いつでも辞められる」訴求が「ずっと居られて払いは変わる」訴求に CVR で勝ったら、この分離仮説は落ちる。</p>
+  </div>
+
+  <div class="artifact win">
+    <p class="artifact-title">S4　家賃の双方向硬直が、客と仕入れを同時に製造している</p>
+    <p>同一のパラメータ（R の粘着）が市場の両側を作る：下方硬直が「価格調整を待つ間も家賃を払い続ける借り手」＝客を、上方硬直（「家賃は金利に連動して上がってくれへん」）が「金利を転嫁できない大家」＝運営委託・マスターリースの仕入れ候補を製造する。そして<strong>都心の定期借家5割超は、大家側が上方硬直を回避することに成功した形</strong>（2年で切って相場に貼り直す）── 逆ざや大家はその回避に失敗した側。</p>
+    <p class="note"><strong>うちの商売の言い直し：「大家に、定期借家の代替オプションを売る」</strong>（借主の権利を剥奪せずに賃料の可変性を渡す）。これは S3 の供給側とちょうど噛み合う。条件：東京都心＝供給非弾力市場の条件付き（Austin 型市場では両方の硬直が消える）。</p>
+  </div>
+
+  <div class="artifact win">
+    <p class="artifact-title">S5　換算単位の不在 ── 「住宅の換算レート」を出す供給者がまだいない</p>
+    <p>この2週間、時代間の換算を試みる投稿が集中的にバズった（平成1,000万=令和1,800万・5年物価リスト・5,000万→1.5億・諸費用7%）。全部が単一スカラーで作られ、同じ壊れ方をする（basket 依存＋起点チェリーピック）。これは誇張の流行ではなく<strong>「比べる物差しがない」ことへの需要の噴出</strong> ── 人々は嘘をつきたいのではなく、単位が無いので手元の底値で自作している。そして検算すると毎回<strong>住宅だけ換算レートが別</strong>（食品1.3〜1.5倍 vs 住宅3〜4倍）。</p>
+    <p class="note">使いどころ：うちが「住宅専用の換算レート」（basket 明示・出典付き）を供給する ── 検算文化の初めての<em>攻めの</em>使い方で、構造開示型のまま実装できる。注意：H4 検死のとおりこれは優位でなく衛生 ── 出すなら §5-T1 で測ってから。</p>
+  </div>
+
+  <div class="artifact win">
+    <p class="artifact-title">S6　顧客は年齢ではなくイベントで定義する ── 氷河期塊は上流の貯水池</p>
+    <p>単身中年の人口塊（世代規模約1,700万人 [要照合] × 高未婚率）は人口動態の事実として堅いが、<strong>長期在居・低移動・荷物持ちのこの層は現行モデルの反例顧客</strong>（H3 検死）。取れるのは (1) 転居イベントの最中にいる人（離婚・看取り終了・転職・赴任解除）(2) 法人が動かす人 (3) 保証人・審査・敷礼で入れない人 ── の3母集団で、年齢はその代理変数にすぎない。氷河期塊はこの3母集団を今後20年太らせ続ける貯水池、として扱う。</p>
+    <p class="note">売り物の言い直し：この層に売れるのは「孤独の解消」ではなく<strong>「入れてもらえなさの除去」</strong>（保証人・審査・敷礼・原状回復）。孤立を訴求に使った瞬間、欠陥刺激の禁止線に抵触する。反証条件：§5-T2 の年齢帯分割配信。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">3</span>うちに刺さった6つの発見</h2>
+  <p>敵対レンズがコーパスとうちの公開文書の間で見つけた食い違い。外向きの仮説より、こちらの方が8月末に効く。</p>
+  <div class="tablewrap"><table>
+    <tr><th>#</th><th>発見</th><th>対応</th></tr>
+    <tr><td>A1</td><td><b>参加費の金利柱が固定金利で測られていた。</b>ブリーフ §3 の借入余力（3,089万〜2,783万）は10年固定基準。コーパス後半の結論（主流は変動・固定は「4%に耐えられる」への賭け）で引き直すと変動1.08%で4,370万 ── <b>挟み撃ちの片顎が5割方ゆるむ</b>。5日違いの2票が同一人物の購買力を1.5倍差で計算し、互いに気づいていなかった</td><td><span class="ok">修正済</span>　本日ブリーフ §3 に変動バーと訂正注記を追加。言い方は「固定では買えない。変動なら金利リスクの賭けを飲めば届く」へ</td></tr>
+    <tr><td>A2</td><td><b>7/30 の追い風「立地のいい床の仕入れが安くなる」が3票に反証されたまま未撤回。</b>二極化（8/3）・仕入れ家賃も下がらない（8/10 自認）・下方硬直は供給非弾力性の関数（8/11）──「安い床」と「客のいる床」は地理的に別物。空き家900万戸が出るのは需要が消えた場所</td><td>7/30 票の追い風#3 を撤回し、仕入れ側の前提を「二極化で相対的に安くなる床を、時間軸の裁定で成立させる」（Why Us）に書き換える</td></tr>
+    <tr><td>A3</td><td><b>二毛作の原資（留守）に触れた票は全部マイナスで、全部「追い風」で終わっていた。</b>テレワーク＝在宅増、転勤＝減る方向、通勤＝1日20〜40万人細った。部屋を使わない人ほど痛みは強いが、月額を払う理由は弱い ── 二律背反。No Go 条件#1（留守実測 月4泊）を13日45票が一度も動かしていない</td><td>留守の実測（8月）を全ての仮説より上位に置く。ingest は原資の答えを出さない ── 出すのは実測だけ</td></tr>
+    <tr><td>A4</td><td><b>検算は「数字の大きさ」を撃つが「命題の向き」を一度も撃っていなかった。</b>13日間で外部票の検算が結論を反転させた回数ゼロ。追い風の語32回 vs 向かい風14回（2.3:1）。向きはバズが決め、数字だけ直して上塗り</td><td>本報告がその第1回の「向きの検算」。以後、ingest の STAYME 含意欄に「この票がうちに<em>不利</em>になる読み」を必須化</td></tr>
+    <tr><td>A5</td><td><b>「降りられる × 頼れる」第一象限に、例外探しを当てていなかった。</b>コーパス内で「頼れる」を実際に供給できた例は全部が拘束力の上（母・家族・社食＝雇用・ウーブン＝トヨタ）。契約で降りられる住まいは全部「頼れない」象限。<b>45票中、契約で第一象限を埋めた実例はゼロ</b> ── 空席ではなく、層①〜②の壁（頼れる性の源泉は拘束力）かもしれない</td><td>8月末ヒアリングに「頼れた実体験の源泉」を1問追加。第一象限は「空白＝機会」でなく「空白＝未証明」として投資家に語る。埋めた実例が世界に1つでもあるか、例外探しを継続</td></tr>
+    <tr><td>A6</td><td><b>サンプルの穴：うちが客と定義した層の一次発話がゼロ。</b>45票の話者はほぼ全員が住宅を資産として語る側（コンサル・デベ・投資家・FP）。「保証人」「夜勤」「外国人」「非正規」の当事者発話 0本。「賃貸で満足している」票 0本。BM v2.1 の検証対象（自衛隊・SLA・診断）0本</td><td>X は資産側の言論空間 ── 客の声はヒアリング30〜50名でしか取れない、と明示。コーパスは「世論と競合の地図」であって「顧客の証拠」ではない、と全文書で位置づけを固定</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="no">4</span>位置取りの制約 ── 言語レンズから2つ</h2>
+  <div class="pair">
+    <div class="p"><p class="h">制約 1</p><p class="v">当代最強の文法が、うちには使えない</p><p class="s">この2週間で最も流暢に完成した公共の語りは「先送りの請求書」構文（前借り・調整弁・観客席・ツケ）。だがうちはホスト・オーナーと組む側なので「押し付けた側」を名指せない ── 6票で独立に使用禁止を自己宣言済み。<b>8月末の Why Now は、時代で一番通じる文法を1語も使わずに書く</b>というポジショニング条件が確定した。使えるのは構造開示（分解・明細・検算）だけ。</p></div>
+    <div class="p"><p class="h">制約 2</p><p class="v">柔らかい名前で先行する窓は、閉じた</p><p class="s">婉曲語（食事キャンセル界隈）とそれを名指す免疫語（貧困のリブランディング・高級ネカフェ・情弱ビジネス）が同じ2週間に揃った ── 世論は解側の命名を婉曲として代謝する語彙を先に獲得した。新語「第4の居場所」には同一スレッド内で嘲笑名が先着。<b>先に取るべきは名前ではなく開示の型</b>。もう1つの穴：うちの解側の語は全部否定形（約束ゼロ・降りられる・買わない）で、肯定形の名詞は運営者の語しかない ── 住む人の側の肯定形が1語もない。</p></div>
+  </div>
+  <p class="note">唯一、内部語が公共の境界線を得た例外が「制約地」── 立地適正化計画の<strong>居住誘導区域の外側</strong>という行政発行の同義語と全国地図が付いた（8/7 秋田）。B 面（診断・SLA）の営業言語はここに寄せる。</p>
+</section>
+
+<section>
+  <h2><span class="no">5</span>事前登録テスト表 ── 8月末に自動で答えが出る7本</h2>
+  <p>検証12体が返したテストから、追加コストが低く Go/No Go に接続するものだけ。<strong>閾値を先に書く（事前登録）のが本体</strong> ── 結果を見てから基準を動かせないようにする。</p>
+  <div class="tablewrap"><table>
+    <tr><th>#</th><th>テスト</th><th>反証条件（事前登録する閾値）</th><th>コスト</th><th>出どころ</th></tr>
+    <tr><td>T1</td><td><b>明細先出し A/B</b>：既存 LP の計測ハーネスで、料金ブロックを (A)現行 (B)全費用一枚＋出どころリンク に2分割</td><td>(B) の有効リード率が (A) を上回らなければ「明細先出し」は衛生であり訴求ではない、と確定</td><td>フラグ1本</td><td>H4 検死</td></tr>
+    <tr><td>T2</td><td><b>年齢帯分割配信</b>：同一クリエイティブを 25-39歳／40-54歳 に等予算配信、有効リード率を指数比較</td><td>40-54 の指数 &lt; 0.8 なら氷河期・単身中年をペルソナから外す（S6 のイベント定義だけ残す）</td><td>既定の広告テストに相乗り</td><td>H3 検死</td></tr>
+    <tr><td>T3</td><td><b>Gate 0 語彙占有テスト</b>：ヒアリングの「これは何のサービス?」回答を、既存カテゴリ名への言い換え率で採点</td><td>「サブスク住居・マンスリー・シェアハウス・高級ネカフェ」等が回答の20%超なら、頭の中の棚は他社の語で埋まっている ── 差分の命名に切替</td><td>ヒアリングに1問</td><td>H5 検死</td></tr>
+    <tr><td>T4</td><td><b>タームシート・ストレステスト</b> ★Go/No Go 直結：全床の仕入れ条項（減額請求権・稼働連動・固定期間）を1表化し、「賃料▲10% × 稼働▲30%」で拠点別粗利を再計算</td><td><b>第1コホートの床の過半に減額請求権 or 稼働連動が入らなければ、「賃料粘着＝耐性」の主張を撤回</b>（費用の硬直×可変収入のまま投資家に耐性を語らない）</td><td>社内 artifact のみ・即日</td><td>H7 検死</td></tr>
+    <tr><td>T5</td><td><b>供給側の入金テスト</b>：営業していない inbound の床打診件数と、運営委託 LOI／前受金の実数</td><td>10/15 までに inbound ≥3件 かつ LOI ≥1件 を満たさなければ「供給側の押し出し」を願望として記録して殺す</td><td>記録のみ</td><td>H6 検死</td></tr>
+    <tr><td>T6</td><td><b>家計シェア検定＋労働コンポーネント検定</b>：家計調査の住居費/消費支出（単身×二人以上）、建設デフレーター・生活関連サービス賃金の YoY</td><td>住居費シェアがフラットなら「生活防衛の最終戦線」語を捨て、日経の枠（アフォーダビリティー＋購入余力の制約）に戻す</td><td>公的データ・1日</td><td>H2 検死</td></tr>
+    <tr><td>T7</td><td><b>3系列乖離モニタ</b>：募集賃料（アットホーム）／成約賃料（REINS）／CPI 継続家賃 を月次で同一グラフに</td><td>成約が2四半期連続 YoY マイナス → Why Now を書き換え（既定④の降りる条件と同一）。空室率が +2pt 超で賃料横ばいなら「調整は数量で起きる」が実証され、稼働レバレッジの曝露を投資家資料に明記</td><td>月次・半自動化可</td><td>H7 検死・§9 訂正</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="no">6</span>このコーパスの限界 ── 規律</h2>
+  <div class="artifact warn">
+    <p class="artifact-title">🚨 自己申告 3件</p>
+    <p>① <strong>観測者バイアス</strong>：13日連続で住まいの話題が「来た」ように見えるのは、毎日拾っているからでもある。世界の言語化速度とうちのサンプリング速度は分離できていない ── 「窓が開いた」系の主張は全て割り引く。</p>
+    <p>② <strong>premise laundering を1件検出</strong>：仮説 H2「場所代係数」は、自分で証拠使用を禁じた 8/3 paji_a 票（「家賃は純粋な場所代に近づく」）の2週間後の逐語的昇格だった。禁じた主張が社の仮説として洗浄されて戻ってくる経路が実在する ── 仮説起票時に出自票の「使いどころの規律」欄を必ず照合する。</p>
+    <p>③ <strong>favs ≠ WTP を全票に課しながら、仮説段階で2回緩めかけた</strong>（H4 の「信頼の空白」・H5 の「語彙の空席」はどちらも不満投稿の favs を需要の証拠に転用しかけていた）。favs が測るのは共感の分布であり、支払いは LP とヒアリングでしか測れない。</p>
+    <p class="source">話者構成の偏り：DrKarte 5本（1割）・paji_a 3本・escapejapan 3本・X 生成トレンド要約 9〜10本。地理は東京23区、時間は金利上昇×価格頭打ち×物価高の単一局面13日間。この上に立つ全ての一般化は、この断り書きごと引用する。</p>
+  </div>
+</section>
+
+</div>
+
+<script id="lo-chrome-js">
+(function(){
+  "use strict";
+  var d=document, root=d.documentElement;
+
+  /* ── テーマ切替（auto → light → dark） ───────────── */
+  var KEY="lo-theme", order=["auto","light","dark"], mark={auto:"◐",light:"☀",dark:"☾"};
+  function applyTheme(v){
+    if(v==="auto"){ root.removeAttribute("data-theme"); } else { root.setAttribute("data-theme",v); }
+    var b=d.getElementById("loTheme"); if(b){ b.textContent=mark[v]; b.title="テーマ: "+v; }
+  }
+  var saved="auto";
+  try{ saved=localStorage.getItem(KEY)||"auto"; }catch(e){}
+  applyTheme(saved);
+  var tb=d.getElementById("loTheme");
+  if(tb) tb.addEventListener("click",function(){
+    saved=order[(order.indexOf(saved)+1)%order.length];
+    try{ localStorage.setItem(KEY,saved); }catch(e){}
+    applyTheme(saved);
+  });
+
+  /* ── 目次の生成 ─────────────────────────────── */
+  var secs=[].slice.call(d.querySelectorAll(".wrap > section"));
+  var items=[];
+  secs.forEach(function(sec,i){
+    var h=sec.querySelector("h2"); if(!h) return;
+    if(!sec.id) sec.id="s"+(i+1);
+    var noEl=h.querySelector(".no");
+    var no=noEl?noEl.textContent.trim():"";
+    var clone=h.cloneNode(true);
+    // 見出し内の装飾要素（章番号・補助ラベル・アンカー）は目次のラベルから外す
+    [].slice.call(clone.querySelectorAll(".no,.hint,.lo-a")).forEach(function(x){ x.remove(); });
+    var label=clone.textContent.replace(/\s+/g," ").trim();
+    items.push({id:sec.id,no:no,label:label,el:sec});
+    var a=d.createElement("a");
+    a.className="lo-a"; a.href="#"+sec.id; a.textContent="#";
+    a.setAttribute("aria-label","この節へのリンク");
+    h.appendChild(a);
+  });
+
+  function fill(ol,cls){
+    ol.innerHTML="";
+    items.forEach(function(it){
+      var li=d.createElement("li"), a=d.createElement("a");
+      a.href="#"+it.id; a.dataset.t=it.id;
+      if(it.no){ var n=d.createElement("span"); n.className="n"; n.textContent=it.no; a.appendChild(n); }
+      a.appendChild(d.createTextNode(it.label));
+      li.appendChild(a); ol.appendChild(li);
+    });
+    ol.className=cls||"";
+  }
+  var tocList=d.getElementById("loTocList"), sheetList=d.getElementById("loSheetList");
+  if(tocList) fill(tocList);
+  if(sheetList) fill(sheetList);
+
+  /* ── スクロール連動（現在地） ────────────────── */
+  var here=d.getElementById("loHere");
+  var links=function(){ return [].slice.call(d.querySelectorAll('.lo-toc a[data-t], .lo-sheet a[data-t]')); };
+  var cur=null;
+  function setActive(id){
+    if(id===cur) return; cur=id;
+    links().forEach(function(a){ a.classList.toggle("on", a.dataset.t===id); });
+    var it=items.filter(function(x){return x.id===id;})[0];
+    if(here&&it) here.textContent=(it.no? it.no+" ":"")+it.label;
+    var on=d.querySelector(".lo-toc a.on");
+    if(on&&on.offsetParent){
+      var box=on.closest(".lo-toc");
+      if(box && (on.offsetTop<box.scrollTop || on.offsetTop>box.scrollTop+box.clientHeight-40))
+        box.scrollTop=on.offsetTop-box.clientHeight/2;
+    }
+  }
+  function onScroll(){
+    var navH=parseFloat(getComputedStyle(root).getPropertyValue("--lo-nav-h"))||46;
+    var y=window.scrollY+navH+40, best=items[0];
+    for(var i=0;i<items.length;i++){ if(items[i].el.offsetTop<=y) best=items[i]; else break; }
+    if(best) setActive(best.id);
+    var h=d.body.scrollHeight-window.innerHeight;
+    var bar=d.getElementById("loProgBar");
+    if(bar) bar.style.width=(h>0? Math.min(100,Math.max(0,window.scrollY/h*100)) : 0)+"%";
+    var top=d.getElementById("loTop");
+    if(top) top.classList.toggle("show", window.scrollY>600);
+    // 下へ読み進めている間はタブを隠して画面を広く使う（上に戻ると即出る）
+    var nav=d.querySelector(".lo-nav"), y2=window.scrollY;
+    if(nav){
+      if(y2<160 || y2<lastY-4) nav.classList.remove("lo-hide");
+      else if(y2>lastY+8) nav.classList.add("lo-hide");
+    }
+    lastY=y2;
+  }
+  var lastY=0;
+  var ticking=false;
+  window.addEventListener("scroll",function(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){ onScroll(); ticking=false; });
+  },{passive:true});
+  window.addEventListener("resize",onScroll,{passive:true});
+  onScroll();
+
+  /* ── モバイル目次シート ─────────────────────── */
+  var sheet=d.getElementById("loSheet"), btn=d.getElementById("loTocBtn"), close=d.getElementById("loClose");
+  function open(){ if(!sheet) return; sheet.hidden=false; btn.setAttribute("aria-expanded","true");
+    var on=sheet.querySelector("a.on"); if(on) on.scrollIntoView({block:"center"}); }
+  function shut(){ if(!sheet) return; sheet.hidden=true; btn.setAttribute("aria-expanded","false"); }
+  if(btn) btn.addEventListener("click",open);
+  if(close) close.addEventListener("click",shut);
+  if(sheet) sheet.addEventListener("click",function(e){ if(e.target===sheet) shut(); });
+  if(sheetList) sheetList.addEventListener("click",function(e){ if(e.target.closest("a")) shut(); });
+  d.addEventListener("click",function(e){
+    var a=e.target.closest && e.target.closest('a[href^="#"]');
+    if(a){ var n=d.querySelector(".lo-nav"); if(n) n.classList.remove("lo-hide"); }
+  });
+  d.addEventListener("keydown",function(e){
+    if(e.key==="Escape") shut();
+    if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
+    if(e.key==="t"||e.key==="T"){ if(sheet&&sheet.hidden&&btn&&btn.offsetParent) open(); else shut(); }
+  });
+
+  var topBtn=d.getElementById("loTop");
+  if(topBtn) topBtn.addEventListener("click",function(){ window.scrollTo({top:0,behavior:"smooth"}); });
+
+  /* ── 現在のタブを可視位置へ ─────────────────── */
+  var tabs=d.getElementById("loTabs"), on=tabs&&tabs.querySelector("a.on");
+  if(tabs&&on){ var l=on.offsetLeft-tabs.clientWidth/2+on.clientWidth/2;
+    if(l>0) tabs.scrollLeft=l; }
+
+  /* ── はみ出す表に印をつける ─────────────────── */
+  function markOverflow(){
+    [].slice.call(d.querySelectorAll(".tablewrap")).forEach(function(w){
+      w.classList.toggle("lo-ovf", w.scrollWidth>w.clientWidth+2);
+    });
+  }
+  markOverflow(); window.addEventListener("resize",markOverflow,{passive:true});
+})();
+</script>
+
+</body></html>
