@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>自衛隊モデル市場仮説 — やさしい版 v5 (2026-08-13)</title>
+<title>自衛隊モデル市場仮説 v6 (2026-08-13 MTG)</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { line-break: strict; scroll-behavior: smooth; }
@@ -26,10 +26,12 @@
     display: flex; justify-content: space-between; align-items: center; gap: 10px;
   }
   .topbar .tt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .topbar .tt .v { background:#fff; color:#111; padding:0 6px; margin-left:6px; font-size:10.5px; }
+  .topbar .links { display:flex; gap:6px; }
   .topbar a { color: #fff; text-decoration: none; border: 1.5px solid #fff; padding: 1px 10px; white-space: nowrap; }
   main { max-width: 780px; margin: 0 auto; padding: 26px 18px 0; }
   h1 {
-    font-size: 25px; line-height: 1.45; font-weight: 700;
+    font-size: 24px; line-height: 1.45; font-weight: 700;
     border-left: 12px solid #111; padding-left: 14px; margin: 10px 0 8px;
   }
   h2 {
@@ -38,6 +40,7 @@
     margin: 54px 0 6px;
   }
   h3 { font-size: 16px; font-weight: 700; margin: 26px 0 8px; }
+  h4 { font-size: 14px; font-weight: 700; margin: 16px 0 4px; }
   p { margin: 10px 0; }
   .meta { font-size: 12px; color: #667; margin-bottom: 4px; }
   .small { font-size: 12.5px; color: #556; }
@@ -61,10 +64,15 @@
   .figure { background: #fff; border: 2px solid #111; padding: 18px; margin: 22px 0; }
   .figure .cap { font-size: 12px; font-weight: 700; margin-bottom: 12px; }
 
+  .voice { background:#fff; border:2px solid #111; padding: 12px 16px 10px; margin: 12px 0; font-size: 15px; font-weight: 700; line-height: 1.8; position: relative; }
+  .voice::before { content:"★ 一次証言"; position:absolute; top:-10px; left:12px; background:#111; color:#fff; font-size:10.5px; font-weight:700; padding:0 8px; letter-spacing: 1px; }
+  .voice .who { display:block; font-size:11px; font-weight:400; color:#556; margin-top:4px; }
+
   .tablewrap { overflow-x: auto; margin: 16px 0; background: #fff; border: 2px solid #111; }
   table { border-collapse: collapse; width: 100%; min-width: 540px; font-size: 13px; line-height: 1.7; }
+  table.narrow { min-width: 0; }
   th, td { border: 1px solid #c8ccc2; padding: 8px 10px; text-align: left; vertical-align: top; }
-  th { background: #eef1e9; font-weight: 700; white-space: nowrap; }
+  th { background: #eef1e9; font-weight: 700; }
   .thead-dark th { background: #111; color: #fff; border-color: #111; }
 
   ul, ol { margin: 8px 0 8px 1.5em; }
@@ -75,14 +83,23 @@
     border: 1.5px solid #111; background: #fff; white-space: nowrap;
   }
   .tag.stop { background: #b23a26; border-color: #b23a26; color: #fff; }
-  .tag.cost { background: #fff; border-color: #b23a26; color: #b23a26; }
   .tag.qol { background: #fff; border-color: #889; color: #667; }
 
   .toc { background: #fff; border: 2px solid #111; padding: 14px 18px; margin: 20px 0; font-size: 13.5px; }
   .toc ol { margin-left: 1.4em; }
   .toc a { color: #111; text-decoration: none; border-bottom: 1px solid #aab; }
+  .toc .t { color:#889; font-size:11px; }
   .backtoc { text-align: right; margin: 14px 0 0; font-size: 11.5px; }
   .backtoc a { color: #556; text-decoration: none; border-bottom: 1px solid #aab; }
+
+  .agenda { counter-reset: ag; margin: 14px 0; display: grid; gap: 10px; }
+  .agenda a { display: block; background: #fff; border: 2px solid #111; padding: 10px 14px 10px 52px; position: relative; color: #111; text-decoration: none; font-size: 14px; line-height: 1.7; }
+  .agenda a::before { counter-increment: ag; content: counter(ag); position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; background: #111; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .agenda a strong { display: block; }
+  .agenda a .go { font-size: 11.5px; color: #556; }
+
+  .divider { display: flex; align-items: center; gap: 12px; margin: 44px 0 8px; color: #556; font-size: 12.5px; font-weight: 700; }
+  .divider::before, .divider::after { content: ""; flex: 1; border-top: 2px solid #111; }
 
   .bar-row { display: flex; align-items: baseline; gap: 10px; margin: 8px 0; }
   .bar-label { flex: 0 0 46%; font-size: 12px; line-height: 1.5; }
@@ -106,13 +123,20 @@
   .badge { display:inline-block; font-size: 11.5px; font-weight:700; padding: 2px 10px; color:#fff; background:#667; white-space:nowrap; }
   .badge.strong { background:#111; }
 
-  .cond { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
-  .cond .c {
-    border: 2px solid #111; background: #fff; padding: 8px 12px; font-size: 12.5px;
-    font-weight: 700; flex: 1 1 150px; text-align: center;
-  }
-  .cond .c span { display: block; font-weight: 400; font-size: 11px; color: #556; margin-top: 3px; }
-  .cond .plus { align-self: center; font-weight: 700; font-size: 16px; }
+  .pair { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0; }
+  .pair .p { display: flex; flex-direction: column; gap: 0; }
+  .pair .on { border: 2px solid #111; background: #fff; padding: 8px 10px; font-size: 12.5px; font-weight: 700; text-align: center; flex: 1; }
+  .pair .on span { display: block; font-weight: 400; font-size: 10.5px; color: #556; margin-top: 2px; }
+  .pair .arrow { text-align: center; font-size: 11px; color: #b23a26; font-weight: 700; padding: 2px 0; }
+  .pair .off { border: 2px dashed #999; background: #eef1e9; color: #556; padding: 6px 10px; font-size: 11px; text-align: center; }
+
+  .gk { border: 2px solid #111; background: #fff; margin: 14px 0; }
+  .gk .name { font-weight: 700; font-size: 14.5px; padding: 8px 14px; border-bottom: 2px solid #111; }
+  .gk .name .small { font-weight: 400; }
+  .gk .go, .gk .kill { padding: 8px 14px 8px 12px; font-size: 13px; }
+  .gk .go { border-left: 8px solid #0e7a4f; }
+  .gk .kill { border-left: 8px solid #b23a26; border-top: 1px dashed #c8ccc2; }
+  .gk .go b { color: #0e7a4f; } .gk .kill b { color: #b23a26; }
 
   .qa { border-left: 4px solid #111; padding: 2px 0 2px 14px; margin: 14px 0; }
 
@@ -124,6 +148,7 @@
   .fill { background: #eef1e9; border-bottom: 2px solid #111; display: inline-block; min-width: 90px; text-align: center; color: #889; font-size: 12px; }
 
   footer { margin-top: 60px; font-size: 11px; color: #667; border-top: 1px solid #c8ccc2; padding-top: 14px; }
+  @media (max-width: 640px) { .pair { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 480px) {
     body { font-size: 14.5px; }
     main { padding: 18px 13px 0; }
@@ -132,351 +157,406 @@
     .cards { grid-template-columns: 1fr; }
     .bar-label { flex-basis: 42%; }
   }
+  @media print {
+    .topbar, .backtoc { display: none; }
+    body { background: #fff; padding: 0; }
+    .seg, .card, .box, .figure, .gk, .voice { break-inside: avoid; }
+    h2 { break-after: avoid; }
+  }
 </style>
 </head>
 <body>
-<div class="topbar"><span class="tt">自衛隊モデル市場仮説 (2026-08-13 MTG)</span><a href="#toc">目次</a></div>
+<div class="topbar"><span class="tt">自衛隊モデル市場仮説<span class="v">v6</span></span><span class="links"><a href="#agenda">議題</a><a href="#toc">目次</a></span></div>
 <main>
 
-<p class="meta">INNFRA 社内資料 | 2026-08-13 の会議用 | v5 | きっかけ: 8/5 川島さんの投稿「自衛隊の課題から市場仮説を作れないか?」</p>
-<h1>「自衛隊が困っていること」は、<br>他のお客さんも困っているのか?<br><span style="font-size:16px;">— 実際に調べてみた結果</span></h1>
-<p class="small">調べ方: 7 つの市場候補を手分けして同時に調査 (国の資料・新聞・会社の決算などの一次情報を約 290 回検索)。大事な数字 21 個は別の調べ役がウラ取り (20 個確認ずみ ✓)。加えて v5 では、社内の過去 Slack・Drive から「自衛隊ヒアリング」の記録を捜索し (§10)、外部の敵対レビューも 1 回通した。川島さんの PDF とは<strong>わざと別々に</strong>考えてから §10 で見比べている。</p>
+<p class="meta">INNFRA 社内資料 | 2026-08-13 の会議用 | きっかけ: 8/5 川島さんの投稿「自衛隊の課題から市場仮説を作れないか?」+ 添付 PDF</p>
+<h1>「自衛隊が困っていること」は、<br>他のお客さんも困っているのか?</h1>
+
+<div class="box" style="border-width:3px;">
+<p style="margin-top:0;"><strong>30 秒でつかむ:</strong> 困りごとは 7 つの市場候補すべてに実在した。ただし大半は<span class="red">昔からある安い解決策 (給水車・仮設トイレ・レンタル宿舎) で回ってしまっている</span>。それでも空き地の候補が 4 つ — <span class="green">(a) 需要は動くのに建物は動けない (b) 補給が切れると全部止まる (c) 「ぜんぶ込みセット」業者が日本に不在 (d) 道具はあるが人がいない</span>。そして今回の捜索で、<strong>自衛隊への一次ヒアリングが 7/31 に実施済み</strong>と判明 — 「風呂を我慢させると隊員が辞める」「排水含め自己完結すべき」「WOTA はランニングコストで不採用」という当事者の声をうちはすでに持っている。</p>
+<p class="small" style="margin-bottom:0;">根拠の調べ方: 7 候補の同時並列 Web 調査 (一次資料 約 290 検索) + 主要 21 の数字の独立ウラ取り + 社内 Slack/Drive 捜索 + 敵対レビュー 1 巡。川島 PDF とは別々に考えてから照合 (§9)。</p>
+</div>
+
+<h2 id="agenda" style="margin-top:34px;">今日決めること (4 つ)</h2>
+<div class="agenda">
+<a href="#map"><strong>候補の格付けを仮決めする</strong>下の全体マップをたたき台に、7 候補を「欲しがりレベル」のどこに置くか合意する<span class="go">→ このすぐ下の全体マップで</span></a>
+<a href="#s10"><strong>合格ライン (GO/KILL) を承認する</strong>聞き込みで「何が返ってきたら GO / 何なら捨てるか」を先に決める。判定日は 8/27<span class="go">→ §10 実行キット</span></a>
+<a href="#s10-plan"><strong>2 週間プランの担当を確定する</strong>アポ 2 本 (INPEX・清水)・うちの設備コスト表の記入・8/18 新陽打合せの確認項目<span class="go">→ §10 実行キット</span></a>
+<a href="#s9"><strong>WOTA との住み分けを言葉にする + 7/31 ヒアリングメモの資産化</strong>サイズ (個人〜避難所 vs 拠点まるごと) と範囲 (水だけ vs 宿+電気+水) の 2 軸で<span class="go">→ §9 照合と一次証言</span></a>
+</div>
+
+<div class="figure" id="map">
+<div class="cap">全体マップ | 7 候補はいま「欲しがりレベル」のどこにいるか (この 1 枚の上で議論する)</div>
+<div class="tablewrap" style="border:none; margin:0;"><table class="narrow">
+<tr class="thead-dark"><th style="width:7.5em;">レベル</th><th>候補と現在地</th></tr>
+<tr><td><strong>E</strong><br><span class="small">他社じゃなくウチ</span></td><td class="small">(まだ無い — D を取った先で問われる関門)</td></tr>
+<tr style="background:#fff;"><td><strong>D</strong><br><span class="small">今すぐ欲しい ◎</span></td><td><a href="#c5" style="color:#111;"><strong>自衛隊</strong></a> ★一次証言 7/31・新陽レンタル進行中 (チャンス d)<br><a href="#c4" style="color:#111;"><strong>馬毛島タイプの離島</strong></a> 補給途絶の実例 — ただし案件僅少 (チャンス b)<br><a href="#c6" style="color:#111;"><strong>災害・自治体</strong></a> <span class="red">WOTA 先行</span> — 住み分け整理が先 (チャンス b・d)</td></tr>
+<tr><td><strong>C+</strong><br><span class="small">もうすぐ D かも</span></td><td><a href="#c1" style="color:#111;"><strong>洋上風力</strong></a> 宿不足・移動需要の証拠あり — <strong>聞き込みで D 判定を取りに行く本命</strong> (チャンス a・c)</td></tr>
+<tr><td><strong>C</strong><br><span class="small">確実だが条件つき</span></td><td><a href="#c2" style="color:#111;"><strong>工場の大修理</strong></a> 入口を「工場内の水まわり」に絞れば C+ 候補 (チャンス c)</td></tr>
+<tr><td><strong>B〜C</strong></td><td><a href="#c3" style="color:#111;"><strong>山奥の大型工事</strong></a> 60 年かけて「お金で解決する型」が完成済み</td></tr>
+<tr><td><strong>B</strong><br><span class="small">代替で足りる</span></td><td class="small">ふつうの離島工事 / 農業の季節労働 / イベント (機材の空き時期の貸し先としてのみ)</td></tr>
+<tr><td><strong>参考</strong></td><td class="small"><a href="#c7" style="color:#556;">海外の作業員村産業 (年 2.7 兆円)</a> = このカテゴリが商売になる存在証明</td></tr>
+</table></div>
+<p class="src">レベルの定義は §1。チャンス a〜d の中身は §7。<strong>証拠の等級</strong>: ★ = 一次証言 (7/31 防衛省ヒアリング) / ✓ = 公的資料・複数ソースでウラ取り済み / 無印 = 報道・業界情報 / 「推計」明記 = こちらの概算。</p>
+</div>
+
+<div class="divider">ここから下は根拠 — 会議中は、詰まったところだけ潜る</div>
 
 <div class="toc" id="toc">
-<strong>目次</strong>
+<strong>目次</strong> <span class="t">(かっこ内は読む目安)</span>
 <ol>
-<li><a href="#s1">結論を先に 3 つ</a></li>
-<li><a href="#s2">この資料の問いと、判定のものさし</a></li>
-<li><a href="#s3">そもそも課題って何? — 一言でいうと</a></li>
-<li><a href="#s4">困りごとには 4 つのタイプがある</a></li>
-<li><a href="#s5">市場候補ごとの調査結果</a></li>
-<li><a href="#s6">気をつけること 5 つ (この話がコケるとしたら)</a></li>
-<li><a href="#s7">いま流れているお金の量 v0.1 (支出プールの試算)</a></li>
-<li><a href="#s8">チャンス 4 つと「なぜ空き地のままなのか」</a></li>
-<li><a href="#s9">ルールと法律 — 敵にも味方にもなる</a></li>
-<li><a href="#s10">川島 PDF との照合 + 自衛隊ヒアリング記録の捜索結果</a></li>
-<li><a href="#s11">会議で決めること — 合格ライン先決め + 2 週間プラン + 質問</a></li>
-<li><a href="#s12">注意書きと出典</a></li>
+<li><a href="#s1">判定のものさし 3 つ</a> <span class="t">(1 分)</span></li>
+<li><a href="#s2">そもそも課題って何? + ビジョンとの接続</a> <span class="t">(2 分)</span></li>
+<li><a href="#s3">困りごとの 4 タイプ</a> <span class="t">(2 分)</span></li>
+<li><a href="#s4">候補ごとの調査結果</a> <span class="t">(4 分)</span></li>
+<li><a href="#s5">気をつけること 5 つ</a> <span class="t">(2 分)</span></li>
+<li><a href="#s6">いま流れているお金の量 v0.1</a> <span class="t">(2 分)</span></li>
+<li><a href="#s7">チャンス 4 つと「なぜ空き地のままか」</a> <span class="t">(2 分)</span></li>
+<li><a href="#s8">ルールと法律</a> <span class="t">(1 分)</span></li>
+<li><a href="#s9">川島 PDF との照合 + 7/31 一次証言</a> <span class="t">(3 分)</span></li>
+<li><a href="#s10">実行キット — 合格ライン・2 週間プラン・質問 11 問</a> <span class="t">(3 分)</span></li>
+<li><a href="#s11">注意書きと出典</a></li>
 </ol>
 </div>
 
-<h2 id="s1">1. 結論を先に 3 つ</h2>
-<div class="box">
-<p><strong>① 困りごとは、どの市場候補にも本当にある。</strong>ただしその多くは、給水車・仮設トイレ・レンタル宿舎といった<span class="red">昔からある安い解決策で、なんとか回ってしまっている</span>。「誰も解決していない空き地」は思ったより狭い。</p>
-<p><strong>② それでも空き地の候補が 4 か所ある</strong> — <span class="green">(a) 仕事の場所は動くのに、建物は動けない (b) 船や道路が止まると水も止まる (c) 「ぜんぶ込みセット」を出す会社が日本にいない (d) 道具はあるのに使える人がいない</span> (いずれも §8 の「確かめ方」つきの仮説)。そしてこの周辺には大金がすでに流れている: 目に見える 3 領域 (工場の大修理・風車工事・馬毛島) だけで<strong>宿・水まわりの支出が年 190〜650 億円規模</strong> (§7 — 市場規模そのものではなく「置き換え候補の総量」)。</p>
-<p><strong>③ 新発見: 「自衛隊ヒアリング」は 7/31 に実施済みだった (§10 で社内 Slack から発掘)。</strong>防衛省で需品の実務担当に聞いた一次証言 — <span class="green">「風呂を我慢させると隊員が辞める」「展開先はインフラゼロが前提、排水含め自己完結すべき」「WOTA はランニングコストで不採用」</span> — がすでに手元にある。今日決めるのは「この一次証言と同じ形の悩みを民間のどこで探すか」と「合格ライン」(§11) — 聞き込みの前に GO/KILL の基準を決めておけば、後から解釈で揉めない。</p>
+<h2 id="s1">1. 判定のものさし 3 つ</h2>
+<div class="yousuru">問いは「自衛隊という 1 社だけのお客さんを、同じ悩みを持つグループに広げられるか?」。判定は社内で決めてあるものさしで行う。</div>
+<p>6 月末の社内の棚おろしで「今すぐ本気で欲しがっているお客さんは自衛隊だけ」という結論が出ている。川島さんの 8/5 投稿はそれへの返事 — 「自衛隊の悩みと同じ形の悩みを持つ相手が、民間にもいるのでは?」という問いだ。</p>
+<div class="cards">
+<div class="card">
+<div class="t">欲しがりレベル A〜E <span class="small">(岩崎さん, 6/30)</span></div>
+A = こちらの思いつき (妄想) / B = 別の安い方法で足りてる / C = 必要になるのは確実だがまだ先 / <strong>D = 今すぐ欲しがっている ◎</strong> / E = 「他社じゃなくウチから」買う理由がある。
+<div class="solves"><strong>ルール: 実在する 1 社の証拠が出るまで、ぜんぶ A 扱いから始める</strong> (AI が言っているだけなら妄想と区別がつかない)</div>
+</div>
+<div class="card">
+<div class="t">断り文句 3 つ <span class="small">(岩崎さん, 5/28)</span></div>
+聞きに行くとだいたいこの 3 つで断られる: ①「べつに困ってない」②「それより先にやることがある」③「今のやり方のほうが安い」。
+<div class="solves">候補ごとに、どの断り文句が飛んできそうかを先に読む (§4 の「危ない点」)</div>
+</div>
+<div class="card">
+<div class="t">困りごとの深さ 3 段階 <span class="small">(本資料)</span></div>
+<span class="tag stop">止まる</span> 仕事が止まる・人が集まらない / <span class="tag" style="border-color:#b23a26;color:#b23a26;">お金</span> 高いけど金で解決 / <span class="tag qol">がまん</span> 不便だが我慢で回る。
+<div class="solves">払える金額は ふつう 止まる &gt; お金 &gt; がまん の順</div>
+</div>
+<div class="card">
+<div class="t">7 月末の反省 <span class="small">(聞く相手違い)</span></div>
+これまで話してきた相手は株主・アドバイザーが中心で、実際に困っている現場の人にほぼ聞けていなかった。
+<div class="solves">今回は最初から現場の当事者に聞く設計 (§10)</div>
+</div>
 </div>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s2">2. この資料の問いと、判定のものさし</h2>
-<div class="yousuru">問いは「自衛隊という 1 社だけのお客さんを、同じ悩みを持つお客さんのグループに広げられるか?」。判定には社内で決めてある 3 つのものさしを使う。</div>
-<p>6 月末の社内の棚おろしで「今すぐ本気で欲しがっているお客さんは自衛隊だけ」という結論が出ている。川島さんの 8/5 投稿は、それへの返事 — <strong>「自衛隊の悩みと同じ形の悩みを持つ相手が、民間にもいるのでは?」</strong>という問いだ。判定に使うものさしは 3 つ:</p>
-<div class="tablewrap"><table>
-<tr class="thead-dark"><th>ものさし</th><th>意味</th></tr>
-<tr><td><strong>欲しがりレベル A〜E</strong><br><span class="small">(岩崎さんの整理, 6/30)</span></td><td>A = こちらの思いつき (売れるかも、は妄想) / B = 別の安い方法で足りてる / C = 必要になるのは確実だが、まだ先 / <strong>D = 今すぐ欲しがっている ◎</strong> / E = 「他社じゃなくてウチから」買う理由がある。<br><strong>ルール: 実在する 1 社の証拠が出るまでは、ぜんぶ A 扱いから始める</strong> (AI が言っているだけなら妄想と区別がつかない)</td></tr>
-<tr><td><strong>断り文句 3 つ</strong><br><span class="small">(岩崎さんの整理, 5/28)</span></td><td>話を聞きに行くとだいたいこの 3 つで断られる: ①「べつに困ってない」 ②「それより先にやることがある」 ③「今のやり方のほうが安い」。市場候補ごとに、どの断り文句が飛んできそうかを先に読んでおく</td></tr>
-<tr><td><strong>困りごとの深さ 3 段階</strong><br><span class="small">(この資料で導入)</span></td><td><span class="tag stop">止まるレベル</span> 仕事が止まる・人が集まらない / <span class="tag cost">お金レベル</span> 高いけどお金で解決できている / <span class="tag qol">がまんレベル</span> 不便だけど我慢で回っている。<br>払ってくれる金額は ふつう 止まる &gt; お金 &gt; がまん の順</td></tr>
-</table></div>
-<p class="small">もうひとつ、7 月末の社内の反省も使う: これまで話を聞いてきた相手は株主やアドバイザーが中心で、<strong>実際に困っている現場の人にほぼ聞けていなかった</strong>。今回は最初から現場の人に聞く設計にする (§11)。</p>
-<div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
-
-<h2 id="s3">3. そもそも課題って何? — 一言でいうと</h2>
-<div class="yousuru">自衛隊の本当の悩みは「戦うこと」ではなく「暮らしの道具一式を持って移動すること」。同じ悩みは、工事現場や工場にもある。そしてこれはビジョンからの寄り道ではなく、ビジョンの筋トレそのもの。</div>
-<div class="quote">人は現場に行けるのに、水道・トイレ・お風呂は付いてこられない。<span class="who">課題を一言でいうとこうなる — 別々に考えた川島さんの PDF も、ほぼ同じ一文にたどり着いた (§10)</span></div>
-<p>自衛隊は、水道も電気もない場所に、数百人〜数千人で、期間限定で出かけていき、終わったら撤収する。このとき水・トイレ・お風呂・洗濯は「あって当たり前のもの」から「<strong>任務の足を引っぱる問題</strong>」に変わる。この状況は自衛隊だけのものではない。次の条件が重なる場所なら、どこでも同じことが起きる:</p>
+<h2 id="s2">2. そもそも課題って何? — 一言でいうと</h2>
+<div class="yousuru">自衛隊の本当の悩みは「戦うこと」ではなく「暮らしの道具一式を持って移動すること」。同じ悩みは工事現場や工場にもある。そしてこれはビジョンからの寄り道ではなく、ビジョンの筋トレそのもの。</div>
+<div class="quote">人は現場に行けるのに、水道・トイレ・お風呂は付いてこられない。<span class="who">課題を一言でいうとこうなる — 別々に考えた川島さんの PDF も、ほぼ同じ一文にたどり着いた (§9)</span></div>
+<p>自衛隊は、水道も電気もない場所に、数百人〜数千人で、期間限定で出かけていき、終わったら撤収する。このとき水・トイレ・お風呂・洗濯は「あって当たり前のもの」から「任務の足を引っぱる問題」に変わる。次の 4 条件が重なる場所なら、民間でも同じことが起きる — そして<strong>どれか 1 つでも欠けると、昔ながらの安い方法が勝つ</strong>:</p>
 
 <div class="figure">
-<div class="cap">図 1 | 課題が生まれる 4 つの条件 + 追い風 1 つ</div>
-<div class="cond">
-<div class="c">場所を選べない<span>工事・資源・災害など、行き先は向こうが決める</span></div>
-<div class="plus">×</div>
-<div class="c">水道がない or 足りない<span>そもそも無い、または普段の人口ぶんしか無い</span></div>
-<div class="plus">×</div>
-<div class="c">大人数がしばらく泊まる<span>数日〜数年。人数 × 日数で悩みの大きさが決まる</span></div>
-<div class="plus">×</div>
-<div class="c">終わったら撤収する<span>だから水道工事などの「据えつけ投資」は割に合わない</span></div>
+<div class="cap">図 1 | 課題が生まれる 4 条件 — 欠けた瞬間に「勝つ相手」が変わる</div>
+<div class="pair">
+<div class="p"><div class="on">場所を選べない<span>工事・資源・災害。行き先は向こうが決める</span></div><div class="arrow">▼ 欠けたら</div><div class="off">都合のいい場所でやればいい<br>= 課題ごと消える</div></div>
+<div class="p"><div class="on">水道がない or 足りない<span>そもそも無い、または普段の人口ぶんしか無い</span></div><div class="arrow">▼ 欠けたら</div><div class="off">水道・下水をふつうに使う</div></div>
+<div class="p"><div class="on">大人数がしばらく泊まる<span>人数 × 日数で悩みの大きさが決まる</span></div><div class="arrow">▼ 欠けたら</div><div class="off">数日・少人数なら給水車と我慢で足りる</div></div>
+<div class="p"><div class="on">終わったら撤収する<span>据えつけ投資が割に合わない</span></div><div class="arrow">▼ 欠けたら</div><div class="off">ずっといるなら水道を引いた方が安い<br>(岩崎さんの棄却ロジック)</div></div>
 </div>
-<div class="cond">
+<div class="cond" style="margin-top:14px;">
 <div class="plus">+</div>
-<div class="c" style="border-color:#b23a26; color:#b23a26;">追い風: 「我慢させる」が通用しない時代に<span>人手不足で、環境の悪い現場には人が来ない。国交省が 2016 年に「快適トイレ」を工事現場の標準にしたのは、国がそれを認めた証拠 ✓</span></div>
+<div class="c" style="border-color:#b23a26; color:#b23a26;">追い風: 「我慢させる」が通用しない時代に<span>人手不足で、環境の悪い現場には人が来ない。国交省が 2016 年に「快適トイレ」を工事現場の標準にしたのは、国がそれを認めた証拠 ✓。そして 7/31 の一次証言「風呂を我慢させると辞める」(§9) はその自衛隊版</span></div>
 </div>
-<p class="src">4 条件のどれかが欠けると、昔ながらの安い方法が勝つ。たとえば「ずっとそこにいる」なら水道を引いた方が安い。逆に「水に困っている人ぜんぶ」まで広げると話がぼやける — 「<strong>なぜその場所に行かなきゃいけなくて、なぜ我慢や運搬じゃダメなのか</strong>」に答えられる現場だけがお客さんになる。</p>
+<p class="src">「水に困っている人ぜんぶ」まで広げると話がぼやける — 「なぜその場所に行かなきゃいけなくて、なぜ我慢や運搬じゃダメなのか」に答えられる現場だけがお客さんになる。</p>
 </div>
 
 <div class="box">
-<p><strong>「自衛隊に全振りしたいんだっけ?」という引っかかりへの答え (ビジョンとの接続)。</strong>この方向は自衛隊が目的地なのではない。ここで鍛えられるのは「<strong>どんな場所でも、短期間で、暮らしを立ち上げる能力</strong>」で、それはビジョン「地球のすべての夜に灯りと潤いを」を実際に届けるための<strong>運搬能力そのもの</strong>。7 月の社内整理 (自衛隊・防災 = 規格づくりの最初のお客さん = 稼ぎ頭の背骨) の適用先を広げる話であって、新事業でも路線変更でもない。稼ぐ場所 (この市場) と、目指す世界 (暮らしの選択肢を広げる) は、同じ能力の両面。</p>
+<p><strong>「自衛隊に全振りしたいんだっけ?」という引っかかりへの答え (ビジョンとの接続)。</strong>この方向は自衛隊が目的地なのではない。ここで鍛えられるのは「<strong>どんな場所でも、短期間で、暮らしを立ち上げる能力</strong>」で、それはビジョン「地球のすべての夜に灯りと潤いを」を実際に届けるための<strong>運搬能力そのもの</strong>。7 月の社内整理 (自衛隊・防災 = 規格づくりの最初のお客さん = 稼ぎ頭の背骨) の適用先を広げる話であって、新事業でも路線変更でもない。</p>
 </div>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s4">4. 困りごとには 4 つのタイプがある</h2>
+<h2 id="s3">3. 困りごとには 4 つのタイプがある</h2>
 <div class="yousuru">ひとくちに「困っている」と言っても中身は 4 種類。タイプを間違えると、ベッドが足りない人に浄水器を売りに行くようなズレが起きる。</div>
 <div class="cards">
 <div class="card">
 <div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 36V16m0 14h36v6m0-6v-8a4 4 0 0 0-4-4H22v12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="23" r="3.5" fill="none" stroke="#111" stroke-width="2.5"/></svg><span class="t">タイプ A | ベッドが足りない</span></div>
-急に人が増えて、まずホテル・宿から足りなくなる。水やお風呂は「宿についてくるもの」なので主役ではない。<br><span class="small">実例: 秋田県能代市のホテルは風車工事・点検の人で繁忙期 8〜9 割埋まる ✓。工場の大修理では「宿が確保できないケースも」</span>
+急に人が増えて、まずホテル・宿から足りなくなる。水やお風呂は「宿についてくるもの」なので主役ではない。<br><span class="small">実例: 能代のホテルは風車関係者で繁忙期 8〜9 割埋まる ✓。工場の大修理では「宿が確保できないケースも」</span>
 <div class="solves"><span class="red">水の会社が単品で行っても脇役。</span>入るなら「宿+水セット」か、現場の中のお風呂・洗濯にしぼる</div>
 </div>
 <div class="card">
 <div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8c6 8 10 13 10 19a10 10 0 1 1-20 0c0-6 4-11 10-19z" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M9 42L39 8" stroke="#111" stroke-width="2.5" stroke-linecap="round"/></svg><span class="t">タイプ B | 水道がない</span></div>
-山奥のダム・トンネル現場など。ただしこの悩みは<strong>約 60 年前 (1967 年) から法律とセット商品で解決ずみ</strong> — タンク+浄化槽+給水車の組み合わせが工事の見積りに最初から入っている ✓。<br><span class="small">「昔から粛々とお金で解決している」世界</span>
+山奥のダム・トンネル現場など。ただしこの悩みは<strong>約 60 年前 (1967 年) から法律とセット商品で解決ずみ</strong> — タンク+浄化槽+給水車の組み合わせが工事の見積りに最初から入っている ✓。
 <div class="solves"><span class="red">値段勝負になるので正面からは入らない。</span>今のやり方より合計が安いと数字で示せた時だけ</div>
 </div>
 <div class="card">
 <div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 32h26l-4 7H14z" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M14 32v-6h10v6M19 26v-6" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><path d="M4 44c3-2 6-2 9 0s6 2 9 0 6-2 9 0 6-2 9 0" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><path d="M40 8l-5 7h6l-5 7" fill="none" stroke="#b23a26" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="t">タイプ C | 補給が止まる</span></div>
-船や道路が止まると、水も燃料も食料もまとめて止まり、<strong>仕事そのものが止まる</strong>。<br><span class="small">実例: 種子島の隣・馬毛島の基地工事 (宿舎 4,200 人) では、冬の高波で船が着けず、燃料制限や約 1,000 人の一時島外退避が報道された ✓</span>
-<div class="solves"><span class="green">「水を運ぶ」のをやめて「その場でくり返し使う」— INNFRA の技術がいちばん効くタイプ。</span>災害時の給水車不足 (全国 1,286 台しかない) も同じタイプ</div>
+船や道路が止まると、水も燃料も食料もまとめて止まり、<strong>仕事そのものが止まる</strong>。しかも水は「持ってくる」だけでなく<strong>「捨てられない」</strong>方向でも詰まる (★南西諸島の証言、§9)。<br><span class="small">実例: 馬毛島の基地工事 (宿舎 4,200 人 ✓) — 冬の高波で船が着けず、燃料制限 ✓・約 1,000 人規模の一時退避との報道</span>
+<div class="solves"><span class="green">「運ぶ」のをやめて「その場で回す」— INNFRA の技術がいちばん効くタイプ。</span>災害時の給水車不足 (全国 1,286 台) も同型</div>
 </div>
 <div class="card">
 <div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><circle cx="16" cy="13" r="5" fill="none" stroke="#111" stroke-width="2.5"/><path d="M6 40c0-8 4-13 10-13s10 5 10 13" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><circle cx="37" cy="20" r="6" fill="none" stroke="#111" stroke-width="2.5"/><path d="M37 10v4M37 26v4M27 20h4M43 20h4M30 13l3 3M44 13l-3 3M30 27l3-3M44 27l-3-3" stroke="#111" stroke-width="2.2" stroke-linecap="round"/></svg><span class="t">タイプ D | 道具はあるが、人がいない</span></div>
-機材は持っているのに、組み立てて動かせる人がいない。<br><span class="small">実例: 自衛隊のお風呂セットは優秀だが、設営や維持が大変で「自治体だけでは運営できない」✓。自衛隊自身も裏方仕事の民間外注を増やす計画を進めている (2031 年度までに 50 事業が目標)</span>
-<div class="solves"><span class="green">機械を「売る」のではなく「人ごと引き受ける」商売が開きつつあるタイプ。</span>買い手が「外注したい」と公言している唯一のタイプ</div>
+機材は持っているのに、組み立てて動かせる人がいない。<br><span class="small">実例: 自衛隊のお風呂セットは優秀だが「自治体だけでは運営できない」✓。自衛隊自身も裏方仕事の民間外注を拡大中 (2031 年度までに 50 事業目標)</span>
+<div class="solves"><span class="green">機械を「売る」のではなく「人ごと引き受ける」商売が開きつつあるタイプ</span></div>
 </div>
 </div>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s5">5. 市場候補ごとの調査結果</h2>
-<div class="yousuru">7 つの候補ぜんぶで困りごとは実在した。ただし「今すぐ欲しい (D)」と言い切れる証拠があるのは一部だけ。候補ごとにカードで見る。</div>
-<p class="small">見方: <span class="badge strong">たしかにある</span> = 複数の公的資料で確定 / <span class="badge">あるが条件つき</span> = 実在するが、深さや空き地は条件つき。✓ = 別の調べ役がウラ取りずみ。</p>
+<h2 id="s4">4. 市場候補ごとの調査結果</h2>
+<div class="yousuru">7 候補ぜんぶで困りごとは実在した。ただし「今すぐ欲しい (D)」の証拠があるのは一部だけ。全体の位置づけは冒頭の全体マップ、ここは各候補の中身。</div>
+<p class="small">見方: <span class="badge strong">たしかにある</span> = 複数の公的資料で確定 / <span class="badge">あるが条件つき</span> = 実在するが深さ・空き地は条件つき。★ = 一次証言 / ✓ = ウラ取り済み。</p>
 
-<div class="seg">
+<div class="seg" id="c1">
 <div class="head"><span class="name">① 洋上風力 (海の上の風車) の建設ラッシュ</span><span class="badge">あるが条件つき</span></div>
 <div class="body">
-<div class="row"><span class="lbl">何が起きてる</span>秋田県能代市ではホテルが風車関係者で繁忙期 8〜9 割埋まり、3〜5 ヶ月の長期滞在も普通 ✓。隣の男鹿市では風車需要を見込んで 161 室・25 億円のホテルが新築され ✓、市が宿泊費の補助まで出している ✓。北海道苫小牧では「ピーク時 1 万人来るのに宿が 1 万 800 人ぶん足りない」として、仮設宿舎の規制をゆるめる国への特区申請まで動いている</div>
-<div class="row"><span class="lbl">これから</span>国の目標は 2040 年までに今の何倍もの風車を建てること (必要人材 48,500 人)。工事の拠点になる港は全国十数ヶ所あり、<strong>工事は数年ごとに港から港へ移っていく</strong></div>
-<div class="row"><span class="lbl">危ない点</span><span class="red">地元のホテル会社や不動産会社がすでに自力で解決に動いている。</span>空き地は「ホテルが建つまでの 1〜3 年の穴」と「港から港へ移る需要に、動けない建物ではついていけない問題」の 2 つにしぼられる</div>
-<div class="row"><span class="lbl">判定</span><strong>C+ (必要になるのは確実・一部は今すぐ)。聞き込みで D の証拠を取りに行く本命</strong></div>
+<div class="row"><span class="lbl">何が起きてる</span>能代のホテルは風車関係者で繁忙期 8〜9 割埋まり、3〜5 ヶ月の長期滞在も普通 ✓。男鹿では風車需要を見込んで 161 室・25 億円のホテルが新築され ✓、市が宿泊費補助 ✓。苫小牧は「ピーク 1 万人に対し宿が 1 万 800 人ぶん不足」で仮設宿舎の規制緩和を国に特区申請へ</div>
+<div class="row"><span class="lbl">これから</span>2040 年目標は今の何倍もの風車 (必要人材 48,500 人)。拠点の港は全国十数ヶ所、<strong>工事は数年ごとに港から港へ移る</strong></div>
+<div class="row"><span class="lbl">危ない点</span><span class="red">地元ホテル・不動産が自力解決に動いている。</span>空き地は「ホテルが建つまでの 1〜3 年の穴」と「移る需要 vs 動けない建物」の 2 つ</div>
+<div class="row"><span class="lbl">判定</span><strong>C+。聞き込みで D の証拠を取りに行く本命</strong> (チャンス a・c)</div>
 </div>
 </div>
 
-<div class="seg">
-<div class="head"><span class="name">② 工場の大修理 (定修 = 数年に一度、工場を止めて 2 ヶ月がかりの大整備)</span><span class="badge">あるが条件つき</span></div>
+<div class="seg" id="c2">
+<div class="head"><span class="name">② 工場の大修理 (数年に一度・2 ヶ月がかりの大整備)</span><span class="badge">あるが条件つき</span></div>
 <div class="body">
-<div class="row"><span class="lbl">何が起きてる</span>法律で義務づけられた行事で、ピーク時は 1 日 3,000〜4,000 人が現場に集まる ✓。茨城の鹿島コンビナートの 2022 年の大修理は 90 日間・のべ 37 万人・総費用 462 億円 ✓。地元の宿は「確保できないケースも出てくる」と証言。三菱ケミカルは「このままだと大修理ができなくなるかも」と人数を 1 割減らす IT 化を始めた ✓</div>
-<div class="row"><span class="lbl">危ない点</span><span class="red">業界の一番の悩みは「職人の人数が足りない」ことで、宿や水は二の次。</span>しかも宿の手配代行会社・工事者向け民宿・レンタル業がすでに商売として成立している</div>
-<div class="row"><span class="lbl">見どころ</span>ただし<strong>工場の中のお風呂・洗濯・排水にしぼると話が変わるかもしれない</strong> — 工場の排水設備には仮設の排水を流しにくいという制約があるらしい (要確認)。数年ごとに必ず来る行事なので、機材の使い回しがしやすいのも良い点</div>
-<div class="row"><span class="lbl">判定</span><strong>C。入口を「工場の中の水まわり」にしぼって確かめる</strong></div>
+<div class="row"><span class="lbl">何が起きてる</span>法律で義務の行事。ピーク時 1 日 3,000〜4,000 人 ✓。鹿島 2022 年は 90 日・のべ 37 万人・総費用 462 億円 ✓。地元宿「確保できないケースも」。三菱ケミカルは「大修理ができなくなるかも」と動員 1 割減の IT 化 ✓</div>
+<div class="row"><span class="lbl">危ない点</span><span class="red">業界の一番の悩みは職人不足で、宿や水は二の次。</span>宿の手配代行・工事者民宿・レンタルが商売として成立済み</div>
+<div class="row"><span class="lbl">見どころ</span><strong>工場の中のお風呂・洗濯・排水にしぼると話が変わるかも</strong> — 工場の排水設備に仮設の排水を流しにくい制約があるらしい (要確認)。数年ごとに必ず来る行事 = 機材の使い回しが効く</div>
+<div class="row"><span class="lbl">判定</span><strong>C。入口を「工場内の水まわり」にしぼって確かめる</strong> (チャンス c)</div>
 </div>
 </div>
 
-<div class="seg">
+<div class="seg" id="c3">
 <div class="head"><span class="name">③ 山奥の大型工事 (ダム・トンネルなど)</span><span class="badge">あるが条件つき</span></div>
 <div class="body">
-<div class="row"><span class="lbl">何が起きてる</span>「水道のない場所の宿舎」は 1967 年から法律で決まりがあり (お風呂は 10 人に 1 人ぶん、トイレは 15 人に 1 個など) ✓、公共工事では水タンクや浄化槽の費用が最初から見積りに入る仕組み ✓。つまり<strong>困りごとはあるが、60 年かけて「お金で解決する型」ができあがっている</strong></div>
-<div class="row"><span class="lbl">追い風</span>建設業は人手不足が深刻 (働く人はピーク時の 7 割・36.7% が 55 歳以上 ✓)。国が「快適トイレ」を標準にしたのは、現場環境の悪さが採用に響くと国が認めた証拠</div>
-<div class="row"><span class="lbl">判定</span><strong>B〜C。正面から入る場所ではない。</strong>「仕事が止まった」という実例は見つからなかった</div>
+<div class="row"><span class="lbl">何が起きてる</span>「水道のない場所の宿舎」は 1967 年から法律で決まりがあり (風呂 10 人に 1 人ぶん・トイレ 15 人に 1 個) ✓、公共工事は水タンク・浄化槽の費用が見積りに入る仕組み ✓。<strong>困りごとはあるが、60 年かけて「お金で解決する型」が完成している</strong></div>
+<div class="row"><span class="lbl">追い風</span>人手不足が深刻 (就業者はピーク時の 7 割・36.7% が 55 歳以上 ✓)。国の「快適トイレ」標準化は、現場環境が採用に響くと国が認めた証拠</div>
+<div class="row"><span class="lbl">判定</span><strong>B〜C。正面から入る場所ではない</strong></div>
 </div>
 </div>
 
-<div class="seg">
+<div class="seg" id="c4">
 <div class="head"><span class="name">④ 離島・へき地のプロジェクト</span><span class="badge">あるが条件つき</span></div>
 <div class="body">
-<div class="row"><span class="lbl">何が起きてる</span><strong>馬毛島 (基地工事)</strong>: 作業員 6 千人超・宿舎 4,200 人 ✓ が、発電機と船の輸送だけで暮らしている。冬の高波で船が着けなくなり、燃料制限 ✓・約 1,000 人規模の一時島外退避との報道 (人数は「〜との見方」を含む推定表現) = <span class="red">「補給が止まると仕事が止まる」の実物の証拠</span>。<strong>能登の震災</strong>では、復旧に来た人たちが泊まる場所がなくテント泊や片道 2〜3 時間通いになり ✓、国が宿舎の家賃補助 (1 人 25 万円) を新設した ✓</div>
-<div class="row"><span class="lbl">危ない点</span>馬毛島クラスの超大型案件は数が少なく、発注元は防衛省 (手続きが重い)。ふつうの離島工事は既存のレンタルで回ってしまう</div>
-<div class="row"><span class="lbl">判定</span><strong>2 つに分けて考える: 馬毛島タイプ = D の実例 / ふつうの離島 = B</strong></div>
+<div class="row"><span class="lbl">何が起きてる</span><strong>馬毛島</strong>: 作業員 6 千人超・宿舎 4,200 人 ✓ が発電機と船の輸送だけで生活。冬の高波で船が着けず、燃料制限 ✓・約 1,000 人規模の一時退避との報道 = <span class="red">「補給が止まると仕事が止まる」の実物</span>。<strong>能登の震災</strong>: 復旧要員が泊まる場所がなくテント泊・片道 2〜3 時間通い ✓、国が宿舎の家賃補助 (25 万円/人) を新設 ✓</div>
+<div class="row"><span class="lbl">危ない点</span>馬毛島クラスは数が少なく発注元は防衛省。ふつうの離島工事は既存レンタルで回る</div>
+<div class="row"><span class="lbl">判定</span><strong>2 分割: 馬毛島タイプ = D の実例 / ふつうの離島 = B</strong> (チャンス b)</div>
 </div>
 </div>
 
-<div class="seg">
-<div class="head"><span class="name">⑤ 自衛隊・警察・消防 (原点)</span><span class="badge">あるが条件つき</span></div>
+<div class="seg" id="c5">
+<div class="head"><span class="name">⑤ 自衛隊・警察・消防 (原点)</span><span class="badge strong">★ 一次証言あり</span></div>
 <div class="body">
-<div class="row"><span class="lbl">何が起きてる</span>自衛隊の道具は実は優秀: お風呂セット 1 台で 1 日 1,200 人が入浴でき (1 台約 1,600 万円)、能登の震災ではのべ 75,597 人 ✓、東日本大震災ではのべ 62.5 万人に風呂を提供した ✓。<strong>問題は道具より人</strong> — 裏方部隊の人手不足で、自衛隊自身が裏方仕事の民間外注を拡大中 (2031 年度までに 50 事業目標)。洗濯セットは全国に約 20 台しかない</div>
-<div class="row"><span class="lbl">一次証言 (7/31)</span><span class="green"><strong>防衛省で需品の山口班長にヒアリング実施済み (§10)。</strong></span>「風呂を我慢させると辞める人も多い」「排水処理も含めて自己完結すべき」「WOTA はランニングコストで不採用 (需品学校が自ら研究した結果)」。富士川を見た本人が好印象で、<strong>新陽が機材を買って自衛隊にレンタルする商流が進行中</strong>。10/7-8 に松戸駐屯地の需品技術展示会へ出展予定</div>
-<div class="row"><span class="lbl">危ない点</span><span class="red">防衛予算の重点はミサイルなどの正面装備で、生活用の道具は後回し。</span>「機械を売り込む」のは筋が悪い — だからこそ新陽経由レンタルと運用請負の 2 経路が効く</div>
-<div class="row"><span class="lbl">判定</span><strong>D (一次証言つきで確定)。売り物は機械でなく「レンタル + 人ごと引き受ける運用サービス」</strong></div>
+<div class="row"><span class="lbl">何が起きてる</span>道具は優秀: お風呂セット 1 台で 1 日 1,200 人 (約 1,600 万円/台)、能登でのべ 75,597 人 ✓・東日本で 62.5 万人 ✓。<strong>問題は道具より人</strong> — 裏方の人手不足で、自衛隊自身が民間外注を拡大中 (2031 年度までに 50 事業目標)。洗濯セットは全国約 20 台のみ</div>
+<div class="row"><span class="lbl">一次証言 (7/31)</span><span class="green"><strong>防衛省で需品の山口班長にヒアリング実施済み (§9)。</strong></span>「風呂を我慢させると辞める人も多い」「排水処理も含めて自己完結すべき」「WOTA はランニングコストで不採用」。富士川を見た本人が好印象で、<strong>新陽が機材を買って自衛隊にレンタルする商流が進行中</strong>。10/7-8 松戸駐屯地の需品技術展示会に出展予定</div>
+<div class="row"><span class="lbl">危ない点</span><span class="red">防衛予算の重点は正面装備で、生活用の道具は後回し。</span>「機械の売り込み」は筋が悪い — だからこそ新陽経由レンタルと運用請負の 2 経路</div>
+<div class="row"><span class="lbl">判定</span><strong>D (一次証言つきで確定)。売り物は機械でなく「レンタル + 人ごと引き受ける運用サービス」</strong> (チャンス d)</div>
 </div>
 </div>
 
-<div class="seg">
+<div class="seg" id="c6">
 <div class="head"><span class="name">⑥ 災害・自治体 (派生)</span><span class="badge">あるが条件つき</span></div>
 <div class="body">
-<div class="row"><span class="lbl">何が起きてる</span>給水車は全国に 1,286 台しかなく、大きな災害では絶対に足りない (水道協会の公式な警告)。自衛隊のお風呂は「自治体だけでは運営できない」✓</div>
-<div class="row"><span class="lbl">危ない点</span><span class="red">この空き地には WOTA という先行者がすでにいる。</span>12 都道府県+国の災害医療チームと協定を結び、100 億円のファンドを作り、7 月の熊本地震では機材約 400 台を集めた ✓</div>
-<div class="row"><span class="lbl">判定</span><strong>D だが競合が先行。</strong>災害専用の商売にはせず「ふだんは現場で使い、災害時に転用できる」性質として設計に織り込む。WOTA との住み分け (向こうは個人〜避難所サイズ、うちは拠点まるごとサイズ) を言葉にするのが先</div>
+<div class="row"><span class="lbl">何が起きてる</span>給水車は全国 1,286 台で大災害では絶対に足りない (水道協会の公式警告)。自衛隊のお風呂は「自治体だけでは運営できない」✓</div>
+<div class="row"><span class="lbl">危ない点</span><span class="red">WOTA という先行者がいる。</span>12 都道府県+国の災害医療チームと協定、100 億円ファンド、7 月の熊本地震で機材約 400 台 ✓</div>
+<div class="row"><span class="lbl">判定</span><strong>D だが競合先行。</strong>災害専用にせず「ふだんは現場で使い、災害時に転用」の性質として設計に織り込む。WOTA との住み分けを言葉にするのが先 (今日の議題 4)</div>
 </div>
 </div>
 
-<div class="seg">
+<div class="seg" id="c7">
 <div class="head"><span class="name">⑦ 海外 (この商売が成立する証明)</span><span class="badge strong">たしかにある</span></div>
 <div class="body">
-<div class="row"><span class="lbl">何が起きてる</span>海外では「工事・鉱山の作業員村」を丸ごと請け負う商売 (宿+ごはん+水+掃除のセット) が<strong>年間およそ 2.7 兆円の確立した産業</strong>。上場企業もいる: Civeo 社 (年商約 1,000 億円) ✓、Target Hospitality 社 (約 560 億円、AI データセンター建設の作業員村を 4 年 1,100 億円で受注) ✓ など。米軍は基地の生活まわりを民間に一括発注しており、契約枠は累計 22 兆円 ✓</div>
-<div class="row"><span class="lbl">意味</span><span class="green">「ぜんぶ込みセット」で請け負う会社が日本には見当たらない (調べた範囲で)。</span>この産業が海外に実在すること自体が、国内仮説の一番強い証拠</div>
-<div class="row"><span class="lbl">判定</span><strong>実在の証明として使う。参入は製品が育ってから</strong></div>
+<div class="row"><span class="lbl">何が起きてる</span>「作業員村」を丸ごと請け負う商売 (宿+ごはん+水+掃除) が<strong>年間およそ 2.7 兆円の確立産業</strong>。Civeo 社 (年商約 1,000 億円) ✓、Target Hospitality 社 (約 560 億円、AI データセンター建設の作業員村を 4 年 1,100 億円で受注) ✓。米軍は基地の生活まわりを民間に一括発注 — 契約枠は累計 22 兆円 ✓</div>
+<div class="row"><span class="lbl">意味</span><span class="green">「ぜんぶ込みセット」の請負会社が日本には見当たらない (調べた範囲で)。</span>海外にこの産業が実在すること自体が国内仮説の一番強い証拠</div>
+<div class="row"><span class="lbl">判定</span><strong>存在証明として使う。参入は製品が育ってから</strong></div>
 </div>
 </div>
-
-<p class="small">このほか、農業の季節労働者 (困ってはいるが払えるお金が少ない) とイベント・フェス (期間が短すぎて既存業者が強い) も候補にあがったが、最初の市場には不向き。イベントは「機材が空いている時期の貸し出し先」としてなら意味がある。</p>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s6">6. 気をつけること 5 つ (この話がコケるとしたら)</h2>
+<h2 id="s5">5. 気をつけること 5 つ (この話がコケるとしたら)</h2>
 <div class="yousuru">一番の敵は競合ではなく「今のやり方で十分安い」という現実。先に負けパターンを知っておく。</div>
 <div class="box">
-<p><span class="red"><strong>① 「今のやり方のほうが安い」問題。</strong></span>給水車は 1 日 1〜2 万円、仮設トイレは月 1〜2 万円から借りられる。水を循環させる WOTA の機械でも 1 台 150 万円で「単品レンタルより一桁高い」と見られる世界。<strong>数日で終わる現場なら給水車でいいし、半年いるなら仮設浄化槽が合理的</strong>。この場合分けに当てはまらない現場だけがお客さんになる。値段の合計で今のやり方に勝てない提案は死ぬ。</p>
-<p><span class="red"><strong>② 「もう自分で解決し始めている」問題。</strong></span>男鹿市の 25 億円ホテル、苫小牧の特区申請、三菱ケミカルの IT 化。困っているのは本当でも、<strong>解決役のイスが空いているとは限らない</strong>。</p>
-<p><span class="red"><strong>③ ブームが去る問題。</strong></span>海外の作業員村最大手 Civeo 社は、原油の値段が下がったとき社員を 45% 減らした。工事とセットの需要は、消えるときは一瞬。<strong>機材をたくさん抱え込まない事業設計</strong> (業界をまたいで使い回して稼働率をならす) が前提条件。</p>
-<p><span class="red"><strong>④ WOTA という先行者問題。</strong></span>災害×水循環の顔になりつつある (§5-⑥)。うちが立つべきは「拠点まるごと (数十〜数千人 × 日) + 宿・電気こみ」のサイズ。この住み分けを言葉にできないと後追いになる。</p>
-<p><span class="red"><strong>⑤ ベッドの問題に水屋が行っても脇役問題。</strong></span>風車工事や工場大修理の痛みの中心は「泊まる部屋」。水単品の提案は財布の入口を間違える。</p>
+<p><span class="red"><strong>① 「今のやり方のほうが安い」問題。</strong></span>給水車は 1 日 1〜2 万円、仮設トイレは月 1〜2 万円から。水循環の WOTA 機材でも 1 台 150 万円で「単品レンタルより一桁高い」と見られる世界。<strong>数日なら給水車でいいし、半年いるなら仮設浄化槽が合理的</strong> — この場合分けに当てはまらない現場だけがお客さん。値段の合計で勝てない提案は死ぬ。</p>
+<p><span class="red"><strong>② 「もう自分で解決し始めている」問題。</strong></span>男鹿の 25 億円ホテル、苫小牧の特区申請、三菱ケミカルの IT 化。困っているのは本当でも、解決役のイスが空いているとは限らない。</p>
+<p><span class="red"><strong>③ ブームが去る問題。</strong></span>海外最大手 Civeo は原油安のとき社員を 45% 削減した。工事とセットの需要は消えるときは一瞬。<strong>機材を抱え込まない設計</strong> (業界をまたいで使い回す) が前提条件。</p>
+<p><span class="red"><strong>④ WOTA という先行者問題。</strong></span>災害×水循環の顔になりつつある。うちが立つべきは「拠点まるごと (数十〜数千人×日) + 宿・電気こみ」のサイズ。住み分けを言葉にできないと後追いになる。</p>
+<p><span class="red"><strong>⑤ ベッドの問題に水屋が行っても脇役問題。</strong></span>風車工事や大修理の痛みの中心は「泊まる部屋」。水単品の提案は財布の入口を間違える。大修理で入るなら工場内の水まわり限定が筋。</p>
 </div>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s7">7. いま流れているお金の量 v0.1 (支出プールの試算)</h2>
-<div class="yousuru">式に公開情報の数字を入れて一度回した。「今すでに払われているお金のプール」は目に見える 3 領域だけで年 190〜650 億円規模。⚠ これは市場規模ではない — うちが取れるのは、このうち「不満つき」の部分だけ。会議では右辺 (うちの設備のコスト) を埋めてほしい。</div>
-<p>考え方: <strong>市場の大きさ = (泊まる人数 × 日数) × (1 人 1 日あたりの宿・水まわり費用)</strong>。</p>
+<h2 id="s6">6. いま流れているお金の量 v0.1 (支出プールの試算)</h2>
+<div class="yousuru">式に公開情報の数字を入れて一度回した。目に見える 3 領域だけで年 190〜650 億円がすでに流れている。⚠ これは市場規模ではない — うちが取れるのは「不満つき」の部分だけ。会議ではステップ 3 (うちの設備のコスト) を埋めてほしい。</div>
+<p>考え方: <strong>お金の量 = (泊まる人数 × 日数) × (1 人 1 日あたりの宿・水まわり費用)</strong>。</p>
 
 <h3>ステップ 1 | 1 人 1 日あたり、いくら払われているか (公開情報からの見積り)</h3>
-<div class="tablewrap"><table>
-<tr class="thead-dark"><th>項目</th><th>見積り (1 人 1 日)</th><th>根拠</th></tr>
-<tr><td>宿泊</td><td>5,000〜12,000 円</td><td>地方ビジネスホテル・工事者向け民宿の相場。繁忙期は 1.5〜2 倍の証言 (弱い出典・要実測)</td></tr>
-<tr><td>給水 (飲み水・生活用水)</td><td>100〜400 円</td><td>給水車 1〜2 万円/日 ✓ ÷ 50〜100 人現場 (下限 = 2 万÷50 人ではなく 1 万÷100 人)。離島は輸送費でさらに上がる</td></tr>
-<tr><td>トイレ + くみ取り</td><td>50〜300 円</td><td>レンタル分は月 1〜2 万円/基 ✓ ÷30 日÷15 人 ≈ 22〜44 円。残りはくみ取り (バキューム) 実費で、規模・頻度で大きく変動 — 弱めの推計</td></tr>
-<tr><td>風呂・洗濯・排水</td><td>200〜2,000 円</td><td>宿に含まれる場合は 0。現場設置なら仮設シャワー・浄化槽 (90 万円〜・工期 3〜7 日 ✓) の按分 — 償却期間・人数の置き方で大きく変わる弱めの推計</td></tr>
-<tr><td><strong>合計</strong></td><td><strong>約 5,500〜15,000 円/人日</strong><br><span class="small">うち水まわりだけなら 350〜2,700 円/人日</span></td><td>大半は宿代。どの市場でどちら (宿ごと or 水まわりだけ) を狙うかで分母が変わる。図 2 の計算は切りのよい 6,000〜15,000 円で行った</td></tr>
+<div class="tablewrap"><table class="narrow">
+<tr class="thead-dark"><th>項目</th><th style="width:9em;">見積り (1 人 1 日)</th><th>根拠</th></tr>
+<tr><td>宿泊</td><td>5,000〜12,000 円</td><td class="small">地方ビジネスホテル・工事者向け民宿の相場。繁忙期 1.5〜2 倍の証言 (弱い出典・要実測)</td></tr>
+<tr><td>給水</td><td>100〜400 円</td><td class="small">給水車 1〜2 万円/日 ✓ ÷ 50〜100 人現場。離島は輸送費でさらに上がる</td></tr>
+<tr><td>トイレ + くみ取り</td><td>50〜300 円</td><td class="small">レンタル 月 1〜2 万円/基 ✓ ÷30 日÷15 人 ≈ 22〜44 円 + くみ取り実費 (変動大・弱め推計)</td></tr>
+<tr><td>風呂・洗濯・排水</td><td>200〜2,000 円</td><td class="small">宿に含まれれば 0。現場設置なら仮設シャワー・浄化槽 (90 万円〜 ✓) の按分 — 弱め推計</td></tr>
+<tr><td><strong>合計</strong></td><td><strong>約 5,500〜15,000 円</strong></td><td class="small">大半は宿代。水まわりだけなら 350〜2,700 円。図 2 は切りのよい 6,000〜15,000 円で計算</td></tr>
 </table></div>
 
 <h3>ステップ 2 | 人数 × 日数 (調査で取れた実数) を掛ける</h3>
 <div class="figure">
 <div class="cap">図 2 | 「すでに払われているお金のプール」の試算 (年あたり・ざっくり)</div>
-<div class="bar-row"><div class="bar-label">工場の大修理 (全国のコンビナート合計)<br><span style="color:#889">のべ 100 万人日/年と仮定 ※鹿島 1 回 37 万人日 ✓ × 全国の主要コンビナート地域 (十数ヶ所・2〜4 年周期) から粗く外挿</span></div><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><div class="bar-val">年 60〜150 億円</div></div>
+<div class="bar-row"><div class="bar-label">工場の大修理 (全国合計)<br><span style="color:#889">のべ 100 万人日/年と仮定 ※鹿島 1 回 37 万人日 ✓ × 主要コンビナート十数ヶ所・2〜4 年周期から粗く外挿</span></div><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><div class="bar-val">年 60〜150 億円</div></div>
 <div class="bar-row"><div class="bar-label">洋上風力の建設 (全国合計)<br><span style="color:#889">地元外から常時 2,000〜5,000 人滞在と仮定</span></div><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div><div class="bar-val">年 40〜270 億円</div></div>
 <div class="bar-row"><div class="bar-label">馬毛島 1 案件だけ<br><span style="color:#889">宿舎 4,200 人 ✓ × 365 日 = 153 万人日</span></div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div class="bar-val">年 90〜230 億円</div></div>
-<p class="src">単価はステップ 1 の 6,000〜15,000 円/人日。3 本の合計 = 年 190〜650 億円。⚠ これは「置き換えられる市場」ではなく「今この用途に流れているお金の総量」— うちが狙えるのはこのうち不満・不足がくっついている部分だけ。人数の仮定 2 つ (※印) は聞き込みで実測に置き換える。参考: 海外では同じ種類の商売が年 2.7 兆円産業 ✓ (ドルは 1 ドル=150 円で換算、以下同じ)。</p>
+<p class="src">単価はステップ 1 (6,000〜15,000 円/人日)。3 本の合計 = 年 190〜650 億円。⚠「置き換えられる市場」ではなく「今この用途に流れているお金の総量」。人数の仮定 2 つ (※印) は聞き込みで実測に置き換える。参考: 海外では同種の商売が年 2.7 兆円産業 ✓ (ドルは 1 ドル=150 円換算、以下同じ)。</p>
 </div>
+<p>ためしに: 鹿島の大修理 1 回だけで のべ 37 万人日。宿・水まわりが 1 人 1 日 5 千〜1 万円なら、<strong>1 つのコンビナートの 1 回の大修理だけで 19〜37 億円がすでに誰かに支払われている</strong>。問題は「市場があるか」ではなく、<strong>その支払いのどの部分に不満がくっついていて、うちが置き換えられるか</strong>。</p>
 
-<h3>ステップ 3 | 右辺: うちの設備なら 1 人 1 日いくらか (会議で埋める)</h3>
-<div class="tablewrap"><table>
+<h3>ステップ 3 | うちの設備なら 1 人 1 日いくらか (会議で埋める)</h3>
+<div class="tablewrap"><table class="narrow">
 <tr class="thead-dark"><th>項目</th><th>数字</th><th>メモ</th></tr>
-<tr><td>ユニット 1 台の導入費</td><td><span class="fill">会議で記入</span> 万円</td><td>彩湖・富士川の実績から</td></tr>
-<tr><td>月あたりの運用費 (人件・消耗品・保守)</td><td><span class="fill">会議で記入</span> 万円/月</td><td>遠隔監視でどこまで下がるかも</td></tr>
-<tr><td>1 台で支えられる人数</td><td><span class="fill">会議で記入</span> 人</td><td>シャワー・洗濯・トイレの処理能力</td></tr>
-<tr><td><strong>→ 1 人 1 日あたりの総コスト</strong></td><td><strong><span class="fill">計算</span> 円/人日</strong></td><td><strong>これがステップ 1 の「水まわり 350〜2,700 円」を下回る現場 = お客さん</strong> (宿ごと狙いなら分母は 5,500〜15,000 円)</td></tr>
+<tr><td>ユニット 1 台の導入費</td><td><span class="fill">会議で記入</span> 万円</td><td class="small">彩湖・富士川の実績から</td></tr>
+<tr><td>月あたりの運用費</td><td><span class="fill">会議で記入</span> 万円/月</td><td class="small">人件・消耗品・保守。遠隔監視でどこまで下がるかも</td></tr>
+<tr><td>1 台で支えられる人数</td><td><span class="fill">会議で記入</span> 人</td><td class="small">シャワー・洗濯・トイレの処理能力</td></tr>
+<tr><td><strong>→ 1 人 1 日あたりの総コスト</strong></td><td><strong><span class="fill">計算</span> 円/人日</strong></td><td class="small"><strong>これが「水まわり 350〜2,700 円」を下回る現場 = お客さん</strong> (宿ごと狙いなら分母は 5,500〜15,000 円)</td></tr>
 </table></div>
-<p class="small">この 3 ステップが埋まると、「どの市場」ではなく「どの条件の現場なら勝てるか」が数字で言えるようになる — 川島 PDF の市場定義 (今のコスト &gt; 自前設備のコスト、の市場を探せ) がそのまま実行可能になる。</p>
+<p class="small">この 3 ステップが埋まると「どの市場」ではなく「どの条件の現場なら勝てるか」が数字で言える — 川島 PDF の市場定義 (今のコスト &gt; 自前設備のコスト、の市場を探せ) がそのまま実行可能になる。★7/31 証言によれば、自衛隊で WOTA が落ちた理由もまさにこの右辺 (ランニングコスト) だった。</p>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s8">8. チャンス 4 つと「なぜ空き地のままなのか」</h2>
-<div class="yousuru">負けパターンをぜんぶ踏まえても残る空き地が 4 つ。ただし「なぜ誰もやっていないのか」に答えられないと、それは罠かもしれない。仮説は「この空き地は最近できたばかり」。</div>
+<h2 id="s7">7. チャンス 4 つと「なぜ空き地のままなのか」</h2>
+<div class="yousuru">負けパターンを踏まえても残る空き地の候補が 4 つ (a〜d、全体マップと対応)。ただし「なぜ誰もやっていないのか」に答えられないと罠かもしれない — 仮説は「この空き地は最近できたばかり」。</div>
 <div class="cards">
 <div class="card">
-<div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="16" width="22" height="14" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><circle cx="11" cy="35" r="3.5" fill="none" stroke="#111" stroke-width="2.5"/><circle cx="21" cy="35" r="3.5" fill="none" stroke="#111" stroke-width="2.5"/><path d="M31 23h12m0 0l-5-5m5 5l-5 5" fill="none" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="t"><span class="green">チャンス 1 | 動く需要に、動く設備で</span></span></div>
-風車工事の拠点港は 2040 年代までに全国十数ヶ所を順番に回る。ホテル (動けない建物) は完成まで 2〜3 年かかり、需要が去ると稼働が落ちて重荷になりやすい (海外最大手が人員 45% 削減した構造と同じ)。<strong>需要と一緒に引っ越せる宿+水設備</strong>は、建物には構造的に出せない答え。
-<div class="solves">確かめ方: 風車の工事会社に「港を移るたびに宿・設備をゼロから調達し直すコスト」を聞く</div>
+<div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="16" width="22" height="14" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><circle cx="11" cy="35" r="3.5" fill="none" stroke="#111" stroke-width="2.5"/><circle cx="21" cy="35" r="3.5" fill="none" stroke="#111" stroke-width="2.5"/><path d="M31 23h12m0 0l-5-5m5 5l-5 5" fill="none" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="t"><span class="green">a | 動く需要に、動く設備で</span></span></div>
+風車の拠点港は 2040 年代までに十数ヶ所を順番に回る。ホテルは完成まで 2〜3 年、需要が去ると稼働が落ちて重荷になりやすい。<strong>需要と一緒に引っ越せる宿+水設備</strong>は建物には出せない答え。
+<div class="solves">確かめ方: 風車の工事会社に「港を移るたびの再調達コスト」を聞く</div>
 </div>
 <div class="card">
-<div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6c4 5.5 7 9.5 7 14a7 7 0 1 1-14 0c0-4.5 3-8.5 7-14z" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M38 30a15 15 0 0 1-26 8m-2 6v-7h7" fill="none" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 32a15 15 0 0 1 26-8m2-6v7h-7" fill="none" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="t"><span class="green">チャンス 2 | 「運ぶ」から「回す」へ</span></span></div>
-給水車も汲み取りも「道がつながっている」ことが前提。馬毛島と能登が示したとおり、<strong>線が切れる場所では「運ぶ」が破綻する</strong>。水をその場でくり返し使う技術が一番効く。
+<div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6c4 5.5 7 9.5 7 14a7 7 0 1 1-14 0c0-4.5 3-8.5 7-14z" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M38 30a15 15 0 0 1-26 8m-2 6v-7h7" fill="none" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 32a15 15 0 0 1 26-8m2-6v7h-7" fill="none" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="t"><span class="green">b | 「運ぶ」から「回す」へ</span></span></div>
+給水車もくみ取りも「道がつながっている」前提。馬毛島と能登が示したとおり、<strong>線が切れる場所では「運ぶ」が破綻する</strong>。★自衛隊証言の「捨てられない」も同根 — 水を回せば運搬も排水も同時に減る。
 <div class="solves">確かめ方: 離島・災害の発注側に「補給が止まった経験と、そのとき払った金額」を聞く</div>
 </div>
 <div class="card">
-<div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 17L24 9l16 8v16l-16 8-16-8z" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 17l16 8 16-8M24 25v16" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></svg><span class="t"><span class="green">チャンス 3 | 「ぜんぶ込みセット」の日本一号</span></span></div>
-海外では宿+ごはん+水のセット請負が 2.7 兆円産業なのに、日本では発注者が給水車・トイレ・ハウス・浄化槽を<strong>バラバラの会社に発注して自分で調整している</strong>。この調整の手間が、見えない痛みになっている可能性。
+<div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 17L24 9l16 8v16l-16 8-16-8z" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 17l16 8 16-8M24 25v16" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></svg><span class="t"><span class="green">c | 「ぜんぶ込みセット」の日本一号</span></span></div>
+海外では宿+ごはん+水のセット請負が 2.7 兆円産業なのに、日本では発注者が<strong>バラバラの会社に発注して自分で調整している</strong>。この調整の手間が見えない痛みになっている可能性。
 <div class="solves">確かめ方: 現場の総務担当に「何社に発注して、調整に何人日使っているか」を聞く</div>
 </div>
 <div class="card">
-<div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><circle cx="16" cy="13" r="5" fill="none" stroke="#111" stroke-width="2.5"/><path d="M6 40c0-8 4-13 10-13s10 5 10 13" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><path d="M32 30l10-10m-8-2l10 10" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round"/><path d="M40 14a5 5 0 1 0 4 8" fill="none" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round"/></svg><span class="t"><span class="green">チャンス 4 | 機械を売らず、人ごと引き受ける</span></span></div>
-自衛隊は裏方仕事の民間外注を<strong>制度として</strong>拡大中 (50 事業の計画あり)。自治体も「機材があっても回せない」と言っているが、こちらはまだ悲鳴の段階で発注の形になっていない。<strong>「水まわりの裏方業務を丸ごと請け負う」</strong>は、買い手側に外注の計画が実在する唯一の空き地。
-<div class="solves">確かめ方: 自衛隊の外注対象にお風呂・給水・洗濯が入るかを確認 (10 月の展示会・新陽ルート)</div>
+<div class="thead"><svg class="icon" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true"><circle cx="16" cy="13" r="5" fill="none" stroke="#111" stroke-width="2.5"/><path d="M6 40c0-8 4-13 10-13s10 5 10 13" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><path d="M32 30l10-10m-8-2l10 10" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round"/><path d="M40 14a5 5 0 1 0 4 8" fill="none" stroke="#0e7a4f" stroke-width="2.5" stroke-linecap="round"/></svg><span class="t"><span class="green">d | 機械を売らず、人ごと引き受ける</span></span></div>
+自衛隊は裏方仕事の民間外注を<strong>制度として</strong>拡大中 (50 事業の計画)。自治体の「回せない」はまだ悲鳴の段階で発注の形になっていない。<strong>水まわりの裏方業務ごと請け負う</strong>は、買い手側に外注の計画が実在する唯一の空き地。
+<div class="solves">確かめ方: 外注対象にお風呂・給水・洗濯が入るかを確認 (10 月の展示会・新陽ルート)</div>
 </div>
 </div>
 
 <h3>なぜ空き地のままなのか — 3 つの仮説と確かめ方</h3>
 <div class="box">
-<p>「日本にぜんぶ込みセットの会社がいない」のが本当なら、次の疑問は<strong>「ユニットハウス売上 290 億円のナガワや、西尾レントオール・アクティオのような大手が、なぜやらないのか」</strong>。答えの候補は 3 つ:</p>
+<p>「ぜんぶ込みセットの会社が日本にいない」のが本当なら、次の疑問は<strong>「ユニットハウス売上 290 億円のナガワや西尾レントオール・アクティオが、なぜやらないのか」</strong>。答えの候補は 3 つ:</p>
 <p><strong>仮説 1 | 業界がタテ割り。</strong>宿はハウス屋、水は設備屋、排水は浄化槽・くみ取り屋 — 免許も商流も別で、またぐ人がいなかった。</p>
-<p><strong>仮説 2 | 水は責任が重い。</strong>箱が壊れても人は死なないが、水は事故ると健康被害が出る。レンタル業が一番抱えたくない種類のリスク。</p>
-<p><strong>仮説 3 | 「我慢」という無料の競合がいた。</strong>人手不足になる前は、我慢で回すのがタダで一番安かった。§3 の追い風 (我慢が通用しない時代) は<strong>ここ数年の変化</strong> — つまりこの空き地は「ずっと誰も儲からなかった罠」ではなく「<span class="green">最近できたばかりの空き地</span>」の可能性がある。</p>
-<p class="small"><strong>確かめ方</strong>: レンタル大手の中期経営計画・IR に水まわり統合の言及があるか調べる / 大手の中の人・OB に「水回りの統合サービスを検討したことはあるか、やめたなら理由は」を聞く。もし「検討してやめた」なら、その理由がそのまま参入判断の一番の材料になる。</p>
+<p><strong>仮説 2 | 水は責任が重い。</strong>箱が壊れても人は死なないが、水は事故ると健康被害が出る。レンタル業が一番抱えたくないリスク。</p>
+<p><strong>仮説 3 | 「我慢」という無料の競合がいた。</strong>人手不足前は我慢がタダで一番安かった。§2 の追い風は<strong>ここ数年の変化</strong> — つまりこの空き地は「ずっと誰も儲からなかった罠」ではなく「<span class="green">最近できたばかりの空き地</span>」の可能性がある。★「風呂を我慢させると辞める」という 7/31 証言は、我慢という競合が自衛隊の中でも敗退しつつある証拠。</p>
+<p class="small"><strong>確かめ方</strong>: レンタル大手の中期経営計画・IR に水まわり統合の言及があるか / 大手の中の人・OB に「検討したことがあるか、やめたなら理由は」を聞く。「検討してやめた」なら、その理由が参入判断の一番の材料になる。</p>
 </div>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s9">9. ルールと法律 — 敵にも味方にもなる</h2>
+<h2 id="s8">8. ルールと法律 — 敵にも味方にもなる</h2>
 <div class="yousuru">水は法律が濃い領域。立ち上げを遅くする「敵」の面と、面倒くささが参入障壁になる「味方」の面の両方がある。手続きごと請け負う設計にすれば味方になる。</div>
-<div class="tablewrap"><table>
-<tr class="thead-dark"><th>なんの法律</th><th>ざっくり言うと</th><th>敵か味方か</th></tr>
-<tr><td>飲み水のルール<br><span class="small">(水道法の水質基準)</span></td><td>飲み水にするなら水質検査が義務。現場宿舎は 1967 年の決まりですでに検査義務がある ✓</td><td><strong>回避できる</strong>: 再生水を「飲まない用途」(シャワー・洗濯・トイレ) に限れば大幅に軽くなる。飲み水だけ従来どおり買う設計が現実的</td></tr>
-<tr><td>排水のルール<br><span class="small">(水質汚濁防止法・浄化槽法・自治体の条例)</span></td><td>処理した水を流すには許可や届け出が要る。<strong>基準や手続きは自治体ごと・現場ごとにバラバラ</strong></td><td><span class="green"><strong>味方にできる</strong>: この「バラバラで面倒」こそが、発注者が一番外注したい仕事。許認可の代行込みでパッケージにすれば、後発が真似しにくい参入障壁になる</span></td></tr>
-<tr><td>建物のルール<br><span class="small">(建築基準法の仮設建築物・旅館業法)</span></td><td>仮設宿舎は「仮設建築物」の扱いで通常より軽い。ただし宿泊で直接お金を取る形にすると旅館業法が絡む場合がある</td><td><strong>設計次第</strong>: 「工事会社の宿舎として貸す」(B2B リース) なら軽い。社内に旅館業まわりの法務検討の蓄積がすでにある</td></tr>
-</table></div>
-<p class="small">結論: 規制対応そのものを商品に含める (「水まわりの許認可はぜんぶウチが通します」) のが筋。⚠ 個別の許認可判断は案件ごとに要専門確認 — この表は会議用のざっくり整理。</p>
+<div class="box">
+<p><strong>飲み水 (水道法):</strong> 飲み水にするなら水質検査が義務 — ただし現場宿舎は 1967 年の決まりですでに検査義務がある ✓。<span class="green">再生水を「飲まない用途」(シャワー・洗濯・トイレ) に限れば大幅に軽くなる</span>。飲み水だけ従来どおり買う設計が現実的。</p>
+<p><strong>排水 (水質汚濁防止法・浄化槽法・自治体条例):</strong> 処理した水を流すには許可・届け出が要り、<strong>基準や手続きは自治体ごと・現場ごとにバラバラ</strong>。<span class="green">この「バラバラで面倒」こそ発注者が一番外注したい仕事 — 許認可の代行込みでパッケージにすれば、後発が真似しにくい参入障壁になる</span>。★7/31 証言の「捨てられない」問題はまさにここ。</p>
+<p><strong>建物 (仮設建築物・旅館業法):</strong> 仮設宿舎は通常より軽い扱い。ただし宿泊で直接お金を取る形だと旅館業法が絡む場合がある — 「工事会社の宿舎として貸す」(会社向けリース) なら軽い。社内に旅館業まわりの法務検討の蓄積あり。</p>
+<p class="small">結論: 規制対応そのものを商品に含める (「水まわりの許認可はぜんぶウチが通します」) のが筋。⚠ 個別判断は案件ごとに専門確認 — これは会議用のざっくり整理。</p>
+</div>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s10">10. 川島 PDF との照合 + 自衛隊ヒアリング記録の捜索結果</h2>
-<div class="yousuru">別々に考えて核は一致 (= 確からしい)。PDF から借りたい道具が 3 つ、こちらから足すものが 4 つ。「自衛隊ヒアリング」の記録は社内 Slack・Drive を実際に捜索した — 結果は下記。</div>
-<h3>ほぼ一致していた点 (別ルートで同じ答え = 信じてよい)</h3>
+<h2 id="s9">9. 川島 PDF との照合 + 7/31 一次証言 (社内捜索で発掘)</h2>
+<div class="yousuru">別々に考えて核は一致 (= 確からしい)。PDF から借りたい道具が 3 つ、こちらから足すものが 4 つ。そして「自衛隊ヒアリング」は実施済みだった — 記録は Slack に眠っていた。</div>
+
+<h3>「自衛隊ヒアリング」は実施済みだった</h3>
+<p><strong class="green">2026-07-31 (金) 14:00、防衛省にて実施。</strong>岩崎さん + 新陽・倉持さんが、需品 (兵站・生活支援の担当部門) の<strong>山口班長</strong>にヒアリング。当日 18:30 に川島さんが詳細メモを Slack #営業 に投稿している (質問設計 9 カテゴリも当日朝に岩崎さんが投稿ずみ)。PDF の「最大の発見」の一文はこのメモの川島さん要約とみられる。7/3 時点の社内記録「自衛官の声ゼロ」はもう古い。</p>
+
+<div class="voice">「これまでは風呂入るなと隊員に我慢させてた。辞めてしまう人も多い」<span class="who">山口需品班長 (7/31 防衛省) — §2 の追い風「がまんが『人が辞める』に化ける時代」の一次証言そのもの</span></div>
+<div class="voice">「展開先は何もインフラがないことが前提。動く部隊は必要なインフラを自分で持ち運ぶ。排水処理も含めて自己完結すべき」<span class="who">同 — 駐屯地ですら排水に困っている (春日井駐屯地は下水管がなく裏の溜め池に排水。「浄化槽の能力を超えそうなら風呂・シャワーは使うなと言われる」)</span></div>
+<div class="voice">「南西諸島の訓練では、上水はあるが下水がない。水を捨てられない。1 日 5,000L 処理したい」<span class="who">同 — 与那国島のミサイル防衛展開で 1 個中隊 100 人が半年滞在した実例。現状の給水は 5t タンク車のピストン輸送 (1 往復 2 時間)</span></div>
+
+<div class="box">
+<p><strong>ほかに分かったこと:</strong> ① <strong>WOTA 不採用の理由が判明</strong> — 需品学校が自ら研究した結果「フィルター交換などのランニングコストで NG」。つまり勝ち負けを決めるのはランニングコストだと買い手自身が言っている。② <strong>商流も動いている</strong> — 富士川を見た山口班長本人が好印象 (「100 人規模の想定に合致」)。新陽が機材 (Base) を購入して自衛隊にレンタルする案が進行中 (6/23 時点「確約っぽい」)。10/7-8 に松戸駐屯地「需品技術展示会」へ出展予定、8/18 に新陽と事前打合せ。</p>
+<p><strong>意味すること 3 つ:</strong> ① 自衛隊は「一次証言つきの D」に昇格 — 今日の議論は「この証言と同じ形の悩みを民間のどこで探すか」という作業。② <strong>意外な主役は排水</strong> — 証言では「持ってくる」より「<strong>捨てられない</strong>」が繰り返し出てくる。水循環の必然性は排水側から立つ — 民間ヒアリングでも排水の質問 (Q9) を重視。③ 記録が Slack メモのままなので、正式な記録に起こして全員が引ける資産にする (2 週間プランに入れた)。</p>
+<p class="src">出典: 社内 Slack #営業 (7/31 ヒアリングメモ・同日朝の質問設計) / #その他_スケジュール調整 (7/27 日程確定) / #経営_事業戦略 (6/27 棚卸し・8/5 川島投稿)。Drive に独立した報告書は見つからず = Slack メモが現状の一次資料。</p>
+</div>
+
+<h3>PDF との照合 — 一致していた点 (別ルートで同じ答え = 信じてよい)</h3>
 <ul>
-<li>課題の一言 — PDF「人は展開できても、生活インフラが展開できない」 ≒ この資料の §3。成立条件のリストもほぼ同じ</li>
+<li>課題の一言 — PDF「人は展開できても、生活インフラが展開できない」 ≒ §2 の一文。成立条件のリストもほぼ同じ</li>
 <li>「水に困る人ぜんぶ」に広げるとぼやける、という警告</li>
-<li>「水循環がいつでも正解とは限らない」— PDF は場合分けで明記 (数日なら給水車でよい、半年なら仮設浄化槽が合理的 など) = この資料の §6-①と同じ</li>
-<li>災害は専用商売にせず「ふだん使い×災害時転用」で考える</li>
-<li>農業・イベントは最初の市場にしない</li>
+<li>「水循環がいつでも正解とは限らない」— PDF は場合分けで明記 (数日なら給水車、半年なら仮設浄化槽 など) = §5-①と同じ</li>
+<li>災害は専用商売にせず「ふだん使い×災害時転用」で考える / 農業・イベントは最初の市場にしない</li>
 </ul>
 <h3>PDF から借りたい道具 3 つ</h3>
 <div class="box">
-<p><strong>① 市場の見つけ方の式</strong> — 「水循環が欲しい市場」を探すのではなく、<u>「水を運ぶ・くみ取る・我慢する、の今の合計コストが、自前設備を持つコストを上回る市場」</u>を探す。§7 の 3 ステップはこの式をそのまま実行に落としたもの。</p>
-<p><strong>② 勝ち負けを測る 7 つの数字</strong> — くみ取り回数 / 給水の輸送量 / 設置にかかる日数 / 手間の人数 / 設置面積 / 排水の許可 / <u>作業員 1 人あたりの総コスト</u>。「水を循環できます」だけでは売れない — この 7 つで今のやり方に勝てて初めて売れる。</p>
-<p><strong>③ 商品の呼び方</strong> — 「水循環ユニット」では狭い。<u>「持ち運べて、自己完結する、現場の生活インフラ」</u>。最初のターゲットは「100 人規模の現場で、シャワー・洗濯の水の運搬を大幅に減らす」と具体的に置く。</p>
+<p><strong>① 市場の見つけ方の式</strong> — 「水循環が欲しい市場」でなく、<u>「水を運ぶ・くみ取る・我慢する、の今の合計コストが、自前設備を持つコストを上回る市場」</u>を探す。§6 の 3 ステップはこの式の実行版。</p>
+<p><strong>② 勝ち負けを測る 7 つの数字</strong> — くみ取り回数 / 給水の輸送量 / 設置日数 / 手間の人数 / 設置面積 / 排水の許可 / <u>作業員 1 人あたりの総コスト</u>。「水を循環できます」だけでは売れない。</p>
+<p><strong>③ 商品の呼び方</strong> — 「水循環ユニット」では狭い。<u>「持ち運べて、自己完結する、現場の生活インフラ」</u>。最初のターゲットは「100 人規模の現場で、シャワー・洗濯の水の運搬を大幅に減らす」と具体的に。</p>
 </div>
 <h3>この資料が足すもの 4 つ</h3>
 <ul>
-<li><strong>順位の中の「入口」</strong> — PDF の第 1 候補「大型建設ぜんぶ」は、実は一番解決ずみの領域 (§5-③)。同じ建設でも<span class="green">「場所が動く工事 = 洋上風力」にしぼる</span>と証拠と噛み合う</li>
-<li><strong>自衛隊の売り物の読み替え</strong> — 機械を売るのではなく「人ごと引き受ける」なら、自衛隊は唯一の確定した「今すぐ欲しい」お客さん (§5-⑤)</li>
-<li><strong>PDF に無い注意 2 つ</strong> — WOTA という先行者 (§6-④) と、ブームが去る問題 (§6-③)</li>
-<li><strong>証拠と数字</strong> — PDF は論理だけで数字と出典がゼロ。ウラ取りずみの事実 (✓) と §7 の試算が、PDF の主張のどこまでが実証ずみかを見えるようにした</li>
+<li><strong>順位の中の「入口」</strong> — PDF の第 1 候補「大型建設ぜんぶ」は実は一番解決ずみ (§4-③)。同じ建設でも<span class="green">「場所が動く工事 = 洋上風力」にしぼる</span>と証拠と噛み合う</li>
+<li><strong>自衛隊の売り物の読み替え</strong> — 機械でなく「レンタル + 人ごと引き受ける」(§4-⑤)</li>
+<li><strong>PDF に無い注意 2 つ</strong> — WOTA という先行者 (§5-④) と、ブームが去る問題 (§5-③)</li>
+<li><strong>証拠と数字</strong> — PDF は論理のみで出典ゼロ。ウラ取り済みの事実 (✓) と §6 の試算が、どこまで実証済みかを見えるようにした</li>
 </ul>
-<h3>「自衛隊ヒアリング」の記録を捜索した結果 — 実施済みだった</h3>
-<div class="box">
-<p><strong class="green">結論: ヒアリングは 2026-07-31 (金) 14:00、防衛省で実施済み。</strong>岩崎さん + 新陽・倉持さんが、需品 (兵站・生活支援の担当部門) の<strong>山口班長</strong>にヒアリングし、当日 18:30 に川島さんが詳細メモを Slack #営業 に投稿している。事前の質問設計 (9 カテゴリ) も岩崎さんが当日朝に投稿ずみ。PDF の「最大の発見」の一文はこのメモの川島さん要約と見られる。7/3 時点の社内記録「自衛官の声ゼロ」はもう古い — <strong>うちはすでに一次証言を持っている</strong>。</p>
-<p><strong>一次証言の中身 (Slack メモより抜粋):</strong></p>
-<ul>
-<li>「これまでは<strong>風呂入るなと隊員に我慢させてた → 辞めてしまう人も多い</strong>」 = §3 の追い風 (がまんが「人が辞める」に化ける時代) の一次証言そのもの</li>
-<li>「展開先は何もインフラがないことが前提」「動く部隊は必要なインフラを自分で持ち運ぶ。<strong>排水処理も含めて自己完結すべき</strong>」</li>
-<li>駐屯地ですら排水に困っている (名古屋・春日井駐屯地は下水管がなく裏の溜め池に排水。「浄化槽の能力を超えそうなら風呂・シャワーは使うなと言われる」)</li>
-<li>南西諸島の訓練では「上水はあるが下水がない。<strong>水を捨てられない</strong>」→ 1 日 5,000L 処理したいという具体的な数字も</li>
-<li>与那国島のミサイル防衛 (PAC3) 展開で 1 個中隊 100 人が半年滞在した実例。現状の給水は 5t タンク車のピストン輸送 (1 往復 2 時間)</li>
-<li><strong>WOTA 不採用の理由が判明</strong>: 需品学校が自ら研究した結果「フィルター交換などのランニングコストで NG」— つまり<strong>勝ち負けを決めるのはランニングコストだ、と買い手自身が言っている</strong></li>
-<li>商流も動いている: 富士川を見た山口班長本人が好印象 (「100 人規模の想定に合致」「シンプルで使いやすそう」)。<strong>新陽が機材 (Base) を購入して自衛隊にレンタルする案が進行中</strong> (6/23 時点「確約っぽい」)。10/7-8 に松戸駐屯地「需品技術展示会」へ出展予定 (8/18 に新陽と事前打合せ)</li>
-</ul>
-<p><strong>これが意味すること 3 つ:</strong> ① 自衛隊は「一次証言つきの D」に昇格 — 今日の議論は「この証言と同じ形の悩みを、民間のどこで探すか」という作業になる。② <strong>意外な主役は排水</strong> — 証言では「持ってくる (給水)」より「<strong>捨てられない (排水)</strong>」が繰り返し出てくる。水循環の必然性は排水側から立つ — 民間ヒアリングでも排水の質問 (Q9) を重視すべき。③ 記録が Slack メモのままなので、正式な記録に起こして全員が引ける資産にする (2 週間プランに入れた)。</p>
-<p class="src">出典: 社内 Slack #営業 (2026-07-31 の山口班長ヒアリングメモ・7/31 朝の質問設計) / #その他_スケジュール調整 (7/27 日程確定) / #経営_事業戦略 (6/27 棚卸し・8/5 川島投稿)。Drive には独立したヒアリング報告書は見つからず = Slack メモが現状の一次資料。</p>
-</div>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s11">11. 会議で決めること — 合格ライン先決め + 2 週間プラン + 質問</h2>
-<div class="yousuru">決めることは 4 つ。いちばん大事なのは、聞き込みに行く前に「合格ライン」を決めてしまうこと — 後から「どう解釈する?」で揉めないために。</div>
-<h3>決めたいこと 4 つ</h3>
-<ol>
-<li><strong>候補の格付けを仮決めする</strong> — §5 の判定 (風力 C+ / 大修理 C / 建設一般 B〜C / 離島は 2 分割 / 自衛隊 D・売り物読み替え / 災害 D・競合先行) をたたき台に</li>
-<li><strong>合格ライン (GO/KILL) を承認する</strong> — 下の表。修正はこの場で</li>
-<li><strong>2 週間プランの担当を決める</strong> — 下の表の「担当 (案)」を確定</li>
-<li><strong>WOTA との関係</strong> — 競合か、住み分けか、学ぶ相手か。サイズ (個人〜避難所 vs 拠点まるごと) と範囲 (水だけ vs 宿+電気+水) の 2 軸で言葉にする</li>
-</ol>
+<h2 id="s10">10. 実行キット — 合格ライン・2 週間プラン・質問 11 問</h2>
+<div class="yousuru">ここは会議後もヒアリング現場で使う「道具」のページ。※この公開ページは期限つきなので、会議で確定したらこの §10 は恒久保管場所 (wiki / Google Docs) に写して運用する。</div>
 
-<h3>合格ライン先決め表 (GO/KILL の事前登録)</h3>
-<div class="tablewrap"><table>
-<tr class="thead-dark"><th>候補</th><th><span style="color:#7fd6b0">GO サイン (これが返ったら D 認定)</span></th><th><span style="color:#f0a99a">KILL サイン (これが返ったら候補を落とす)</span></th></tr>
-<tr><td><strong>洋上風力</strong></td><td>「港を移るたびの宿・設備の再調達が 1 回数千万円級」の実額が出る、または「宿不足で工程・人繰りに実害」の実例が 1 件以上</td><td>実務責任者 2 人連続で「既存ホテル+船で特に困っていない」</td></tr>
-<tr><td><strong>工場の大修理</strong></td><td>「工場内の風呂・洗濯・排水で追加費用や制約」の実額が出る</td><td>2 社連続で「困りごとは宿だけ。工場の中は問題ない」</td></tr>
-<tr><td><strong>自衛隊 (レンタル+運用請負)</strong><br><span class="small">※欲しがっていること自体は 7/31 一次証言で確定済み。この行で判定するのは「商売として成立するか」だけ</span></td><td>「WOTA が落ちたランニングコストの水準 (いくら以下なら買うか)」を数字で聞き出し、うちの構造で下回れる見込みが立つ + 新陽経由レンタルの初号が展示会 (10/7-8) までに具体化する</td><td>ランニングコスト目標が、うちの構造でも届かない水準だと判明する / 外注拡大の対象に野外の入浴・給水・洗濯系が含まれないことが確認される</td></tr>
-<tr><td><strong>離島 (馬毛島タイプ)</strong></td><td>補給が止まったときの追加コストの実額 (数千万円級) が確認できる</td><td>防衛以外に同タイプの案件が見つからない</td></tr>
-<tr><td colspan="3"><strong>共通ルール</strong>: どの候補も「①困ってない」or「③今の方が安い」が 2 連続で返ったら B に降格して次の候補へ。<strong>判定日: 8/27 ごろの会議で、この表に照らして機械的に判定する</strong>。※災害・自治体と建設一般はこの表に入れていない (災害は WOTA との住み分け整理が先、建設一般は B〜C のため第二波)</td></tr>
-</table></div>
+<h3>合格ライン先決め表 (GO/KILL) — 判定日 8/27</h3>
+<p class="small">聞き込みの前に「何が返ってきたら GO / 何なら捨てるか」を決めておく。8/27 ごろの会議でこの基準に照らして機械的に判定する。</p>
+<div class="gk">
+<div class="name">洋上風力</div>
+<div class="go"><b>GO:</b> 「港を移るたびの宿・設備の再調達が 1 回数千万円級」の実額が出る、または「宿不足で工程・人繰りに実害」の実例が 1 件以上</div>
+<div class="kill"><b>KILL:</b> 実務責任者 2 人連続で「既存ホテル+船で特に困っていない」</div>
+</div>
+<div class="gk">
+<div class="name">工場の大修理</div>
+<div class="go"><b>GO:</b> 「工場内の風呂・洗濯・排水で追加費用や制約」の実額が出る</div>
+<div class="kill"><b>KILL:</b> 2 社連続で「困りごとは宿だけ。工場の中は問題ない」</div>
+</div>
+<div class="gk">
+<div class="name">自衛隊 (レンタル+運用請負) <span class="small">— 欲しがっていること自体は★7/31 で確定済み。ここで判定するのは「商売として成立するか」だけ</span></div>
+<div class="go"><b>GO:</b> 「WOTA が落ちたランニングコストの水準 (いくら以下なら買うか)」を数字で聞き出し、うちの構造で下回れる見込みが立つ + 新陽経由レンタル初号が展示会 (10/7-8) までに具体化</div>
+<div class="kill"><b>KILL:</b> ランニングコスト目標がうちの構造でも届かない水準 / 外注拡大の対象に野外の入浴・給水・洗濯系が含まれない</div>
+</div>
+<div class="gk">
+<div class="name">離島 (馬毛島タイプ)</div>
+<div class="go"><b>GO:</b> 補給が止まったときの追加コストの実額 (数千万円級) が確認できる</div>
+<div class="kill"><b>KILL:</b> 防衛以外に同タイプの案件が見つからない</div>
+</div>
+<p class="small"><strong>共通ルール</strong>: どの候補も「①困ってない」or「③今の方が安い」が 2 連続で返ったら B に降格して次へ。※災害・自治体と建設一般はこの表に入れていない (災害は WOTA 住み分けが先、建設一般は B〜C のため第二波)。</p>
 
-<h3>2 週間プラン (担当は案 — 会議で確定)</h3>
-<div class="tablewrap"><table>
-<tr class="thead-dark"><th>いつ</th><th>何をする</th><th>担当 (案)</th></tr>
-<tr><td rowspan="5">今週<br>(8/13〜17)</td><td>7/31 山口班長ヒアリングの Slack メモを正式な記録に起こして共有資産化。8/18 の新陽打合せに「WOTA が落ちたランニングコスト水準はいくらか」を確認項目として入れる</td><td>岩崎 + 素子</td></tr>
-<tr><td>INPEX: 建設・保守の実務責任者につないでもらうアポ</td><td>川島</td></tr>
-<tr><td>清水建設: 工事部隊 (工事事務所長・労務担当) へのアポ</td><td>川島 or 岩崎</td></tr>
-<tr><td>§7 ステップ 3 (うちの設備の 1 人日コスト) を彩湖・富士川実績で埋める</td><td>ジョニー + 素子</td></tr>
-<tr><td>レンタル大手が「なぜ水を統合しないか」の裏取り (IR・中計・OB)</td><td>素子</td></tr>
-<tr><td>来週<br>(8/18〜24)</td><td>ヒアリング実施 2〜3 件 (質問 11 問 + 7 つの数字)。記録は当日中にメモ化 (テンプレは素子が用意)</td><td>実施者 + 素子</td></tr>
-<tr><td>8/27 ごろ</td><td><strong>GO/KILL 判定会議</strong> — 合格ライン表に照らして次の一手を決定。結果は 8 末〜の事業計画リバイス (株主向け) に差し込む</td><td>全員</td></tr>
-</table></div>
+<h3 id="s10-plan">2 週間プラン (担当は案 — 会議で確定)</h3>
+<div class="box">
+<h4>今週 (8/13〜17)</h4>
+<ul>
+<li>7/31 山口班長ヒアリングの Slack メモを正式な記録に起こして共有資産化。8/18 の新陽打合せに「WOTA が落ちたランニングコスト水準はいくらか」を確認項目として入れる — <strong>岩崎 + 素子</strong></li>
+<li>INPEX: 建設・保守の実務責任者につないでもらうアポ — <strong>川島</strong></li>
+<li>清水建設: 工事部隊 (工事事務所長・労務担当) へのアポ — <strong>川島 or 岩崎</strong></li>
+<li>§6 ステップ 3 (うちの設備の 1 人日コスト) を彩湖・富士川実績で埋める — <strong>ジョニー + 素子</strong></li>
+<li>レンタル大手が「なぜ水を統合しないか」の裏取り (IR・中計・OB) — <strong>素子</strong></li>
+</ul>
+<h4>来週 (8/18〜24)</h4>
+<ul>
+<li>ヒアリング実施 2〜3 件 (質問 11 問 + 7 つの数字)。記録は当日中にメモ化 (テンプレは素子が用意) — <strong>実施者 + 素子</strong></li>
+</ul>
+<h4>8/27 ごろ</h4>
+<ul>
+<li><strong>GO/KILL 判定会議</strong> — 合格ライン表に照らして次の一手を決定。結果は 8 末〜の事業計画リバイス (株主向け) に差し込む — <strong>全員</strong></li>
+</ul>
+</div>
 
 <h3>誰に聞くか — 「聞く相手違い」を防ぐ</h3>
-<div class="tablewrap"><table>
-<tr class="thead-dark"><th>ルート</th><th>聞くべき相手</th><th>確かめること</th><th>避けるべき相手</th></tr>
-<tr><td><strong>INPEX (洋上風力)</strong></td><td>風車プロジェクトの<strong>建設・保守準備の現場責任者</strong>。長崎・五島の風車は今年 1 月に運転開始したばかり = 工事の生々しい記憶がある人たち ✓</td><td>チャンス 1 (港を移るコスト)・宿の実費・「ホテル代わりの船」で足りてしまうか</td><td>経営企画・新規事業部門 (総論しか出てこない)</td></tr>
-<tr><td><strong>清水建設 (工事部隊)</strong></td><td><strong>工事事務所長・現場代理人・労務担当</strong>。清水は風車建設の専用船も持っている = 海と山の両方の話が聞ける ✓</td><td>チャンス 3 (バラバラ発注の調整コスト)・実費・宿が取れなかった経験・7 つの数字の現状値</td><td>本社の研究所 (6 月の教訓「清水建設は水循環の利用者じゃない」— ただし工事部隊なら利用者になり得る。<strong>同じ会社の中で、聞く相手を変える</strong>)</td></tr>
-</table></div>
+<div class="cards">
+<div class="card">
+<div class="t">INPEX (洋上風力)</div>
+聞くべき相手: 風車プロジェクトの<strong>建設・保守準備の現場責任者</strong>。五島の風車は今年 1 月に運転開始したばかり ✓ = 工事の生々しい記憶がある人たち。
+<div class="solves">確かめること: チャンス a (港を移るコスト)・宿の実費・「ホテル代わりの船」で足りてしまうか<br><span class="red">避ける相手: 経営企画・新規事業部門 (総論しか出てこない)</span></div>
+</div>
+<div class="card">
+<div class="t">清水建設 (工事部隊)</div>
+聞くべき相手: <strong>工事事務所長・現場代理人・労務担当</strong>。清水は風車建設の専用船も持っている ✓ = 海と山の両方の話が聞ける。
+<div class="solves">確かめること: チャンス c (バラバラ発注の調整コスト)・実費・宿が取れなかった経験・7 つの数字の現状値<br><span class="red">避ける相手: 本社の研究所 (6 月の教訓「清水建設は水循環の利用者じゃない」— ただし工事部隊なら利用者になり得る。同じ会社の中で聞く相手を変える)</span></div>
+</div>
+</div>
 
 <h3>質問リスト (11 問 — 断り文句 3 つを順に潰す設計)</h3>
 <div class="qa">
@@ -507,28 +587,29 @@
 <p class="small">7 候補それぞれの個別質問リスト (35 問) も別に用意ずみ。聞き込み先が決まったら渡します。</p>
 <div class="backtoc"><a href="#toc">▲ 目次にもどる</a></div>
 
-<h2 id="s12">12. 注意書きと出典</h2>
+<h2 id="s11">11. 注意書きと出典</h2>
 <details>
 <summary>この資料の限界 (正直な注意書き)</summary>
 <div class="inner">
 <ul>
-<li>工事の元請け会社側の「生の声」はゼロ (すべて公開情報)。だからこそ聞き込みに行く</li>
-<li>§7 の試算は公開情報からの概算。人数の仮定 2 つ (定修 100 万人日/年・風力 2,000〜5,000 人常時) は外挿で、聞き込みで実測に置き換える前提</li>
-<li>WOTA の自治体導入数 (106 自治体という説) は出典ページで確認できず、未確認扱い (別ソースでは 23 自治体という数字も)。12 都道府県との協定・熊本 400 台は確認ずみ</li>
-<li>大修理シーズンの宿代高騰「1.5〜2 倍」は業界ブログ由来で弱い数字。聞き込みで実測すべき</li>
+<li>民間側 (工事の元請け会社) の生の声はゼロ (すべて公開情報)。だからこそ聞き込みに行く。自衛隊側は 7/31 の一次証言あり</li>
+<li>§6 の試算は公開情報からの概算。人数の仮定 2 つ (定修 100 万人日/年・風力 2,000〜5,000 人常時) は外挿で、聞き込みで実測に置き換える前提</li>
+<li>WOTA の自治体導入数 (106 自治体という説) は出典ページで確認できず未確認扱い (別ソースでは 23 自治体という数字も)。12 都道府県との協定・熊本 400 台は確認ずみ</li>
+<li>大修理シーズンの宿代高騰「1.5〜2 倍」は業界ブログ由来の弱い数字。聞き込みで実測すべき</li>
 <li>馬毛島の「約 1,000 人退避」は報道時点で「〜との見方」を含む表現</li>
-<li>農業・イベントの 2 候補は、後回し判断のため独自調査していない (論理判断のみ)</li>
-<li>§9 の法律の表は会議用のざっくり整理。個別の許認可判断は案件ごとに専門確認が要る</li>
+<li>農業・イベントの 2 候補は後回し判断のため独自調査していない (論理判断のみ)</li>
+<li>§8 の法律の整理は会議用のざっくり版。個別の許認可判断は案件ごとに専門確認が要る</li>
 <li>ドル金額はすべて 1 ドル = 150 円で換算した概算</li>
-<li>本資料は外部 AI の敵対レビューを 1 巡通し、指摘 (計算の不整合・✓ 表記の矛盾・支出プールと市場規模の混同リスクなど 13 件) を修正済み</li>
+<li>外部 AI の敵対レビューを 1 巡通し、指摘 (計算の不整合・✓ 表記の矛盾・支出プールと市場規模の混同リスクなど 13 件) を修正済み</li>
 </ul>
 </div>
 </details>
 <details>
-<summary>主要な出典 (✓ = 別の調べ役がウラ取りずみ)</summary>
+<summary>主要な出典 (★ = 一次証言 / ✓ = ウラ取りずみ)</summary>
 <div class="inner">
 <ul>
-<li>川島 PDF「自衛隊モデル市場仮説」全 10p (GPT 整理、2026-08-05 Slack 添付) — §10 で照合した参照仮説</li>
+<li>★ 社内 Slack #営業: 7/31 山口需品班長ヒアリングメモ (川島投稿)・同日朝の質問設計 (岩崎投稿) / #その他_スケジュール調整 (7/27 日程確定) / #経営_事業戦略 (6/27 棚卸し・8/5 川島投稿)</li>
+<li>川島 PDF「自衛隊モデル市場仮説」全 10p (GPT 整理、2026-08-05 Slack 添付) — §9 で照合した参照仮説</li>
 <li>✓ 国交省: 快適トイレ標準仕様 (2016) / 快適トイレ事例集 2026 / 国土交通白書 (建設業就業者 479 万人)</li>
 <li>✓ 厚労省: 建設業附属寄宿舎規程 (1967 年労働省令) / 能登の作業員宿舎助成金 (25 万円/人)</li>
 <li>✓ 岩手県: 公共工事の労働者宿舎仕様基準 (受水槽・浄化槽の費用計上)</li>
@@ -539,14 +620,14 @@
 <li>✓ 防衛省 (お風呂セット 1,200 人/日) / 内閣官房 (能登入浴 75,597 人) / 参議院調査室 (東日本 62.5 万人) / 陸自論文・内閣府 (裏方業務の民間外注 50 事業目標)</li>
 <li>✓ Civeo / Target Hospitality / ATCO の決算・発表 (海外の作業員村産業) / Defense Industry Daily (米軍 LOGCAP) / 市場調査 (作業員村 約 2.7 兆円・可搬浄水 2,600 億→5,300 億円)</li>
 <li>✓ 日本水道協会 (給水車 1,286 台) / WOTA 公式 (協定・熊本 400 台) / 西尾レントオール (WOTA 機材価格) / 乗りものニュース (自衛隊風呂の運営負荷) / 総務省 (応援職員の自己完結原則)</li>
-<li>単価相場 (§7 ステップ 1): 給水車・仮設トイレ・浄化槽は上記出典 ✓、宿泊相場は業界サイト・宿泊予約サイトの一般相場 (弱め・要実測)</li>
+<li>単価相場 (§6 ステップ 1): 給水車・仮設トイレ・浄化槽は上記出典 ✓、宿泊相場は業界サイトの一般相場 (弱め・要実測)</li>
 </ul>
 </div>
 </details>
 
 <footer>
-<p>v5 作成: 2026-08-13 | v4 からの追加: 合格ライン先決め表 (GO/KILL) / 市場の大きさ v0.1 (単価見積り+支出プール試算+右辺の空欄表) / 「なぜ空き地のままか」3 仮説 / 法律の整理 / 2 週間実行プラン / ビジョンとの接続 / 自衛隊ヒアリング記録の社内捜索 (§10) / ピクトグラム / 敵対レビュー 1 巡 | 調べ方: 7 候補の同時並列調査 + 主要 21 個の数字の独立ウラ取り (20 個確認ずみ)</p>
-<p>このページは 2026-08-16 04:00 JST ごろに削除される想定 (公開から 72 時間)</p>
+<p>v6 作成: 2026-08-13 | v5 からの変更 (構成・UIUX): 冒頭を「30 秒サマリー → 今日の議題 → 全体マップ → (ここから根拠)」の層構造に再編 / GO/KILL を現場で使えるカードに / 7/31 一次証言を吹き出しで格上げ + 証拠の等級凡例 (★/✓) / 図 1 を「欠けたら誰が勝つか」まで描く形に / 実行キット (§10) を独立させ恒久保管前提を明記 / 印刷用 CSS・版表示・読了目安を追加。中身のデータと結論は v5 と同一 | 調べ方: 7 候補の並列調査 + 21 の数字の独立ウラ取り + 社内 Slack/Drive 捜索 + 敵対レビュー 1 巡</p>
+<p>このページは 2026-08-28 ごろまで残す予定 (GO/KILL 判定日 8/27 まで使うため延長)。会議後、§10 実行キットは恒久保管場所へ移す</p>
 </footer>
 
 </main>
