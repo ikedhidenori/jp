@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>稼ぐ防災 × INNFRA Base — 25案検証カタログ</title>
+<style>
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555;
+  --faint:#6f6f6f; --red:#d84a32; --green:#18a36f; --red-text:#c23c26; --green-text:#0f7a52; --pale-red:#f6d8d4; --rule:#c3c9bf;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa;
+  --faint:#7c837e; --red:#f0705a; --green:#3fc492; --red-text:#f0705a; --green-text:#3fc492; --pale-red:#3a2521; --rule:#2c3335; }
+}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase; overflow-wrap:break-word;
+  line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.8; margin:0; padding:0 20px 80px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th{min-width:0}
+img,svg,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+.mast{padding:56px 0 24px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:12px}
+.mast h1{font-size:clamp(26px,5.6vw,34px); line-height:1.28; font-weight:800; margin:0; padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:11px; height:37px; background:var(--ink)}
+.mast .subtitle{font-size:17px; line-height:1.6; font-weight:400; color:var(--ink); margin:0 0 0 22px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 22px}
+section{padding:40px 0 0; display:flex; flex-direction:column; gap:16px}
+section > h2{font-size:clamp(19px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0; padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+h3{font-size:18px; font-weight:800; margin:16px 0 0; letter-spacing:-.005em}
+p{margin:0}
+strong{font-weight:700}
+.lead{font-weight:700; font-size:1.06em}
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:18px 18px 14px; margin:4px 0; display:flex; flex-direction:column; gap:14px}
+.artifact-title{font-size:13px; font-weight:700; margin:0; letter-spacing:.01em}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0; overflow-wrap:anywhere}
+.tablewrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:13.5px; line-height:1.55; min-width:24rem}
+th,td{border:1px solid var(--rule); padding:8px 10px; text-align:left; vertical-align:top}
+thead th{border-bottom:3px solid var(--ink); font-weight:700; font-size:12px}
+tbody th{font-weight:700; color:var(--sub); white-space:nowrap}
+td.red-col{background:var(--pale-red)}
+.num{font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+.red{color:var(--red-text)} .green{color:var(--green-text)}
+.bullets{display:flex; flex-direction:column; gap:14px; margin:0; padding:0; list-style:none}
+.bullets li{padding-left:18px; position:relative}
+.bullets li::before{content:""; position:absolute; left:0; top:.62em; width:7px; height:7px; border-radius:50%; background:var(--ink)}
+.bullet-lead{font-weight:700; font-size:1.05em; display:block}
+.bullet-sub{color:var(--sub); font-size:13px; display:block; margin-top:1px; line-height:1.6}
+.badge{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.04em; padding:1px 8px; border:1.5px solid currentColor; border-radius:2px; vertical-align:2px; white-space:nowrap}
+.b-keep{color:var(--green-text)} .b-cond{color:var(--sub)} .b-kill{color:var(--red-text)}
+.model{border-left:4px solid var(--rule); padding:2px 0 2px 16px; display:flex; flex-direction:column; gap:8px}
+.model.keep{border-left-color:var(--green)}
+.model.cond{border-left-color:var(--faint)}
+.model h3{margin:0}
+.model p{font-size:14px; line-height:1.75}
+.model .k{font-weight:700; color:var(--sub); font-size:12px}
+.cond-fix{border-left:2px solid var(--ink); padding:2px 0 2px 12px; margin:2px 0 0}
+hr.end{border:0; border-top:3px solid var(--ink); margin:56px 0 0}
+.colophon{font-size:11px; line-height:1.85; color:var(--faint); margin:16px 0 0; overflow-wrap:anywhere}
+@media (max-width:520px){ body{font-size:15px; padding:0 16px 64px} .artifact{padding:14px 13px 11px} }
+:focus-visible{outline:2px solid var(--red); outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <h1>稼ぐ防災 × INNFRA Base<br>25案 検証カタログ</h1>
+  <p class="subtitle">フェーズフリー防災で本当に稼げるのか — 発想25案を「富士川の教訓」で殺しにいった全記録</p>
+  <p class="meta">2026-08-13｜INNFRA 内部検討資料（A-IDEA 応募検討の下敷き）｜発想役と査定役を分離した敵対検証｜このページは 2026-08-16 19:06 JST に自動削除されます</p>
+</header>
+
+<section>
+  <h2>0. この資料の読み方</h2>
+  <p>「INNFRA Base でどんな稼ぐ防災ができるか」を 5 つのレンズ（体験系 / B2Bユーティリティ / 自治体契約 / モビリティ / 一次産業・変化球）で 25 案発想し、案ごとに<strong>別の査定役が「本当に稼げるのか」だけを問うて攻撃</strong>した。査定役に渡した武器は一つ — <strong>富士川の防災ランドリーは利用客がほぼゼロで、しかも循環再生水（RO）は水道水よりコスト高</strong>という実体験。</p>
+  <p>判定は 3 値。<span class="badge b-keep">生存</span> 骨太に成立しうる ／ <span class="badge b-cond">条件付き</span> 特定条件でのみ成立 ／ <span class="badge b-kill">死亡</span> 構造的に富士川と同型。結果は <strong class="green">生存 3</strong>・条件付き 11・<strong class="red">死亡 11</strong>。収支の数字は特記なき限り概算・推測ベース（実勢を Web で裏取りした項目は都度明記）。</p>
+</section>
+
+<section>
+  <h2>1. 富士川の検死 — 死因は 4 つのルールに一般化できる</h2>
+  <p>富士川は個別の失敗ではなく構造だった。25 案中 11 案が、まったく同じ型で死んだ。</p>
+  <div class="artifact">
+    <p class="artifact-title">死因 4 ルール（死亡 11 案の共通構造）</p>
+    <ul class="bullets">
+      <li><span class="bullet-lead">① 上下水道がある場所では、Base は常に「高い方の選択肢」</span>
+        <span class="bullet-sub">給水管引込は実勢 1.5〜2万円/m の一度きり、浄化槽増設は数百万円。Base の初期投資＋RO 膜・薬品・電力・保守の恒常費はこれに勝てない。道の駅・公園・グランピングはすべてここで死んだ。</span></li>
+      <li><span class="bullet-lead">② 「作れば来る」の B2C 集客は全部空想だった</span>
+        <span class="bullet-sub">RVパーク稼働 35%→実勢 10-20%。ドッグラン会員 300 名→実勢 50-150 名。洗車 1,500円×20回/日→実勢 300-600円×3-8回。富士川にも人は来ていた — 洗濯をしなかっただけ。「人がいる」と「その財布が開く」は別物。</span></li>
+      <li><span class="bullet-lead">③ 円/L の罠 — テナントの売上は INNFRA の取り分ではない</span>
+        <span class="bullet-sub">「サウナは 50円/L」は<em>テナントの売上</em>を水量で割った見かけ値。INNFRA が実際に取る水の従量は月 8 千円〜3 万円。円/L が高く見える案ほど、水と無関係な賃料事業に化けていた。</span></li>
+      <li><span class="bullet-lead">④ 「防災待機料」という予算科目は自治体に存在しない</span>
+        <span class="bullet-sub">災害時応援協定は無償が慣行。有償でも発災後の実費精算が標準で、「何も起きない年に民間へ払い続ける」は議会で最も攻撃されやすい支出。待機料を主収入に置いた案は全部ここで死んだ。待機料は収入ではなく、占用料減免・随意契約の根拠に使う。</span></li>
+    </ul>
+    <p class="source">出典: 各案の敵対検証（本文 §5-6）。単価は査定役が Web で実勢確認したものと推測の混在、各所に明記。</p>
+  </div>
+  <p><span class="lead">結論: 「稼ぐ」を B2C 売上と読むと必ず富士川になる。</span>稼げるのは「<strong>既に毎月支払われている金</strong>」— 工場のユーティリティ費、現場の共通仮設費、修繕工事費 — を置換する B2B だけだった。</p>
+</section>
+
+<section>
+  <h2>2. 25案 総覧マップ</h2>
+  <div class="artifact">
+    <p class="artifact-title">全 25 案と判定（レンズ別発想 → 個別敵対検証）</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>#</th><th>案</th><th>どこに置き、何で稼ぐか</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>S1</td><td><strong>工場の水を二度使う</strong>（再生水BOO）</td><td>西三河の部品工場敷地内｜再生水の m³ 単価売り 15-20年契約</td><td><span class="badge b-keep">生存</span></td></tr>
+        <tr><td>S2</td><td><strong>汲み取りゼロ現場</strong>（仮設ユーティリティ）</td><td>上下水の来ない建設現場｜月 15-25万の定額サブスク</td><td><span class="badge b-keep">生存</span></td></tr>
+        <tr><td>S3</td><td><strong>動くBase</strong>（3案を1事業に統合）</td><td>固定拠点なし｜夜間断水パッケージ＋年間包括リース</td><td><span class="badge b-keep">生存</span></td></tr>
+        <tr><td>C1</td><td>ととのう堤（河川敷サウナ）</td><td>矢作川河川敷｜テナント賃料＋従量</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C2</td><td>ととのう工場（福利厚生×BCP）</td><td>工場敷地内｜福利厚生費＋BCP契約</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C3</td><td>ラインを止めない水（工場BCP）</td><td>工場敷地内｜BCP待機料＋削減シェア</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C4</td><td>クルマの街の共助インフラ（巡回シェア）</td><td>サプライヤー10-15社巡回｜共同保有分担金</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C5</td><td>200Lクラブ（キッチンカー基地）</td><td>郊外の安い土地｜会員費＋保管＋電力</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C6</td><td>ラストワンキロ（縮退エリア引き受け）</td><td>山間集落｜自治体の長期サービス委託</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C7</td><td>引かない水道（更新回避モデル）</td><td>矢作川上流集落｜avoided cost の年額化</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C8</td><td>水のアベイラビリティ契約</td><td>既存拠点に横串｜待機料＋発災時単価</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C9</td><td>動く上下水道（断水随伴）→ S3 へ統合</td><td>断水工事に随伴｜断水日パッケージ</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C10</td><td>稼ぐ備蓄・レンタル艦隊 → S3 へ統合</td><td>イベント・現場派遣｜日貸し＋待機料</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>C11</td><td>ペットと逃げられる道の駅</td><td>道の駅併設｜ペット事業テナント貸し</td><td><span class="badge b-cond">条件付き</span></td></tr>
+        <tr><td>X1</td><td>防災ととのい駅（道の駅サウナ＋RV）</td><td>道の駅駐車場｜サウナ＋シャワー＋RV区画</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X2</td><td>奥矢作リトリート（グランピング）</td><td>中山間の遊休地｜宿泊 25,000円/泊</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X3</td><td>インフラ大家（Park-PFI 防災公園）</td><td>都市公園｜テナント賃料＋ユーティリティ</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X4</td><td>泊まれる防災拠点（道の駅ユーティリティ棟）</td><td>道の駅｜洗車＋シャワー＋RV＋EV</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X5</td><td>止まらないトイレ棟（防災道の駅大家）</td><td>防災道の駅｜トイレ増設＋削減シェア</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X6</td><td>防災温浴棟（学校プール転用）</td><td>廃止プール｜温浴テナント＋更新回避</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X7</td><td>Base RV Station（車中泊ステーション）</td><td>駐車場新設｜区画課金＋月額会員</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X8</td><td>湯の巡業（移動式温浴の季節二毛作）</td><td>催事巡回｜オペレーターへの設備リース</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X9</td><td>そだてる備蓄槽（陸上養殖ベース）</td><td>Base 併設養殖槽｜オペレーター賃料</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X10</td><td>白紙の水（ゼロ排液・水質制御ハウス）</td><td>施設園芸｜排液処理代行＋電力</td><td><span class="badge b-kill">死亡</span></td></tr>
+        <tr><td>X11</td><td>動く蓄電池の巣（防災EVデポ）</td><td>自治体遊休地｜充電＋需給調整＋実証</td><td><span class="badge b-kill">死亡</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="source">S = 生存（keep）／C = 条件付き（conditional）／X = 死亡（kill）。C9・C10 は単体判定は条件付きだが、S3 と同一資産・同一商流のため 1 事業に統合するのが査定役の結論。</p>
+  </div>
+</section>
+
+<section>
+  <h2>3. 生き残り 3 案 — 詳細</h2>
+
+  <div class="model keep">
+    <h3>S1 工場の水を二度使う — オンサイト再生水 BOO <span class="badge b-keep">生存</span></h3>
+    <p><span class="k">設置</span>　西三河の自動車部品工場・工業団地（刈谷・安城・高浜・碧南・西尾）。既に水を大量に使い、排水処理設備と BCP 予算を持つ相手 — <strong>ゼロから集客する要素が一つもない</strong>。</p>
+    <p><span class="k">稼ぎ</span>　INNFRA が工場敷地内に Base を建てて保有・運営（BOO）し、再生水を m³ 単価で 15-20 年売る。工場は<strong>上水購入 200-400円/m³ と下水道使用料 200-500円/m³ の両方を払っている</strong>ので、回避価値は合計 400-900円/m³。再生水を 250-500円/m³ で売っても工場は 3-5 割削減になる。PV＋蓄電池のオンサイト PPA を抱き合わせ、電力側でも稼ぐ。</p>
+    <p><span class="k">数字</span>　日量 200m³ × 300日 × 350円/m³ = 年 2,100万円/拠点。capex 4,000-7,000万円で回収 3-8 年（いずれも推測）。<strong>25 案で唯一、計算がまともに閉じた案</strong>。予算科目が既存（ユーティリティ費）、決裁者が工場長 1 人、議会承認不要。</p>
+    <p><span class="k">査定役の攻撃</span>　<span class="red">競合が既に同じ商品を売っている</span> — 栗田工業は「顧客の設備投資なしで排水を回収し再生水として供給する」サービスを商品化済み。オルガノ・三菱ケミカルアクアも同様。「大手が採算に乗せない中小を狙う」は論理的に危うい（大手が乗らない規模は INNFRA にも乗らない）。排水由来の水は RO 膜のファウリングが激しく UF/MBR 前処理が必須、電力 1-3kWh/m³ が粗利を直撃。一方で<strong>規制は 25 案中で最も軽い</strong>（工業用中水に法定水質基準はほぼなく、飲用に使わない限り水道法・公衆浴場法に触れない）。</p>
+    <p><span class="k">成立条件</span>　① 用途は中水限定（めっき・塗装の超純水は最初から捨てる）② 日量 300m³ 以上・排水性状が安定した工場（洗浄・冷却系）に絞る ③ 契約前に実測水量と排水性状の 1 ヶ月ロギングを必須化 ④ 勝ち筋は営業でなく製品側 — <strong>日量 200-500m³ の標準パッケージを量産設計し、単位 capex で大手が降りるゾーンを取る</strong> ⑤ 1 号案件は DA・MH・ミサワの既存取引網から。</p>
+  </div>
+
+  <div class="model keep">
+    <h3>S2 汲み取りゼロ現場 — 仮設ユーティリティ・サブスク <span class="badge b-keep">生存</span></h3>
+    <p><span class="k">設置</span>　上下水道の来ない建設・造成現場（郊外・山間・河川・港湾）。本命は<strong>矢作川流域の管路更新工事のヤードそのもの</strong> — 更新工事の現場が「更新を要さない未来」のショールームになる。</p>
+    <p><span class="k">稼ぎ</span>　快適トイレ＋手洗い＋シャワー＋電源のワンパッケージを現場 1 箇所あたり月 15-25 万円の定額で。<strong>現場は既に仮設トイレ（1基 月3-8万円）＋汲み取り（1回 4,000-10,000円）＋仮設電気に月 15-30 万円を現金で払っている</strong>（実勢を裏取り済み）。その置換なので、需要を作る必要がない。国交省の快適トイレ標準仕様化で水洗・洗面が事実上必須になり、市場が勝手に循環側へ動いている。支払科目は共通仮設費 — 既にある。</p>
+    <p><span class="k">査定役の攻撃</span>　<span class="red">RO を積んだ瞬間に死ぬ</span>。RO 込み capex 1,200万円・opex 140万円/年では回収 10-60 年。<strong>この用途の水は一滴も飲用にならないのだから、RO を捨てて生物処理＋中水回収だけに絞れ</strong> — capex 300-500万円に落ち、5-6 年回収圏に入る。生物処理の実務上の敵は冬季の立ち上がりと移設ごとの菌相崩壊。汚泥・し尿の収集運搬は市町村ごとの一廃許可が要るので、地域の許可業者委託を最初から設計に入れる。「汲み取りゼロ」は誇大表現（汚泥引抜きは残る）—「頻度を週1→2ヶ月に1回」等の検証可能な表現に。</p>
+    <p><span class="k">成立条件</span>　① RO なし構成 ② 西尾レントオール（西尾市本社！）等のレンタル大手と正面衝突せず、機器＋遠隔監視の OEM 卸（月額の 40-50%）に回る ③ 現場間を切らさない連続運用スケジューリング。<span class="k">防災価値</span>　災害時に初めて触る機材は動かない — 地場建設会社が<strong>平時から毎日運用して習熟している資産</strong>が、災害協定でそのまま被災地に出る。自治体は購入も保管も点検も不要。</p>
+  </div>
+
+  <div class="model keep">
+    <h3>S3 動くBase — 夜間断水パッケージ＋年間包括リース <span class="badge b-keep">生存</span></h3>
+    <p><span class="k">統合</span>　可搬系 3 案（走るととのい・断水随伴ユニット・レンタル艦隊）は同一資産・同一商流なので 1 事業に統合。<strong>移動体は上下水道に原理的に接続できない = Base の必然性が 25 案中唯一、構造的に正しい</strong>。外しても転売・転用・移設が効く — 動かせない箱だった富士川との決定的な違いで、失敗コストの上限が最も低い。</p>
+    <p><span class="k">顧客の正解</span>　<span class="red">水道局ではない</span>（給水車を自前保有、計画断水は日中原則で夜間需要がそもそもない、入札で大手レンタルに負ける）。正解は民間 — <strong>マンション大規模修繕・給水管更新のゼネコン/管理会社、工場の設備停止工事</strong>。「夜間断水日パッケージ」（生活用水＋トイレ＋手洗い＋照明＋住民苦情対応）8-15万円/日。決裁者は現場所長・管理組合なので、単年度予算も入札も経由せず売れる。</p>
+    <p><span class="k">稼ぎの型</span>　日貸しの積み上げは稼働が実勢 60-90 日/年で不足 → <strong>温浴事業者・イベント会社・施工会社との年間包括リース（年 800-1,200万円）で稼働リスクを借り手に移す</strong>。自治体には待機料を売らない — ふるさと納税型 CF で車両を「買わせ」、INNFRA は保管・整備・牽引・出動・訓練を年間有償受託する（既に買ってしまった自治体こそ最良の顧客に反転する）。RO 現地原価 1-3円/L に対し「運ばれる水」（給水車の外注価格は実質 12-25円/L 相当）— <strong>RO が構造的に勝てる唯一の土俵は「運搬水との比較」</strong>。</p>
+    <p><span class="k">条件</span>　① まず 1 台で稼働日数を実測してから 2 台目 ② サウナ等の温浴は移動営業の保健所協議が重く、オペレーターに支払能力がないため、移動体は水・トイレ・電源・シャワーに徹する ③ 母港自治体の保健所と移動営業の扱いを先に 1 枚の文書に落とす。<span class="k">A-IDEA 文脈</span>　車両架装は愛知の中核産業。9 市 1 町で 1 台をシェアする「共同保有の防災資産」は一本化のガバナンス実験としても提案書映えする。</p>
+  </div>
+</section>
+
+<section>
+  <h2>4. 災害時、その水は人が使えるのか — 系統で答えが変わる</h2>
+  <p>S1（工場 BOO）への当然の疑問:「平時は冷却水・洗浄水でいいが、災害時にその水でシャワーを浴びられるのか」。答えは <strong>使える。ただし「同じ装置・別の原水」として最初から設計した場合に限る</strong>。工場排水を RO に通した水をそのまま人に浴びせる運用は、技術的に語れても説明責任で詰むのでやらない。</p>
+  <div class="artifact">
+    <p class="artifact-title">災害モードの 3 層使い分け（フェーズフリー設計の中身）</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>層</th><th>用途</th><th>災害時の扱い</th><th>根拠・条件</th></tr></thead>
+      <tbody>
+        <tr>
+          <th>①飲用</th><td>飲み水・調理</td><td><span class="red">出さない</span>。ボトル備蓄・給水車と役割分担</td><td>再生水の飲用転用は国内前例が乏しく、制度・心理の両面で最も重い。ここで戦わない</td>
+        </tr>
+        <tr>
+          <th>②体に触れる水</th><td>シャワー・手洗い・入浴支援</td><td><span class="green">供給できる</span>。ただし災害モードで<strong>原水を切り替える</strong></td><td>工場排水系統をバルブで物理遮断し、原水を受水槽残水・井水・雨水・<strong>利用者の生活排水ループ</strong>に切替。生活排水の再生循環は INNFRA Water の本来設計（生物処理＋RO＋滅菌、OIST・白浜で実証してきた領域）。避難所の応急シャワーは営業ではないため公衆浴場法の営業許可の枠外が実務解釈 — 残留塩素などの衛生管理プロトコルは平時から文書化しておく</td>
+        </tr>
+        <tr>
+          <th>③トイレ・雑用水</th><td>トイレ洗浄・散水・洗浄</td><td><span class="green">工場排水由来のままで可</span></td><td>非接触用途。平時運用の延長で、切替動作すら不要</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="source">実装は三方弁による系統分離＋災害モード切替手順の文書化。原水が汚くても装置が同じなら出口水質は作れる、が、「何を入れたか」の説明責任は装置性能では消えない — だから系統で分ける。</p>
+  </div>
+  <p>この 3 層を BOO 契約と自治体協定に最初から明記する（「災害時は飲用を除く生活用水拠点として地域開放」）。事業説明書のフェーズフリー説明もこの 3 層で書くと、審査の突っ込みに正面から耐える。<strong>断水下の避難所で最も先に破綻するのはトイレと衛生であり、②③だけで防災価値の 9 割が立つ</strong>。飲用を放棄しても提案は弱くならない。</p>
+</section>
+
+<section>
+  <h2>5. 条件付き 11 案 — 何があれば生きるか</h2>
+
+  <div class="model cond">
+    <h3>C1 ととのう堤（河川敷サウナ） <span class="badge b-cond">条件付き</span></h3>
+    <p>河川区域は恒久的な上下水道構造物を置けない = <strong>「制度的に水道が引けない一等地」を Base で初めて収益化する</strong>という着眼は本物（河川空間のオープン化は全国 151 件、サウナ最需要期 11-3 月が非出水期と重なるのも味方）。ただし査定は 3 連打: ① INNFRA 収入の実体は賃料＋補助金 = 不動産事業で、<span class="red">Base が売る水は月 8 千円</span> ② 浴槽に再生水を入れる保健所許可は前例ほぼゼロ — 浴槽原水は水道/井水、Base はシャワー中水・トイレ・散水に限定する二系統設計が必須 ③ 待機料は取れない → 占用料減免・指定管理料への内包に再設計。</p>
+    <p class="cond-fix"><strong>生きる条件 = 着工前に 3 枚の紙。</strong>保健所の事前協議書面・占用条件書面・賃料最低保証付きテナント契約が揃うまで、設備に 1 円も入れない。</p>
+  </div>
+
+  <div class="model cond">
+    <h3>C2-C4 工場BCP系 3 案（ととのう工場／ラインを止めない水／共助シェアリング） <span class="badge b-cond">条件付き</span></h3>
+    <p>共通の強み: 法人が払う・需要の源が外生（トヨタのサプライチェーン BCP 要求）で、集客を作る必要がない。共通の致命傷: <span class="red">「BCP 待機料」という勘定科目が買い手の社内に存在しない</span>。福利厚生型は「在籍の 6% しか使わないのに全員から徴収」で自壊し、シェアリング型は BCP と本質矛盾（有事に来ないかもしれないことが商品仕様に内包され、しかも西三河 10 社は南海トラフで同時被災する）。</p>
+    <p class="cond-fix"><strong>生きる条件 = 存在しない科目で売らない。</strong>「排水処理設備の更新・排水基準対応」という既存科目に着地し、BCP は無償のおまけとして付ける — つまりこの系統の正しい着地形が S1 の BOO。3 案は S1 に吸収して閉じる。</p>
+  </div>
+
+  <div class="model cond">
+    <h3>C5 200Lクラブ（キッチンカー営業基地） <span class="badge b-cond">条件付き</span></h3>
+    <p>25 案で唯一「<strong>水量が売上の天井を法律で決めている</strong>」構造を突いた案。キッチンカーの営業許可は給水タンク容量の段階制で、40L=単一品目のみ → 200L で複数工程・車内仕込み・通常食器が解禁される（裏取り済み）。排水も法令上持ち帰り必須で捨て場がない。ただし: 基地新設は真の損益分岐が 16-18 台/20 台 = 満床前提で、<span class="red">満床でようやく回る事業は満床にならない</span>。安い土地は市街化調整区域でシェアキッチン棟の建築が通らない。事業者の手取りは月 15-25 万で月 5 万の会費は重い。</p>
+    <p class="cond-fix"><strong>生きる条件 = 建てない。</strong>月極駐車場＋給排水ユニット（capex 500万）の仮設で「月 5 万を 12 ヶ月払う事業者が何台実在するか」だけを先に検証し、工場・商業施設の出店枠（商圏アクセス権）を先に契約して基地はその付帯で売る。</p>
+    <p>災害時は「調理設備と営業許可を持つプロ 20 台」が契約下にある炊き出し即応網 — 物語は 25 案で最も温かい。</p>
+  </div>
+
+  <div class="model cond">
+    <h3>C6-C7 縮退エリア系（ラストワンキロ／引かない水道） <span class="badge b-cond">条件付き</span></h3>
+    <p>矢作川上流の山間集落で「管を引かない・更新しない」を売る avoided cost モデル。<strong>A-IDEA の構想としては 25 案で最強の物語</strong> — 広域化（集める）の補集合は分散自立（切り離す）であり、「一本化の敵ではなく、一本化を完成させる最後のピース」という位置づけは審査に強い。WOTA×ソフトバンク×仙北市の実証・ウォーター PPP の国策化と、需要の実在は第三者が証明済み。だが事業としては 3 つの壁: ① 国が用意した縮退の受け皿は<strong>戸別合併浄化槽 PFI で既に定型化</strong>しており（5人槽 80-100万×40世帯の方が Base＋枝管より安い）、別解は最も選ばれにくい ② 「更新しない」は自治体にとって<span class="red">永久に無料の選択肢</span>（更新率 0.8%/年という数字自体が「既に更新していない」ことの証明）③ WOTA が制度開通コストを払って 2-3 年先行。</p>
+    <p class="cond-fix"><strong>生きる条件 = 制度と戦わない。</strong>INNFRA Water を浄化槽法の認定に通して「制度の中の高性能な一基」として入る、または末端増圧・浄水ユニットとして水質責任を自治体に残したまま実績を作る。応募書類では<strong>「少し先の構想」パート</strong>に置くのが正しい使い方で、今の稼ぎには置かない。</p>
+  </div>
+
+  <div class="model cond">
+    <h3>C8 水のアベイラビリティ契約（給水車を買わせない） <span class="badge b-cond">条件付き</span></h3>
+    <p>「平時の待機料＋発災時の事前合意単価」で自治体が給水車を買い増さずに応急給水能力を持つ、という構想。給水車の実質コスト試算（外注換算 12-25円/L 相当、道路寸断で届かない）は妥当。だが単体では成立しない — 死因ルール④そのもの＋待機保証には 24 時間出動体制の人件費が乗り、20 拠点・年 2,000-6,000 万円の売上では体制費で消える。</p>
+    <p class="cond-fix"><strong>生きる条件 = 単体販売禁止。</strong>S1 の BOO 契約のオプション条項としてのみ提供する（平時収益で人が現地に張り付いていれば、限界費用ほぼゼロの上乗せに変わる）。第一顧客は自治体でなく病院・特養・データセンター・食品工場の BCP 予算。</p>
+  </div>
+
+  <div class="model cond">
+    <h3>C9-C10 断水随伴／レンタル艦隊 <span class="badge b-cond">条件付き → S3 へ統合</span></h3>
+    <p>C9（断水工事随伴）は査定役をして「5 案中最有望」— ただし顧客を水道局から民間（マンション修繕・工場停止工事）に差し替えることが条件。C10（イベント・現場派遣艦隊)は「自治体の購入額 300 万」という前提が実勢 1,350 万〜で崩れ、自社艦隊保有は稼働率リスクを 1 社で背負う富士川構造 → 車両は買わせて運用受託に回る。</p>
+    <p class="cond-fix"><strong>生きる条件 = 独立事業にしない。</strong>両案とも fix 後の姿は S3 と同一なので、S3 の営業メニュー 2 本として畳む。</p>
+  </div>
+
+  <div class="model cond">
+    <h3>C11 ペットと逃げられる道の駅 <span class="badge b-cond">条件付き</span></h3>
+    <p>ペット同伴避難の空白は社会的に本物（能登でも同伴避難はほぼ実現せず車中泊へ）で、規制も 25 案中で最も通しやすい。だが収支が破綻 — INNFRA の取り分想定が施設売上の 27-40% で、<span class="red">商業テナントの賃料負担率上限（10-20%）を大きく超える</span>。ドッグラン会員 300 名も実勢（50-150 名）の 2 倍。</p>
+    <p class="cond-fix"><strong>生きる条件 = 自分で場を作らない。</strong>既に集客が完了している大型ペット複合施設・ホームセンター・動物病院の敷地に、断水下でもペット衛生を維持できる「後付けユニット」を売る側に反転する。</p>
+  </div>
+</section>
+
+<section>
+  <h2>6. 死亡 11 案 — 死因一覧</h2>
+  <p>供養ではなく再発防止のための記録。全て §1 の 4 ルールのどれかで死んでいる。</p>
+  <div class="artifact">
+    <p class="artifact-title">死亡案と死因（かっこ内 = 該当ルール）</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>案</th><th>何をしようとしたか</th><th>死因</th></tr></thead>
+      <tbody>
+        <tr><td><strong>X1 防災ととのい駅</strong></td><td>道の駅にサウナ＋RVパーク併設</td><td class="red-col">上下水がある場所に高い再生水を持込む富士川の完全再演。サウナの排水 1.25m³/日で詰まる処理場は日本に存在しない（①）</td></tr>
+        <tr><td><strong>X2 奥矢作リトリート</strong></td><td>中山間グランピング 25,000円/泊</td><td class="red-col">比較対象は水道引込でなく井戸＋浄化槽（一桁安い標準解）。地方グランピングは供給過剰の淘汰局面で稼働 50% は「作れば来る」（①②）</td></tr>
+        <tr><td><strong>X3 インフラ大家 Park-PFI</strong></td><td>都市公園の収益施設にユーティリティ供給</td><td class="red-col">自己申告 8円/L = 富士川と同レンジ。「人が来る場所」と「管が来ていない場所」は負の相関でほぼ交わらない。20 年の設置管理責任だけ残る（①③）</td></tr>
+        <tr><td><strong>X4 道の駅ユーティリティ棟</strong></td><td>洗車＋シャワー＋RV＋EV の複合棟</td><td class="red-col">洗濯機を洗車機に替えただけの富士川。洗車実勢は 300-600円×3-8回/日で主柱が 1/5 に消える（②）</td></tr>
+        <tr><td><strong>X5 止まらないトイレ棟</strong></td><td>防災道の駅のトイレ増設大家</td><td class="red-col">浄化槽の人槽増設（数百万）が Base（7,000万〜）を無効化。防災道の駅は全国 39・愛知 1 で母数が薄すぎる（①）</td></tr>
+        <tr><td><strong>X6 防災温浴棟</strong></td><td>廃止学校プールの温浴転用</td><td class="red-col">「設備があるから活かす」= 富士川と同じ設備起点の発想。行政の答えは廃止＋民間スイミング委託で確定済、回避額は年 234 万しかない（②）</td></tr>
+        <tr><td><strong>X7 Base RV Station</strong></td><td>車中泊ステーション新設</td><td class="red-col">「水がない場所」と「人が来ない場所」はほぼ同じ集合。RVパーク 648 施設は需要でなく供給主導の数字。月額会員 50 人は国内前例なし（②）</td></tr>
+        <tr><td><strong>X8 湯の巡業</strong></td><td>移動式温浴の季節二毛作</td><td class="red-col">この業態の主コストは水でなく加温エネルギー（PVで湯は沸かない）= Base が入る経済的理由が消滅。リースを払える移動サウナ事業者が市場に存在しない（③）</td></tr>
+        <tr><td><strong>X9 そだてる備蓄槽</strong></td><td>Base 併設の陸上養殖（バナメイ）</td><td class="red-col">客の業界が死んでいる — HANERU葛尾が 2026 年 7 月に事業停止（冬季光熱費で赤字、出荷は本案前提の 1/45）。賃料与信 = 倒産確率への 15 年ローン（②）</td></tr>
+        <tr><td><strong>X10 白紙の水</strong></td><td>施設園芸のゼロ排液・水質制御</td><td class="red-col">「農家は水に金を払わない」と自白した上で、まだ存在しない排液規制の代行を売ろうとした。「必要なはずだ」起点は富士川と同型。農地転用も通らない（②④）</td></tr>
+        <tr><td><strong>X11 動く蓄電池の巣</strong></td><td>防災 EV デポ（充電＋需給調整）</td><td class="red-col">収入の柱の商用 EV フリートが 2026 年の日本にまだ存在しない。「テナント代が安い自治体遊休地」は通過交通のない土地 = 安い土地は客が来ない土地（②）</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="source">X9 の事業停止は報道で裏取り済（福島民友 2026-07-31 ほか）。他の実勢値は査定役の Web 確認と推測の混在。</p>
+  </div>
+</section>
+
+<section>
+  <h2>7. A-IDEA への乗せ方 — 「稼ぐ防災」の再定義</h2>
+  <div class="artifact">
+    <p class="artifact-title">打ち出しの一文（事業説明書の背骨）</p>
+    <p class="lead">防災を「支出」から「収益資産」に変える —— 平時は民間の金（工場のユーティリティ費・現場の共通仮設費・修繕工事費）で回り続け、災害時にそのまま地域へ開放される水インフラ。</p>
+    <p class="source">「稼ぐ」の主語は B2C の客ではなく、既に毎月支払われている B2B の金。これが富士川で学んだ選定原則。</p>
+  </div>
+  <div class="artifact">
+    <p class="artifact-title">A-IDEA 審査軸への当て込み</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>審査軸（配点）</th><th>当てる中身</th></tr></thead>
+    <tbody>
+      <tr><th>革新性 40%</th><td>移動体・現場・工場 —「水道と比べられない場所」だけで勝つ分散型水インフラ。管路を「増やす」のでなく「減らす」方向のインフラ事業モデル自体の新規性。動くBase の架装は愛知の自動車産業技術の転用（相馬さん案2がここに接続）</td></tr>
+      <tr><th>必要性 40%</th><td>矢作川流域一本化（9市1町、管路更新率 0.8%/年 = 更新に125年、人口 162万→148万）という現在進行形の県アジェンダ。大口需要家の水量削減（S1）は一本化のダウンサイジングと同方向 = 対立でなく補完。1994 年大渇水の記憶</td></tr>
+      <tr><th>事業性 20%</th><td>S1-S3 はいずれも既存の予算科目（ユーティリティ費・共通仮設費・修繕費）への置換で、認定後すぐ営業できる。実装パートナー = DA・地場建設・レンタル大手（卸）・9市1町協議会</td></tr>
+    </tbody>
+    </table>
+    </div>
+    <p class="source">配点は 2026年度第1回 A-IDEA セレクト認定募集要項より。当てる中身は本文 §3・§5 の判定に基づく。</p>
+  </div>
+  <ul class="bullets">
+    <li><span class="bullet-lead">構成: 実績 → 主軸 → 味付け → 少し先</span>
+      <span class="bullet-sub">実績パート = Water/Base＋OIST・戸田・白浜（応募要件「実証に耐えるプロダクト」充足）。愛知構想の主軸 = S1 工場再生水 BOO。革新性の味付け = S3 動くBase。「少し先の構想」= C6-C7 縮退エリアの分散自立（相馬さん案1）— 構想レベル可の枠をここに使う。</span></li>
+    <li><span class="bullet-lead">富士川は隠さず「選定原則を学んだ実証」として開示する</span>
+      <span class="bullet-sub">「水道と比べられたら負ける。比べられない場所（工場の排水・現場・移動体）でだけ勝つ」という一文は、失敗の告白ではなく、実装経験者にしか書けない選定基準。審査員への誠実さと実装力の証明に両方効く。</span></li>
+    <li><span class="bullet-lead">フェーズフリーの説明は §4 の 3 層で書く</span>
+      <span class="bullet-sub">飲用は出さない、と先に言い切ることで、残り（シャワー・手洗い・トイレ = 避難所で最初に破綻する機能）の供給主張が固くなる。</span></li>
+  </ul>
+</section>
+
+<hr class="end">
+<p class="colophon">検証プロセス: 発想 5 レンズ × 各 5 案 = 25 案を生成し、案ごとに独立の査定役が「需要実在性・ユニットエコノミクス・代替手段・規制・運営」の 5 軸で敵対検証（発想役と査定役は分離）。収支レンジは特記なき限り概算・推測。実勢裏取り済み: 快適トイレ・汲み取り単価、給水管引込単価、キッチンカー給水タンク段階制、河川空間オープン化 151 件、トイレトレーラー導入実勢、WOTA×仙北市実証、HANERU葛尾 事業停止。<br>
+INNFRA 内部検討資料（A-IDEA 2026 第1回応募検討の下敷き）。このページは 2026-08-16 19:06 JST に自動削除されます</p>
+
+</div>
+</body>
+</html>
