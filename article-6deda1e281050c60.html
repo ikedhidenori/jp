@@ -114,6 +114,48 @@ td .ng{color:var(--red); font-weight:700}
 .big3 .b .n.red{color:var(--red)} .big3 .b .n.green{color:var(--green)}
 .big3 .b .c{font-size:11px; color:var(--sub); margin:5px 0 0; line-height:1.5}
 @media (max-width:480px){ .big3{grid-template-columns:1fr} }
+
+/* ── §6 一次証言の章で使う部品 (8/22 追加) ── */
+.take3{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.take3 .b{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:12px 13px; text-align:left}
+.take3 .b .n{font-size:15px; font-weight:800; margin:0; padding-left:11px; position:relative; line-height:1.45}
+.take3 .b .n::before{content:""; position:absolute; left:0; top:3px; width:4px; height:calc(100% - 6px); background:var(--ink)}
+.take3 .b .c{font-size:12px; color:var(--sub); margin:6px 0 0; line-height:1.6}
+@media (max-width:560px){ .take3{grid-template-columns:1fr} }
+
+.two{display:grid; grid-template-columns:1fr; gap:12px}
+.two .q{background:var(--artifact); border:1px solid var(--rule); border-left:4px solid var(--ink); border-radius:3px; padding:10px 12px; font-size:14px; line-height:1.75}
+.two .r{border-left:4px solid var(--red); padding:4px 0 4px 12px; font-size:14px; line-height:1.75}
+.two .lb{display:block; font-size:10.5px; letter-spacing:.12em; color:var(--sub); font-weight:800; margin-bottom:2px}
+
+.steps{list-style:none; margin:0; padding:0 0 0 4px; position:relative}
+.steps::before{content:""; position:absolute; left:17px; top:12px; bottom:12px; width:2px; background:var(--rule)}
+.steps li{position:relative; padding:0 0 14px 44px; font-size:14px; line-height:1.7}
+.steps li:last-child{padding-bottom:0}
+.steps li .k{position:absolute; left:6px; top:2px; width:24px; height:24px; border-radius:50%; border:2px solid var(--ink);
+  background:var(--artifact); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center}
+.steps li.red .k{border-color:var(--red); color:var(--red)}
+.steps li .t{font-weight:800; display:block}
+.steps li .d{color:var(--sub); font-size:13px}
+
+.mx{display:grid; grid-template-columns:1.1fr 1fr 1fr; gap:6px; font-size:13px}
+.mx .c{border:1px solid var(--rule); background:var(--artifact); padding:9px 10px; line-height:1.6}
+.mx .c.h{background:transparent; border-color:transparent; font-size:11px; letter-spacing:.08em; color:var(--sub); font-weight:800}
+.mx .c.r{font-weight:800}
+.mx .c .m{display:block; font-size:16px; font-weight:800}
+.mx .c .m.red{color:var(--red)} .mx .c .m.green{color:var(--green)}
+@media (max-width:560px){
+  .mx{grid-template-columns:1fr; gap:0}
+  .mx .c.h{display:none}
+  .mx .c.r{border:none; background:transparent; padding:16px 0 5px; font-size:15px}
+  .mx .c{border:1px solid var(--rule); padding:9px 11px}
+  .mx .c[data-k]::before{content:attr(data-k); display:block; font-size:10.5px; letter-spacing:.08em; color:var(--sub); font-weight:800; margin-bottom:3px}
+  .mx .c .m{font-size:15px}
+}
+
+.fig{display:flex; flex-direction:column; gap:8px}
+.fig svg{width:100%; height:auto; display:block}
+.fig .cap{font-size:12.5px; color:var(--sub); line-height:1.7}
 </style>
 <style id="lo-chrome">
 /* ── Living OS 共通ナビゲーション ─────────────────────────
@@ -242,8 +284,8 @@ body{padding-top:calc(var(--lo-nav-h) + 8px)}
 <header class="mast">
   <p class="eyebrow">INNFRA ／ チーム用</p>
   <h1>変わり目が、実物で見えてきた。</h1>
-  <p class="subtitle">8月13日から21日までに集めた約50本の記事・投稿・統計を、ひとつずつ検算して5つの話にまとめました。先週まで「そういう話があるらしい」だったことが、いまは<strong>実際の統計と、銀行の通知の実物と、当事者の声</strong>で確かめられます。8月末の判断のやり方は変えません — これは背景の資料です。</p>
-  <p class="meta">2026-08-21 作成、同日中に2回改訂 (ふつうの日本語への書き直し → 8/21夜までの分を織り込んで再編集)　チーム内資料　／ 全部の元記事に、検算メモと「うちに都合の悪い読み方」を付けてwikiに保存してあります　／ 前の資料: <a href="article-f4da344f61d754d0.html">引受仮説</a>・<a href="article-53baaa726b4df5a1.html">仮説をわざと壊してみた報告</a>・<a href="article-1f56ab08c1c19c30.html">前提ズレの事実集</a></p>
+  <p class="subtitle">8月13日から21日までに集めた約50本の記事・投稿・統計を、ひとつずつ検算して5つの話にまとめました (8/22 に、互助の村の12年を聞いた一次証言の章を足しました)。先週まで「そういう話があるらしい」だったことが、いまは<strong>実際の統計と、銀行の通知の実物と、当事者の声</strong>で確かめられます。8月末の判断のやり方は変えません — これは背景の資料です。</p>
+  <p class="meta">2026-08-21 作成、同日中に2回改訂 (ふつうの日本語への書き直し → 8/21夜までの分を織り込んで再編集)、8/22 に §6「一次証言」を追加　チーム内資料　／ 全部の元記事に、検算メモと「うちに都合の悪い読み方」を付けてwikiに保存してあります　／ 前の資料: <a href="article-f4da344f61d754d0.html">引受仮説</a>・<a href="article-53baaa726b4df5a1.html">仮説をわざと壊してみた報告</a>・<a href="article-1f56ab08c1c19c30.html">前提ズレの事実集</a></p>
 </header>
 
 <section>
@@ -371,7 +413,131 @@ body{padding-top:calc(var(--lo-nav-h) + 8px)}
 </section>
 
 <section>
-  <h2><span class="no">6</span>変えないこと、残り10日</h2>
+  <h2><span class="no">6</span>一次証言 ── 互助の村は、なぜ12年で終わったか</h2>
+  <p>8月21日の夜、国分寺のシェアハウスで聞いた話です。熊本のエコビレッジ「サイハテ」(2011年開村) の12年と閉幕、その土地を引き継いだ会員制の街「浮遊街」が何を変えたか、そして3ヶ月で消えるお金「Uii」。語り手は浮遊街の立ち上げに1年関わった元・右腕。3時間17分の録音を全文で起こして検算し、うちの設計に効く3つに絞りました。</p>
+
+  <div class="take3">
+    <div class="b"><p class="n">壊したのは値札ではなく、決め方の見えない値札</p><p class="c">「住人に払うと壊れる」の証拠にはならない。後継の街は貢献に値を付け続けている</p></div>
+    <div class="b"><p class="n">浮遊街は入口を狭めた。うちは広げる</p><p class="c">どちらも「出口」は作っていない。うちの出口は別に作らないと存在しない</p></div>
+    <div class="b"><p class="n">持ち主より先にいなくなるのは、間に入った会社</p><p class="c">ジョニー自身の拠点がその順で消えた。うちはその側に立つ</p></div>
+  </div>
+
+  <h3>語られた順番 ── 一発の事件ではなかった</h3>
+  <p>右腕さんは「私も聞いた話だけ」と断ったうえで、こう語りました。番号はこちらで付けたもので、本人は順位も主犯も付けていません。</p>
+  <ol class="steps">
+    <li><span class="k">1</span><span class="t">互助で回った</span><span class="d">水道管が破裂すれば「これは俺の出番だ」。時間に余裕がある人たちが「最初は誇らしくやってた」</span></li>
+    <li><span class="k">2</span><span class="t">事情を抱えた人が入り、感謝が反転した</span><span class="d">入村は全員合意制。一人の強い推しで例外が入り、「助けられてありがとう」が「コミュニティのせいで問題が起きている」に変わった</span></li>
+    <li class="red"><span class="k">3</span><span class="t">お金を一人が握り、決め方が見えなくなった</span><span class="d">人手が要る → ボランティア受け入れ → 共益費。それを一人が管理し「勝手にいいように使ってんじゃないの」の見え方が出た</span></li>
+    <li><span class="k">4</span><span class="t">お金の前にポイント制度があった (らしい)</span><span class="d">貢献に何か返したい、でも「お金じゃないね」とポイント。前後関係は確定しない</span></li>
+    <li class="red"><span class="k">5</span><span class="t">謝礼を払い始めた</span><span class="d">「誇らしくやってた工事に、ありがとうのお金を払うようになった時に」街のための行為が全部お金で計られ、「あの人はいくらもらった」。皆が運営と他人の目線から距離を取った</span></li>
+    <li><span class="k">6</span><span class="t">地主が出てきた</span><span class="d">土地は他人の私有地。畑が整ってきた頃に「ここは俺の土地だ」。創設者は地主と喧嘩別れで去った。契約や地代の有無は会話に出ない</span></li>
+    <li><span class="k">7</span><span class="t">出られない人だけが残った</span><span class="d">「出ていけない人だけ残っても街は回せない」→ 土地ごとどうするか、の移行期へ</span></li>
+  </ol>
+  <p class="note">本人の結論は「払うな」ではありません。「お金を介在させずにやってもうまくいかなかった、介在させてもうまくいかなかった。その中間」— その中間が、3ヶ月で消えるお金でした。二重の伝聞 (右腕さんは当時いない。ジョニーも代表から概略を聞いた程度) で、創設者・代表・残った住民・地主の言い分は入っていません。構造だけ借りて、人物評は借りない。</p>
+
+  <h3>浮遊街が変えたこと</h3>
+  <div class="tablewrap"><table>
+    <tr><th>サイハテで起きたこと</th><th>浮遊街の対応</th></tr>
+    <tr><td>地主の一存で、先が読めなくなった</td><td>空白の1年で地主が「新しい仕組みでやるなら売る」と折れ、<strong>合同会社で土地と建物を買った</strong> (約1万坪、「3、4千万かも」[要確認])。出資者は一人100万円、上限100人で今40人。株式会社にしなかった理由は「株主を作りたくない」「代表一人で資産を持ちたくない」</td></tr>
+    <tr><td>定住して一緒に作る理想 → 参加のハードルが高い</td><td><strong>新規の定住は基本受け付けない</strong>。住み込みはコア運営と建築要員だけ (現住12〜13人)。通う「町人」約300人。「別荘のノリでもう一個街に来て」</td></tr>
+    <tr><td>困った人を無条件に受け入れ続けた</td><td>開村直後はサイハテの名残で「お金がないのでボランティアで置いて」が続いた → 2025年6〜7月頃に<strong>会員制 [要確認] + 年会費3万円</strong>で線引き。理由は「疲弊するのはコア、圧迫されるのは会社、出資者に顔向けできない」</td></tr>
+    <tr><td>お金を入れても入れなくてもダメだった</td><td>「その中間」として3ヶ月で消えるお金 Uii (下の図)</td></tr>
+  </table></div>
+
+  <div class="mx">
+    <div class="c h"></div><div class="c h">入口</div><div class="c h">出口</div>
+    <div class="c r">サイハテ</div><div class="c" data-k="入口">全員合意のフィルター<span class="m">例外で崩れた</span></div><div class="c" data-k="出口">なし<span class="m red">出られない人が残った</span></div>
+    <div class="c r">浮遊街</div><div class="c" data-k="入口">住まない・通う・会費<span class="m">狭めた</span></div><div class="c" data-k="出口">語られていない<span class="m red">右腕の離脱に手順なし</span></div>
+    <div class="c r">うち (候補)</div><div class="c" data-k="入口">住み替えられる、を売る<span class="m green">広げる</span></div><div class="c" data-k="出口">まだ無い<span class="m red">別に作らないと存在しない</span></div>
+  </div>
+  <p class="note">浮遊街が選んだのは「出口を作る」ではなく「入口を狭める」でした。深く入らなければ出られなくなる人も増えない、という逆側の手当て。うちは逆に入口を広げたい。共通しているのは「出口を作っていない」ことだけ。この夜に出た出口の実例は、退出した世帯の「暮らしの場から離れ、関係は残す」着地と、右腕さんの「戻らないが関わりは続ける」。ただし右腕さんは出資者との窓口を任された数週間後に離れ「卒業しましたとも言えない」まま — 出る手順も引き継ぎもなかった、という証言です。</p>
+
+  <h3>お金の回り方 ── 3ヶ月で消えるお金と、出資者へのお返し</h3>
+  <div class="fig">
+    <svg viewBox="0 0 420 500" role="img" aria-label="浮遊街のお金の回り方: 出資者が合同会社に100万円を出し、年10%を3ヶ月で消えるお金Uiiで受け取る。町人は円をチャージしてUiiを得て、宿泊・食事・物販・町人どうしの商いに使う。手伝うとUiiがもらえる。3ヶ月で失効した分は運営に円として戻る。">
+      <defs>
+        <marker id="ahK" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>
+        <marker id="ahR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--red)"/></marker>
+      </defs>
+      <g font-family="var(--gothic)" font-size="13" fill="var(--ink)">
+        <rect x="16" y="18" width="150" height="58" rx="3" fill="var(--artifact)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="91" y="42" text-anchor="middle" font-weight="800">出資者 (親方)</text>
+        <text x="91" y="62" text-anchor="middle" font-size="11" fill="var(--sub)">上限100人・今40人</text>
+        <rect x="254" y="18" width="150" height="58" rx="3" fill="var(--artifact)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="329" y="42" text-anchor="middle" font-weight="800">合同会社</text>
+        <text x="329" y="62" text-anchor="middle" font-size="11" fill="var(--sub)">土地と建物を持つ</text>
+        <line x1="169" y1="36" x2="251" y2="36" stroke="var(--ink)" stroke-width="2" marker-end="url(#ahK)"/>
+        <text x="210" y="30" text-anchor="middle" font-size="10.5">一人100万円</text>
+        <line x1="251" y1="60" x2="169" y2="60" stroke="var(--red)" stroke-width="2" marker-end="url(#ahR)"/>
+        <text x="210" y="54" text-anchor="middle" font-size="10.5" fill="var(--red)">年10% を Uii で</text>
+
+        <rect x="254" y="150" width="150" height="58" rx="3" fill="var(--artifact)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="329" y="174" text-anchor="middle" font-weight="800">運営</text>
+        <text x="329" y="194" text-anchor="middle" font-size="11" fill="var(--sub)">単月は黒字「多分」</text>
+        <line x1="329" y1="78" x2="329" y2="147" stroke="var(--ink)" stroke-width="2" marker-end="url(#ahK)"/>
+        <text x="339" y="118" font-size="11">場を貸す</text>
+
+        <path d="M252 190 C215 190 150 235 150 296" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="2 4" marker-end="url(#ahK)"/>
+        <text x="22" y="236" font-size="10.5" fill="var(--sub)">手伝うと Uii がもらえる</text>
+        <text x="22" y="252" font-size="10.5" fill="var(--sub)">コアは「コミットで滞在費なし」</text>
+
+        <rect x="16" y="300" width="150" height="58" rx="3" fill="var(--artifact)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="91" y="324" text-anchor="middle" font-weight="800">町人 (通う人)</text>
+        <text x="91" y="344" text-anchor="middle" font-size="11" fill="var(--sub)">約300人</text>
+        <rect x="254" y="300" width="150" height="58" rx="3" fill="var(--artifact)" stroke="var(--red)" stroke-width="2"/>
+        <text x="329" y="324" text-anchor="middle" font-weight="800" fill="var(--red)">Uii (消えるお金)</text>
+        <text x="329" y="344" text-anchor="middle" font-size="11" fill="var(--sub)">3ヶ月でゼロになる</text>
+        <line x1="169" y1="329" x2="251" y2="329" stroke="var(--ink)" stroke-width="2" marker-end="url(#ahK)"/>
+        <text x="210" y="323" text-anchor="middle" font-size="10.5">円 1:1 でチャージ</text>
+        <text x="210" y="376" text-anchor="middle" font-size="10.5" fill="var(--sub)">(円で払うと2割増し)</text>
+
+        <path d="M394 298 L394 212" fill="none" stroke="var(--red)" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ahR)"/>
+        <text x="384" y="248" text-anchor="end" font-size="10.5" fill="var(--red)">失効した分は</text>
+        <text x="384" y="264" text-anchor="end" font-size="10.5" fill="var(--red)">運営に「円として戻る」</text>
+
+        <rect x="254" y="432" width="150" height="58" rx="3" fill="var(--artifact)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="329" y="456" text-anchor="middle" font-weight="800">宿泊・食事・物販</text>
+        <text x="329" y="476" text-anchor="middle" font-size="11" fill="var(--sub)">町人どうしの商いにも</text>
+        <line x1="329" y1="360" x2="329" y2="429" stroke="var(--red)" stroke-width="2" marker-end="url(#ahR)"/>
+        <text x="339" y="398" font-size="11" fill="var(--red)">使う</text>
+        <text x="22" y="452" font-size="10.5" fill="var(--sub)">宿泊は1回 2,500〜6,000 Uii</text>
+        <text x="22" y="468" font-size="10.5" fill="var(--sub)">(1 Uii ≒ 1円)。1ヶ月いて「7万ぐらい」</text>
+        <text x="22" y="484" font-size="10.5" fill="var(--sub)">はジョニーの暗算</text>
+      </g>
+    </svg>
+    <p class="cap">右腕さんの説明を図にしたもの。実線は会話ではっきり語られた流れ、破線は断片的な説明。<strong>出資へのお返しは年10%を Uii で</strong> (100万なら年10万Uii)。3ヶ月で消えるお金で10万は使い切れず、分割受け取りにした。「ずっと続く」と「20万Uiiで卒業」が同じ場面に並び、永続か2期で区切りかは決着していない。配当なのか優待なのか、法的な性質も未確認。現場では思想でなく「お得」(円払いは2割増し) で回っていて、企画者の突っ込みは「コスパで釣ってるやん」→「そう見せるためだけに」。</p>
+  </div>
+
+  <h3>うちへの含意 ── 発言と、うちの解釈を分けて</h3>
+  <p class="note">「決め方」= 誰が・なぜ・どの基準で払うか。「個別の額」= 誰がいくらもらったか。「うちは…」で始まる文は候補で、決定ではありません。</p>
+  <div class="two">
+    <p class="q"><span class="lb">発言が支えること</span>タダが当たり前だった場に、後から小さなお金が入って人が離れた、という順番まで。謝礼の前に「共益費を一人が握って決め方が見えない」疑心が先にあった。本人の結論は「お金なしでもダメ、ありでもダメ、その中間」。</p>
+    <p class="r"><span class="lb">うちの解釈 ①</span>効いたのは値札より、<strong>決め方が見えないまま払われた値札</strong>。うちが法律と算数で無理とした「関与で家賃が下がる」は、お金が前提の場に関与で値引きする話で、心理の向きが逆。運営をプロが引き受ける理由は「払うと壊れるから」ではなく「住む人の善意に運営を乗せないため」。住人に頼む仕事があるなら、決め方を最初から全員同じ基準で開く。個別の額は比較の種で、見せるかは運営が決める。</p>
+  </div>
+  <div class="two">
+    <p class="q"><span class="lb">発言が支えること</span>他人の私有地で、地主が出てきて止まり、最後は「新しい仕組みでやるなら売る」と折れて合同会社が買った。ジョニーの拠点は、間に入った運営会社が3年でやめ、その後で持ち主が変わって撤去になった (順序は要確認)。</p>
+    <p class="r"><span class="lb">うちの解釈 ②</span>浮遊街の「買う」は、一人100万の出資者の輪と、街の中でしか使えないお金でお返しする仕組みとセットで、どこでも使える答えではない。うちは買わずに借りて引き受けるから、商品になるのは<strong>契約の長さ・途中で切られない条件・持ち主が変わっても続く約束・自分で直した分の扱い</strong>。そして「間に入る会社がやめたら住む人はどうなるか」を、契約と説明に先に書く。</p>
+  </div>
+  <div class="two">
+    <p class="q"><span class="lb">発言が支えること</span>企画者 (地域通貨で修士論文を書いた人) の批判: 「腐るから使う、は価値ではない。バリュー出せよ」「一気に冷めちゃう時点で終わってる、日本円の方が信じられる」「目的は経済を回すことと、人のつながりの2つに分けて考えるべき」。右腕さん自身も基盤の内実は知らない。会として結論は出ていない。</p>
+    <p class="r"><span class="lb">うちの解釈 ③</span>うちは通貨を作らない。理由は「思想を売るから」ではなく「商品に値打ちがあれば円で足りる、通貨は回り道」。借りるのは、出資へのお返しを自社サービス (泊まれる権利) で渡す形の<strong>参考</strong>だけ — 現金は出ないが、使われた分は部屋を塞ぐコストで、運営に残るのは使われなかった分だけ。出資者には「使い切れる量と期限」でないと損になる。法的な性質の確認が先。</p>
+  </div>
+
+  <div class="artifact warn">
+    <p class="artifact-title">うちに都合の悪い読み方 (13本のうち5本)</p>
+    <ul>
+      <li><strong>うちが無理と検死した形を、当事者は作り直して回している</strong> — 「関わる代わりに滞在費なし」「作業ごとに消えるお金の額」。うちの検死は法律と算数だけ</li>
+      <li><strong>プロ化は依存先を社員に移すだけ</strong> — 右腕さんの窓口離脱と同じことが、社員が抜けた時に起きる。当事者の処方は「住人に役割を振る」で、プロ化はうちの持ち込み</li>
+      <li><strong>サービス型が続いた例は、この夜ひとつも出ていない</strong> — 出た前例は月2.5万の泊まり放題で、ジョニー自身が「収支が合わず3年で潰れた」</li>
+      <li><strong>うちは「間に入る会社」の側</strong> — 8月末に資金が付かなければ、住む人と直した家を置いて退くのはうち。浮遊街は土地を買ったのでこの弱さはない</li>
+      <li><strong>「住み替えられる」は動ける人にしか効かない</strong> — 最後に残ったのは経済的に出られない人。その人への答えは会話にない</li>
+    </ul>
+    <p class="source">出どころ: 8/21 ぶんじ寮 (国分寺) の飲み会、録音3時間17分をローカルで全文文字起こし (話者分離つき、機械処理)。前半41%だけで書いた8/21版の誤り (「カフェ経済」→「貨幣経済」の聞き間違い、「最大の死因」という格付けは本人が言っていない、など24箇所) を8/22に訂正。数字は会話内の発言で、人数・金額・出資条件・制度は当事者への確認前。全文の逐語録・照合結果・残り8本の不利な読みは内部資料。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">7</span>変えないこと、残り10日</h2>
   <p><strong>変えないこと</strong>: 8月末の判断のやり方です。判断材料は<strong>30人へのヒアリングの生の声だけ</strong>。この資料の話がどれだけ揃っても背景にすぎません。追い風に見える数字が増えるほど、この規律は固くします — 今週も「追い風に見えて実は違う」を4回、検算で止めました (車の保険の誤情報・タダで電気がもらえる話・所得250万の読み違え・2倍に盛られた換算)。</p>
   <div class="tablewrap"><table>
     <tr><th>まだ元の資料と突き合わせていない数字 (外で使う前に必ずやる)</th></tr>
