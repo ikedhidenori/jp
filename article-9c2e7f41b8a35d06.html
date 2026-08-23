@@ -1,0 +1,545 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>仮説の棚卸し ／ インフラが来ている場所で、何が残るか</title></head><body>
+<div class="lo-prog" aria-hidden="true"><i id="loProgBar"></i></div>
+<nav class="lo-nav" aria-label="Living OS 資料">
+  <div class="lo-tabs" id="loTabs">
+    <span class="lo-sep lo-sep-first" aria-hidden="true">地図</span>
+    <a href="article-da072b30599b9e59.html">議論地図</a>
+    <a href="article-e4f2a1c60b7d8395.html">実行地図</a>
+    <a href="article-c0a1646e18bcc8ea.html">思考地図</a>
+    <span class="lo-sep" aria-hidden="true">資料</span>
+    <a href="article-f3e9a12c77b0d584.html">事業計画</a>
+    <a href="article-6c48b2e19da3f075.html">サービス提案</a>
+    <a href="article-e400b0a60dd60ad5.html">投資家概要</a>
+    <a href="article-09662c65a3ba4f84.html">エッセイ</a>
+    <a href="article-38ba43cf490fed24.html">住宅トレンド</a>
+    <a href="article-53baaa726b4df5a1.html">仮説の検証</a>
+    <a href="article-f4da344f61d754d0.html">引受仮説</a>
+    <a href="article-1f56ab08c1c19c30.html">前提ズレ</a>
+    <a href="article-6deda1e281050c60.html">観測#2</a>
+    <a href="article-9c2e7f41b8a35d06.html" class="on" aria-current="page">仮説の棚卸し</a>
+    <span class="lo-sep" aria-hidden="true">ブランド</span>
+    <a href="article-b7c3e9f14a06d582.html">イメージボード</a>
+    <span class="lo-sep" aria-hidden="true">デッキ</span>
+    <a href="article-3485bde10955a9a2.html" class="ext">投資家デッキ</a>
+    <a href="article-1d6dab11a41fe876.html" class="ext">ユーザーデッキ</a>
+  </div>
+  <button class="lo-theme" id="loTheme" type="button" aria-label="表示テーマを切り替える" title="テーマ切替">◐</button>
+</nav>
+<aside class="lo-toc" id="loToc" aria-label="目次"><p class="lo-toc-h">目次</p><ol id="loTocList"></ol></aside>
+<div class="lo-fab">
+  <button type="button" id="loTop" aria-label="先頭へ戻る" title="先頭へ">↑</button>
+  <button type="button" id="loTocBtn" aria-expanded="false" aria-controls="loSheet"><span class="i">☰</span><span class="l" id="loHere">目次</span></button>
+</div>
+<div class="lo-sheet" id="loSheet" hidden>
+  <div class="lo-sheet-in" role="dialog" aria-modal="true" aria-label="目次">
+    <div class="lo-sheet-hd"><p>目次</p><button type="button" id="loClose" aria-label="閉じる">✕</button></div>
+    <ol id="loSheetList"></ol>
+  </div>
+</div>
+<style>
+/* 数理の弾丸テイスト — Document Kernel v1
+   SSoT: wiki/templates/document-kernel-math-bullet.css */
+:root{
+  --paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;
+  --gothic:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP","BIZ UDPGothic",system-ui,sans-serif;
+  --measure:42rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+}
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+        --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+        --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--gothic);
+  font-feature-settings:"palt","chws","pkna","kern";
+  word-break:normal; word-break:auto-phrase;
+  overflow-wrap:break-word; line-break:strict; hanging-punctuation:allow-end;
+  font-size:16px; line-height:1.85; margin:0; padding:0 20px 80px; -webkit-font-smoothing:antialiased;
+}
+.wrap,section,p,li,td,th{min-width:0}
+img,svg,video,pre,table{max-width:100%}
+.wrap{max-width:var(--measure); margin:0 auto}
+
+.mast{padding:50px 0 22px; border-bottom:3px solid var(--ink); display:flex; flex-direction:column; gap:11px}
+.mast .eyebrow{font-size:11px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0}
+.mast h1{font-size:clamp(26px,5.8vw,34px); line-height:1.26; font-weight:800; margin:0;
+  padding-left:23px; position:relative; letter-spacing:-.015em; text-wrap:balance}
+.mast h1::before{content:""; position:absolute; left:0; top:2px; width:12px; height:38px; background:var(--ink)}
+.mast .subtitle{font-size:16px; line-height:1.7; margin:0 0 0 23px}
+.mast .meta{font-size:11px; color:var(--faint); letter-spacing:.02em; margin:0 0 0 23px}
+
+section{padding:42px 0 0; display:flex; flex-direction:column; gap:14px}
+section > h2{font-size:clamp(18px,4.2vw,23px); line-height:1.35; font-weight:800; margin:0;
+  padding-left:22px; position:relative; letter-spacing:-.01em; text-wrap:balance}
+section > h2::before{content:""; position:absolute; left:0; top:1px; width:10px; height:28px; background:var(--ink)}
+section > h2 .no{font-size:11px; letter-spacing:.16em; color:var(--faint); display:block; margin-bottom:3px}
+h3{font-size:14.5px; font-weight:800; margin:8px 0 0; letter-spacing:.01em}
+p{margin:0}
+strong{font-weight:700}
+a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--faint); text-underline-offset:2px}
+ul,ol{margin:0; padding-left:1.3em} li{margin:2px 0}
+
+.artifact{border:2px solid var(--ink); border-radius:3px; background:var(--artifact);
+  padding:17px 17px 13px; margin:2px 0; display:flex; flex-direction:column; gap:12px}
+.artifact-title{font-size:13px; font-weight:700; margin:0}
+.artifact.warn{border-color:var(--red)}
+.artifact.warn .artifact-title{color:var(--red)}
+.artifact.win{border-color:var(--green)}
+.artifact.win .artifact-title{color:var(--green)}
+.source{font-size:10.5px; color:var(--faint); letter-spacing:.02em; margin:0; line-height:1.6}
+.note{font-size:12.5px; color:var(--sub); line-height:1.7}
+
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:12.5px; line-height:1.65}
+th,td{border:1px solid var(--rule); padding:7px 9px; text-align:left; vertical-align:top}
+th{background:var(--artifact); font-size:11px; letter-spacing:.05em; white-space:nowrap}
+td .ok{color:var(--green); font-weight:700}
+td .ng{color:var(--red); font-weight:700}
+
+.take3{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.take3 .b{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:12px 13px; text-align:left}
+.take3 .b .n{font-size:15px; font-weight:800; margin:0; padding-left:11px; position:relative; line-height:1.45}
+.take3 .b .n::before{content:""; position:absolute; left:0; top:3px; width:4px; height:calc(100% - 6px); background:var(--ink)}
+.take3 .b .c{font-size:12px; color:var(--sub); margin:6px 0 0; line-height:1.6}
+@media (max-width:560px){ .take3{grid-template-columns:1fr} }
+
+/* 積み上げ棒 (JS 非依存、幅は実データを inline) */
+.bar{display:flex; flex-direction:column; gap:6px}
+.bar .lab{font-size:11px; letter-spacing:.06em; color:var(--sub); font-weight:800}
+.bar .row{display:flex; height:30px; border:2px solid var(--ink); border-radius:3px; overflow:hidden; background:var(--artifact)}
+.bar .seg{display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:var(--paper); background:var(--ink); min-width:0; white-space:nowrap}
+.bar .seg.s2{background:var(--sub)} .bar .seg.s3{background:var(--red)} .bar .seg.s4{background:var(--faint)}
+.bar .seg.g{background:var(--green)}
+.bar .leg{font-size:11.5px; color:var(--sub); line-height:1.6}
+
+/* 2×2 */
+.quad{display:grid; grid-template-columns:110px 1fr 1fr; gap:6px; font-size:12.5px}
+.quad .h{font-size:11px; letter-spacing:.06em; color:var(--sub); font-weight:800; padding:4px 2px; line-height:1.4}
+.quad .h.top{text-align:center}
+.quad .c{border:2px solid var(--ink); border-radius:3px; background:var(--artifact); padding:10px 11px; line-height:1.6}
+.quad .c .t{display:block; font-weight:800; font-size:13px; margin-bottom:4px}
+.quad .c.red{border-color:var(--red)} .quad .c.red .t{color:var(--red)}
+.quad .c.green{border-color:var(--green)} .quad .c.green .t{color:var(--green)}
+.quad .c.dim{border-color:var(--rule); color:var(--sub)}
+.chips{display:flex; flex-wrap:wrap; gap:4px; margin-top:6px}
+.chips span{border:1px solid var(--rule); border-radius:999px; padding:1px 8px; font-size:11px; background:var(--paper)}
+@media (max-width:560px){
+  .quad{grid-template-columns:1fr}
+  .quad .h.top{display:none}
+  .quad .h.side{padding:10px 0 2px; font-size:12px}
+  .quad .c[data-k]::before{content:attr(data-k); display:block; font-size:10.5px; letter-spacing:.08em; color:var(--sub); font-weight:800; margin-bottom:3px}
+}
+
+.steps{list-style:none; margin:0; padding:0 0 0 4px; position:relative}
+.steps::before{content:""; position:absolute; left:17px; top:12px; bottom:12px; width:2px; background:var(--rule)}
+.steps li{position:relative; padding:0 0 14px 44px; font-size:14px; line-height:1.7}
+.steps li:last-child{padding-bottom:0}
+.steps li .k{position:absolute; left:6px; top:2px; width:24px; height:24px; border-radius:50%; border:2px solid var(--ink);
+  background:var(--artifact); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center}
+.steps li.red .k{border-color:var(--red); color:var(--red)}
+.steps li .t{font-weight:800; display:block}
+.steps li .d{color:var(--sub); font-size:13px}
+</style>
+<style id="lo-chrome">
+/* ── Living OS 共通ナビゲーション ─────────────────────────
+   ソースの Document Kernel 変数 (--paper/--ink/--sub/--faint/--red/--rule/--artifact) に乗る */
+:root{--lo-nav-h:46px}
+/* テーマ手動切替（元ドキュメントが prefers-color-scheme しか持たない場合の保険） */
+:root[data-theme="dark"]{--paper:#14171a; --artifact:#1b2023; --ink:#ecefe9; --sub:#a8aeaa; --faint:#7c837e;
+  --red:#f0705a; --green:#3fc492; --pale-red:#3a2521; --rule:#2c3335;}
+:root[data-theme="light"]{--paper:#f6f8f3; --artifact:#fdfffc; --ink:#111111; --sub:#555555; --faint:#9a9a9a;
+  --red:#d84a32; --green:#18a36f; --pale-red:#f6d8d4; --rule:#d9ddd6;}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{padding-top:calc(var(--lo-nav-h) + 8px)}
+.wrap > section{scroll-margin-top:calc(var(--lo-nav-h) + 16px)}
+.wrap > header{scroll-margin-top:calc(var(--lo-nav-h) + 16px)}
+/* セクションの切れ目を視覚化（走査性） */
+.wrap > section + section{border-top:1px solid var(--rule); margin-top:8px}
+
+/* 読書プログレス */
+.lo-prog{position:fixed; top:0; left:0; right:0; height:3px; background:transparent; z-index:60; pointer-events:none}
+.lo-prog i{display:block; height:100%; width:0; background:var(--red); transition:width .08s linear}
+
+/* 上部タブ */
+.lo-nav{position:fixed; top:0; left:0; right:0; height:var(--lo-nav-h); z-index:50;
+  transition:transform .22s ease;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter:saturate(180%) blur(12px); backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--rule); display:flex; align-items:stretch; gap:0}
+@supports not (backdrop-filter:blur(2px)){.lo-nav{background:var(--paper)}}
+@media (max-width:1119px){ .lo-nav.lo-hide{transform:translateY(-100%)} }
+@media (prefers-reduced-motion:reduce){ .lo-nav{transition:none} }
+.lo-tabs{flex:1 1 auto; display:flex; align-items:center; gap:3px; overflow-x:auto; overflow-y:hidden;
+  padding:0 4px 0 12px; scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-behavior:smooth}
+.lo-tabs::-webkit-scrollbar{display:none}
+.lo-tabs a{flex:0 0 auto; font-family:var(--gothic); font-size:12.5px; font-weight:700; line-height:1;
+  color:var(--sub); text-decoration:none; padding:7px 11px; border-radius:3px; white-space:nowrap;
+  border:1px solid transparent}
+.lo-tabs a:hover{background:var(--artifact); border-color:var(--rule); color:var(--ink)}
+.lo-tabs a.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.lo-tabs a.ext{color:var(--faint)}
+.lo-tabs a.ext::after{content:" ↗"; font-size:9px; vertical-align:1px}
+.lo-sep{flex:0 0 auto; font-size:9.5px; letter-spacing:.16em; font-weight:700; color:var(--faint);
+  padding:0 8px 0 12px; border-left:1px solid var(--rule); margin-left:4px; align-self:center; line-height:1.9}
+.lo-sep-first{border-left:0; margin-left:0; padding-left:0}
+.lo-theme{flex:0 0 auto; width:42px; border:0; border-left:1px solid var(--rule); background:transparent;
+  color:var(--sub); font-size:15px; cursor:pointer; font-family:var(--gothic)}
+.lo-theme:hover{color:var(--ink); background:var(--artifact)}
+
+/* デスクトップ：左サイドバー目次 */
+.lo-toc{display:none}
+@media (min-width:1120px){
+  body{padding-left:280px}
+  .lo-toc{display:block; position:fixed; top:calc(var(--lo-nav-h) + 18px); width:246px;
+    left:max(18px, calc(50vw - var(--measure)/2 - 130px));
+    max-height:calc(100vh - var(--lo-nav-h) - 40px); overflow-y:auto; z-index:40;
+    font-family:var(--gothic); scrollbar-width:thin}
+  .lo-toc-h{font-size:9.5px; letter-spacing:.18em; font-weight:700; color:var(--faint); margin:0 0 9px 11px}
+  .lo-toc ol{list-style:none; margin:0; padding:0; border-left:2px solid var(--rule)}
+  .lo-toc li{margin:0}
+  .lo-toc a{display:block; padding:6px 10px 6px 11px; font-size:12.5px; line-height:1.45; color:var(--sub);
+    text-decoration:none; border-left:2px solid transparent; margin-left:-2px}
+  .lo-toc a:hover{color:var(--ink); background:var(--artifact)}
+  .lo-toc a .n{display:block; font-size:9px; letter-spacing:.13em; color:var(--faint); margin-bottom:1px}
+  .lo-toc a.on{color:var(--ink); font-weight:700; border-left-color:var(--red); background:var(--artifact)}
+  .lo-toc a.on .n{color:var(--red)}
+}
+@media (min-width:1500px){ body{padding-left:0}
+  .lo-toc{left:max(18px, calc(50vw - var(--measure)/2 - 270px))} }
+
+/* 右下フローティング */
+.lo-fab{position:fixed; right:14px; bottom:14px; z-index:45; display:flex; flex-direction:column;
+  align-items:flex-end; gap:8px; font-family:var(--gothic)}
+.lo-fab button{border:1.5px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer;
+  border-radius:999px; box-shadow:0 2px 10px rgba(0,0,0,.13); font-family:var(--gothic); font-weight:700}
+#loTop{width:40px; height:40px; font-size:16px; line-height:1; opacity:0; transform:translateY(6px);
+  transition:opacity .18s, transform .18s; pointer-events:none}
+#loTop.show{opacity:1; transform:none; pointer-events:auto}
+#loTocBtn{display:flex; align-items:center; gap:7px; padding:9px 14px; font-size:12.5px; max-width:52vw}
+#loTocBtn .i{font-size:13px}
+#loTocBtn .l{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+@media (min-width:1120px){ #loTocBtn{display:none} }
+
+/* モバイル目次シート */
+.lo-sheet{position:fixed; inset:0; z-index:70; background:rgba(0,0,0,.42); display:flex; align-items:flex-end}
+.lo-sheet[hidden]{display:none}
+.lo-sheet-in{width:100%; max-height:76vh; background:var(--paper); border-top:3px solid var(--ink);
+  border-radius:14px 14px 0 0; display:flex; flex-direction:column; font-family:var(--gothic);
+  animation:loUp .2s ease-out}
+@keyframes loUp{from{transform:translateY(14px); opacity:.6} to{transform:none; opacity:1}}
+@media (prefers-reduced-motion:reduce){.lo-sheet-in{animation:none}}
+.lo-sheet-hd{display:flex; align-items:center; justify-content:space-between; padding:14px 16px 10px;
+  border-bottom:1px solid var(--rule)}
+.lo-sheet-hd p{margin:0; font-size:11px; letter-spacing:.16em; font-weight:700; color:var(--faint)}
+.lo-sheet-hd button{border:0; background:transparent; font-size:17px; color:var(--sub); cursor:pointer; padding:2px 4px}
+.lo-sheet ol{list-style:none; margin:0; padding:6px 0 26px; overflow-y:auto; -webkit-overflow-scrolling:touch}
+.lo-sheet a{display:block; padding:12px 18px; font-size:14.5px; line-height:1.5; color:var(--ink);
+  text-decoration:none; border-bottom:1px solid var(--rule); border-left:3px solid transparent}
+.lo-sheet a .n{display:block; font-size:9.5px; letter-spacing:.14em; color:var(--faint); margin-bottom:2px}
+.lo-sheet a.on{border-left-color:var(--red); background:var(--artifact); font-weight:700}
+.lo-sheet a.on .n{color:var(--red)}
+
+/* 見出しのアンカー（共有用） */
+.wrap > section > h2 .lo-a{opacity:0; margin-left:8px; font-size:12px; color:var(--faint);
+  text-decoration:none; font-weight:400; transition:opacity .12s; vertical-align:2px}
+.wrap > section > h2:hover .lo-a, .lo-a:focus-visible{opacity:1}
+@media (hover:none){.wrap > section > h2 .lo-a{display:none}}
+
+/* 横スクロールする表であることを示す */
+.tablewrap{position:relative}
+.tablewrap.lo-ovf::after{content:"→ 横にスクロールできます"; position:absolute; right:2px; bottom:-3px;
+  font-size:9.5px; color:var(--faint); font-family:var(--gothic); letter-spacing:.04em; pointer-events:none}
+.tablewrap.lo-ovf{padding-bottom:13px}
+
+@media print{
+  .lo-nav,.lo-prog,.lo-toc,.lo-fab,.lo-sheet{display:none !important}
+  body{padding-top:0 !important; padding-left:0 !important}
+  .wrap > section{break-inside:auto}
+}
+</style>
+
+
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">INNFRA ／ チーム用</p>
+  <h1>仮説の棚卸し ── インフラが来ている場所で、何が残るか。</h1>
+  <p class="subtitle">去年の春から立ててきた事業仮説を、資料10本から176件まとめて引っぱり出し、「インフラが来ていない場所であることが必要か」「うちの技術が必要か」の2軸で全部並べ直しました。問いは一つ: <strong>うちの都合を外したら、生き返る仮説はあるか。</strong></p>
+  <p class="meta">2026-08-23 作成　チーム内資料　／ 176件を9件ずつ20体が判定し、市場・実行・前提の3方向から反証。判定の根拠は全件 wiki に保存　／ この資料は 8月末の判断材料ではありません (材料は30人ヒアリングだけ)</p>
+</header>
+
+<section>
+  <h2>まず、答えだけ</h2>
+  <div class="take3">
+    <div class="b"><p class="n">「インフラが来ていない場所に住む」ニーズは、例外が見つからなかった</p><p class="c">前提は正しい。受け入れる。トレーラー住居は多くの自治体で不可、南城の宿も本人が「これは宿の話」</p></div>
+    <div class="b"><p class="n">「泊まる・一時・公的」には例外がある。消えたのはカテゴリではなく、うちの役割</p><p class="c">西伊豆の絶景宿 (インフラ不在、1泊12〜16万、稼働9割) はうち抜きで回っている。山小屋、災害給水、自衛隊も同じ</p></div>
+    <div class="b"><p class="n">うちを外して立つのは4群。ジョニーに出番があるのは2つ</p><p class="c">絶景の借地に軽い上物の小宿 1棟 (副業) と、Living OS の借り上げ 1棟。残りは他社の既存市場か、メーカーの仕事</p></div>
+  </div>
+  <div class="artifact">
+    <p class="artifact-title">30秒で読むなら</p>
+    <p>殺された仮説は34件で、うち半分は「うちの都合」(自社では運営しない合意・インフラ企業としての深み・株主の北極星) で殺されていました。その半分は、うちを外せば市場では生きています。ただし生き返った先で待っているのは「他社が既にやっている薄利の市場」か「税金で払う指名調達」で、<strong>新しく参入できる形は「許可済みの床を借りて、在住者を雇って、2027年半ばまでに1棟」に畳めるものだけ</strong>でした。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">1</span>176件は、どこに落ちたか</h2>
+  <div class="bar">
+    <p class="lab">象限 (インフラの有無 × うちの技術の要否)</p>
+    <div class="row">
+      <div class="seg" style="width:56.8%">A 100</div>
+      <div class="seg s2" style="width:9.7%">B 17</div>
+      <div class="seg s3" style="width:18.8%">C 33</div>
+      <div class="seg s4" style="width:14.7%">D 26</div>
+    </div>
+    <p class="leg">A = インフラ不要 × うちの技術も不要 (市場単独で立ちうる) ／ B = インフラ不要だがうちの技術が効く ／ C = インフラ不在が必須 (エクスト型) ／ D = 死んだまま (理由がうちと無関係)</p>
+  </div>
+  <div class="bar">
+    <p class="lab">「うちを外したら復活するか」の判定</p>
+    <div class="row">
+      <div class="seg g" style="width:2.8%; min-width:24px">5</div>
+      <div class="seg s2" style="width:26.1%">条件付き 46</div>
+      <div class="seg s3" style="width:19.3%">しない 34</div>
+      <div class="seg s4" style="width:51.8%">もともと死んでいない 91</div>
+    </div>
+    <p class="leg">「もともと死んでいない」91件は、仕様・観察・手順など殺されたことが無いもの。殺された34件のうち、殺した理由がうちの都合だったのは約半分</p>
+  </div>
+  <p class="source">出どころ: INNFRA 議論地図 (7/3) ／ 事業仮説の歴史比較 (7/21) ／ エクスト地図 + 検死 (7/31) ／ 仮説の検証 (8/11) ／ 引受仮説 (8/13) ／ Living OS 全体地図 + 議論地図v4 ／ コネクティングドッツ (8/21) ／ 未来仮説 (7/15)。言い換え込みの176件、正規化すると173件</p>
+</section>
+
+<section>
+  <h2><span class="no">2</span>地図 ── インフラの有無 × うちの技術の要否</h2>
+  <div class="quad">
+    <div class="h"></div><div class="h top">うちの技術が要らない</div><div class="h top">うちの技術が要る</div>
+    <div class="h side">インフラが来ている場所</div>
+    <div class="c green" data-k="インフラあり × 技術不要"><span class="t">A ここに生き残りが集まる</span>絶景の借地に軽い上物の小宿 ／ Living OS の引受 3本柱 (維持・時間・入場) ／ 暮らしの月額リバンドル・多拠点・留守の収益化 (Unito・ADDress・HafH が成立を証明済) ／ 遊休資産の引受 (買わずに借りる) ／ 家守・持ち場の住まい
+      <div class="chips"><span>小宿1棟</span><span>引受3本柱</span><span>月額リバンドル</span><span>遊休の引受</span><span>家守</span></div></div>
+    <div class="c" data-k="インフラあり × 技術要"><span class="t">B 部品として売る</span>「停電・断水しない家」のオプション (ハウスメーカーの上位グレード。見せびらかす財ではなく保険) ／ 維持の引受の中の水回り ／ 分散型水道への置換 (払うのは自治体、担い手はメーカー)
+      <div class="chips"><span>断水しない家</span><span>水回り保守</span><span>分散型水道</span></div></div>
+    <div class="h side">インフラが来ていない場所</div>
+    <div class="c dim" data-k="インフラなし × 技術不要"><span class="t">C′ 「軽いオフグリッド」は既に当たり前の実務</span>西伊豆の絶景宿 (技術は買う)、山小屋、キャンプ場、牧場。崖や岬は下水が無いのが普通で、浄化槽・井戸・太陽光は標準。うちが要らないのは、それが商品になっているから
+      <div class="chips"><span>絶景宿 (技術は買う)</span><span>山小屋</span><span>キャンプ場</span></div></div>
+    <div class="c red" data-k="インフラなし × 技術要"><span class="t">C うちの本当の土俵 ── 3つの場面に縮む</span>①水そのものが無い場所 (離島・山・災害の72時間〜3ヶ月) ②許可を通す水質・便所の基準 (簡易宿所) ③管路の更新を諦めた集落 (100人以下の簡易水道)。<strong>共通点は「住む」ではなく「泊まる・一時・公的」</strong>
+      <div class="chips"><span>災害給水</span><span>自衛隊</span><span>簡易水道</span><span>許可の水質基準</span></div></div>
+  </div>
+  <p class="note"><strong>D (死んだまま)</strong>: エクストの「概念売り」／ 3㎡ポッド×月15万 ／ 関与に対価を払う住まい (引受v1) ／ 富裕層の自宅オフグリッド (水は見えないので見せびらかす財にならない) ／ オフグリッド住宅 (住まいとしては確認申請・接道・水道加入が要る) ／ 共同体自治 (事業として) ／ EV給電×宿 ／ 海上開発 ／ 「死なない規格」／ 場所3条件のゲート (うちを外すと「とんがった場所が要る」という常識に縮む)。</p>
+</section>
+
+<section>
+  <h2><span class="no">3</span>うちを外して復活する、4つの群</h2>
+  <div class="tablewrap"><table>
+    <tr><th>群</th><th>元の仮説</th><th>誰がやるなら立つか</th><th>殺した理由はうちの都合か</th><th>一番安い検証</th></tr>
+    <tr><td><strong>① 絶景の借地 × 軽い上物の小宿</strong></td><td>エクスト (場所3条件) → 4K体験の有償化 → 宿泊×オフグリッド一般 (6月末に棄却)</td><td>南城市型の小規模オーナー ／ <strong>ジョニーの副業 1棟</strong></td><td><span class="ok">うちの都合</span>。「水道を引いた方が安い」はうちの技術の必然性への棄却で、宿の需要への棄却ではない</td><td>候補地の半径5kmの宿の単価×稼働率を OTA で1時間引く。6割未満なら見送り。南城オーナーに DM 1通「水・電気・排水はどう引いたか、許可は簡易宿所か」</td></tr>
+    <tr><td><strong>② 遊休・相続資産の引受</strong></td><td>島・観光地・保養所・社有地の引き合い (6月末「供給側の都合」) → Living OS の仕入れ側</td><td>デベロッパー、遊休資産の事業者、<strong>Living OS</strong></td><td><span class="ok">うちの都合</span>。「その場所じゃなくてもいい」はうちの技術が要らないという意味。引受なら立地フィルタ付きで立つ</td><td>引き合いのあった所有者1人に「賃料ゼロで10年貸すか」1問。保養所オーナーに「維持費は年いくら、貸すなら条件は」</td></tr>
+    <tr><td><strong>③ 暮らしの月額リバンドル系</strong></td><td>暮らしのパッケージ (VLDK) ／ 多拠点居住 ／ 住み替え自由権 ／ 留守の収益化</td><td>Unito・ADDress・HafH・Hmlet (成立証明済、ただし薄利) ／ <strong>Living OS 借り上げ 1棟</strong></td><td><span class="ok">うちの都合</span>。払う意思を測らないまま5月に「課題の再設定」へ移った。市場証拠で殺していない</td><td>Unito に電話1本「留守申告で家賃割引を実際に使う会員の割合」。Living OS の LP で9万円帯の事前登録を2週間数える</td></tr>
+    <tr><td><strong>④ 税金で払う、閾値の商売</strong></td><td>自衛隊の洗濯・シャワー ／ 防災 ／ 簡易水道の置換 ／ 災害時の水</td><td>自治体・防衛省が払う実需。担い手は製造元・商社</td><td><span class="ng">うちの都合ではない</span>。市場は生きている。うちは部品</td><td>製造元の営業に電話「自治体からの防災水装置の引き合い件数/年」。簡易水道を抱える自治体1つに「次回更新費と分散型の検討有無」</td></tr>
+  </table></div>
+  <p class="note">④はうちの「部品」としての仕事で、ジョニーの仮説ではありません。①②③は、うちを外した瞬間に<strong>ジョニー個人か Living OS の話</strong>になります。</p>
+</section>
+
+<section>
+  <h2><span class="no">4</span>前提の検死 ── 「インフラが来ていない場所でやるニーズは無い」</h2>
+  <p>これは法律でも物理でもなく「信じられている前提」なので、例外を探しました。</p>
+  <div class="tablewrap"><table>
+    <tr><th>用途</th><th>例外はあるか</th><th>結論</th></tr>
+    <tr><td><strong>住む</strong></td><td>見つからない。トレーラー住居は自治体が不可、確認申請・接道・水道加入が要る。南城の本人も「これは宿の話」</td><td><span class="ok">前提は正しい。受け入れる</span></td></tr>
+    <tr><td><strong>泊まる</strong></td><td>西伊豆の絶景宿 (インフラ不在、1億、12〜16万/泊、稼働9割、うち抜き) ／ 山小屋の有料トイレ ／ キャンプ場</td><td><span class="ng">前提は偽</span>。ただし払われているのは<strong>絶景</strong>で、インフラ不在は土地代を下げる副次要因</td></tr>
+    <tr><td><strong>一時 (災害)</strong></td><td>能登 2024 の分散型給水、トレーラーハウス協定</td><td><span class="ng">前提は偽</span>。払い手は行政</td></tr>
+    <tr><td><strong>公的 (自衛隊・簡易水道)</strong></td><td>部隊展開、給水区域外、100人以下の飲料水供給施設</td><td><span class="ng">前提は偽</span>。払い手は税金、担い手はメーカー</td></tr>
+  </table></div>
+  <div class="artifact">
+    <p class="artifact-title">言い直すと ── 「インフラが来ていない場所」は2種類ある</p>
+    <p>(a) 絶景の崖や岬。下水が無いのは当たり前で、浄化槽・井戸・太陽光の「軽いオフグリッド」は標準実務。ここでうちは要らない。(b) 水そのものが無い・管路を諦めた・災害。ここだけうちの技術が必須で、払い手は行政か公的機関。<strong>うちの土俵は「住まい」ではなく「泊まる・一時・公的」の (b)</strong> に縮みます。5月に「インフラが整っていない場所の隠れたニーズ」と言ったものの答えは、「隠れていたのではなく、公的だった」でした。</p>
+  </div>
+  <div class="artifact warn">
+    <p class="artifact-title">未確認</p>
+    <p>南城の宿の水・電気・排水がどう引かれているかは、動画の中に言及がありません。「インフラは普通にある」は私たちの読みで、崖地なら浄化槽か井戸の可能性が高い。DM 1通で確かめます (群①の検証と同じ)。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">5</span>実行の壁 ── 復活しても、2027年半ばの窓に入るか</h2>
+  <p>市場で生きても、実行で落ちます。落ちる理由は4つ。</p>
+  <ol class="steps">
+    <li class="red"><span class="k">1</span><span class="t">「南城市の宿オーナーのような小規模事業者」は、担い手の名前ではない</span><span class="d">南城は沖縄のインバウンド母集団 + オーナーが現地にいる + 10年の蓄積。屋久島は国内登山客中心で那覇1時間の条件が無い</span></li>
+    <li class="red"><span class="k">2</span><span class="t">新築 → 建築確認 → 旅館業 → 融資は、南城で3〜8年</span><span class="d">2027年半ばの営業窓に入らない。コロナで旅館業への融資は3年止まった</span></li>
+    <li><span class="k">3</span><span class="t">ジョニーは目黒にいて、現地にいない</span><span class="d">互助も清掃も在住者に乗る。ジョニー自身が「抜ける人」になる (互助の村の教訓そのまま)</span></li>
+    <li><span class="k">4</span><span class="t">実証の名簿・上物・実データは個人に移らない</span><span class="d">うちを抜くと、検証場ごと消える。復活は白紙からの再検証と同じコスト</span></li>
+  </ol>
+  <div class="artifact win">
+    <p class="artifact-title">だから、復活する形はこれだけ</p>
+    <p>「インフラ不在を外した仮説」ではなく、<strong>「許可済みの床を借りて、在住者を雇って、2027年半ばまでに1棟」に畳めるもの</strong>。具体には — ①<strong>居抜き</strong>: 許可済みの既存宿・民泊を借りる (許可・建築確認・融資の3つのゲートを同時に跳ぶ唯一の経路。南城の8年の逆) ②<strong>旅館業が要らない形</strong>: 30日以上の中長期滞在、建物なしの RVパーク ③<strong>卸売り</strong>: 既存の絶景宿の閑散期の枠を卸値で借りて自分の客に売る。宿を持たずに「絶景×占有に払うか」だけ測れる ④<strong>在住の運営者を雇用で置く</strong>: 互助・清掃・鍵・クレームを善意でなく給与で買う。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">6</span>一番安い検証、5本 (合計1日)</h2>
+  <div class="tablewrap"><table>
+    <tr><th>#</th><th>やること</th><th>何が決まるか</th></tr>
+    <tr><td>1</td><td><strong>南城オーナーに DM 1通</strong> ── 水・電気・排水・許可の4点</td><td>群①と、前提の検死の半分</td></tr>
+    <tr><td>2</td><td><strong>無料実証に応募した人たちへメール1本「3万円で1泊、1枠のみ」</strong></td><td>有料の実売。成約率1%未満なら需要は無料限定 (エクスト系10件が一括で決まる)</td></tr>
+    <tr><td>3</td><td><strong>Unito に電話1本「留守申告の割引を実際に使う会員の割合」</strong></td><td>留守の収益化が差別化になるか (1割未満なら飾り)</td></tr>
+    <tr><td>4</td><td><strong>保養所・遊休地のオーナー1人に1問「賃料ゼロで10年貸すか」</strong></td><td>引受の成立条件</td></tr>
+    <tr><td>5</td><td><strong>西伊豆の絶景宿の予約カレンダーを1回見る</strong></td><td>インフラ不在の絶景宿の稼働。2号店が無ければ再現性なし</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="no">7</span>うちに都合の悪い読み方</h2>
+  <ul>
+    <li><strong>「他社がやっている」は「復活」であって「参入できる」ではない</strong> ── 群③は薄利で、HafH はホテル・コインへ転換、ADDress の黒字化は未確認。新規参入の余地は「床を提供する側」だけ</li>
+    <li><strong>南城は n=1 で、絶景×インバウンド×自己資金×在住×10年の条件付き</strong> ── 為替が反転し OTA の手数料が上がれば稼働は崩れる。撤退線を持たない復活は復活ではない</li>
+    <li><strong>ジョニーの資本は Living OS 用で、宿1棟と競合する</strong> ── 両方は持てない。どちらか一方しか仮説として立てられない</li>
+    <li><strong>「殺した理由がうちの都合」の仮説ほど、うちの検証場に依存している</strong> ── 外した瞬間に証拠も消える</li>
+    <li><strong>「住むニーズは無い」を受け入れたが、探した範囲は資料10本</strong> ── 災害仮設 (行政が払う住まい) は例外の候補で、評価しきれていない</li>
+    <li><strong>群④を「うちの本当の土俵」と書いたのは、6月末の社内合意 (自社では運営せず、道具を提供する側へ) の言い換えに過ぎないかもしれない</strong> ── 新しい発見ではなく既定路線の再確認</li>
+    <li><strong>この棚卸し自体は 8月末の判定材料ではない</strong> ── 「復活候補がある」ことは、Go の理由にも No Go の理由にもならない</li>
+  </ul>
+  <p class="source">出どころ: 資料10本・176件の機械判定 (20体) + 反証3レンズ。8/16 南城の宿の動画 (録音を全文起こし) と 8/21 互助の村の一次証言を8月の材料として使用。数字は資料と会話からの発言で、当事者確認前。正規化した60件の一覧と判定根拠は wiki に保存</p>
+</section>
+
+</div>
+
+<script id="lo-chrome-js">
+(function(){
+  "use strict";
+  var d=document, root=d.documentElement;
+
+  /* ── テーマ切替（auto → light → dark） ───────────── */
+  var KEY="lo-theme", order=["auto","light","dark"], mark={auto:"◐",light:"☀",dark:"☾"};
+  function applyTheme(v){
+    if(v==="auto"){ root.removeAttribute("data-theme"); } else { root.setAttribute("data-theme",v); }
+    var b=d.getElementById("loTheme"); if(b){ b.textContent=mark[v]; b.title="テーマ: "+v; }
+  }
+  var saved="auto";
+  try{ saved=localStorage.getItem(KEY)||"auto"; }catch(e){}
+  applyTheme(saved);
+  var tb=d.getElementById("loTheme");
+  if(tb) tb.addEventListener("click",function(){
+    saved=order[(order.indexOf(saved)+1)%order.length];
+    try{ localStorage.setItem(KEY,saved); }catch(e){}
+    applyTheme(saved);
+  });
+
+  /* ── 目次の生成 ─────────────────────────────── */
+  var secs=[].slice.call(d.querySelectorAll(".wrap > section"));
+  var items=[];
+  secs.forEach(function(sec,i){
+    var h=sec.querySelector("h2"); if(!h) return;
+    if(!sec.id) sec.id="s"+(i+1);
+    var noEl=h.querySelector(".no");
+    var no=noEl?noEl.textContent.trim():"";
+    var clone=h.cloneNode(true);
+    // 見出し内の装飾要素（章番号・補助ラベル・アンカー）は目次のラベルから外す
+    [].slice.call(clone.querySelectorAll(".no,.hint,.lo-a")).forEach(function(x){ x.remove(); });
+    var label=clone.textContent.replace(/\s+/g," ").trim();
+    items.push({id:sec.id,no:no,label:label,el:sec});
+    var a=d.createElement("a");
+    a.className="lo-a"; a.href="#"+sec.id; a.textContent="#";
+    a.setAttribute("aria-label","この節へのリンク");
+    h.appendChild(a);
+  });
+
+  function fill(ol,cls){
+    ol.innerHTML="";
+    items.forEach(function(it){
+      var li=d.createElement("li"), a=d.createElement("a");
+      a.href="#"+it.id; a.dataset.t=it.id;
+      if(it.no){ var n=d.createElement("span"); n.className="n"; n.textContent=it.no; a.appendChild(n); }
+      a.appendChild(d.createTextNode(it.label));
+      li.appendChild(a); ol.appendChild(li);
+    });
+    ol.className=cls||"";
+  }
+  var tocList=d.getElementById("loTocList"), sheetList=d.getElementById("loSheetList");
+  if(tocList) fill(tocList);
+  if(sheetList) fill(sheetList);
+
+  /* ── スクロール連動（現在地） ────────────────── */
+  var here=d.getElementById("loHere");
+  var links=function(){ return [].slice.call(d.querySelectorAll('.lo-toc a[data-t], .lo-sheet a[data-t]')); };
+  var cur=null;
+  function setActive(id){
+    if(id===cur) return; cur=id;
+    links().forEach(function(a){ a.classList.toggle("on", a.dataset.t===id); });
+    var it=items.filter(function(x){return x.id===id;})[0];
+    if(here&&it) here.textContent=(it.no? it.no+" ":"")+it.label;
+    var on=d.querySelector(".lo-toc a.on");
+    if(on&&on.offsetParent){
+      var box=on.closest(".lo-toc");
+      if(box && (on.offsetTop<box.scrollTop || on.offsetTop>box.scrollTop+box.clientHeight-40))
+        box.scrollTop=on.offsetTop-box.clientHeight/2;
+    }
+  }
+  function onScroll(){
+    var navH=parseFloat(getComputedStyle(root).getPropertyValue("--lo-nav-h"))||46;
+    var y=window.scrollY+navH+40, best=items[0];
+    for(var i=0;i<items.length;i++){ if(items[i].el.offsetTop<=y) best=items[i]; else break; }
+    if(best) setActive(best.id);
+    var h=d.body.scrollHeight-window.innerHeight;
+    var bar=d.getElementById("loProgBar");
+    if(bar) bar.style.width=(h>0? Math.min(100,Math.max(0,window.scrollY/h*100)) : 0)+"%";
+    var top=d.getElementById("loTop");
+    if(top) top.classList.toggle("show", window.scrollY>600);
+    // 下へ読み進めている間はタブを隠して画面を広く使う（上に戻ると即出る）
+    var nav=d.querySelector(".lo-nav"), y2=window.scrollY;
+    if(nav){
+      if(y2<160 || y2<lastY-4) nav.classList.remove("lo-hide");
+      else if(y2>lastY+8) nav.classList.add("lo-hide");
+    }
+    lastY=y2;
+  }
+  var lastY=0;
+  var ticking=false;
+  window.addEventListener("scroll",function(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){ onScroll(); ticking=false; });
+  },{passive:true});
+  window.addEventListener("resize",onScroll,{passive:true});
+  onScroll();
+
+  /* ── モバイル目次シート ─────────────────────── */
+  var sheet=d.getElementById("loSheet"), btn=d.getElementById("loTocBtn"), close=d.getElementById("loClose");
+  function open(){ if(!sheet) return; sheet.hidden=false; btn.setAttribute("aria-expanded","true");
+    var on=sheet.querySelector("a.on"); if(on) on.scrollIntoView({block:"center"}); }
+  function shut(){ if(!sheet) return; sheet.hidden=true; btn.setAttribute("aria-expanded","false"); }
+  if(btn) btn.addEventListener("click",open);
+  if(close) close.addEventListener("click",shut);
+  if(sheet) sheet.addEventListener("click",function(e){ if(e.target===sheet) shut(); });
+  if(sheetList) sheetList.addEventListener("click",function(e){ if(e.target.closest("a")) shut(); });
+  d.addEventListener("click",function(e){
+    var a=e.target.closest && e.target.closest('a[href^="#"]');
+    if(a){ var n=d.querySelector(".lo-nav"); if(n) n.classList.remove("lo-hide"); }
+  });
+  d.addEventListener("keydown",function(e){
+    if(e.key==="Escape") shut();
+    if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
+    if(e.key==="t"||e.key==="T"){ if(sheet&&sheet.hidden&&btn&&btn.offsetParent) open(); else shut(); }
+  });
+
+  var topBtn=d.getElementById("loTop");
+  if(topBtn) topBtn.addEventListener("click",function(){ window.scrollTo({top:0,behavior:"smooth"}); });
+
+  /* ── 現在のタブを可視位置へ ─────────────────── */
+  var tabs=d.getElementById("loTabs"), on=tabs&&tabs.querySelector("a.on");
+  if(tabs&&on){ var l=on.offsetLeft-tabs.clientWidth/2+on.clientWidth/2;
+    if(l>0) tabs.scrollLeft=l; }
+
+  /* ── はみ出す表に印をつける ─────────────────── */
+  function markOverflow(){
+    [].slice.call(d.querySelectorAll(".tablewrap")).forEach(function(w){
+      w.classList.toggle("lo-ovf", w.scrollWidth>w.clientWidth+2);
+    });
+  }
+  markOverflow(); window.addEventListener("resize",markOverflow,{passive:true});
+})();
+</script>
+
+</body></html>
