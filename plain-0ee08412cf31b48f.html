@@ -251,6 +251,8 @@ b,strong{font-weight:700}
 .cmp.roomy .r > div{padding:24px 0 26px;font-size:50px}
 .cmp.xroomy .r > div{padding:34px 0 36px}
 .cmp.tight .r > div{padding:11px 0 12px;font-size:44px}
+.cmp.snug .r > div{padding:6px 0 7px}
+.cmp.snug .r.hd > div{padding:10px 0 8px}
 .cmp.tight .r > .k{font-size:38px}
 .cmp.tight .r small{font-size:38px}
 .cmp.tight .r.hd > div{padding:16px 0 14px}
@@ -573,7 +575,7 @@ b,strong{font-weight:700}
     <div class="r core first last"><div class="k">代金・借賃</div><div class="a"><span class="mark no">×</span><span class="hl">載らない</span></div><div class="b"><span class="mark">○</span>載る</div></div>
     <div class="r"><div class="k">手付金・敷金</div><div class="a"><span class="mark">○</span>額と目的<small>代金以外の金銭</small></div><div class="b">定めがあれば載る<small>額・時期・目的</small></div></div>
     <div class="r"><div class="k">石綿</div><div class="a">結果<b>あれば</b>説明<small>調査する義務はない</small></div><div class="b">—</div></div>
-    <div class="r"><div class="k">土砂災害区域</div><div class="a">区域内なら説明<small>貸借でも。水害・津波も。4〜6年周期</small></div><div class="b">—</div></div>
+    <div class="r"><div class="k">土砂災害区域</div><div class="a">区域内なら説明<small>貸借でも。水害・津波も</small></div><div class="b">—</div></div>
     <div class="r"><div class="k">管理業者が管理者<small style="display:block;font-size:38px">2026年4月〜</small></div><div class="a">その旨を説明<small>売買・交換だけ。<b>貸借は不要</b></small></div><div class="b">—</div></div>
   </div>
   <div class="trap">
@@ -890,9 +892,8 @@ b,strong{font-weight:700}
     </div>
   </div>
 
-  <div class="rule-line" style="margin-top:28px">区域区分は<span class="hl">「できる」</span>。しなければならない、ではない。<small>市街化区域は用途地域を必ず定める／調整区域は原則なし。大きい順＝区域→区域区分→地域地区→地区計画</small></div>
-  <div class="rule-line" style="margin-top:22px">用途地域は<b>13種</b>（住居8・商業2・工業3）。<small>中の<b>特別</b>用途地区／外の<b>特定</b>用途制限地域（調整区域は除く）＝「中の特別、外の特定」</small></div>
-  <div class="rule-line" style="margin-top:20px">地区計画＝着手の<b>30日前</b>までに<b>市町村長</b>へ<b>届出</b>。<small>都市計画施設の区域内で建てるのは知事等の<b>許可</b>。都市施設は市街化区域・非線引区域に道路・公園・下水道を必ず。区域の外にも定められる</small></div>
+  <div class="rule-line" style="margin-top:24px">区域区分は<span class="hl">「できる」</span>。しなければならない、ではない。<small>市街化区域は用途地域を必ず／調整区域は原則なし。用途地域は13種（住居8・商業2・工業3）</small></div>
+  <div class="rule-line" style="margin-top:20px">地区計画＝<b>30日前</b>に<b>市町村長</b>へ<b>届出</b>。<small>都市計画施設の区域内で建てる＝知事等の<b>許可</b>。中の特別用途地区／外の特定用途制限地域。都市施設は区域外にも定めうる</small></div>
   <div class="trap">
     <svg class="ic"><use href="#i-alert"/></svg>
     <div class="t">「地区計画は知事の許可」は ×。届出</div>
@@ -914,9 +915,8 @@ b,strong{font-weight:700}
     <div class="r"><div class="k">非線引き<small style="display:block;font-size:38px">準都計も</small></div><div class="a"><b>3,000㎡</b>未満</div><div class="b">3・3</div></div>
     <div class="r"><div class="k">都市計画区域外</div><div class="a"><b>1ha</b>未満<small>1万㎡</small></div><div class="b">10</div></div>
   </div>
-  <div class="rule-line" style="margin-top:24px">開発行為＝建物・特定工作物のための区画形質の変更。<small>青空駐車場は開発行為でない。野球場等は1ha以上で第2種、<b>ゴルフコースは面積不問で第2種</b></small></div>
-  <div class="rule-line" style="margin-top:20px">面積のほかの例外。<small>農林漁業用（市街化区域では使えない。<b>貯蔵・加工は×</b>）／駅舎・図書館・公民館は○、<b>病院・学校・社会福祉施設は ×</b>／○○事業の施行／非常災害の応急措置・軽微な行為</small></div>
-  <div class="rule-line" style="margin-top:20px">工事完了の公告<b>前</b>は建てるな、<b>後</b>は予定通り。<small>調整区域は開発区域の<b>外</b>でも、建物の新築・改築・用途変更は原則 知事の許可</small></div>
+  <div class="rule-line" style="margin-top:22px">面積のほかの例外。<small>農林漁業用（市街化区域では×。貯蔵・加工も×）／駅舎・図書館・公民館は○、<b>病院・学校・社福は ×</b>／事業の施行／非常災害・軽微</small></div>
+  <div class="rule-line" style="margin-top:20px">公告<b>前</b>は建てるな、<b>後</b>は予定通り。<small>調整区域は区域の<b>外</b>でも建物は知事の許可。ゴルフコースは面積不問で第2種、青空駐車場は開発行為でない</small></div>
   <div class="trap">
     <svg class="ic"><use href="#i-alert"/></svg>
     <div class="t">「病院だから許可不要」は ×</div>
@@ -957,14 +957,14 @@ b,strong{font-weight:700}
   <div class="meta"><span>法令上の制限 ｜ 23 建築基準法②</span><span>建蔽率・容積率・高さ・防火</span></div>
   <h1 class="conclusion">8割・防火・耐火。</h1>
 
-  <div class="cmp plain tight">
+  <div class="cmp plain tight snug">
     <div class="r hd"><div class="k"></div><div class="a"><div class="h">ルール</div></div><div class="b"><div class="h">もう一方</div></div></div>
     <div class="r core first last"><div class="k">建蔽率</div><div class="a"><span class="hl">8割＋防火＋耐火</span><small>＝制限なし</small></div><div class="b">防火の耐火／準防火の耐火・準耐火 <b>+1/10</b><small>角地 +1/10。重複可</small></div></div>
-    <div class="r"><div class="k">容積率</div><div class="a">道路12m未満は<small>指定容積率 と 道幅×4/10（住居系）6/10（他）の<b>小さい方</b></small></div><div class="b">共用廊下・階段・EV<small>不算入</small></div></div>
+    <div class="r"><div class="k">容積率</div><div class="a">道路12m未満は<small>指定容積率 と 道幅×4/10（住居系）6/10（他）の小さい方</small></div><div class="b">共用廊下・階段・EV<small>不算入</small></div></div>
     <div class="r"><div class="k">高さ</div><div class="a">低層3地域 <b>10・12m</b><small>低層2＋田園住居</small></div><div class="b">隣地斜線は低層3に<b>なし</b><small>北側＝低層3＋中高層2。日影の対象外＝商業・工業・工専</small></div></div>
     <div class="r"><div class="k">防火</div><div class="a">防火地域<b>3階か100㎡超</b></div><div class="b">準防火<b>4階か1,500㎡超</b></div></div>
   </div>
-  <div class="rule-line" style="margin-top:24px">2025年4月〜 <span class="hl">2階か200㎡超えたら全国確認</span><small>「3階・500㎡」は旧ルール</small></div>
+  <div class="rule-line" style="margin-top:20px">2025年4月〜 <span class="hl">2階か200㎡超えたら全国確認</span><small>「3階・500㎡」は旧</small></div>
   <div class="trap">
     <svg class="ic"><use href="#i-alert"/></svg>
     <div class="t">「3階・500㎡から確認」は ×</div>
@@ -1026,14 +1026,14 @@ b,strong{font-weight:700}
   <div class="meta"><span>法令上の制限 ｜ 26 土地区画整理法</span><span>毎年1問</span></div>
   <h1 class="conclusion">使うのは仮換地、<br>売るのは従前。</h1>
 
-  <div class="cmp plain">
+  <div class="cmp plain snug">
     <div class="r hd"><div class="k"></div><div class="a"><div class="h">仮換地<small>工事中</small></div></div><div class="b"><div class="h">換地処分<small>公告</small></div></div></div>
     <div class="r core first last"><div class="k">できること</div><div class="a"><span class="hl">使う・貸せる</span><small>使用・収益は仮換地で</small></div><div class="b">仮の状態が消える<small>公告の日の<b>終わり</b>＝当日</small></div></div>
     <div class="r"><div class="k">売る・抵当</div><div class="a"><b>従前の宅地</b>に対して<small>所有権はまだ従前地</small></div><div class="b">換地＝従前地とみなす<small>公告の<b>翌日</b>から</small></div></div>
     <div class="r"><div class="k">保留地</div><div class="a">—</div><div class="b">翌日に施行者が取得</div></div>
     <div class="r"><div class="k">公共施設</div><div class="a">—</div><div class="b">翌日に原則 市町村が管理</div></div>
   </div>
-  <div class="rule-line" style="margin-top:24px">仮換地の指定＝組合は<b>同意</b>、お役所は審議会の<b>意見</b>。<small>使用・収益の開始日は効力発生日と<b>別に定められる</b>。組合は7人以上＋知事の認可、同意は所有者・借地権者の各2/3</small></div>
+  <div class="rule-line" style="margin-top:18px">仮換地の指定＝組合は<b>同意</b>、役所は審議会の<b>意見</b>。<small>使用開始日は効力発生日と<b>別に定めうる</b>。組合は7人以上＋知事の認可、同意は各2/3</small></div>
   <div class="trap">
     <svg class="ic"><use href="#i-alert"/></svg>
     <div class="t">「公告の日から換地とみなす」は ×</div>
@@ -1069,17 +1069,17 @@ b,strong{font-weight:700}
   <nav class="links"><a href="https://www.youtube.com/watch?v=Jqndj59XAOQ&t=5378s"><span>▶ 89:38<small>盛土規制法</small></span><span class="go">→</span></a><a href="https://www.youtube.com/watch?v=Jqndj59XAOQ&t=5526s"><span>▶ 92:06<small>数字の表</small></span><span class="go">→</span></a></nav>
 </section></div><div class="wrap" id="w28" data-no="28"><section class="slide" id="slide-28">
   <div class="meta"><span>権利関係 ｜ 28 意思表示</span><span>5つの壊れ方</span></div>
-  <h1 class="conclusion">騙されたら負け、<br>脅されたら勝つ。</h1>
+  <h1 class="conclusion">騙されたら負け、脅されたら勝つ。</h1>
 
-  <div class="cmp plain c3 tight">
+  <div class="cmp plain c3 tight snug">
     <div class="r hd"><div class="k"></div><div class="a"><div class="h">当事者間</div></div><div class="b"><div class="h">Cとの勝負</div></div><div class="c"><div class="h">Cの条件</div></div></div>
-    <div class="r"><div class="k">心裡留保<small style="display:block">冗談</small></div><div class="a">原則 有効<small>相手が悪意 or <b>気づけた</b>なら無効</small></div><div class="b">C勝ち</div><div class="c">善意</div></div>
-    <div class="r"><div class="k">虚偽表示<small style="display:block">グル</small></div><div class="a">無効</div><div class="b">C勝ち</div><div class="c">善意だけ<small>過失OK・登記不要</small></div></div>
-    <div class="r"><div class="k">錯誤<small style="display:block">勘違い</small></div><div class="a"><b>取消し</b><small>無効ではない。重過失は原則×（相手も悪意・重過失／同じ勘違い なら可）。動機は表示が要る</small></div><div class="b">C勝ち</div><div class="c">善意＋<b>無過失</b></div></div>
-    <div class="r"><div class="k">詐欺<small style="display:block">騙し</small></div><div class="a">取消し<small>第三者の詐欺は相手が悪意・有過失の時だけ</small></div><div class="b">C勝ち</div><div class="c">善意＋<b>無過失</b></div></div>
+    <div class="r"><div class="k">心裡留保<small style="display:block">冗談</small></div><div class="a">原則 有効<small>相手が悪意・有過失なら無効</small></div><div class="b">C勝ち</div><div class="c">善意</div></div>
+    <div class="r"><div class="k">虚偽表示<small style="display:block">グル</small></div><div class="a">無効</div><div class="b">C勝ち</div><div class="c">善意だけ<small>過失OK</small></div></div>
+    <div class="r"><div class="k">錯誤<small style="display:block">勘違い</small></div><div class="a"><b>取消し</b><small>無効でない。重過失は原則×</small></div><div class="b">C勝ち</div><div class="c">善意＋<b>無過失</b></div></div>
+    <div class="r"><div class="k">詐欺<small style="display:block">騙し</small></div><div class="a">取消し<small>第三者の詐欺は相手が悪意・有過失のみ</small></div><div class="b">C勝ち</div><div class="c">善意＋<b>無過失</b></div></div>
     <div class="r core first last"><div class="k">強迫<small style="display:block">脅し</small></div><div class="a">取消し</div><div class="b"><span class="hl">本人勝ち</span></div><div class="c">どんなCでも ×</div></div>
   </div>
-  <div class="rule-line" style="margin-top:24px">かわいそうメーターが上がるほど、Cに要求される条件も上がる。<small>すべて「取消し<b>前</b>」のCとの勝負。取消し後のCは物権変動で別ルール</small></div>
+  <div class="rule-line" style="margin-top:16px">すべて「取消し<b>前</b>」のCとの勝負。<small>錯誤の重過失は 相手も悪意／同じ勘違い なら取消可</small></div>
   <div class="trap">
     <svg class="ic"><use href="#i-alert"/></svg>
     <div class="t">「錯誤＝無効」は ×。取消し</div>
@@ -1141,17 +1141,17 @@ b,strong{font-weight:700}
   <nav class="links"><a href="https://www.youtube.com/watch?v=swYnWoQGJo4&t=1278s"><span>▶ 21:18<small>時効</small></span><span class="go">→</span></a><a href="https://www.youtube.com/watch?v=swYnWoQGJo4&t=1471s"><span>▶ 24:31<small>数字</small></span><span class="go">→</span></a></nav>
 </section></div><div class="wrap" id="w31" data-no="31"><section class="slide" id="slide-31">
   <div class="meta"><span>権利関係 ｜ 31 代理</span><span>やった人と差がつく</span></div>
-  <h1 class="conclusion">代理は、三角形の上で解く。</h1>
+  <h1 class="conclusion">代理は三角形で解く。</h1>
 
   <div class="sec"><span>本人A ─ 代理人B ─ 相手方C の三角形を必ず描く</span></div>
-  <div class="cmp plain tight">
+  <div class="cmp plain tight snug">
     <div class="r hd"><div class="k"></div><div class="a"><div class="h">ちゃんとした代理</div></div><div class="b"><div class="h">無権代理</div></div></div>
     <div class="r"><div class="k">成立</div><div class="a"><b>顕名＋代理権</b><small>両方揃って効果はAへ。騙されたかの判定は<b>代理人</b>が基準</small></div><div class="b">本人の武器＝<b>追認</b>／追認拒絶</div></div>
-    <div class="r"><div class="k">Cの手</div><div class="a">名乗らなければ原則B自身<small>Cが知っていた・気づけた時だけAへ</small></div><div class="b">催告・取消し・責任追及<small>取消しは善意のCだけ・<b>追認前</b>まで。責任追及は原則 善意無過失</small></div></div>
+    <div class="r"><div class="k">Cの手</div><div class="a">名乗らなければ原則B自身</div><div class="b">催告・取消し・責任追及<small>取消しは善意のC・<b>追認前</b>。追及は原則 善意無過失</small></div></div>
     <div class="r core first last"><div class="k">催告に無言</div><div class="a">—</div><div class="b"><span class="hl">追認拒絶</span>とみなす<small>YESではない</small></div></div>
-    <div class="r"><div class="k">注意</div><div class="a">未成年でも代理人になれる<small>自己契約・双方代理は<b>無権代理扱い</b>。本人の追認で有効にできる</small></div><div class="b">Bが制限行為能力者なら責任なし</div></div>
+    <div class="r"><div class="k">注意</div><div class="a">未成年でも代理人になれる<small>自己契約・双方代理は<b>無権代理扱い</b>（追認で有効化）</small></div><div class="b">Bが制限行為能力者なら責任なし</div></div>
   </div>
-  <div class="rule-line" style="margin-top:24px">復代理人は<b>本人の代理人</b>。<small>代理人の代理人ではない。立てても代理人の代理権は消えず2人になる</small></div>
+  <div class="rule-line" style="margin-top:20px">復代理人は<b>本人の代理人</b>。<small>本人の破産で任意代理は消滅、法定は消えない</small></div>
   <div class="trap">
     <svg class="ic"><use href="#i-alert"/></svg>
     <div class="t">「催告を無視 → 追認」は ×。拒絶</div>
@@ -1233,7 +1233,7 @@ b,strong{font-weight:700}
 
   <div class="sec" style="margin-top:24px"><span>登記簿は2階建て ― 甲区＝所有権、乙区＝それ以外（抵当権・賃借権）</span></div>
   <div class="cmp plain tight">
-    <div class="r"><div class="k">表示の登記</div><div class="a" style="grid-column:2/4">義務。<b>1か月</b>以内<small>新築・地目変更。権利の登記は原則 任意（下2つが例外）</small></div></div>
+    <div class="r"><div class="k">表示の登記</div><div class="a" style="grid-column:2/4">義務。<b>1か月</b>以内<small>権利の登記は原則 任意（下2つが例外）</small></div></div>
     <div class="r"><div class="k">相続登記</div><div class="a" style="grid-column:2/4">知った日から<b>3年</b><small>10万円以下の過料</small></div></div>
     <div class="r"><div class="k">住所氏名変更</div><div class="a" style="grid-column:2/4"><b>2年</b><small>5万円以下の過料。2026年4月〜</small></div></div>
   </div>
@@ -1296,14 +1296,14 @@ b,strong{font-weight:700}
   <div class="meta"><span>権利関係 ｜ 37 借地借家法</span><span>問11・12でほぼ毎年2問</span></div>
   <h1 class="conclusion">借家と借地は、混ぜない。</h1>
 
-  <div class="cmp plain roomy">
+  <div class="cmp plain">
     <div class="r hd"><div class="k"></div><div class="a"><div class="h">借家<small>建物を借りる</small></div></div><div class="b"><div class="h">借地<small>土地を借りる</small></div></div></div>
     <div class="r core first"><div class="k">期間</div><div class="a">1年未満 → 定めなし</div><div class="b"><span class="hl">30・20・10</span><small>最初30年<b>以上</b>／更新1回目20年以上／以後10年以上</small></div></div>
     <div class="r core last"><div class="k">対抗要件</div><div class="a">引渡し＝カギ</div><div class="b"><b>自己名義</b>の建物登記</div></div>
     <div class="r"><div class="k">買取請求</div><div class="a">造作 ─ 外せる</div><div class="b">建物 ─ 外せない</div></div>
-    <div class="r"><div class="k">更新なし型</div><div class="a">定期借家<small>命綱＝事前の説明書面</small></div><div class="b">定期借地 3型<small>一般50年以上／事業用10〜50年未満（公正証書）／建物譲渡特約付30年以上</small></div></div>
+    <div class="r"><div class="k">更新なし型</div><div class="a">定期借家<small>命綱＝事前の説明書面</small></div><div class="b">定期借地 3型<small>一般50年〜／事業用10〜50年未満（公正証書）／建物譲渡特約付30年〜</small></div></div>
   </div>
-  <div class="rule-line" style="margin-top:24px">借主に<b>不利</b>な特約は無効、<b>有利</b>な特約は有効。<small>迷ったら借主が得する方が正解。上限は両方なし</small></div>
+  <div class="rule-line" style="margin-top:22px">借主に<b>不利</b>な特約は無効、<b>有利</b>なら有効。<small>迷ったら借主が得する方。上限は両方なし</small></div>
   <div class="trap">
     <svg class="ic"><use href="#i-alert"/></svg>
     <div class="t">「長男名義の登記でOK」は ×。自己名義</div>
