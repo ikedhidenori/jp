@@ -62,6 +62,7 @@ body.z #slides,body.z #ft{display:none}body.z #zukai{display:block}
 .zk figcaption b{font-size:15px}
 .zk-go{margin-left:auto;font-size:12px;color:var(--amute);border:1px solid var(--aline);padding:4px 10px;border-radius:999px;white-space:nowrap}
 .zk svg{width:100%;height:auto;display:block;border:1px solid var(--aline);border-radius:10px;padding:8px 4px;background:var(--abg)}
+.zk img{width:100%;height:auto;display:block;border:1px solid var(--aline);border-radius:10px}
 .zk-note{font-size:13px;color:var(--amute);line-height:1.7;margin:10px 2px 0}
 .zk-note b{color:var(--afg)}
 .zk svg text{font-family:inherit;fill:var(--afg);font-size:22px}
@@ -1367,237 +1368,49 @@ b,strong{font-weight:700}
 
 <figure class="zk" id="zk1">
 <figcaption><span class="no">図1</span><b>国土の5分割地図</b><button class="zk-go" data-go="20">スライド20 →</button></figcaption>
-<svg viewBox="0 0 720 440" role="img" aria-label="都市計画区域の5分割">
-  <rect class="zb-strong" x="20" y="34" width="440" height="366" rx="10"/>
-  <text class="zt-h" x="40" y="66">都市計画区域</text>
-  <rect class="zb-fill" x="44" y="88" width="190" height="132" rx="6"/>
-  <text class="zt-h" x="58" y="122">市街化区域</text>
-  <text class="zt-m" x="58" y="152">街を作る側</text>
-  <text class="zt-m" x="58" y="178">用途地域は<tspan class="zt-hl">必ず</tspan></text>
-  <line class="zl-warn" x1="245" y1="88" x2="245" y2="220"/>
-  <text class="zt-warn" x="245" y="240" text-anchor="middle">線引き（区域区分）</text>
-  <rect class="zb" x="256" y="88" width="184" height="132" rx="6"/>
-  <text class="zt-h" x="270" y="122">市街化調整区域</text>
-  <text class="zt-m" x="270" y="152">原則 建てない</text>
-  <text class="zt-m" x="270" y="178">用途地域は原則なし</text>
-  <rect class="zb-dash" x="44" y="262" width="396" height="116" rx="6"/>
-  <text class="zt-h" x="58" y="296">非線引区域</text>
-  <text class="zt-m" x="58" y="326">線を引いていない都計区域</text>
-  <rect class="zb-dash" x="484" y="88" width="212" height="132" rx="6"/>
-  <text class="zt-h" x="498" y="122">準都市計画区域</text>
-  <text class="zt-m" x="498" y="152">見張るだけ</text>
-  <text class="zt-s2" x="498" y="178">区域区分×・用途地域○</text>
-  <rect class="zb-dot" x="484" y="262" width="212" height="116" rx="6"/>
-  <text class="zt-h" x="498" y="296">都市計画区域外</text>
-  <text class="zt-m" x="498" y="326">山奥</text>
-  <text class="zt-s2" x="498" y="352">都市施設は定めうる</text>
-</svg>
+<img src="takken-zukai-0ee08412/zk1.jpg" alt="国土の5分割地図" loading="lazy" width="1536" height="1024">
 <p class="zk-note">区域区分（線引き）は原則「できる」、三大都市圏等では必須。市街化区域は用途地域を必ず定める。用途地域は13種（住居8・商業2・工業3）。</p>
 </figure>
 
 <figure class="zk" id="zk2">
 <figcaption><span class="no">図2</span><b>面積の対比 ― 開発許可 vs 国土法</b><button class="zk-go" data-go="21">スライド21 →</button></figcaption>
-<svg viewBox="0 0 720 500" role="img" aria-label="開発許可と国土法の面積基準の対比">
-  <text class="zt-b" x="260" y="40" text-anchor="middle">開発許可</text>
-  <text class="zt-s2" x="260" y="64" text-anchor="middle">この未満なら不要</text>
-  <text class="zt-b" x="560" y="40" text-anchor="middle">国土法</text>
-  <text class="zt-s2" x="560" y="64" text-anchor="middle">この以上で事後届出</text>
-  <line class="zl" x1="20" y1="80" x2="700" y2="80"/>
-  <text class="zt-hd" x="24" y="116">市街化</text>
-  <text class="zt" x="260" y="116" text-anchor="middle">原則1,000<tspan class="zt-s">㎡</tspan></text>
-  <text class="zt-s2" x="260" y="140" text-anchor="middle">都区等500・条例300</text>
-  <text class="zt" x="560" y="116" text-anchor="middle">2,000<tspan class="zt-s">㎡</tspan></text>
-  <line class="zl" x1="20" y1="158" x2="700" y2="158"/>
-  <text class="zt-hd" x="24" y="194">調整</text>
-  <text class="zt-warn" x="260" y="194" text-anchor="middle">なし</text>
-  <text class="zt-s2" x="260" y="218" text-anchor="middle">10㎡でも許可</text>
-  <text class="zt" x="560" y="194" text-anchor="middle">5,000<tspan class="zt-s">㎡</tspan></text>
-  <line class="zl" x1="20" y1="236" x2="700" y2="236"/>
-  <text class="zt-hd" x="24" y="272">非線引き</text>
-  <text class="zt" x="260" y="272" text-anchor="middle">原則3,000<tspan class="zt-s">㎡</tspan></text>
-  <text class="zt" x="560" y="272" text-anchor="middle">5,000<tspan class="zt-s">㎡</tspan></text>
-  <text class="zt-s3" x="560" y="296" text-anchor="middle">調整・非線引きは「その他の都計」</text>
-  <line class="zl" x1="20" y1="314" x2="700" y2="314"/>
-  <rect class="zb-warnline" x="14" y="322" width="692" height="56" rx="8"/>
-  <text class="zt-hd" x="24" y="356">準都計</text>
-  <text class="zt" x="260" y="356" text-anchor="middle">原則3,000<tspan class="zt-s">㎡</tspan></text>
-  <text class="zt" x="560" y="356" text-anchor="middle">1万<tspan class="zt-s">㎡</tspan></text>
-  <line class="zl" x1="20" y1="392" x2="700" y2="392"/>
-  <text class="zt-hd" x="24" y="428">区域外</text>
-  <text class="zt" x="260" y="428" text-anchor="middle">1ha<tspan class="zt-s">（1万㎡）</tspan></text>
-  <text class="zt" x="560" y="428" text-anchor="middle">1万<tspan class="zt-s">㎡</tspan></text>
-  <line class="zl" x1="20" y1="448" x2="700" y2="448"/>
-  <text class="zt-gorou" x="260" y="484" text-anchor="middle">「1 なし 3・3・10」</text>
-  <text class="zt-gorou" x="560" y="484" text-anchor="middle">「2・5・10」</text>
-</svg>
+<img src="takken-zukai-0ee08412/zk2.jpg" alt="開発許可と国土法の面積の対比" loading="lazy" width="1536" height="1024">
 <p class="zk-note"><b>準都計だけ行き先が違う</b>（開発許可では非線引きと同じ3,000／国土法では区域外と同じ1万）。迷ったら「開発許可のほうが数字が細かい」。国土法の事後届出は<b>買主だけ</b>・契約日から<b>2週間</b>以内。</p>
 </figure>
 
 <figure class="zk" id="zk3">
 <figcaption><span class="no">図3</span><b>高さのルール ― 3本の斜線と日影</b><button class="zk-go" data-go="23">スライド23 →</button></figcaption>
-<svg viewBox="0 0 720 420" role="img" aria-label="斜線制限の断面">
-  <line class="zl-ground" x1="24" y1="332" x2="356" y2="332"/>
-  <rect class="zb-fill" x="30" y="308" width="86" height="24"/>
-  <text class="zt-s2" x="73" y="360" text-anchor="middle">道路</text>
-  <rect class="zb" x="160" y="150" width="120" height="182"/>
-  <text class="zt-s2" x="220" y="360" text-anchor="middle">敷地</text>
-  <line class="zl-shasen1" x1="116" y1="332" x2="300" y2="96"/>
-  <text class="zt-s2" x="236" y="106">① 道路斜線</text>
-  <line class="zl-shasen2" x1="356" y1="270" x2="212" y2="90"/>
-  <text class="zt-s2" x="120" y="84">② 隣地斜線</text>
-  <line class="zl-shasen3" x1="356" y1="332" x2="164" y2="196"/>
-  <text class="zt-s2" x="300" y="308" text-anchor="middle">③ 北側</text>
-  <line class="zl" x1="390" y1="60" x2="390" y2="380"/>
-  <text class="zt-b" x="414" y="88">絶対高さ 10・12m</text>
-  <text class="zt-m" x="414" y="112">低層3地域だけ（低層2＋田園）</text>
-  <text class="zt-b" x="414" y="156">① 道路斜線</text>
-  <text class="zt-m" x="414" y="180">すべての地域にある</text>
-  <text class="zt-b" x="414" y="224">② 隣地斜線</text>
-  <text class="zt-m" x="414" y="248">低層3には<tspan class="zt-warn">ない</tspan>（絶対高さで代替）</text>
-  <text class="zt-b" x="414" y="292">③ 北側斜線</text>
-  <text class="zt-m" x="414" y="316">低層3＋中高層2だけ</text>
-  <text class="zt-b" x="414" y="360">日影規制</text>
-  <text class="zt-m" x="414" y="384">商・工・工専は原則外</text>
-</svg>
+<img src="takken-zukai-0ee08412/zk3.jpg" alt="斜線制限と日影の断面" loading="lazy" width="1536" height="1024">
 <p class="zk-note">日影は対象区域外でも、高さ10m超で対象区域内に影が入れば対象（スライド23）。</p>
 </figure>
 
 <figure class="zk" id="zk4">
 <figcaption><span class="no">図4</span><b>2項道路のセットバック</b><button class="zk-go" data-go="22">スライド22 →</button></figcaption>
-<svg viewBox="0 0 720 404" role="img" aria-label="2項道路のセットバック平面図">
-  <text class="zt-b" x="24" y="36">両側が宅地なら ― 中心から2mずつ</text>
-  <line class="zl-warnline" x1="24" y1="56" x2="696" y2="56"/>
-  <rect class="zb-hatch" x="24" y="56" width="672" height="40"/>
-  <rect class="zb-fill" x="24" y="96" width="672" height="52"/>
-  <line class="zl-center" x1="24" y1="122" x2="696" y2="122"/>
-  <text class="zt-s2" x="360" y="90" text-anchor="middle">幅4m未満の道（2項道路）― 中心線</text>
-  <rect class="zb-hatch" x="24" y="148" width="672" height="40"/>
-  <line class="zl-warnline" x1="24" y1="188" x2="696" y2="188"/>
-  <text class="zt-s2" x="360" y="216" text-anchor="middle">中心から2mの線まで下がる。<tspan class="zt-warn">後退分は敷地面積に入らない</tspan></text>
-  <text class="zt-b" x="24" y="256">片側が崖・川なら ― 崖側の境界から4m</text>
-  <rect class="zb-hatch2" x="24" y="268" width="672" height="32"/>
-  <text class="zt-s2" x="360" y="290" text-anchor="middle">崖・川</text>
-  <rect class="zb-fill" x="24" y="300" width="672" height="50"/>
-  <text class="zt-s2" x="360" y="331" text-anchor="middle">道</text>
-  <rect class="zb-hatch" x="24" y="350" width="672" height="24"/>
-  <line class="zl-warnline" x1="24" y1="374" x2="696" y2="374"/>
-  <text class="zt-s2" x="360" y="398" text-anchor="middle">崖側の境界から4mの線まで、反対側だけ下がる</text>
-</svg>
+<img src="takken-zukai-0ee08412/zk4.jpg" alt="2項道路のセットバック" loading="lazy" width="1536" height="1024">
 <p class="zk-note">6m指定区域は中心から3m。接道は2m以上（「4m接する」は×、接するのは2m）。</p>
 </figure>
 
 <figure class="zk" id="zk5">
 <figcaption><span class="no">図5</span><b>建蔽率と容積率 ― 上から見るか、積むか</b><button class="zk-go" data-go="23">スライド23 →</button></figcaption>
-<svg viewBox="0 0 720 400" role="img" aria-label="建蔽率と容積率の違い">
-  <text class="zt-b" x="24" y="36">建蔽率＝上から見た広さ</text>
-  <rect class="zb" x="24" y="56" width="300" height="200"/>
-  <rect class="zb-fill" x="24" y="96" width="180" height="160"/>
-  <text class="zt-m" x="60" y="184">建築面積</text>
-  <text class="zt-s2" x="240" y="240">敷地</text>
-  <text class="zt-m" x="24" y="292">敷地のうち、建物が</text>
-  <text class="zt-m" x="24" y="318">覆っていい割合</text>
-  <text class="zt-hl2" x="24" y="360">8割＋防火＋耐火＝制限なし</text>
-  <text class="zt-s3" x="24" y="384">角地＋1/10・耐火系＋1/10（重複可）</text>
-  <text class="zt-b" x="396" y="36">容積率＝床を積んだ量</text>
-  <rect class="zb" x="396" y="196" width="300" height="60"/>
-  <rect class="zb-fill" x="436" y="76" width="150" height="40"/>
-  <rect class="zb-fill" x="436" y="126" width="150" height="40"/>
-  <rect class="zb-fill" x="436" y="176" width="150" height="40"/>
-  <text class="zt-s2" x="612" y="240">敷地</text>
-  <text class="zt-m" x="396" y="292">延べ面積（全フロア合計）</text>
-  <text class="zt-m" x="396" y="318">の敷地に対する割合</text>
-  <text class="zt-hl2" x="396" y="348">道路12m未満 →</text>
-  <text class="zt-hl2" x="396" y="370">道幅×4/10(住)・6/10(他) と</text>
-  <text class="zt-hl2" x="396" y="392">指定容積率の小さい方</text>
-</svg>
+<img src="takken-zukai-0ee08412/zk5.jpg" alt="建蔽率と容積率の違い" loading="lazy" width="1536" height="1024">
 <p class="zk-note">容積率の計算では EV昇降路・共同住宅等の廊下/階段は不算入（スライド23）。</p>
 </figure>
 
 <figure class="zk" id="zk6">
 <figcaption><span class="no">図6</span><b>農地法 ― 人が変われば3条、潰せば4・5条</b><button class="zk-go" data-go="25">スライド25 →</button></figcaption>
-<svg viewBox="0 0 720 420" role="img" aria-label="農地法3条4条5条の整理">
-  <rect class="zb" x="20" y="24" width="216" height="240" rx="8"/>
-  <text class="zt-h" x="34" y="58">3条</text>
-  <text class="zt-m" x="34" y="88">使う<tspan class="zt-hl">人</tspan>が変わる</text>
-  <text class="zt-farm" x="60" y="150">田</text>
-  <text class="zt-m" x="104" y="144">→</text>
-  <text class="zt-farm" x="140" y="150">田</text>
-  <text class="zt-b" x="34" y="196">農業委員会の許可</text>
-  <text class="zt-s3" x="34" y="224">採草放牧地も対象</text>
-  <text class="zt-s3" x="34" y="248">市街化の特例なし</text>
-  <rect class="zb" x="252" y="24" width="216" height="240" rx="8"/>
-  <text class="zt-h" x="266" y="58">4条</text>
-  <text class="zt-m" x="266" y="88">使い<tspan class="zt-hl">道</tspan>が変わる</text>
-  <text class="zt-farm" x="292" y="150">田</text>
-  <text class="zt-m" x="336" y="144">→</text>
-  <text class="zt-farm" x="372" y="150">家</text>
-  <text class="zt-b" x="266" y="196">知事等の許可</text>
-  <text class="zt-s3" x="266" y="224">自分で転用（農地のみ）</text>
-  <text class="zt-s3" x="266" y="248">農業用施設2a未満は不要</text>
-  <rect class="zb" x="484" y="24" width="216" height="240" rx="8"/>
-  <text class="zt-h" x="498" y="58">5条</text>
-  <text class="zt-m" x="498" y="88"><tspan class="zt-hl">両方</tspan>変わる</text>
-  <text class="zt-farm" x="524" y="150">田</text>
-  <text class="zt-m" x="568" y="144">→</text>
-  <text class="zt-farm" x="604" y="150">家</text>
-  <text class="zt-b" x="498" y="196">知事等の許可</text>
-  <text class="zt-s3" x="498" y="224">転用目的の権利移動</text>
-  <rect class="zb-fill" x="20" y="292" width="680" height="100" rx="8"/>
-  <text class="zt-b" x="40" y="330">市街化区域内の特例 ― 4条・5条だけ</text>
-  <text class="zt-m" x="40" y="362">農業委員会への<tspan class="zt-hl">事前届出</tspan>でOK。<tspan class="zt-warn">3条に特例はない</tspan></text>
-</svg>
+<img src="takken-zukai-0ee08412/zk6.jpg" alt="農地法3条4条5条" loading="lazy" width="1536" height="1024">
 <p class="zk-note">ひっかけの9割は「許可⇄届出」「農業委員会⇄知事」の入れ替え（スライド25）。</p>
 </figure>
 
 <figure class="zk" id="zk7">
 <figcaption><span class="no">図7</span><b>区画整理 ― 使うのは仮換地、売るのは従前地</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<svg viewBox="0 0 720 420" role="img" aria-label="仮換地と換地処分の時系列">
-  <rect class="zb" x="24" y="40" width="300" height="150" rx="8"/>
-  <text class="zt-h" x="44" y="78">従前地</text>
-  <text class="zt-m" x="44" y="110"><tspan class="zt-hl">売る・抵当権</tspan>はこっち</text>
-  <text class="zt-s2" x="44" y="138">所有権はまだここにある</text>
-  <rect class="zb-fill" x="396" y="40" width="300" height="150" rx="8"/>
-  <text class="zt-h" x="416" y="78">仮換地</text>
-  <text class="zt-m" x="416" y="110"><tspan class="zt-hl">使う・貸す</tspan>はこっち</text>
-  <text class="zt-s2" x="416" y="138">使用・収益だけできる</text>
-  <text class="zt-m" x="360" y="120" text-anchor="middle">⇄</text>
-  <line class="zl-ground" x1="24" y1="272" x2="696" y2="272"/>
-  <circle class="zdot" cx="360" cy="272" r="7"/>
-  <text class="zt-b" x="360" y="240" text-anchor="middle">換地処分の公告</text>
-  <text class="zt-b" x="196" y="312" text-anchor="middle">当日（日の終わり）</text>
-  <text class="zt-m" x="196" y="340" text-anchor="middle">仮の状態が消える</text>
-  <text class="zt-b" x="540" y="312" text-anchor="middle">翌日</text>
-  <text class="zt-m" x="540" y="340" text-anchor="middle">換地＝従前地とみなす</text>
-  <text class="zt-s2" x="540" y="366" text-anchor="middle">保留地→施行者／公共施設→原則市町村</text>
-  <text class="zt-gorou" x="360" y="404" text-anchor="middle">「消えるのは当日、もらえるのは翌日。」</text>
-</svg>
+<img src="takken-zukai-0ee08412/zk7.jpg" alt="仮換地と換地処分" loading="lazy" width="1536" height="1024">
 <p class="zk-note">代替機（仮換地）は使えるが売れない。売れるのは修理に出した自分の携帯（従前地）。</p>
 </figure>
 
 <figure class="zk" id="zk8">
 <figcaption><span class="no">図8</span><b>盛土規制法 ― 盛1・切2・切盛2・盛2・500</b><button class="zk-go" data-go="27">スライド27 →</button></figcaption>
-<svg viewBox="0 0 720 440" role="img" aria-label="盛土規制の数値の断面">
-  <text class="zt-b" x="24" y="36">宅地造成等工事規制区域（街中）― どれか1つで許可</text>
-  <polyline class="zl-ground" points="24,150 100,150 150,110 190,110"/>
-  <polygon class="zb-fillp" points="100,150 150,110 150,150"/>
-  <line class="zl-meas" x1="162" y1="110" x2="162" y2="150"/>
-  <text class="zt-num" x="96" y="188">盛土の崖 <tspan class="zt-hl">1m超</tspan></text>
-  <polyline class="zl-ground" points="230,110 290,110 340,150 400,150"/>
-  <line class="zl-meas" x1="302" y1="110" x2="302" y2="150"/>
-  <text class="zt-num" x="300" y="188">切土の崖 <tspan class="zt-hl">2m超</tspan></text>
-  <polyline class="zl-ground" points="430,150 470,120 520,120 556,150"/>
-  <line class="zl-meas" x1="532" y1="120" x2="532" y2="150"/>
-  <text class="zt-num" x="456" y="188">切盛 <tspan class="zt-hl">2m超</tspan></text>
-  <polyline class="zl-ground" points="580,150 596,150 616,124 650,124 668,150 696,150"/>
-  <line class="zl-meas" x1="658" y1="124" x2="658" y2="150"/>
-  <text class="zt-num" x="580" y="188">崖なし <tspan class="zt-hl">2m超</tspan></text>
-  <text class="zt-m" x="24" y="232">面積<tspan class="zt-hl">500㎡超</tspan>でも該当</text>
-  <line class="zl" x1="24" y1="258" x2="696" y2="258"/>
-  <text class="zt-b" x="24" y="296">特定盛土等規制区域（山側）</text>
-  <text class="zt-m" x="24" y="328">数値は <tspan class="zt-hl">2・5・5・5・3,000㎡</tspan>（許可）</text>
-  <text class="zt-m" x="24" y="356">街中の許可規模なら、着手<tspan class="zt-hl">30日前</tspan>までに届出</text>
-  <text class="zt-warn" x="24" y="392">2つの区域は重ならない</text>
-</svg>
+<img src="takken-zukai-0ee08412/zk8.jpg" alt="盛土規制の数値" loading="lazy" width="1536" height="1024">
 <p class="zk-note">語呂は「盛1・切2・切盛2・盛2、そして500」。土石の堆積も対象（スライド27）。</p>
 </figure>
 </section>
