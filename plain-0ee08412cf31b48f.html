@@ -56,10 +56,16 @@ body.toc{overflow:hidden}body.toc #bd{opacity:1;pointer-events:auto}body.toc #to
 #zukai{display:none;padding:calc(var(--ahd) + env(safe-area-inset-top) + 14px) 16px calc(60px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
 body.z #slides,body.z #ft{display:none}body.z #zukai{display:block}
 .zk-intro{font-size:13px;color:var(--amute);margin:2px 0 22px;line-height:1.7}
-.zk{margin:0 0 42px}
-.zk figcaption{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.zk{margin:0 0 42px;scroll-margin-top:calc(var(--ahd) + 20px)}
+.zk figcaption{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:10px}
 .zk figcaption .no{font-size:12px;color:var(--amute);font-variant-numeric:tabular-nums}
-.zk figcaption b{font-size:15px}
+.zk figcaption b{font-size:15px;flex:1;min-width:160px}
+.zk-jumps{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.zk-jumps a{font-size:13px;padding:8px 12px;border:1px solid var(--aline);border-radius:999px;color:var(--afg);text-decoration:none}
+.zk-heading{font-size:18px;margin:28px 0 16px;scroll-margin-top:calc(var(--ahd) + 20px)}
+.zk-sources{font-size:12px;color:var(--amute);margin-top:10px;line-height:1.7}
+.zk-sources a{color:inherit;text-underline-offset:3px}
+.zk-inline{display:block;text-align:center;font-size:14px;padding:12px;margin:0 12px 16px;border:1px solid var(--aline);border-radius:8px;color:var(--afg);text-decoration:none}
 .zk-go{margin-left:auto;font-size:12px;color:var(--amute);border:1px solid var(--aline);padding:4px 10px;border-radius:999px;white-space:nowrap}
 .zk svg{width:100%;height:auto;display:block;border:1px solid var(--aline);border-radius:10px;padding:8px 4px;background:var(--abg)}
 .zk img{width:100%;height:auto;display:block;border:1px solid var(--aline);border-radius:10px}
@@ -1510,10 +1516,10 @@ b,strong{font-weight:700}
   <nav class="links"><a href="https://www.youtube.com/watch?v=sAQtgyua-RA&t=257s"><span>▶ 04:17<small>第1章 不動産取得税</small></span><span class="go">→</span></a></nav>
 </section></div><div class="wrap" id="w49" data-no="49"><section class="slide" id="slide-49">
   <div class="meta"><span>税・その他 ｜ 49 固定資産税</span><span>問24（地方税）の定番</span></div>
-  <h1 class="conclusion">1月1日の台帳の持ち主が、1年分ぜんぶ払う。</h1>
+  <h1 class="conclusion">1月1日の持ち主に、その年度分を課税。</h1>
   <div class="cmp plain">
     <div class="r hd"><div class="k"></div><div class="a"><div class="h">原則<small>仕組み</small></div></div><div class="b"><div class="h">特例<small>住宅</small></div></div></div>
-    <div class="r core first"><div class="k">誰が</div><div class="a"><span class="hl">市町村</span>が毎年<small>1/1の台帳登録者に全額。日割り還付なし</small></div><div class="b">住宅用地 200㎡以下（小規模）<span class="hl">1/6</span><small>超える部分は 1/3</small></div></div>
+    <div class="r core first"><div class="k">誰が</div><div class="a"><span class="hl">市町村</span>が毎年<small>1/1の所有者に年度分。売買で日割り還付なし</small></div><div class="b">住宅用地 200㎡以下（小規模）<span class="hl">1/6</span><small>超える部分は 1/3</small></div></div>
     <div class="r core last"><div class="k">税率</div><div class="a">1.4％は<span class="hl">標準税率</span><small>条例で超えてよい</small></div><div class="b">新築は税額 <span class="hl">1/2</span> を3年<small>耐火3階以上は5年・120㎡まで</small></div></div>
     <div class="r"><div class="k">条件</div><div class="a">免税点 30万・20万・150万<small>土地・家屋・償却資産（据置）</small></div><div class="b">床面積 40〜<span class="hl">240㎡</span><small>旧280は×</small></div></div>
   </div>
@@ -1539,13 +1545,13 @@ b,strong{font-weight:700}
   <h1 class="conclusion">3,000万控除と軽減税率は併用OK。買換えは一人ぼっち。</h1>
   <div class="cmp plain">
     <div class="r hd"><div class="k"></div><div class="a"><div class="h">短期／長期<small>まず期間</small></div></div><div class="b"><div class="h">自宅売却の特例<small>3つ</small></div></div></div>
-    <div class="r core first"><div class="k">判定</div><div class="a"><span class="hl">5年超</span>＝長期<small>譲渡年の1/1で判定</small></div><div class="b">① 3,000万控除<small>期間要件なし・身内×</small></div></div>
+    <div class="r core first"><div class="k">判定</div><div class="a"><span class="hl">5年超</span>＝長期<small>売った年の1/1に戻って判定</small></div><div class="b">① 3,000万控除<small>期間要件なし・身内×</small></div></div>
     <div class="r core last"><div class="k">税率</div><div class="a">長期は軽く、短期は重い</div><div class="b">② 10年超の軽減税率<small>①と<span class="hl">併用できる</span></small></div></div>
     <div class="r"><div class="k">注意</div><div class="a">5年ちょうどは短期</div><div class="b">③ 買換え＝課税の先送り<small>①②と<span class="hl">併用不可</span></small></div></div>
   </div>
   <div class="rule-line" style="margin-top:22px">控除は所得、軽減は率、買換えは時期<small>効き方が違う</small></div>
   <div class="trap"><svg class="ic"><use href="#i-alert"/></svg><div class="t">「3,000万控除に10年超が必要」→×。「買換えと併用」→×</div></div>
-  <div class="voice"><div class="label"><svg class="ic"><use href="#i-quote"/></svg>講師の声</div><div class="main">「買換えは"払わないんじゃなくて後で払う"。だから重ねられない」</div><div class="sub">期間判定は譲渡年の1月1日</div></div>
+  <div class="voice"><div class="label"><svg class="ic"><use href="#i-quote"/></svg>講師の声</div><div class="main">「買換えは"払わないんじゃなくて後で払う"。だから重ねられない」</div><div class="sub">所有期間は、売った年の1月1日で判定</div></div>
   <nav class="links"><a href="https://www.youtube.com/watch?v=sAQtgyua-RA&t=1213s"><span>▶ 20:13<small>第3章 譲渡所得</small></span><span class="go">→</span></a></nav>
 </section></div><div class="wrap" id="w52" data-no="52"><section class="slide" id="slide-52">
   <div class="meta"><span>税・その他 ｜ 52 登録免許税・印紙税</span><span>問23（国税）の交代要員</span></div>
@@ -1575,7 +1581,7 @@ b,strong{font-weight:700}
   <nav class="links"><a href="https://www.youtube.com/watch?v=sAQtgyua-RA&t=1531s"><span>▶ 25:31<small>第4章 地価公示・鑑定評価</small></span><span class="go">→</span></a></nav>
 </section></div><div class="wrap" id="w54" data-no="54"><section class="slide" id="slide-54">
   <div class="meta"><span>税・その他 ｜ 54 住宅金融支援機構</span><span>問46 毎年1問</span></div>
-  <h1 class="conclusion">貸すのは銀行、機構は買い取る。直接貸すのは災害だけ。</h1>
+  <h1 class="conclusion">貸すのは銀行。機構はローン債権を買い取る。</h1>
   <div class="cmp plain">
     <div class="r hd"><div class="k"></div><div class="a"><div class="h">証券化支援<small>本業</small></div></div><div class="b"><div class="h">直接融資<small>例外</small></div></div></div>
     <div class="r core first"><div class="k">仕組み</div><div class="a">銀行が<span class="hl">フラット35</span>を貸す→機構が債権を<span class="hl">買取り</span></div><div class="b">災害復興・災害予防<small>被災者に直接貸す</small></div></div>
@@ -1584,7 +1590,7 @@ b,strong{font-weight:700}
   </div>
   <div class="rule-line" style="margin-top:22px">機構＝「買う・保証する・災害で貸す」<small>表で貸すのは民間</small></div>
   <div class="trap"><svg class="ic"><use href="#i-alert"/></svg><div class="t">「一般購入者へ直接融資」→×。「団信なし」→×。「フラット35は変動」→×</div></div>
-  <div class="voice"><div class="label"><svg class="ic"><use href="#i-quote"/></svg>講師の声</div><div class="main">「機構は裏方。表で貸すのは銀行」</div><div class="sub">直接貸すのは"災害"で9割解ける</div></div>
+  <div class="voice"><div class="label"><svg class="ic"><use href="#i-quote"/></svg>講師の声</div><div class="main">「機構は裏方。表で貸すのは銀行」</div><div class="sub">直接融資は災害復興・防災・一定の賃貸住宅など</div></div>
   <nav class="links"><a href="https://www.youtube.com/watch?v=sAQtgyua-RA&t=2021s"><span>▶ 33:41<small>第5章 住宅金融支援機構</small></span><span class="go">→</span></a></nav>
 </section></div><div class="wrap" id="w55" data-no="55"><section class="slide" id="slide-55">
   <div class="meta"><span>税・その他 ｜ 55 景品表示法（公正競争規約）</span><span>問47 毎年1問</span></div>
@@ -1615,77 +1621,116 @@ b,strong{font-weight:700}
 </section></div>
 </main>
 
-<section id="zukai"><div class="zk-intro">法令上の制限 12点。数値は本編スライド（監査済み）と同じ。図で場所と形を覚えて、数字は本編で確認する使い方。図9〜12は建築基準法の計算とフロー。</div>
+<section id="zukai"><div class="zk-intro">1枚につき、覚える軸は1つ。画像をタップすると拡大できます。</div>
+<nav class="zk-jumps" aria-label="図解の分野"><a href="#zk-tax" data-zk-target="zk-tax">税・その他 5枚</a><a href="#zk-law" data-zk-target="zk-law">法令上の制限 12枚</a></nav>
+<h2 class="zk-heading" id="zk-tax">税・その他</h2>
+<nav class="zk-jumps" aria-label="税・その他の図解"><a href="#zk13" data-zk-target="zk13">元日に戻る</a><a href="#zk14" data-zk-target="zk14">払う人</a><a href="#zk15" data-zk-target="zk15">減らす場所</a><a href="#zk16" data-zk-target="zk16">3つの特例</a><a href="#zk17" data-zk-target="zk17">銀行と機構</a></nav>
 
+<figure class="zk" id="zk13">
+<figcaption><span class="no">図13</span><b>売った年の、元日に戻る。</b><button class="zk-go" data-go="51">スライド51 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk13.jpg" target="_blank" rel="noopener" aria-label="図13を拡大"><img src="takken-zukai-0ee08412/zk13.jpg" alt="2021年7月1日取得、2026年8月1日売却。2026年1月1日時点では4年6か月なので短期。5年以下は短期、5年超は長期。" loading="lazy" width="1122" height="1402"></a>
+<p class="zk-note"><b>「譲渡した年の1月1日」</b>に戻って数える。5年ちょうどは短期。10年超の軽減税率も、所有期間の判定日は同じ。</p>
+<details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3208.htm" target="_blank" rel="noopener">国税庁：長期・短期</a> ／ <a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3305.htm" target="_blank" rel="noopener">軽減税率</a></details>
+</figure>
+
+<figure class="zk" id="zk14">
+<figcaption><span class="no">図14</span><b>同じ売買。払う人は別。</b><button class="zk-go" data-go="49">スライド49 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk14.jpg" target="_blank" rel="noopener" aria-label="図14を拡大"><img src="takken-zukai-0ee08412/zk14.jpg" alt="1月1日の所有者Aが年度分の固定資産税を市町村へ。7月1日の買主Bが不動産取得税を都道府県へ。" loading="lazy" width="1122" height="1402"></a>
+<p class="zk-note">固定資産税の元日は<b>「誰が持っているか」</b>。譲渡所得の元日は<b>「何年持っていたか」</b>。</p>
+<details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/koteishisan-toshikeikakuzei/koteishisan-toshikeikakuzei-shosai/kotei.html" target="_blank" rel="noopener">横浜市：固定資産税</a> ／ <a href="https://www.tax.metro.tokyo.lg.jp/shitsumon/real_estate/f" target="_blank" rel="noopener">東京都：不動産取得税</a></details>
+</figure>
+
+<figure class="zk" id="zk15">
+<figcaption><span class="no">図15</span><b>土地は入口。家は出口。</b><button class="zk-go" data-go="49">スライド49 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk15.jpg" target="_blank" rel="noopener" aria-label="図15を拡大"><img src="takken-zukai-0ee08412/zk15.jpg" alt="小規模住宅用地は1戸につき200平方メートルまで課税標準を6分の1。新築住宅は120平方メートル分まで税額を2分の1。" loading="lazy" width="1122" height="1402"></a>
+<p class="zk-note">住宅用地の200㎡を<b>超える部分は1/3</b>。新築住宅の減額は原則3年、3階建て以上の耐火・準耐火住宅は5年（通常の新築住宅特例）。</p>
+<details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/koteishisan-toshikeikakuzei/koteishisan-toshikeikakuzei-shosai/tochitokurei.html" target="_blank" rel="noopener">横浜市：住宅用地</a> ／ <a href="https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/koteishisan-toshikeikakuzei/koteishisan-toshikeikakuzei-shosai/kaoku-genmen/shinchikugengaku.html" target="_blank" rel="noopener">新築住宅</a></details>
+</figure>
+
+<figure class="zk" id="zk16">
+<figcaption><span class="no">図16</span><b>控除と軽減は一緒。買換えは別。</b><button class="zk-go" data-go="51">スライド51 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk16.jpg" target="_blank" rel="noopener" aria-label="図16を拡大"><img src="takken-zukai-0ee08412/zk16.jpg" alt="3000万円控除は所得から引く。10年超の軽減税率は率を下げ、控除と併用できる。買換えは課税を先送りし、両者と併用できない。" loading="lazy" width="1122" height="1402"></a>
+<p class="zk-note">控除は<b>最高3,000万円</b>。軽減税率の10年超は<b>家屋・敷地の両方</b>。買換えには「所有10年超＋居住10年以上」など別の要件がある。</p>
+<details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3302.htm" target="_blank" rel="noopener">国税庁：3,000万円控除</a> ／ <a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3305.htm" target="_blank" rel="noopener">軽減税率</a> ／ <a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3355.htm" target="_blank" rel="noopener">買換え</a></details>
+</figure>
+
+<figure class="zk" id="zk17">
+<figcaption><span class="no">図17</span><b>貸すのは銀行。機構は買う。</b><button class="zk-go" data-go="54">スライド54 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk17.jpg" target="_blank" rel="noopener" aria-label="図17を拡大"><img src="takken-zukai-0ee08412/zk17.jpg" alt="フラット35買取型。銀行が利用者へ融資。銀行から機構へローン債権、機構から銀行へ買取代金が移る。" loading="lazy" width="1122" height="1402"></a>
+<p class="zk-note">機構が買うのは<b>家ではなく、返してもらう権利</b>。直接融資は災害復興・住宅の防災、一定の賃貸住宅など、別枠の業務。</p>
+<details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.jhf.go.jp/about/financial/join/outline_kaitori.html" target="_blank" rel="noopener">住宅金融支援機構：買取型</a> ／ <a href="https://www.jhf.go.jp/files/a/public/jhf/400345445.pdf" target="_blank" rel="noopener">融資業務</a></details>
+</figure>
+
+<h2 class="zk-heading" id="zk-law">法令上の制限</h2>
 <figure class="zk" id="zk1">
 <figcaption><span class="no">図1</span><b>国土の5分割地図</b><button class="zk-go" data-go="20">スライド20 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk1.jpg" alt="国土の5分割地図" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk1.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk1.jpg" alt="国土の5分割地図" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">区域区分（線引き）は原則「できる」、三大都市圏等では必須。用途地域は13種（住居8・商業2・工業3）。<b>線引きは区域単位</b>で行い、線引きした都計区域の中は市街化＋調整で全部埋まる（「いずれにも属さない土地が残る」→×の定番ひっかけ）。線引きしない都計区域が、まるごと非線引き区域。</p>
 </figure>
 
 <figure class="zk" id="zk2">
 <figcaption><span class="no">図2</span><b>面積の対比 ― 開発許可 vs 国土法</b><button class="zk-go" data-go="24">スライド24 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk2.jpg" alt="開発許可と国土法の面積の対比" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk2.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk2.jpg" alt="開発許可と国土法の面積の対比" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note"><b>準都計だけ行き先が違う</b>（開発許可では非線引きと同じ3,000／国土法では区域外と同じ1万）。迷ったら「開発許可のほうが数字が細かい」。国土法の事後届出は<b>買主だけ</b>・契約日から<b>2週間</b>以内。</p>
 </figure>
 
 <figure class="zk" id="zk3">
 <figcaption><span class="no">図3</span><b>高さのルール ― 3本の斜線と日影</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk3.jpg" alt="斜線制限と日影の断面" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk3.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk3.jpg" alt="斜線制限と日影の断面" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">日影は対象区域外でも、高さ10m超で対象区域内に影が入れば対象（スライド23）。</p>
 </figure>
 
 <figure class="zk" id="zk4">
 <figcaption><span class="no">図4</span><b>2項道路のセットバック</b><button class="zk-go" data-go="25">スライド25 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk4.jpg" alt="2項道路のセットバック" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk4.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk4.jpg" alt="2項道路のセットバック" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">6m指定区域は中心から3m。接道は2m以上（「4m接する」は×、接するのは2m）。</p>
 </figure>
 
 <figure class="zk" id="zk5">
 <figcaption><span class="no">図5</span><b>建蔽率と容積率 ― 上から見るか、積むか</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk5.jpg" alt="建蔽率と容積率の違い" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk5.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk5.jpg" alt="建蔽率と容積率の違い" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">容積率の計算では EV昇降路・共同住宅等の廊下/階段は不算入（スライド23）。</p>
 </figure>
 
 <figure class="zk" id="zk6">
 <figcaption><span class="no">図6</span><b>農地法 ― 人が変われば3条、潰せば4・5条</b><button class="zk-go" data-go="30">スライド30 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk6.jpg" alt="農地法3条4条5条" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk6.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk6.jpg" alt="農地法3条4条5条" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">ひっかけの9割は「許可⇄届出」「農業委員会⇄知事」の入れ替え（スライド25）。</p>
 </figure>
 
 <figure class="zk" id="zk7">
 <figcaption><span class="no">図7</span><b>区画整理 ― 使うのは仮換地、売るのは従前地</b><button class="zk-go" data-go="32">スライド32 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk7.jpg" alt="仮換地と換地処分" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk7.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk7.jpg" alt="仮換地と換地処分" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">代替機（仮換地）は使えるが売れない。売れるのは修理に出した自分の携帯（従前地）。</p>
 </figure>
 
 <figure class="zk" id="zk8">
 <figcaption><span class="no">図8</span><b>盛土規制法 ― 盛1・切2・切盛2・盛2・500</b><button class="zk-go" data-go="33">スライド33 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk8.jpg" alt="盛土規制の数値" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk8.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk8.jpg" alt="盛土規制の数値" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">語呂は「盛1・切2・切盛2・盛2、そして500」。土石の堆積も対象（スライド27）。</p>
 </figure>
 
 <figure class="zk" id="zk9">
 <figcaption><span class="no">図9</span><b>建蔽率 ― ボーナスと無制限</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk9.jpg" alt="建蔽率の緩和と無制限" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk9.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk9.jpg" alt="建蔽率の緩和と無制限" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">緩和は「<b>足し算</b>」(角地＋1/10、防火×耐火＋1/10、重複可)。無制限になるのは<b>8割・防火・耐火</b>の3点セットだけ。「2/10緩和」と「適用除外」のすり替えが定番の×。</p>
 </figure>
 
 <figure class="zk" id="zk10">
 <figcaption><span class="no">図10</span><b>容積率 ― 前面道路に縛られる</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk10.jpg" alt="容積率と前面道路" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk10.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk10.jpg" alt="容積率と前面道路" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">前面道路が<b>12m未満</b>のときだけ「道幅×<b>4/10</b>（住居系）・<b>6/10</b>（その他）」と指定容積率の<b>小さい方</b>。狭い道に高い建物が並ぶと、火事のとき逃げられない ― それが縛りの理由。</p>
 </figure>
 
 <figure class="zk" id="zk11">
 <figcaption><span class="no">図11</span><b>敷地のまたぎ ― 3つのルールは全部違う</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk11.jpg" alt="敷地が2地域にまたがる場合の3ルール" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk11.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk11.jpg" alt="敷地が2地域にまたがる場合の3ルール" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">またぎは3連発で出る。<b>用途＝過半</b>・<b>建蔽/容積＝加重平均</b>・<b>防火＝厳しい方</b>。「建蔽率も過半の地域による」「防火も加重平均」が定番の×。</p>
 </figure>
 
 <figure class="zk" id="zk12">
 <figcaption><span class="no">図12</span><b>建築確認 ― 着工から入居までの一本道</b><button class="zk-go" data-go="27">スライド27 →</button></figcaption>
-<img src="takken-zukai-0ee08412/zk12.jpg" alt="建築確認から入居までの流れ" loading="lazy" width="1536" height="1024">
+<a href="takken-zukai-0ee08412/zk12.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk12.jpg" alt="建築確認から入居までの流れ" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">改正の目玉。省略が残るのは<b>平屋かつ200㎡以下</b>だけ ―「木造3階・500㎡」は旧ルールのウソ肢。「いかなる場合も使用できない」も×（例外2つ）。</p>
 </figure>
 </section>
@@ -1745,8 +1790,12 @@ $$('.wrap').forEach(w=>io.observe(w));
 /* ---- タブ ---- */
 const scrollPos={s:0,q:0,z:0};
 function tab(t){const was=document.body.classList.contains('q')?'q':document.body.classList.contains('z')?'z':'s';scrollPos[was]=window.scrollY;document.body.classList.toggle('q',t==='q');document.body.classList.toggle('z',t==='z');$('#tab-s').classList.toggle('on',t==='s');$('#tab-q').classList.toggle('on',t==='q');$('#tab-z').classList.toggle('on',t==='z');
- if(t==='q'){$('#ttl').innerHTML='問題集<small>'+QS.length+'問</small>';renderProg();}else if(t==='z'){$('#ttl').innerHTML='図解<small>法令上の制限 12点</small>';}else setCur(cur);window.scrollTo(0,scrollPos[t]||0);}
-$('#tab-s').onclick=()=>tab('s');$('#tab-q').onclick=()=>tab('q');$('#tab-z').onclick=()=>tab('z');
+ if(t==='q'){$('#ttl').innerHTML='問題集<small>'+QS.length+'問</small>';renderProg();}else if(t==='z'){$('#ttl').innerHTML='図解<small>税・その他 5枚 ／ 法令 12枚</small>';history.replaceState(null,'','#zukai');}else setCur(cur);window.scrollTo(0,scrollPos[t]||0);}
+function openDiagram(id){const target=document.getElementById(id);if(!target)return;tab('z');requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});history.replaceState(null,'','#'+id);});}
+const slideDiagrams={48:['zk14','図解：誰が・いつ払う？'],49:['zk14','図解：誰が払う？／土地と家の軽減'],50:['zk14','図解：取得税と固定資産税'],51:['zk13','図解：売った年の元日へ戻る／3つの特例'],54:['zk17','図解：銀行と機構の役割']};
+Object.entries(slideDiagrams).forEach(([n,[id,label]])=>{const w=$('#w'+n);if(w)w.insertAdjacentHTML('afterend',`<a class="zk-inline" data-zk-target="${id}" href="#${id}">${label} →</a>`);});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-zk-target]');if(a){e.preventDefault();openDiagram(a.dataset.zkTarget);}});
+$('#tab-s').onclick=()=>tab('s');$('#tab-q').onclick=()=>tab('q');$('#tab-z').onclick=()=>openDiagram(cur>=47?'zk-tax':'zk-law');
 document.addEventListener('click',e=>{const b=e.target.closest('.zk-go');if(!b)return;tab('s');go(+b.dataset.go);});
 /* ---- 問題集: データ ---- */
 const stats=LS('tk-stats')||{};
@@ -1797,7 +1846,7 @@ function render(){const c=$('#q-card');$('#q-prog-list').innerHTML='';$('#q-prog
     $('#qbar-row').onclick=()=>{$('#q-rv').classList.add('on');$('#q-jd').textContent='答え';bar('<button class="s" data-r="ok">できた ○</button><button class="s" data-r="ng">できなかった ×</button>');
       $('#qbar-row').onclick=e=>{const b=e.target.closest('button');if(!b)return;mark(q,b.dataset.r);next();};};}}
 /* ---- 初期表示 / ディープリンク ---- */
-(function(){const h=location.hash;if(h==='#toc')toc(true);else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){setTimeout(()=>go(+h.slice(2)),50);}else{const p=+localStorage.getItem('tk-pos');if(p>1)setTimeout(()=>go(p),50);else setCur(1);}})();
+(function(){const h=location.hash;if(h==='#toc')toc(true);else if(/^#zk(?:\d+|-tax|-law)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){setTimeout(()=>go(+h.slice(2)),50);}else{const p=+localStorage.getItem('tk-pos');if(p>1)setTimeout(()=>go(p),50);else setCur(1);}})();
 </script>
 </body>
 </html>
