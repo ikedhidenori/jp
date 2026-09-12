@@ -389,8 +389,21 @@ b,strong{font-weight:700}
 .pm-range-rate small{font-size:13px;margin-left:1px}
 .pm-range-numbers{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;font-size:12px;margin:7px 0}
 .pm-range-numbers>span:last-child{color:var(--amute)}
-.pm-range-goal{margin:8px 0!important;padding:7px 9px;border-left:3px solid var(--afg);font-size:12px;line-height:1.45;background:var(--asurface)}
-.pm-range-goal--met{background:#f5cc1a;color:#1f1e1c;border-color:#1f1e1c}
+.pm-range-goal{display:flex;align-items:center;gap:10px;margin:10px 0!important;padding:11px 12px;border:1px solid var(--aline);border-left-width:4px;border-radius:8px;font-size:12px;line-height:1.5;background:var(--asurface)}
+.pm-goal-icon{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:50%;font-size:21px;font-weight:800;line-height:1}
+.pm-goal-title{display:block;font-size:15px;line-height:1.4;letter-spacing:.03em}
+.pm-goal-detail{display:block;margin-top:3px;overflow-wrap:anywhere}
+.pm-range-goal--pending .pm-goal-icon{color:var(--amute)}
+.pm-range-goal--met{background:#f5cc1a;color:#1f1e1c;border-color:#f5cc1a;box-shadow:0 2px 0 #a78808}
+.pm-range-goal--met .pm-goal-icon{background:#1f1e1c;color:#ffe873}
+.pm-range-row[data-pm-goal="met"] .pm-range-rate{color:#f5cc1a}
+.pm-range-goal--not-met{background:#481f1b;color:#ffb3a4;border-color:#ff6a55}
+.pm-range-goal--not-met .pm-goal-icon{background:#ff6a55;color:#29110c}
+.pm-range-row[data-pm-goal="not-met"] .pm-range-rate{color:#ff8c7c}
+html.light .pm-range-row[data-pm-goal="met"] .pm-range-rate{color:#755d00}
+html.light .pm-range-goal--not-met{background:#fff0ec;color:#a21b10;border-color:#c12b1b}
+html.light .pm-range-goal--not-met .pm-goal-icon{background:#c12b1b;color:#fff0ec}
+html.light .pm-range-row[data-pm-goal="not-met"] .pm-range-rate{color:#b52617}
 .pm-phase{margin:0 0 10px;padding:9px 10px;border-left:4px solid #f5cc1a;background:var(--asurface);font-size:13px;line-height:1.45}.pm-phase b,.pm-phase span{display:block}.pm-phase span{font-size:12px;margin-top:2px;color:var(--amute)}
 .pm-range-bar{display:flex;height:12px;border:1px solid var(--aline);border-radius:3px;overflow:hidden;background:var(--abg)}
 .pm-range-bar i{display:block;height:100%;flex-shrink:0}
@@ -1963,12 +1976,13 @@ body:not(.k) #kami-replay{display:none}
       ms.forEach(function(r){if(!r.correct)mistakes[qkey(r)]={record:r,main:true,items:[]};});
       ss.forEach(function(x){if(x.sub.correct)return;var k=qkey(x.record);if(!mistakes[k])mistakes[k]={record:x.record,main:false,items:[]};mistakes[k].items.push(x.sub.item);});
       var review=Object.keys(mistakes).map(function(k){return mistakes[k];}).sort(function(a,b){return a.record.questionNo-b.record.questionNo;}).map(function(x){var r=x.record,link=(catalog.questionLinks||{})[qkey(r)]||s, reasons=(x.main?['本問']:[]).concat(x.items.length?['小問 '+x.items.join('・')]:[]), target=link.diagram?'data-pm-range-diagram="'+esc(link.diagram)+'"':'data-pm-range-slide="'+esc(link.slide||'')+'"';return '<li><span><b>問'+r.questionNo+'</b>　'+esc(reasons.join('／'))+'</span><button type="button" class="pm-link" '+target+' aria-label="第'+r.volume+'分冊 問'+r.questionNo+'の'+(link.diagram?'図解':'スライド')+'で確認">'+(link.diagram?'図解':'スライド')+'で確認</button>'+(x.main?replayLink(r,null):'')+x.items.map(function(item){return replayLink(r,item);}).join('')+'</li>';}).join('');
-      var barLabel='本問 全'+total+'問中、正解'+good+'問、誤答'+bad+'問、未記録'+(total-ms.length)+'問', target=Number(catalog.accuracyTarget), goalText, goalClass;
+      var barLabel='本問 全'+total+'問中、正解'+good+'問、誤答'+bad+'問、未記録'+(total-ms.length)+'問', target=Number(catalog.accuracyTarget), goalTitle, goalText, goalState, goalIcon;
       if(!(target>0&&target<=1))target=0.9;
-      if(ms.length<total){goalText='全問測定待ち（記録 '+ms.length+'/'+total+'）';goalClass='pm-range-goal--pending';}
-      else if(good/total>=target){goalText='本問目標達成（全問測定済み）';goalClass='pm-range-goal--met';}
-      else{goalText='本問目標未達（全問測定済み）';goalClass='pm-range-goal--not-met';}
-      return '<li class="pm-range-row" data-pm-range="'+esc(s.id)+'"><div class="pm-range-heading"><div><h3>'+esc(s.label)+'</h3><span class="pm-muted">第'+s.volume+'分冊　問'+s.start+'〜'+s.end+'</span></div><strong class="pm-range-rate" aria-label="本問正答率 '+(ms.length?Math.round(good/ms.length*100)+'パーセント':'未記録')+'">'+(ms.length?Math.round(good/ms.length*100)+'<small>%</small>':'—')+'</strong></div><div class="pm-range-numbers"><span>本問 正答 <b>'+good+'/'+ms.length+'</b></span><span>'+(ms.length?'記録 '+ms.length+'/'+total+'（'+Math.round(ms.length/total*100)+'%）':'未記録 0/'+total)+'</span></div><p class="pm-range-goal '+goalClass+'"><b>目標 本問正答率'+Math.round(target*100)+'%</b>　'+goalText+'</p><div class="pm-range-bar" role="img" aria-label="'+barLabel+'"><i class="pm-range-correct" style="width:'+good/total*100+'%"></i><i class="pm-range-wrong" style="width:'+bad/total*100+'%"></i></div><p class="pm-range-sub">小問 '+(ss.length?'正答 <b>'+subGood+'/'+ss.length+'</b>（'+Math.round(subGood/ss.length*100)+'%）':'未記録 <span class="pm-muted">—</span>')+'</p>'+(review?'<details class="pm-range-review"><summary>誤答を確認 <span>'+[bad?'本問 '+bad+'問':'',subBad?'小問 '+subBad+'問':''].filter(Boolean).join('・')+'</span></summary><ul>'+review+'</ul></details>':'')+'</li>';
+      var targetLabel='本問正答率'+Math.round(target*100)+'%';
+      if(ms.length<total){goalTitle=ms.length?'測定中':'未測定';goalText='目標 '+targetLabel+' · 残り'+(total-ms.length)+'問を記録';goalState='pending';goalIcon='…';}
+      else if(good/total>=target){goalTitle='目標達成！';goalText=targetLabel+'をクリア · 全問測定済み';goalState='met';goalIcon='★';}
+      else{goalTitle='目標未達';goalText='目標 '+targetLabel+'まで、あと'+(Math.ceil(target*total)-good)+'問を正解に';goalState='not-met';goalIcon='!';}
+      return '<li class="pm-range-row" data-pm-range="'+esc(s.id)+'" data-pm-goal="'+goalState+'"><div class="pm-range-heading"><div><h3>'+esc(s.label)+'</h3><span class="pm-muted">第'+s.volume+'分冊　問'+s.start+'〜'+s.end+'</span></div><strong class="pm-range-rate" aria-label="本問正答率 '+(ms.length?Math.round(good/ms.length*100)+'パーセント':'未記録')+'">'+(ms.length?Math.round(good/ms.length*100)+'<small>%</small>':'—')+'</strong></div><div class="pm-range-numbers"><span>本問 正答 <b>'+good+'/'+ms.length+'</b></span><span>'+(ms.length?'記録 '+ms.length+'/'+total+'（'+Math.round(ms.length/total*100)+'%）':'未記録 0/'+total)+'</span></div><p class="pm-range-goal pm-range-goal--'+goalState+'"><span class="pm-goal-icon" aria-hidden="true">'+goalIcon+'</span><span><b class="pm-goal-title">'+goalTitle+'</b><span class="pm-goal-detail">'+goalText+'</span></span></p><div class="pm-range-bar" role="img" aria-label="'+barLabel+'"><i class="pm-range-correct" style="width:'+good/total*100+'%"></i><i class="pm-range-wrong" style="width:'+bad/total*100+'%"></i></div><p class="pm-range-sub">小問 '+(ss.length?'正答 <b>'+subGood+'/'+ss.length+'</b>（'+Math.round(subGood/ss.length*100)+'%）':'未記録 <span class="pm-muted">—</span>')+'</p>'+(review?'<details class="pm-range-review"><summary>誤答を確認 <span>'+[bad?'本問 '+bad+'問':'',subBad?'小問 '+subBad+'問':''].filter(Boolean).join('・')+'</span></summary><ul>'+review+'</ul></details>':'')+'</li>';
     }).filter(Boolean);
     panel.querySelector('#pm-range-results').innerHTML='<p class="pm-range-context">'+(rangeView.mode==='first'?'各問の初回':'各問の最新')+'の採点結果'+(rangeView.errorsOnly?' · 誤答のある '+rows.length+'範囲':'')+'</p>'+(rows.length?'<ul class="pm-range-list">'+rows.join('')+'</ul>':'<p class="pm-empty">誤答の記録はありません。未記録の範囲は「誤答ありだけ」を解除すると表示されます。</p>')+'<p class="pm-muted pm-range-footnote">本問と小問は別集計。未申告の小問は除外し、採点済みの記録で比較します。</p>';
   }
