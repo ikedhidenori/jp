@@ -71,6 +71,10 @@ body.z #slides,body.z #ft{display:none}body.z #zukai{display:block}
 .zk img{width:100%;height:auto;display:block;border:1px solid var(--aline);border-radius:10px}
 .zk-note{font-size:13px;color:var(--amute);line-height:1.7;margin:10px 2px 0}
 .zk-note b{color:var(--afg)}
+.zk-check{margin-top:16px;padding:14px;border:1px solid var(--aline);border-radius:10px;font-size:14px;line-height:1.7}
+.zk-check p{margin:0 0 10px}.zk-check button{min-width:64px;min-height:44px;border:1px solid var(--aline);border-radius:8px;margin-right:10px;font-size:18px}
+.zk-check button[aria-pressed="true"]{background:#f5cc1a;color:#151515;border-color:#151515}
+.zk-check .zk-feedback{margin:12px 0 0;font-size:13px}.zk-mini{display:block;max-width:380px;width:100%;height:auto;margin:14px auto;background:#f4f0e6;border-radius:8px}
 .zk svg text{font-family:inherit;fill:var(--afg);font-size:22px}
 .zk .zt-h{font-size:24px;font-weight:700}
 .zk .zt-hd{font-size:20px;font-weight:700}
@@ -1622,7 +1626,61 @@ b,strong{font-weight:700}
 </main>
 
 <section id="zukai"><div class="zk-intro">1枚につき、覚える軸は1つ。画像をタップすると拡大できます。</div>
-<nav class="zk-jumps" aria-label="図解の分野"><a href="#zk-rights" data-zk-target="zk-rights">権利関係 3枚</a><a href="#zk-tax" data-zk-target="zk-tax">税・その他 5枚</a><a href="#zk-law" data-zk-target="zk-law">法令上の制限 12枚</a></nav>
+<nav class="zk-jumps" aria-label="図解の分野"><a href="#zk-focus" data-zk-target="zk-focus">重点 5枚</a><a href="#zk-rights" data-zk-target="zk-rights">権利関係 3枚</a><a href="#zk-tax" data-zk-target="zk-tax">税・その他 5枚</a><a href="#zk-law" data-zk-target="zk-law">法令上の制限 12枚</a></nav>
+
+<h2 class="zk-heading" id="zk-focus">重点：土地・建物の混同をほどく</h2>
+<nav class="zk-jumps" aria-label="重点図解"><a href="#zk21" data-zk-target="zk21">軸組と壁</a><a href="#zk22" data-zk-target="zk22">S・RC・SRC</a><a href="#zk23" data-zk-target="zk23">支え方</a><a href="#zk24" data-zk-target="zk24">確認・計算・固定</a><a href="#zk25" data-zk-target="zk25">地盤と災害</a></nav>
+
+<figure class="zk" id="zk21">
+<figcaption><span class="no">図21</span><b>軸組にも、耐力壁。</b><button class="zk-go" data-go="56">スライド56 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk21.jpg?v=1" target="_blank" rel="noopener" aria-label="図21を拡大"><img src="takken-zukai-0ee08412/zk21.jpg?v=1" alt="在来軸組は柱・梁に加え、筋かいや構造用合板の耐力壁で横からの力に抵抗する。枠組壁は壁・床・屋根で箱をつくる。真壁は柱が見える、大壁は柱が隠れるという仕上げの区別。耐力壁があるだけで壁式構造とは決まらない。" loading="lazy" width="1086" height="1448"></a>
+<p class="zk-note"><b>軸組・枠組壁＝構造の組み方。真壁・大壁＝壁の仕上げ方。</b> 在来軸組にも耐力壁があり、大壁仕上げにもできる。</p>
+<div class="zk-check" data-correct="false" data-explanation="耐力壁は在来軸組にも使う。柱・梁の骨組と、横力に抵抗する壁は併用できる。"><p><b>１問確認</b>　耐力壁がある建物は、すべて壁式構造である。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図21の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図21の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
+<details class="zk-sources"><summary>根拠・補足</summary><p>図は部材の組み方が見えるように離して描いた概念図。一般的な在来軸組では、柱・梁が主に鉛直荷重を、耐力壁が地震・風の水平力を負担する。床・屋根や接合部も含めて力を伝える。筋かいを入れた壁も、所定の構造用面材を張った壁も耐力壁になり得る。仕上げの壁すべてが耐力壁なのではない。</p><p>真壁で見えるのは主に柱。間柱は壁の下地などを支える部材で、その有無が真壁・大壁を分けるのではない。「耐力壁」の字は体力ではなく耐力。壁式構造は構造形式の総称で、木造の枠組壁工法と同義ではない。壁式RCなどもある。</p><a href="https://www.mokujukyo.or.jp/initiative/ml_scale/" target="_blank" rel="noopener">日本木造住宅産業協会：耐力壁（真壁・大壁の仕様）</a> ／ <a href="https://www.2x4assoc.or.jp/build/trait/" target="_blank" rel="noopener">日本ツーバイフォー建築協会：構造の特徴</a></details>
+</figure>
+
+<figure class="zk" id="zk22">
+<figcaption><span class="no">図22</span><b>S・RC・SRCは、中身で覚える。</b><button class="zk-go" data-go="56">スライド56 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk22.jpg?v=1" target="_blank" rel="noopener" aria-label="図22を拡大"><img src="takken-zukai-0ee08412/zk22.jpg?v=1" alt="Sは鉄骨、RCは鉄筋とコンクリート、SRCは鉄骨と鉄筋とコンクリート。鉄自体の密度は大きいが、少ない材料で支える鉄骨造は建物を軽くしやすい。RCはコンクリートの圧縮と鉄筋の引張を組み合わせ、SRCは鉄骨も組み合わせて強度と靭性を高める。" loading="lazy" width="1086" height="1448"></a>
+<p class="zk-note"><b>「鉄は重い」と「鉄骨造は比較的軽い」は両立する。</b> 材料の密度と、建物全体で使う量を分ける。</p>
+<div class="zk-check" data-correct="true" data-explanation="同程度の用途・規模なら、鉄骨は少ない断面で力を負担でき、RC造より建物の自重を小さくしやすい。"><p><b>１問確認</b>　鉄の密度が大きくても、鉄骨造の建物はRC造より軽くしやすい。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図22の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図22の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
+<details class="zk-sources"><summary>根拠・補足</summary><p>S＝Steel、RC＝Reinforced Concrete、SRC＝Steel Reinforced Concrete。SRCは鉄骨とRCを組み合わせ、強度・靭性を高める構造。安い材料で置き換えるだけの構造ではない。強度は耐えられる力、剛性は変形しにくさ、靭性は変形しても急に壊れず粘れる性質。</p><p>鋼材そのものは圧縮にも強い。ただし細長い部材は圧縮で横に曲がる「座屈」が問題となる。「鉄筋は圧縮に弱い」とだけ覚えない。コンクリートは鉄筋を拘束し、かぶりが火熱・腐食から保護する。鉄筋はコンクリートの弱い引張を補う。鉄筋とコンクリートの熱膨張率が近いことも、一体で働くために都合がよい。</p><a href="https://www.jfe-steel.co.jp/products/building/technical/src.html" target="_blank" rel="noopener">JFEスチール：SRC構造</a> ／ <a href="https://www.jci-net.or.jp/j/concrete/kiso/RC.html" target="_blank" rel="noopener">日本コンクリート工学会：RCの基礎</a> ／ <a href="https://www.jisf.or.jp/business/lca/secret/index.html" target="_blank" rel="noopener">日本鉄鋼連盟：鉄の特徴</a></details>
+</figure>
+
+<figure class="zk" id="zk23">
+<figcaption><span class="no">図23</span><b>材料と、支え方は別。</b><button class="zk-go" data-go="56">スライド56 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk23.jpg?v=1" target="_blank" rel="noopener" aria-label="図23を拡大"><img src="takken-zukai-0ee08412/zk23.jpg?v=1" alt="鉄骨でも複数の構造形式を使える。ラーメンは柱梁の接合部を固め、ブレースは斜材で変形を抑え、トラスは三角形の部材を組み、アーチは曲線で力を支点に流す。ラーメンとブレースは併用できる。" loading="lazy" width="1086" height="1448"></a>
+<p class="zk-note"><b>S・RC・木造＝何でつくるか。ラーメン・トラス等＝どう支えるか。</b> 同じ材料で、複数の支え方を使える。</p>
+<div class="zk-check" data-correct="true" data-explanation="柱・梁のラーメンに、必要な位置のブレースを組み合わせられる。構造形式を一つだけ選ぶとは限らない。"><p><b>１問確認</b>　ラーメン構造とブレース構造は、同じ建物で併用できる。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図23の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図23の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
+<details class="zk-sources"><summary>力の流れをもう一歩</summary><p>ラーメンは剛接合した柱・梁の曲げなどで水平力に抵抗する。ブレースは斜材の引張・圧縮などを利用して変形を抑える。トラスは三角形に組んだ部材に、主に軸方向の引張・圧縮を負担させる。アーチは曲線に沿って主に圧縮で荷重を支え、脚部が外へ開こうとする力を基礎や引張材などで受ける。図の矢印は各形式の代表的な力のイメージで、同じ荷重条件の比較ではない。</p><p>RC造にもラーメン構造と壁式構造などがあり、鉄骨造もトラスだけではない。外観に三角形や曲線があるだけで、その構造形式だと決めることはできない。</p><a href="https://tetsutohagane.net/articles/search/files/71/9/KJ00002714617.pdf" target="_blank" rel="noopener">日本鉄鋼協会：鉄骨建築構造の資料</a></details>
+</figure>
+
+<figure class="zk" id="zk24">
+<figcaption><span class="no">図24</span><b>何が「必要」なのか？</b><button class="zk-go" data-go="27">スライド27 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk24.jpg?v=1" target="_blank" rel="noopener" aria-label="図24を拡大"><img src="takken-zukai-0ee08412/zk24.jpg?v=1" alt="2026年の木造。新築の建築確認は2階以上又は延べ200平方メートル超なら全国で必要。構造計算は地上3階以上、延べ300平方メートル超、高さ16メートル超のいずれかなら必要。土台は原則基礎に緊結するが、延べ10平方メートル以内の物置・納屋などは例外。" loading="lazy" width="1086" height="1448"></a>
+<p class="zk-note"><b>確認＝建築前の手続。計算＝構造安全性の検証。緊結＝部材を固定する仕様。</b> ２階建てだから、３つとも例外なく必要とはならない。</p>
+<div class="zk-check" data-correct="false" data-explanation="この規模でも新築の建築確認は必要だが、２階建てという理由だけで構造計算まで必須にはならない。構造計算の要否は階数・面積・高さなどを別に判定する。"><p><b>１問確認</b>　木造・地上２階・延べ100㎡・高さ8mの新築は、建築確認が必要なので構造計算も必須である。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図24の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図24の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
+<details class="zk-sources"><summary>条件・例外（2026年学習用）</summary><p>建築確認の図は木造の<strong>新築</strong>について。平屋・延べ200㎡以下でも、都市計画区域・準都市計画区域等では原則必要。防火・準防火地域外の10㎡以内の増築・改築・移転の例外を、新築や土台の緊結と混同しない。</p><p>構造計算は地上３階以上、延べ300㎡超、高さ16m超のいずれかで必要。300㎡以下でも階数・高さによって必要になる。構造計算を要求されない規模でも、壁量・接合部などの構造基準への適合は必要。木造の面積基準は2025年４月に500㎡超から300㎡超へ変更された。</p><p>土台の緊結：建築基準法施行令40条は、延べ10㎡<strong>以内</strong>の物置・納屋などを木造の同節の適用から除外。すべての10㎡以内の住宅が例外になるわけではない。令42条２項には、平家建て・延べ50㎡以内で所定の足固めを用いる場合の緊結の例外もある。確認申請が不要という意味ではない。</p><a href="https://www.shoenehou-online.mlit.go.jp/faq/standards/" target="_blank" rel="noopener">国土交通省：改正建築基準法Q&amp;A</a> ／ <a href="https://www.mlit.go.jp/common/001845916.pdf" target="_blank" rel="noopener">木造の構造計算の対象拡大</a> ／ <a href="https://laws.e-gov.go.jp/law/325CO0000000338" target="_blank" rel="noopener">建築基準法施行令40・42条</a></details>
+<details class="zk-sources"><summary>小図：コンクリート杭／ブロック造の布基礎・臥梁</summary>
+<svg class="zk-mini" viewBox="0 0 380 560" role="img" aria-labelledby="zk-base-title"><title id="zk-base-title">杭は基礎の下で建物を支える。補強コンクリートブロック造の壁は上下の臥梁と布基礎、内部の鉄筋で一体にする概念図。</title>
+<g font-family="sans-serif" fill="#181818" font-size="15"><text x="20" y="30" font-weight="bold">杭基礎：地中で建物を支える</text>
+<path d="M85 87V62H200V87" fill="none" stroke="#181818" stroke-width="8"/><rect x="70" y="88" width="150" height="30" fill="#aaa" stroke="#181818" stroke-width="2"/><text x="240" y="108">基礎</text><path d="M70 126H320" stroke="#181818" stroke-dasharray="5 3"/>
+<rect x="90" y="118" width="28" height="111" fill="#f5cc1a" stroke="#181818" stroke-width="2"/><rect x="178" y="118" width="28" height="111" fill="#f5cc1a" stroke="#181818" stroke-width="2"/><path d="M218 169H245" stroke="#181818"/><text x="249" y="175">杭</text><path d="M40 232H340" stroke="#181818" stroke-width="4"/><text x="40" y="255">支持層に荷重を伝える例</text><text x="40" y="277" font-size="14">※周面の摩擦で支える杭もある</text>
+<text x="20" y="300" font-weight="bold">補強コンクリートブロック造</text><text x="20" y="323">壁を上下・内部から一体にする</text>
+<rect x="40" y="359" width="194" height="25" fill="#f5cc1a" stroke="#181818" stroke-width="2"/><text x="248" y="378">臥梁（上）</text>
+<rect x="50" y="384" width="174" height="107" fill="#ddd" stroke="#181818" stroke-width="2"/><path d="M50 420H224M50 455H224M108 384V420M166 384V420M79 420V455M137 420V455M195 420V455M108 455V491M166 455V491" fill="none" stroke="#888"/>
+<path d="M81 370V510M193 370V510M60 405H214M60 444H214M60 481H214" stroke="#181818" stroke-width="3"/><path d="M40 491H234V514H246V534H28V514H40Z" fill="#f5cc1a" stroke="#181818" stroke-width="2"/><path d="M81 370V518H95M193 370V518H179" fill="none" stroke="#181818" stroke-width="3"/><text x="248" y="505">布基礎</text><text x="248" y="525">（下）</text><path d="M193 444H241" stroke="#181818"/><text x="248" y="449">内部に鉄筋</text></g></svg>
+<p>既製コンクリート杭は工場で製作したコンクリート製の杭で、鉄筋やPC鋼材などで補強する。現場で孔を掘り配筋・打設する場所打ちコンクリート杭もある。杭は木・鋼だけではない。杭が支持層へ荷重を伝える方式のほか、周面の摩擦を利用する方式もある。</p><p>下の図はブロック塀ではなく、<strong>補強コンクリートブロック造の建物の壁</strong>。上のRC臥梁（がりょう）と下のRC布基礎に、壁内の鉄筋等を合わせて一体化する。上下を固めるだけで全ての耐震条件を満たすという意味ではない。配筋は位置関係を示す概念図。</p>
+<a href="https://www.takemi-kikaku.jp/business/06.html" target="_blank" rel="noopener">既製コンクリート杭の製品・写真</a> ／ <a href="https://reference.chord.or.jp/sr/chishiki/kozo-8.html" target="_blank" rel="noopener">住宅リフォーム・紛争処理支援センター：補強コンクリートブロック造</a></details>
+</figure>
+
+<figure class="zk" id="zk25">
+<figcaption><span class="no">図25</span><b>地盤の強さと、災害リスクは別。</b><button class="zk-go" data-go="56">スライド56 →</button></figcaption>
+<a href="takken-zukai-0ee08412/zk25.jpg?v=1" target="_blank" rel="noopener" aria-label="図25を拡大"><img src="takken-zukai-0ee08412/zk25.jpg?v=1" alt="扇状地の砂礫層は支持力を得やすいが、谷の出口では土石流に注意。埋立地は土砂で地面を高くし、干拓地は水を排出して陸地にする。高さによる水害の比較と、液状化などの危険性は別に確認する。" loading="lazy" width="1086" height="1448"></a>
+<p class="zk-note"><b>建物を支えられるか・水につかるか・土砂が来るかを別々に見る。</b> 「埋立地は干拓地より水害を受けにくい」は、安全全般の保証ではない。</p>
+<div class="zk-check" data-correct="false" data-explanation="支持力を得やすい砂礫層でも、谷の出口では土石流などに注意。地下水位や地盤条件によって液状化も別に確認する。"><p><b>１問確認</b>　扇状地は砂礫層で支持力を得やすいので、土石流にも安全である。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図25の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図25の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
+<details class="zk-sources"><summary>根拠・旧河道との違い</summary><p>扇状地は山地から流れ出た土砂が堆積した地形。一般に砂礫が多いが、支持力は締まり具合や層の状態にも左右される。谷の出口・現在の流路付近では洪水や土石流に注意し、地下水位の高い場所等では液状化も検討する。</p><p>埋立地は水面より高く造成できる一方、干拓地は水を排出した低い土地となり、堤防や排水に依存する。比較しているのは主に高さによる水害の受けやすさ。埋立地にも液状化・沈下・高潮等の危険があり、造成・地盤改良などの条件で異なる。</p><p>「廃川敷ならOK」ではなく、教科書の条件は<strong>天井川の廃川敷</strong>。周囲より高く砂礫が堆積した土地という特徴を見る。一方、一般的な旧河道は周囲より低く、軟弱な堆積物や埋土・高い地下水位などに注意する。どちらも名前だけで個別の宅地の安全を確定できない。</p><a href="https://www.gsi.go.jp/bousaichiri/bousaichiri41051.html" target="_blank" rel="noopener">国土地理院：地形と災害の関係</a> ／ <a href="https://www.gsi.go.jp/common/000141652.pdf" target="_blank" rel="noopener">国土地理院：地形分類と液状化</a></details>
+</figure>
 
 <h2 class="zk-heading" id="zk-rights">権利関係</h2>
 <nav class="zk-jumps" aria-label="権利関係の図解"><a href="#zk18" data-zk-target="zk18">かわいそうメーター</a><a href="#zk19" data-zk-target="zk19">AとCの勝敗表</a><a href="#zk20" data-zk-target="zk20">取消しの前・後</a></nav>
@@ -1815,13 +1873,14 @@ $$('.wrap').forEach(w=>io.observe(w));
 /* ---- タブ ---- */
 const scrollPos={s:0,q:0,z:0};
 function tab(t){const was=document.body.classList.contains('q')?'q':document.body.classList.contains('z')?'z':'s';scrollPos[was]=window.scrollY;document.body.classList.toggle('q',t==='q');document.body.classList.toggle('z',t==='z');$('#tab-s').classList.toggle('on',t==='s');$('#tab-q').classList.toggle('on',t==='q');$('#tab-z').classList.toggle('on',t==='z');
- if(t==='q'){$('#ttl').innerHTML='問題集<small>'+QS.length+'問</small>';renderProg();}else if(t==='z'){$('#ttl').innerHTML='図解<small>権利 3枚 ／ 税 5枚 ／ 法令 12枚</small>';history.replaceState(null,'','#zukai');}else setCur(cur);window.scrollTo(0,scrollPos[t]||0);}
+ if(t==='q'){$('#ttl').innerHTML='問題集<small>'+QS.length+'問</small>';renderProg();}else if(t==='z'){$('#ttl').innerHTML='図解<small>重点 5枚 ＋ 分野別 20枚</small>';history.replaceState(null,'','#zukai');}else setCur(cur);window.scrollTo(0,scrollPos[t]||0);}
 function openDiagram(id){const target=document.getElementById(id);if(!target)return;tab('z');requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});history.replaceState(null,'','#'+id);});}
-const slideDiagrams={34:['zk18','図解：かわいそうメーター／AとCの勝敗表'],35:['zk19','図解：制限行為能力者とCの勝敗'],41:['zk20','図解：Cは取消しの前？後？'],48:['zk14','図解：誰が・いつ払う？'],49:['zk14','図解：誰が払う？／土地と家の軽減'],50:['zk14','図解：取得税と固定資産税'],51:['zk13','図解：売った年の元日へ戻る／3つの特例'],54:['zk17','図解：銀行と機構の役割']};
+const slideDiagrams={27:['zk24','図解：建築確認・構造計算・土台固定'],56:['zk-focus','重点図解：構造・材料・地盤を整理'],34:['zk18','図解：かわいそうメーター／AとCの勝敗表'],35:['zk19','図解：制限行為能力者とCの勝敗'],41:['zk20','図解：Cは取消しの前？後？'],48:['zk14','図解：誰が・いつ払う？'],49:['zk14','図解：誰が払う？／土地と家の軽減'],50:['zk14','図解：取得税と固定資産税'],51:['zk13','図解：売った年の元日へ戻る／3つの特例'],54:['zk17','図解：銀行と機構の役割']};
 Object.entries(slideDiagrams).forEach(([n,[id,label]])=>{const w=$('#w'+n);if(w)w.insertAdjacentHTML('afterend',`<a class="zk-inline" data-zk-target="${id}" href="#${id}">${label} →</a>`);});
 document.addEventListener('click',e=>{const a=e.target.closest('[data-zk-target]');if(a){e.preventDefault();openDiagram(a.dataset.zkTarget);}});
-$('#tab-s').onclick=()=>tab('s');$('#tab-q').onclick=()=>tab('q');$('#tab-z').onclick=()=>openDiagram(cur>=47?'zk-tax':cur>=34?'zk-rights':'zk-law');
+$('#tab-s').onclick=()=>tab('s');$('#tab-q').onclick=()=>tab('q');$('#tab-z').onclick=()=>openDiagram(cur===56?'zk-focus':cur>=47?'zk-tax':cur>=34?'zk-rights':'zk-law');
 document.addEventListener('click',e=>{const b=e.target.closest('.zk-go');if(!b)return;tab('s');go(+b.dataset.go);});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-zk-answer]');if(!b)return;const box=b.closest('.zk-check');box.querySelectorAll('[data-zk-answer]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const out=box.querySelector('.zk-feedback');out.hidden=false;out.textContent=(b.dataset.zkAnswer===box.dataset.correct?'正解。':'答えは'+(box.dataset.correct==='true'?'○':'×')+'。')+box.dataset.explanation;});
 /* ---- 問題集: データ ---- */
 const stats=LS('tk-stats')||{};
 const DAY=86400000, INTERVAL=[1,3,7,14,30];
@@ -1871,7 +1930,7 @@ function render(){const c=$('#q-card');$('#q-prog-list').innerHTML='';$('#q-prog
     $('#qbar-row').onclick=()=>{$('#q-rv').classList.add('on');$('#q-jd').textContent='答え';bar('<button class="s" data-r="ok">できた ○</button><button class="s" data-r="ng">できなかった ×</button>');
       $('#qbar-row').onclick=e=>{const b=e.target.closest('button');if(!b)return;mark(q,b.dataset.r);next();};};}}
 /* ---- 初期表示 / ディープリンク ---- */
-(function(){const h=location.hash;if(h==='#toc')toc(true);else if(/^#zk(?:\d+|-tax|-law|-rights)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){setTimeout(()=>go(+h.slice(2)),50);}else{const p=+localStorage.getItem('tk-pos');if(p>1)setTimeout(()=>go(p),50);else setCur(1);}})();
+(function(){const h=location.hash;if(h==='#toc')toc(true);else if(/^#zk(?:\d+|-tax|-law|-rights|-focus)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){setTimeout(()=>go(+h.slice(2)),50);}else{const p=+localStorage.getItem('tk-pos');if(p>1)setTimeout(()=>go(p),50);else setCur(1);}})();
 </script>
 </body>
 </html>
