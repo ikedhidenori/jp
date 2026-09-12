@@ -366,6 +366,42 @@ b,strong{font-weight:700}
 
 .pm-review-action{margin-top:10px;background:transparent}.pm-today .pm-action:first-of-type{border-left:4px solid #f5cc1a}.pm-list details{font-size:13px}.pm-head{border:0;padding-bottom:0;margin-bottom:14px}.pm-head h1{font-size:20px}
 
+/* A range bar uses the book's total; accuracy uses only graded questions. */
+#pm-ranges{scroll-margin-top:calc(var(--ahd,52px) + 12px)}
+.pm-range-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.pm-range-switch{display:flex;border:1px solid var(--aline);border-radius:7px;padding:3px;gap:3px}
+.pm-range-controls button{font:inherit;font-size:13px;color:var(--afg);background:transparent;min-height:44px;min-width:52px;padding:7px 10px;border:0;border-radius:4px;cursor:pointer}
+.pm-range-switch button[aria-pressed="true"]{background:#f5cc1a;color:#1f1e1c;font-weight:700}
+.pm-range-controls .pm-range-filter{border:1px solid var(--aline);min-height:44px;border-radius:7px}
+.pm-range-filter[aria-pressed="true"]{box-shadow:inset 0 0 0 1px var(--afg);font-weight:700;background:var(--asurface)}
+.pm-range-controls button:focus-visible,.pm-range-review summary:focus-visible,.pm-range-review button:focus-visible{outline:2px solid var(--afg);outline-offset:3px}
+.pm-range-legend{display:flex;flex-wrap:wrap;gap:15px;font-size:12px}
+.pm-range-legend span{display:inline-flex;align-items:center;gap:5px}
+.pm-range-legend i{display:inline-block;width:14px;height:10px;border:1px solid var(--aline)}
+.pm-range-correct{background:#f5cc1a}
+.pm-range-wrong{background:repeating-linear-gradient(135deg,var(--afg) 0,var(--afg) 2px,var(--abg) 2px,var(--abg) 6px)}
+.pm-range-unrecorded{background:var(--abg)}
+.pm-range-list{list-style:none;margin:0;padding:0}
+.pm-range-row{padding:16px 0;border-top:1px solid var(--aline)}
+.pm-range-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pm-range-heading h3{font-size:15px;line-height:1.5;margin:0}
+.pm-range-rate{font-size:24px;line-height:1.2;white-space:nowrap}
+.pm-range-rate small{font-size:13px;margin-left:1px}
+.pm-range-numbers{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;font-size:12px;margin:7px 0}
+.pm-range-numbers>span:last-child{color:var(--amute)}
+.pm-range-bar{display:flex;height:12px;border:1px solid var(--aline);border-radius:3px;overflow:hidden;background:var(--abg)}
+.pm-range-bar i{display:block;height:100%;flex-shrink:0}
+.pm-card .pm-range-sub{font-size:12px;margin:7px 0 0}
+.pm-range-review{font-size:12px;margin-top:7px}
+.pm-range-review summary{cursor:pointer;min-height:36px;padding:8px 0}
+.pm-range-review summary span{margin-left:6px;color:var(--amute)}
+.pm-range-review ul{list-style:none;padding:0 0 0 12px;margin:0;border-left:2px solid var(--aline)}
+.pm-range-review li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 10px;padding:2px 0}
+.pm-range-review .pm-link{min-height:44px;padding:8px 0;font-size:12px;cursor:pointer}
+.pm-card .pm-range-context{font-size:12px;color:var(--amute);margin:12px 0 8px}
+.pm-card .pm-range-footnote{padding-top:10px;border-top:1px solid var(--aline)}
+@media(max-width:360px){.pm-range-controls{gap:6px}.pm-range-controls button{padding:7px 8px}.pm-range-heading h3{font-size:14px}}
+
 body.pm #slides,body.pm #ft{display:none}
 body:not(.pm) #pm-dashboard{display:none}
 @media(max-width:440px){#hd .tabs button{padding:0 9px;font-size:12px}#hd .ttl{font-size:12px}#hd .ttl small{display:none}}
@@ -1859,7 +1895,7 @@ body:not(.pm) #pm-dashboard{display:none}
 /* global crypto */
 (function (global) {
   'use strict';
-  var KEY = 'tk-kami-pm-v1', VERSION = 1, catalog, root, content, status, storageBroken=false;
+  var KEY = 'tk-kami-pm-v1', VIEW_KEY='tk-kami-pm-view-v1', VERSION = 1, catalog, root, content, status, storageBroken=false, rangeView=loadRangeView();
   var esc = function (v) { return String(v == null ? '' : v).replace(/[&<>'"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]; }); };
   function tokyoDate(d) { return new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Tokyo', year:'numeric', month:'2-digit', day:'2-digit'}).format(d || new Date()); }
   function dayDiff(date) { var a = Date.parse(tokyoDate() + 'T00:00:00+09:00'), b = Date.parse(date + 'T00:00:00+09:00'); return Math.round((b - a) / 86400000); }
@@ -1886,18 +1922,41 @@ body:not(.pm) #pm-dashboard{display:none}
   function parseFragment() { var m = location.hash.match(/^#pm-import=([^&]*)/); if (!m) return; var encoded=m[1]; history.replaceState(null,'','#pm'); try { var b=encoded.replace(/-/g,'+').replace(/_/g,'/'); var padded=b+'==='.slice((b.length+3)%4); var bytes=Uint8Array.from(atob(padded),function(c){return c.charCodeAt(0);}); var text=new TextDecoder().decode(bytes); var res=merge(validateImport(JSON.parse(text))); message('取り込みました: '+res.added+'件'+(res.conflict?'。同じIDの相違 '+res.conflict+'件は保留です。':'')); } catch(e) { message('取り込みできませんでした: '+e.message, true); } }
   function message(text, warn) { if(status) { status.textContent=text; status.className='pm-status'+(warn?' pm-warn':''); } }
   function qkey(r) { return r.volume+':'+r.questionNo; }
-  function latest(records) { var out={}; records.forEach(function(r){ var k=qkey(r), old=out[k]; if(!old || r.date > old.date || (r.date===old.date && r.attemptNo>old.attemptNo)) out[k]=r; }); return out; }
+  function attemptOrder(a,b) { return a.date.localeCompare(b.date) || a.attemptNo-b.attemptNo || a.id.localeCompare(b.id); }
+  function chosenAttempts(records,mode) { var out={}; records.forEach(function(r){var k=qkey(r),old=out[k];if(!old || (mode==='first'?attemptOrder(r,old)<0:attemptOrder(r,old)>0))out[k]=r;});return out; }
+  function latest(records) { return chosenAttempts(records,'latest'); }
+  function chosenSubs(records,mode) { var out={};records.forEach(function(r){(r.sub||[]).forEach(function(s){if(s.correct===null)return;var k=qkey(r)+':'+s.item,old=out[k];if(!old || (mode==='first'?attemptOrder(r,old.record)<0:attemptOrder(r,old.record)>0))out[k]={record:r,sub:s};});});return out; }
+  function loadRangeView() { try {var x=JSON.parse(localStorage.getItem(VIEW_KEY)||'{}');return {mode:x&&x.mode==='first'?'first':'latest',errorsOnly:!!(x&&x.errorsOnly)};}catch(_){return {mode:'latest',errorsOnly:false};} }
+  function rangesCard() {
+    return '<section class="pm-card" id="pm-ranges"><h2>範囲別の進捗・正答</h2><div class="pm-range-controls"><div class="pm-range-switch" role="group" aria-label="正答率の集計時点"><button type="button" data-pm-range-mode="first">初回</button><button type="button" data-pm-range-mode="latest">最新</button></div><button type="button" class="pm-range-filter" data-pm-range-filter>誤答ありだけ</button></div><p class="pm-range-legend"><span><i class="pm-range-correct"></i>正解</span><span><i class="pm-range-wrong"></i>誤答</span><span><i class="pm-range-unrecorded"></i>未記録</span></p><p class="pm-muted">棒全体＝範囲の本問数。正答率＝正答数／採点済み数。</p><div id="pm-range-results" aria-live="polite"></div></section>';
+  }
+  function renderRanges(records) {
+    var panel=content.querySelector('#pm-ranges'), mainBy=chosenAttempts(records,rangeView.mode), subBy=chosenSubs(records,rangeView.mode), mains=Object.keys(mainBy).map(function(k){return mainBy[k];}), smalls=Object.keys(subBy).map(function(k){return subBy[k];});
+    panel.querySelectorAll('[data-pm-range-mode]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.pmRangeMode===rangeView.mode));});
+    panel.querySelector('[data-pm-range-filter]').setAttribute('aria-pressed',String(rangeView.errorsOnly));
+    var rows=(catalog.sections||[]).map(function(s){
+      function belongs(r){return r.volume===Number(s.volume)&&r.questionNo>=s.start&&r.questionNo<=s.end;}
+      var ms=mains.filter(belongs), ss=smalls.filter(function(x){return belongs(x.record);}), total=s.end-s.start+1, good=ms.filter(function(r){return r.correct;}).length, bad=ms.length-good, subGood=ss.filter(function(x){return x.sub.correct;}).length, subBad=ss.length-subGood;
+      if(rangeView.errorsOnly&&!bad&&!subBad)return '';
+      var mistakes={};
+      ms.forEach(function(r){if(!r.correct)mistakes[qkey(r)]={record:r,main:true,items:[]};});
+      ss.forEach(function(x){if(x.sub.correct)return;var k=qkey(x.record);if(!mistakes[k])mistakes[k]={record:x.record,main:false,items:[]};mistakes[k].items.push(x.sub.item);});
+      var review=Object.keys(mistakes).map(function(k){return mistakes[k];}).sort(function(a,b){return a.record.questionNo-b.record.questionNo;}).map(function(x){var r=x.record,link=(catalog.questionLinks||{})[qkey(r)]||s, reasons=(x.main?['本問']:[]).concat(x.items.length?['小問 '+x.items.join('・')]:[]), target=link.diagram?'data-pm-range-diagram="'+esc(link.diagram)+'"':'data-pm-range-slide="'+esc(link.slide||'')+'"';return '<li><span><b>問'+r.questionNo+'</b>　'+esc(reasons.join('／'))+'</span><button type="button" class="pm-link" '+target+' aria-label="第'+r.volume+'分冊 問'+r.questionNo+'の'+(link.diagram?'図解':'スライド')+'で確認">'+(link.diagram?'図解':'スライド')+'で確認</button></li>';}).join('');
+      var barLabel='本問 全'+total+'問中、正解'+good+'問、誤答'+bad+'問、未記録'+(total-ms.length)+'問';
+      return '<li class="pm-range-row" data-pm-range="'+esc(s.id)+'"><div class="pm-range-heading"><div><h3>'+esc(s.label)+'</h3><span class="pm-muted">第'+s.volume+'分冊　問'+s.start+'〜'+s.end+'</span></div><strong class="pm-range-rate" aria-label="本問正答率 '+(ms.length?Math.round(good/ms.length*100)+'パーセント':'未記録')+'">'+(ms.length?Math.round(good/ms.length*100)+'<small>%</small>':'—')+'</strong></div><div class="pm-range-numbers"><span>本問 正答 <b>'+good+'/'+ms.length+'</b></span><span>'+(ms.length?'記録 '+ms.length+'/'+total+'（'+Math.round(ms.length/total*100)+'%）':'未記録 0/'+total)+'</span></div><div class="pm-range-bar" role="img" aria-label="'+barLabel+'"><i class="pm-range-correct" style="width:'+good/total*100+'%"></i><i class="pm-range-wrong" style="width:'+bad/total*100+'%"></i></div><p class="pm-range-sub">小問 '+(ss.length?'正答 <b>'+subGood+'/'+ss.length+'</b>（'+Math.round(subGood/ss.length*100)+'%）':'未記録 <span class="pm-muted">—</span>')+'</p>'+(review?'<details class="pm-range-review"><summary>誤答を確認 <span>'+[bad?'本問 '+bad+'問':'',subBad?'小問 '+subBad+'問':''].filter(Boolean).join('・')+'</span></summary><ul>'+review+'</ul></details>':'')+'</li>';
+    }).filter(Boolean);
+    panel.querySelector('#pm-range-results').innerHTML='<p class="pm-range-context">'+(rangeView.mode==='first'?'各問の初回':'各問の最新')+'の採点結果'+(rangeView.errorsOnly?' · 誤答のある '+rows.length+'範囲':'')+'</p>'+(rows.length?'<ul class="pm-range-list">'+rows.join('')+'</ul>':'<p class="pm-empty">誤答の記録はありません。未記録の範囲は「誤答ありだけ」を解除すると表示されます。</p>')+'<p class="pm-muted pm-range-footnote">本問と小問は別集計。未申告の小問は除外し、採点済みの記録で比較します。</p>';
+  }
   function dateAdd(date, days) { var d=new Date(date+'T00:00:00+09:00'); d.setUTCDate(d.getUTCDate()+days); return tokyoDate(d); }
   function reviewDate(r) { return dateAdd(r.date, !r.correct || r.needsReview ? 1 : [1,3,7][Math.min(Math.max(r.attemptNo-1,0),2)]); }
   function when(date) { var d=dayDiff(date); return d===0?'今日':d===1?'明日':d<0?'期限超過':date; }
   function accuracy(rs) { if(!rs.length) return '—'; var n=rs.filter(function(r){return r.correct;}).length;return Math.round(n/rs.length*100)+'% <span class="pm-muted">('+n+'/'+rs.length+')</span>'; }
   function go(r) { if(r.diagram) document.dispatchEvent(new CustomEvent('takken-pm-open-diagram',{detail:{target:r.diagram}})); else document.dispatchEvent(new CustomEvent('takken-pm-open-slide',{detail:{slide:r.slide, questionNo:r.questionNo}})); }
-  function render() { if(!content || !catalog) return; var data=source(), records=data.records, latestBy=latest(records), latestRecords=Object.keys(latestBy).map(function(k){return latestBy[k];}), firstBy={};records.forEach(function(r){var k=qkey(r),old=firstBy[k];if(!old||r.date<old.date||(r.date===old.date&&r.attemptNo<old.attemptNo))firstBy[k]=r;});var firstRecords=Object.keys(firstBy).map(function(k){return firstBy[k];}), total=catalog.total, done=latestRecords.length, today=tokyoDate(), newToday=Object.keys(firstBy).filter(function(k){return firstBy[k].date===today;}).length, subs=[]; records.forEach(function(r){(r.sub||[]).forEach(function(s){if(s.correct!==null)subs.push(s);});});
-    var subLatest={}; records.forEach(function(r){(r.sub||[]).forEach(function(s){if(s.correct===null)return;var k=qkey(r)+':'+s.item, old=subLatest[k];if(!old||r.date>old.record.date||(r.date===old.record.date&&r.attemptNo>old.record.attemptNo))subLatest[k]={record:r,sub:s};});});
+  function render() { if(!content || !catalog) return; var data=source(), records=data.records, latestBy=latest(records), latestRecords=Object.keys(latestBy).map(function(k){return latestBy[k];}), firstBy=chosenAttempts(records,'first');var firstRecords=Object.keys(firstBy).map(function(k){return firstBy[k];}), total=catalog.total, done=latestRecords.length, today=tokyoDate(), newToday=Object.keys(firstBy).filter(function(k){return firstBy[k].date===today;}).length, subs=[]; records.forEach(function(r){(r.sub||[]).forEach(function(s){if(s.correct!==null)subs.push(s);});});
+    var subLatest=chosenSubs(records,'latest');
     var weakKeys={};records.forEach(function(r){if(r.needsReview||!r.correct||r.confidence==='unsure')weakKeys[qkey(r)]=true;});
     var due=latestRecords.filter(function(r){return r.needsReview || !r.correct || r.confidence==='unsure' || (weakKeys[qkey(r)]&&r.attemptNo<4);}), subDue=Object.keys(subLatest).map(function(k){return subLatest[k];}).filter(function(x){return x.sub.correct===false || x.record.confidence==='unsure';}), next=due.length || subDue.length ? '優先復習 '+(due.length+subDue.length)+'件' : '新しい問題を記録';
     var firstNew; (catalog.sections||[]).some(function(s){for(var n=Number(s.start);n<=Number(s.end);n++){if(!latestBy[Number(s.volume)+':'+n]){firstNew={volume:Number(s.volume),questionNo:n,section:s};return true;}}return false;});
-    var sections=(catalog.sections||[]).map(function(s){var inRange=latestRecords.filter(function(r){return r.volume===Number(s.volume)&&r.questionNo>=s.start&&r.questionNo<=s.end;}).length, n=Math.max(0,s.end-s.start+1), pct=n?Math.min(100,inRange/n*100):0; return '<li class="pm-section"><span>第'+esc(s.volume)+'分冊　'+esc(s.label)+'</span><span class="pm-badge">'+inRange+'/'+n+'</span><div class="pm-bar"><i style="width:'+pct+'%"></i></div></li>';}).join('') || '<li class="pm-empty">範囲は準備中です。</li>';
     var reviewRows=due.map(function(r){return {record:r, label:'主問題'};}).concat(subDue.map(function(x){return {record:x.record,label:'小問 '+x.sub.item,subCorrect:x.sub.correct};}));
     var reviewItems=reviewRows.sort(function(a,b){var ax=a.label==='主問題'?!a.record.correct:a.subCorrect===false, bx=b.label==='主問題'?!b.record.correct:b.subCorrect===false, ap=(catalog.questionLinks||{})[qkey(a.record)]?0:1,bp=(catalog.questionLinks||{})[qkey(b.record)]?0:1;var ad=dayDiff(reviewDate(a.record)),bd=dayDiff(reviewDate(b.record));return (ad<=1?0:1)-(bd<=1?0:1)||(ax===bx?0:ax?-1:1)||(ap-bp)||reviewDate(a.record).localeCompare(reviewDate(b.record));}).map(function(x){var r=x.record, sec=(catalog.sections||[]).find(function(s){return r.volume===Number(s.volume)&&r.questionNo>=s.start&&r.questionNo<=s.end;}), link=(catalog.questionLinks||{})[qkey(r)]||sec||{}, target=link.diagram?'<button class="pm-link" data-pm-diagram="'+esc(link.diagram)+'">図解へ</button>':'<button class="pm-link" data-pm-slide="'+esc(link.slide || '')+'">該当スライドへ</button>', reason=x.label==='主問題'?(r.correct?(r.needsReview?'関連論点を確認':'定着確認'):'誤答'):(x.subCorrect===false?'誤答':'不安');return '<li><b>第'+r.volume+'分冊 問'+r.questionNo+'</b>　'+esc(x.label)+'・'+reason+'<br><span class="pm-muted">次回 '+reviewDate(r)+'（'+when(reviewDate(r))+'）</span><br>'+target+'</li>';});
     var priority=[];reviewRows.forEach(function(x){var k=qkey(x.record);if(dayDiff(reviewDate(x.record))<=1&&priority.indexOf(k)<0)priority.push(k);});
@@ -1920,13 +1979,23 @@ body:not(.pm) #pm-dashboard{display:none}
     var priorityText=priority.slice(0,3).map(function(k){var a=k.split(':');return '第'+a[0]+'分冊 '+a[1];}).join('・');
     content.innerHTML='<section class="pm-card pm-today"><h2>'+ (upcoming?'次の学習 '+taskDate:'今日 '+today)+'</h2>'+(phase?'<p class="pm-muted">'+esc(phase.label)+'</p>':'')+'<button class="pm-action" data-pm-new-volume="'+(firstNew?firstNew.volume:'')+'" data-pm-new-question="'+(firstNew?firstNew.questionNo:'')+'">'+taskLine+'<small>'+newRange+'</small></button><button class="pm-action pm-review-action" data-pm-focus="'+(reviewRows.length?'review':'new')+'">'+(priority.length?'復習はまず '+Math.min(3,priority.length)+'問':reviewRows.length?'次回の復習予定を確認':'復習の誤答記録はありません')+'<small>'+priorityText+'</small></button><p class="pm-muted">1周目 '+esc(catalog.firstPassDeadline)+' まで残り '+remaining+'問。日量は実績から再計算します。</p>'+(rawDays!==null&&rawDays<0&&remaining>0?'<p class="pm-warn">1周期限を過ぎています。計画を再調整します。</p>':'')+'</section>' + '<div class="pm-grid"><section class="pm-card"><h2>本試験まで</h2><div class="pm-count">'+(dayDiff(catalog.examDate)>=0?dayDiff(catalog.examDate)+'日':'終了')+'</div><p class="pm-muted">'+esc(catalog.examDate)+'</p></section><section class="pm-card"><h2>本問の進捗</h2><div class="pm-count">'+done+(Number.isInteger(total)?' / '+total:' / 不明')+'</div><p class="pm-muted">'+(Number.isInteger(total)?Math.round(done/total*100)+'% 記録済み':'分母が未登録のため推定しません。')+'</p></section></div>'+
       '<section class="pm-card"><h2>成績</h2><div class="pm-grid"><p>初回正答率<br><b>'+accuracy(firstRecords)+'</b></p><p>最新正答率<br><b>'+accuracy(latestRecords)+'</b></p><p>小問正答率（累計）<br><b>'+accuracy(subs)+'</b></p><p>今日の新規主問題<br><b>'+newToday+'問</b></p></div><p class="pm-muted">正答率は問題集の完了率とは別です。正答数／採点済み数。未申告の小問は除外。</p></section>'+
-      '<section class="pm-card"><h2>範囲別の完了</h2><ul class="pm-list">'+sections+'</ul></section>'+
+      rangesCard()+
       '<section class="pm-card" id="pm-review"><h2>要復習</h2><ul class="pm-list">'+reviews+'</ul></section>'+
       '<section class="pm-card"><h2>記録を追加</h2><form id="pm-form" class="pm-form"><label>分冊<select name="volume">'+volumeOptions+'</select></label><label>問題番号<input required name="questionNo" inputmode="numeric" min="1" type="number"></label><label>日付<input required name="date" type="date" min="'+esc(catalog.planStart||'')+'" max="'+today+'" value="'+today+'"></label><label>主問題<select name="correct"><option value="true">○ 正解</option><option value="false">× 不正解</option></select></label><label>手応え<select name="confidence"><option value="">未申告</option><option value="sure">理由まで説明できる</option><option value="unsure">不安・消去法</option></select></label><label>小問1<select name="sub1"><option value="">未記録</option><option value="true">○</option><option value="false">×</option></select></label><label>小問2<select name="sub2"><option value="">未記録</option><option value="true">○</option><option value="false">×</option></select></label><label>小問3<select name="sub3"><option value="">未記録</option><option value="true">○</option><option value="false">×</option></select></label><button>この記録を保存</button></form></section>'+
       '<details class="pm-card pm-schedule"><summary>予定・出典・データ</summary>'+milestones+phases+(catalog.planNote?'<p class="pm-muted">'+esc(catalog.planNote)+'</p>':'')+(catalog.liveStatus?'<p class="pm-muted">'+esc(catalog.liveStatus)+'</p>':'')+(catalog.sourceUrl?'<p><a class="pm-link" href="'+esc(catalog.sourceUrl)+'" target="_blank" rel="noopener">問題集の出典</a></p>':'')+(coachSources?'<p>'+coachSources+'</p>':'')+'<p class="pm-muted">成績はこのブラウザに保存。別端末へは書き出し・読み込み。投稿記録との常時自動同期はありません。</p><p class="pm-muted">統計は保留中です。再開するまで今日のタスクには入れません。</p><div class="pm-tools"><button data-pm-export>書き出す</button><label>読み込む<input data-pm-file type="file" accept="application/json,.json"></label></div>'+(data.conflicts.length?'<p class="pm-warn">同じIDで内容が違う保留記録: '+data.conflicts.length+'件。既存の記録は上書きしていません。</p>':'')+'</details>';
-    bind();if(storageBroken)message('保存データを読めません。既存データは保持しています。書き出したJSONから復元してください。',true);
+    renderRanges(records);bind();if(storageBroken)message('保存データを読めません。既存データは保持しています。書き出したJSONから復元してください。',true);
   }
-  function bind() { content.querySelector('#pm-form').addEventListener('submit',function(e){e.preventDefault();var f=new FormData(e.target), st=source(), q=Number(f.get('questionNo')), v=Number(f.get('volume')), date=f.get('date'), sub=[1,2,3].map(function(n){var x=f.get('sub'+n);return x===''?null:{item:String(n),correct:x==='true'};}).filter(Boolean);if(storageBroken){message('保存済みデータを読めません。JSONを読み込んで復元してください。',true);return;}if(!inRange(v,q)||date>tokyoDate()||(catalog.planStart&&date<catalog.planStart)){message('分冊・問題番号・日付の範囲を確認してください。',true);return;}var attempts=1+st.records.filter(function(r){return r.volume===v&&r.questionNo===q;}).reduce(function(n,r){return Math.max(n,r.attemptNo);},0);if(attempts>9999){message('この問題の記録回数が上限です。',true);return;}var id=(global.crypto&&crypto.randomUUID?crypto.randomUUID():'pm-'+Date.now()+'-'+Math.random().toString(36).slice(2)), badSub=sub.some(function(x){return x.correct===false;});st.records.push({id:id,volume:v,questionNo:q,date:date,attemptNo:attempts,correct:f.get('correct')==='true',confidence:f.get('confidence')||null,needsReview:f.get('correct')!=='true'||f.get('confidence')==='unsure'||badSub,topic:'',sub:sub});save(st);message('第'+v+'分冊 問'+q+'を保存しました。');render();});
+  function bind() {
+    content.querySelector('#pm-ranges').addEventListener('click',function(e){
+      var b=e.target.closest('button');if(!b)return;
+      if(b.hasAttribute('data-pm-range-mode')||b.hasAttribute('data-pm-range-filter')){
+        if(b.dataset.pmRangeMode)rangeView.mode=b.dataset.pmRangeMode;else rangeView.errorsOnly=!rangeView.errorsOnly;
+        try{localStorage.setItem(VIEW_KEY,JSON.stringify(rangeView));}catch(_){}
+        renderRanges(source().records);
+      }else if(b.dataset.pmRangeDiagram)go({diagram:b.dataset.pmRangeDiagram});
+      else if(b.dataset.pmRangeSlide)go({slide:Number(b.dataset.pmRangeSlide)});
+    });
+    content.querySelector('#pm-form').addEventListener('submit',function(e){e.preventDefault();var f=new FormData(e.target), st=source(), q=Number(f.get('questionNo')), v=Number(f.get('volume')), date=f.get('date'), sub=[1,2,3].map(function(n){var x=f.get('sub'+n);return x===''?null:{item:String(n),correct:x==='true'};}).filter(Boolean);if(storageBroken){message('保存済みデータを読めません。JSONを読み込んで復元してください。',true);return;}if(!inRange(v,q)||date>tokyoDate()||(catalog.planStart&&date<catalog.planStart)){message('分冊・問題番号・日付の範囲を確認してください。',true);return;}var attempts=1+st.records.filter(function(r){return r.volume===v&&r.questionNo===q;}).reduce(function(n,r){return Math.max(n,r.attemptNo);},0);if(attempts>9999){message('この問題の記録回数が上限です。',true);return;}var id=(global.crypto&&crypto.randomUUID?crypto.randomUUID():'pm-'+Date.now()+'-'+Math.random().toString(36).slice(2)), badSub=sub.some(function(x){return x.correct===false;});st.records.push({id:id,volume:v,questionNo:q,date:date,attemptNo:attempts,correct:f.get('correct')==='true',confidence:f.get('confidence')||null,needsReview:f.get('correct')!=='true'||f.get('confidence')==='unsure'||badSub,topic:'',sub:sub});save(st);message('第'+v+'分冊 問'+q+'を保存しました。');render();});
     content.querySelectorAll('[data-pm-slide]').forEach(function(b){b.addEventListener('click',function(){go({slide:Number(b.dataset.pmSlide)});});});content.querySelectorAll('[data-pm-diagram]').forEach(function(b){b.addEventListener('click',function(){go({diagram:b.dataset.pmDiagram});});});content.querySelectorAll('[data-pm-new-question]').forEach(function(b){b.addEventListener('click',function(){if(!b.dataset.pmNewQuestion){content.querySelector('#pm-review').scrollIntoView({behavior:'smooth',block:'start'});return;}var form=content.querySelector('#pm-form');form.elements.volume.value=b.dataset.pmNewVolume;form.elements.questionNo.value=b.dataset.pmNewQuestion;form.scrollIntoView({behavior:'smooth',block:'start'});form.elements.questionNo.focus();});});content.querySelector('[data-pm-focus]').addEventListener('click',function(){var t=content.querySelector(this.dataset.pmFocus==='review'?'#pm-review':'#pm-form');t.scrollIntoView({behavior:'smooth',block:'start'});});content.querySelector('[data-pm-export]').addEventListener('click',exportJSON);content.querySelector('[data-pm-file]').addEventListener('change',readFile);
   }
   function exportJSON() { var blob=new Blob([storageBroken?(localStorage.getItem(KEY)||''):JSON.stringify(source(),null,2)],{type:'application/json'}), a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='takken-kami-pm-'+tokyoDate()+'.json';a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},0); }
