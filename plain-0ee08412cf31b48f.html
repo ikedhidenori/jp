@@ -79,7 +79,8 @@ body.z #slides,body.z #ft{display:none}body.z #zukai{display:block}
 .license-switch button{min-height:46px;padding:6px 3px;border-radius:7px;font-size:13px;line-height:1.4;color:var(--afg)}
 .license-switch button[aria-pressed=true]{background:var(--afg);color:var(--abg);font-weight:700}
 .license-panel{padding:0 0 10px}.license-panel[hidden]{display:none}
-.license-image{display:block;background:#fffdf7}.zk .license-image img{width:100%;height:auto;display:block;background:#fffdf7;border:0;border-radius:0}
+.license-image{display:block;background:#f5f1e5}.zk .license-image img{width:100%;height:auto;display:block;background:#f5f1e5;border:0;border-radius:0}
+.license-condition{font-size:14px;line-height:1.65;margin:10px 12px 0;color:var(--afg)}
 .license-detail{font-size:14px;line-height:1.7;border-top:1px solid var(--aline);padding-top:10px;margin:10px 12px 0}.license-detail summary{cursor:pointer;font-weight:700;min-height:30px}.license-detail p{margin:8px 0}
 .license-replay{display:block;width:100%;min-height:46px;font-size:14px;border:1px solid var(--aline);border-radius:8px;margin:12px 0;color:var(--afg)}
 .zk-check{margin-top:16px;padding:14px;border:1px solid var(--aline);border-radius:10px;font-size:14px;line-height:1.7}
@@ -1787,21 +1788,22 @@ body:not(.k) #kami-replay{display:none}
 <figcaption><span class="no">図26 · 免許の欠格</span><b>取消し＝全部5年ではない。</b><button class="zk-go" data-go="2">スライド2 →</button></figcaption>
 <div class="license-guide">
 <div class="license-switch" role="group" aria-label="欠格事由の図解を切り替える">
-<button type="button" data-license-view="people" aria-pressed="true" aria-controls="license-people">会社と人</button>
-<button type="button" data-license-view="clock" aria-pressed="false" aria-controls="license-clock">5年の起点</button>
-<button type="button" data-license-view="penalty" aria-pressed="false" aria-controls="license-penalty">刑罰と関係者</button>
+<button type="button" data-license-view="people" aria-pressed="true" aria-controls="license-people">取消しの理由</button>
+<button type="button" data-license-view="clock" aria-pressed="false" aria-controls="license-clock">60日と5年</button>
+<button type="button" data-license-view="penalty" aria-pressed="false" aria-controls="license-penalty">刑の終わり方</button>
 </div>
 <div class="license-panel" id="license-people">
-<a class="license-image" href="takken-zukai-0ee08412/zk26-people-v1.png" target="_blank" rel="noopener" aria-label="会社と人の図解を拡大"><img src="takken-zukai-0ee08412/zk26-people-v1.png" width="1024" height="1536" alt="会社と人を分ける図。三大悪事による取消しなら会社は取消日から5年間欠格。役員が暴力団員だったための取消しは、その役員の退任で原因が解消し、他の欠格と事業支配がなければ、会社は5年を待たず再申請可。本人の欠格は残る。退任と暴力団脱退は別。"></a>
-<details class="license-detail"><summary>文字で確認・条件</summary><p>三大悪事は、不正手段での免許取得、業務停止事由で情状が特に重い場合、業務停止処分違反。これによる取消しでは、役員を替えても会社自身の5年間の欠格は消えない。</p><p>役員が暴力団員だったための取消しは、退任で原因が解消し、他の欠格もなければ再申請可。ただし、退任後も暴力団員等が事業を支配していれば会社も不可。本人は会社を辞めても欠格が残り、暴力団を脱退しても5年未経過なら欠格。</p></details>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-people-v2.png" target="_blank" rel="noopener" aria-label="取消しの理由の図解を拡大"><img src="takken-zukai-0ee08412/zk26-people-v2.png" width="1086" height="1448" alt="取消しの理由で分ける。三大悪事なら取消日から5年。役員が暴力団員だったための取消しは、退任で会社の欠格原因がすべて解消すれば、会社は5年を待たず再申請可。"></a>
+<p class="license-condition">会社の再申請は、他の欠格もなく、退任後の事業支配もない場合。</p>
+<details class="license-detail"><summary>条件・補足</summary><p>三大悪事は、不正手段での免許取得、業務停止事由で情状が特に重い場合、業務停止処分違反。これによる取消しでは、役員を替えても会社自身の5年間の欠格は消えない。</p><p>役員が暴力団員だったための取消しは、退任で原因が解消し、他の欠格もなければ再申請可。ただし、退任後も暴力団員等が事業を支配していれば会社も不可。本人は会社を辞めても欠格が残り、暴力団を脱退しても5年未経過なら欠格。</p></details>
 </div>
 <div class="license-panel" id="license-clock" hidden>
-<a class="license-image" href="takken-zukai-0ee08412/zk26-clock-v1.png" target="_blank" rel="noopener" aria-label="5年の起点の図解を拡大"><img src="takken-zukai-0ee08412/zk26-clock-v1.png" width="1024" height="1536" loading="lazy" alt="60日前は対象者を選ぶ範囲、5年は待つ期間。三大悪事の取消しは取消日から5年。その取消しを逃れる廃業・解散は届出日から、合併消滅は消滅日から元役員が5年欠格。公示50日前に退任したBも60日以内なので対象。業務停止処分の聴聞は、この処分逃れの5年ルールではない。"></a>
-<details class="license-detail"><summary>文字で確認・条件</summary><p>処分逃れの対象は、三大悪事による取消しの聴聞公示後〜処分・不処分の決定までに、相当な理由なく廃業・解散の届出、又は合併消滅をした場合。廃業・解散は届出日から5年、合併による処分逃れの元役員は消滅日から5年。</p><p>聴聞公示日前60日以内に役員だった者も対象。50日前の退任はこの範囲内。三大悪事による取消しの場合も、この範囲の元役員が対象となり、その5年は取消日から。</p><p><b>業務停止処分</b>の聴聞後に廃業しただけなら、この5年ルールは生じない。他の欠格事由は別に確認する。</p></details>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-clock-v2.png" target="_blank" rel="noopener" aria-label="60日と5年の図解を拡大"><img src="takken-zukai-0ee08412/zk26-clock-v2.png" width="1086" height="1448" loading="lazy" alt="取消しを逃れる合併の例。60日前は対象の役員を選ぶ範囲で、公示50日前に退任したBも対象。Bの5年間の欠格は合併による消滅日から数える。"></a>
+<details class="license-detail"><summary>条件・ほかの起算日</summary><p>処分逃れの対象は、三大悪事による取消しの聴聞公示後〜処分・不処分の決定までに、相当な理由なく廃業・解散の届出、又は合併消滅をした場合。廃業・解散は届出日から5年、合併による処分逃れの元役員は消滅日から5年。</p><p>聴聞公示日前60日以内に役員だった者も対象。50日前の退任はこの範囲内。三大悪事による取消しの場合も、この範囲の元役員が対象となり、その5年は取消日から。</p><p><b>業務停止処分</b>の聴聞後に廃業しただけなら、この5年ルールは生じない。他の欠格事由は別に確認する。</p></details>
 </div>
 <div class="license-panel" id="license-penalty" hidden>
-<a class="license-image" href="takken-zukai-0ee08412/zk26-penalty-v1.png" target="_blank" rel="noopener" aria-label="刑罰と関係者の図解を拡大"><img src="takken-zukai-0ee08412/zk26-penalty-v1.png" width="1024" height="1536" loading="lazy" alt="刑の終わり方を分ける図。拘禁刑以上の実刑と背任など所定の犯罪の罰金は、刑の執行終了等から5年間欠格。全部執行猶予は猶予中は欠格だが、取消しなく満了すれば追加の5年はない。欠格の役員・政令使用人は会社に、法定代理人は所定の未成年者に影響する。"></a>
-<details class="license-detail"><summary>文字で確認・条件</summary><p>拘禁刑以上の実刑は犯罪の種類を問わず、罰金は背任など所定の犯罪の場合に、刑の執行終了等から5年間欠格。執行終了等とは、執行を終わった日又は執行を受けることがなくなった日。</p><p>刑の全部の執行猶予は、取り消されず満了すれば、その刑による資格制限がなくなる。満了後にさらに5年を待つ扱いではない。他の欠格事由は別に確認する。</p><p>役員・政令で定める使用人の欠格は会社にも影響。普通の従業員全員を指さない。法定代理人Gの欠格が未成年者Fに影響するのは、Fが営業に関し成年者と同一の行為能力を有しない場合。</p></details>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-penalty-v2.png" target="_blank" rel="noopener" aria-label="刑の終わり方の図解を拡大"><img src="takken-zukai-0ee08412/zk26-penalty-v2.png" width="1086" height="1448" loading="lazy" alt="拘禁刑以上の実刑・所定の犯罪の罰金は執行終了等から5年間欠格。全部執行猶予は猶予中は欠格だが、取り消されず満了すれば追加5年なし。"></a>
+<details class="license-detail"><summary>条件・会社や未成年者への影響</summary><p>拘禁刑以上の実刑は犯罪の種類を問わず、罰金は背任など所定の犯罪の場合に、刑の執行終了等から5年間欠格。執行終了等とは、執行を終わった日又は執行を受けることがなくなった日。</p><p>刑の全部の執行猶予は、取り消されず満了すれば、その刑による資格制限がなくなる。満了後にさらに5年を待つ扱いではない。他の欠格事由は別に確認する。</p><p>役員・政令で定める使用人の欠格は会社にも影響。普通の従業員全員を指さない。法定代理人Gの欠格が未成年者Fに影響するのは、Fが営業に関し成年者と同一の行為能力を有しない場合。</p></details>
 </div>
 </div>
 <details class="zk-sources"><summary>覚えたか確認する（1問）</summary>
