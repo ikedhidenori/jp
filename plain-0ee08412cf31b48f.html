@@ -78,24 +78,9 @@ body.z #slides,body.z #ft{display:none}body.z #zukai{display:block}
 .license-switch{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:5px;border-bottom:1px solid var(--aline)}
 .license-switch button{min-height:46px;padding:6px 3px;border-radius:7px;font-size:13px;line-height:1.4;color:var(--afg)}
 .license-switch button[aria-pressed=true]{background:var(--afg);color:var(--abg);font-weight:700}
-.license-panel{padding:14px}.license-panel[hidden]{display:none}
-.license-panel h3{font-size:16px;line-height:1.6;margin:0 0 12px}
-.license-panel h3:not(:first-child){margin-top:18px}
-.license-route{border:1px solid var(--aline);border-radius:8px;padding:12px;margin:10px 0;font-size:14px;line-height:1.65}
-.license-route>b,.license-route>span,.license-route>small{display:block}
-.license-route>b{font-size:16px}.license-route>span{margin-top:3px}.license-route small{font-size:12px;color:var(--amute)}
-.license-result{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:7px 0 2px;flex-wrap:wrap}.license-result strong{font-size:17px}
-.license-stop{border-left:4px solid #ce6a55}.license-stop .license-result strong,.license-danger{color:#edaa97}
-.license-ok{color:#9bd0ad}html.light .license-ok{color:#1b653b}html.light .license-danger,html.light .license-stop .license-result strong{color:#a53521}
-.license-split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-.license-split>div{border-top:2px solid var(--aline);padding:8px 0;font-size:14px;line-height:1.6}
-.license-split b,.license-split span{display:block}.license-split b{margin-bottom:5px}
-.license-foot{font-size:12px;line-height:1.75;color:var(--amute);margin:10px 0 0}
-.license-takeaway{font-size:16px;line-height:1.7;text-align:center;border-top:1px solid var(--aline);padding-top:12px;margin:12px 0 0}
-.license-time-row{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-bottom:1px solid var(--aline);font-size:14px;line-height:1.6}.license-time-row>span{align-self:flex-end}.license-time-row span b{color:#edaa97}html.light .license-time-row span b{color:#a53521}
-.zk .license-timeline{border:0;padding:0;margin-top:12px;border-radius:0;color:var(--afg);background:transparent}
-.license-detail{font-size:14px;line-height:1.7;border-top:1px solid var(--aline);padding-top:12px;margin-top:12px}.license-detail summary{cursor:pointer;font-weight:700;min-height:30px}.license-detail p{margin:8px 0}
-.license-impact{border-left:3px solid var(--aline);padding:7px 12px;margin:8px 0;display:flex;flex-direction:column;font-size:14px;line-height:1.5}.license-impact>span{font-size:20px;line-height:1.2}
+.license-panel{padding:0 0 10px}.license-panel[hidden]{display:none}
+.license-image{display:block;background:#fffdf7}.zk .license-image img{width:100%;height:auto;display:block;background:#fffdf7;border:0;border-radius:0}
+.license-detail{font-size:14px;line-height:1.7;border-top:1px solid var(--aline);padding-top:10px;margin:10px 12px 0}.license-detail summary{cursor:pointer;font-weight:700;min-height:30px}.license-detail p{margin:8px 0}
 .license-replay{display:block;width:100%;min-height:46px;font-size:14px;border:1px solid var(--aline);border-radius:8px;margin:12px 0;color:var(--afg)}
 .zk-check{margin-top:16px;padding:14px;border:1px solid var(--aline);border-radius:10px;font-size:14px;line-height:1.7}
 .zk-check p{margin:0 0 10px}.zk-check button{min-width:64px;min-height:44px;border:1px solid var(--aline);border-radius:8px;margin-right:10px;font-size:18px}
@@ -1807,38 +1792,16 @@ body:not(.k) #kami-replay{display:none}
 <button type="button" data-license-view="penalty" aria-pressed="false" aria-controls="license-penalty">刑罰と関係者</button>
 </div>
 <div class="license-panel" id="license-people">
-<h3>まず「なぜ取り消された？」</h3>
-<div class="license-route license-stop"><b>三大悪事で取消し</b><span>不正免許／停止事由で情状が特に重い／業務停止違反</span><div class="license-result"><span aria-hidden="true">↓</span><strong>取消日から5年</strong></div><small>会社自身に欠格が残る。役員を替えても消えない。</small></div>
-<div class="license-route"><b>役員が暴力団員のため取消し</b><span>役員が退任し、会社の欠格原因が解消</span><div class="license-result license-ok"><span aria-hidden="true">↓</span><strong>会社は5年待たず再申請可※</strong></div></div>
-<div class="license-split"><div><b>会社H</b><span class="license-ok">その役員の退任で<br>原因が解消</span></div><div><b>本人I</b><span class="license-danger">会社を辞めても<br>本人の欠格は残る</span></div></div>
-<p class="license-foot">※他の欠格事由もない場合。退任後も暴力団員等による事業支配が残れば会社も不可。本人は、暴力団を脱退しても5年未経過なら欠格。</p>
-<p class="license-takeaway">会社を退任することと、<br><b>暴力団を脱退することは別。</b></p>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-people-v1.png" target="_blank" rel="noopener" aria-label="会社と人の図解を拡大"><img src="takken-zukai-0ee08412/zk26-people-v1.png" width="1024" height="1536" alt="会社と人を分ける図。三大悪事による取消しなら会社は取消日から5年間欠格。役員が暴力団員だったための取消しは、その役員の退任で原因が解消し、他の欠格と事業支配がなければ、会社は5年を待たず再申請可。本人の欠格は残る。退任と暴力団脱退は別。"></a>
+<details class="license-detail"><summary>文字で確認・条件</summary><p>三大悪事は、不正手段での免許取得、業務停止事由で情状が特に重い場合、業務停止処分違反。これによる取消しでは、役員を替えても会社自身の5年間の欠格は消えない。</p><p>役員が暴力団員だったための取消しは、退任で原因が解消し、他の欠格もなければ再申請可。ただし、退任後も暴力団員等が事業を支配していれば会社も不可。本人は会社を辞めても欠格が残り、暴力団を脱退しても5年未経過なら欠格。</p></details>
 </div>
 <div class="license-panel" id="license-clock" hidden>
-<h3>「対象を探す日」と「5年の起点」は別</h3>
-<div class="license-time-row"><b>三大悪事の取消し</b><span>取消日 <b>→ 5年</b></span></div>
-<div class="license-time-row"><b>その取消しを逃れる廃業・解散</b><span>届出日 <b>→ 5年</b></span></div>
-<div class="license-time-row"><b>その取消しを逃れる合併</b><span>消滅日 <b>→ 元役員は5年</b></span></div>
-<p class="license-foot">処分逃れ：三大悪事による取消しの聴聞公示後〜処分・不処分決定までに、相当な理由なく廃業・解散の届出／合併消滅をした場合。</p>
-<svg class="license-timeline" viewBox="0 0 340 180" role="img" aria-labelledby="license-timeline-title">
-<title id="license-timeline-title">聴聞公示日前60日以内の元役員も対象。50日前の退任はこの範囲内。合併による処分逃れでは消滅日から5年で、退任日や公示日からではない。</title>
-<rect x="18" y="39" width="198" height="49" rx="5" fill="currentColor" opacity=".09"/>
-<path d="M18 68H320m-8-5 8 5-8 5" fill="none" stroke="currentColor" stroke-width="2"/>
-<path d="M20 59v18m79-18v18m114-18v18m88-18v18" stroke="currentColor" stroke-width="2"/>
-<g fill="currentColor" font-family="sans-serif" font-size="14" text-anchor="middle"><text x="45" y="29">60日前</text><text x="116" y="110">50日前に退任</text><text x="215" y="29">聴聞公示</text><text x="293" y="110">合併消滅</text><text x="115" y="56" font-weight="bold">元役員Bも対象</text><text x="178" y="157" font-weight="bold">5年の時計は「消滅日」から →</text></g>
-</svg>
-<details class="license-detail"><summary>小問の罠：聴聞は何の処分？</summary><p><b>取消処分</b>の聴聞から逃げた → 上の5年ルール。<br><b>業務停止処分</b>の聴聞後の廃業 → この5年ルールは生じない。</p><p>「聴聞」という語だけで決めない。他の欠格事由の有無は別に判定する。</p></details>
-<p class="license-foot">三大悪事による取消しでも、公示日前60日以内の元役員は対象。こちらの5年は「取消日」から。</p>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-clock-v1.png" target="_blank" rel="noopener" aria-label="5年の起点の図解を拡大"><img src="takken-zukai-0ee08412/zk26-clock-v1.png" width="1024" height="1536" loading="lazy" alt="60日前は対象者を選ぶ範囲、5年は待つ期間。三大悪事の取消しは取消日から5年。その取消しを逃れる廃業・解散は届出日から、合併消滅は消滅日から元役員が5年欠格。公示50日前に退任したBも60日以内なので対象。業務停止処分の聴聞は、この処分逃れの5年ルールではない。"></a>
+<details class="license-detail"><summary>文字で確認・条件</summary><p>処分逃れの対象は、三大悪事による取消しの聴聞公示後〜処分・不処分の決定までに、相当な理由なく廃業・解散の届出、又は合併消滅をした場合。廃業・解散は届出日から5年、合併による処分逃れの元役員は消滅日から5年。</p><p>聴聞公示日前60日以内に役員だった者も対象。50日前の退任はこの範囲内。三大悪事による取消しの場合も、この範囲の元役員が対象となり、その5年は取消日から。</p><p><b>業務停止処分</b>の聴聞後に廃業しただけなら、この5年ルールは生じない。他の欠格事由は別に確認する。</p></details>
 </div>
 <div class="license-panel" id="license-penalty" hidden>
-<h3>刑の「終わり方」で分ける</h3>
-<div class="license-route license-stop"><b>拘禁刑以上の実刑</b><div class="license-result"><span>刑の執行終了等</span><strong>→ 5年</strong></div><small>犯罪の種類を問わない。</small></div>
-<div class="license-route"><b>刑の全部の執行猶予</b><div class="license-result"><span class="license-danger">猶予中：欠格</span><strong class="license-ok">満了※ → 追加5年なし</strong></div><small>※取り消されずに満了。その刑による資格制限がなくなる。</small></div>
-<div class="license-route license-stop"><b>背任など、所定の犯罪の罰金</b><div class="license-result"><span>刑の執行終了等</span><strong>→ 5年</strong></div><small>「罰金ならすべて欠格」ではない。</small></div>
-<h3>その人の欠格は、誰に影響する？</h3>
-<div class="license-impact"><b>役員・政令で定める使用人</b><span aria-hidden="true">↓</span><strong>その会社も免許不可</strong></div>
-<div class="license-impact"><b>法定代理人G</b><span aria-hidden="true">↓</span><strong>未成年者F※も免許不可</strong></div>
-<p class="license-foot">※営業に関し成年者と同一の行為能力を有しない未成年者。普通の従業員すべてを「政令で定める使用人」とは扱わない。他の欠格事由がないことも必要。</p>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-penalty-v1.png" target="_blank" rel="noopener" aria-label="刑罰と関係者の図解を拡大"><img src="takken-zukai-0ee08412/zk26-penalty-v1.png" width="1024" height="1536" loading="lazy" alt="刑の終わり方を分ける図。拘禁刑以上の実刑と背任など所定の犯罪の罰金は、刑の執行終了等から5年間欠格。全部執行猶予は猶予中は欠格だが、取消しなく満了すれば追加の5年はない。欠格の役員・政令使用人は会社に、法定代理人は所定の未成年者に影響する。"></a>
+<details class="license-detail"><summary>文字で確認・条件</summary><p>拘禁刑以上の実刑は犯罪の種類を問わず、罰金は背任など所定の犯罪の場合に、刑の執行終了等から5年間欠格。執行終了等とは、執行を終わった日又は執行を受けることがなくなった日。</p><p>刑の全部の執行猶予は、取り消されず満了すれば、その刑による資格制限がなくなる。満了後にさらに5年を待つ扱いではない。他の欠格事由は別に確認する。</p><p>役員・政令で定める使用人の欠格は会社にも影響。普通の従業員全員を指さない。法定代理人Gの欠格が未成年者Fに影響するのは、Fが営業に関し成年者と同一の行為能力を有しない場合。</p></details>
 </div>
 </div>
 <details class="zk-sources"><summary>覚えたか確認する（1問）</summary>
