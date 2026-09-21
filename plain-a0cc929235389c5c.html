@@ -1,0 +1,66 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>絶滅職種図鑑ショート 運用と収益化の計画</title>
+<style>:root{--bg:#f4f1ea;--ink:#26221d;--sub:#6e6455;--line:#d9d0bf;--card:#fff;--acc:#b3261e}
+@media(prefers-color-scheme:dark){:root{--bg:#24211d;--ink:#e6dfd2;--sub:#a79d8c;--line:#433d34;--card:#2e2a25;--acc:#e8877c}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;line-height:1.8}
+main{max-width:680px;margin:0 auto;padding:24px 18px 56px} h1{font-size:1.3rem;line-height:1.5} h2{font-size:1.08rem;margin:34px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+ul{padding-left:1.2em;margin:.3em 0} li{margin:.45em 0} b{color:var(--acc)} code{font-size:.85em;background:var(--card);padding:1px 5px;border-radius:4px}
+table{border-collapse:collapse;width:100%;font-size:.8rem;margin:10px 0;display:block;overflow-x:auto} th,td{border:1px solid var(--line);padding:6px 7px;text-align:left;vertical-align:top;min-width:88px} th{background:var(--card)}
+.cta{display:block;background:#ffe600;color:#111;font-weight:800;text-align:center;padding:14px;border-radius:10px;text-decoration:none;margin:14px 0}
+footer{margin-top:36px;font-size:.78rem;color:var(--sub);border-top:1px solid var(--line);padding-top:12px}</style></head><body><main>
+<h1>絶滅職種図鑑ショート 運用と収益化の計画(2026-09-21 版)</h1>
+<p>区別: 【事実】実測・確認済み /【決定】ジョニーが決めたこと /【提案】Claude の案 /【仮定】未検証の数字</p>
+<h2>0. いま欠けているもの(この計画の中心)</h2>
+<ul>
+<li style="margin-left:0px">【事実】動画を見た人の行き先がありません。Instagram のプロフィールリンクは未設定、TikTok は1,000フォロワーまでリンク不可、YouTube は未開設。再生が増えても、何も起きない状態です。</li>
+<li style="margin-left:0px">【提案】行き先を1つに絞ります。<b>「あなたの仕事は何位?」順位検索ページ(405職種)</b>。動画の最後の問い(あなたの仕事は大丈夫?)の答えが、そのままここにあります。成果報酬・note・Kindle は、すべてこのページの検索結果の下に置きます。</li>
+<li style="margin-left:0px">過去の教訓(3層プラン D-6)との整合: ショート=到達、購入=信用が要る。順位検索ページは「自分の職種の結果」と「作り方の開示」で信用を作る場所です。</li>
+<li style="margin-left:0px">試作は完成済み: <code>zukan-shorts/hub/index.html</code>(検索・順位・置換指数・前後の職種・作り方)。</li>
+</ul>
+<h2>1. 全体の流れ</h2>
+<p>ショート4媒体(到達) → 順位検索ページ(信用と振り分け) → 出口(成果報酬 / note / Kindle)</p>
+<h2>2. 4媒体の役割</h2>
+<table><tr><th>媒体</th><th>役割</th><th>根拠【事実】</th><th>出すもの</th><th>見る数字</th></tr><tr><td>TikTok</td><td>型と題材の実験場。初速が最速</td><td>一覧表型「資格広場」70本・中央値9.0万・46%が10万超。同題材「10年後になくなる仕事」110万</td><td>毎日1本(8秒の一覧、音源はアプリ内)</td><td>再生、コメント数、フォロワー(1,000でリンク解放)</td></tr><tr><td>Instagram</td><td>送客の本線。リンクを置ける</td><td>「やばい仕事図鑑」フォロワー1,660人で371万再生</td><td>毎日リール1本(音源入り)+ 週2回、同じ表を5枚に割ったカルーセル(保存狙い)</td><td>プロフィール訪問、リンククリック、保存</td></tr><tr><td>YouTube Shorts</td><td>資産。検索に残る。年齢層が高め</td><td>「ランキング研究所」登録者7,990人・453本・中央値6.2万・100万超16本。「定年・シニア」題材の中央値18.7万</td><td>毎日1本(TikTokと同じ動画)。長尺は作らない</td><td>再生、視聴維持、チャンネルページ経由のリンククリック</td></tr><tr><td>X</td><td>告知と回答の置き場。配信力は期待しない</td><td>2か月運用してフォロワー1〜2人</td><td>新しい順位表の画像、コメントで聞かれた職種の順位</td><td>リンククリックだけ</td></tr></table>
+<ul>
+<li style="margin-left:0px">4媒体に同じ素材を出す追加の手間は、ほぼ0です(動画は1回作れば足ります)。</li>
+<li style="margin-left:0px">【未着手】YouTube は新チャンネルが必要(規約への同意=ジョニーの操作)。X は既存の @zetsumetsu_zukan を使う想定。</li>
+</ul>
+<h2>3. 運用(1日・1週間)</h2>
+<ul>
+<li style="margin-left:0px">毎日: 指標を読む → その日の1本を TikTok・Instagram(・YouTube)に出す → 記録。1本の制作は数分、費用0円。投稿は Codex の CLI 経由(公開前に Claude が画面を確認する2段階)。</li>
+<li style="margin-left:0px">コメントで「◯◯は何位?」と聞かれたら、405職種の表から順位を引いて返信する。質問が多い職種は、次の動画の題材にする(転職ちゃんの「本音シリーズ」と同じ回し方。シリーズは中央値8.6万、その他は3,568)。</li>
+<li style="margin-left:0px">毎週: 型(TOP10 / 一覧 / 逆側)とタイトルの型(逆説 / 一覧 / 職種しぼり)ごとに中央値を比べ、上位2つに本数を寄せる。変えるのは1回に1つ。</li>
+<li style="margin-left:0px">在庫: 現在9本。405職種の表から、職種しぼり・逆側・「先入観→実際」で約40本は作れます。</li>
+</ul>
+<h2>4. 判定の節目(数字は【仮定】を含む)</h2>
+<table><tr><th>時点</th><th>見るもの</th><th>合格</th><th>不合格のとき</th></tr><tr><td>10/5(2週、各媒体14本)</td><td>再生数</td><td>どれかの媒体で中央値1,000以上、または1本でも1万再生</td><td>型を変える(横に流れるランキング型、写真スライド型)</td></tr><tr><td>10/19(4週)</td><td>順位検索ページ</td><td>訪問300、成果報酬リンクのクリック30、発生1件</td><td>リンク先と結果ページの作りを直す。動画は続ける</td></tr><tr><td>11/16(8週)</td><td>お金</td><td>月の訪問2,000、発生10件、確定報酬1万円</td><td>在庫の投稿だけに縮め、時間を間取り3Dアニメ側へ回す</td></tr></table>
+<ul>
+<li style="margin-left:0px">月10万円に必要な量【仮定】: 報酬の平均3,000円なら月33件。ページ訪問の0.45%が成約(リンククリック15%×成約3%)とすると、訪問7,300。再生の0.2%が訪問に至る(プロフィール訪問1%×リンククリック20%)とすると、<b>月370万再生</b>。これは「ランキング研究所」の平均(1本18.6万×月20本)と同じ水準で、背伸びの目標です。最初の8週間は、導線が成立して最初の1件が出ることを目標にします。</li>
+</ul>
+<h2>5. note・Amazon・成果報酬のつなぎ方</h2>
+<ul>
+<li style="margin-left:0px"><b>成果報酬(A8)</b>【事実】学習系3件は提携済み(講座申込の10% / 新規申込1,000〜1,500円 / 受講申込1,800円)。転職系3件は審査中(3,000円 / 8,000円 / 10,000円)。</li>
+<li style="margin-left:16px">【提案】順位検索の結果が「置き換わりやすい側」の人に学び直しの講座、審査が通れば転職相談を出す。必ず「広告」と明記。動画の中では売らない。</li>
+<li style="margin-left:0px"><b>note</b>【事実】第1章は無料公開中、第2・3章は各500円(購入0件、1日0.235PV=到達が無かった)。</li>
+<li style="margin-left:16px">【提案】順位検索ページから第1章へ送る(信用の材料)。新商品は「405職種 全順位表と読み方」500円を1本だけ(データは完成済みで、作る手間が小さい)。</li>
+<li style="margin-left:16px">【要対応】既存の記事にある「509職種中◯位」は、今回のデータ訂正(405職種)に合わせて直す必要があります。3章の職種(データ入力・コールセンター・レジ係)は訂正後も1位・6位・7位で、結論は変わりません。</li>
+<li style="margin-left:0px"><b>Amazon</b></li>
+<li style="margin-left:16px">Kindle『絶滅職種図鑑 vol.1』は EPUB まで完成、未出版。8/7から「KDPセレクトの独占」と note 既公開分の衝突(3択)が未決。【提案】セレクトを外して併売(印税35%、1冊175円)。収益ではなく「Amazonに本がある図鑑」という信用のために出す。出す前に順位の表記を405職種に直す。</li>
+<li style="margin-left:16px">Amazonアソシエイト(転職・資格の本の紹介)は料率が低く審査も要るので、後回し。</li>
+</ul>
+<h2>6. 自律して運用・改善するために、あと要るもの</h2>
+<table><tr><th>#</th><th>要るもの</th><th>いまの状態</th><th>誰の手</th></tr><tr><td>1</td><td>毎日の自動実行の許可</td><td>セッション内の予約が権限判定で拒否された。今は声をかけられた時だけ動ける</td><td>ジョニー(設定で許可するか、毎日一言かけるか)</td></tr><tr><td>2</td><td>順位検索ページの常設の置き場</td><td>確認用の公開は72時間で消える</td><td>ジョニーの承認(常設公開してよいか)。作業は Claude</td></tr><tr><td>3</td><td>Instagram のプロフィールリンク</td><td>PCから編集不可</td><td>ジョニー(iPhoneアプリで1分)</td></tr><tr><td>4</td><td>YouTube の新チャンネル</td><td>未作成</td><td>ジョニー(規約への同意)。以後の投稿は Codex 経由で自動</td></tr><tr><td>5</td><td>事前の承認の範囲</td><td>都度確認している</td><td>ジョニー(下の案に「よい」と言うだけ)</td></tr><tr><td>6</td><td>数字を読む経路</td><td>TikTok は自動。Instagram と A8 の管理画面は Codex に読ませる形で可能(未実施)</td><td>Claude + Codex</td></tr><tr><td>7</td><td>Codex の利用枠の把握</td><td>1本あたり約17万トークン、1日2〜3本。残量は Claude から見えない</td><td>Claude(利用状況の確認スキルで毎週見る)</td></tr><tr><td>8</td><td>異常時の停止と通知</td><td>停止ルールは post-plan.json に記載済み。通知は未設定</td><td>Claude(既存の ntfy を使う案。承認が要る)</td></tr><tr><td>9</td><td>音と見た目の人の目での確認</td><td>Claude は音を聞けない</td><td>ジョニー(週1回、1本を30秒見る)</td></tr></table>
+<p><b>事前に承認してほしい範囲(案)</b></p>
+<ul>
+<li style="margin-left:0px">聞かずにやること: 計画どおりの投稿、カバー画像の設定、コメントへの順位の返信(定型文)、在庫の追加制作、指標の記録、週次の型の入れ替え。</li>
+<li style="margin-left:0px">必ず聞くこと: 新しい媒体の開設、お金がかかること、プロフィール文の変更、成果報酬リンクの掲載と文言、投稿の削除、規約への同意、常設ページの公開。</li>
+</ul>
+<h2>7. 今日やった改善</h2>
+<ul>
+<li style="margin-left:0px">Instagram のアイコンを設定(TikTok と同じ印章)。</li>
+<li style="margin-left:0px">Instagram の一覧でタイトルが切れる問題に対し、全9本のカバー画像(3:4)を作成。次の投稿から設定させる。</li>
+<li style="margin-left:0px">順位データを訂正(回答が欠けた職種を除き、405職種で再計算)。</li>
+<li style="margin-left:0px">投稿を Codex の CLI 経由で自動化(PII検査つき、公開前に Claude が確認)。TikTok・Instagram に各1本を公開。</li>
+<li style="margin-left:0px">順位検索ページの試作を完成。</li>
+</ul>
+<h2>順位検索ページの試作を触る</h2><a class="cta" href="https://ikedhidenori.github.io/jp/plain-555cca3151d65e28.html">あなたの仕事は何位? を開く</a>
+<footer>このページは 2026-09-24 15:14 JST に自動削除されます。原本: zukan-shorts/OPERATING-PLAN.md</footer></main></body></html>
