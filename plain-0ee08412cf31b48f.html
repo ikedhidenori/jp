@@ -510,6 +510,13 @@ body:not(.k) #kami-replay{display:none}
 .kami-entry{display:block;width:100%;max-width:520px;margin:0 auto 14px;padding:12px;border:1px solid var(--aline);border-left:4px solid #f5cc1a;border-radius:8px;text-align:left;font-weight:700;min-height:44px}
 .kami-entry small{display:block;font-size:12px;font-weight:400;color:var(--amute)}
 @media(max-width:440px){#hd .tabs button{padding:0 9px;font-size:12px}#hd .ttl{font-size:12px}#hd .ttl small{display:none}}
+
+/* Appendable learning notes: no grade or sync writes. */
+#pitfalls{display:none;max-width:620px;margin:auto;padding:calc(var(--ahd) + env(safe-area-inset-top) + 20px) 18px 70px;line-height:1.8;overflow-wrap:anywhere}
+body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
+#pitfalls h1{font-size:28px;margin:4px 0 12px}#pitfalls h2{font-size:21px;line-height:1.55;margin:4px 0 16px}
+.pf-kicker{font-size:12px;color:var(--amute);margin:0}.pf-card{border-top:2px solid var(--aline);padding:26px 0;scroll-margin-top:90px}.pf-mix{color:var(--amute);font-size:14px}.pf-flow{border-left:5px solid #d7b400;padding:13px 15px;background:rgba(210,175,0,.09);font-weight:700}.pf-links{display:grid;gap:8px;margin:25px 0}.pf-links a{color:inherit;border-bottom:1px solid var(--aline);padding:8px 0;font-size:14px}#pitfalls details{border:1px solid var(--aline);border-radius:8px;padding:14px}#pitfalls summary{cursor:pointer;font-weight:700}#pitfalls details p{margin-bottom:0}.pf-source{font-size:12px;color:var(--amute)}.pf-source a{color:inherit}
+
 </style>
 </head>
 <body>
@@ -548,6 +555,7 @@ body:not(.k) #kami-replay{display:none}
   <header class="pm-head"><div><p class="pm-kicker">神問題集 2026</p><h1>学習進捗</h1></div></header>
   <div id="pm-status" class="pm-status" role="status" aria-live="polite"></div>
   <button type="button" class="kami-entry" data-kami-open>神問題集を解き直す<small>取り込んだ写真の問題・一問一答を出題</small></button>
+  <button type="button" class="kami-entry" data-pitfalls-open>つまずきノート<small>２割と保全額・35条と37条など、混同を整理</small></button>
   <div id="pm-content"></div>
 </section>
 
@@ -1731,6 +1739,27 @@ body:not(.k) #kami-replay{display:none}
 </section></div><div class="wrap" id="w57" data-no="57"><section class="slide" id="slide-57"><div class="meta"><span>宅建業法 ｜ 保証金補強① 行き先</span><span>2026-09-21確認</span></div><h1 class="conclusion">業者 → 協会 → 供託所</h1><div class="guarantee-content"><div class="gh-block"><small>宅建業者 → 保証協会</small><b>分担金・還付充当金<br><span class="hl">金銭のみ</span>で納付</b></div><div class="gh-block"><small>保証協会 → 国交大臣が指定する供託所</small><b>弁済業務保証金<br>金銭・一定の有価証券で供託</b></div><p><b>直接供託する営業保証金</b>は、本店最寄りの供託所へ。<b class="hl">不足分の補充も有価証券で可能</b>。</p><p>国債100％／地方債・政府保証債90％<br>その他の指定債券80％。<b>手形・小切手は不可</b>。</p><p>客の手続き：<b>協会の認証 → 供託所へ還付請求</b>。認証は申出書の受理順。取引成立順ではない。</p><p class="gh-note">加入前の宅建業に関する取引も弁済対象。取引相手が宅建業者の場合は対象外。</p></div><div class="voice"><div class="label">解くときの確認</div><div class="main" style="text-indent:0">「誰が」「誰へ」を決めてから<br>金銭・有価証券を判定する。</div></div><nav class="links"><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener"><span>根拠：宅建業法<small>e-Gov</small></span><span class="go">→</span></a></nav></section></div><div class="wrap" id="w58" data-no="58"><section class="slide" id="slide-58"><div class="meta"><span>宅建業法 ｜ 保証金補強② 期限</span><span>2026-09-21確認</span></div><h1 class="conclusion">期限は、<br>起算点と一緒に。</h1><div class="guarantee-content"><table class="gh-table"><tr><th>手続き</th><th>起算点・期限</th></tr><tr><td>業者が協会へ分担金</td><td><b>加入日まで</b></td></tr><tr><td>加入後の支店新設<br>業者 → 協会へ30万円</td><td>設置した日から<br><b>2週間以内</b></td></tr><tr><td>協会が弁済業務保証金を供託</td><td>分担金を受領した日から<br><b>1週間以内</b></td></tr><tr><td>還付充当金<br>業者 → 協会へ還付と同額</td><td>通知を受けた日から<br><b>2週間以内</b></td></tr><tr><td>特別分担金<br>業者 → 協会</td><td>通知を受けた日から<br><b>1か月以内</b></td></tr><tr><td>社員の地位を失った業者<br>営業保証金を供託</td><td>地位を失った日から<br><b>1週間以内</b></td></tr></table><p class="gh-note">還付充当金を期限内に納付しなければ社員の地位を失う。催告後1か月の猶予はない。営業保証金を供託しても社員の地位は回復しない。</p></div><div class="voice"><div class="label">解くときの確認</div><div class="main" style="text-indent:0">営業保証金で開業・支店新設：<br>供託 → 免許権者へ届出 → 開始</div></div><nav class="links"><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener"><span>根拠：宅建業法<small>e-Gov</small></span><span class="go">→</span></a></nav></section></div><div class="wrap" id="w59" data-no="59"><section class="slide" id="slide-59"><div class="meta"><span>宅建業法 ｜ 保証金補強③ 取戻し</span><span>2026-09-21確認</span></div><h1 class="conclusion">一部廃止の公告は、<br>2ルートで違う。</h1><div class="guarantee-content"><div class="gh-block"><small>直接供託：一部の事務所を廃止</small><b>業者が公告<br><span class="hl">6か月以上</span>の申出期間</b></div><div class="gh-block"><small>協会加入：一部の事務所を廃止</small><b>分担金の返還に<br><span class="hl">公告は不要</span></b></div><div class="gh-block"><small>協会の社員の地位を失った場合</small><b>保証協会が公告<br><span class="hl">6か月以上</span>の申出期間</b></div><p class="gh-note">公告が必要な場合、期間の経過等の所定手続きを経て返還・取戻し。営業保証金は、取戻事由発生から10年経過、協会加入、供託所変更に伴う新規供託後の旧供託金取戻しでは公告不要。廃業後に取引が残る場合の10年は、その取引が結了した時から。</p></div><div class="voice"><div class="label">解くときの確認</div><div class="main" style="text-indent:0">「営業保証金か分担金か」<br>「一部廃止か地位喪失か」</div></div><nav class="links"><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener"><span>根拠：宅建業法<small>e-Gov</small></span><span class="go">→</span></a></nav></section></div><div class="wrap" id="w60" data-no="60"><section class="slide" id="slide-60"><div class="meta"><span>宅建業法 ｜ 保証金補強④ 協会の仕事</span><span>2026-09-21確認</span></div><h1 class="conclusion">必須は3つ。<br>苦情・研修・弁済。</h1><div class="guarantee-content"><div class="gh-block"><small>必須業務</small><b>苦情の解決／業務の研修／弁済</b></div><p>研修は、宅建業の業務に<b>従事する人・従事しようとする人</b>が対象。宅建士証の<b class="hl">法定講習で代替できない</b>。</p><div class="gh-block"><small>任意業務の例</small><b>一般保証／手付金等保管／研修への助成</b></div><p class="gh-note">一般保証は、社員が受領した支払金・預り金の返還債務を連帯保証する業務。弁済業務とは別の仕組み。</p><p>加入・地位喪失を報告するのは<b>協会</b>。報告先は<b>各業者の免許権者</b>で、大臣に限らない。</p><p class="gh-note">協会は苦情解決に必要な場合、社員に文書・口頭の説明や資料提出を求められる。社員は正当な理由なく拒めない。協会は解決の申出と結果を社員に周知する。</p></div><div class="voice"><div class="label">解くときの確認</div><div class="main" style="text-indent:0">長い名称は、まず<br>「義務か任意か」で分ける。</div></div><nav class="links"><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener"><span>根拠：宅建業法<small>e-Gov</small></span><span class="go">→</span></a></nav></section></div>
 </main>
 
+<section id="pitfalls" aria-label="つまずきノート"><header><p class="pf-kicker">混同をほどく復習ページ</p><h1>つまずきノート</h1><p>まず違いを一つ。次に一問で確認。<br>新しく見つかった論点は、このページに追記します。</p></header><nav aria-label="論点一覧" class="pf-links">
+<a href="#pf-deposit-cap">２割は「受取上限」。保全額ではない</a>
+<a href="#pf-deposit-threshold">５％・10％と1,000万円は「どちらか超える」</a>
+<a href="#pf-registration">保全は登記。クーリングオフは別</a>
+<a href="#pf-seller">「自ら売主」は「仲介なし」ではない</a>
+<a href="#pf-damages">もう一つの２割は「予定額＋違約金」</a>
+<a href="#pf-documents">37条書面は、契約書が兼ねられる</a>
+<a href="#pf-equipment">設備は「未完成」と「完成済み」を分ける</a>
+<a href="#pf-private-road">私道負担は「建物の貸借だけ」除外</a>
+<a href="#pf-risk-tax">危険負担は貸借にも。税金は売買・交換</a>
+</nav>
+<article class="pf-card" id="pf-deposit-cap"><p class="pf-kicker">01 / 判断を分ける</p><h2>２割は「受取上限」。保全額ではない</h2><p class="pf-mix">混同：「２割まで保全」と考えてしまう。</p><div class="pf-flow">手付の受取り → ２割まで<br>必要な保全 → 対象額の全額</div><p>売主が宅建業者・買主が非業者なら、売主が受け取れる手付金は代金の20％まで。保全が必要なら、対象の手付金等を全額保全する。中間金を含む保全額に20％の上限があるわけではない。</p><details><summary>一問確認：完成物件２億円。手付1,800万円、登記前。保全するのは4,000万円？</summary><p>×。1,800万円全額。4,000万円は手付として受け取れる上限。</p></details></article>
+<article class="pf-card" id="pf-deposit-threshold"><p class="pf-kicker">02 / 判断を分ける</p><h2>５％・10％と1,000万円は「どちらか超える」</h2><p class="pf-mix">混同：「10％以上」「新築なら10％」と覚えてしまう。</p><div class="pf-flow">未完成５％ ／ 完成10％<br>または1,000万円を超える → 全額・先に保全</div><p>未完成は５％、完成は10％。割合または1,000万円のどちらかを超えるなら保全が必要。手付金と中間金等（契約後・引渡し前に支払う代金充当金）を合計し、基準を超える受領の前に、受領済み分も含めて保全する。買主の登記による例外は次の項目。</p><details><summary>一問確認：完成4,000万円、手付400万円のみ、登記前。保全が必要？</summary><p>×。10％以下、かつ1,000万円以下なので不要。完成２億円で手付1,500万円なら、1,000万円を超えるので全額保全。</p></details></article>
+<article class="pf-card" id="pf-registration"><p class="pf-kicker">03 / 判断を分ける</p><h2>保全は登記。クーリングオフは別</h2><p class="pf-mix">混同：「登記と全額払いの両方」が保全不要の条件だと思う。</p><div class="pf-flow">保全 → 買主の所有権登記<br>クーリングオフ → 引渡し ＋ 全額払い</div><p>買主への所有権移転登記、または買主の所有権保存登記があれば、手付金等の保全は不要。全額払いは条件ではない。クーリングオフは、引渡しと代金全額払いの両方が済むとできなくなる（場所・告知後８日など、他の条件も別にある）。</p><details><summary>一問確認：登記は済んだが残代金は未払い。保全不要の例外に当たる？</summary><p>○。保全の登記による例外に、全額払いは要求されない。</p></details></article>
+<article class="pf-card" id="pf-seller"><p class="pf-kicker">04 / 判断を分ける</p><h2>「自ら売主」は「仲介なし」ではない</h2><p class="pf-mix">混同：仲介業者が入ると、売主の保全義務がなくなると思う。</p><div class="pf-flow">買主 → 手付を払う → 売主である宅建業者</div><p>取引当事者である売主が宅建業者、買主が非業者かを確認する。別の仲介業者がいても対象。売主が非業者なら、この法定保全義務はない。保証協会への加入だけで、個々の手付金が自動的に保全されるわけでもない。</p><details><summary>一問確認：業者が売主、一般人が買主。別の業者が仲介しているので保全義務の対象外？</summary><p>×。売主の立場で判断する。金額・登記等の条件は続けて確認。</p></details></article>
+<article class="pf-card" id="pf-damages"><p class="pf-kicker">05 / 判断を分ける</p><h2>もう一つの２割は「予定額＋違約金」</h2><p class="pf-mix">混同：手付と違約金を足す／それぞれ２割にする。</p><div class="pf-flow">手付 → 単独20％<br>賠償予定 ＋ 違約金 → 合計20％</div><p>業者が自ら売主・買主が非業者の場合、債務不履行による契約解除についての損害賠償予定額と違約金は、合計で代金の20％まで。売主が払う側でも同じ。何でも自動的に２割請求できる制度ではなく、定めた条件で判断する。実損害の賠償すべてを一律２割にする話でもない。</p><details><summary>一問確認：賠償予定15％に加え、違約金10％を定められる？</summary><p>×。合計25％になり、20％を超える部分は無効。</p></details></article>
+<article class="pf-card" id="pf-documents"><p class="pf-kicker">06 / 判断を分ける</p><h2>37条書面は、契約書が兼ねられる</h2><p class="pf-mix">混同：契約後だから、契約書とは別に必ずもう一枚作ると思う。</p><div class="pf-flow">35条 → 契約前の判断<br>37条 → 成立した契約の記録</div><p>35条は契約前の判断材料を説明する書面。37条は成立した契約内容を遅滞なく交付する書面。必要事項と宅建士の記名等を満たす契約書なら、37条書面を兼ねられる。37条書面自体の説明義務はない。</p><details><summary>一問確認：必要事項と宅建士の記名を備えた契約書を交付した。別の37条書面も必須？</summary><p>×。要件を満たせば兼用できる。単に「契約書」という題名だけでは足りない。</p></details></article>
+<article class="pf-card" id="pf-equipment"><p class="pf-kicker">07 / 判断を分ける</p><h2>設備は「未完成」と「完成済み」を分ける</h2><p class="pf-mix">混同：設備は貸借だけだから、未完成の売買でも説明不要と思う。</p><div class="pf-flow">未完成の完成時の設備 → 売買・交換・貸借<br>完成済みの設備整備状況 → 貸借</div><p>未完成建物は売買・交換・貸借とも、完成時の主要構造部、内外装の構造・仕上げ、設備の設置・構造を35条で説明。必要に応じて図面を交付する。完成済み建物の「台所・浴室・便所等の設備の整備状況」は貸借の説明項目。売買で別項目により同じ内容を一律説明する、という意味ではない。重大な故障を隠してよいという意味でもない。</p><details><summary>一問確認：未完成建物の貸借なら、骨組みだけ説明して、内装の仕上げは省略できる？</summary><p>×。仕上げや設備も対象。図面は必要に応じ「交付」であり、見せるだけでは足りない。</p></details></article>
+<article class="pf-card" id="pf-private-road"><p class="pf-kicker">08 / 判断を分ける</p><h2>私道負担は「建物の貸借だけ」除外</h2><p class="pf-mix">混同：貸借ならすべて説明不要と思う。</p><div class="pf-flow">私道負担 → 建物の貸借だけ除外</div><p>35条の私道負担の説明は、土地の貸借では必要。建物の貸借ではこの項目の説明義務から除外される。売買・交換では対象。</p><details><summary>一問確認：土地を借りる取引でも、私道負担は説明不要？</summary><p>×。「貸借」だけで判断せず、土地か建物かまで読む。</p></details></article>
+<article class="pf-card" id="pf-risk-tax"><p class="pf-kicker">09 / 判断を分ける</p><h2>危険負担は貸借にも。税金は売買・交換</h2><p class="pf-mix">混同：37条の条件付き記載事項を全部同じ範囲だと思う。</p><div class="pf-flow">災害の負担 → 貸借も<br>税金の負担 → 売買・交換</div><p>天災その他不可抗力による損害の負担について定めたときは、売買・交換・貸借の37条書面に記載。租税公課の負担の定めは、売買・交換の記載事項。いずれも「定めがあるとき」の話で、契約違反に対する違約金とは別。</p><details><summary>一問確認：貸借では、災害による損害の負担を定めても37条書面に書かなくてよい？</summary><p>×。定めがあれば貸借でも記載する。</p></details></article>
+<footer class="pf-source"><p>学習用の整理・2026年9月24日追加。確認問題は採点記録を変更しません。</p><p>根拠：<a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener">宅建業法35・37〜41条の２、78条２項</a> ／ <a href="https://laws.e-gov.go.jp/law/332M50004000012" target="_blank" rel="noopener">施行規則16条・16条の４の３</a> ／ <a href="https://www.mlit.go.jp/totikensangyo/const/1_6_bf_000013.html" target="_blank" rel="noopener">国交省・手付金等の保全</a></p></footer></section>
 <section id="zukai"><div class="zk-intro">図で整理して、確認問題で思い出す。項目から直接ジャンプできます。</div>
 <nav class="zk-jumps" aria-label="図解の分野"><a href="#zk37" data-zk-target="zk37">報酬：片方と合計</a><a href="#guarantee-guide" data-zk-target="guarantee-guide">保証金の復習手順</a><a href="#zk33" data-zk-target="zk33">保証金：金額・行き先</a><a href="#zk35" data-zk-target="zk35">保証金：期限・公告</a><a href="#zk32" data-zk-target="zk32">合格から取引士証</a><a href="#zk30" data-zk-target="zk30">事務所と案内所</a><a href="#zk31" data-zk-target="zk31">売主と販売代理</a><a href="#zk29" data-zk-target="zk29">業者と宅建士の処分</a><a href="#zk28" data-zk-target="zk28">刑の種類</a><a href="#zk27" data-zk-target="zk27">37条：貸借の5項目</a><a href="#zk26" data-zk-target="zk26">宅建業法：欠格</a><a href="#zk-focus" data-zk-target="zk-focus">土地・建物 5枚</a><a href="#zk-rights" data-zk-target="zk-rights">権利関係 3枚</a><a href="#zk-tax" data-zk-target="zk-tax">税・その他 5枚</a><a href="#zk-law" data-zk-target="zk-law">法令上の制限 12枚</a></nav><figure class="zk" id="zk37">
 <figcaption><span class="no">図37 · 報酬</span><b>売買は片方ずつ。賃貸は合計。</b></figcaption>
@@ -2361,7 +2390,7 @@ function theme(m){document.documentElement.classList.toggle('light',m==='light')
 $('#bt-th').onclick=()=>theme(document.documentElement.classList.contains('light')?'dark':'light');
 theme(localStorage.getItem('tk-theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
 /* ---- 目次 ---- */
-(function(){let h='',g='',sb='';TOC.forEach(e=>{
+(function(){let h='<button type="button" class="kami-entry" data-pitfalls-open>つまずきノート<small>混同しやすいポイントを復習</small></button>',g='',sb='';TOC.forEach(e=>{
  if(e.subject!==sb){sb=e.subject;g='';h+=`<div class="sbj">${sb}<small>${TOC.filter(x=>x.subject===sb).length}枚</small></div>`;}
  if(e.group!==g){g=e.group;h+=`<h2>${g}</h2>`;}
  h+=`<div class="row" data-no="${e.no}"><button class="jt" data-no="${e.no}"><span class="no">${pad(e.no)}</span><span>${e.title}</span></button><a class="tm" href="${e.source||(e.vid?'https://www.youtube.com/watch?v='+e.vid+'&t='+e.t+'s':VID+e.t+'s')}" target="_blank" rel="noopener">▶ ${e.mmss}</a></div>`;});
@@ -2372,19 +2401,20 @@ $('#toc-body').addEventListener('click',e=>{const b=e.target.closest('button.jt'
 let tx=null;$('#toc').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});$('#toc').addEventListener('touchend',e=>{if(tx!==null&&tx-e.changedTouches[0].clientX>70)toc(false);tx=null;});
 /* ---- 現在地 ---- */
 let cur=1;
-function setCur(n){cur=n;const e=TOC.find(x=>x.no===n);$('#cur-no').textContent=`${pad(n)} / ${pad(TOC.length)}`;$('#cur-ttl').textContent=e?e.title:'';$$('#toc .row').forEach(a=>a.classList.toggle('on',+a.dataset.no===n));if(!document.body.matches('.q,.z,.pm,.k'))$('#ttl').innerHTML=`${e?e.title:''}<small>${e?e.subject:''} ${pad(n)}/${TOC.length}</small>`;history.replaceState(null,'','#w'+n);localStorage.setItem('tk-pos',n);}
+function setCur(n){cur=n;const e=TOC.find(x=>x.no===n);$('#cur-no').textContent=`${pad(n)} / ${pad(TOC.length)}`;$('#cur-ttl').textContent=e?e.title:'';$$('#toc .row').forEach(a=>a.classList.toggle('on',+a.dataset.no===n));if(!document.body.matches('.q,.z,.pm,.k,.n'))$('#ttl').innerHTML=`${e?e.title:''}<small>${e?e.subject:''} ${pad(n)}/${TOC.length}</small>`;history.replaceState(null,'','#w'+n);localStorage.setItem('tk-pos',n);}
 function go(n){const w=$('#w'+n);if(!w)return;w.scrollIntoView({behavior:'smooth',block:'start'});setCur(n);}
 $('#bt-prev').onclick=()=>go(Math.max(1,cur-1));$('#bt-next').onclick=()=>go(Math.min(TOC.length,cur+1));
-const io=new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting&&!document.body.matches('.q,.z,.pm,.k'))setCur(+x.target.dataset.no);});},{rootMargin:'-40% 0px -40% 0px',threshold:0});
+const io=new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting&&!document.body.matches('.q,.z,.pm,.k,.n'))setCur(+x.target.dataset.no);});},{rootMargin:'-40% 0px -40% 0px',threshold:0});
 $$('.wrap').forEach(w=>io.observe(w));
 /* ---- タブ ---- */
-const scrollPos={s:0,q:0,z:0,p:0,k:0};
+const scrollPos={s:0,q:0,z:0,p:0,k:0,n:0};
 function tab(t,options){
- const was=document.body.classList.contains('k')?'k':document.body.classList.contains('pm')?'p':document.body.classList.contains('q')?'q':document.body.classList.contains('z')?'z':'s';
+ const was=document.body.classList.contains('n')?'n':document.body.classList.contains('k')?'k':document.body.classList.contains('pm')?'p':document.body.classList.contains('q')?'q':document.body.classList.contains('z')?'z':'s';
  scrollPos[was]=window.scrollY;
- document.body.classList.toggle('k',t==='k');document.body.classList.toggle('pm',t==='p');document.body.classList.toggle('q',t==='q');document.body.classList.toggle('z',t==='z');
+ document.body.classList.toggle('n',t==='n');document.body.classList.toggle('k',t==='k');document.body.classList.toggle('pm',t==='p');document.body.classList.toggle('q',t==='q');document.body.classList.toggle('z',t==='z');
  ['p','s','q','z'].forEach(k=>$('#tab-'+k).classList.toggle('on',t===k||(t==='k'&&k==='q')));
- if(t==='p'){$('#ttl').innerHTML='宅建2026';history.replaceState(null,'','#pm');TakkenPM.show();}
+ if(t==='n'){$('#ttl').textContent='つまずきノート';history.replaceState(null,'','#pitfalls');}
+ else if(t==='p'){$('#ttl').innerHTML='宅建2026';history.replaceState(null,'','#pm');TakkenPM.show();}
  else if(t==='k'){$('#ttl').textContent='神問題集';history.replaceState(null,'','#kami');TakkenKamiBank.open(options);}
  else if(t==='q'){$('#ttl').innerHTML='確認問題<small>'+QS.length+'問</small>';history.replaceState(null,'','#quiz');renderProg();}
  else if(t==='z'){$('#ttl').innerHTML='図解<small>'+document.querySelectorAll('figure.zk').length+'枚</small>';history.replaceState(null,'','#zukai');}
@@ -2392,6 +2422,7 @@ function tab(t,options){
  window.scrollTo(0,scrollPos[t]||0);
 }
 $('#tab-p').onclick=()=>tab('p');
+document.addEventListener('click',e=>{if(e.target.closest('[data-pitfalls-open]')){toc(false);tab('n');}});
 document.addEventListener('takken-pm-show',()=>tab('p'));
 document.addEventListener('takken-kami-close',()=>tab('p'));
 document.addEventListener('click',e=>{const b=e.target.closest('[data-kami-open]');if(b)tab('k',b.dataset.kamiQuestion?{volume:Number(b.dataset.kamiVolume||3),questionNo:Number(b.dataset.kamiQuestion),kind:b.dataset.kamiKind||'main',item:b.dataset.kamiItem}:undefined);});
@@ -2473,7 +2504,7 @@ async function importKamiLink(fragment){
  }catch(e){out.textContent='取り込めませんでした。取り込み用リンクを開き直すか、問題集JSONを読み込んでください。';out.classList.add('kr-warn');}
 }
 window.addEventListener('hashchange',()=>{const h=location.hash;if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}});
-(function(){const h=initialHash;if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}else if(h==='#kami'){tab('k');}else if(h==='#toc')toc(true);else if(h==='#guarantee-guide'||/^#zk(?:\d+|-tax|-law|-rights|-focus)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){setTimeout(()=>go(+h.slice(2)),50);}else{cur=Math.min(TOC.length,Math.max(1,+localStorage.getItem('tk-pos')||1));tab('p');}})();
+(function(){const h=initialHash;if(h==='#pitfalls'||h.startsWith('#pf-')){tab('n');if(h.startsWith('#pf-'))requestAnimationFrame(()=>document.querySelector(h)?.scrollIntoView());}else if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}else if(h==='#kami'){tab('k');}else if(h==='#toc')toc(true);else if(h==='#guarantee-guide'||/^#zk(?:\d+|-tax|-law|-rights|-focus)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){setTimeout(()=>go(+h.slice(2)),50);}else{cur=Math.min(TOC.length,Math.max(1,+localStorage.getItem('tk-pos')||1));tab('p');}})();
 </script>
 </body>
 </html>
