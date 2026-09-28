@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>街で宅建 ― 都市計画マップ</title>
+<meta name="theme-color" content="#2f4a3e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="街で宅建">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<style>
+:root{--ink:#23302a;--sub:#5b6a62;--bg:#fbfaf6;--line:#e3e0d6;--accent:#2f6b4f;--warn:#b5532f}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg);-webkit-text-size-adjust:100%}
+#map{position:fixed;inset:0}
+.fab{position:fixed;right:12px;z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);font-size:20px;display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer}
+.fab.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+#b-loc{bottom:calc(env(safe-area-inset-bottom) + 24px)}
+#b-measure{bottom:calc(env(safe-area-inset-bottom) + 80px)}
+#b-layers{top:calc(env(safe-area-inset-top) + 12px)}
+#b-takken{top:calc(env(safe-area-inset-top) + 66px);font-size:12px;font-weight:700}
+#top{position:fixed;left:12px;top:calc(env(safe-area-inset-top) + 12px);z-index:5;right:70px;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none}
+.chip{pointer-events:auto;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:16px;padding:5px 10px;font-size:12px;color:var(--sub);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.chip b{color:var(--ink)}
+#hint{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom) + 30px);z-index:5;background:rgba(35,48,42,.88);color:#fff;border-radius:18px;padding:8px 14px;font-size:13px;pointer-events:none;transition:opacity .3s;max-width:78vw;text-align:center}
+/* 下から出るシート */
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--bg);border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.18);max-height:72vh;overflow-y:auto;transform:translateY(105%);transition:transform .25s ease;padding:0 16px calc(env(safe-area-inset-bottom) + 16px);-webkit-overflow-scrolling:touch}
+#sheet.open{transform:none}
+#sheet .grab{position:sticky;top:0;background:var(--bg);padding:8px 0 6px;display:flex;align-items:center;gap:8px;z-index:1}
+#sheet .grab::before{content:"";position:absolute;left:50%;top:5px;width:40px;height:4px;margin-left:-20px;border-radius:2px;background:#cfcabd}
+#sheet .where{flex:1;font-size:12px;color:var(--sub);padding-top:8px}
+#sheet .x{border:0;background:none;font-size:22px;color:var(--sub);padding:6px 4px 0}
+.card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 12px;margin:8px 0}
+.card h3{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+.card h3 .sw{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.15)}
+.card .k{font-size:11px;color:var(--sub);letter-spacing:.04em}
+.nums{display:flex;gap:8px;margin:6px 0 4px;flex-wrap:wrap}
+.num{flex:1;min-width:74px;background:#f4f2ea;border-radius:8px;padding:6px 8px}
+.num .v{font-size:20px;font-weight:700}
+.num .u{font-size:11px;color:var(--sub)}
+.row{font-size:13px;line-height:1.6;margin:3px 0}
+.row .l{display:inline-block;min-width:3.6em;margin-right:.6em;color:var(--sub);font-size:12px}
+.ok{color:#2f6b4f}.ng{color:var(--warn)}
+.tip{font-size:12.5px;line-height:1.6;background:#fff8dc;border-radius:8px;padding:6px 8px;margin-top:6px}
+.lnk{display:inline-block;margin:6px 8px 0 0;font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid #cfe0d6;border-radius:14px;padding:4px 10px;background:#f3f8f5}
+.muted{font-size:11.5px;color:var(--sub);line-height:1.5}
+.gbtns{display:flex;gap:8px;margin:10px 0 4px}
+.gbtns a{flex:1;text-align:center;text-decoration:none;font-size:13px;font-weight:600;padding:9px 6px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink)}
+/* レイヤーパネル */
+#panel{position:fixed;top:0;right:0;bottom:0;width:min(320px,86vw);z-index:12;background:var(--bg);box-shadow:-4px 0 20px rgba(0,0,0,.18);transform:translateX(105%);transition:transform .25s;overflow-y:auto;padding:calc(env(safe-area-inset-top) + 12px) 14px calc(env(safe-area-inset-bottom) + 20px)}
+#panel.open{transform:none}
+#panel h2{font-size:15px;margin:14px 0 6px}
+#panel label{display:flex;align-items:center;gap:10px;padding:8px 2px;font-size:14px;border-bottom:1px solid var(--line)}
+#panel label input{width:20px;height:20px;accent-color:var(--accent)}
+#panel label small{display:block;font-size:11px;color:var(--sub)}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;font-size:11px;margin:6px 0}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:12px;height:12px;border-radius:2px;border:1px solid rgba(0,0,0,.15);flex:none}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:#fff;padding:8px 4px;font-size:13px;color:var(--ink)}
+.seg button.on{background:var(--accent);color:#fff}
+#dl{font-size:12px;color:var(--sub);margin-top:8px;line-height:1.6}
+#dl button{margin-top:6px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 10px;font-size:12px}
+#scrim{position:fixed;inset:0;z-index:11;background:rgba(0,0,0,.2);display:none}
+#scrim.on{display:block}
+.maplibregl-ctrl-attrib{font-size:10px}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div id="top"><span class="chip" id="c-off" hidden>オフライン</span><span class="chip" id="c-dl" hidden></span></div>
+<button class="fab" id="b-layers" aria-label="レイヤー">☰</button>
+<a class="fab" id="b-takken" aria-label="宅建アプリ" href="#" target="_blank" rel="noopener">宅建</a>
+<button class="fab" id="b-measure" aria-label="道路幅を測る">📏</button>
+<button class="fab" id="b-loc" aria-label="現在地">◎</button>
+<div id="hint">調べたい場所をタップ</div>
+
+<div id="sheet" role="dialog" aria-label="この場所の都市計画"><div class="grab"><div class="where" id="where"></div><button class="x" id="sheet-x" aria-label="閉じる">×</button></div><div id="sheet-body"></div></div>
+
+<div id="scrim"></div>
+<aside id="panel" aria-label="レイヤー">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:4px 0 6px">下地の地図</h2><button id="panel-x" aria-label="閉じる" style="border:0;background:none;font-size:24px;color:var(--sub);padding:4px 6px">×</button></div>
+  <div class="seg" id="base"><button data-b="pale" class="on">淡色</button><button data-b="std">標準</button><button data-b="photo">航空写真</button></div>
+  <h2>都市計画</h2>
+  <div id="lyr"></div>
+  <h2>用途地域の色</h2>
+  <div class="legend" id="legend"></div>
+  <h2>オフライン保存</h2>
+  <div id="dl"></div>
+  <p class="muted" style="margin-top:14px">出典：東京都都市整備局「都市計画決定情報GISデータ」(CC BY 4.0、2025年3月末時点)／国土交通省「国土数値情報 都市計画決定情報(2024年度)・地価公示(2026年)・都道府県地価調査(2026年)」を加工／ハザード：重ねるハザードマップ／地図：地理院タイル。<br>参考情報です。建築確認・重要事項説明等には自治体の窓口で最新の都市計画を確認してください。</p>
+</aside>
+
+<script src="vendor/maplibre-gl.js"></script>
+<script src="zoning.js"></script>
+<script src="munis.js"></script>
+<script>
+'use strict';
+const VERSION='202609281235';
+const TAKKEN='https://ikedhidenori.github.io/jp/plain-0ee08412cf31b48f.html';
+const Z=window.ZONING, $=s=>document.querySelector(s);
+const BASEURL=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,''), abs=p=>BASEURL+p;
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const slide=(key,label)=>`<a class="lnk" href="${TAKKEN}#w${Z.SLIDES[key]}" target="_blank" rel="noopener">📖 ${label}（スライド${Z.SLIDES[key]}）</a>`;
+$('#b-takken').href=TAKKEN+'#w21';
+
+/* ---------- 地図 ---------- */
+const BASES={
+  pale:{tiles:['https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'],maxzoom:18},
+  std:{tiles:['https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'],maxzoom:18},
+  photo:{tiles:['https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg'],maxzoom:18}
+};
+const youtoColor=['match',['get','c']], YOUTO_OP=['interpolate',['linear'],['zoom'],10,.55,16,.42,18,.3];
+Z.YOUTO.forEach((y,i)=>{if(y)youtoColor.push(i,y.col);});youtoColor.push('#cccccc');
+
+const LAYERS=[ // id, 表示名, 説明, 初期表示, style layers
+  {id:'youto',name:'用途地域',sub:'建ぺい率/容積率ラベル付き',on:true},
+  {id:'kuiki',name:'区域区分・都市計画区域',sub:'市街化区域／調整区域／区域外',on:true},
+  {id:'bouka',name:'防火・準防火地域',sub:'斜線で表示',on:false},
+  {id:'koudo',name:'高度地区',sub:'都内は第何種・何mまで',on:false},
+  {id:'chiku',name:'地区計画・高度利用地区',sub:'',on:false},
+  {id:'shisetsu',name:'都市計画道路・公園',sub:'都内の道路は八王子市のみ収録',on:false},
+  {id:'kukaku',name:'区画整理・立地適正化',sub:'',on:false},
+  {id:'fuuchi',name:'風致地区・特別用途地区など',sub:'',on:false},
+  {id:'chika',name:'地価公示・地価調査',sub:'2026年、円/m²',on:true},
+  {id:'flood',name:'洪水の浸水想定',sub:'想定最大規模・要ネット',on:false},
+  {id:'dosha',name:'土砂災害警戒区域',sub:'要ネット',on:false}
+];
+const vis=JSON.parse(localStorage.getItem('tm-vis')||'null')||Object.fromEntries(LAYERS.map(l=>[l.id,l.on]));
+let base=localStorage.getItem('tm-base')||'pale';
+
+const hazard=(name)=>({type:'raster',tiles:[`https://disaportaldata.gsi.go.jp/raster/${name}/{z}/{x}/{y}.png`],tileSize:256,minzoom:2,maxzoom:17,attribution:'重ねるハザードマップ'});
+const start=JSON.parse(localStorage.getItem('tm-view')||'null')||{c:[139.7671,35.6812],z:14};
+const map=new maplibregl.Map({
+  container:'map',center:start.c,zoom:start.z,minZoom:7,maxZoom:19,maxPitch:0,dragRotate:false,
+  bounds:undefined,attributionControl:{compact:true},
+  style:{version:8,glyphs:abs('fonts/{fontstack}/{range}.pbf'),
+    sources:{
+      base:{type:'raster',tiles:BASES[base].tiles,tileSize:256,maxzoom:BASES[base].maxzoom,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">地理院タイル</a>'},
+      tk:{type:'vector',tiles:[abs('tiles/{z}/{x}/{y}.pbf')],minzoom:8,maxzoom:14,attribution:'東京都・国土数値情報'},
+      flood:hazard('01_flood_l2_shinsuishin_data'),
+      dosha1:hazard('05_dosekiryukeikaikuiki'),dosha2:hazard('05_kyukeishakeikaikuiki'),dosha3:hazard('05_jisuberikeikaikuiki')
+    },
+    layers:[
+      {id:'base',type:'raster',source:'base'},
+      {id:'flood',type:'raster',source:'flood',paint:{'raster-opacity':.7},layout:{visibility:'none'}},
+      {id:'dosha1',type:'raster',source:'dosha1',paint:{'raster-opacity':.8},layout:{visibility:'none'}},
+      {id:'dosha2',type:'raster',source:'dosha2',paint:{'raster-opacity':.8},layout:{visibility:'none'}},
+      {id:'dosha3',type:'raster',source:'dosha3',paint:{'raster-opacity':.8},layout:{visibility:'none'}},
+      // 区域区分: 調整区域を薄緑の網、区域外は灰色 (tokei の外側は描けないので境界線のみ)
+      {id:'kuiki-fill',type:'fill',source:'tk','source-layer':'kuiki',paint:{'fill-color':['match',['get','n'],'市街化調整区域','#7fae6a','rgba(0,0,0,0)'],'fill-opacity':.28}},
+      {id:'kuiki-line',type:'line',source:'tk','source-layer':'kuiki',filter:['==',['get','n'],'市街化区域'],paint:{'line-color':'#c0392b','line-width':['interpolate',['linear'],['zoom'],8,.8,14,2.2],'line-dasharray':[3,2]}},
+      {id:'tokei-line',type:'line',source:'tk','source-layer':'tokei',paint:{'line-color':'#555','line-width':['interpolate',['linear'],['zoom'],8,.6,14,1.6],'line-dasharray':[1,1.5]}},
+      {id:'youto-fill',type:'fill',source:'tk','source-layer':'youto',paint:{'fill-color':youtoColor,'fill-opacity':YOUTO_OP}},
+      {id:'youto-line',type:'line',source:'tk','source-layer':'youto',minzoom:13,paint:{'line-color':'rgba(60,60,60,.55)','line-width':['interpolate',['linear'],['zoom'],13,.4,17,1.4]}},
+      {id:'kukaku-fill',type:'fill',source:'tk','source-layer':'tochiku',paint:{'fill-color':'#8e6c3a','fill-opacity':.15},layout:{visibility:'none'}},
+      {id:'kukaku-line',type:'line',source:'tk','source-layer':'tochiku',paint:{'line-color':'#8e6c3a','line-width':1.4},layout:{visibility:'none'}},
+      {id:'ritteki-line',type:'line',source:'tk','source-layer':'ritteki',paint:{'line-color':['match',['get','n'],'都市機能誘導区域','#d35400','居住誘導区域','#16a085','#7f8c8d'],'line-width':1.8,'line-dasharray':[2,1]},layout:{visibility:'none'}},
+      {id:'fuuchi-fill',type:'fill',source:'tk','source-layer':'fuuchi',paint:{'fill-color':'#2e8b57','fill-opacity':.22},layout:{visibility:'none'}},
+      {id:'tokubetsu-line',type:'line',source:'tk','source-layer':'tokubetsu',paint:{'line-color':'#6c3483','line-width':1.6,'line-dasharray':[1,1]},layout:{visibility:'none'}},
+      {id:'sonota-line',type:'line',source:'tk','source-layer':'sonota',paint:{'line-color':'#34495e','line-width':1.6,'line-dasharray':[2,2]},layout:{visibility:'none'}},
+      {id:'koudo-line',type:'line',source:'tk','source-layer':'koudo',paint:{'line-color':['match',['get','n'],'第一種高度地区','#1f618d','第二種高度地区','#2874a6','第三種高度地区','#5dade2','#1f618d'],'line-width':1.4},layout:{visibility:'none'}},
+      {id:'chiku-fill',type:'fill',source:'tk','source-layer':'chiku',paint:{'fill-color':'#f39c12','fill-opacity':.12},layout:{visibility:'none'}},
+      {id:'chiku-line',type:'line',source:'tk','source-layer':'chiku',paint:{'line-color':'#d68910','line-width':1.6},layout:{visibility:'none'}},
+      {id:'koudori-line',type:'line',source:'tk','source-layer':'koudori',paint:{'line-color':'#922b21','line-width':1.6,'line-dasharray':[3,1]},layout:{visibility:'none'}},
+      {id:'kouen-fill',type:'fill',source:'tk','source-layer':'kouen',paint:{'fill-color':'#27ae60','fill-opacity':.3},layout:{visibility:'none'}},
+      {id:'douro-line',type:'line',source:'tk','source-layer':'douro',paint:{'line-color':'#e67e22','line-width':['interpolate',['linear'],['zoom'],11,1.5,17,6],'line-opacity':.8},layout:{visibility:'none','line-cap':'round'}},
+      {id:'bouka-fill',type:'fill',source:'tk','source-layer':'bouka',paint:{'fill-pattern':['match',['get','n'],'防火地域','hatch-dense','hatch'],'fill-opacity':.9},layout:{visibility:'none'}},
+      {id:'bouka-line',type:'line',source:'tk','source-layer':'bouka',paint:{'line-color':['match',['get','n'],'防火地域','#b03a2e','#cb4335'],'line-width':['match',['get','n'],'防火地域',2,1.2]},layout:{visibility:'none'}},
+      {id:'youto-label',type:'symbol',source:'tk','source-layer':'youto',minzoom:15,layout:{'text-field':['case',['has','bcr'],['concat',['to-string',['get','bcr']],'/',['to-string',['get','far']]],''],'text-font':['OpenSans'],'text-size':12,'symbol-placement':'point','text-allow-overlap':false,'text-padding':6},paint:{'text-color':'#2c2c2c','text-halo-color':'rgba(255,255,255,.9)','text-halo-width':1.6}},
+      {id:'chika-pt',type:'circle',source:'tk','source-layer':'chika',paint:{'circle-radius':['interpolate',['linear'],['zoom'],11,3,16,6],'circle-color':['match',['get','kind'],'公示','#c0392b','#8e44ad'],'circle-stroke-color':'#fff','circle-stroke-width':1.5}},
+      {id:'chika-label',type:'symbol',source:'tk','source-layer':'chika',minzoom:14,layout:{'text-field':['concat',['number-format',['/',['get','yen'],10000],{'max-fraction-digits':1}],'万'],'text-font':['OpenSans'],'text-size':11,'text-offset':[0,1.1],'text-anchor':'top'},paint:{'text-color':'#7b241c','text-halo-color':'#fff','text-halo-width':1.5}},
+      // タップ判定専用 (常に表示・透明)
+      ...['youto','kuiki','tokei','bouka','koudo','chiku','koudori','fuuchi','tochiku','ritteki','kouen','tokubetsu','sonota'].map(s=>({id:'hit-'+s,type:'fill',source:'tk','source-layer':s,paint:{'fill-opacity':0}})),
+      {id:'hit-douro',type:'line',source:'tk','source-layer':'douro',paint:{'line-opacity':0,'line-width':14}}
+    ]}
+});
+const GROUPS={youto:['youto-fill','youto-line','youto-label'],kuiki:['kuiki-fill','kuiki-line','tokei-line'],bouka:['bouka-fill','bouka-line'],
+  koudo:['koudo-line'],chiku:['chiku-fill','chiku-line','koudori-line'],shisetsu:['douro-line','kouen-fill'],kukaku:['kukaku-fill','kukaku-line','ritteki-line'],
+  fuuchi:['fuuchi-fill','tokubetsu-line','sonota-line'],chika:['chika-pt','chika-label'],flood:['flood'],dosha:['dosha1','dosha2','dosha3']};
+function applyVis(){for(const[g,ids]of Object.entries(GROUPS))for(const id of ids)if(map.getLayer(id))map.setLayoutProperty(id,'visibility',vis[g]?'visible':'none');localStorage.setItem('tm-vis',JSON.stringify(vis));}
+
+// 防火の斜線パターン
+function hatch(name,gap,color){const n=16,c=document.createElement('canvas');c.width=c.height=n;const x=c.getContext('2d');x.strokeStyle=color;x.lineWidth=gap<6?1.6:1.2;for(let i=-n;i<n*2;i+=gap){x.beginPath();x.moveTo(i,0);x.lineTo(i+n,n);x.stroke();}map.addImage(name,x.getImageData(0,0,n,n),{pixelRatio:2});}
+map.on('load',()=>{hatch('hatch-dense',4,'rgba(176,58,46,.75)');hatch('hatch',8,'rgba(203,67,53,.6)');applyVis();});
+map.on('moveend',()=>{const c=map.getCenter();localStorage.setItem('tm-view',JSON.stringify({c:[+c.lng.toFixed(5),+c.lat.toFixed(5)],z:+map.getZoom().toFixed(2)}));});
+
+/* ---------- レイヤーパネル ---------- */
+$('#lyr').innerHTML=LAYERS.map(l=>`<label><input type="checkbox" data-l="${l.id}" ${vis[l.id]?'checked':''}><span>${l.name}${l.sub?`<small>${l.sub}</small>`:''}</span></label>`).join('');
+$('#lyr').addEventListener('change',e=>{const id=e.target.dataset.l;if(!id)return;vis[id]=e.target.checked;applyVis();});
+$('#legend').innerHTML=Z.YOUTO.filter(Boolean).map(y=>`<span><i style="background:${y.col}"></i>${y.s}</span>`).join('')+'<span><i style="background:#7fae6a;opacity:.6"></i>調整区域</span><span><i style="border:2px dashed #c0392b;background:none"></i>市街化区域界</span>';
+document.querySelectorAll('#base button').forEach(b=>{b.classList.toggle('on',b.dataset.b===base);b.onclick=()=>{base=b.dataset.b;localStorage.setItem('tm-base',base);document.querySelectorAll('#base button').forEach(x=>x.classList.toggle('on',x===b));const src=map.getSource('base');src.setTiles(BASES[base].tiles);};});
+const panel=(o)=>{$('#panel').classList.toggle('open',o);$('#scrim').classList.toggle('on',o);};
+$('#b-layers').onclick=()=>panel(true);$('#scrim').onclick=$('#panel-x').onclick=()=>panel(false);
+
+/* ---------- 現在地 ---------- */
+let meMarker=null;
+function locate(fly=true){
+  if(!navigator.geolocation){hint('この端末では現在地が使えません');return;}
+  $('#b-loc').classList.add('on');
+  navigator.geolocation.getCurrentPosition(p=>{
+    const ll=[p.coords.longitude,p.coords.latitude];
+    if(!meMarker){const el=document.createElement('div');el.style.cssText='width:16px;height:16px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 6px rgba(26,115,232,.25)';meMarker=new maplibregl.Marker({element:el});}
+    meMarker.setLngLat(ll).addTo(map);
+    if(fly){map.flyTo({center:ll,zoom:Math.max(map.getZoom(),16),duration:600});map.once('idle',()=>inspect(ll));}
+    $('#b-loc').classList.remove('on');
+  },e=>{$('#b-loc').classList.remove('on');hint(e.code===1?'位置情報が許可されていません（設定→Safari→位置情報）':'現在地を取得できませんでした');},{enableHighAccuracy:true,timeout:12000,maximumAge:30000});
+}
+$('#b-loc').onclick=()=>locate(true);
+
+/* ---------- ヒント ---------- */
+let hintT;function hint(t,ms=2600){const h=$('#hint');h.textContent=t;h.style.opacity=1;clearTimeout(hintT);hintT=setTimeout(()=>h.style.opacity=0,ms);}
+hint('調べたい場所をタップ',3200);
+
+/* ---------- タップして調べる ---------- */
+let pin=null;
+map.on('click',e=>{if(measuring)return measureClick(e);const f=map.queryRenderedFeatures([[e.point.x-10,e.point.y-10],[e.point.x+10,e.point.y+10]],{layers:['chika-pt']});if(f.length&&vis.chika)return showChika(f[0].properties,f[0].geometry.coordinates);inspect([e.lngLat.lng,e.lngLat.lat]);});
+function at(ll,layer,pad=0){const p=map.project(ll);const box=pad?[[p.x-pad,p.y-pad],[p.x+pad,p.y+pad]]:p;return map.queryRenderedFeatures(box,{layers:['hit-'+layer]}).map(f=>f.properties);}
+function uniq(a,key){const s=new Set;return a.filter(x=>{const k=key(x);if(s.has(k))return false;s.add(k);return true;});}
+function inspect(ll){
+  if(map.getZoom()<12.5){map.flyTo({center:ll,zoom:15,duration:500});map.once('idle',()=>inspect(ll));return;}
+  if(!pin){const el=document.createElement('div');el.style.cssText='width:14px;height:14px;border-radius:50%;background:#e74c3c;border:3px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4)';pin=new maplibregl.Marker({element:el});}
+  pin.setLngLat(ll).addTo(map);
+  const youto=at(ll,'youto')[0], kuiki=at(ll,'kuiki'), tokei=at(ll,'tokei'),
+    bouka=uniq(at(ll,'bouka'),x=>x.n), koudo=uniq(at(ll,'koudo'),x=>x.n+x.max),
+    chiku=uniq([...at(ll,'chiku'),...at(ll,'koudori').map(x=>({...x,t:'高度利用地区'}))],x=>x.t+x.n),
+    others=uniq([...at(ll,'fuuchi').map(x=>({...x,t:'風致地区'})),...at(ll,'tokubetsu').map(x=>({...x,t:'特別用途地区'})),...at(ll,'sonota'),...at(ll,'tochiku').map(x=>({...x,t:'土地区画整理事業'})),...at(ll,'ritteki').map(x=>({...x,t:x.n,n:''})),...at(ll,'kouen').map(x=>({...x,t:x.t||'都市計画公園'}))],x=>x.t+x.n),
+    douro=at(ll,'douro',10);
+  lastYouto=youto;
+  const h=[];
+  h.push(youtoCard(youto,kuiki,tokei));
+  h.push(kuikiCard(kuiki,tokei,youto));
+  if(bouka.length)h.push(boukaCard(bouka));
+  else if(youto)h.push(`<div class="card"><div class="k">防火</div><div class="row">防火・準防火地域の指定なし<span class="muted">（法22条区域の可能性あり・データ外）</span></div></div>`);
+  if(koudo.length)h.push(koudoCard(koudo));
+  if(chiku.length||others.length||douro.length)h.push(otherCard(chiku,others,douro));
+  h.push(`<div class="card" id="hz"><div class="k">ハザード</div><div class="row muted">${navigator.onLine?'確認中…':'オフラインのため確認できません'}</div></div>`);
+  h.push(gButtons(ll));
+  h.push(`<p class="muted">参考情報です。正確な都市計画は自治体の窓口で確認してください。</p>`);
+  openSheet(h.join(''),ll);
+  if(navigator.onLine)hazardAt(ll);
+}
+function youtoCard(y,kuiki,tokei){
+  if(!y){
+    const chosei=kuiki.some(k=>k.n==='市街化調整区域');
+    return `<div class="card"><div class="k">用途地域</div><h3>用途地域の指定なし</h3><div class="row muted">${chosei?'市街化調整区域は原則として用途地域を定めない。':tokei.length?'非線引き区域の白地（用途地域の指定がない所）か、データ未収録の地域。':'都市計画区域外か、データ未収録の地域。'}建ぺい率・容積率は特定行政庁が定める数値（例：60%/200%など）</div>${slide('youto','用途地域13種')}</div>`;
+  }
+  const z=Z.YOUTO[y.c]||{n:'不明',col:'#ccc'};
+  const road=z.g==='res'?'4/10':'6/10';
+  const extras=[];
+  if(y.h)extras.push(`<div class="row"><span class="l">絶対高さ</span><b>${y.h}m</b></div>`);
+  if(y.sb)extras.push(`<div class="row"><span class="l">外壁後退</span><b>${y.sb}m</b></div>`);
+  if(y.ms)extras.push(`<div class="row"><span class="l">最低敷地</span><b>${y.ms}m²</b></div>`);
+  if(y.tk)extras.push(`<div class="row"><span class="l">特例</span>特例容積率適用区域</div>`);
+  return `<div class="card"><div class="k">用途地域</div><h3><span class="sw" style="background:${z.col}"></span>${z.n}</h3>
+  <div class="nums"><div class="num"><div class="u">建ぺい率</div><div class="v">${y.bcr??'—'}<span class="u">%</span></div></div><div class="num"><div class="u">容積率（指定）</div><div class="v">${y.far??'—'}<span class="u">%</span></div></div></div>
+  ${extras.join('')}
+  <div class="row"><span class="l ok">建てられる</span>${z.ok}</div>
+  <div class="row"><span class="l ng">建てられない</span>${z.ng}</div>
+  <div class="row"><span class="l">高さ</span>${z.h}</div>
+  <div class="tip">💡 ${z.tip}<br>前面道路が12m未満なら容積率は「道路幅×${road}」と指定容積率の小さい方。📏で道路幅を測ると計算します</div>
+  ${slide('youto','用途地域13種')}${slide('kenpei','建蔽率・高さ・防火')}${slide('douro','用途制限・道路')}</div>`;
+}
+function kuikiCard(kuiki,tokei,y){
+  let key,label;
+  const k=kuiki.find(x=>x.n==='市街化区域')||kuiki.find(x=>x.n==='市街化調整区域');
+  if(k){key=k.n;label=k.n;}
+  else if(tokei.length||y){key='noncut';label='非線引き都市計画区域';}
+  else{key='outside';label='都市計画区域外（または未収録）';}
+  const d=Z.KUIKI[key];
+  const name=tokei.find(t=>t.n)?.n;
+  return `<div class="card"><div class="k">区域区分${name?` ・ ${esc(name)}`:''}</div><h3>${label}</h3><div class="tip">💡 ${d.tip}</div>${slide('map','5分割の地図')}${slide('kaihatsu','開発許可')}</div>`;
+}
+function boukaCard(b){
+  const top=b.find(x=>x.n==='防火地域')||b[0];
+  return `<div class="card"><div class="k">防火</div><h3>${esc(top.n)}</h3><div class="tip">💡 ${(Z.BOUKA[top.n]||{}).tip||''}</div>${slide('kenpei','建蔽率・高さ・防火')}</div>`;
+}
+function koudoCard(k){
+  return `<div class="card"><div class="k">高度地区</div>${k.map(x=>`<h3>${esc(x.n)}</h3><div class="row">${x.max?`最高限度 <b>${x.max}m</b> `:''}${x.min?`最低限度 <b>${x.min}m</b>`:''}${!x.max&&!x.min&&x.src!=='t'?'<span class="muted">種別・高さは市町村の都市計画図で確認（データに数値なし）</span>':''}</div>`).join('')}
+  <div class="tip">💡 第一種〜第三種は北側の隣地に向けた斜線型の高さ制限（都の例）。高度地区は用途地域内だけに定められる</div>${slide('shisetsu','都市施設・地区計画')}</div>`;
+}
+function otherCard(chiku,others,douro){
+  const rows=[...chiku.map(x=>`<div class="row"><span class="l">${esc(x.t)}</span>${esc(x.n||'（名称なし）')}</div>`),
+    ...others.map(x=>`<div class="row"><span class="l">${esc(x.t)}</span>${esc(x.n||'')}</div>`),
+    ...(douro.length?[`<div class="row"><span class="l">都市計画道路</span>近くに計画線あり<span class="muted">（計画幅員はデータ外）。区域内の建築は都道府県知事等の許可（53条）</span></div>`]:[])];
+  const tips=[];
+  if(chiku.some(x=>/地区計画/.test(x.t)))tips.push('地区計画の区域（地区整備計画あり）で建築等をするときは、着手の30日前までに市町村長へ届出');
+  if(others.some(x=>x.t==='土地区画整理事業'))tips.push('区画整理の施行地区。事業計画の公告後は、建築などに都道府県知事等の許可（76条）');
+  if(others.some(x=>x.t==='風致地区'))tips.push('風致地区内の建築等は地方公共団体の条例で規制（許可制）');
+  return `<div class="card"><div class="k">その他の都市計画</div>${rows.join('')}${tips.length?`<div class="tip">💡 ${tips.join('<br>💡 ')}</div>`:''}${slide('shisetsu','都市施設・地区計画')}${others.some(x=>x.t==='土地区画整理事業')?slide('kukaku','土地区画整理法'):''}</div>`;
+}
+function gButtons(ll){
+  const [lng,lat]=ll.map(v=>v.toFixed(6));
+  return `<div class="gbtns"><a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lng}" target="_blank" rel="noopener">🚶 ストリートビュー</a><a href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}" target="_blank" rel="noopener">🗺 Googleマップ</a></div>`;
+}
+function showChika(p,c){
+  const yen=p.yen?Number(p.yen).toLocaleString():'—', tsubo=p.yen?Math.round(p.yen*3.30579/10000).toLocaleString():'—';
+  const h=`<div class="card"><div class="k">地価${esc(p.kind)}（2026年）</div><h3>${esc(p.addr||'')}</h3>
+  <div class="nums"><div class="num"><div class="u">円/m²</div><div class="v">${yen}</div></div><div class="num"><div class="u">坪単価の目安</div><div class="v">${tsubo}<span class="u">万円</span></div></div><div class="num"><div class="u">前年比</div><div class="v">${p.yoy!=null?(p.yoy>0?'+':'')+p.yoy:'—'}<span class="u">%</span></div></div></div>
+  <div class="row"><span class="l">利用</span>${esc(p.use||'')}　地積 ${p.area??'—'}m²</div>
+  <div class="row"><span class="l">前面道路</span>${esc(p.road||'')} ${p.rdir?esc(p.rdir)+'側':''} 幅 <b>${p.rw??'—'}m</b></div>
+  <div class="row"><span class="l">最寄駅</span>${esc(p.sta||'')} ${p.dist??''}m</div>
+  <div class="row"><span class="l">規制</span>${esc(p.yt||'')} ${esc(p.fire||'')} ${esc(p.ku||'')}　建ぺい${p.bcr??'—'}%/容積${p.far??'—'}%</div>
+  <div class="row muted">${esc(p.env||'')}</div>
+  <div class="tip">💡 ${p.kind==='公示'?'地価公示：土地鑑定委員会が毎年1月1日時点の標準地の正常価格を3月に公示。2人以上の不動産鑑定士が鑑定':'地価調査：都道府県知事が毎年7月1日時点の基準地の価格を調査。鑑定士は1人以上'}</div>
+  ${slide('chika','地価公示・鑑定評価')}</div>${gButtons(c)}`;
+  openSheet(h,c);
+}
+function openSheet(html,ll){
+  $('#sheet-body').innerHTML=html;$('#sheet').classList.add('open');$('#sheet').scrollTop=0;
+  $('#where').textContent=`${ll[1].toFixed(5)}, ${ll[0].toFixed(5)}`;
+  whereName(ll);
+}
+$('#sheet-x').onclick=()=>{$('#sheet').classList.remove('open');pin&&pin.remove();};
+
+/* 住所 (オンライン時のみ・地理院の逆ジオコーダ) */
+async function whereName(ll){
+  if(!navigator.onLine)return;
+  try{const r=await fetch(`https://mreversegeocoder.gsi.go.jp/reverse-geocoder/LonLatToAddress?lat=${ll[1]}&lon=${ll[0]}`);const j=await r.json();
+    const cd=j.results&&String(j.results.muniCd).padStart(5,'0');const nm=(window.MUNIS||{})[cd]||'';
+    if(j.results)$('#where').textContent=`${nm}${j.results.lv01Nm&&j.results.lv01Nm!=='－'?j.results.lv01Nm:''}`||$('#where').textContent;
+  }catch(e){}
+}
+
+/* ハザード: 公式タイルの色から判定 (目安) */
+function lngLatToTile(ll,z){const n=2**z,x=(ll[0]+180)/360*n,la=ll[1]*Math.PI/180,y=(1-Math.log(Math.tan(la)+1/Math.cos(la))/Math.PI)/2*n;return{x:Math.floor(x),y:Math.floor(y),px:Math.floor((x%1)*256),py:Math.floor((y%1)*256)};}
+function pixel(url,px,py){return new Promise(res=>{const img=new Image();img.crossOrigin='anonymous';img.onload=()=>{try{const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0);res(Array.from(x.getImageData(px,py,1,1).data));}catch(e){res(null);}};img.onerror=()=>res([0,0,0,0]);img.src=url;});}
+async function hazardAt(ll){
+  const t=lngLatToTile(ll,16), T=lngLatToTile(ll,15);
+  const u=(n,t,z)=>`https://disaportaldata.gsi.go.jp/raster/${n}/${z}/${t.x}/${t.y}.png`;
+  const [fl,d1,d2,d3]=await Promise.all([pixel(u('01_flood_l2_shinsuishin_data',T,15),T.px,T.py),pixel(u('05_dosekiryukeikaikuiki',t,16),t.px,t.py),pixel(u('05_kyukeishakeikaikuiki',t,16),t.px,t.py),pixel(u('05_jisuberikeikaikuiki',t,16),t.px,t.py)]);
+  const rows=[];
+  if(fl&&fl[3]>40){let best=null,bd=1e9;for(const f of Z.FLOOD){const d=f.rgb.reduce((s,v,i)=>s+(v-fl[i])**2,0);if(d<bd){bd=d;best=f;}}rows.push(`<div class="row"><span class="l">洪水</span>浸水想定 <b>${best.t}</b>（想定最大規模）</div>`);}
+  else if(fl)rows.push(`<div class="row"><span class="l">洪水</span>浸水想定区域の表示なし</div>`);
+  const dosha=[['土石流',d1],['急傾斜地',d2],['地すべり',d3]].filter(([,p])=>p&&p[3]>40).map(([n,p])=>`${n}${p[0]>180&&p[1]<120?'（特別警戒区域）':'（警戒区域）'}`);
+  rows.push(`<div class="row"><span class="l">土砂</span>${dosha.length?'<b class="ng">'+dosha.join('・')+'</b>':'警戒区域の表示なし'}</div>`);
+  const el=document.getElementById('hz');if(!el)return;
+  el.innerHTML=`<div class="k">ハザード（重ねるハザードマップの色から判定・目安）</div>${rows.join('')}<div class="tip">💡 水害ハザードマップ上の位置は重要事項説明の説明事項（2020年〜）。土砂災害警戒区域内かどうかも説明事項</div>`;
+}
+
+/* ---------- 道路幅を測る ---------- */
+let measuring=false,mPts=[],lastYouto=null;const mMarkers=[];
+function measureReset(){mPts=[];mMarkers.splice(0).forEach(m=>m.remove());if(map.getSource('m'))map.getSource('m').setData({type:'FeatureCollection',features:[]});}
+$('#b-measure').onclick=()=>{measuring=!measuring;$('#b-measure').classList.toggle('on',measuring);measureReset();map.setPaintProperty('youto-fill','fill-opacity',measuring?0.12:YOUTO_OP);if(measuring){hint('航空写真で道路の両端を順にタップ',4000);if(base!=='photo')document.querySelector('#base [data-b=photo]').click();}};
+map.on('load',()=>{map.addSource('m',{type:'geojson',data:{type:'FeatureCollection',features:[]}});map.addLayer({id:'m-line',type:'line',source:'m',paint:{'line-color':'#ff3b30','line-width':3}});});
+function dist(a,b){const R=6371008.8,r=Math.PI/180,dl=(b[1]-a[1])*r,dn=(b[0]-a[0])*r,x=Math.sin(dl/2)**2+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
+function measureClick(e){
+  const ll=[e.lngLat.lng,e.lngLat.lat];
+  if(mPts.length>=2)measureReset();
+  mPts.push(ll);const el=document.createElement('div');el.style.cssText='width:12px;height:12px;border-radius:50%;background:#ff3b30;border:2px solid #fff';mMarkers.push(new maplibregl.Marker({element:el}).setLngLat(ll).addTo(map));
+  if(mPts.length<2){hint('もう一方の端をタップ');return;}
+  map.getSource('m').setData({type:'Feature',geometry:{type:'LineString',coordinates:mPts}});
+  const w=Math.round(dist(mPts[0],mPts[1])*10)/10;const mid=[(mPts[0][0]+mPts[1][0])/2,(mPts[0][1]+mPts[1][1])/2];
+  const y=at(mid,'youto')[0]||lastYouto;const z=y&&Z.YOUTO[y.c];
+  let far='';
+  if(y&&y.far){const k=z.g==='res'?0.4:0.6,lim=Math.round(w*k*100);far=w>=12?`<div class="row">幅12m以上なので容積率は指定どおり <b>${y.far}%</b></div>`:`<div class="row">${z.s}・指定${y.far}%：道路幅 ${w.toFixed(1)}m × ${z.g==='res'?'4/10':'6/10'} = ${lim}% → 使える容積率 <b>${Math.min(lim,y.far)}%</b></div>`;}
+  const h=`<div class="card"><div class="k">道路幅の実測（航空写真上の2点間・目安）</div><h3>${w.toFixed(1)} m</h3>
+  ${w<4?`<div class="row ng"><b>4m未満</b>：建築基準法の道路なら「2項道路」の可能性。道路中心線から2mのセットバックが必要</div>`:`<div class="row ok">4m以上：建築基準法上の道路の幅の要件（4m）は満たす</div>`}
+  ${far}<div class="tip">💡 ${Z.ROAD}<br>💡 敷地は道路に2m以上接する必要がある（接道義務）<br>💡 ${Z.FAR_ROAD}</div>
+  ${slide('douro','用途制限・道路の例外')}${slide('kenpei','建蔽率・高さ・防火')}</div>`;
+  openSheet(h,mid);
+}
+
+/* ---------- 起動時: #lat,lng,z か 現在地 ---------- */
+(function(){const m=location.hash.match(/^#(-?\d+\.\d+),(-?\d+\.\d+)(?:,(\d+(?:\.\d+)?))?/);
+  if(m){const ll=[+m[2],+m[1]];map.jumpTo({center:ll,zoom:+(m[3]||16)});map.once('idle',()=>inspect(ll));}
+  else map.once('load',()=>locate(true));})();
+
+/* ---------- オフライン ---------- */
+const upd=()=>{$('#c-off').hidden=navigator.onLine;};addEventListener('online',upd);addEventListener('offline',upd);upd();
+const TILEVER='e0644e04e6', TILE_CACHE='tm-tiles-'+TILEVER;
+async function dlStatus(){
+  const list=await (await fetch('tiles.json')).json();const cache=await caches.open(TILE_CACHE);
+  const have=new Set((await cache.keys()).map(r=>new URL(r.url).pathname.split('/tiles/')[1]));
+  return{list,cache,have};
+}
+let dlRunning=false;
+async function prefetchAll(){
+  if(dlRunning||!('caches'in window))return;dlRunning=true;
+  try{
+    if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
+    const{list,cache,have}=await dlStatus();const todo=list.filter(p=>!have.has(p+'.pbf'));
+    let done=list.length-todo.length;const total=list.length;const chip=$('#c-dl');
+    const show=()=>{const pct=Math.floor(done/total*100);chip.hidden=pct>=100;chip.innerHTML=`保存中 <b>${pct}%</b>`;renderDl(done,total);};
+    show();let i=0;
+    const worker=async()=>{while(i<todo.length){const p=todo[i++];try{const r=await fetch(abs('tiles/'+p+'.pbf'),{cache:'no-store'});if(r.ok)await cache.put(abs('tiles/'+p+'.pbf'),r);}catch(e){if(!navigator.onLine)return;}done++;if(done%40===0)show();}};
+    await Promise.all(Array.from({length:6},worker));show();
+    if(done>=total){localStorage.setItem('tm-dl',TILEVER);hint('都市計画データを全域保存しました（オフラインでも表示できます）',3500);}
+  }finally{dlRunning=false;}
+}
+function renderDl(done,total){
+  const pct=Math.floor(done/total*100);
+  $('#dl').innerHTML=`東京・埼玉・山梨の都市計画データ：<b>${pct>=100?'保存済み ✓':pct+'%'}</b>（${done}/${total}タイル・約36MB）<br>下地の地図と住所・ハザードは見た範囲だけ保存（要ネット）${pct<100?'<br><button id="dl-go">続きを保存</button>':''}`;
+  const b=document.getElementById('dl-go');if(b)b.onclick=prefetchAll;
+}
+if('serviceWorker'in navigator){
+  navigator.serviceWorker.register('sw.js').then(()=>{navigator.serviceWorker.ready.then(()=>{
+    if(localStorage.getItem('tm-dl')!==TILEVER&&navigator.onLine)setTimeout(prefetchAll,1500);
+    else dlStatus().then(s=>renderDl(s.list.filter(p=>s.have.has(p+'.pbf')).length,s.list.length)).catch(()=>{});
+  });});
+}
+</script>
+</body>
+</html>
