@@ -99,7 +99,7 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hir
 <script src="munis.js"></script>
 <script>
 'use strict';
-const VERSION='202609281235';
+const VERSION='202609281242';
 const TAKKEN='https://ikedhidenori.github.io/jp/plain-0ee08412cf31b48f.html';
 const Z=window.ZONING, $=s=>document.querySelector(s);
 const BASEURL=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,''), abs=p=>BASEURL+p;
@@ -365,9 +365,10 @@ function measureClick(e){
 }
 
 /* ---------- 起動時: #lat,lng,z か 現在地 ---------- */
-(function(){const m=location.hash.match(/^#(-?\d+\.\d+),(-?\d+\.\d+)(?:,(\d+(?:\.\d+)?))?/);
-  if(m){const ll=[+m[2],+m[1]];map.jumpTo({center:ll,zoom:+(m[3]||16)});map.once('idle',()=>inspect(ll));}
-  else map.once('load',()=>locate(true));})();
+function fromHash(){const m=location.hash.match(/^#(-?\d+\.\d+),(-?\d+\.\d+)(?:,(\d+(?:\.\d+)?))?/);
+  if(!m)return false;const ll=[+m[2],+m[1]];map.jumpTo({center:ll,zoom:+(m[3]||16)});map.once('idle',()=>inspect(ll));return true;}
+addEventListener('hashchange',fromHash);
+if(!fromHash())map.once('load',()=>locate(true));
 
 /* ---------- オフライン ---------- */
 const upd=()=>{$('#c-off').hidden=navigator.onLine;};addEventListener('online',upd);addEventListener('offline',upd);upd();
