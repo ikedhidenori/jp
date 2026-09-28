@@ -2449,7 +2449,8 @@ theme(localStorage.getItem('tk-theme')||(matchMedia('(prefers-color-scheme: ligh
  if(e.subject!==sb){sb=e.subject;g='';h+=`<div class="sbj">${sb}<small>${TOC.filter(x=>x.subject===sb).length}枚</small></div>`;}
  if(e.group!==g){g=e.group;h+=`<h2>${g}</h2>`;}
  h+=`<div class="row" data-no="${e.no}"><button class="jt" data-no="${e.no}"><span class="no">${pad(e.no)}</span><span>${e.title}</span></button><a class="tm" href="${e.source||(e.vid?'https://www.youtube.com/watch?v='+e.vid+'&t='+e.t+'s':VID+e.t+'s')}" target="_blank" rel="noopener">▶ ${e.mmss}</a></div>`;});
- h+=`<div class="foot">出典: 宅建道場RE.LIFE.「宅建業法 完全攻略【2026年度版】」の学習ノート（個人用）。▶ で動画の該当箇所が開きます。<br>このページは 2026-10-22 JST に自動削除されます。</div>`;$('#toc-body').innerHTML=h;})();
+ h+=`<a href="https://ikedhidenori.github.io/jp/takken-map-b8f8cec7b147e2ed/" target="_blank" rel="noopener" style="display:block;margin:12px 0 4px;padding:10px 12px;border:1px solid currentColor;border-radius:10px;text-decoration:none;color:inherit;font-weight:700">🗺 街で宅建 ― いる場所の用途地域・建ぺい率・容積率を地図で見る<small style="display:block;font-weight:400;opacity:.7">東京・埼玉・山梨／法令上の制限（スライド20〜28）と連動</small></a>`;
+ h+=`<div class="foot">出典: 宅建道場RE.LIFE.「宅建業法 完全攻略【2026年度版】」の学習ノート（個人用）。▶ で動画の該当箇所が開きます。<br>このページは 2026-10-22 02:25 JST に自動削除されます。</div>`;$('#toc-body').innerHTML=h;})();
 function toc(o){document.body.classList.toggle('toc',o);if(o){const a=$('#toc .row.on');if(a)a.scrollIntoView({block:'center'});}}
 $('#bt-toc').onclick=()=>toc(true);$('#bd').onclick=()=>toc(false);$('#bt-close').onclick=()=>toc(false);$('#bt-cur').onclick=()=>toc(true);
 $('#toc-body').addEventListener('click',e=>{const b=e.target.closest('button.jt');if(!b)return;toc(false);tab('s');go(+b.dataset.no);});
