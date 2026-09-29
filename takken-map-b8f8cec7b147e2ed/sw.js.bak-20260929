@@ -1,7 +1,7 @@
 /* 街で宅建 — オフライン用 Service Worker
  * shell: インストール時に保存 / tiles: 全域を先読み保存 (ページ側が進める) / 下地・ハザード: 見た範囲を保存 */
-const VERSION = '202609291455';
-const SHELL = 'tm-shell-' + VERSION, TILES = 'tm-tiles-e0644e04e6', EXT = 'tm-ext-v1';
+const VERSION = '__VERSION__';
+const SHELL = 'tm-shell-' + VERSION, TILES = 'tm-tiles-__TILEVER__', EXT = 'tm-ext-v1';
 const SHELL_FILES = ['./', 'index.html', 'zoning.js', 'munis.js', 'tiles.json', 'manifest.webmanifest',
   'vendor/maplibre-gl.js', 'vendor/maplibre-gl.css', 'fonts/OpenSans/0-255.pbf', 'icon-180.png', 'icon-512.png'];
 const EXT_MAX = 4000;
@@ -40,5 +40,12 @@ self.addEventListener('fetch', e => {
       .catch(() => caches.match(e.request, {ignoreSearch: true}).then(r => r || caches.match('index.html'))));
     return;
   }
-  // 下地(地理院タイル)・ハザード(重ねるハザードマップ)は端末に保存しない (利用規約上の複製を避ける)。ネットに任せる
+  if (/cyberjapandata\.gsi\.go\.jp|disaportaldata\.gsi\.go\.jp/.test(url.host)) {
+    // 下地・ハザード: 保存分を先に返し、裏で更新
+    e.respondWith(caches.open(EXT).then(async c => {
+      const hit = await c.match(e.request);
+      const net = fetch(e.request).then(r => { if (r.ok || r.type === 'opaque') { c.put(e.request, r.clone()); trimExt(); } return r; }).catch(() => hit || Response.error());
+      return hit || net;
+    }));
+  }
 });

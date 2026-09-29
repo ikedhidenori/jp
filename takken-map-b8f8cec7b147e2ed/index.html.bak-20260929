@@ -103,7 +103,7 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hir
   <div class="legend" id="legend"></div>
   <h2>オフライン保存</h2>
   <div id="dl"></div>
-  <p class="muted" style="margin-top:14px">出典：東京都都市整備局「都市計画決定情報GISデータ」(CC BY 4.0、2025年3月末時点)／国土交通省「国土数値情報 都市計画決定情報(2024年度)・地価公示(2026年)・都道府県地価調査(2026年)」を加工／ハザード：重ねるハザードマップ／地図：地理院タイル。<br>参考情報です（重要事項説明・建築確認には使えません）。道路幅は航空写真上の目安、ハザードは重ねるハザードマップの色からの推定です。最新の都市計画は自治体の窓口で確認してください。データ時点：都2025-03、他2024年度、地価2026。</p>
+  <p class="muted" style="margin-top:14px">出典：東京都都市整備局「都市計画決定情報GISデータ」(CC BY 4.0、2025年3月末時点)／国土交通省「国土数値情報 都市計画決定情報(2024年度)・地価公示(2026年)・都道府県地価調査(2026年)」を加工／ハザード：重ねるハザードマップ／地図：地理院タイル。<br>参考情報です。建築確認・重要事項説明等には自治体の窓口で最新の都市計画を確認してください。</p>
 </aside>
 
 <script src="vendor/maplibre-gl.js"></script>
@@ -111,13 +111,13 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hir
 <script src="munis.js"></script>
 <script>
 'use strict';
-const VERSION='202609291455';
-const TAKKEN='https://zukan.page/takken/';
+const VERSION='__VERSION__';
+const TAKKEN='https://ikedhidenori.github.io/jp/plain-0ee08412cf31b48f.html';
 const Z=window.ZONING, $=s=>document.querySelector(s);
 const BASEURL=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,''), abs=p=>BASEURL+p;
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const slide=(key,label)=>`<a class="lnk" href="${TAKKEN}#${key}" target="_blank" rel="noopener">📖 出題論点：${label}</a>`;
-$('#b-takken').href=TAKKEN;
+const slide=(key,label)=>`<a class="lnk" href="${TAKKEN}#w${Z.SLIDES[key]}" target="_blank" rel="noopener">📖 ${label}（スライド${Z.SLIDES[key]}）</a>`;
+$('#b-takken').href=TAKKEN+'#w21';
 
 /* ---------- 地図 ---------- */
 const BASES={
@@ -144,15 +144,15 @@ const LAYERS=[ // id, 表示名, 説明, 初期表示, style layers
 const vis=JSON.parse(localStorage.getItem('tm-vis')||'null')||Object.fromEntries(LAYERS.map(l=>[l.id,l.on]));
 let base=localStorage.getItem('tm-base')||'pale';
 
-const hazard=(name)=>({type:'raster',tiles:[`https://disaportaldata.gsi.go.jp/raster/${name}/{z}/{x}/{y}.png`],tileSize:256,minzoom:2,maxzoom:17,attribution:'<a href="https://disaportal.gsi.go.jp/" target="_blank">ハザードマップポータルサイト</a>(国土交通省)を加工'});
+const hazard=(name)=>({type:'raster',tiles:[`https://disaportaldata.gsi.go.jp/raster/${name}/{z}/{x}/{y}.png`],tileSize:256,minzoom:2,maxzoom:17,attribution:'重ねるハザードマップ'});
 const start=JSON.parse(localStorage.getItem('tm-view')||'null')||{c:[139.7671,35.6812],z:14};
 const map=new maplibregl.Map({
   container:'map',center:start.c,zoom:start.z,minZoom:7,maxZoom:19,maxPitch:0,dragRotate:false,
-  bounds:undefined,attributionControl:{compact:false},
+  bounds:undefined,attributionControl:{compact:true},
   style:{version:8,glyphs:abs('fonts/{fontstack}/{range}.pbf'),
     sources:{
       base:{type:'raster',tiles:BASES[base].tiles,tileSize:256,maxzoom:BASES[base].maxzoom,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">地理院タイル</a>'},
-      tk:{type:'vector',tiles:[abs('tiles/{z}/{x}/{y}.pbf')],minzoom:8,maxzoom:14,attribution:'<a href="https://www.opendata.metro.tokyo.lg.jp/" target="_blank">東京都都市整備局 都市計画決定情報GISデータ</a>(CC BY 4.0)・<a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報</a>(A55/L01/L02)を加工／参考情報'},
+      tk:{type:'vector',tiles:[abs('tiles/{z}/{x}/{y}.pbf')],minzoom:8,maxzoom:14,attribution:'東京都・国土数値情報'},
       flood:hazard('01_flood_l2_shinsuishin_data'),
       dosha1:hazard('05_dosekiryukeikaikuiki'),dosha2:hazard('05_kyukeishakeikaikuiki'),dosha3:hazard('05_jisuberikeikaikuiki')
     },
@@ -402,7 +402,7 @@ function measureClick(e){
   let far='';
   if(y&&y.far){const k=z.g==='res'?0.4:0.6,lim=Math.round(w*k*100);far=w>=12?`<div class="row">幅12m以上なので容積率は指定どおり <b>${y.far}%</b></div>`:`<div class="row">${z.s}・指定${y.far}%：道路幅 ${w.toFixed(1)}m × ${z.g==='res'?'4/10':'6/10'} = ${lim}% → 使える容積率 <b>${Math.min(lim,y.far)}%</b></div>`;}
   const h=`<div class="card"><div class="k">道路幅の実測（航空写真上の2点間・目安）</div><h3>${w.toFixed(1)} m</h3>
-  ${w<4?`<div class="row ng"><b>4m未満（参考値）</b>：建築基準法上の道路かどうかは自治体の指定道路図で確認。2項道路に当たる場合は道路中心線から2mのセットバックが必要</div>`:`<div class="row ok">4m以上（参考値）：道路の幅の要件（4m）は満たす見込み。道路種別は指定道路図で確認</div>`}
+  ${w<4?`<div class="row ng"><b>4m未満</b>：建築基準法の道路なら「2項道路」の可能性。道路中心線から2mのセットバックが必要</div>`:`<div class="row ok">4m以上：建築基準法上の道路の幅の要件（4m）は満たす</div>`}
   ${far}<div class="tip">💡 ${Z.ROAD}<br>💡 敷地は道路に2m以上接する必要がある（接道義務）<br>💡 ${Z.FAR_ROAD}</div>
   ${slide('douro','用途制限・道路の例外')}${slide('kenpei','建蔽率・高さ・防火')}</div>`;
   openSheet(h,mid);
@@ -416,7 +416,7 @@ if(!fromHash())map.once('load',()=>locate(true));
 
 /* ---------- オフライン ---------- */
 const upd=()=>{$('#c-off').hidden=navigator.onLine;};addEventListener('online',upd);addEventListener('offline',upd);upd();
-const TILEVER='e0644e04e6', TILE_CACHE='tm-tiles-'+TILEVER;
+const TILEVER='__TILEVER__', TILE_CACHE='tm-tiles-'+TILEVER;
 async function dlStatus(){
   const list=await (await fetch('tiles.json')).json();const cache=await caches.open(TILE_CACHE);
   const have=new Set((await cache.keys()).map(r=>new URL(r.url).pathname.split('/tiles/')[1]));
@@ -438,12 +438,13 @@ async function prefetchAll(){
 }
 function renderDl(done,total){
   const pct=Math.floor(done/total*100);
-  $('#dl').innerHTML=`東京・埼玉・山梨の都市計画データ：<b>${pct>=100?'保存済み ✓':pct+'%'}</b>（${done}/${total}タイル・約36MB）<br>下地の地図・住所・ハザードは端末に保存しない（表示にはネットが必要）${pct<100?'<br><button id="dl-go">続きを保存</button>':''}`;
+  $('#dl').innerHTML=`東京・埼玉・山梨の都市計画データ：<b>${pct>=100?'保存済み ✓':pct+'%'}</b>（${done}/${total}タイル・約36MB）<br>下地の地図と住所・ハザードは見た範囲だけ保存（要ネット）${pct<100?'<br><button id="dl-go">続きを保存</button>':''}`;
   const b=document.getElementById('dl-go');if(b)b.onclick=prefetchAll;
 }
 if('serviceWorker'in navigator){
   navigator.serviceWorker.register('sw.js').then(()=>{navigator.serviceWorker.ready.then(()=>{
-    dlStatus().then(s=>renderDl(s.list.filter(p=>s.have.has(p+'.pbf')).length,s.list.length)).catch(()=>{});
+    if(localStorage.getItem('tm-dl')!==TILEVER&&navigator.onLine)setTimeout(prefetchAll,1500);
+    else dlStatus().then(s=>renderDl(s.list.filter(p=>s.have.has(p+'.pbf')).length,s.list.length)).catch(()=>{});
   });});
 }
 </script>
