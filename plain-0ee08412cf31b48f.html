@@ -505,10 +505,8 @@ html.light .pm-goal-badge--not-met{background:#fff0ec;color:#a21b10;border-color
 .cq-card-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:4px}
 .cq-card-head .pm-muted{white-space:nowrap}
 /* 残り日数と目標 */
-.cq-hero{display:flex;justify-content:space-between;align-items:center;padding:6px 2px 16px}
 .cq-count{font-size:17px;font-weight:700;line-height:1}
 .cq-count b{font-size:44px;margin:0 4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.cq-hero .pm-muted{display:block;margin-top:6px}
 .cq-goal{display:grid;justify-items:center;min-width:72px;padding:8px 10px;border:2px solid var(--ahl);border-radius:12px}
 .cq-goal b{font-size:28px;line-height:1}
 .cq-goal span{font-size:11px;color:var(--amute);margin-top:3px}
@@ -611,6 +609,42 @@ td.cq-ok{background:var(--asurface)}
 .cq-wide-btn>span{display:block}
 #pm-dashboard.coach-on #pm-sync{margin:0 0 8px;font-size:12px}
 #pm-dashboard.coach-on #pm-sync[data-state=ready]{border:0;background:transparent;padding:0 2px;color:var(--amute)}
+
+/* 残り日数・メーター（2026-10-01） */
+.cq-hero{padding:4px 2px 14px}
+.cq-hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.cq-meter{margin:0 0 12px}
+.cq-meter-head{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-bottom:6px}
+.cq-meter-head span{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.cq-meter-head small{font-size:12px;font-weight:400;color:var(--amute)}
+.cq-meter-note{font-size:12px;margin:6px 0 0!important;color:var(--amute)}
+.cq-meter-note b{color:var(--afg)}
+.cq-meter-note b.cq-ng{color:var(--awarn)}
+/* 日程：左が今日までの経過。点は模試、右端が本番 */
+.cq-tl{position:relative;height:10px;border-radius:5px;background:var(--asurface);margin:18px 30px 0 0}
+.cq-tl-fill{position:absolute;inset:0 auto 0 0;border-radius:5px;background:var(--afg);opacity:.85}
+.cq-tl-now{position:absolute;top:-5px;width:3px;height:20px;margin-left:-1.5px;background:var(--awarn);border-radius:2px}
+.cq-tl-mock{position:absolute;top:-3px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--abg);border:2px solid var(--afg)}
+.cq-tl-mock span{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:10px;font-style:normal;white-space:nowrap;color:var(--amute)}
+.cq-tl-mock.is-next{background:#F5CC1A;border-color:#F5CC1A;box-shadow:0 0 0 3px color-mix(in srgb,#F5CC1A 35%,transparent)}
+.cq-tl-mock.is-next span{color:var(--afg);font-weight:700}
+.cq-tl-mock.is-done{background:var(--afg)}
+.cq-tl-mock.is-past:not(.is-done){border-color:var(--awarn)}
+.cq-tl-exam{position:absolute;right:-30px;top:-5px;font-size:11px;font-style:normal;font-weight:700;background:var(--awarn);color:#fff;border-radius:4px;padding:1px 4px;line-height:18px}
+/* 進み：薄い帯が今日までの予定、濃い帯が記録済み、縦線が今日の予定位置 */
+.cq-bar{position:relative;height:12px;border-radius:6px;background:var(--asurface);overflow:visible}
+.cq-bar-due{position:absolute;inset:0 auto 0 0;border-radius:6px;background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--afg) 22%,transparent) 0 5px,transparent 5px 9px)}
+.cq-bar.is-behind .cq-bar-due{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--awarn) 45%,transparent) 0 5px,transparent 5px 9px)}
+.cq-bar-done{position:absolute;inset:0 auto 0 0;border-radius:6px;background:#F5CC1A}
+.cq-bar-tick{position:absolute;top:-4px;width:2px;height:20px;margin-left:-1px;background:var(--afg)}
+/* スクロールしたらヘッダーに小さく */
+.cq-mini{display:none;flex:1;min-width:0;flex-direction:column;justify-content:center;gap:4px;padding:0 6px;cursor:pointer}
+.cq-mini span{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cq-mini b{display:block;height:4px;border-radius:2px;background:var(--asurface);overflow:hidden}
+.cq-mini i{display:block;height:100%;background:#F5CC1A}
+.cq-mini.is-behind span{color:var(--awarn)}
+body.pm.cq-compact .cq-mini{display:flex}
+body.pm.cq-compact #ttl{display:none}
 
 #kami-replay{max-width:560px;margin:0 auto;padding:calc(var(--ahd,52px) + env(safe-area-inset-top) + 14px) 16px calc(32px + env(safe-area-inset-bottom));font-variant-numeric:tabular-nums}
 .kr-choice.kr-choice.kr-wrong{border-color:var(--afg);border-style:dashed;text-decoration:line-through}.kr-result .ng.ng{color:var(--afg)}.kr-status.kr-status.kr-warn{border-color:var(--afg)}
@@ -2638,7 +2672,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
    本問の記録は TakkenPM（同期サーバーと共有）。タスクのチェックと模試の点はこの端末の localStorage。 */
 (function (global) {
   'use strict';
-  var KEY = 'tk-coach-v1', plan, catalog, box, sheet, state, lastMsg = null;
+  var KEY = 'tk-coach-v1', plan, catalog, box, sheet, state, lastMsg = null, heroObs = null;
   var SUBJ_NAME = {gyoho: '業法', menjo: '免除5問', horei: '法令上の制限', zei: '税・価格', kenri: '権利関係'};
   var esc = function (v) { return String(v == null ? '' : v).replace(/[&<>'"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]; }); };
   function today() { return new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Tokyo', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date()); }
@@ -2701,12 +2735,41 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     var topic = String(r.topic || '').replace(/^本問(不)?正解[、。・]?/, '').replace(/^ユーザー申告：/, '');
     return '<li><div class="cq-weak-top"><b>' + volLabel(r.volume) + ' ' + pad3(r.questionNo) + '</b><span class="' + (r.correct ? 'pm-muted' : 'cq-ng') + '">' + (r.correct ? '要確認' : '誤答') + '</span><span class="pm-muted">' + md(r.date) + '</span></div>' + (topic ? '<p class="cq-weak-topic">' + esc(topic.length > 70 ? topic.slice(0, 70) + '…' : topic) + '</p>' : '') + (btns.length ? '<div class="cq-chips">' + btns.join('') + '</div>' : '') + '</li>';
   }
+
+  // ---- 残り日数・模試・進みのメーター ----
+  function mustRanges() { var seen = {}, out = []; plan.days.forEach(function (x) { x.tasks.forEach(function (t) { if (t.type !== 'range') return; for (var q = t.start; q <= t.end; q++) { var k = t.volume + ':' + q; if (!seen[k]) { seen[k] = x.date; out.push({k: k, date: x.date}); } } }); }); return out; }
+  function progressInfo(d, latest) {
+    var all = mustRanges(), done = all.filter(function (x) { return latest[x.k]; }).length, due = all.filter(function (x) { return x.date <= d; }).length, past = all.filter(function (x) { return x.date < d; }).length;
+    var todayLeft = all.filter(function (x) { return x.date === d && !latest[x.k]; }).length;
+    return {total: all.length, done: done, due: due, behind: Math.max(0, past - done), todayLeft: todayLeft};
+  }
+  function nextMock(d) { return plan.mocks.filter(function (m) { return m.date >= d; })[0]; }
+  function heroHTML(d, latest, left) {
+    var start = plan.start, span = diff(start, plan.examDate), pos = Math.max(0, Math.min(span, diff(start, d)));
+    var pct = function (n, of) { return Math.max(0, Math.min(100, of ? n / of * 100 : 0)).toFixed(1); };
+    var nm = nextMock(d), nmLeft = nm ? diff(d, nm.date) : null, pi = progressInfo(d, latest);
+    var dots = plan.mocks.map(function (m) { var at = pct(diff(start, m.date), span), past = m.date < d, done = !!state.mocks[m.id]; return '<i class="cq-tl-mock' + (done ? ' is-done' : past ? ' is-past' : '') + (nm && m.id === nm.id ? ' is-next' : '') + '" style="left:' + at + '%"><span>' + m.label.replace('模試', '模') + '</span></i>'; }).join('');
+    var tl = '<div class="cq-meter"><div class="cq-meter-head"><b>本試験まで</b><span class="' + (left <= 7 ? 'cq-ng' : '') + '">' + (left > 0 ? left + '日' : left === 0 ? '今日' : '終了') + '</span></div><div class="cq-tl"><div class="cq-tl-fill" style="width:' + pct(pos, span) + '%"></div>' + dots + '<i class="cq-tl-now" style="left:' + pct(pos, span) + '%"></i><i class="cq-tl-exam">本番</i></div>' +
+      (nm ? '<p class="cq-meter-note"><b class="' + (nmLeft <= 2 ? 'cq-ng' : '') + '">' + nm.label + 'まで' + (nmLeft === 0 ? '今日' : 'あと' + nmLeft + '日') + '</b>　' + md(nm.date) + ' ' + esc(nm.source) + '</p>' : '<p class="cq-meter-note">模試はすべて終了</p>') + '</div>';
+    var state_ = (pi.behind > 0 ? '<b class="cq-ng">昨日までの予定より ' + pi.behind + '問 遅れ</b>' : pi.done >= pi.total ? '<b>必修範囲は全部記録済み</b>' : '<b>昨日までの予定はクリア</b>') + (pi.todayLeft ? '　今日の残り ' + pi.todayLeft + '問' : '');
+    var pg = '<div class="cq-meter"><div class="cq-meter-head"><b>業法・法令・税の必修 ' + pi.total + '問</b><span>' + pi.done + '<small>/' + pi.total + '</small></span></div><div class="cq-bar' + (pi.behind > 0 ? ' is-behind' : '') + '"><div class="cq-bar-due" style="width:' + pct(pi.due, pi.total) + '%"></div><div class="cq-bar-done" style="width:' + pct(pi.done, pi.total) + '%"></div><i class="cq-bar-tick" style="left:' + pct(pi.due, pi.total) + '%"></i></div><p class="cq-meter-note">' + state_ + '</p></div>';
+    compact = (left > 0 ? 'あと' + left + '日' : left === 0 ? '本番' : '終了') + (nm ? '・' + nm.label + 'まで' + nmLeft + '日' : '') + (pi.behind > 0 ? '・遅れ' + pi.behind + '問' : '');
+    compactPct = pct(pi.done, pi.total); compactBehind = pi.behind > 0;
+    return '<section class="cq-hero" id="cq-hero"><div class="cq-hero-top"><div class="cq-count">' + (left > 0 ? 'あと<b>' + left + '</b>日' : left === 0 ? '<b>今日</b>が本番' : '試験は終了') + '</div><div class="cq-goal"><b>' + plan.targets.total + '</b><span>目標点</span></div></div>' + tl + pg + '</section>';
+  }
+  var compact = '', compactPct = '0', compactBehind = false, mini;
+  function paintMini() {
+    if (!mini) return;
+    mini.querySelector('span').textContent = compact;
+    mini.querySelector('i').style.width = compactPct + '%';
+    mini.classList.toggle('is-behind', compactBehind);
+  }
   function render() {
     if (!box) return;
     var d = today(), rs = records(), latest = latestBy(rs), left = diff(d, plan.examDate);
     var day = plan.days.filter(function (x) { return x.date === d; })[0] || plan.days.filter(function (x) { return x.date > d; })[0];
     var isToday = day && day.date === d;
-    var head = '<section class="cq-hero"><div><div class="cq-count">' + (left > 0 ? 'あと<b>' + left + '</b>日' : left === 0 ? '<b>今日</b>が本番' : '試験は終了') + '</div><span class="pm-muted">本試験 10/18（日）13:00</span></div><div class="cq-goal"><b>' + plan.targets.total + '</b><span>目標点</span></div></section>';
+    var head = heroHTML(d, latest, left);
     var todayCard = '';
     if (day) {
       var req = day.tasks.filter(function (t) { return !t.optional; }), nDone = req.filter(function (t) { return taskDone(t, latest); }).length;
@@ -2736,6 +2799,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     box.innerHTML = head + (lastMsg ? '<p class="pm-status' + (lastMsg.warn ? ' pm-warn' : '') + '" role="status">' + esc(lastMsg.text) + '</p>' : '') + todayCard + weakCard + more;
     box.querySelectorAll('details').forEach(function (el) { if (open[el.className]) el.open = true; });
     bind();
+    paintMini(); if (heroObs) { heroObs.disconnect(); heroObs.observe(box.querySelector('#cq-hero')); }
   }
   function msg(text, warn) { lastMsg = {text: text, warn: !!warn}; render(); clearTimeout(msg.t); msg.t = setTimeout(function () { lastMsg = null; render(); }, 6000); }
   // ---- 記録シート ----
@@ -2804,6 +2868,10 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     root.appendChild(detail); detail.appendChild(content);
     var sync = document.getElementById('pm-sync'); if (sync) root.insertBefore(sync, box);
     root.classList.add('coach-on');
+    // スクロールで残り日数の枠が隠れたら、ヘッダーに小さく出す
+    var hd = document.getElementById('hd');
+    if (hd) { mini = document.createElement('div'); mini.className = 'cq-mini'; mini.setAttribute('aria-hidden', 'true'); mini.innerHTML = '<span></span><b><i></i></b>'; var th = document.getElementById('bt-th'); if (th) hd.insertBefore(mini, th); else hd.appendChild(mini); mini.addEventListener('click', function () { global.scrollTo({top: 0, behavior: 'smooth'}); }); }
+    if ('IntersectionObserver' in global) heroObs = new IntersectionObserver(function (es) { es.forEach(function (e) { document.body.classList.toggle('cq-compact', !e.isIntersecting); }); }, {rootMargin: '-60px 0px 0px 0px'});
     sheet = document.createElement('dialog'); sheet.id = 'cq-sheet'; sheet.innerHTML = '<div class="cq-sheet-grip" aria-hidden="true"></div><button type="button" class="cq-sheet-close" aria-label="閉じる">×</button><div class="cq-sheet-body"></div>';
     document.body.appendChild(sheet);
     sheet.querySelector('.cq-sheet-close').addEventListener('click', closeSheet);
