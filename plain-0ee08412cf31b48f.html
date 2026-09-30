@@ -497,59 +497,120 @@ html.light .pm-goal-badge--not-met{background:#fff0ec;color:#a21b10;border-color
 .pm-sync[data-state="offline"],.pm-sync[data-state="warning"]{border-color:#ff6a55}
 .pm-awaiting-shared #pm-ranges,.pm-awaiting-shared .pm-today,.pm-awaiting-shared #pm-review,.pm-awaiting-shared .pm-score-details,.pm-awaiting-shared .pm-overview-values{display:none}
 
-/* 直前プラン（coach-dashboard.js） */
-#pm-dashboard.coach-on .pm-today{display:none}
-#coach .pm-card h2{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
-.cq-hero{border-left:4px solid var(--ahl)}
-.cq-hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
-.cq-goal{text-align:right;display:grid}
-.cq-goal b{font-size:26px;line-height:1.1}
-.cq-phase{margin:8px 0 0!important;font-weight:700}
-.cq-time{font-size:12px;font-weight:400;color:var(--amute)}
-.cq-tasks,.cq-list{list-style:none;margin:0;padding:0}
-.cq-task{display:grid;grid-template-columns:24px 1fr;gap:8px;padding:10px 0;border-top:1px solid var(--aline)}
-.cq-task:first-child{border-top:0;padding-top:2px}
-.cq-task>div{min-width:0}
-.cq-task b{display:block;font-size:14px;line-height:1.45;overflow-wrap:anywhere}
-.cq-mark{width:22px;height:22px;border:1.5px solid var(--aline);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;margin-top:1px}
+/* 最初の画面（coach-dashboard.js） */
+#pm-dashboard.coach-on>.pm-head,#pm-dashboard.coach-on>.kami-entry,#pm-dashboard.coach-on .pm-today{display:none}
+#pm-dashboard.coach-on{padding-top:calc(var(--ahd,52px) + env(safe-area-inset-top) + 10px)}
+#coach .pm-card{border-radius:14px;padding:16px;margin:0 0 14px}
+#coach h2{font-size:17px;margin:0;letter-spacing:.01em}
+.cq-card-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:4px}
+.cq-card-head .pm-muted{white-space:nowrap}
+/* 残り日数と目標 */
+.cq-hero{display:flex;justify-content:space-between;align-items:center;padding:6px 2px 16px}
+.cq-count{font-size:17px;font-weight:700;line-height:1}
+.cq-count b{font-size:44px;margin:0 4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.cq-hero .pm-muted{display:block;margin-top:6px}
+.cq-goal{display:grid;justify-items:center;min-width:72px;padding:8px 10px;border:2px solid var(--ahl);border-radius:12px}
+.cq-goal b{font-size:28px;line-height:1}
+.cq-goal span{font-size:11px;color:var(--amute);margin-top:3px}
+/* 今日やること */
+.cq-today{border:2px solid var(--afg)}
+.cq-phase{margin:2px 0 8px!important;font-size:13px;color:var(--amute)}
+.cq-tasks{list-style:none;margin:0;padding:0}
+.cq-task{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--aline)}
+.cq-task:first-child{border-top:0}
+.cq-body{min-width:0}
+.cq-body b{display:block;font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.cq-mark{width:22px;height:22px;border:1.5px solid var(--aline);border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
 .cq-done .cq-mark{background:var(--ahl);border-color:var(--ahl);color:#1F1E1B}
-.cq-done b{text-decoration:line-through;text-decoration-thickness:1px;color:var(--amute)}
-.cq-opt b::after{content:'（任意）';font-weight:400;font-size:12px;color:var(--amute)}
-.cq-sub{display:block;font-size:12px;color:var(--amute);margin-top:2px}
-.cq-task .pm-link{display:inline-block;min-height:36px;padding:6px 0;font-size:13px}
-.cq-check{grid-column:1 / -1;display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:start;font-size:14px;line-height:1.45;cursor:pointer;min-height:32px}
-.cq-check input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--ahl)}
-.cq-done .cq-check span{text-decoration:line-through;color:var(--amute)}
-.cq-min{font-size:13px;padding:8px 10px;background:var(--asurface);border-radius:6px;margin-top:10px!important}
-.cq-min b{margin-right:8px}
-.cq-progress{font-size:13px;color:var(--amute)}
-.cq-progress.cq-all{color:var(--afg);font-weight:700}
-.cq-missed summary,.cq-all-days summary,.cq-cut summary,.cq-cp details summary{cursor:pointer;font-weight:700;min-height:32px}
-.cq-missed summary{color:var(--awarn)}
+.cq-done .cq-body b,.cq-done .cq-check span{color:var(--amute);text-decoration:line-through;text-decoration-thickness:1px}
+.cq-opt .cq-body b::after{content:'（任意）';font-weight:400;font-size:12px;color:var(--amute)}
+.cq-sub{display:block;font-size:12px;color:var(--amute);margin-top:2px;line-height:1.45}
+.cq-go{min-width:64px;min-height:44px;padding:0 14px;border-radius:22px;background:#F5CC1A;color:#1F1E1B;font-weight:700;font-size:15px}
+.cq-go-quiet{background:transparent;color:var(--afg);border:1px solid var(--aline);font-weight:400;font-size:13px}
+.cq-check{grid-column:1 / -1;display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;font-size:15px;line-height:1.45;cursor:pointer;min-height:36px}
+.cq-check input{width:22px;height:22px;margin:0;accent-color:#F5CC1A}
+.cq-foot{display:flex;flex-direction:column;gap:2px;margin-top:10px;padding-top:10px;border-top:1px solid var(--aline);font-size:13px}
+.cq-progress{font-weight:700}
+.cq-progress.cq-all{color:var(--afg)}
+.cq-progress.cq-all::before{content:'✓ ';color:var(--ahl)}
+.cq-missed{margin-top:10px}
+.cq-missed>summary{font-size:13px;font-weight:700;color:var(--awarn);cursor:pointer;min-height:36px;display:flex;align-items:center}
 .cq-date{font-size:12px;font-weight:700;margin-right:6px;white-space:nowrap}
-.cq-list>li{padding:10px 0;border-top:1px solid var(--aline)}
+/* 弱点の復習 */
+.cq-list{list-style:none;margin:0;padding:0}
+.cq-list>li{padding:12px 0;border-top:1px solid var(--aline)}
 .cq-list>li:first-child{border-top:0}
-.cq-list b{display:block;font-size:14px;line-height:1.45}
-.cq-cp-top{display:flex;justify-content:space-between;gap:8px;font-size:12px}
+.cq-list b{font-size:15px}
+.cq-weak-top{display:flex;align-items:baseline;gap:10px;font-size:12px}
+.cq-weak-top b{font-size:15px}
+.cq-weak-top .pm-muted:last-child{margin-left:auto}
+.cq-weak-topic{font-size:13px;line-height:1.55;margin:4px 0 0!important;color:var(--afg)}
+.cq-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cq-chip{min-height:36px;padding:0 14px;border:1px solid var(--aline);border-radius:18px;font-size:13px}
+.cq-more-weak>summary{cursor:pointer;font-size:13px;min-height:40px;display:flex;align-items:center;color:var(--amute)}
+.cq-quiz-row{display:grid;gap:8px;margin-top:10px}
+.cq-wide-btn{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;padding:0 14px;border:1px solid var(--aline);border-radius:10px;font-size:14px;text-align:left}
+.cq-wide-btn::after{content:'›';font-size:20px;color:var(--amute)}
 .cq-ok{color:var(--afg);font-weight:700}
-td.cq-ok{background:var(--asurface)}
 .cq-ng{color:var(--awarn);font-weight:700}
 .cq-fail{display:block;font-size:13px;color:var(--awarn);margin-top:3px;font-weight:700}
-.cq-line{display:block;font-size:13px;line-height:1.5}
+/* 計画と成績（折りたたみ） */
+.cq-more-title{font-size:13px!important;color:var(--amute);font-weight:700;margin:26px 0 10px!important;letter-spacing:.08em}
+#coach details.pm-card{padding:0 16px}
+#coach details.pm-card>summary,.cq-legacy>summary{cursor:pointer;font-weight:700;min-height:50px;display:flex;align-items:center;gap:10px;font-size:15px;list-style:none}
+#coach details.pm-card>summary::-webkit-details-marker,.cq-legacy>summary::-webkit-details-marker{display:none}
+#coach details.pm-card>summary::after,.cq-legacy>summary::after{content:'＋';margin-left:auto;color:var(--amute);font-weight:400}
+#coach details.pm-card[open]>summary::after,.cq-legacy[open]>summary::after{content:'−'}
+#coach details.pm-card>summary .pm-muted,#coach details.pm-card>summary .cq-ng{font-size:12px}
+#coach details.pm-card[open]{padding-bottom:14px}
+.cq-line{display:block;font-size:13px;line-height:1.55}
 .cq-now{border-left:3px solid var(--ahl);padding-left:8px!important}
-.cq-table-wrap{overflow-x:auto;margin:0 -2px}
+.cq-table-wrap{overflow-x:auto}
 .cq-table{width:100%;border-collapse:collapse;font-size:13px;text-align:center}
 .cq-table th,.cq-table td{padding:6px 2px;border-bottom:1px solid var(--aline);white-space:nowrap}
+.cq-table thead th{font-size:12px}
 .cq-table small{display:block;font-size:10px;font-weight:400;color:var(--amute)}
 .cq-table tbody th{text-align:left;font-size:12px}
-.cq-mocks .pm-form,.cq-record .pm-form{margin-top:12px}
-.cq-wide{grid-column:1 / -1}
-.cq-report-text{font-family:ui-monospace,Menlo,monospace;font-size:13px;padding:10px;background:var(--asurface);border-radius:6px;overflow-wrap:anywhere;user-select:all;-webkit-user-select:all}
-.cq-cut ol{padding-left:20px;font-size:13px;line-height:1.55}
-.cq-cut p{font-size:13px}
-.cq-divider{font-size:13px;color:var(--amute);font-weight:700;margin:22px 0 10px;padding-top:14px;border-top:2px solid var(--aline)}
-@media(max-width:390px){.cq-goal b{font-size:22px}.cq-table{font-size:12px}}
-.cq-table thead th{font-size:12px}.cq-mocks p.pm-muted{margin-top:8px}
+td.cq-ok{background:var(--asurface)}
+.cq-ol{padding-left:20px;font-size:14px;line-height:1.6;margin:0 0 8px}
+.cq-report-text{font-family:ui-monospace,Menlo,monospace;font-size:13px;padding:10px;background:var(--asurface);border-radius:8px;overflow-wrap:anywhere;-webkit-user-select:all;user-select:all}
+.cq-links{display:grid;gap:8px;margin:4px 0 14px}
+.cq-legacy{padding:0 16px!important;margin-top:4px}
+.cq-legacy[open]{padding-bottom:10px!important}
+.cq-legacy>summary{font-size:14px!important;color:var(--amute)}
+#pm-dashboard.coach-on #pm-sync{margin:-6px 0 12px}
+/* 記録シート（下から出る） */
+#cq-sheet{position:fixed;inset:auto 0 0 0;margin:0;width:100%;max-width:560px;margin-inline:auto;max-height:88vh;overflow-y:auto;border:0;border-radius:18px 18px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom));background:var(--abg);color:var(--afg);box-shadow:0 -8px 30px rgba(0,0,0,.35)}
+#cq-sheet::backdrop{background:rgba(0,0,0,.5)}
+.cq-sheet-grip{width:40px;height:5px;border-radius:3px;background:var(--aline);margin:0 auto 6px}
+.cq-sheet-close{position:absolute;top:6px;right:8px;width:44px;height:44px;font-size:22px;color:var(--amute)}
+#cq-sheet h2{font-size:19px;margin:6px 0 10px;padding-right:44px}
+.cq-range{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.cq-range[hidden]{display:none}
+.cq-range label,.cq-date-row{font-size:12px;color:var(--amute)}
+.cq-range select,.cq-range input,.cq-date-row input{display:block;width:100%;min-height:44px;margin-top:4px;padding:8px;border:1px solid var(--aline);border-radius:8px;background:var(--abg);color:var(--afg);font:inherit;font-size:16px}
+.cq-sheet-hint{font-size:13px;margin:0 0 10px;color:var(--amute)}
+.cq-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cq-cell{min-height:58px;border:1px solid var(--aline);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-variant-numeric:tabular-nums}
+.cq-cell span{font-size:13px;color:var(--amute)}
+.cq-cell i{font-style:normal;font-size:20px;font-weight:700;line-height:1}
+.cq-cell.cq-x{border-color:var(--awarn);background:color-mix(in srgb,var(--awarn) 14%,transparent)}
+.cq-cell.cq-x i{color:var(--awarn)}
+.cq-cell.cq-n{opacity:.45;border-style:dashed}
+.cq-cell.cq-had span::after{content:'・済';font-size:10px}
+.cq-date-row{display:block;margin:12px 0 0}
+.cq-sheet-sum{font-size:14px;font-weight:700;margin:12px 0 8px}
+.cq-save{width:100%;min-height:52px;border-radius:12px;background:#F5CC1A;color:#1F1E1B;font-weight:700;font-size:17px}
+.cq-steppers{display:grid;gap:6px}
+.cq-stepper{display:grid;grid-template-columns:1fr 48px 44px 48px;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid var(--aline)}
+.cq-stepper span{font-size:15px;font-weight:700}
+.cq-stepper small{display:block;font-size:11px;font-weight:400;color:var(--amute)}
+.cq-stepper button{height:44px;border:1px solid var(--aline);border-radius:10px;font-size:22px}
+.cq-stepper b{text-align:center;font-size:22px;font-variant-numeric:tabular-nums}
+.cq-wide-btn small{display:block;font-size:11px;color:var(--amute);margin-top:1px}.cq-wide-btn{padding-top:6px;padding-bottom:6px}
+.cq-wide-btn>span{display:block}
+#pm-dashboard.coach-on #pm-sync{margin:0 0 8px;font-size:12px}
+#pm-dashboard.coach-on #pm-sync[data-state=ready]{border:0;background:transparent;padding:0 2px;color:var(--amute)}
 
 #kami-replay{max-width:560px;margin:0 auto;padding:calc(var(--ahd,52px) + env(safe-area-inset-top) + 14px) 16px calc(32px + env(safe-area-inset-bottom));font-variant-numeric:tabular-nums}
 .kr-choice.kr-choice.kr-wrong{border-color:var(--afg);border-style:dashed;text-decoration:line-through}.kr-result .ng.ng{color:var(--afg)}.kr-status.kr-status.kr-warn{border-color:var(--afg)}
@@ -630,6 +691,27 @@ body.r #slides,body.r #ft{display:none}
 .rl-note{font-size:12px;line-height:1.7;color:var(--amute);margin-top:22px}
 @media(max-width:380px){.rl-q{font-size:19px}.rl-a.l1 .m{font-size:50px}.rl-a.l2 .m{font-size:38px}.rl-a.l3 .m{font-size:30px}.rl-a.l4 .m{font-size:24px}.rl-ctl{gap:20px}.rl-seg button{padding:0 9px}}
 
+/* 外枠（2026-09-30 刷新）：タブは親指の届く下部に。全画面の下余白をタブの高さ分とる。 */
+:root{--anav:58px;--abot:calc(var(--anav) + env(safe-area-inset-bottom))}
+#hd{gap:2px}
+#hd .ttl{font-size:15px;padding-left:2px}
+#nav{position:fixed;left:0;right:0;bottom:0;z-index:25;height:var(--abot);padding:0 max(6px,env(safe-area-inset-left)) env(safe-area-inset-bottom);background:var(--abg);border-top:1px solid var(--aline);display:grid;grid-template-columns:repeat(5,1fr);border-left:0;border-right:0}
+#nav button{height:var(--anav);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;letter-spacing:.02em;color:var(--amute);position:relative;padding:0}
+#nav button svg{width:23px;height:23px}
+#nav button.on{color:var(--afg);font-weight:700;background:transparent}
+#nav button.on::before{content:'';position:absolute;top:-1px;left:28%;right:28%;height:3px;border-radius:0 0 3px 3px;background:var(--ahl)}
+/* 下部タブの上に、スライドの前後ボタンと確認問題の回答ボタンを載せる */
+#ft{bottom:var(--abot);height:52px;padding-bottom:0}
+#ft .nb,#ft .cur{height:52px}
+#qbar{bottom:var(--abot);padding-bottom:10px}
+#slides{padding-bottom:calc(var(--abot) + 64px)}
+#zukai,#pitfalls{padding-bottom:calc(var(--abot) + 24px)}
+#quiz{padding-bottom:calc(var(--abot) + 150px)}
+#pm-dashboard,#kami-replay,#rally{padding-bottom:calc(var(--abot) + 24px)}
+body.toc #nav{visibility:hidden}
+/* 目次ボタンはスライドの時だけ意味がある */
+body.pm #bt-toc,body.r #bt-toc{visibility:hidden}
+
 body.pm #slides,body.pm #ft{display:none}
 body:not(.pm) #pm-dashboard{display:none}
 body.k #slides,body.k #ft{display:none}
@@ -676,9 +758,9 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 <header id="hd">
   <button class="ib" id="bt-toc" aria-label="目次">☰</button>
   <div class="ttl" id="ttl">宅建業法</div>
-  <div class="tabs"><button id="tab-p" class="on">今日</button><button id="tab-s">スライド</button><button id="tab-z">図解</button><button id="tab-q">確認</button><button id="tab-r">ラリー</button></div>
   <button class="ib" id="bt-th" aria-label="テーマ">☀︎</button>
 </header>
+<nav id="nav" class="tabs" aria-label="画面"><button id="tab-p" class="on"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>今日</span></button><button id="tab-s"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8.5h8M8 12h8M8 15.5h5"/></svg><span>スライド</span></button><button id="tab-z"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M7 15l3.5-4 3 3 2-2 2.5 3"/><circle cx="9" cy="8.5" r="1.2"/></svg><span>図解</span></button><button id="tab-q"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4M12 17h.01"/></svg><span>確認</span></button><button id="tab-r"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3.5" y="13.5" width="4" height="6" rx="1.5"/><rect x="16.5" y="13.5" width="4" height="6" rx="1.5"/></svg><span>ラリー</span></button></nav>
 <div id="bd"></div>
 <aside id="toc"><div class="th"><span id="toc-count">目次</span><button id="bt-close" aria-label="閉じる">×</button></div><div id="toc-body"></div></aside>
 
@@ -1914,13 +1996,13 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 <option value="pf-private-road">8 / 9　建物の貸借だけ、除外。</option>
 <option value="pf-risk-tax">9 / 9　災害は貸借にも。</option>
 </select><button type="button" data-pf-step="1" aria-label="次の図解">›</button></nav>
-<article class="pf-card" id="pf-deposit-cap"><img class="pf-image" src="pitfalls-img/deposit-cap-v1.png" alt="２割と全額は、別。 売主＝宅建業者 ／ 買主＝非業者
+<article class="pf-card" id="pf-deposit-cap"><img loading="lazy" class="pf-image" src="pitfalls-img/deposit-cap-v1.webp?v=w1" alt="２割と全額は、別。 売主＝宅建業者 ／ 買主＝非業者
 手付を受け取る上限 → 代金の20％
 保全が必要なとき → 手付金等の全額
 手付金等 ＝ 手付 ＋ 中間金など
 例：完成物件２億円・登記前
 手付1,800万円 → 保全も1,800万円" width="1122" height="1402" decoding="async"><details class="pf-more"><summary>詳しく見る・確認問題</summary><p class="pf-mix">混同：「２割まで保全」と考えてしまう。</p><div class="pf-flow">手付の受取り → ２割まで<br>必要な保全 → 対象額の全額</div><p>売主が宅建業者・買主が非業者なら、売主が受け取れる手付金は代金の20％まで。保全が必要なら、対象の手付金等を全額保全する。中間金を含む保全額に20％の上限があるわけではない。</p><details><summary>一問確認：完成物件２億円。手付1,800万円、登記前。保全するのは4,000万円？</summary><p>×。1,800万円全額。4,000万円は手付として受け取れる上限。</p></details></details></article>
-<article class="pf-card" id="pf-deposit-threshold" hidden><img class="pf-image" src="pitfalls-img/deposit-threshold-v1.png" alt="超えたら、全額。 売主＝宅建業者 ／ 買主＝非業者
+<article class="pf-card" id="pf-deposit-threshold" hidden><img loading="lazy" class="pf-image" src="pitfalls-img/deposit-threshold-v1.webp?v=w1" alt="超えたら、全額。 売主＝宅建業者 ／ 買主＝非業者
 買主の所有権登記なし
 未完成 → 代金の５％
 完成 → 代金の10％
@@ -1928,7 +2010,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 どちらかを超える → 受取前に全額保全
 手付＋中間金などで判定
 両方以下なら不要" width="1122" height="1402" decoding="async"><details class="pf-more"><summary>詳しく見る・確認問題</summary><p class="pf-mix">混同：「10％以上」「新築なら10％」と覚えてしまう。</p><div class="pf-flow">未完成５％ ／ 完成10％<br>または1,000万円を超える → 全額・先に保全</div><p>未完成は５％、完成は10％。割合または1,000万円のどちらかを超えるなら保全が必要。手付金と中間金等（契約後・引渡し前に支払う代金充当金）を合計し、基準を超える受領の前に、受領済み分も含めて保全する。買主の登記による例外は次の項目。</p><details><summary>一問確認：完成4,000万円、手付400万円のみ、登記前。保全が必要？</summary><p>×。10％以下、かつ1,000万円以下なので不要。完成２億円で手付1,500万円なら、1,000万円を超えるので全額保全。</p></details></details></article>
-<article class="pf-card" id="pf-registration" hidden><img class="pf-image" src="pitfalls-img/registration-v1.png" alt="登記と、決済を分ける。 売主＝宅建業者 ／ 買主＝非業者
+<article class="pf-card" id="pf-registration" hidden><img loading="lazy" class="pf-image" src="pitfalls-img/registration-v1.webp?v=w1" alt="登記と、決済を分ける。 売主＝宅建業者 ／ 買主＝非業者
 手付金等の保全が不要
 買主の所有権登記
 移転 または 保存
@@ -1937,37 +2019,37 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 引渡し ＋ 代金全額払い
 両方が必要
 ※場所・期間などの条件は別" width="1122" height="1402" decoding="async"><details class="pf-more"><summary>詳しく見る・確認問題</summary><p class="pf-mix">混同：「登記と全額払いの両方」が保全不要の条件だと思う。</p><div class="pf-flow">保全 → 買主の所有権登記<br>クーリングオフ → 引渡し ＋ 全額払い</div><p>買主への所有権移転登記、または買主の所有権保存登記があれば、手付金等の保全は不要。全額払いは条件ではない。クーリングオフは、引渡しと代金全額払いの両方が済むとできなくなる（場所・告知後８日など、他の条件も別にある）。</p><details><summary>一問確認：登記は済んだが残代金は未払い。保全不要の例外に当たる？</summary><p>○。保全の登記による例外に、全額払いは要求されない。</p></details></details></article>
-<article class="pf-card" id="pf-seller" hidden><img class="pf-image" src="pitfalls-img/seller-v1.png" alt="仲介がいても、売主を見る。 売主：宅建業者 → 買主：非業者
+<article class="pf-card" id="pf-seller" hidden><img loading="lazy" class="pf-image" src="pitfalls-img/seller-v1.webp?v=w1" alt="仲介がいても、売主を見る。 売主：宅建業者 → 買主：非業者
 別の業者が仲介しても
 手付金等の保全義務の対象
 ※金額・登記の条件も確認
 売主：非業者 → この法定保全義務なし" width="1122" height="1402" decoding="async"><details class="pf-more"><summary>詳しく見る・確認問題</summary><p class="pf-mix">混同：仲介業者が入ると、売主の保全義務がなくなると思う。</p><div class="pf-flow">買主 → 手付を払う → 売主である宅建業者</div><p>取引当事者である売主が宅建業者、買主が非業者かを確認する。別の仲介業者がいても対象。売主が非業者なら、この法定保全義務はない。保証協会への加入だけで、個々の手付金が自動的に保全されるわけでもない。</p><details><summary>一問確認：業者が売主、一般人が買主。別の業者が仲介しているので保全義務の対象外？</summary><p>×。売主の立場で判断する。金額・登記等の条件は続けて確認。</p></details></details></article>
-<article class="pf-card" id="pf-damages" hidden><img class="pf-image" src="pitfalls-img/damages-v1.png" alt="違約金は、足して２割。 売主＝宅建業者 ／ 買主＝非業者
+<article class="pf-card" id="pf-damages" hidden><img loading="lazy" class="pf-image" src="pitfalls-img/damages-v1.webp?v=w1" alt="違約金は、足して２割。 売主＝宅建業者 ／ 買主＝非業者
 債務不履行による解除の約束
 損害賠償の予定額 ＋ 違約金
 合計で代金の20％まで
 売主が払う場合も同じ
 手付金とは合算しない" width="1122" height="1402" decoding="async"><details class="pf-more"><summary>詳しく見る・確認問題</summary><p class="pf-mix">混同：手付と違約金を足す／それぞれ２割にする。</p><div class="pf-flow">手付 → 単独20％<br>賠償予定 ＋ 違約金 → 合計20％</div><p>業者が自ら売主・買主が非業者の場合、債務不履行による契約解除についての損害賠償予定額と違約金は、合計で代金の20％まで。売主が払う側でも同じ。何でも自動的に２割請求できる制度ではなく、定めた条件で判断する。実損害の賠償すべてを一律２割にする話でもない。</p><details><summary>一問確認：賠償予定15％に加え、違約金10％を定められる？</summary><p>×。合計25％になり、20％を超える部分は無効。</p></details></details></article>
-<article class="pf-card" id="pf-documents" hidden><img class="pf-image" src="pitfalls-img/documents-v1.png" alt="契約書が、兼ねられる。 35条 → 契約前の判断材料
+<article class="pf-card" id="pf-documents" hidden><img loading="lazy" class="pf-image" src="pitfalls-img/documents-v1.webp?v=w1" alt="契約書が、兼ねられる。 35条 → 契約前の判断材料
 37条 → 成立した契約の記録
 契約書
 必要事項 ＋ 宅建士の記名等
 ↓
 37条書面として交付できる
 別にもう１枚は不要" width="1122" height="1402" decoding="async"><details class="pf-more"><summary>詳しく見る・確認問題</summary><p class="pf-mix">混同：契約後だから、契約書とは別に必ずもう一枚作ると思う。</p><div class="pf-flow">35条 → 契約前の判断<br>37条 → 成立した契約の記録</div><p>35条は契約前の判断材料を説明する書面。37条は成立した契約内容を遅滞なく交付する書面。必要事項と宅建士の記名等を満たす契約書なら、37条書面を兼ねられる。37条書面自体の説明義務はない。</p><details><summary>一問確認：必要事項と宅建士の記名を備えた契約書を交付した。別の37条書面も必須？</summary><p>×。要件を満たせば兼用できる。単に「契約書」という題名だけでは足りない。</p></details></details></article>
-<article class="pf-card" id="pf-equipment" hidden><img class="pf-image" src="pitfalls-img/equipment-v1.png" alt="設備は、完成前後で分ける。 35条の説明
+<article class="pf-card" id="pf-equipment" hidden><img loading="lazy" class="pf-image" src="pitfalls-img/equipment-v1.webp?v=w1" alt="設備は、完成前後で分ける。 35条の説明
 未完成建物 → 完成時の設備の設置・構造
 売買・交換・貸借すべて
 完成済み建物 → 台所・浴室等の整備状況
 貸借だけ
 未完成は内外装の仕上げも対象
 必要に応じて図面を交付" width="1122" height="1402" decoding="async"><details class="pf-more"><summary>詳しく見る・確認問題</summary><p class="pf-mix">混同：設備は貸借だけだから、未完成の売買でも説明不要と思う。</p><div class="pf-flow">未完成の完成時の設備 → 売買・交換・貸借<br>完成済みの設備整備状況 → 貸借</div><p>未完成建物は売買・交換・貸借とも、完成時の主要構造部、内外装の構造・仕上げ、設備の設置・構造を35条で説明。必要に応じて図面を交付する。完成済み建物の「台所・浴室・便所等の設備の整備状況」は貸借の説明項目。売買で別項目により同じ内容を一律説明する、という意味ではない。重大な故障を隠してよいという意味でもない。</p><details><summary>一問確認：未完成建物の貸借なら、骨組みだけ説明して、内装の仕上げは省略できる？</summary><p>×。仕上げや設備も対象。図面は必要に応じ「交付」であり、見せるだけでは足りない。</p></details></details></article>
-<article class="pf-card" id="pf-private-road" hidden><img class="pf-image" src="pitfalls-img/private-road-v1.png" alt="建物の貸借だけ、除外。 35条：私道負担の説明
+<article class="pf-card" id="pf-private-road" hidden><img loading="lazy" class="pf-image" src="pitfalls-img/private-road-v1.webp?v=w1" alt="建物の貸借だけ、除外。 35条：私道負担の説明
 土地の売買・交換 → 必要
 建物の売買・交換 → 必要
 土地の貸借 → 必要
 建物の貸借 → 不要" width="1122" height="1402" decoding="async"><details class="pf-more"><summary>詳しく見る・確認問題</summary><p class="pf-mix">混同：貸借ならすべて説明不要と思う。</p><div class="pf-flow">私道負担 → 建物の貸借だけ除外</div><p>35条の私道負担の説明は、土地の貸借では必要。建物の貸借ではこの項目の説明義務から除外される。売買・交換では対象。</p><details><summary>一問確認：土地を借りる取引でも、私道負担は説明不要？</summary><p>×。「貸借」だけで判断せず、土地か建物かまで読む。</p></details></details></article>
-<article class="pf-card" id="pf-risk-tax" hidden><img class="pf-image" src="pitfalls-img/risk-tax-v1.png" alt="災害は貸借にも。 37条：定めがあるときに記載
+<article class="pf-card" id="pf-risk-tax" hidden><img loading="lazy" class="pf-image" src="pitfalls-img/risk-tax-v1.webp?v=w1" alt="災害は貸借にも。 37条：定めがあるときに記載
 天災など不可抗力の損害負担
 売買・交換・貸借
 租税公課の負担
@@ -1977,7 +2059,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 <section id="zukai"><div class="zk-intro">図で整理して、確認問題で思い出す。項目から直接ジャンプできます。</div>
 <nav class="zk-jumps" aria-label="図解の分野"><a href="#zk37" data-zk-target="zk37">報酬：片方と合計</a><a href="#guarantee-guide" data-zk-target="guarantee-guide">保証金の復習手順</a><a href="#zk33" data-zk-target="zk33">保証金：金額・行き先</a><a href="#zk35" data-zk-target="zk35">保証金：期限・公告</a><a href="#zk32" data-zk-target="zk32">合格から取引士証</a><a href="#zk30" data-zk-target="zk30">事務所と案内所</a><a href="#zk31" data-zk-target="zk31">売主と販売代理</a><a href="#zk29" data-zk-target="zk29">業者と宅建士の処分</a><a href="#zk28" data-zk-target="zk28">刑の種類</a><a href="#zk27" data-zk-target="zk27">37条：貸借の5項目</a><a href="#zk26" data-zk-target="zk26">宅建業法：欠格</a><a href="#zk-focus" data-zk-target="zk-focus">土地・建物 5枚</a><a href="#zk-rights" data-zk-target="zk-rights">権利関係 3枚</a><a href="#zk-tax" data-zk-target="zk-tax">税・その他 5枚</a><a href="#zk-law" data-zk-target="zk-law">法令上の制限 12枚</a></nav><figure class="zk" id="zk37">
 <figcaption><span class="no">図37 · 報酬</span><b>売買は片方ずつ。賃貸は合計。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk37-fee-frames-v1.png" target="_blank" rel="noopener" aria-label="報酬の最小図解を拡大"><img src="takken-zukai-0ee08412/zk37-fee-frames-v1.png" width="1086" height="1448" alt="通常ルール・課税業者。売買媒介は片方ずつ1枠。税抜価格1,000万円なら各39.6万円、合計79.2万円。代理は片方から2枠、取引全体も2枠まで。家賃10万円の居住用媒介は依頼時の承諾がなければ各5.5万円、双方合計11万円まで。承諾があっても合計の枠は増えず、賃貸の代理でも同じ。空家等・権利金特例は図の対象外。"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk37-fee-frames-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="報酬の最小図解を拡大"><img decoding="async" loading="lazy" src="takken-zukai-0ee08412/zk37-fee-frames-v1.webp?v=w1" width="1086" height="1448" alt="通常ルール・課税業者。売買媒介は片方ずつ1枠。税抜価格1,000万円なら各39.6万円、合計79.2万円。代理は片方から2枠、取引全体も2枠まで。家賃10万円の居住用媒介は依頼時の承諾がなければ各5.5万円、双方合計11万円まで。承諾があっても合計の枠は増えず、賃貸の代理でも同じ。空家等・権利金特例は図の対象外。"></a>
 <div class="zk-check" data-correct="false" data-explanation="通常ルールでは双方合計11万円が上限。依頼時の承諾があれば一方から0.5か月分＋税を超える配分は可能だが、双方から11万円ずつは受け取れない。"><p><b>１問確認</b>　課税業者が家賃10万円の居住用賃貸を媒介。依頼時に承諾を得れば、貸主・借主の双方から各11万円を受け取れる（特例なし）。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図37の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図37の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay zk-go" data-go="14">式・例外をスライド14で確認 →</button>
 <button type="button" class="license-quiz" data-topic-quiz="P2-046,P2-050,P2-052,P2-053,P2-054">この図の5問を解く →</button>
@@ -1990,32 +2072,32 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 </figure>
 <div class="license-guide" id="eight-update"><h2>新講義：8種制限・クーリングオフ</h2><p>2026年9月23日公開。場所の判定、中間金を含む保全、契約不適合責任の特約をスライド11〜13へ反映。</p><button type="button" class="license-replay zk-go" data-go="12">クーリングオフの判定へ →</button><button type="button" class="license-quiz" data-topic-quiz="P8-001,P8-002,P8-003">追加の3問を解く →</button><details class="zk-sources"><summary>新講義・根拠</summary><a href="https://www.youtube.com/watch?v=jo5e24ToJJc" target="_blank" rel="noopener">宅建道場RE.LIFE.：8種制限／クーリングオフ完全攻略</a> ／ <a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener">宅建業法37条の2・39〜43条</a> ／ <a href="https://laws.e-gov.go.jp/law/332M50004000012" target="_blank" rel="noopener">施行規則16条の5・16条の6</a> ／ <a href="https://laws.e-gov.go.jp/law/129AC0000000089" target="_blank" rel="noopener">民法566条</a><p>法令照合：2026-09-23。講義の自動字幕を全編確認し、条件の省略や誤変換は条文で補正。</p></details></div>
 <div class="license-guide" id="guarantee-guide"><h2>保証金：4つに分けて思い出す</h2><p>①金額 → ②行き先 → ③期限 → ④公告。図を見た後に隠し、「誰が・誰へ・何を・いつまでに」を言ってから解き直す。</p><p><b>計算の手順：</b>本店を除いた支店数 n を先に書く。分担金は60＋30n、営業保証金と弁済限度の基準は1,000＋500n（万円）。</p><p><b>出題実績：</b>2023年2問、2024年2問、2025年1問。直近3年は1〜2点分。問題集の収録数とは別で、次回の問数は未確定。</p><details class="zk-sources"><summary>出題数の根拠</summary><p>営業保証金・保証協会を主題とする問題を集計。2023年問30・44、2024年問27・36、2025年問35。</p><a href="https://www.retio.or.jp/exam/past_ques_ans/other/" target="_blank" rel="noopener">不動産適正取引推進機構：本試験問題</a></details><button type="button" class="license-replay zk-go" data-go="60">協会の必須・任意業務も確認 →</button><details class="license-detail"><summary>信託会社・加入前の取引も確認</summary><p><b>信託会社：</b>財産を託され、管理・処分などを担う会社。法77条の対象となる信託会社や信託業務を兼営する銀行は、宅建業免許が不要。宅建業を営む際は原則として国交大臣へ届け出、営業保証金などの規制を受ける。宅建業免許を受けていないため、宅建業法による免許取消しはない。信託業法等の免許とは別の話。</p><p><b>加入前の取引：</b>加入前の宅建業に関する取引も弁済対象（宅建業者を相手とするものを除く）。その弁済で協会の円滑な運営に支障のおそれがある場合、協会は当該社員に担保提供を求められる。</p><p class="zk-sources"><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener">宅建業法77条・64条の4第3項</a> ／ <a href="https://laws.e-gov.go.jp/law/339CO0000000383" target="_blank" rel="noopener">施行令9条</a>（2026-09-21照合）</p></details></div><figure class="zk" id="zk33"><figcaption><span class="no">図33 · 保証金</span><b>払う額 ≠ 弁済の上限</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk33-guarantee-amount-v1.png" target="_blank" rel="noopener" aria-label="払う額 ≠ 弁済の上限を拡大"><img src="takken-zukai-0ee08412/zk33-guarantee-amount-v1.png" width="1086" height="1448" alt="本店と支店3か所。営業保証金は1000＋500×3＝2500万円。協会に納める分担金は60＋30×3＝150万円。協会加入でも弁済限度の基準は営業保証金相当額2500万円。業者ごとの上限であり客1人ごとの枠ではない。既認証額等の調整前。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk33-guarantee-amount-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="払う額 ≠ 弁済の上限を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk33-guarantee-amount-v1.webp?v=w1" width="1086" height="1448" alt="本店と支店3か所。営業保証金は1000＋500×3＝2500万円。協会に納める分担金は60＋30×3＝150万円。協会加入でも弁済限度の基準は営業保証金相当額2500万円。業者ごとの上限であり客1人ごとの枠ではない。既認証額等の調整前。" loading="lazy"></a>
 <div class="zk-check" data-correct="false" data-explanation="分担金は60＋30×2＝120万円。弁済限度の基準は営業保証金相当額の1,000＋500×2＝2,000万円。既認証額等による調整前。"><p><b>１問確認</b>　本店と支店2か所の業者が協会に納める分担金は120万円。この業者に係る弁済限度の基準も120万円である。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図33の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図33の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="40" data-kami-kind="main">問040：弁済限度を解き直す →</button><button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="42" data-kami-kind="main">問042：分担金から逆算を解き直す →</button><button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="47" data-kami-kind="main">問047：本店と支店の計算を解き直す →</button><button type="button" class="license-replay zk-go" data-go="4">補足スライド 4 →</button>
 <details class="zk-sources"><summary>根拠・補足</summary><p>法64条の8、施行令2条の4・7条。弁済対象は宅建業に関する取引による債権（宅建業者を除く）。業者ごとの認証枠は、既認証額や還付充当金納付等により調整される。還付充当金は還付額と同額で、60/1,000に割り引かれない。</p><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener">宅建業法（2026-09-21照合）</a> ／ <a href="https://laws.e-gov.go.jp/law/339CO0000000383" target="_blank" rel="noopener">施行令</a></details></figure><figure class="zk" id="zk34"><figcaption><span class="no">図34 · 保証金</span><b>協会へは金銭のみ。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk34-guarantee-route-v1.png" target="_blank" rel="noopener" aria-label="協会へは金銭のみ。を拡大"><img src="takken-zukai-0ee08412/zk34-guarantee-route-v1.png" width="1086" height="1448" alt="宅建業者は保証協会へ分担金・還付充当金を金銭のみで納付する。保証協会は供託所へ弁済業務保証金を金銭又は一定の有価証券で供託する。直接供託する営業保証金も不足補充も一定の有価証券が使える。手形・小切手は不可。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk34-guarantee-route-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="協会へは金銭のみ。を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk34-guarantee-route-v1.webp?v=w1" width="1086" height="1448" alt="宅建業者は保証協会へ分担金・還付充当金を金銭のみで納付する。保証協会は供託所へ弁済業務保証金を金銭又は一定の有価証券で供託する。直接供託する営業保証金も不足補充も一定の有価証券が使える。手形・小切手は不可。" loading="lazy"></a>
 <div class="zk-check" data-correct="true" data-explanation="不足分の供託にも有価証券による代用の規定が適用される。金銭のみなのは協会へ納める分担金・還付充当金。"><p><b>１問確認</b>　営業保証金の不足分を補充するときは、金銭だけでなく、一定の有価証券による供託もできる。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図34の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図34の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="39" data-kami-kind="main">問039：保証協会の仕組みを解き直す →</button><button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="43" data-kami-kind="sub" data-kami-item="1">問043 小問①：還付と同額を確認 →</button><button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="47" data-kami-kind="sub" data-kami-item="3">問047 小問③：不足補充を解き直す →</button><button type="button" class="license-replay zk-go" data-go="57">補足スライド 57 →</button>
 <details class="zk-sources"><summary>根拠・補足</summary><p>法25・28・64条の7・64条の9・64条の10。保証協会の供託先は国交大臣が指定する供託所。直接の営業保証金は本店最寄りの供託所。有価証券の評価は国債100％、地方債・政府保証債90％、その他指定債券80％。客の手続きは協会の認証を受けて供託所へ還付請求。認証事務は申出書の受理順。加入前の宅建業に関する取引も対象だが、宅建業者は弁済対象から除く。</p><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener">宅建業法（2026-09-21照合）</a> ／ <a href="https://laws.e-gov.go.jp/law/339CO0000000383" target="_blank" rel="noopener">施行令</a></details></figure><figure class="zk" id="zk35"><figcaption><span class="no">図35 · 保証金</span><b>期限は起算点とセット。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk35-guarantee-deadlines-v1.png" target="_blank" rel="noopener" aria-label="期限は起算点とセット。を拡大"><img src="takken-zukai-0ee08412/zk35-guarantee-deadlines-v1.png" width="1086" height="1448" alt="分担金は協会加入日まで。加入後の支店新設は設置から2週間以内。還付充当金は通知受領から2週間以内。特別分担金は通知受領から1か月以内。社員の地位喪失後は1週間以内に営業保証金を供託し、供託しても社員の地位は回復しない。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk35-guarantee-deadlines-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="期限は起算点とセット。を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk35-guarantee-deadlines-v1.webp?v=w1" width="1086" height="1448" alt="分担金は協会加入日まで。加入後の支店新設は設置から2週間以内。還付充当金は通知受領から2週間以内。特別分担金は通知受領から1か月以内。社員の地位喪失後は1週間以内に営業保証金を供託し、供託しても社員の地位は回復しない。" loading="lazy"></a>
 <div class="zk-check" data-correct="false" data-explanation="地位を失った日から1週間以内。還付充当金の納付期限は通知を受けた日から2週間以内であり、別の手続き。"><p><b>１問確認</b>　協会の社員の地位を失った業者は、その日から2週間以内に営業保証金を供託すればよい。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図35の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図35の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="39" data-kami-kind="sub" data-kami-item="2">問039 小問②：新設支店の期限 →</button><button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="42" data-kami-kind="sub" data-kami-item="3">問042 小問③：地位喪失後の期限 →</button><button type="button" class="license-replay zk-go" data-go="58">補足スライド 58 →</button>
 <details class="zk-sources"><summary>根拠・補足</summary><p>法64条の7・64条の9・64条の10・64条の12・64条の15。協会は分担金を受けた日から1週間以内に供託する。還付があった旨の通知を受けた協会は2週間以内に不足を供託する。分担金・還付充当金・特別分担金を各期限までに納めないと社員の地位を失う。営業保証金の不足補充は通知受領から2週間以内、その旨の届出は供託から2週間以内。</p><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener">宅建業法（2026-09-21照合）</a> ／ <a href="https://laws.e-gov.go.jp/law/339CO0000000383" target="_blank" rel="noopener">施行令</a></details></figure><figure class="zk" id="zk36"><figcaption><span class="no">図36 · 保証金</span><b>一部廃止の公告は違う。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk36-guarantee-notice-v1.png" target="_blank" rel="noopener" aria-label="一部廃止の公告は違う。を拡大"><img src="takken-zukai-0ee08412/zk36-guarantee-notice-v1.png" width="1086" height="1448" alt="一部事務所廃止で営業保証金を取り戻すときは、業者が原則6か月以上の申出期間を設けて公告。協会が一部事務所廃止に伴って分担金を返すときは公告不要。社員の地位を失ったときの返還では保証協会が6か月以上の期間を設けて公告する。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk36-guarantee-notice-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="一部廃止の公告は違う。を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk36-guarantee-notice-v1.webp?v=w1" width="1086" height="1448" alt="一部事務所廃止で営業保証金を取り戻すときは、業者が原則6か月以上の申出期間を設けて公告。協会が一部事務所廃止に伴って分担金を返すときは公告不要。社員の地位を失ったときの返還では保証協会が6か月以上の期間を設けて公告する。" loading="lazy"></a>
 <div class="zk-check" data-correct="false" data-explanation="公告するのは保証協会。6か月以上の申出期間を設け、期間経過等の所定の手続きを経て返還する。一部事務所の廃止に伴う分担金返還は公告不要。"><p><b>１問確認</b>　協会の社員の地位を失ったとき、分担金返還のための公告をするのは、地位を失った宅建業者自身である。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図36の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図36の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="39" data-kami-kind="main">問039：一部廃止を解き直す →</button><button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="45" data-kami-kind="sub" data-kami-item="1">問045 小問①：公告する主体 →</button><button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="46" data-kami-kind="main">問046：2ルートの比較を解き直す →</button><button type="button" class="license-replay zk-go" data-go="59">補足スライド 59 →</button>
 <details class="zk-sources"><summary>根拠・補足</summary><p>法30・64条の11。直接の営業保証金は取戻事由発生から10年経過等で公告不要となる例外がある。廃業後に取引が残る場合は取引結了時から10年。協会加入・供託所変更に伴う新規供託後の旧供託金取戻しも公告不要。一部事務所廃止では、各制度の超過額・返還額について所定の精算手続きが必要。</p><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener">宅建業法（2026-09-21照合）</a> ／ <a href="https://laws.e-gov.go.jp/law/339CO0000000383" target="_blank" rel="noopener">施行令</a></details></figure>
 <figure class="zk" id="zk32">
 <figcaption><span class="no">図32 · 初回交付の流れ</span><b>登録の前と、証の前。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk32-license-process-v1.png" target="_blank" rel="noopener" aria-label="合格から取引士証交付までの図解を拡大"><img src="takken-zukai-0ee08412/zk32-license-process-v1.png" width="1086" height="1448" alt="宅建試験合格後、実務経験2年以上なら直接登録へ。2年未満なら国土交通大臣の登録を受けた登録実務講習を修了し、合格した都道府県の知事に宅建士登録する。初回の取引士証交付申請が合格から1年以内なら法定講習は免除。それを超える場合は登録している都道府県知事が指定する法定講習を申請前6か月以内に受講。取引士証の有効期間は5年。更新時も知事指定の法定講習を受ける。"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk32-license-process-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="合格から取引士証交付までの図解を拡大"><img decoding="async" loading="lazy" src="takken-zukai-0ee08412/zk32-license-process-v1.webp?v=w1" width="1086" height="1448" alt="宅建試験合格後、実務経験2年以上なら直接登録へ。2年未満なら国土交通大臣の登録を受けた登録実務講習を修了し、合格した都道府県の知事に宅建士登録する。初回の取引士証交付申請が合格から1年以内なら法定講習は免除。それを超える場合は登録している都道府県知事が指定する法定講習を申請前6か月以内に受講。取引士証の有効期間は5年。更新時も知事指定の法定講習を受ける。"></a>
 <div class="zk-check" data-correct="false" data-explanation="1年の起算は登録日ではなく試験の合格日。合格から1年を超えて初回交付を申請する場合は、登録直後であっても知事指定の法定講習が必要。"><p><b>１問確認</b>　試験合格から2年後に宅建士登録をした。登録直後に取引士証を申請するなら、法定講習は免除される。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図32の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図32の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="30" data-kami-kind="main">問030の講習を解き直す →</button>
 <details class="zk-sources"><summary>根拠・補足</summary><p>一般的な初回交付の流れ。法定講習を指定するのは、登録している都道府県知事。登録には欠格事由に該当しないこと等も必要。登録実務講習以外にも国土交通大臣が同等以上の能力を認める場合がある。試験合格・登録自体に有効期限はないが、有効な取引士証の交付を受けて初めて宅建士として事務を行える。登録移転に伴う同時交付は別の講習免除であり、新証の有効期間は旧証の残存期間。</p><a href="https://laws.e-gov.go.jp/law/327AC1000000176" target="_blank" rel="noopener">宅建業法18・22条の2・22条の3</a> ／ <a href="https://laws.e-gov.go.jp/law/332M50004000012" target="_blank" rel="noopener">施行規則13条の15・13条の16（2026-09-21照合）</a></details>
 </figure>
 <figure class="zk" id="zk30">
 <figcaption><span class="no">図30 · 場所の区別</span><b>本店は、事務所の一種。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk30-offices-v1.png" target="_blank" rel="noopener" aria-label="事務所と案内所の図解を拡大"><img src="takken-zukai-0ee08412/zk30-offices-v1.png" width="1086" height="1448" alt="宅建業法上の事務所には本店と宅建業を営む支店が含まれる。支店で宅建業を営めば本店は直接営まなくても含む。事務所には業務従事者5人につき成年者の専任宅建士1人以上と、標識・報酬額・帳簿・従業者名簿が必要。10戸以上の分譲案内所で契約又は申込みを受けるなら専任1人以上と開始10日前までの届出が必要。見学だけなら専任とこの届出は不要だが、両方とも標識は必要。案内所は免許区分の事務所に数えない。"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk30-offices-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="事務所と案内所の図解を拡大"><img decoding="async" loading="lazy" src="takken-zukai-0ee08412/zk30-offices-v1.webp?v=w1" width="1086" height="1448" alt="宅建業法上の事務所には本店と宅建業を営む支店が含まれる。支店で宅建業を営めば本店は直接営まなくても含む。事務所には業務従事者5人につき成年者の専任宅建士1人以上と、標識・報酬額・帳簿・従業者名簿が必要。10戸以上の分譲案内所で契約又は申込みを受けるなら専任1人以上と開始10日前までの届出が必要。見学だけなら専任とこの届出は不要だが、両方とも標識は必要。案内所は免許区分の事務所に数えない。"></a>
 <div class="zk-check" data-correct="true" data-explanation="10戸以上の分譲案内所で申込みを受ける場合、契約を締結しなくても、成年者の専任宅建士を1人以上置き、開始10日前までに所定の届出をする。見学だけの場合と分ける。"><p><b>１問確認</b>　10戸以上の分譲案内所では、契約を結ばなくても、購入の申込みを受けるなら専任宅建士が必要。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図30の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図30の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-zk-target="zk31">売主と代理の担当を見る →</button>
 <button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="23" data-kami-kind="sub" data-kami-item="1">問023の小問①を解き直す →</button>
@@ -2024,7 +2106,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 </figure>
 <figure class="zk" id="zk31">
 <figcaption><span class="no">図31 · 問023の役割</span><b>現地は売主。案内所は設置者。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk31-agency-v1.png" target="_blank" rel="noopener" aria-label="売主と販売代理の図解を拡大"><img src="takken-zukai-0ee08412/zk31-agency-v1.png" width="1086" height="1448" alt="問023は売主B社がA社に販売代理を依頼し、A社単独の案内所で契約する。売買契約の当事者はB社と買主。マンション現地の標識はB社。案内所はA社が標識を掲示し、売主B社の名称と免許証番号も記載する。A社が開始10日前までに大臣と甲県知事へ届け出て、専任宅建士1人以上を置く。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk31-agency-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="売主と販売代理の図解を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk31-agency-v1.webp?v=w1" width="1086" height="1448" alt="問023は売主B社がA社に販売代理を依頼し、A社単独の案内所で契約する。売買契約の当事者はB社と買主。マンション現地の標識はB社。案内所はA社が標識を掲示し、売主B社の名称と免許証番号も記載する。A社が開始10日前までに大臣と甲県知事へ届け出て、専任宅建士1人以上を置く。" loading="lazy"></a>
 <div class="zk-check" data-correct="false" data-explanation="契約を扱う案内所を単独で設置したA社が、届出と専任宅建士の設置義務を負う。売主B社に代わりに任せればよいとはならない。会社の文字ではなく、その問題で案内所を設置した業者を確認する。"><p><b>１問確認</b>　A社が単独で設置し契約する案内所でも、売主B社が届け出て専任宅建士を置けば、A社の対応は不要。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図31の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図31の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="23" data-kami-kind="main">元の問023を解き直す →</button>
 <button type="button" class="license-replay" data-zk-target="zk30">事務所と案内所の違いを見る →</button>
@@ -2032,7 +2114,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 </figure>
 <figure class="zk" id="zk29">
 <figcaption><span class="no">図29 · 処分の対象</span><b>業者は免許、宅建士は登録。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk29-sanctions-v1.png" target="_blank" rel="noopener" aria-label="業者と宅建士の処分の図解を拡大"><img src="takken-zukai-0ee08412/zk29-sanctions-v1.png" width="1086" height="1448" alt="宅建業者は営業免許。指示、最長1年の業務停止、免許取消し。宅建士は個人の登録。指示、最長1年の事務禁止、登録消除。必ずこの順番とは限らず、役員・政令使用人の欠格による会社の免許取消しもある。刑罰と行政処分は別。"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk29-sanctions-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="業者と宅建士の処分の図解を拡大"><img decoding="async" loading="lazy" src="takken-zukai-0ee08412/zk29-sanctions-v1.webp?v=w1" width="1086" height="1448" alt="宅建業者は営業免許。指示、最長1年の業務停止、免許取消し。宅建士は個人の登録。指示、最長1年の事務禁止、登録消除。必ずこの順番とは限らず、役員・政令使用人の欠格による会社の免許取消しもある。刑罰と行政処分は別。"></a>
 <div class="zk-check" data-correct="false" data-explanation="免許取消しは業者の営業免許を失わせる処分。役員等の欠格など、指示・業務停止を経ずに取消しとなる場合もある。宅建士個人は事務禁止・登録消除という名称で区別する。"><p><b>１問確認</b>　役員が欠格事由に該当しても、会社は先に指示処分・業務停止処分を受けない限り、免許を取り消されない。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図29の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図29の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-kami-open data-kami-volume="2" data-kami-question="17" data-kami-kind="main">元の問017を解き直す →</button>
 <button type="button" class="license-replay" data-license-return="related">役員・専任宅建士の違いを見る →</button>
@@ -2040,7 +2122,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 </figure>
 <figure class="zk" id="zk28">
 <figcaption><span class="no">図28 · 刑の種類</span><b>拘禁刑と拘留、罰金と科料。</b></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk28-penalties-v1.png" target="_blank" rel="noopener" aria-label="刑の種類の図解を拡大"><img src="takken-zukai-0ee08412/zk28-penalties-v1.png" width="1086" height="1448" alt="拘禁刑は刑事施設に拘置。拘留は1日以上30日未満。罰金は原則1万円以上、科料は千円以上1万円未満。没収は犯罪に関係する一定の物を国が取り上げる。免許の刑罰欠格では拘禁刑以上は罪名不問、罰金は所定の罪だけ、拘留・科料・没収はそれ自体では対象外。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk28-penalties-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="刑の種類の図解を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk28-penalties-v1.webp?v=w1" width="1086" height="1448" alt="拘禁刑は刑事施設に拘置。拘留は1日以上30日未満。罰金は原則1万円以上、科料は千円以上1万円未満。没収は犯罪に関係する一定の物を国が取り上げる。免許の刑罰欠格では拘禁刑以上は罪名不問、罰金は所定の罪だけ、拘留・科料・没収はそれ自体では対象外。" loading="lazy"></a>
 <div class="zk-check" data-correct="false" data-explanation="拘留と拘禁刑は別の刑。拘留は1日以上30日未満で、拘留の刑それ自体は免許の刑罰欠格に該当しない。暴行罪でも、実際に受けた刑を確認する。"><p><b>１問確認</b>　暴行罪で拘留の刑に処せられた役員がいると、その拘留を理由に会社の免許は取り消される。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図28の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図28の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <button type="button" class="license-replay" data-license-return="fine">欠格になる罰金の罪名を見る →</button>
 <button type="button" class="license-replay" data-license-return="penalty">実刑・執行猶予と5年を見る →</button>
@@ -2048,7 +2130,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 </figure>
 <figure class="zk" id="zk27">
 <figcaption><span class="no">図27 · 37条書面</span><b>貸借では5つ外す。</b><button class="zk-go" data-go="10">スライド10 →</button></figcaption>
-<a class="license-image" href="takken-zukai-0ee08412/zk27-lease-v1.png" target="_blank" rel="noopener" aria-label="貸借では外れる5項目の図解を拡大"><img src="takken-zukai-0ee08412/zk27-lease-v1.png" width="1086" height="1448" alt="37条書面の貸借では、移転登記申請時期、既存建物の双方確認事項、融資あっせん不成立時の措置、契約不適合責任と履行確保措置、租税公課負担の5項目が外れる。引渡し時期は必須、危険負担は定めがあれば記載。"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk27-lease-v1.webp?v=w1" target="_blank" rel="noopener" aria-label="貸借では外れる5項目の図解を拡大"><img decoding="async" loading="lazy" src="takken-zukai-0ee08412/zk27-lease-v1.webp?v=w1" width="1086" height="1448" alt="37条書面の貸借では、移転登記申請時期、既存建物の双方確認事項、融資あっせん不成立時の措置、契約不適合責任と履行確保措置、租税公課負担の5項目が外れる。引渡し時期は必須、危険負担は定めがあれば記載。"></a>
 <button type="button" class="license-quiz" data-topic-quiz="PG-005,PG-009,PG-014,PG-017,PG-018,PG-019">この図の6問を解く →</button>
 <button type="button" class="license-replay" data-topic-quiz="P37-001,P37-002,P37-003,P37-004,P37-005,P37-006">新講義で補った6問を解く →</button>
 <details class="license-detail"><summary>講義・根拠</summary><p><a href="https://www.youtube.com/watch?v=e8CXxh6IFtE&t=1801s" target="_blank" rel="noopener">新講義 30:01 貸借の5項目</a> ／ <a href="https://laws.e-gov.go.jp/law/327AC1000000176#Mp-At_37" target="_blank" rel="noopener">宅建業法37条1・2項</a>。37条書面に記載する項目の比較であり、民法上の責任の有無とは別。</p></details>
@@ -2064,32 +2146,32 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 <button type="button" data-license-view="clock" aria-pressed="false" aria-controls="license-clock">60日・5年</button>
 </div>
 <div class="license-panel" id="license-penalty">
-<a class="license-image" href="takken-zukai-0ee08412/zk26-penalty-v3.png" target="_blank" rel="noopener" aria-label="実刑・猶予の図解を拡大"><img src="takken-zukai-0ee08412/zk26-penalty-v3.png" width="1086" height="1448" alt="拘禁刑以上の実刑と全部執行猶予。実刑は執行終了等から5年、全部執行猶予中は欠格だが取り消されず満了した翌日から追加5年なし。"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-penalty-v3.webp?v=w1" target="_blank" rel="noopener" aria-label="実刑・猶予の図解を拡大"><img decoding="async" loading="lazy" src="takken-zukai-0ee08412/zk26-penalty-v3.webp?v=w1" width="1086" height="1448" alt="拘禁刑以上の実刑と全部執行猶予。実刑は執行終了等から5年、全部執行猶予中は欠格だが取り消されず満了した翌日から追加5年なし。"></a>
 <button type="button" class="license-quiz" data-license-quiz="penalty">この図の3問を解く →</button>
 <details class="license-detail"><summary>条文・詳しい条件</summary><p>拘禁刑以上は罪名を問わない。図は刑の全部の執行猶予を比較。一部執行猶予とは区別する。刑法27条3項2号は、同条の効力継続期間における資格法令についても、刑の言渡しの効力を失ったものと扱う。ほかの刑や欠格事由は別に判定する。</p></details>
 </div>
 <div class="license-panel" id="license-fine" hidden>
-<a class="license-image" href="takken-zukai-0ee08412/zk26-fine-v3.png" target="_blank" rel="noopener" aria-label="罰金の罪名の図解を拡大"><img src="takken-zukai-0ee08412/zk26-fine-v3.png" width="1086" height="1448" alt="罰金は所定の犯罪のみ。背任などは刑の執行終了等から5年。交通違反の罰金だけなら欠格なし、同じ違反でも拘禁刑以上なら欠格。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-fine-v3.webp?v=w1" target="_blank" rel="noopener" aria-label="罰金の罪名の図解を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk26-fine-v3.webp?v=w1" width="1086" height="1448" alt="罰金は所定の犯罪のみ。背任などは刑の執行終了等から5年。交通違反の罰金だけなら欠格なし、同じ違反でも拘禁刑以上なら欠格。" loading="lazy"></a>
 <button type="button" class="license-quiz" data-license-quiz="fine">この図の2問を解く →</button>
 <details class="license-detail"><summary>条文・詳しい条件</summary><p>宅建業法5条1項6号。暴対法の除外は32条の3第7項と32条の11第1項。刑法の対象は204条、206条、208条、208条の2、222条、247条。執行終了等とは、刑の執行を終わった日又は執行を受けることがなくなった日。罰金でも全部執行猶予を取り消されず満了した場合の扱いは別に判定する。</p></details>
 </div>
 <div class="license-panel" id="license-related" hidden>
-<a class="license-image" href="takken-zukai-0ee08412/zk26-related-v3.png" target="_blank" rel="noopener" aria-label="関係者の図解を拡大"><img src="takken-zukai-0ee08412/zk26-related-v3.png" width="1086" height="1448" alt="欠格のある役員・政令使用人はその会社にも影響し、一般従業員全員ではない。未成年者は営業に関し成年者と同じ行為能力がなければ法定代理人も審査し、あれば本人を審査する。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-related-v3.webp?v=w1" target="_blank" rel="noopener" aria-label="関係者の図解を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk26-related-v3.webp?v=w1" width="1086" height="1448" alt="欠格のある役員・政令使用人はその会社にも影響し、一般従業員全員ではない。未成年者は営業に関し成年者と同じ行為能力がなければ法定代理人も審査し、あれば本人を審査する。" loading="lazy"></a>
 <button type="button" class="license-quiz" data-license-quiz="related">この図の4問を解く →</button>
 <details class="license-detail"><summary>条文・詳しい条件</summary><p>法5条1項11〜14号。政令使用人は事務所の代表者で契約締結権限を持つ支店長等。未成年者の法定代理人が法人ならその役員も審査対象。「本人だけを審査」は法定代理人との対比であり、政令使用人など別の欠格要件を除外する意味ではない。</p></details>
 </div>
 <div class="license-panel" id="license-people" hidden>
-<a class="license-image" href="takken-zukai-0ee08412/zk26-people-v3.png" target="_blank" rel="noopener" aria-label="会社と本人の図解を拡大"><img src="takken-zukai-0ee08412/zk26-people-v3.png" width="1086" height="1448" alt="三大悪事は会社自身が取消日から5年。暴力団役員が原因の取消しは退任と事業支配の解消で会社は再申請できても、役員本人の欠格は残る。本人の5年は暴力団脱退から。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-people-v3.webp?v=w1" target="_blank" rel="noopener" aria-label="会社と本人の図解を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk26-people-v3.webp?v=w1" width="1086" height="1448" alt="三大悪事は会社自身が取消日から5年。暴力団役員が原因の取消しは退任と事業支配の解消で会社は再申請できても、役員本人の欠格は残る。本人の5年は暴力団脱退から。" loading="lazy"></a>
 <button type="button" class="license-quiz" data-license-quiz="people">この図の3問を解く →</button>
 <details class="license-detail"><summary>条文・詳しい条件</summary><p>三大悪事は学習用の呼称で、法66条1項8号・9号の取消し。会社の取消しの理由と本人の欠格事由を分ける。原因が解消しても免許は自動的に復活せず、再申請・審査が必要。ほかの欠格がなく、退任後の事業支配もないことが前提。</p></details>
 </div>
 <div class="license-panel" id="license-escape" hidden>
-<a class="license-image" href="takken-zukai-0ee08412/zk26-escape-v3.png" target="_blank" rel="noopener" aria-label="処分逃れの図解を拡大"><img src="takken-zukai-0ee08412/zk26-escape-v3.png" width="1086" height="1448" alt="三大悪事による取消しの聴聞公示から決定まで、相当の理由なく廃業・解散すれば届出日から5年。合併消滅の対象元役員は消滅日から5年。業務停止の聴聞はこの5年ルールなし。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-escape-v3.webp?v=w1" target="_blank" rel="noopener" aria-label="処分逃れの図解を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk26-escape-v3.webp?v=w1" width="1086" height="1448" alt="三大悪事による取消しの聴聞公示から決定まで、相当の理由なく廃業・解散すれば届出日から5年。合併消滅の対象元役員は消滅日から5年。業務停止の聴聞はこの5年ルールなし。" loading="lazy"></a>
 <button type="button" class="license-quiz" data-license-quiz="escape">この図の2問を解く →</button>
 <details class="license-detail"><summary>条文・詳しい条件</summary><p>廃業・解散を届け出た者と、法定の対象になる元役員を区別する。合併で消滅した法人がそのまま再申請するのではなく、対象の元役員について5年の欠格を判定する。届出の書類を提出した担当者や清算人に一律に欠格が生じる趣旨ではない。</p></details>
 </div>
 <div class="license-panel" id="license-clock" hidden>
-<a class="license-image" href="takken-zukai-0ee08412/zk26-clock-v3.png" target="_blank" rel="noopener" aria-label="60日・5年の図解を拡大"><img src="takken-zukai-0ee08412/zk26-clock-v3.png" width="1086" height="1448" alt="60日は聴聞公示前の対象役員の範囲。50日前に退任しても対象。5年の起点は取消日、廃業・解散の届出日、合併消滅日を区別する。" loading="lazy"></a>
+<a class="license-image" href="takken-zukai-0ee08412/zk26-clock-v3.webp?v=w1" target="_blank" rel="noopener" aria-label="60日・5年の図解を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk26-clock-v3.webp?v=w1" width="1086" height="1448" alt="60日は聴聞公示前の対象役員の範囲。50日前に退任しても対象。5年の起点は取消日、廃業・解散の届出日、合併消滅日を区別する。" loading="lazy"></a>
 <button type="button" class="license-quiz" data-license-quiz="clock">この図の2問を解く →</button>
 <details class="license-detail"><summary>条文・詳しい条件</summary><p>法5条1項2〜4号。三大悪事による取消しでは、公示前60日以内の役員だった者も取消日から5年の対象。処分逃れの場合は、相当の理由なく公示後〜処分又は不処分決定前に行われたことを確認する。</p></details>
 </div>
@@ -2104,7 +2186,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 
 <figure class="zk" id="zk21">
 <figcaption><span class="no">図21</span><b>軸組にも、耐力壁。</b><button class="zk-go" data-go="56">スライド56 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk21.jpg?v=1" target="_blank" rel="noopener" aria-label="図21を拡大"><img src="takken-zukai-0ee08412/zk21.jpg?v=1" alt="在来軸組は柱・梁に加え、筋かいや構造用合板の耐力壁で横からの力に抵抗する。枠組壁は壁・床・屋根で箱をつくる。真壁は柱が見える、大壁は柱が隠れるという仕上げの区別。耐力壁があるだけで壁式構造とは決まらない。" loading="lazy" width="1086" height="1448"></a>
+<a href="takken-zukai-0ee08412/zk21.webp?v=w1" target="_blank" rel="noopener" aria-label="図21を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk21.webp?v=w1" alt="在来軸組は柱・梁に加え、筋かいや構造用合板の耐力壁で横からの力に抵抗する。枠組壁は壁・床・屋根で箱をつくる。真壁は柱が見える、大壁は柱が隠れるという仕上げの区別。耐力壁があるだけで壁式構造とは決まらない。" loading="lazy" width="1086" height="1448"></a>
 <p class="zk-note"><b>軸組・枠組壁＝構造の組み方。真壁・大壁＝壁の仕上げ方。</b> 在来軸組にも耐力壁があり、大壁仕上げにもできる。</p>
 <div class="zk-check" data-correct="false" data-explanation="耐力壁は在来軸組にも使う。柱・梁の骨組と、横力に抵抗する壁は併用できる。"><p><b>１問確認</b>　耐力壁がある建物は、すべて壁式構造である。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図21の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図21の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <details class="zk-sources"><summary>根拠・補足</summary><p>図は部材の組み方が見えるように離して描いた概念図。一般的な在来軸組では、柱・梁が主に鉛直荷重を、耐力壁が地震・風の水平力を負担する。床・屋根や接合部も含めて力を伝える。筋かいを入れた壁も、所定の構造用面材を張った壁も耐力壁になり得る。仕上げの壁すべてが耐力壁なのではない。</p><p>真壁で見えるのは主に柱。間柱は壁の下地などを支える部材で、その有無が真壁・大壁を分けるのではない。「耐力壁」の字は体力ではなく耐力。壁式構造は構造形式の総称で、木造の枠組壁工法と同義ではない。壁式RCなどもある。</p><a href="https://www.mokujukyo.or.jp/initiative/ml_scale/" target="_blank" rel="noopener">日本木造住宅産業協会：耐力壁（真壁・大壁の仕様）</a> ／ <a href="https://www.2x4assoc.or.jp/build/trait/" target="_blank" rel="noopener">日本ツーバイフォー建築協会：構造の特徴</a></details>
@@ -2112,7 +2194,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 
 <figure class="zk" id="zk22">
 <figcaption><span class="no">図22</span><b>S・RC・SRCは、中身で覚える。</b><button class="zk-go" data-go="56">スライド56 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk22.jpg?v=1" target="_blank" rel="noopener" aria-label="図22を拡大"><img src="takken-zukai-0ee08412/zk22.jpg?v=1" alt="Sは鉄骨、RCは鉄筋とコンクリート、SRCは鉄骨と鉄筋とコンクリート。鉄自体の密度は大きいが、少ない材料で支える鉄骨造は建物を軽くしやすい。RCはコンクリートの圧縮と鉄筋の引張を組み合わせ、SRCは鉄骨も組み合わせて強度と靭性を高める。" loading="lazy" width="1086" height="1448"></a>
+<a href="takken-zukai-0ee08412/zk22.webp?v=w1" target="_blank" rel="noopener" aria-label="図22を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk22.webp?v=w1" alt="Sは鉄骨、RCは鉄筋とコンクリート、SRCは鉄骨と鉄筋とコンクリート。鉄自体の密度は大きいが、少ない材料で支える鉄骨造は建物を軽くしやすい。RCはコンクリートの圧縮と鉄筋の引張を組み合わせ、SRCは鉄骨も組み合わせて強度と靭性を高める。" loading="lazy" width="1086" height="1448"></a>
 <p class="zk-note"><b>「鉄は重い」と「鉄骨造は比較的軽い」は両立する。</b> 材料の密度と、建物全体で使う量を分ける。</p>
 <div class="zk-check" data-correct="true" data-explanation="同程度の用途・規模なら、鉄骨は少ない断面で力を負担でき、RC造より建物の自重を小さくしやすい。"><p><b>１問確認</b>　鉄の密度が大きくても、鉄骨造の建物はRC造より軽くしやすい。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図22の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図22の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <details class="zk-sources"><summary>根拠・補足</summary><p>S＝Steel、RC＝Reinforced Concrete、SRC＝Steel Reinforced Concrete。SRCは鉄骨とRCを組み合わせ、強度・靭性を高める構造。安い材料で置き換えるだけの構造ではない。強度は耐えられる力、剛性は変形しにくさ、靭性は変形しても急に壊れず粘れる性質。</p><p>鋼材そのものは圧縮にも強い。ただし細長い部材は圧縮で横に曲がる「座屈」が問題となる。「鉄筋は圧縮に弱い」とだけ覚えない。コンクリートは鉄筋を拘束し、かぶりが火熱・腐食から保護する。鉄筋はコンクリートの弱い引張を補う。鉄筋とコンクリートの熱膨張率が近いことも、一体で働くために都合がよい。</p><a href="https://www.jfe-steel.co.jp/products/building/technical/src.html" target="_blank" rel="noopener">JFEスチール：SRC構造</a> ／ <a href="https://www.jci-net.or.jp/j/concrete/kiso/RC.html" target="_blank" rel="noopener">日本コンクリート工学会：RCの基礎</a> ／ <a href="https://www.jisf.or.jp/business/lca/secret/index.html" target="_blank" rel="noopener">日本鉄鋼連盟：鉄の特徴</a></details>
@@ -2120,7 +2202,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 
 <figure class="zk" id="zk23">
 <figcaption><span class="no">図23</span><b>材料と、支え方は別。</b><button class="zk-go" data-go="56">スライド56 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk23.jpg?v=1" target="_blank" rel="noopener" aria-label="図23を拡大"><img src="takken-zukai-0ee08412/zk23.jpg?v=1" alt="鉄骨でも複数の構造形式を使える。ラーメンは柱梁の接合部を固め、ブレースは斜材で変形を抑え、トラスは三角形の部材を組み、アーチは曲線で力を支点に流す。ラーメンとブレースは併用できる。" loading="lazy" width="1086" height="1448"></a>
+<a href="takken-zukai-0ee08412/zk23.webp?v=w1" target="_blank" rel="noopener" aria-label="図23を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk23.webp?v=w1" alt="鉄骨でも複数の構造形式を使える。ラーメンは柱梁の接合部を固め、ブレースは斜材で変形を抑え、トラスは三角形の部材を組み、アーチは曲線で力を支点に流す。ラーメンとブレースは併用できる。" loading="lazy" width="1086" height="1448"></a>
 <p class="zk-note"><b>S・RC・木造＝何でつくるか。ラーメン・トラス等＝どう支えるか。</b> 同じ材料で、複数の支え方を使える。</p>
 <div class="zk-check" data-correct="true" data-explanation="柱・梁のラーメンに、必要な位置のブレースを組み合わせられる。構造形式を一つだけ選ぶとは限らない。"><p><b>１問確認</b>　ラーメン構造とブレース構造は、同じ建物で併用できる。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図23の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図23の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <details class="zk-sources"><summary>力の流れをもう一歩</summary><p>ラーメンは剛接合した柱・梁の曲げなどで水平力に抵抗する。ブレースは斜材の引張・圧縮などを利用して変形を抑える。トラスは三角形に組んだ部材に、主に軸方向の引張・圧縮を負担させる。アーチは曲線に沿って主に圧縮で荷重を支え、脚部が外へ開こうとする力を基礎や引張材などで受ける。図の矢印は各形式の代表的な力のイメージで、同じ荷重条件の比較ではない。</p><p>RC造にもラーメン構造と壁式構造などがあり、鉄骨造もトラスだけではない。外観に三角形や曲線があるだけで、その構造形式だと決めることはできない。</p><a href="https://tetsutohagane.net/articles/search/files/71/9/KJ00002714617.pdf" target="_blank" rel="noopener">日本鉄鋼協会：鉄骨建築構造の資料</a></details>
@@ -2128,7 +2210,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 
 <figure class="zk" id="zk24">
 <figcaption><span class="no">図24</span><b>何が「必要」なのか？</b><button class="zk-go" data-go="27">スライド27 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk24.jpg?v=1" target="_blank" rel="noopener" aria-label="図24を拡大"><img src="takken-zukai-0ee08412/zk24.jpg?v=1" alt="2026年の木造。新築の建築確認は2階以上又は延べ200平方メートル超なら全国で必要。構造計算は地上3階以上、延べ300平方メートル超、高さ16メートル超のいずれかなら必要。土台は原則基礎に緊結するが、延べ10平方メートル以内の物置・納屋などは例外。" loading="lazy" width="1086" height="1448"></a>
+<a href="takken-zukai-0ee08412/zk24.webp?v=w1" target="_blank" rel="noopener" aria-label="図24を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk24.webp?v=w1" alt="2026年の木造。新築の建築確認は2階以上又は延べ200平方メートル超なら全国で必要。構造計算は地上3階以上、延べ300平方メートル超、高さ16メートル超のいずれかなら必要。土台は原則基礎に緊結するが、延べ10平方メートル以内の物置・納屋などは例外。" loading="lazy" width="1086" height="1448"></a>
 <p class="zk-note"><b>確認＝建築前の手続。計算＝構造安全性の検証。緊結＝部材を固定する仕様。</b> ２階建てだから、３つとも例外なく必要とはならない。</p>
 <div class="zk-check" data-correct="false" data-explanation="この規模でも新築の建築確認は必要だが、２階建てという理由だけで構造計算まで必須にはならない。構造計算の要否は階数・面積・高さなどを別に判定する。"><p><b>１問確認</b>　木造・地上２階・延べ100㎡・高さ8mの新築は、建築確認が必要なので構造計算も必須である。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図24の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図24の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <details class="zk-sources"><summary>条件・例外（2026年学習用）</summary><p>建築確認の図は木造の<strong>新築</strong>について。平屋・延べ200㎡以下でも、都市計画区域・準都市計画区域等では原則必要。防火・準防火地域外の10㎡以内の増築・改築・移転の例外を、新築や土台の緊結と混同しない。</p><p>構造計算は地上３階以上、延べ300㎡超、高さ16m超のいずれかで必要。300㎡以下でも階数・高さによって必要になる。構造計算を要求されない規模でも、壁量・接合部などの構造基準への適合は必要。木造の面積基準は2025年４月に500㎡超から300㎡超へ変更された。</p><p>土台の緊結：建築基準法施行令40条は、延べ10㎡<strong>以内</strong>の物置・納屋などを木造の同節の適用から除外。すべての10㎡以内の住宅が例外になるわけではない。令42条２項には、平家建て・延べ50㎡以内で所定の足固めを用いる場合の緊結の例外もある。確認申請が不要という意味ではない。</p><a href="https://www.shoenehou-online.mlit.go.jp/faq/standards/" target="_blank" rel="noopener">国土交通省：改正建築基準法Q&amp;A</a> ／ <a href="https://www.mlit.go.jp/common/001845916.pdf" target="_blank" rel="noopener">木造の構造計算の対象拡大</a> ／ <a href="https://laws.e-gov.go.jp/law/325CO0000000338" target="_blank" rel="noopener">建築基準法施行令40・42条</a></details>
@@ -2147,7 +2229,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 
 <figure class="zk" id="zk25">
 <figcaption><span class="no">図25</span><b>地盤の強さと、災害リスクは別。</b><button class="zk-go" data-go="56">スライド56 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk25.jpg?v=1" target="_blank" rel="noopener" aria-label="図25を拡大"><img src="takken-zukai-0ee08412/zk25.jpg?v=1" alt="扇状地の砂礫層は支持力を得やすいが、谷の出口では土石流に注意。埋立地は土砂で地面を高くし、干拓地は水を排出して陸地にする。高さによる水害の比較と、液状化などの危険性は別に確認する。" loading="lazy" width="1086" height="1448"></a>
+<a href="takken-zukai-0ee08412/zk25.webp?v=w1" target="_blank" rel="noopener" aria-label="図25を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk25.webp?v=w1" alt="扇状地の砂礫層は支持力を得やすいが、谷の出口では土石流に注意。埋立地は土砂で地面を高くし、干拓地は水を排出して陸地にする。高さによる水害の比較と、液状化などの危険性は別に確認する。" loading="lazy" width="1086" height="1448"></a>
 <p class="zk-note"><b>建物を支えられるか・水につかるか・土砂が来るかを別々に見る。</b> 「埋立地は干拓地より水害を受けにくい」は、安全全般の保証ではない。</p>
 <div class="zk-check" data-correct="false" data-explanation="支持力を得やすい砂礫層でも、谷の出口では土石流などに注意。地下水位や地盤条件によって液状化も別に確認する。"><p><b>１問確認</b>　扇状地は砂礫層で支持力を得やすいので、土石流にも安全である。</p><button type="button" data-zk-answer="true" aria-pressed="false" aria-label="図25の答えは正しい">○</button><button type="button" data-zk-answer="false" aria-pressed="false" aria-label="図25の答えは誤り">×</button><p class="zk-feedback" hidden aria-live="polite"></p></div>
 <details class="zk-sources"><summary>根拠・旧河道との違い</summary><p>扇状地は山地から流れ出た土砂が堆積した地形。一般に砂礫が多いが、支持力は締まり具合や層の状態にも左右される。谷の出口・現在の流路付近では洪水や土石流に注意し、地下水位の高い場所等では液状化も検討する。</p><p>埋立地は水面より高く造成できる一方、干拓地は水を排出した低い土地となり、堤防や排水に依存する。比較しているのは主に高さによる水害の受けやすさ。埋立地にも液状化・沈下・高潮等の危険があり、造成・地盤改良などの条件で異なる。</p><p>「廃川敷ならOK」ではなく、教科書の条件は<strong>天井川の廃川敷</strong>。周囲より高く砂礫が堆積した土地という特徴を見る。一方、一般的な旧河道は周囲より低く、軟弱な堆積物や埋土・高い地下水位などに注意する。どちらも名前だけで個別の宅地の安全を確定できない。</p><a href="https://www.gsi.go.jp/bousaichiri/bousaichiri41051.html" target="_blank" rel="noopener">国土地理院：地形と災害の関係</a> ／ <a href="https://www.gsi.go.jp/common/000141652.pdf" target="_blank" rel="noopener">国土地理院：地形分類と液状化</a></details>
@@ -2158,21 +2240,21 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 
 <figure class="zk" id="zk18">
 <figcaption><span class="no">図18</span><b>かわいそうメーター</b><button class="zk-go" data-go="34">スライド34 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk18.jpg?v=1" target="_blank" rel="noopener" aria-label="図18を拡大"><img src="takken-zukai-0ee08412/zk18.jpg?v=1" alt="本人Aを守る強さの覚え方。心裡留保・虚偽表示では善意のCを保護。錯誤・詐欺では善意無過失のCを保護。強迫・制限行為能力の取消しは、取消し前の善意無過失のCにも主張できる。" loading="lazy" width="1057" height="1488"></a>
+<a href="takken-zukai-0ee08412/zk18.webp?v=w1" target="_blank" rel="noopener" aria-label="図18を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk18.webp?v=w1" alt="本人Aを守る強さの覚え方。心裡留保・虚偽表示では善意のCを保護。錯誤・詐欺では善意無過失のCを保護。強迫・制限行為能力の取消しは、取消し前の善意無過失のCにも主張できる。" loading="lazy" width="1057" height="1488"></a>
 <p class="zk-note"><b>善意＝事情を知らない。無過失＝知らないことに落ち度がない。</b> メーターは、本人を守る強さを覚えるための比喩。</p>
 <details class="zk-sources"><summary>根拠・条件</summary><p>無効・取消しの要件を満たす場合の比較。心裡留保は無効となる場合。錯誤・詐欺・強迫・制限行為能力は、取消し前に権利を取得した第三者を想定する。人の性格や被害の大きさを採点するものではない。</p><a href="https://laws.e-gov.go.jp/law/129AC0000000089" target="_blank" rel="noopener">民法93〜96条、5・9・13・17・120・121条</a> ／ <a href="https://www.youtube.com/watch?v=swYnWoQGJo4&t=727s" target="_blank" rel="noopener">講師のメーターの説明</a></details>
 </figure>
 
 <figure class="zk" id="zk19">
 <figcaption><span class="no">図19</span><b>AとCの勝敗表</b><button class="zk-go" data-go="34">スライド34 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk19.jpg?v=1" target="_blank" rel="noopener" aria-label="図19を拡大"><img src="takken-zukai-0ee08412/zk19.jpg?v=1" alt="A本人からB、BからCへ転売。Cが善意無過失・善意有過失・悪意の順に、心裡留保の無効と虚偽表示はC・C・Aの勝ち、錯誤と詐欺はC・A・Aの勝ち、強迫と制限行為能力はA・A・Aの勝ち。取消しは取消し前のCとの比較。" loading="lazy" width="1058" height="1487"></a>
+<a href="takken-zukai-0ee08412/zk19.webp?v=w1" target="_blank" rel="noopener" aria-label="図19を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk19.webp?v=w1" alt="A本人からB、BからCへ転売。Cが善意無過失・善意有過失・悪意の順に、心裡留保の無効と虚偽表示はC・C・Aの勝ち、錯誤と詐欺はC・A・Aの勝ち、強迫と制限行為能力はA・A・Aの勝ち。取消しは取消し前のCとの比較。" loading="lazy" width="1058" height="1487"></a>
 <p class="zk-note">黄色のCは、上から<b>2列・1列・ゼロ列</b>。まず「AとBの契約を無効にできる・取り消せるか」、次に「AはCにも主張できるか」。</p>
 <details class="zk-sources"><summary>無効・取消しの前提</summary><p>心裡留保は原則有効。Bが真意でないことを知り、又は知ることができた場合だけ無効。虚偽表示はA・Bが通じてしたもの。錯誤は重要性などの要件があり、Aに重過失がある場合は原則取消不可（Bが悪意・重過失、又は同一の錯誤なら例外）。基礎事情の錯誤では、その事情が法律行為の基礎とされていることの表示が必要。</p><p>第三者にだまされたときの取消しは、相手Bが詐欺を知り、又は知ることができた場合に限る。制限行為能力者の全ての契約を取り消せるわけではなく、同意の要否・日常生活の行為・詐術などはスライド35で確認。善意の転得者を挟む事例などは、このA→B→Cの単純な形と分けて考える。</p><a href="https://laws.e-gov.go.jp/law/129AC0000000089" target="_blank" rel="noopener">民法93〜96条、5・9・13・17・21・120・121条</a> ／ <a href="https://www.youtube.com/watch?v=swYnWoQGJo4&t=823s" target="_blank" rel="noopener">講師の勝敗表</a></details>
 </figure>
 
 <figure class="zk" id="zk20">
 <figcaption><span class="no">図20</span><b>Cは、取消しの前？後？</b><button class="zk-go" data-go="41">スライド41 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk20.jpg?v=1" target="_blank" rel="noopener" aria-label="図20を拡大"><img src="takken-zukai-0ee08412/zk20.jpg?v=1" alt="不動産。AからBへの売買の後、BからCへの転売がAの取消しより前なら勝敗表。取消し後にCが買った場合はAとCの先に登記した方が勝つ。前後を比べるのはCの取得時で、登記日ではない。背信的悪意者は除く。" loading="lazy" width="1122" height="1402"></a>
+<a href="takken-zukai-0ee08412/zk20.webp?v=w1" target="_blank" rel="noopener" aria-label="図20を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk20.webp?v=w1" alt="不動産。AからBへの売買の後、BからCへの転売がAの取消しより前なら勝敗表。取消し後にCが買った場合はAとCの先に登記した方が勝つ。前後を比べるのはCの取得時で、登記日ではない。背信的悪意者は除く。" loading="lazy" width="1122" height="1402"></a>
 <p class="zk-note"><b>Cが買ったのは取消しの前か、後か。</b> 前なら <a href="#zk19" data-zk-target="zk19">勝敗表へ</a>。後ならAとCの登記を比べる。</p>
 <details class="zk-sources"><summary>根拠・条件</summary><p>取消し後にBから権利を取得した第三者との関係は、不動産の対抗問題として登記の先後で判断する（大判昭和17年9月30日・民集21巻911頁）。ここでの「登記」はAの回復登記とCの取得登記。単なる悪意と背信的悪意者を区別する。無効である心裡留保・虚偽表示を「取消し後」の図に入れない。解除・時効完成もそれぞれの成立場面から判断する。</p><a href="https://laws.e-gov.go.jp/law/129AC0000000089" target="_blank" rel="noopener">民法177条</a> ／ <a href="https://www.youtube.com/watch?v=swYnWoQGJo4&t=3783s" target="_blank" rel="noopener">講師の取消し前・後の説明</a></details>
 </figure>
@@ -2182,35 +2264,35 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 
 <figure class="zk" id="zk13">
 <figcaption><span class="no">図13</span><b>売った年の、元日に戻る。</b><button class="zk-go" data-go="51">スライド51 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk13.jpg?v=yellow1" target="_blank" rel="noopener" aria-label="図13を拡大"><img src="takken-zukai-0ee08412/zk13.jpg?v=yellow1" alt="2021年7月1日取得、2026年8月1日売却。2026年1月1日時点では4年6か月なので短期。5年以下は短期、5年超は長期。" loading="lazy" width="1122" height="1402"></a>
+<a href="takken-zukai-0ee08412/zk13.webp?v=w1" target="_blank" rel="noopener" aria-label="図13を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk13.webp?v=w1" alt="2021年7月1日取得、2026年8月1日売却。2026年1月1日時点では4年6か月なので短期。5年以下は短期、5年超は長期。" loading="lazy" width="1122" height="1402"></a>
 <p class="zk-note"><b>「譲渡した年の1月1日」</b>に戻って数える。5年ちょうどは短期。10年超の軽減税率も、所有期間の判定日は同じ。</p>
 <details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3208.htm" target="_blank" rel="noopener">国税庁：長期・短期</a> ／ <a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3305.htm" target="_blank" rel="noopener">軽減税率</a></details>
 </figure>
 
 <figure class="zk" id="zk14">
 <figcaption><span class="no">図14</span><b>同じ売買。払う人は別。</b><button class="zk-go" data-go="49">スライド49 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk14.jpg?v=yellow1" target="_blank" rel="noopener" aria-label="図14を拡大"><img src="takken-zukai-0ee08412/zk14.jpg?v=yellow1" alt="1月1日の所有者Aが年度分の固定資産税を市町村へ。7月1日の買主Bが不動産取得税を都道府県へ。" loading="lazy" width="1122" height="1402"></a>
+<a href="takken-zukai-0ee08412/zk14.webp?v=w1" target="_blank" rel="noopener" aria-label="図14を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk14.webp?v=w1" alt="1月1日の所有者Aが年度分の固定資産税を市町村へ。7月1日の買主Bが不動産取得税を都道府県へ。" loading="lazy" width="1122" height="1402"></a>
 <p class="zk-note">固定資産税の元日は<b>「誰が持っているか」</b>。譲渡所得の元日は<b>「何年持っていたか」</b>。</p>
 <details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/koteishisan-toshikeikakuzei/koteishisan-toshikeikakuzei-shosai/kotei.html" target="_blank" rel="noopener">横浜市：固定資産税</a> ／ <a href="https://www.tax.metro.tokyo.lg.jp/shitsumon/real_estate/f" target="_blank" rel="noopener">東京都：不動産取得税</a></details>
 </figure>
 
 <figure class="zk" id="zk15">
 <figcaption><span class="no">図15</span><b>土地は入口。家は出口。</b><button class="zk-go" data-go="49">スライド49 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk15.jpg?v=yellow1" target="_blank" rel="noopener" aria-label="図15を拡大"><img src="takken-zukai-0ee08412/zk15.jpg?v=yellow1" alt="小規模住宅用地は1戸につき200平方メートルまで課税標準を6分の1。新築住宅は120平方メートル分まで税額を2分の1。" loading="lazy" width="1122" height="1402"></a>
+<a href="takken-zukai-0ee08412/zk15.webp?v=w1" target="_blank" rel="noopener" aria-label="図15を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk15.webp?v=w1" alt="小規模住宅用地は1戸につき200平方メートルまで課税標準を6分の1。新築住宅は120平方メートル分まで税額を2分の1。" loading="lazy" width="1122" height="1402"></a>
 <p class="zk-note">住宅用地の200㎡を<b>超える部分は1/3</b>。新築住宅の減額は原則3年、3階建て以上の耐火・準耐火住宅は5年（通常の新築住宅特例）。</p>
 <details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/koteishisan-toshikeikakuzei/koteishisan-toshikeikakuzei-shosai/tochitokurei.html" target="_blank" rel="noopener">横浜市：住宅用地</a> ／ <a href="https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/koteishisan-toshikeikakuzei/koteishisan-toshikeikakuzei-shosai/kaoku-genmen/shinchikugengaku.html" target="_blank" rel="noopener">新築住宅</a></details>
 </figure>
 
 <figure class="zk" id="zk16">
 <figcaption><span class="no">図16</span><b>控除と軽減は一緒。買換えは別。</b><button class="zk-go" data-go="51">スライド51 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk16.jpg?v=yellow1" target="_blank" rel="noopener" aria-label="図16を拡大"><img src="takken-zukai-0ee08412/zk16.jpg?v=yellow1" alt="3000万円控除は所得から引く。10年超の軽減税率は率を下げ、控除と併用できる。買換えは課税を先送りし、両者と併用できない。" loading="lazy" width="1122" height="1402"></a>
+<a href="takken-zukai-0ee08412/zk16.webp?v=w1" target="_blank" rel="noopener" aria-label="図16を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk16.webp?v=w1" alt="3000万円控除は所得から引く。10年超の軽減税率は率を下げ、控除と併用できる。買換えは課税を先送りし、両者と併用できない。" loading="lazy" width="1122" height="1402"></a>
 <p class="zk-note">控除は<b>最高3,000万円</b>。軽減税率の10年超は<b>家屋・敷地の両方</b>。買換えには「所有10年超＋居住10年以上」など別の要件がある。</p>
 <details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3302.htm" target="_blank" rel="noopener">国税庁：3,000万円控除</a> ／ <a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3305.htm" target="_blank" rel="noopener">軽減税率</a> ／ <a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3355.htm" target="_blank" rel="noopener">買換え</a></details>
 </figure>
 
 <figure class="zk" id="zk17">
 <figcaption><span class="no">図17</span><b>貸すのは銀行。機構は買う。</b><button class="zk-go" data-go="54">スライド54 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk17.jpg?v=yellow1" target="_blank" rel="noopener" aria-label="図17を拡大"><img src="takken-zukai-0ee08412/zk17.jpg?v=yellow1" alt="フラット35買取型。銀行が利用者へ融資。銀行から機構へローン債権、機構から銀行へ買取代金が移る。" loading="lazy" width="1122" height="1402"></a>
+<a href="takken-zukai-0ee08412/zk17.webp?v=w1" target="_blank" rel="noopener" aria-label="図17を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk17.webp?v=w1" alt="フラット35買取型。銀行が利用者へ融資。銀行から機構へローン債権、機構から銀行へ買取代金が移る。" loading="lazy" width="1122" height="1402"></a>
 <p class="zk-note">機構が買うのは<b>家ではなく、返してもらう権利</b>。直接融資は災害復興・住宅の防災、一定の賃貸住宅など、別枠の業務。</p>
 <details class="zk-sources"><summary>根拠・条件</summary><a href="https://www.jhf.go.jp/about/financial/join/outline_kaitori.html" target="_blank" rel="noopener">住宅金融支援機構：買取型</a> ／ <a href="https://www.jhf.go.jp/files/a/public/jhf/400345445.pdf" target="_blank" rel="noopener">融資業務</a></details>
 </figure>
@@ -2218,73 +2300,73 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
 <h2 class="zk-heading" id="zk-law">法令上の制限</h2>
 <figure class="zk" id="zk1">
 <figcaption><span class="no">図1</span><b>国土の5分割地図</b><button class="zk-go" data-go="20">スライド20 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk1.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk1.jpg" alt="国土の5分割地図" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk1.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk1.webp?v=w1" alt="国土の5分割地図" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">区域区分（線引き）は原則「できる」、三大都市圏等では必須。用途地域は13種（住居8・商業2・工業3）。<b>線引きは区域単位</b>で行い、線引きした都計区域の中は市街化＋調整で全部埋まる（「いずれにも属さない土地が残る」→×の定番ひっかけ）。線引きしない都計区域が、まるごと非線引き区域。</p>
 </figure>
 
 <figure class="zk" id="zk2">
 <figcaption><span class="no">図2</span><b>面積の対比 ― 開発許可 vs 国土法</b><button class="zk-go" data-go="24">スライド24 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk2.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk2.jpg" alt="開発許可と国土法の面積の対比" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk2.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk2.webp?v=w1" alt="開発許可と国土法の面積の対比" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note"><b>準都計だけ行き先が違う</b>（開発許可では非線引きと同じ3,000／国土法では区域外と同じ1万）。迷ったら「開発許可のほうが数字が細かい」。国土法の事後届出は<b>買主だけ</b>・契約日から<b>2週間</b>以内。</p>
 </figure>
 
 <figure class="zk" id="zk3">
 <figcaption><span class="no">図3</span><b>高さのルール ― 3本の斜線と日影</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk3.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk3.jpg" alt="斜線制限と日影の断面" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk3.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk3.webp?v=w1" alt="斜線制限と日影の断面" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">日影は対象区域外でも、高さ10m超で対象区域内に影が入れば対象（スライド23）。</p>
 </figure>
 
 <figure class="zk" id="zk4">
 <figcaption><span class="no">図4</span><b>2項道路のセットバック</b><button class="zk-go" data-go="25">スライド25 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk4.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk4.jpg" alt="2項道路のセットバック" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk4.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk4.webp?v=w1" alt="2項道路のセットバック" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">6m指定区域は中心から3m。接道は2m以上（「4m接する」は×、接するのは2m）。</p>
 </figure>
 
 <figure class="zk" id="zk5">
 <figcaption><span class="no">図5</span><b>建蔽率と容積率 ― 上から見るか、積むか</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk5.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk5.jpg" alt="建蔽率と容積率の違い" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk5.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk5.webp?v=w1" alt="建蔽率と容積率の違い" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">容積率の計算では EV昇降路・共同住宅等の廊下/階段は不算入（スライド23）。</p>
 </figure>
 
 <figure class="zk" id="zk6">
 <figcaption><span class="no">図6</span><b>農地法 ― 人が変われば3条、潰せば4・5条</b><button class="zk-go" data-go="30">スライド30 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk6.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk6.jpg" alt="農地法3条4条5条" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk6.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk6.webp?v=w1" alt="農地法3条4条5条" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">ひっかけの9割は「許可⇄届出」「農業委員会⇄知事」の入れ替え（スライド25）。</p>
 </figure>
 
 <figure class="zk" id="zk7">
 <figcaption><span class="no">図7</span><b>区画整理 ― 使うのは仮換地、売るのは従前地</b><button class="zk-go" data-go="32">スライド32 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk7.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk7.jpg" alt="仮換地と換地処分" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk7.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk7.webp?v=w1" alt="仮換地と換地処分" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">代替機（仮換地）は使えるが売れない。売れるのは修理に出した自分の携帯（従前地）。</p>
 </figure>
 
 <figure class="zk" id="zk8">
 <figcaption><span class="no">図8</span><b>盛土規制法 ― 盛1・切2・切盛2・盛2・500</b><button class="zk-go" data-go="33">スライド33 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk8.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk8.jpg" alt="盛土規制の数値" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk8.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk8.webp?v=w1" alt="盛土規制の数値" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">語呂は「盛1・切2・切盛2・盛2、そして500」。土石の堆積も対象（スライド27）。</p>
 </figure>
 
 <figure class="zk" id="zk9">
 <figcaption><span class="no">図9</span><b>建蔽率 ― ボーナスと無制限</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk9.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk9.jpg" alt="建蔽率の緩和と無制限" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk9.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk9.webp?v=w1" alt="建蔽率の緩和と無制限" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">緩和は「<b>足し算</b>」(角地＋1/10、防火×耐火＋1/10、重複可)。無制限になるのは<b>8割・防火・耐火</b>の3点セットだけ。「2/10緩和」と「適用除外」のすり替えが定番の×。</p>
 </figure>
 
 <figure class="zk" id="zk10">
 <figcaption><span class="no">図10</span><b>容積率 ― 前面道路に縛られる</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk10.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk10.jpg" alt="容積率と前面道路" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk10.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk10.webp?v=w1" alt="容積率と前面道路" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">前面道路が<b>12m未満</b>のときだけ「道幅×<b>4/10</b>（住居系）・<b>6/10</b>（その他）」と指定容積率の<b>小さい方</b>。狭い道に高い建物が並ぶと、火事のとき逃げられない ― それが縛りの理由。</p>
 </figure>
 
 <figure class="zk" id="zk11">
 <figcaption><span class="no">図11</span><b>敷地のまたぎ ― 3つのルールは全部違う</b><button class="zk-go" data-go="26">スライド26 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk11.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk11.jpg" alt="敷地が2地域にまたがる場合の3ルール" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk11.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk11.webp?v=w1" alt="敷地が2地域にまたがる場合の3ルール" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">またぎは3連発で出る。<b>用途＝過半</b>・<b>建蔽/容積＝加重平均</b>・<b>防火＝厳しい方</b>。「建蔽率も過半の地域による」「防火も加重平均」が定番の×。</p>
 </figure>
 
 <figure class="zk" id="zk12">
 <figcaption><span class="no">図12</span><b>建築確認 ― 着工から入居までの一本道</b><button class="zk-go" data-go="27">スライド27 →</button></figcaption>
-<a href="takken-zukai-0ee08412/zk12.jpg" target="_blank" rel="noopener" aria-label="画像を拡大"><img src="takken-zukai-0ee08412/zk12.jpg" alt="建築確認から入居までの流れ" loading="lazy" width="1536" height="1024"></a>
+<a href="takken-zukai-0ee08412/zk12.webp?v=w1" target="_blank" rel="noopener" aria-label="画像を拡大"><img decoding="async" src="takken-zukai-0ee08412/zk12.webp?v=w1" alt="建築確認から入居までの流れ" loading="lazy" width="1536" height="1024"></a>
 <p class="zk-note">改正の目玉。省略が残るのは<b>平屋かつ200㎡以下</b>だけ ―「木造3階・500㎡」は旧ルールのウソ肢。「いかなる場合も使用できない」も×（例外2つ）。</p>
 </figure>
 </section>
@@ -2457,7 +2539,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     if(form)Array.from(form.elements).forEach(function(el){if(el.name)values[el.name]=el.value;});
     ['#pm-review','#pm-record','#pm-data','.pm-score-details','.pm-phase','.pm-plan-sources','.pm-range-help'].forEach(function(selector){var el=content.querySelector(selector);if(el&&el.open)opened.push(selector);});
     content.querySelectorAll('[data-pm-range]').forEach(function(row){if(row.querySelector('.pm-range-detail').open)opened.push('[data-pm-range="'+row.dataset.pmRange+'"] .pm-range-detail');var r=row.querySelector('.pm-range-review');if(r&&r.open)opened.push('[data-pm-range="'+row.dataset.pmRange+'"] .pm-range-review');});
-    current.records=records;current.conflicts=conflicts;save(current,true);render();
+    current.records=records;current.conflicts=conflicts;save(current,true);render();global.dispatchEvent(new Event('takken-pm-remote'));
     form=content.querySelector('#pm-form');Object.keys(values).forEach(function(name){if(form.elements[name])form.elements[name].value=values[name];});
     opened.forEach(function(selector){var el=content.querySelector(selector);if(el)el.open=true;});
     if(focusName&&form.elements[focusName]){form.elements[focusName].focus({preventScroll:true});if(selection)form.elements[focusName].setSelectionRange(selection[0],selection[1]);}
@@ -2534,121 +2616,181 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   }};
 })(window);
 
-/* 直前プラン（伴走ダッシュボード）。計画は build.py が TAKKEN_COACH_PLAN に埋め込む。
-   チェックと模試の点はこの端末の localStorage のみ。成績記録は TakkenPM に保存する。 */
+/* 最初の画面（今日→記録→弱点の復習）。計画は build.py が TAKKEN_COACH_PLAN に埋め込む。
+   本問の記録は TakkenPM（同期サーバーと共有）。タスクのチェックと模試の点はこの端末の localStorage。 */
 (function (global) {
   'use strict';
-  var KEY = 'tk-coach-v1', plan, box, state, lastMsg = null;
+  var KEY = 'tk-coach-v1', plan, catalog, box, sheet, state, lastMsg = null;
+  var SUBJ_NAME = {gyoho: '業法', menjo: '免除5問', horei: '法令上の制限', zei: '税・価格', kenri: '権利関係'};
   var esc = function (v) { return String(v == null ? '' : v).replace(/[&<>'"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]; }); };
   function today() { return new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Tokyo', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date()); }
   function diff(a, b) { return Math.round((Date.parse(b + 'T00:00:00+09:00') - Date.parse(a + 'T00:00:00+09:00')) / 86400000); }
   function md(d) { var x = new Date(d + 'T00:00:00+09:00'); return (x.getMonth() + 1) + '/' + x.getDate() + '（' + '日月火水木金土'[x.getDay()] + '）'; }
+  function pad3(n) { return String(n).padStart(3, '0'); }
   function load() { try { var x = JSON.parse(localStorage.getItem(KEY) || 'null'); if (x && typeof x === 'object') return {checks: x.checks || {}, mocks: x.mocks || {}}; } catch (_) {} return {checks: {}, mocks: {}}; }
   function persist() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (_) {} }
   function records() { try { return global.TakkenPM.snapshot().records; } catch (_) { return []; } }
+  function quizStats() { try { return JSON.parse(localStorage.getItem('tk-stats') || '{}') || {}; } catch (_) { return {}; } }
   function latestBy(rs) { var o = {}; rs.forEach(function (r) { var k = r.volume + ':' + r.questionNo, p = o[k]; if (!p || r.date > p.date || (r.date === p.date && r.attemptNo > p.attemptNo)) o[k] = r; }); return o; }
   function rangeStat(latest, v, a, b) { var n = 0, ok = 0; for (var q = a; q <= b; q++) { var r = latest[v + ':' + q]; if (r) { n++; if (r.correct) ok++; } } return {done: n, total: b - a + 1, correct: ok}; }
   function mockTotal(m) { return m ? plan.subjects.reduce(function (s, x) { return s + (Number(m[x.id]) || 0); }, 0) : null; }
+  function volLabel(v) { return {1: '権利', 2: '業法', 3: '第3分冊'}[v] || ('第' + v + '分冊'); }
+  function section(v, q) { return (catalog.sections || []).filter(function (s) { return Number(s.volume) === v && q >= s.start && q <= s.end; })[0]; }
   function taskDone(t, latest) {
     if (t.type === 'range') { var s = rangeStat(latest, t.volume, t.start, t.end); return s.done === s.total; }
     if (t.type === 'mock') return !!state.mocks[t.mockId];
     return !!state.checks[t.id];
   }
   function checkpointValue(c, latest) {
-    if (c.metric === 'count') { var s = rangeStat(latest, c.volume, c.start, c.end); return {value: s.done, text: s.done + ' / ' + c.need + '問', pass: s.done >= c.need}; }
-    if (c.metric === 'accuracy') { var t = rangeStat(latest, c.volume, c.start, c.end); if (!t.done) return {value: null, text: '未記録', pass: null}; var p = t.correct / t.done; return {value: p, text: Math.round(p * 100) + '%（' + t.correct + '/' + t.done + '）', pass: p >= c.need}; }
-    if (c.metric === 'mock') { var m = state.mocks[c.mockId]; if (!m) return {value: null, text: '未入力', pass: null}; var v = c.field === 'total' ? mockTotal(m) : Number(m[c.field]); return {value: v, text: v + '点', pass: v >= c.need}; }
-    return {value: null, text: '—', pass: null};
+    if (c.metric === 'count') { var s = rangeStat(latest, c.volume, c.start, c.end); return {text: s.done + ' / ' + c.need + '問', pass: s.done >= c.need}; }
+    if (c.metric === 'accuracy') { var t = rangeStat(latest, c.volume, c.start, c.end); if (!t.done) return {text: '未記録', pass: null}; var p = t.correct / t.done; return {text: Math.round(p * 100) + '%（' + t.correct + '/' + t.done + '）', pass: p >= c.need}; }
+    if (c.metric === 'mock') { var m = state.mocks[c.mockId]; if (!m) return {text: '未入力', pass: null}; var v = c.field === 'total' ? mockTotal(m) : Number(m[c.field]); return {text: v + '点', pass: v >= c.need}; }
+    return {text: '—', pass: null};
   }
-  function volLabel(v) { return {1: '権利', 2: '業法', 3: '第3分冊'}[v] || ('第' + v + '分冊'); }
   function report(d, rs) {
     var byVol = {}; rs.filter(function (r) { return r.date === d; }).forEach(function (r) { (byVol[r.volume] = byVol[r.volume] || []).push(r); });
-    var parts = Object.keys(byVol).sort().map(function (v) { var list = byVol[v].sort(function (a, b) { return a.questionNo - b.questionNo; }), ok = list.filter(function (r) { return r.correct; }).length, ng = list.filter(function (r) { return !r.correct; }).map(function (r) { return String(r.questionNo).padStart(3, '0'); }); return volLabel(Number(v)) + ' 本問' + ok + '/' + list.length + (ng.length ? ' 誤答:' + ng.join(',') : ''); });
-    (plan.mocks || []).forEach(function (m) { var s = state.mocks[m.id]; if (s && s.date === d) parts.push(m.label + ' ' + plan.subjects.map(function (x) { return x.label + s[x.id]; }).join(' ') + ' 計' + mockTotal(s)); });
+    var parts = Object.keys(byVol).sort().map(function (v) { var list = byVol[v].sort(function (a, b) { return a.questionNo - b.questionNo; }), ok = list.filter(function (r) { return r.correct; }).length, ng = list.filter(function (r) { return !r.correct; }).map(function (r) { return pad3(r.questionNo); }); return volLabel(Number(v)) + ' 本問' + ok + '/' + list.length + (ng.length ? ' 誤答:' + ng.join(',') : ''); });
+    plan.mocks.forEach(function (m) { var s = state.mocks[m.id]; if (s && s.date === d) parts.push(m.label + ' ' + plan.subjects.map(function (x) { return x.label + s[x.id]; }).join(' ') + ' 計' + mockTotal(s)); });
     var day = plan.days.filter(function (x) { return x.date === d; })[0];
     if (day) { var checks = day.tasks.filter(function (t) { return t.type === 'check'; }); if (checks.length) parts.push('チェック ' + checks.filter(function (t) { return state.checks[t.id]; }).length + '/' + checks.length); }
     return '宅建 ' + Number(d.slice(5, 7)) + '/' + Number(d.slice(8)) + ' ' + (parts.length ? parts.join(' / ') : '記録なし');
   }
-  function taskHTML(t, latest) {
-    var done = taskDone(t, latest), cls = 'cq-task' + (done ? ' cq-done' : '') + (t.optional ? ' cq-opt' : '');
+  // ---- 表示部品 ----
+  function taskHTML(t, latest, dateLabel) {
+    var done = taskDone(t, latest), cls = 'cq-task' + (done ? ' cq-done' : '') + (t.optional ? ' cq-opt' : ''), pre = dateLabel ? '<span class="cq-date">' + dateLabel + '</span>' : '';
     if (t.type === 'range') {
       var s = rangeStat(latest, t.volume, t.start, t.end);
-      return '<li class="' + cls + '"><span class="cq-mark" aria-hidden="true">' + (done ? '✓' : '') + '</span><div><b>' + esc(t.label) + '</b><span class="cq-sub">記録 ' + s.done + '/' + s.total + (s.done ? '・正解 ' + s.correct : '') + '</span>' + (done ? '' : '<button type="button" class="pm-link" data-cq-fill="' + t.volume + ':' + t.start + ':' + t.end + '">この範囲を記録する</button>') + '</div></li>';
+      return '<li class="' + cls + '"><span class="cq-mark" aria-hidden="true">' + (done ? '✓' : '') + '</span><div class="cq-body"><b>' + pre + esc(t.label) + '</b><span class="cq-sub">' + s.done + '/' + s.total + '問を記録' + (s.done ? '・正解 ' + s.correct : '') + '</span></div><button type="button" class="cq-go' + (done ? ' cq-go-quiet' : '') + '" data-cq-rec="' + t.volume + ':' + t.start + ':' + t.end + '">' + (done ? '見直す' : '記録') + '</button></li>';
     }
     if (t.type === 'mock') {
       var m = state.mocks[t.mockId];
-      return '<li class="' + cls + '"><span class="cq-mark" aria-hidden="true">' + (done ? '✓' : '') + '</span><div><b>' + esc(t.label) + '</b><span class="cq-sub">' + (m ? '合計 ' + mockTotal(m) + '点' : '点数は下の「模試」に入力') + '</span><button type="button" class="pm-link" data-cq-mock="' + esc(t.mockId) + '">' + (m ? '点数を直す' : '点数を入れる') + '</button></div></li>';
+      return '<li class="' + cls + '"><span class="cq-mark" aria-hidden="true">' + (done ? '✓' : '') + '</span><div class="cq-body"><b>' + pre + esc(t.label) + '</b><span class="cq-sub">' + (m ? '合計 ' + mockTotal(m) + '点' : '採点したら点数を入れる') + '</span></div><button type="button" class="cq-go' + (done ? ' cq-go-quiet' : '') + '" data-cq-mock="' + esc(t.mockId) + '">' + (m ? '直す' : '点数') + '</button></li>';
     }
-    return '<li class="' + cls + '"><label class="cq-check"><input type="checkbox" data-cq-check="' + esc(t.id) + '"' + (done ? ' checked' : '') + '><span>' + esc(t.label) + '</span></label></li>';
+    return '<li class="' + cls + '"><label class="cq-check"><input type="checkbox" data-cq-check="' + esc(t.id) + '"' + (done ? ' checked' : '') + '><span>' + pre + esc(t.label) + '</span></label></li>';
+  }
+  function weakItems(rs) {
+    var latest = latestBy(rs), list = Object.keys(latest).map(function (k) { return latest[k]; }).filter(function (r) { return !r.correct || r.needsReview; });
+    list.sort(function (a, b) { return (a.correct === b.correct ? 0 : a.correct ? 1 : -1) || b.date.localeCompare(a.date) || a.volume - b.volume || a.questionNo - b.questionNo; });
+    return list;
+  }
+  function weakHTML(r) {
+    var link = (catalog.questionLinks || {})[r.volume + ':' + r.questionNo] || {}, sec = section(r.volume, r.questionNo) || {}, btns = [];
+    var hasBank = false; try { hasBank = global.TakkenKami.hasQuestion({volume: r.volume, questionNo: r.questionNo, kind: 'main'}); } catch (_) {}
+    if (hasBank) btns.push('<button type="button" class="cq-chip" data-kami-open data-kami-volume="' + r.volume + '" data-kami-question="' + r.questionNo + '" data-kami-kind="main">解き直す</button>');
+    if (link.diagram) btns.push('<button type="button" class="cq-chip" data-cq-diagram="' + esc(link.diagram) + '">図解</button>');
+    var slide = link.slide || sec.slide; if (slide) btns.push('<button type="button" class="cq-chip" data-cq-slide="' + esc(slide) + '">スライド</button>');
+    var topic = String(r.topic || '').replace(/^本問(不)?正解[、。・]?/, '').replace(/^ユーザー申告：/, '');
+    return '<li><div class="cq-weak-top"><b>' + volLabel(r.volume) + ' ' + pad3(r.questionNo) + '</b><span class="' + (r.correct ? 'pm-muted' : 'cq-ng') + '">' + (r.correct ? '要確認' : '誤答') + '</span><span class="pm-muted">' + md(r.date) + '</span></div>' + (topic ? '<p class="cq-weak-topic">' + esc(topic.length > 70 ? topic.slice(0, 70) + '…' : topic) + '</p>' : '') + (btns.length ? '<div class="cq-chips">' + btns.join('') + '</div>' : '') + '</li>';
   }
   function render() {
     if (!box) return;
     var d = today(), rs = records(), latest = latestBy(rs), left = diff(d, plan.examDate);
     var day = plan.days.filter(function (x) { return x.date === d; })[0] || plan.days.filter(function (x) { return x.date > d; })[0];
     var isToday = day && day.date === d;
-    var head = '<section class="pm-card cq-hero"><div class="cq-hero-row"><div><span class="pm-muted">本試験 10/18（日）13:00</span><div class="pm-count">' + (left > 0 ? 'あと ' + left + '日' : left === 0 ? '今日が本番' : '終了') + '</div></div><div class="cq-goal"><span class="pm-muted">目標</span><b>' + plan.targets.total + '点</b><span class="pm-muted">最低 ' + plan.targets.min + '</span></div></div>' + (day ? '<p class="cq-phase">' + esc(day.phase) + '</p>' : '') + '</section>';
+    var head = '<section class="cq-hero"><div><div class="cq-count">' + (left > 0 ? 'あと<b>' + left + '</b>日' : left === 0 ? '<b>今日</b>が本番' : '試験は終了') + '</div><span class="pm-muted">本試験 10/18（日）13:00</span></div><div class="cq-goal"><b>' + plan.targets.total + '</b><span>目標点</span></div></section>';
     var todayCard = '';
     if (day) {
-      var tasks = day.tasks, req = tasks.filter(function (t) { return !t.optional; }), nDone = req.filter(function (t) { return taskDone(t, latest); }).length;
-      todayCard = '<section class="pm-card cq-today"><h2>' + (isToday ? '今日 ' : '次の予定 ') + md(day.date) + '<span class="cq-time">' + esc(day.time) + '</span></h2><ul class="cq-tasks">' + tasks.map(function (t) { return taskHTML(t, latest); }).join('') + '</ul><p class="cq-min"><b>最低ライン</b>' + esc(day.minimum) + '</p><p class="cq-progress' + (nDone === req.length ? ' cq-all' : '') + '">' + (nDone === req.length ? '今日の予定は完了' : '完了 ' + nDone + ' / ' + req.length) + '</p></section>';
+      var req = day.tasks.filter(function (t) { return !t.optional; }), nDone = req.filter(function (t) { return taskDone(t, latest); }).length;
+      var missed = plan.days.filter(function (x) { return x.date < d; }).map(function (x) { return {day: x, rest: x.tasks.filter(function (t) { return !t.optional && !taskDone(t, latest); })}; }).filter(function (x) { return x.rest.length; });
+      var nMissed = missed.reduce(function (n, x) { return n + x.rest.length; }, 0);
+      todayCard = '<section class="pm-card cq-today"><div class="cq-card-head"><h2>' + (isToday ? '今日やること' : '次の予定') + '</h2><span class="pm-muted">' + md(day.date) + '・' + esc(day.time) + '</span></div><p class="cq-phase">' + esc(day.phase) + '</p><ul class="cq-tasks">' + day.tasks.map(function (t) { return taskHTML(t, latest); }).join('') + '</ul><div class="cq-foot"><span class="cq-progress' + (nDone === req.length ? ' cq-all' : '') + '">' + (nDone === req.length ? '今日の予定は完了' : nDone + ' / ' + req.length + ' 完了') + '</span><span class="pm-muted">最低ライン：' + esc(day.minimum) + '</span></div>' +
+        (nMissed ? '<details class="cq-missed"><summary>やり残し ' + nMissed + '件</summary><ul class="cq-tasks">' + missed.map(function (x) { return x.rest.map(function (t) { return taskHTML(t, latest, md(x.day.date)); }).join(''); }).join('') + '</ul></details>' : '') + '</section>';
     }
-    var missed = plan.days.filter(function (x) { return x.date < d; }).map(function (x) { var r = x.tasks.filter(function (t) { return !t.optional && !taskDone(t, latest); }); return {day: x, rest: r}; }).filter(function (x) { return x.rest.length; });
-    var missedCard = missed.length ? '<details class="pm-card cq-missed"><summary>やり残し ' + missed.reduce(function (n, x) { return n + x.rest.length; }, 0) + '件（' + missed.length + '日分）</summary><ul class="cq-tasks">' + missed.map(function (x) { return x.rest.map(function (t) { return taskHTML(t, latest).replace('<b>', '<b><span class="cq-date">' + md(x.day.date) + '</span> '); }).join(''); }).join('') + '</ul><p class="pm-muted">遅れたら下の「削る順番」で調整します。報告すればClaudeが組み直します。</p></details>' : '';
-    var form = '<section class="pm-card cq-record" id="cq-record"><h2>解いた範囲をまとめて記録</h2><form class="pm-form" id="cq-form"><label>分冊<select name="volume"><option value="2">第2分冊 業法</option><option value="3">第3分冊 法令・税・免除</option><option value="1">第1分冊 権利</option></select></label><label>日付<input type="date" name="date" value="' + d + '" max="' + d + '"></label><label>最初の問題<input type="number" name="start" inputmode="numeric" min="1" max="122" required></label><label>最後の問題<input type="number" name="end" inputmode="numeric" min="1" max="122" required></label><label class="cq-wide">間違えた問題の番号（カンマ区切り。例：52,58,61）<input type="text" name="wrong" inputmode="numeric" placeholder="なければ空欄"></label><button type="submit">記録する</button></form><p class="pm-muted">本問の正誤だけを記録します。範囲内で番号を書かなかった問題は正解として数えます。</p><div id="cq-msg" class="pm-status' + (lastMsg && lastMsg.warn ? ' pm-warn' : '') + '" role="status">' + (lastMsg ? esc(lastMsg.text) : '') + '</div></section>';
-    var cps = plan.checkpoints.map(function (c) { var v = checkpointValue(c, latest), due = c.date <= d; return {c: c, v: v, due: due}; });
-    var next = cps.filter(function (x) { return x.c.date >= d; }), nextDate = next.length ? next[0].c.date : null;
-    var cpRow = function (x) { var mark = !x.due && x.v.pass !== null ? '<span class="pm-muted">途中</span>' : x.v.pass === true ? '<span class="cq-ok">達成</span>' : x.v.pass === false ? (x.due ? '<span class="cq-ng">未達</span>' : '<span class="pm-muted">途中</span>') : '<span class="pm-muted">—</span>'; return '<li><div class="cq-cp-top"><span class="cq-date">' + md(x.c.date) + '</span>' + mark + '</div><b>' + esc(x.c.label) + '</b><span class="cq-sub">現在 ' + esc(x.v.text) + '</span>' + (x.v.pass === false && x.due ? '<span class="cq-fail">→ ' + esc(x.c.fail) + '</span>' : '<span class="cq-sub">未達なら：' + esc(x.c.fail) + '</span>') + '</li>'; };
-    var cpCard = '<section class="pm-card cq-cp"><h2>判定' + (nextDate ? '（次は ' + md(nextDate) + '）' : '') + '</h2><ul class="cq-list">' + cps.filter(function (x) { return x.c.date === nextDate || (x.due && x.v.pass === false); }).map(cpRow).join('') + '</ul><details><summary>すべての判定</summary><ul class="cq-list">' + cps.map(cpRow).join('') + '</ul></details></section>';
+    var weak = weakItems(rs), stats = quizStats(), ngQuiz = Object.keys(stats).filter(function (k) { return stats[k] && stats[k].last === 'ng'; }).length;
+    var weakCard = '<section class="pm-card cq-weak"><div class="cq-card-head"><h2>弱点の復習</h2><span class="pm-muted">間違えた順</span></div>' +
+      (weak.length ? '<ul class="cq-list">' + weak.slice(0, 3).map(weakHTML).join('') + '</ul>' + (weak.length > 3 ? '<details class="cq-more-weak"><summary>残り ' + (weak.length - 3) + '問</summary><ul class="cq-list">' + weak.slice(3).map(weakHTML).join('') + '</ul></details>' : '') : '<p class="pm-empty">間違えた問題はまだありません。</p>') +
+      '<div class="cq-quiz-row"><button type="button" class="cq-wide-btn" data-cq-quiz="due"><span>確認問題で復習する<small>期限の来た問題から（なければ未着手）</small></span></button>' + (ngQuiz ? '<button type="button" class="cq-wide-btn" data-cq-quiz="ng"><span>確認問題：間違えた ' + ngQuiz + '問</span></button>' : '') + '</div></section>';
     var t = plan.targets;
+    var cps = plan.checkpoints.map(function (c) { return {c: c, v: checkpointValue(c, latest), due: c.date <= d}; });
+    var nextDate = (cps.filter(function (x) { return x.c.date >= d; })[0] || {c: {}}).c.date;
+    var cpRow = function (x) { var mark = !x.due && x.v.pass !== null ? '<span class="pm-muted">途中</span>' : x.v.pass === true ? '<span class="cq-ok">達成</span>' : x.v.pass === false ? '<span class="cq-ng">未達</span>' : '<span class="pm-muted">—</span>'; return '<li><div class="cq-weak-top"><span class="cq-date">' + md(x.c.date) + '</span>' + mark + '</div><b>' + esc(x.c.label) + '</b><span class="cq-sub">現在 ' + esc(x.v.text) + '</span><span class="' + (x.v.pass === false && x.due ? 'cq-fail' : 'cq-sub') + '">' + (x.v.pass === false && x.due ? '→ ' : '未達なら：') + esc(x.c.fail) + '</span></li>'; };
+    var failing = cps.filter(function (x) { return x.due && x.v.pass === false; });
     var mockRows = plan.mocks.map(function (m) { var s = state.mocks[m.id], tot = mockTotal(s); return '<tr><th>' + esc(m.label) + '<small>' + md(m.date) + '</small></th>' + plan.subjects.map(function (x) { var v = s ? Number(s[x.id]) : null; return '<td class="' + (v == null ? '' : v >= t[x.id] ? 'cq-ok' : 'cq-ng') + '">' + (v == null ? '·' : v) + '</td>'; }).join('') + '<td class="' + (tot == null ? '' : tot >= m.goal ? 'cq-ok' : 'cq-ng') + '"><b>' + (tot == null ? '·' : tot) + '</b></td></tr>'; }).join('');
-    var mockCard = '<section class="pm-card cq-mocks" id="cq-mocks"><h2>模試（本番と同じ13:00〜15:00）</h2><div class="cq-table-wrap"><table class="cq-table"><thead><tr><th></th>' + plan.subjects.map(function (x) { return '<th>' + esc(x.label) + '<small>' + t[x.id] + '/' + x.max + '</small></th>'; }).join('') + '<th>計<small>目安</small></th></tr></thead><tbody>' + mockRows + '</tbody></table></div><p class="pm-muted">合計の色は各回の目安（' + plan.mocks.map(function (m) { return m.label.replace('模試', '') + ':' + m.goal; }).join(' ') + '）との比較。</p><form class="pm-form" id="cq-mock-form"><label class="cq-wide">回<select name="mock">' + plan.mocks.map(function (m) { return '<option value="' + esc(m.id) + '">' + esc(m.label + ' ' + md(m.date) + ' ' + m.source) + '</option>'; }).join('') + '</select></label>' + plan.subjects.map(function (x) { return '<label>' + esc({gyoho:'業法',menjo:'免除5問',horei:'法令上の制限',zei:'税・価格',kenri:'権利関係'}[x.id] || x.label) + '（/' + x.max + '）<input type="number" name="' + x.id + '" inputmode="numeric" min="0" max="' + x.max + '" required></label>'; }).join('') + '<button type="submit">点数を保存</button></form><p class="pm-muted">解く順番：' + esc(plan.order) + '</p></section>';
-    var rep = report(d, rs);
-    var reportCard = '<section class="pm-card cq-report"><h2>Claudeへの報告（1日1回）</h2><p class="cq-report-text" id="cq-report-text">' + esc(rep) + '</p><div class="pm-tools"><button type="button" data-cq-copy>報告文をコピー</button></div><p class="pm-muted">コピーしてClaudeに送ると、数字を見て計画を組み直します。</p></section>';
-    var allDays = '<details class="pm-card cq-all-days"><summary>日程の全体（' + md(plan.days[0].date) + '〜' + md(plan.examDate) + '）</summary><ul class="cq-list">' + plan.days.map(function (x) { var req = x.tasks.filter(function (t) { return !t.optional; }), n = req.filter(function (t) { return taskDone(t, latest); }).length; return '<li class="' + (x.date === d ? 'cq-now' : '') + '"><div class="cq-cp-top"><span class="cq-date">' + md(x.date) + '</span><span class="' + (n === req.length ? 'cq-ok' : x.date < d ? 'cq-ng' : 'pm-muted') + '">' + n + '/' + req.length + '</span></div><span class="cq-sub">' + esc(x.phase) + '・' + esc(x.time) + '</span>' + x.tasks.map(function (tk) { return '<span class="cq-line">' + (taskDone(tk, latest) ? '✓ ' : '・') + esc(tk.label) + '</span>'; }).join('') + '</li>'; }).join('') + '</ul></details>';
-    var cut = '<details class="pm-card cq-cut"><summary>遅れたときに削る順番</summary><ol>' + plan.cutOrder.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol><p><b>削らない：</b>' + esc(plan.keep) + '</p></details>';
-    var open = {}; box.querySelectorAll('details').forEach(function (el, i) { if (el.open) open[el.className] = true; });
-    var formVals = {}; var f0 = box.querySelector('#cq-form'); if (f0) ['volume', 'date', 'start', 'end', 'wrong'].forEach(function (k) { formVals[k] = f0.elements[k].value; });
-    box.innerHTML = head + todayCard + missedCard + reportCard + form + cpCard + mockCard + allDays + cut + '<h2 class="cq-divider">神問題集の記録（従来の画面）</h2>';
+    var more = '<section class="cq-more"><h2 class="cq-more-title">計画と成績</h2>' +
+      '<details class="pm-card cq-d-cp"' + (failing.length ? ' open' : '') + '><summary>判定' + (nextDate ? '<span class="pm-muted">次は ' + md(nextDate) + '</span>' : '') + (failing.length ? '<span class="cq-ng">未達 ' + failing.length + '</span>' : '') + '</summary><ul class="cq-list">' + cps.map(cpRow).join('') + '</ul></details>' +
+      '<details class="pm-card cq-d-mock"><summary>模試の点数</summary><div class="cq-table-wrap"><table class="cq-table"><thead><tr><th></th>' + plan.subjects.map(function (x) { return '<th>' + esc(x.label) + '<small>' + t[x.id] + '/' + x.max + '</small></th>'; }).join('') + '<th>計<small>目安</small></th></tr></thead><tbody>' + mockRows + '</tbody></table></div><p class="pm-muted">解く順番：' + esc(plan.order) + '</p></details>' +
+      '<details class="pm-card cq-d-days"><summary>日程の全体</summary><ul class="cq-list">' + plan.days.map(function (x) { var rq = x.tasks.filter(function (tk) { return !tk.optional; }), n = rq.filter(function (tk) { return taskDone(tk, latest); }).length; return '<li class="' + (x.date === d ? 'cq-now' : '') + '"><div class="cq-weak-top"><span class="cq-date">' + md(x.date) + '</span><span class="' + (n === rq.length ? 'cq-ok' : x.date < d ? 'cq-ng' : 'pm-muted') + '">' + n + '/' + rq.length + '</span></div><span class="cq-sub">' + esc(x.phase) + '・' + esc(x.time) + '</span>' + x.tasks.map(function (tk) { return '<span class="cq-line">' + (taskDone(tk, latest) ? '✓ ' : '・') + esc(tk.label) + '</span>'; }).join('') + '</li>'; }).join('') + '</ul></details>' +
+      '<details class="pm-card cq-d-cut"><summary>遅れたときに削る順番</summary><ol class="cq-ol">' + plan.cutOrder.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol><p class="cq-sub"><b>削らない：</b>' + esc(plan.keep) + '</p></details>' +
+      '<details class="pm-card cq-d-report"><summary>Claudeへの報告文</summary><p class="cq-report-text" id="cq-report-text">' + esc(report(d, rs)) + '</p><div class="pm-tools"><button type="button" data-cq-copy>コピー</button></div><p class="pm-muted">本問の記録は同期でClaudeに届きます。模試の点数やチェックは、この文をコピーして送ってください。</p></details>' +
+      '<div class="cq-links"><button type="button" class="cq-wide-btn" data-cq-rec="">ほかの範囲を記録する</button><button type="button" class="cq-wide-btn" data-kami-open>神問題集を解き直す</button><button type="button" class="cq-wide-btn" data-pitfalls-open>つまずきノート</button></div></section>';
+    var open = {}; box.querySelectorAll('details').forEach(function (el) { if (el.open) open[el.className] = true; });
+    box.innerHTML = head + (lastMsg ? '<p class="pm-status' + (lastMsg.warn ? ' pm-warn' : '') + '" role="status">' + esc(lastMsg.text) + '</p>' : '') + todayCard + weakCard + more;
     box.querySelectorAll('details').forEach(function (el) { if (open[el.className]) el.open = true; });
-    var f = box.querySelector('#cq-form'); Object.keys(formVals).forEach(function (k) { if (formVals[k] !== '') f.elements[k].value = formVals[k]; });
     bind();
   }
-  function msg(text, warn) { lastMsg = {text: text, warn: !!warn}; var m = box.querySelector('#cq-msg'); if (m) { m.textContent = text; m.className = 'pm-status' + (warn ? ' pm-warn' : ''); } }
+  function msg(text, warn) { lastMsg = {text: text, warn: !!warn}; render(); clearTimeout(msg.t); msg.t = setTimeout(function () { lastMsg = null; render(); }, 6000); }
+  // ---- 記録シート ----
+  function openSheet(html) { sheet.querySelector('.cq-sheet-body').innerHTML = html; if (sheet.showModal) sheet.showModal(); else sheet.setAttribute('open', ''); }
+  function closeSheet() { if (sheet.close) sheet.close(); else sheet.removeAttribute('open'); }
+  function recordSheet(v, a, b) {
+    var d = today(), latest = latestBy(records()), known = !!v;
+    v = v || 2; a = a || ''; b = b || '';
+    var html = '<h2>' + (known ? volLabel(v) + ' ' + pad3(a) + '〜' + pad3(b) : '解いた範囲を記録') + '</h2>' +
+      '<div class="cq-range"' + (known ? ' hidden' : '') + '><label>分冊<select name="volume"><option value="2">第2分冊 業法</option><option value="3">第3分冊 法令・税・免除</option><option value="1">第1分冊 権利</option></select></label><label>最初<input name="start" type="number" inputmode="numeric" min="1" max="122" value="' + a + '"></label><label>最後<input name="end" type="number" inputmode="numeric" min="1" max="122" value="' + b + '"></label></div>' +
+      '<p class="cq-sheet-hint">間違えた番号をタップして<b class="cq-ng">×</b>に。もう一度で<b>未</b>（まだ解いていない）。</p><div class="cq-grid" id="cq-grid"></div>' +
+      '<label class="cq-date-row">解いた日<input name="date" type="date" value="' + d + '" max="' + d + '"></label>' +
+      '<p class="cq-sheet-sum" id="cq-sum"></p><button type="button" class="cq-save" id="cq-save">記録する</button>';
+    openSheet(html);
+    var body = sheet.querySelector('.cq-sheet-body'), marks = {};
+    body.querySelector('[name=volume]').value = String(v);
+    function drawGrid() {
+      var vv = Number(body.querySelector('[name=volume]').value), aa = Number(body.querySelector('[name=start]').value), bb = Number(body.querySelector('[name=end]').value), g = body.querySelector('#cq-grid');
+      if (!(aa >= 1 && bb >= aa && bb - aa <= 60)) { g.innerHTML = '<p class="pm-muted">最初と最後の番号を入れてください（61問まで）。</p>'; sum(); return; }
+      var h = ''; for (var q = aa; q <= bb; q++) { var st = marks[q] || 'o', prev = latest[vv + ':' + q]; h += '<button type="button" class="cq-cell cq-' + st + (prev ? ' cq-had' : '') + '" data-q="' + q + '"><span>' + pad3(q) + '</span><i>' + (st === 'o' ? '○' : st === 'x' ? '×' : '未') + '</i></button>'; }
+      g.innerHTML = h; sum();
+    }
+    function sum() { var aa = Number(body.querySelector('[name=start]').value), bb = Number(body.querySelector('[name=end]').value), o = 0, x = 0; for (var q = aa; q <= bb; q++) { var s = marks[q] || 'o'; if (s === 'o') o++; else if (s === 'x') x++; } body.querySelector('#cq-sum').textContent = (aa && bb >= aa) ? '○ ' + o + '問・× ' + x + '問を記録' : ''; }
+    body.querySelector('#cq-grid').addEventListener('click', function (e) { var c = e.target.closest('[data-q]'); if (!c) return; var q = Number(c.dataset.q), s = marks[q] || 'o'; marks[q] = s === 'o' ? 'x' : s === 'x' ? 'n' : 'o'; drawGrid(); });
+    ['volume', 'start', 'end'].forEach(function (n) { body.querySelector('[name=' + n + ']').addEventListener('input', function () { marks = {}; drawGrid(); }); });
+    body.querySelector('#cq-save').addEventListener('click', function () {
+      var vv = Number(body.querySelector('[name=volume]').value), aa = Number(body.querySelector('[name=start]').value), bb = Number(body.querySelector('[name=end]').value), date = body.querySelector('[name=date]').value, list = [], again = 0, lt = latestBy(records());
+      if (!(aa >= 1 && bb >= aa && bb - aa <= 60)) return;
+      if (!date || date > today()) { body.querySelector('#cq-sum').textContent = '日付を確認してください。'; return; }
+      for (var q = aa; q <= bb; q++) { var s = marks[q] || 'o'; if (s === 'n') continue; if (lt[vv + ':' + q]) again++; list.push({volume: vv, questionNo: q, date: date, correct: s === 'o'}); }
+      if (!list.length) { closeSheet(); return; }
+      if (again && !confirm(again + '問はすでに記録があります。解き直しとして追加しますか？')) return;
+      try { var n = global.TakkenPM.addRecords(list), x = list.filter(function (r) { return !r.correct; }).length; closeSheet(); msg(volLabel(vv) + ' ' + n + '問を記録しました（× ' + x + '問）。'); }
+      catch (err) { body.querySelector('#cq-sum').textContent = '記録できませんでした：' + err.message; }
+    });
+    drawGrid();
+  }
+  function mockSheet(id) {
+    var m = plan.mocks.filter(function (x) { return x.id === id; })[0], cur = state.mocks[id] || {}, vals = {};
+    plan.subjects.forEach(function (x) { vals[x.id] = cur[x.id] != null ? Number(cur[x.id]) : 0; });
+    openSheet('<h2>' + esc(m.label) + '（' + esc(m.source) + '）</h2><div class="cq-steppers">' + plan.subjects.map(function (x) { return '<div class="cq-stepper"><span>' + esc(SUBJ_NAME[x.id]) + '<small>目標 ' + plan.targets[x.id] + ' / ' + x.max + '</small></span><button type="button" data-step="' + x.id + ':-1" aria-label="減らす">−</button><b data-val="' + x.id + '">' + vals[x.id] + '</b><button type="button" data-step="' + x.id + ':1" aria-label="増やす">＋</button></div>'; }).join('') + '</div><p class="cq-sheet-sum" id="cq-mock-sum"></p><button type="button" class="cq-save" id="cq-mock-save">保存する</button>');
+    var body = sheet.querySelector('.cq-sheet-body');
+    function upd() { var s = 0; plan.subjects.forEach(function (x) { s += vals[x.id]; body.querySelector('[data-val=' + x.id + ']').textContent = vals[x.id]; }); body.querySelector('#cq-mock-sum').textContent = '合計 ' + s + '点（この回の目安 ' + m.goal + '点）'; }
+    body.querySelector('.cq-steppers').addEventListener('click', function (e) { var b = e.target.closest('[data-step]'); if (!b) return; var p = b.dataset.step.split(':'), sub = plan.subjects.filter(function (x) { return x.id === p[0]; })[0]; vals[p[0]] = Math.max(0, Math.min(sub.max, vals[p[0]] + Number(p[1]))); upd(); });
+    body.querySelector('#cq-mock-save').addEventListener('click', function () { var s = {date: cur.date || today()}; plan.subjects.forEach(function (x) { s[x.id] = vals[x.id]; }); state.mocks[id] = s; persist(); closeSheet(); msg(m.label + 'の点数を保存しました（合計 ' + mockTotal(s) + '点）。'); });
+    upd();
+  }
   function bind() {
     box.querySelectorAll('[data-cq-check]').forEach(function (el) { el.addEventListener('change', function () { if (el.checked) state.checks[el.dataset.cqCheck] = true; else delete state.checks[el.dataset.cqCheck]; persist(); render(); }); });
-    box.querySelectorAll('[data-cq-fill]').forEach(function (el) { el.addEventListener('click', function () { var a = el.dataset.cqFill.split(':'), f = box.querySelector('#cq-form'); f.elements.volume.value = a[0]; f.elements.start.value = a[1]; f.elements.end.value = a[2]; f.scrollIntoView({behavior: 'smooth', block: 'start'}); f.elements.wrong.focus({preventScroll: true}); }); });
-    box.querySelectorAll('[data-cq-mock]').forEach(function (el) { el.addEventListener('click', function () { var f = box.querySelector('#cq-mock-form'), m = state.mocks[el.dataset.cqMock]; f.elements.mock.value = el.dataset.cqMock; plan.subjects.forEach(function (x) { f.elements[x.id].value = m ? m[x.id] : ''; }); f.scrollIntoView({behavior: 'smooth', block: 'start'}); }); });
-    box.querySelector('#cq-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var f = e.target, v = Number(f.elements.volume.value), a = Number(f.elements.start.value), b = Number(f.elements.end.value), date = f.elements.date.value;
-      if (!(a >= 1 && b >= a && b - a <= 60)) { msg('最初と最後の番号を確認してください（1回に61問まで）。', true); return; }
-      if (!date || date > today()) { msg('日付を確認してください。', true); return; }
-      var wrong = {}, bad = [];
-      f.elements.wrong.value.split(/[,、\s]+/).filter(Boolean).forEach(function (x) { var n = Number(x.replace(/[０-９]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 65248); })); if (n >= a && n <= b) wrong[n] = true; else bad.push(x); });
-      if (bad.length) { msg('範囲外の番号があります：' + bad.join(', '), true); return; }
-      var latest = latestBy(records()), again = 0, list = [];
-      for (var q = a; q <= b; q++) { if (latest[v + ':' + q]) again++; list.push({volume: v, questionNo: q, date: date, correct: !wrong[q]}); }
-      if (again && !confirm(again + '問はすでに記録があります。解き直しとして追加しますか？')) return;
-      try { var n = global.TakkenPM.addRecords(list); f.elements.wrong.value = ''; f.elements.start.value = ''; f.elements.end.value = ''; render(); msg(volLabel(v) + ' ' + a + '〜' + b + ' を記録しました（' + n + '問、誤答 ' + Object.keys(wrong).length + '問）。'); }
-      catch (err) { msg('記録できませんでした：' + err.message, true); }
-    });
-    box.querySelector('#cq-mock-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var f = e.target, id = f.elements.mock.value, s = {date: today()};
-      var prev = state.mocks[id]; if (prev && prev.date) s.date = prev.date;
-      plan.subjects.forEach(function (x) { s[x.id] = Math.max(0, Math.min(x.max, Number(f.elements[x.id].value) || 0)); });
-      state.mocks[id] = s; persist(); render();
-    });
-    box.querySelector('[data-cq-copy]').addEventListener('click', function () { var text = box.querySelector('#cq-report-text').textContent, btn = this; (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { btn.textContent = 'コピーしました'; }, function () { var r = document.createRange(); r.selectNodeContents(box.querySelector('#cq-report-text')); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = '選択しました。コピーしてください'; }); });
+    box.querySelectorAll('[data-cq-rec]').forEach(function (el) { el.addEventListener('click', function () { var a = el.dataset.cqRec.split(':').map(Number); if (el.dataset.cqRec) recordSheet(a[0], a[1], a[2]); else recordSheet(); }); });
+    box.querySelectorAll('[data-cq-mock]').forEach(function (el) { el.addEventListener('click', function () { mockSheet(el.dataset.cqMock); }); });
+    box.querySelectorAll('[data-cq-slide]').forEach(function (el) { el.addEventListener('click', function () { document.dispatchEvent(new CustomEvent('takken-pm-open-slide', {detail: {slide: Number(el.dataset.cqSlide)}})); }); });
+    box.querySelectorAll('[data-cq-diagram]').forEach(function (el) { el.addEventListener('click', function () { document.dispatchEvent(new CustomEvent('takken-pm-open-diagram', {detail: {target: el.dataset.cqDiagram}})); }); });
+    box.querySelectorAll('[data-cq-quiz]').forEach(function (el) { el.addEventListener('click', function () { document.dispatchEvent(new CustomEvent('takken-open-quiz', {detail: {mode: el.dataset.cqQuiz}})); }); });
+    var copy = box.querySelector('[data-cq-copy]'); if (copy) copy.addEventListener('click', function () { var text = box.querySelector('#cq-report-text').textContent; (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { copy.textContent = 'コピーしました'; }, function () { var r = document.createRange(); r.selectNodeContents(box.querySelector('#cq-report-text')); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); copy.textContent = '選択しました'; }); });
   }
-  global.TakkenCoach = {init: function (p) {
-    plan = p; if (!plan || !plan.days) return;
+  global.TakkenCoach = {init: function (p, cat) {
+    plan = p; catalog = cat || {}; if (!plan || !plan.days) return;
     var root = document.getElementById('pm-dashboard'), content = document.getElementById('pm-content');
     if (!root || !content) return;
     state = load();
-    box = document.createElement('div'); box.id = 'coach'; var head = root.querySelector('.pm-head'); if (head) head.parentNode.insertBefore(box, head.nextSibling); else content.parentNode.insertBefore(box, content);
+    box = document.createElement('div'); box.id = 'coach';
+    root.insertBefore(box, root.firstChild);
+    // 従来の詳細画面（分野別・1問ずつの記録・データ）は最下部の折りたたみへ移す
+    var detail = document.createElement('details'); detail.className = 'pm-card cq-legacy'; detail.innerHTML = '<summary>成績の詳細・1問ずつの記録・データ</summary>';
+    root.appendChild(detail); detail.appendChild(content);
+    var sync = document.getElementById('pm-sync'); if (sync) root.insertBefore(sync, box);
     root.classList.add('coach-on');
+    sheet = document.createElement('dialog'); sheet.id = 'cq-sheet'; sheet.innerHTML = '<div class="cq-sheet-grip" aria-hidden="true"></div><button type="button" class="cq-sheet-close" aria-label="閉じる">×</button><div class="cq-sheet-body"></div>';
+    document.body.appendChild(sheet);
+    sheet.querySelector('.cq-sheet-close').addEventListener('click', closeSheet);
+    sheet.addEventListener('click', function (e) { if (e.target === sheet) closeSheet(); });
     global.addEventListener('takken-pm-change', function () { setTimeout(render, 0); });
+    global.addEventListener('takken-pm-remote', function () { setTimeout(render, 0); });
     document.addEventListener('visibilitychange', function () { if (!document.hidden) render(); });
     render();
   }, render: function () { render(); }};
@@ -2804,7 +2946,7 @@ const initialHash=location.hash;
 TakkenPM.init({catalog:PM_CATALOG,shared:true});
 // 共通保存（8998）は2026-09-30に再開（本人承認、10/19に停止予定）。
 TakkenSync.init({endpoint:'https://niihama.tail6f51c9.ts.net:8998/api/pm'});
-TakkenCoach.init(window.TAKKEN_COACH_PLAN);
+TakkenCoach.init(window.TAKKEN_COACH_PLAN,PM_CATALOG);
 TakkenKami.init();
 TakkenKamiBank.init({endpoint:'https://niihama.tail6f51c9.ts.net:8998/api/kami'});
 TakkenRally.init({"sets": [{"id": "gyo-8shu", "subject": "宅建業法", "title": "8種制限・クーリングオフ", "src": "RE.LIFE「8種制限/クーリングオフ 完全攻略」各章ラリー＋総復習ラリー（字幕）", "vid": "qyeVEUc8vwg", "cards": [{"p": "条件", "q": "8種制限が効く条件は？", "a": "業者が自ら売主、買主は業者でない素人", "t": 499}, {"p": "条件", "q": "業者が媒介・代理なら？", "a": "適用なし", "t": 505}, {"p": "条件", "q": "業者間の取引は？", "a": "適用なし", "t": 507}, {"p": "クーリングオフ", "q": "できるかどうかの判定は？", "a": "申込みをした場所", "t": 1243}, {"p": "クーリングオフ", "q": "「事務所等」に入るのは？", "a": "事務所、媒介・代理業者の事務所、宅建士を置くべき土地に定着した案内所", "sa": "事務所、媒介・代理業者の事務所、宅建士を置くべき、土地に定着した案内所", "t": 1246}, {"p": "クーリングオフ", "q": "買主から申し出てOKな場所は？", "a": "自宅と勤務先だけ", "t": 1253}, {"p": "クーリングオフ", "q": "8日はいつから数える？", "a": "書面で告げられた日から。初日を含む", "t": 1256}, {"p": "クーリングオフ", "q": "できなくなるのは？", "a": "8日経過、または引渡し＋代金全額", "sa": "8日経過。または、引渡しを受けて、代金も全額払ったとき", "t": 1259}, {"p": "クーリングオフ", "q": "解除の効力はいつ？", "a": "書面を発した時", "t": 1262}, {"p": "クーリングオフ", "q": "告げる書面に宅建士の記名は？", "a": "不要", "t": 3020}, {"p": "手付・損害賠償", "q": "手付の上限は？", "a": "代金の2割。超える額は受け取れない", "t": 1673}, {"p": "手付・損害賠償", "q": "どんな名目の手付でも？", "a": "解約手付になる", "t": 1676}, {"p": "手付・損害賠償", "q": "業者から手付解除するには？", "a": "倍額を現実に提供。相手が履行に着手する前まで", "t": 1679}, {"p": "手付・損害賠償", "q": "手付の貸付け・分割・後払いは？", "a": "提案しただけで違反", "t": 1682}, {"p": "手付・損害賠償", "q": "損害賠償の予定＋違約金は？", "a": "合計で代金の2割まで。超えた分だけ無効", "t": 1687}, {"p": "手付・損害賠償", "q": "2割ぴったりは？", "a": "有効", "t": 1689}, {"p": "保全措置", "q": "保全の対象になるお金は？", "a": "引渡し前に受け取る手付金等を全部合算", "t": 2149}, {"p": "保全措置", "q": "未完成物件で保全が要るのは？", "a": "5%か1,000万円を超えたら", "sa": "代金の5パーセント、または1000万円を超えたら", "t": 2152}, {"p": "保全措置", "q": "完成物件は？", "a": "10%か1,000万円を超えたら", "sa": "10パーセント、または1000万円を超えたら", "t": 2155}, {"p": "保全措置", "q": "ぴったり5%・10%なら？", "a": "保全は不要", "sa": "保全は不要", "t": 2156}, {"p": "保全措置", "q": "寄託（指定保管機関）が使えるのは？", "a": "完成物件だけ", "sq": "指定保管機関への寄託が使えるのは？", "t": 2158}, {"p": "保全措置", "q": "保全の書面は？", "a": "買主に交付。電磁的方法は買主の承諾が要る", "t": 2161}, {"p": "保全措置", "q": "保全と受領、順番は？", "a": "保全してから受け取る", "t": 2164}, {"p": "契約不適合", "q": "買主に不利な特約は？", "a": "原則無効", "t": 2340}, {"p": "契約不適合", "q": "有効な例外は？", "a": "通知期間を引渡しから2年以上とする特約", "t": 2343}, {"p": "契約不適合", "q": "特約が無効になったら？", "a": "民法に戻る。知った時から1年以内に通知", "t": 2346}]}, {"id": "gyo-35", "subject": "宅建業法", "title": "35条 重要事項説明", "src": "RE.LIFE「35条書面 完全攻略」6章・7章ラリー＋総復習ラリー（字幕）", "vid": "Qqpu46WYJ6Y", "cards": [{"p": "基本", "q": "重要事項説明は何のセット？", "a": "書面と口頭説明のセット", "t": 2504}, {"p": "基本", "q": "説明するのは？", "a": "宅建士。専任でなくてOK", "t": 2507}, {"p": "基本", "q": "説明する相手は？", "a": "買主・借主になろうとする人", "t": 2509}, {"p": "基本", "q": "いつ？", "a": "契約の前", "t": 2512}, {"p": "基本", "q": "宅建士証の提示は？", "a": "請求がなくても提示", "t": 2513}, {"p": "基本", "q": "35条書面は？", "a": "宅建士の記名だけ。押印なし", "t": 2515}, {"p": "基本", "q": "買う側が業者なら？", "a": "説明は省略OK。書面の交付は必須", "t": 2517}, {"p": "取引の種類", "q": "私道負担が要らないのは？", "a": "建物の貸借だけ", "t": 2251}, {"p": "取引の種類", "q": "設備の整備状況が要るのは？", "a": "建物の貸借だけ", "t": 2254}, {"p": "取引の種類", "q": "契約期間・用途制限・敷金精算・管理委託先は？", "a": "貸借だけ", "sq": "契約期間、用途制限、敷金の精算、管理の委託先は？", "t": 2257}, {"p": "取引の種類", "q": "建物の取壊しに関する事項は？", "a": "宅地の貸借だけ", "t": 2259}, {"p": "取引の種類", "q": "マンション、貸借で要る項目は？", "a": "専有部分の用途制限と管理委託先の2つ", "t": 2262}, {"p": "物件", "q": "石綿（アスベスト）は？", "a": "調査義務なし。記録があれば説明", "sq": "アスベストは？", "t": 2529}, {"p": "物件", "q": "耐震診断は？", "a": "旧耐震の建物だけ（昭和56年5月31日以前に着工）", "sa": "旧耐震の建物だけ", "t": 2531}, {"p": "物件", "q": "手付金等の保全措置は？", "a": "業者が自ら売主のときだけ", "t": 2533}, {"p": "35条と37条", "q": "35条と37条、時期は？", "a": "35条は契約の前、37条は後", "t": 2477}, {"p": "35条と37条", "q": "相手は？", "a": "35条は買う・借りる側だけ、37条は両当事者", "t": 2479}, {"p": "35条と37条", "q": "説明は？", "a": "35条はあり、37条は交付だけ", "t": 2481}, {"p": "35条と37条", "q": "代金の額と引渡し時期は？", "a": "37条だけ", "t": 2484}, {"p": "35条と37条", "q": "解除・損害賠償の予定・ローン不成立は？", "a": "35条は必ず、37条は定めがあれば", "sq": "解除、損害賠償の予定、ローン不成立のときの措置は？", "t": 2487}, {"p": "35条と37条", "q": "宅建士の記名は？", "a": "両方必要", "t": 2492}]}, {"id": "gyo-37", "subject": "宅建業法", "title": "37条書面", "src": "RE.LIFE「37条書面 完全攻略」2章・4章ラリー＋総復習ラリー（字幕）", "vid": "e8CXxh6IFtE", "cards": [{"p": "基本", "q": "37条書面はいつ？", "a": "契約の後、遅滞なく", "t": 2372}, {"p": "基本", "q": "誰に？", "a": "両当事者", "t": 2374}, {"p": "基本", "q": "共同媒介なら？", "a": "両方の業者に交付義務", "t": 2375}, {"p": "基本", "q": "説明は？", "a": "要らない", "t": 2378}, {"p": "基本", "q": "記名するのは？", "a": "宅建士。専任でなくてOK", "t": 2379}, {"p": "基本", "q": "35条で説明した宅建士と同じ人？", "a": "別人でOK", "t": 2381}, {"p": "基本", "q": "業者間なら？", "a": "省略できない", "t": 2382}, {"p": "基本", "q": "自ら貸借は？", "a": "宅建業ではない。対象外", "t": 2384}, {"p": "基本", "q": "違反の罰則は？", "a": "37条は50万円以下の罰金。35条は罰則なし", "t": 2386}, {"p": "記載事項", "q": "必ず書く5つは？", "a": "当事者・物件・代金・引渡し時期・移転登記の申請時期", "sa": "当事者、物件、代金、引渡し時期、移転登記の申請時期", "t": 1241}, {"p": "記載事項", "q": "代金の額は35条に書く？", "a": "書かない。37条だけ", "t": 1253}, {"p": "記載事項", "q": "移転登記の申請時期は？", "a": "売買・交換だけ", "t": 1257}, {"p": "記載事項", "q": "既存建物の売買・交換で必ず書くのは？", "a": "構造上主要な部分等の状況について双方が確認した事項", "t": 1260}, {"p": "記載事項", "q": "代金以外の金銭は？", "a": "37条は額・時期・目的、35条は額と目的（時期なし）", "sa": "37条は、額と時期と目的。35条は、額と目的。時期はなし", "t": 2394}, {"p": "記載事項", "q": "天災などの危険負担と租税公課は？", "a": "37条だけ（定めがあれば）", "t": 2403}, {"p": "記載事項", "q": "手付金等の保全措置は？", "a": "35条だけ", "t": 2405}, {"p": "貸借", "q": "貸借で消える項目は？", "a": "移転登記・ローン・租税公課・既存建物の確認・契約不適合責任", "sa": "移転登記、ローン、租税公課、既存建物の確認、契約不適合責任", "t": 1985}, {"p": "貸借", "q": "なぜ消える？", "a": "借りるだけなら関係ないから", "t": 1990}, {"p": "貸借", "q": "貸借でも必ず書くのは？", "a": "借賃と引渡し時期", "t": 1993}]}, {"id": "horei-toshi", "subject": "法令上の制限", "title": "都市計画法", "src": "RE.LIFE「都市計画法 完全攻略」(2026-09-26公開) 総復習ラリー＋各章の急所（字幕）", "vid": "GHogLXNOLWg", "cards": [{"p": "物差し", "q": "物差しは？", "a": "進める場所か、抑える場所か", "t": 3618}, {"p": "地域地区", "q": "高度地区は？", "a": "高さ", "t": 3618}, {"p": "地域地区", "q": "高度利用地区は？", "a": "容積率など。高さは定めない", "t": 3618}, {"p": "地域地区", "q": "特別用途地区は？", "a": "用途地域の中", "t": 3618}, {"p": "地域地区", "q": "特定用途制限地域は？", "a": "用途地域の外（調整区域を除く）", "sa": "用途地域の外。ただし調整区域は除く", "t": 3618}, {"p": "用途地域", "q": "準住居地域は？", "a": "道路の沿道", "t": 3618}, {"p": "用途地域", "q": "近隣商業地域は？", "a": "近隣の住民への日用品", "t": 3618}, {"p": "用途地域", "q": "工業系3段の言葉は？", "a": "おそれのない・主として・専ら", "sa": "環境悪化のおそれのない、主として、専ら", "t": 3618}, {"p": "用途地域", "q": "農業と調和した低層住宅は？", "a": "田園住居地域", "t": 3618}, {"p": "用途地域", "q": "生産緑地地区は？", "a": "別の法律の地区", "t": 3618}, {"p": "都市施設", "q": "必ず定める3点セットは？", "a": "道路・公園・下水道", "t": 3618}, {"p": "都市施設", "q": "住居系の用途地域に追加で必ず定めるのは？", "a": "義務教育施設", "t": 3618}, {"p": "都市施設", "q": "準都市計画区域に置けないのは？", "a": "高度利用地区・特定街区など、進める道具", "t": 3618}, {"p": "都市施設", "q": "市街地開発事業を定められるのは？", "a": "市街化区域と非線引き区域だけ", "t": 3618}, {"p": "誰が決める", "q": "都市計画区域の指定は？", "a": "都道府県。県をまたげば国土交通大臣", "t": 3618}, {"p": "誰が決める", "q": "市町村が都市計画を定めるときは？", "a": "知事に協議。同意は不要", "t": 3618}, {"p": "開発許可", "q": "調整区域の開発は？", "a": "規模不問で許可", "t": 3618}, {"p": "開発許可", "q": "判定の順番は？", "a": "開発行為か → 場所と規模 → 例外", "sa": "開発行為か。次に場所と規模。最後に例外", "t": 3618}, {"p": "開発許可", "q": "1ha未満の野球場は？", "a": "特定工作物ですらない", "t": 3618}, {"p": "開発許可", "q": "病院と学校は？", "a": "人を集めるから例外に入らない", "t": 3618}, {"p": "開発許可", "q": "事業の施行として行うなら？", "a": "規模不問で不要", "t": 3618}, {"p": "手続き", "q": "今ある公共施設の管理者とは？", "a": "協議＋同意", "t": 3618}, {"p": "手続き", "q": "将来の管理者とは？", "a": "協議だけ", "t": 3618}, {"p": "手続き", "q": "始める・変えるは？", "a": "許可", "t": 3618}, {"p": "手続き", "q": "やめるは？", "a": "届出", "t": 3618}, {"p": "手続き", "q": "完了の公告をするのは？", "a": "知事", "t": 3618}, {"p": "手続き", "q": "開発登録簿は？", "a": "知事が調製・保管", "t": 3618}, {"p": "手続き", "q": "調整区域で建てるだけなら？", "a": "43条。建物にも許可が要る", "t": 3618}, {"p": "災害", "q": "レッドゾーンは？", "a": "原則アウト", "t": 3618}, {"p": "災害", "q": "イエローゾーンは？", "a": "セーフ", "t": 3618}, {"p": "災害", "q": "自己居住用の住宅は？", "a": "レッドの規制も対象外", "t": 3618}, {"p": "地区計画", "q": "地区整備計画は？", "a": "原則定める。特別な事情で省ける", "t": 3618}, {"p": "地区計画", "q": "地区計画の届出は？", "a": "着手の30日前、市町村長へ", "t": 3618}, {"p": "地区計画", "q": "計画に合わないときは？", "a": "勧告まで。命令はできない", "t": 3618}, {"p": "事業地", "q": "事業地内の有償譲渡は？", "a": "施行者に届出", "t": 3618}]}, {"id": "horei-num", "subject": "法令上の制限", "title": "数字ラリー", "src": "RE.LIFE「法令上の制限 完全攻略」総復習・数字ラリー（講師スライド p.235〜253）", "vid": "Jqndj59XAOQ", "cards": [{"p": "都市計画", "q": "地区計画の届出は何日前？", "a": "着手の30日前"}, {"p": "都市計画", "q": "届出先は？", "a": "市町村長"}, {"p": "都市計画", "q": "都市計画の案の縦覧は？", "a": "2週間"}, {"p": "都市計画", "q": "事業予定地での建築は、届出？許可？", "a": "許可"}, {"p": "開発許可", "q": "市街化区域の面積例外は？", "a": "1,000㎡未満は不要"}, {"p": "開発許可", "q": "市街化調整区域は？", "a": "面積例外なし"}, {"p": "開発許可", "q": "非線引きと準都市計画区域は？", "a": "3,000㎡未満は不要"}, {"p": "開発許可", "q": "区域の外は？", "a": "1ha未満は不要"}, {"p": "開発許可", "q": "通しでどうぞ", "a": "1・なし・3・3・10", "sa": "いち、なし、さん、さん、じゅう"}, {"p": "開発許可", "q": "野球場など特定工作物の境目は？", "a": "1ha以上"}, {"p": "開発許可", "q": "ゴルフ場は？", "a": "面積不問"}, {"p": "開発許可", "q": "開発登録簿は、許可を受けた業者が登録？", "a": "違う。調製・保管は知事"}, {"p": "建築基準法", "q": "道路の幅は？", "a": "4m以上"}, {"p": "建築基準法", "q": "接道は？", "a": "2m以上"}, {"p": "建築基準法", "q": "セットバックはどこから？", "a": "道路の中心線から2m"}, {"p": "建築基準法", "q": "建蔽率が無制限になる3つは？", "a": "8割・防火・耐火", "sa": "8割の地域、防火地域、耐火建築物"}, {"p": "建築基準法", "q": "容積率で道路幅を使うのは何m未満？", "a": "前面道路12m未満", "sq": "容積率で道路の幅を使うのは、何メートル未満？"}, {"p": "建築基準法", "q": "法定乗数、住居系は？", "a": "10分の4"}, {"p": "建築基準法", "q": "それ以外は？", "a": "10分の6"}, {"p": "建築基準法", "q": "低層3地域の絶対高さは？", "a": "10mか12m"}, {"p": "建築基準法", "q": "日影規制の対象外は？", "a": "商業・工業・工業専用"}, {"p": "建築基準法", "q": "防火地域で耐火が要るのは？", "a": "3階以上か100㎡超"}, {"p": "建築基準法", "q": "準防火地域なら？", "a": "4階以上か1,500㎡超"}, {"p": "建築基準法", "q": "今年の主役、建築確認は？", "a": "2階以上か200㎡超なら全国で確認", "sa": "2階以上か、200平方メートル超えたら、全国で確認"}, {"p": "建築基準法", "q": "完了検査の申請は？", "a": "工事完了から4日以内"}, {"p": "建築基準法", "q": "検査済証の前に使えるのは？", "a": "仮使用の認定か、申請受理から7日経過"}, {"p": "建築基準法", "q": "第一種住居地域のホテル・旅館は？", "a": "3,000㎡以下ならOK"}, {"p": "建築基準法", "q": "単体規定の4つの数字は？", "a": "採光1/7・換気1/20・避雷20m超・昇降機31m超", "sa": "採光7分の1、換気20分の1、避雷設備20メートル超、昇降機31メートル超"}, {"p": "国土利用計画法", "q": "事後届出、市街化区域は？", "a": "2,000㎡以上"}, {"p": "国土利用計画法", "q": "それ以外の都市計画区域は？", "a": "5,000㎡以上"}, {"p": "国土利用計画法", "q": "区域の外は？", "a": "10,000㎡以上"}, {"p": "国土利用計画法", "q": "合言葉は？", "a": "2・5・10は、事後届出", "sa": "に、ご、じゅうは、事後届出"}, {"p": "国土利用計画法", "q": "期限は？", "a": "契約から2週間以内"}, {"p": "国土利用計画法", "q": "届け出るのは？", "a": "買主だけ"}, {"p": "農地法", "q": "人が変わるだけなら？", "a": "3条。農業委員会の許可"}, {"p": "農地法", "q": "潰す話は？", "a": "4条・5条。知事等の許可"}, {"p": "農地法", "q": "相続は許可が要る？", "a": "要らない。届出は要る"}, {"p": "農地法", "q": "市街化区域の特例がないのは？", "a": "3条"}, {"p": "農地法", "q": "自分の農業用施設、例外は何アール未満？", "a": "2アール未満"}, {"p": "農地法", "q": "4条が守備しない土地は？", "a": "採草放牧地"}, {"p": "区画整理", "q": "組合の設立は何人以上？", "a": "7人以上"}, {"p": "区画整理", "q": "設立の同意は？", "a": "所有者・借地権者それぞれ3分の2以上"}, {"p": "区画整理", "q": "組合ができたら？", "a": "区域内の所有者・借地権者は全員組合員"}, {"p": "区画整理", "q": "公的施行で事前に聴くのは？", "a": "土地区画整理審議会の意見"}, {"p": "区画整理", "q": "仮換地の合言葉は？", "a": "使うのは代替機、売るのは自分の携帯", "sa": "使うのは代替機。売るのは、自分の携帯"}, {"p": "区画整理", "q": "換地処分、権利が消えるのは？", "a": "公告の日の終わり"}, {"p": "区画整理", "q": "新しい換地をもらえるのは？", "a": "公告の翌日"}, {"p": "区画整理", "q": "保留地は誰のもの？", "a": "施行者"}, {"p": "盛土規制法", "q": "街なかの許可、5点セットは？", "a": "盛り1・切り2・切り盛り2・盛り盛り2・広さ500", "sa": "盛り1、切り2、切り盛り2、盛り盛り2、広さ500"}, {"p": "盛土規制法", "q": "山側の届出は？", "a": "着手の30日前"}, {"p": "盛土規制法", "q": "区域指定のとき、もうやってた人は？", "a": "21日以内に届出"}, {"p": "盛土規制法", "q": "擁壁を壊すのは？", "a": "14日「前」に届出", "sa": "14日、前に届出"}, {"p": "盛土規制法", "q": "宅地に転用したら？", "a": "14日「以内」に届出", "sa": "14日、以内に届出"}]}, {"id": "horei-batsu", "subject": "法令上の制限", "title": "バツフレーズ15連", "src": "RE.LIFE「法令上の制限 完全攻略」バツフレーズ（講師スライド p.255〜259）", "vid": "Jqndj59XAOQ", "cards": [{"q": "「登記の時から2週間以内に届出」", "a": "バツ。起算は契約から"}, {"q": "「売主及び買主が届出」", "a": "バツ。買主だけ"}, {"q": "「すべての都市計画区域で区域区分を定める」", "a": "バツ。区域区分は任意"}, {"q": "「高度利用地区は高さの限度を定める」", "a": "バツ。土地の使い方の話"}, {"q": "「病院は公益だから開発許可不要」", "a": "バツ。病院・学校・福祉は例外に入らない"}, {"q": "「調整区域の小規模開発は不要」", "a": "バツ。調整区域は面積例外なし"}, {"q": "「防災区域は規制区域の中に指定」", "a": "バツ。絶対に重ならない"}, {"q": "「工業地域に住宅は建てられない」", "a": "バツ。ダメなのは工業専用だけ"}, {"q": "「防火地域またぎは過半で判断」", "a": "バツ。厳しいほう"}, {"q": "「競売だから農地法の許可不要」", "a": "バツ。競売でも許可が要る"}, {"q": "「相続だから届出も不要」", "a": "バツ。届出は要る"}, {"q": "「換地処分の公告の日から換地」", "a": "バツ。公告の翌日から"}, {"q": "「開発登録簿は許可を受けた業者が登録」", "a": "バツ。調製・保管は知事"}, {"q": "「検査済証までは絶対に使えない」", "a": "バツ。仮使用の認定と、受理から7日"}, {"q": "「採草放牧地の転用に4条許可」", "a": "バツ。4条は農地専用"}]}, {"id": "kenri-1", "subject": "権利関係", "title": "意思表示・時効・代理・相続", "src": "RE.LIFE「権利関係 完全攻略」ミニラリー・仕上げラリー（講師スライド p.29・50・79・98）", "vid": "swYnWoQGJo4", "cards": [{"p": "意思表示", "q": "グルのウソ売買、当事者間では？", "a": "無効"}, {"p": "意思表示", "q": "知らずに買ったCとの勝負は？", "a": "Cの勝ち。善意だけでいい"}, {"p": "意思表示", "q": "錯誤の効果は？", "a": "取消し"}, {"p": "意思表示", "q": "動機の勘違いが守られるのは？", "a": "相手に表示してたときだけ"}, {"p": "制限行為能力", "q": "成年被後見人、同意があれば？", "a": "できない。例外は日常生活だけ"}, {"p": "制限行為能力", "q": "未成年が一人でOKな3つは？", "a": "もらう・小遣い・商売"}, {"p": "制限行為能力", "q": "未成年者本人に催告したら？", "a": "何も起きない"}, {"p": "制限行為能力", "q": "取消し前のCに勝てるのは？", "a": "脅された人と、制限行為能力者"}, {"p": "制限行為能力", "q": "成年は何歳？", "a": "18歳"}, {"p": "時効", "q": "信じてて落ち度なし、取得時効は？", "a": "10年"}, {"p": "時効", "q": "それ以外は？", "a": "20年"}, {"p": "時効", "q": "借りて住んでる人は？", "a": "何年でもゼロ"}, {"p": "時効", "q": "消滅時効の数字は？", "a": "5年と10年"}, {"p": "時効", "q": "時間が経っても消えない権利は？", "a": "所有権"}, {"p": "時効", "q": "催告で止まるのは？", "a": "6ヶ月。連打は効かない"}, {"p": "時効", "q": "「借りてます」の一言で？", "a": "リセット"}, {"p": "時効", "q": "完成後に「払います」と言ったら？", "a": "もう援用できない"}, {"p": "代理", "q": "代理が成立する条件2つは？", "a": "名乗りと、代理権"}, {"p": "代理", "q": "名乗らなかったら？", "a": "代理人自身の契約"}, {"p": "代理", "q": "復代理人は誰の代理人？", "a": "本人の代理人"}, {"p": "代理", "q": "代理権の濫用、相手が気づけたら？", "a": "無権代理あつかい"}, {"p": "代理", "q": "催告を無視したら？", "a": "追認拒絶。制限行為能力者とは逆"}, {"p": "代理", "q": "本人が破産、任意代理は？", "a": "消える。法定代理は消えない"}, {"p": "代理", "q": "無権代理人が単独相続したら？", "a": "拒めない。共同相続なら全員の追認"}, {"p": "代理", "q": "表見代理の共通点は？", "a": "本人が作った「ありそうな見た目」"}, {"p": "相続", "q": "配偶者と子は？", "a": "2分の1ずつ"}, {"p": "相続", "q": "配偶者と親は？", "a": "3分の2と3分の1"}, {"p": "相続", "q": "配偶者と兄弟は？", "a": "4分の3と4分の1"}, {"p": "相続", "q": "兄弟の代襲は？", "a": "甥・姪まで。一代限り"}, {"p": "相続", "q": "放棄した人の子は？", "a": "代襲できない"}, {"p": "相続", "q": "放棄・限定承認の期限は？", "a": "知った時から3ヶ月"}, {"p": "相続", "q": "何もしないで黙っていたら？", "a": "単純承認"}, {"p": "相続", "q": "遺言は何歳から？", "a": "15歳"}, {"p": "相続", "q": "兄弟の遺留分は？", "a": "なし"}]}, {"id": "kenri-2", "subject": "権利関係", "title": "抵当権・登記・区分所有・賃貸借・借地借家", "src": "RE.LIFE「権利関係 完全攻略」仕上げラリー（講師スライド p.120・143・161・178・198・211）", "vid": "swYnWoQGJo4", "cards": [{"p": "抵当権", "q": "住みながら担保にできる？", "a": "できる"}, {"p": "抵当権", "q": "抵当権の順位は？", "a": "登記の順"}, {"p": "抵当権", "q": "利息が優先されるのは？", "a": "最後の2年分"}, {"p": "抵当権", "q": "保険金に化けたら？", "a": "物上代位。払渡し前に差押え"}, {"p": "抵当権", "q": "抵当権消滅請求できない人は？", "a": "債務者と保証人"}, {"p": "抵当権", "q": "登記の前にカギをもらってた借主は？", "a": "住み続けられる"}, {"p": "抵当権", "q": "後から借りた人は？", "a": "出る。ただし6ヶ月の猶予"}, {"p": "抵当権", "q": "更地に後から建物、法定地上権は？", "a": "成立しない"}, {"p": "抵当権", "q": "その建物は？", "a": "土地と一括競売。優先は土地の代金だけ"}, {"p": "登記", "q": "二重譲渡、勝つのは？", "a": "先に登記した人"}, {"p": "登記", "q": "知ってて買った人は？", "a": "勝てる。狙った奴だけ負ける"}, {"p": "登記", "q": "取消し後・解除後・時効完成後は？", "a": "登記のヨーイドン"}, {"p": "登記", "q": "時効完成「前」からいた相手には？", "a": "登記なしで勝てる"}, {"p": "登記", "q": "甲区は？", "a": "所有権"}, {"p": "登記", "q": "乙区は？", "a": "それ以外"}, {"p": "登記", "q": "表示の登記は？", "a": "義務。1ヶ月"}, {"p": "登記", "q": "相続登記は？", "a": "3年。10万円以下の過料"}, {"p": "登記", "q": "住所の変更登記は？", "a": "2年。5万円以下の過料"}, {"p": "登記", "q": "仮登記は？", "a": "席取り。本登記で順位がさかのぼる"}, {"p": "区分所有", "q": "持分のバラ売りは？", "a": "できない。ワンセット"}, {"p": "区分所有", "q": "管理組合、入らない自由は？", "a": "ない"}, {"p": "区分所有", "q": "改正のフックは？", "a": "来ない人で、マンションを止めない"}, {"p": "区分所有", "q": "規約変更は？", "a": "出席ベースで各4分の3"}, {"p": "区分所有", "q": "危険是正とバリアフリーは？", "a": "3分の2に緩和"}, {"p": "区分所有", "q": "建替えは？", "a": "全員ベースで原則5分の4"}, {"p": "区分所有", "q": "招集通知は？", "a": "1週間前まで。伸ばすのだけOK"}, {"p": "区分所有", "q": "借りて住んでる人は？", "a": "意見は言えるけど、決められない"}, {"p": "賃貸借", "q": "賃貸借の上限は？", "a": "50年"}, {"p": "賃貸借", "q": "又貸しに必要なのは？", "a": "大家の承諾"}, {"p": "賃貸借", "q": "雨漏りを直すのは？", "a": "大家"}, {"p": "賃貸借", "q": "必要費は？", "a": "直ちに請求できる"}, {"p": "賃貸借", "q": "敷金が返るのは？", "a": "明渡しが先"}, {"p": "賃貸借", "q": "大家が変わったら敷金は？", "a": "新しい大家に引き継がれる"}, {"p": "賃貸借", "q": "日焼けや家具の跡は？", "a": "直さなくていい"}, {"p": "賃貸借", "q": "タダ借り、借主が死んだら？", "a": "終了。相続されない"}, {"p": "借家", "q": "1年未満の借家契約は？", "a": "期間の定めなし"}, {"p": "借家", "q": "借家の期間の上限は？", "a": "なし"}, {"p": "借家", "q": "更新拒絶の通知は？", "a": "1年前から6ヶ月前まで＋正当事由"}, {"p": "借家", "q": "解約の申入れは？", "a": "大家から6ヶ月、借主から3ヶ月"}, {"p": "借家", "q": "定期借家の命綱は？", "a": "事前の説明書面"}, {"p": "借家", "q": "借家の買取請求は？", "a": "造作。特約で外せる"}, {"p": "借家", "q": "借家の対抗要件は？", "a": "建物の引渡し。カギ"}, {"p": "借地", "q": "借地の数字3つは？", "a": "30・20・10", "sa": "さんじゅう、にじゅう、じゅう"}, {"p": "借地", "q": "更新請求の条件は？", "a": "建物があること"}, {"p": "借地", "q": "借地の買取請求は？", "a": "建物。特約で外せない"}, {"p": "借地", "q": "借地の対抗要件は？", "a": "自分名義の建物の登記"}, {"p": "借地", "q": "建物が焼けたら？", "a": "掲示で2年"}, {"p": "借地", "q": "一般定期借地権は？", "a": "50年以上"}, {"p": "借地", "q": "事業用定期借地権は？", "a": "10年以上50年未満。公正証書"}, {"p": "借地", "q": "建物譲渡特約付は？", "a": "30年以上。書面すら不要"}]}, {"id": "zei", "subject": "税・その他", "title": "総復習ラリー", "src": "RE.LIFE「税・その他 完全攻略」総復習ラリー（講師スライド p.171）", "vid": "sAQtgyua-RA", "cards": [{"q": "取得税と固定資産税、一言で？", "a": "入会金と、年会費"}, {"q": "相続に不動産取得税は？", "a": "かからない"}, {"q": "固定資産税は誰に？", "a": "1月1日の持ち主"}, {"q": "小規模住宅用地は？", "a": "200㎡以下、6分の1"}, {"q": "3,000万円控除と一緒に使えるのは？", "a": "軽減税率。買換えとは組めない"}, {"q": "住宅金融支援機構の役割分担は？", "a": "貸すのは銀行、買い取るのが機構"}, {"q": "徒歩1分は？", "a": "80m。端数は切り上げ", "sa": "80メートル。はすうは、切り上げ"}, {"q": "危ない土地は？", "a": "水に近い、低い場所"}]}], "timing": {"gyo-8shu": {"file": "rally-audio/gyo-8shu.m4a", "dur": 111.95, "cues": [[2.49, 4.54], [7.26, 9.17], [10.15, 11.79], [12.77, 14.93], [16.45, 18.33], [22.91, 25.47], [26.98, 29.01], [31.6, 33.34], [37.0, 38.77], [40.17, 42.59], [43.31, 44.81], [47.46, 49.49], [50.87, 53.16], [56.42, 58.73], [60.37, 62.94], [65.8, 67.42], [68.21, 70.36], [73.22, 75.63], [79.14, 80.51], [83.75, 86.46], [87.59, 90.41], [91.66, 93.15], [96.14, 97.9], [99.67, 101.58], [102.57, 104.08], [107.08, 109.09]], "v": "ecc97dc0", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "gyo-35": {"file": "rally-audio/gyo-35.m4a", "dur": 82.18, "cues": [[2.24, 4.54], [6.47, 7.97], [9.89, 11.53], [13.59, 14.56], [15.55, 17.31], [18.96, 20.47], [22.52, 24.3], [26.76, 28.81], [30.2, 32.49], [33.88, 37.24], [38.23, 40.65], [42.03, 44.47], [47.34, 48.83], [51.15, 52.52], [54.05, 56.08], [58.15, 60.17], [62.36, 63.47], [66.6, 67.7], [70.02, 72.19], [73.32, 76.97], [79.54, 81.18]], "v": "3385d766", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "gyo-37": {"file": "rally-audio/gyo-37.m4a", "dur": 74.03, "cues": [[1.78, 3.56], [5.08, 6.05], [7.05, 8.55], [10.34, 11.45], [12.32, 13.83], [15.75, 18.46], [19.58, 20.97], [22.22, 23.6], [25.39, 26.9], [30.17, 31.81], [35.06, 37.23], [38.88, 40.92], [42.17, 45.02], [48.81, 50.58], [54.24, 56.95], [58.07, 60.11], [61.24, 63.14], [66.93, 68.3], [70.47, 72.51]], "v": "1b5d73d9", "engine": "say", "model": "macOS say"}, "horei-num": {"file": "rally-audio/horei-num.m4a", "dur": 203.2, "cues": [[1.97, 4.14], [5.54, 6.78], [7.77, 9.81], [10.66, 13.23], [13.94, 16.12], [18.56, 20.33], [21.59, 24.04], [26.49, 27.87], [29.83, 31.32], [33.24, 35.82], [37.33, 38.7], [39.69, 42.67], [44.33, 45.71], [47.09, 48.2], [49.58, 51.73], [53.91, 56.35], [58.68, 62.04], [64.1, 65.88], [67.0, 68.38], [69.5, 71.67], [73.85, 75.76], [77.48, 79.79], [82.24, 83.89], [86.48, 88.51], [92.02, 93.8], [95.59, 97.9], [100.62, 103.2], [105.79, 107.96], [112.95, 114.98], [117.03, 119.33], [121.38, 122.76], [124.94, 126.18], [127.97, 129.08], [130.73, 132.24], [133.23, 135.12], [136.9, 138.15], [139.94, 141.71], [143.36, 145.8], [146.53, 149.49], [150.73, 152.91], [154.04, 156.07], [157.05, 158.55], [161.28, 162.89], [165.62, 167.92], [169.97, 171.75], [174.33, 176.64], [178.14, 180.44], [181.57, 183.33], [184.2, 186.51], [189.76, 191.26], [192.65, 195.36], [196.87, 198.52], [199.91, 201.68]], "v": "fabcff5e", "engine": "say", "model": "macOS say"}, "horei-batsu": {"file": "rally-audio/horei-batsu.m4a", "dur": 67.81, "cues": [[2.51, 5.07], [6.73, 8.63], [9.88, 13.12], [14.77, 17.61], [19.4, 21.98], [24.57, 27.01], [29.21, 31.78], [33.57, 36.14], [38.33, 40.76], [42.16, 44.59], [46.51, 48.55], [49.94, 52.38], [54.04, 57.02], [58.68, 61.25], [63.71, 66.15]], "v": "cb3b2efb", "engine": "say", "model": "macOS say"}, "kenri-1": {"file": "rally-audio/kenri-1.m4a", "dur": 120.38, "cues": [[2.36, 4.81], [5.53, 8.08], [10.14, 11.65], [12.5, 14.94], [16.99, 19.31], [21.49, 23.94], [25.46, 27.77], [29.01, 31.45], [33.64, 35.02], [35.88, 38.45], [39.3, 40.68], [41.53, 43.4], [44.66, 46.44], [47.7, 50.26], [51.12, 52.89], [54.67, 56.57], [57.55, 60.03], [61.54, 63.85], [65.23, 66.99], [68.51, 70.55], [71.8, 74.37], [75.89, 77.67], [80.0, 82.03], [84.09, 86.54], [88.99, 90.9], [93.26, 94.76], [96.02, 97.52], [99.18, 100.81], [102.47, 103.97], [105.5, 107.27], [108.53, 110.57], [112.22, 114.54], [115.52, 117.16], [118.02, 119.66]], "v": "90a1fc6d", "engine": "say", "model": "macOS say"}, "kenri-2": {"file": "rally-audio/kenri-2.m4a", "dur": 173.09, "cues": [[3.32, 5.49], [6.33, 7.97], [8.96, 11.0], [12.25, 14.03], [16.09, 18.53], [19.92, 22.76], [24.14, 25.92], [27.84, 30.41], [31.53, 32.91], [35.63, 37.41], [38.8, 40.7], [42.75, 45.2], [46.71, 49.15], [50.67, 51.77], [52.63, 53.73], [54.71, 56.21], [57.34, 58.72], [60.64, 62.42], [64.2, 65.45], [67.9, 69.68], [71.36, 73.53], [74.19, 75.83], [78.28, 79.65], [81.57, 83.87], [85.26, 86.51], [88.56, 89.93], [92.26, 94.13], [96.42, 98.06], [98.91, 100.82], [101.94, 103.71], [104.44, 105.68], [107.21, 108.84], [109.97, 112.12], [114.17, 116.08], [117.46, 119.63], [121.16, 123.2], [124.58, 126.49], [127.2, 128.97], [131.83, 133.47], [135.79, 137.57], [138.96, 140.74], [142.27, 144.04], [145.56, 147.34], [149.31, 151.09], [152.47, 154.25], [155.91, 157.69], [159.48, 161.12], [162.24, 164.02], [165.14, 167.06], [169.39, 171.16]], "v": "78609dd1", "engine": "say", "model": "macOS say"}, "zei": {"file": "rally-audio/zei.m4a", "dur": 32.96, "cues": [[1.84, 4.15], [5.54, 7.59], [8.69, 10.47], [11.99, 13.77], [16.21, 19.17], [21.36, 23.93], [26.25, 27.63], [29.95, 31.44]], "v": "ca606829", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "horei-toshi": {"file": "rally-audio/horei-toshi.m4a", "dur": 127.26, "cues": [[1.97, 3.22], [5.26, 6.64], [7.36, 9.0], [11.05, 12.69], [13.95, 15.86], [18.45, 19.95], [21.06, 22.71], [24.5, 26.39], [29.12, 31.43], [32.69, 34.33], [35.71, 37.89], [39.28, 42.52], [43.78, 46.35], [49.07, 51.78], [54.1, 56.14], [58.73, 61.44], [63.23, 65.0], [66.38, 67.88], [70.61, 73.05], [74.84, 76.34], [78.67, 80.97], [82.36, 84.8], [86.21, 87.98], [88.97, 90.61], [91.31, 92.54], [93.27, 95.31], [96.02, 97.52], [98.9, 101.21], [103.26, 104.88], [106.0, 107.68], [108.52, 110.44], [112.22, 113.86], [116.18, 117.96], [120.02, 122.06], [123.98, 126.01]], "v": "07997fa1", "engine": "say", "model": "macOS say"}}});
@@ -2866,6 +3008,7 @@ document.addEventListener('takken-kami-close',()=>tab('p'));
 document.addEventListener('click',e=>{const b=e.target.closest('[data-kami-open]');if(b)tab('k',b.dataset.kamiQuestion?{volume:Number(b.dataset.kamiVolume||3),questionNo:Number(b.dataset.kamiQuestion),kind:b.dataset.kamiKind||'main',item:b.dataset.kamiItem}:undefined);});
 document.addEventListener('takken-pm-open-slide',e=>{const n=Number(e.detail.slide);if(TOC.some(s=>s.no===n)){tab('s');go(n);}});
 document.addEventListener('takken-pm-open-diagram',e=>openDiagram(e.detail.target));
+document.addEventListener('takken-open-quiz',e=>{tab('q');$('#q-ch').value='';const want=e.detail&&e.detail.mode||'due';const mode=[want,'due','ng','new','all'].find(m=>filterDeck('',m).length);$('#q-md').value=mode;$('#q-go').click();});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-license-view]');if(!b)return;const guide=b.closest('.license-guide');guide.querySelectorAll('[data-license-view]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));guide.querySelectorAll('.license-panel').forEach(x=>{x.hidden=x.id!=='license-'+b.dataset.licenseView;});});
 
 function openLicenseDiagram(panel){const button=document.querySelector('[data-license-view="'+panel+'"]');if(button)button.click();openDiagram('zk26');}
@@ -2891,7 +3034,7 @@ function filterDeck(ch,md){return QS.filter(q=>(ch===''||String(q.slide_no)===ch
   h+=`<option value="${e.no}">${pad(e.no)} ${e.title} (${n})</option>`;});
  if(sb)h+='</optgroup>';$('#q-ch').innerHTML=h;})();
 $('#toc-count').textContent=`目次 ― ${TOC.length} 枚`;
-function renderPlan(){const d=Math.ceil((new Date('2026-10-18T00:00:00+09:00')-Date.now())/864e5);$('#q-plan').innerHTML=`<span>本試験まで ${d} 日</span><span>目標 権利9/14・税他7/8・合格圏27／安全圏32 ｜ 過去問×根拠、新教材は増やさない</span>`;}
+function renderPlan(){const d=Math.ceil((new Date('2026-10-18T00:00:00+09:00')-Date.now())/864e5);$('#q-plan').innerHTML=`<span>あと${d}日・目標38点</span><span>業法18・法令6・税価2・免除4・権利8</span>`;}
 function renderProg(){renderPlan();$('#q-prog-list').innerHTML=TOC.map(e=>{const qs=QS.filter(q=>q.slide_no===e.no);if(!qs.length)return '';const ok=qs.filter(q=>stats[q.id]&&stats[q.id].last==='ok').length,ng=qs.filter(q=>stats[q.id]&&stats[q.id].last==='ng').length;
  return `<div class="pr"><span class="no">${pad(e.no)}</span><div><div style="margin-bottom:4px">${e.title}</div><div class="bar"><i class="ok" style="width:${ok/qs.length*100}%"></i><i class="ng" style="left:${ok/qs.length*100}%;width:${ng/qs.length*100}%"></i></div></div><span class="cnt">${ok}/${qs.length}</span></div>`;}).join('');
  const due=QS.filter(isDue).length;$('#q-score').textContent=due?`要復習 ${due}問`:'';$('#q-prog').textContent=`正答 ${Object.values(stats).filter(s=>s.last==='ok').length} ／ 学習済 ${Object.keys(stats).length}`;}
