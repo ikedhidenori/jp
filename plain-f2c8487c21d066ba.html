@@ -15,7 +15,17 @@ a{color:#c9b98f;word-break:break-all}
 code{font-size:13px;color:#d9cfbf}
 .lead{background:#2a2725;border-left:3px solid #a8905a;padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
 .s{color:#b9b2a6;font-size:14px}
-</style></head><body><main>
+
+@media (max-width:640px){
+ .tw{margin:0;padding:0;overflow:visible}
+ table,thead,tbody,tr,th,td{display:block;min-width:0}
+ thead{display:none}
+ tr{background:#242220;border:1px solid #3a3733;border-radius:8px;padding:8px 10px;margin:10px 0}
+ tr:nth-child(even) td{background:transparent}
+ td{border:0;padding:3px 0;font-size:14px}
+ td::before{content:attr(data-label);display:block;color:#a8905a;font-size:11px;letter-spacing:.04em}
+ td:empty{display:none}
+}</style></head><body><main>
 <h1 id="科学の可視化ショート動画--戦略書-v1-2026-09-30">科学の可視化ショート動画 — 戦略書 v1 (2026-09-30)</h1>
 <p>読者: ジョニー。目的: v2「色つきの影」が「美しいが『へー』で終わる」問題を解き、見た人を「なんで？→原理→納得→面白い→フォロー」まで運ぶ型と、副業として回る仕組みを根拠つきで決める。英語で世界向け。</p>
 <h2 id="0-結論-先に">0. 結論 (先に)</h2>
@@ -612,4 +622,4 @@ code{font-size:13px;color:#d9cfbf}
 <p>私が判断で決めた点: 主戦場の選定 (YT Shorts + TikTok)、試験の判定基準 (4 指標のうち 3 つで 1.5 倍)、やめる基準の数値、10 話の題材、収益の段階分け。いずれも根拠は上に書いたが、数値の閾値は経験則で、ジョニーが変えてよい。</p>
 
 <p class="s" style="margin-top:40px">このページは 2026-10-03 23:04 JST に自動削除されます</p>
-</main></body></html>
+</main><script>document.querySelectorAll('table').forEach(t=>{const hs=[...t.querySelectorAll('thead th')].map(x=>x.textContent.trim());t.querySelectorAll('tbody tr').forEach(r=>[...r.children].forEach((c,i)=>c.setAttribute('data-label',hs[i]||'')))});</script></body></html>
