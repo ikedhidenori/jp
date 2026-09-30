@@ -711,6 +711,24 @@ body.r #slides,body.r #ft{display:none}
 body.toc #nav{visibility:hidden}
 /* 目次ボタンはスライドの時だけ意味がある */
 body.pm #bt-toc,body.r #bt-toc{visibility:hidden}
+/* スライド下の重複したページ送りバーは外す（見出しに番号がある。移動はスクロールと目次） */
+#ft{display:none!important}
+#slides{padding-bottom:calc(var(--abot) + 16px)}
+/* スライド → 図解 */
+.zd-slide-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:0 16px;margin:-4px 0 22px}
+.zd-slide-links span{font-size:12px;color:var(--amute);font-weight:700}
+.zd-slide-links button{min-height:40px;padding:0 14px;border:1px solid var(--aline);border-radius:20px;font-size:13px;text-align:left}
+/* 図解の目次 */
+.zd-index{margin:0 0 28px}
+.zd-index h2{font-size:20px;margin:4px 0 6px;display:flex;align-items:baseline;gap:10px}
+.zd-index h2 small{font-size:12px;font-weight:400;color:var(--amute)}
+.zd-index h3{font-size:13px;color:var(--amute);margin:18px 0 6px;letter-spacing:.06em}
+.zd-list{display:grid;gap:0;border-top:1px solid var(--aline)}
+.zd-list button{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:center;text-align:left;min-height:48px;padding:8px 2px;border-bottom:1px solid var(--aline);font-size:14px;line-height:1.4}
+.zd-list b{font-size:12px;color:var(--amute);font-variant-numeric:tabular-nums}
+.zd-back{display:none;position:fixed;right:14px;bottom:calc(var(--abot) + 14px);z-index:24;min-height:44px;padding:0 16px;border-radius:22px;background:var(--afg);color:var(--abg);font-weight:700;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+body.z .zd-back{display:block}
+.zd-index,#eight-update,#guarantee-guide,.license-guide{scroll-margin-top:calc(var(--ahd) + env(safe-area-inset-top) + 12px)}
 
 body.pm #slides,body.pm #ft{display:none}
 body:not(.pm) #pm-dashboard{display:none}
@@ -2677,6 +2695,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     var link = (catalog.questionLinks || {})[r.volume + ':' + r.questionNo] || {}, sec = section(r.volume, r.questionNo) || {}, btns = [];
     var hasBank = false; try { hasBank = global.TakkenKami.hasQuestion({volume: r.volume, questionNo: r.questionNo, kind: 'main'}); } catch (_) {}
     if (hasBank) btns.push('<button type="button" class="cq-chip" data-kami-open data-kami-volume="' + r.volume + '" data-kami-question="' + r.questionNo + '" data-kami-kind="main">解き直す</button>');
+    if (!link.diagram && sec.diagram) link = {diagram: sec.diagram, slide: link.slide};
     if (link.diagram) btns.push('<button type="button" class="cq-chip" data-cq-diagram="' + esc(link.diagram) + '">図解</button>');
     var slide = link.slide || sec.slide; if (slide) btns.push('<button type="button" class="cq-chip" data-cq-slide="' + esc(slide) + '">スライド</button>');
     var topic = String(r.topic || '').replace(/^本問(不)?正解[、。・]?/, '').replace(/^ユーザー申告：/, '');
@@ -2727,7 +2746,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     v = v || 2; a = a || ''; b = b || '';
     var html = '<h2>' + (known ? volLabel(v) + ' ' + pad3(a) + '〜' + pad3(b) : '解いた範囲を記録') + '</h2>' +
       '<div class="cq-range"' + (known ? ' hidden' : '') + '><label>分冊<select name="volume"><option value="2">第2分冊 業法</option><option value="3">第3分冊 法令・税・免除</option><option value="1">第1分冊 権利</option></select></label><label>最初<input name="start" type="number" inputmode="numeric" min="1" max="122" value="' + a + '"></label><label>最後<input name="end" type="number" inputmode="numeric" min="1" max="122" value="' + b + '"></label></div>' +
-      '<p class="cq-sheet-hint">間違えた番号をタップして<b class="cq-ng">×</b>に。もう一度で<b>未</b>（まだ解いていない）。</p><div class="cq-grid" id="cq-grid"></div>' +
+      '<p class="cq-sheet-hint">間違えた番号をタップして<b class="cq-ng">×</b>に。もう一度で<b>未</b>（まだ解いていない）。「済」は記録済みで、前回の○×を表示しています。解き直した問題だけ残し、ほかは<b>未</b>にしてください。</p><div class="cq-grid" id="cq-grid"></div>' +
       '<label class="cq-date-row">解いた日<input name="date" type="date" value="' + d + '" max="' + d + '"></label>' +
       '<p class="cq-sheet-sum" id="cq-sum"></p><button type="button" class="cq-save" id="cq-save">記録する</button>';
     openSheet(html);
@@ -2736,7 +2755,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     function drawGrid() {
       var vv = Number(body.querySelector('[name=volume]').value), aa = Number(body.querySelector('[name=start]').value), bb = Number(body.querySelector('[name=end]').value), g = body.querySelector('#cq-grid');
       if (!(aa >= 1 && bb >= aa && bb - aa <= 60)) { g.innerHTML = '<p class="pm-muted">最初と最後の番号を入れてください（61問まで）。</p>'; sum(); return; }
-      var h = ''; for (var q = aa; q <= bb; q++) { var st = marks[q] || 'o', prev = latest[vv + ':' + q]; h += '<button type="button" class="cq-cell cq-' + st + (prev ? ' cq-had' : '') + '" data-q="' + q + '"><span>' + pad3(q) + '</span><i>' + (st === 'o' ? '○' : st === 'x' ? '×' : '未') + '</i></button>'; }
+      var h = ''; for (var q = aa; q <= bb; q++) { var prev = latest[vv + ':' + q]; if (!marks[q] && prev) marks[q] = prev.correct ? 'o' : 'x'; var st = marks[q] || 'o'; h += '<button type="button" class="cq-cell cq-' + st + (prev ? ' cq-had' : '') + '" data-q="' + q + '"><span>' + pad3(q) + '</span><i>' + (st === 'o' ? '○' : st === 'x' ? '×' : '未') + '</i></button>'; }
       g.innerHTML = h; sum();
     }
     function sum() { var aa = Number(body.querySelector('[name=start]').value), bb = Number(body.querySelector('[name=end]').value), o = 0, x = 0; for (var q = aa; q <= bb; q++) { var s = marks[q] || 'o'; if (s === 'o') o++; else if (s === 'x') x++; } body.querySelector('#cq-sum').textContent = (aa && bb >= aa) ? '○ ' + o + '問・× ' + x + '問を記録' : ''; }
@@ -2761,7 +2780,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     var body = sheet.querySelector('.cq-sheet-body');
     function upd() { var s = 0; plan.subjects.forEach(function (x) { s += vals[x.id]; body.querySelector('[data-val=' + x.id + ']').textContent = vals[x.id]; }); body.querySelector('#cq-mock-sum').textContent = '合計 ' + s + '点（この回の目安 ' + m.goal + '点）'; }
     body.querySelector('.cq-steppers').addEventListener('click', function (e) { var b = e.target.closest('[data-step]'); if (!b) return; var p = b.dataset.step.split(':'), sub = plan.subjects.filter(function (x) { return x.id === p[0]; })[0]; vals[p[0]] = Math.max(0, Math.min(sub.max, vals[p[0]] + Number(p[1]))); upd(); });
-    body.querySelector('#cq-mock-save').addEventListener('click', function () { var s = {date: cur.date || today()}; plan.subjects.forEach(function (x) { s[x.id] = vals[x.id]; }); state.mocks[id] = s; persist(); closeSheet(); msg(m.label + 'の点数を保存しました（合計 ' + mockTotal(s) + '点）。'); });
+    body.querySelector('#cq-mock-save').addEventListener('click', function () { if (!plan.subjects.some(function (x) { return vals[x.id] > 0; })) { body.querySelector('#cq-mock-sum').textContent = '点数を入れてから保存してください。'; return; } var s = {date: cur.date || today()}; plan.subjects.forEach(function (x) { s[x.id] = vals[x.id]; }); state.mocks[id] = s; persist(); closeSheet(); msg(m.label + 'の点数を保存しました（合計 ' + mockTotal(s) + '点）。'); });
     upd();
   }
   function bind() {
@@ -2988,7 +3007,7 @@ function tab(t,options){
  const was=document.body.classList.contains('r')?'r':document.body.classList.contains('n')?'n':document.body.classList.contains('k')?'k':document.body.classList.contains('pm')?'p':document.body.classList.contains('q')?'q':document.body.classList.contains('z')?'z':'s';
  scrollPos[was]=window.scrollY;
  document.body.classList.toggle('r',t==='r');document.body.classList.toggle('n',t==='n');document.body.classList.toggle('k',t==='k');document.body.classList.toggle('pm',t==='p');document.body.classList.toggle('q',t==='q');document.body.classList.toggle('z',t==='z');
- ['p','s','q','z','r'].forEach(k=>$('#tab-'+k).classList.toggle('on',t===k||(t==='k'&&k==='q')));
+ ['p','s','q','z','r'].forEach(k=>$('#tab-'+k).classList.toggle('on',t===k||(t==='k'&&k==='q')||(t==='n'&&k==='p')));
  if(t==='r'){$('#ttl').textContent='ラリー';history.replaceState(null,'','#rally');TakkenRally.show();}
  else if(t==='n'){$('#ttl').textContent='つまずきノート';history.replaceState(null,'','#pitfalls');}
  else if(t==='p'){$('#ttl').innerHTML='宅建2026';history.replaceState(null,'','#pm');TakkenPM.show();}
@@ -3018,7 +3037,7 @@ function openDiagram(id){const target=document.getElementById(id);if(!target)ret
 const slideDiagrams={14:['zk37','図解：報酬は枠で覚える'],4:['zk33','保証金：金額・行き先・期限・公告'],57:['zk34','図解：協会へは金銭のみ'],58:['zk35','図解：期限と起算点'],59:['zk36','図解：公告の要否'],60:['zk34','図解：保証協会を挟む流れ'],10:['zk27','図解：貸借では外れる5項目'],2:['zk26','図解：免許取消し・5年・執行猶予'],27:['zk24','図解：建築確認・構造計算・土台固定'],56:['zk-focus','重点図解：構造・材料・地盤を整理'],34:['zk18','図解：かわいそうメーター／AとCの勝敗表'],35:['zk19','図解：制限行為能力者とCの勝敗'],41:['zk20','図解：Cは取消しの前？後？'],48:['zk14','図解：誰が・いつ払う？'],49:['zk14','図解：誰が払う？／土地と家の軽減'],50:['zk14','図解：取得税と固定資産税'],51:['zk13','図解：売った年の元日へ戻る／3つの特例'],54:['zk17','図解：銀行と機構の役割']};
 Object.entries(slideDiagrams).forEach(([n,[id,label]])=>{const w=$('#w'+n);if(w)w.insertAdjacentHTML('afterend',`<a class="zk-inline" data-zk-target="${id}" href="#${id}">${label} →</a>`);});
 document.addEventListener('click',e=>{const a=e.target.closest('[data-zk-target]');if(a){e.preventDefault();openDiagram(a.dataset.zkTarget);}});
-$('#tab-s').onclick=()=>tab('s');$('#tab-q').onclick=()=>tab('q');$('#tab-z').onclick=()=>openDiagram(cur===14?'zk37':cur===4?'zk33':cur>=57?({57:'zk34',58:'zk35',59:'zk36',60:'zk34'}[cur]||'zk33'):cur>=8&&cur<=10?'zk27':cur===56?'zk-focus':cur>=47?'zk-tax':cur>=34?'zk-rights':cur<18?'zk26':'zk-law');
+$('#tab-s').onclick=()=>tab('s');$('#tab-q').onclick=()=>tab('q');$('#tab-z').onclick=()=>openDiagram('zk-index');
 document.addEventListener('click',e=>{const b=e.target.closest('.zk-go');if(!b)return;tab('s');go(+b.dataset.go);});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-zk-answer]');if(!b)return;const box=b.closest('.zk-check');box.querySelectorAll('[data-zk-answer]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const out=box.querySelector('.zk-feedback');out.hidden=false;out.textContent=(b.dataset.zkAnswer===box.dataset.correct?'正解。':'答えは'+(box.dataset.correct==='true'?'○':'×')+'。')+box.dataset.explanation;});
 /* ---- 問題集: データ ---- */
@@ -3085,7 +3104,57 @@ async function importKamiLink(fragment){
  }catch(e){out.textContent='取り込めませんでした。取り込み用リンクを開き直すか、問題集JSONを読み込んでください。';out.classList.add('kr-warn');}
 }
 window.addEventListener('hashchange',()=>{const h=location.hash;if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}});
-(function(){const h=initialHash;if(h==='#rally'){tab('r');}else if(h==='#pitfalls'||h.startsWith('#pf-')){tab('n');showPitfall(h.startsWith('#pf-')?h.slice(1):'pf-deposit-cap',false);}else if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}else if(h==='#kami'){tab('k');}else if(h==='#toc')toc(true);else if(h==='#guarantee-guide'||/^#zk(?:\d+|-tax|-law|-rights|-focus)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){setTimeout(()=>go(+h.slice(2)),50);}else{cur=Math.min(TOC.length,Math.max(1,+localStorage.getItem('tk-pos')||1));tab('p');}})();
+(function(){const h=initialHash;if(h==='#rally'){tab('r');}else if(h==='#pitfalls'||h.startsWith('#pf-')){tab('n');showPitfall(h.startsWith('#pf-')?h.slice(1):'pf-deposit-cap',false);}else if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}else if(h==='#kami'){tab('k');}else if(h==='#toc'){tab('s');toc(true);}else if(h==='#guarantee-guide'||/^#zk(?:\d+|-tax|-law|-rights|-focus|-index)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){tab('s');setTimeout(()=>go(+h.slice(2)),50);}else{cur=Math.min(TOC.length,Math.max(1,+localStorage.getItem('tk-pos')||1));tab('p');}})();
+</script>
+<script>/* 見つけやすさの整理（2026-09-30）。スライド・図解の中身は変えない。
+   1) 図解タブの先頭に、本試験の解く順で並べた目次
+   2) スライドの下に、そのスライドを参照している図解へのボタン */
+(function () {
+  'use strict';
+  var GROUPS = [
+    {label: '宅建業法', ids: ['zk26', 'zk28', 'zk29', 'zk30', 'zk31', 'zk32', 'guarantee-guide', 'zk33', 'zk34', 'zk35', 'zk36', 'zk27', 'eight-update', 'zk37']},
+    {label: '免除5問（土地・建物・機構）', ids: ['zk21', 'zk22', 'zk23', 'zk24', 'zk25', 'zk17']},
+    {label: '法令上の制限', ids: ['zk1', 'zk2', 'zk3', 'zk4', 'zk5', 'zk9', 'zk10', 'zk11', 'zk12', 'zk6', 'zk7', 'zk8']},
+    {label: '税・価格', ids: ['zk13', 'zk14', 'zk15', 'zk16']},
+    {label: '権利関係', ids: ['zk18', 'zk19', 'zk20']}
+  ];
+  function title(el) {
+    var cap = el.querySelector('figcaption') || el.querySelector('h2,h3');
+    if (!cap) return el.id;
+    var c = cap.cloneNode(true); c.querySelectorAll('button,a').forEach(function (b) { b.remove(); });
+    var parts = []; (c.children.length ? Array.from(c.childNodes) : [c]).forEach(function (n) { var t = (n.textContent || '').replace(/\s+/g, ' ').trim(); if (t) parts.push(t); });
+    return parts.join('：').replace(/^図\d+\s*·?\s*：?/, '').replace(/^·\s*/, '').trim();
+  }
+  function num(id) { var m = /^zk(\d+)$/.exec(id); return m ? '図' + m[1] : '解説'; }
+  var zukai = document.getElementById('zukai');
+  if (!zukai) return;
+  // 1) 目次
+  var nav = document.createElement('nav'); nav.className = 'zd-index'; nav.id = 'zk-index'; nav.setAttribute('aria-label', '図解の目次');
+  var h = '<h2>図解の目次<small>本試験で解く順</small></h2>';
+  GROUPS.forEach(function (g) {
+    var items = g.ids.map(function (id) { var el = document.getElementById(id); return el ? '<button type="button" data-zd="' + id + '"><b>' + num(id) + '</b><span>' + title(el).replace(/[&<>]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;'}[c]; }) + '</span></button>' : ''; }).join('');
+    if (items) h += '<h3>' + g.label + '</h3><div class="zd-list">' + items + '</div>';
+  });
+  nav.innerHTML = h;
+  zukai.insertBefore(nav, zukai.firstChild);
+  nav.addEventListener('click', function (e) { var b = e.target.closest('[data-zd]'); if (b) openDiagram(b.dataset.zd); });
+  var back = document.createElement('button'); back.type = 'button'; back.className = 'zd-back'; back.textContent = '目次'; back.setAttribute('aria-label', '図解の目次へ戻る');
+  back.addEventListener('click', function () { nav.scrollIntoView({block: 'start'}); history.replaceState(null, '', '#zukai'); });
+  document.body.appendChild(back);
+  // 2) スライド → 図解
+  var bySlide = {};
+  zukai.querySelectorAll('.zk-go[data-go]').forEach(function (b) {
+    var fig = b.closest('figure[id],[id^="zk"]'); if (!fig) return;
+    var n = b.dataset.go; (bySlide[n] = bySlide[n] || []).indexOf(fig.id) < 0 && bySlide[n].push(fig.id);
+  });
+  Object.keys(bySlide).forEach(function (n) {
+    var wrap = document.getElementById('w' + n); if (!wrap) return;
+    var row = document.createElement('div'); row.className = 'zd-slide-links';
+    row.innerHTML = '<span>図解</span>' + bySlide[n].map(function (id) { var el = document.getElementById(id); return '<button type="button" data-zd="' + id + '">' + num(id) + ' ' + title(el).replace(/[&<>]/g, '') + '</button>'; }).join('');
+    row.addEventListener('click', function (e) { var b = e.target.closest('[data-zd]'); if (b) openDiagram(b.dataset.zd); });
+    wrap.parentNode.insertBefore(row, wrap.nextSibling);
+  });
+})();
 </script>
 </body>
 </html>
