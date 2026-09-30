@@ -1,0 +1,237 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ブランド立ち上げを速くする仕組み 設計書 v1</title><style>body{margin:0;background:#1f1d1b;color:#e8e3da;font:16px/1.8 -apple-system,"Hiragino Sans",sans-serif}
+main{max-width:720px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:22px;line-height:1.4;margin:0 0 6px;font-weight:600}
+h2{font-size:18px;margin:36px 0 10px;padding-top:12px;border-top:1px solid #3a3733;color:#f3efe7}
+h3{font-size:16px;margin:22px 0 6px;color:#d9cfbf}
+p,li{font-size:16px} li{margin:5px 0}
+strong{color:#f6efe0}
+table{border-collapse:collapse;font-size:13px;line-height:1.5;margin:10px 0;min-width:100%}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:0 16px}
+th,td{border:1px solid #3a3733;padding:6px 8px;vertical-align:top;text-align:left;min-width:90px}
+th{background:#2a2725;color:#f3efe7;font-weight:600}
+tr:nth-child(even) td{background:#242220}
+a{color:#c9b98f;word-break:break-all}
+code{font-size:13px;color:#d9cfbf}
+.lead{background:#2a2725;border-left:3px solid #a8905a;padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.s{color:#b9b2a6;font-size:14px}
+
+@media (max-width:640px){.tw{margin:0;padding:0;overflow:visible} table,thead,tbody,tr,th,td{display:block;min-width:0} thead{display:none}
+ tr{background:#242220;border:1px solid #3a3733;border-radius:8px;padding:8px 10px;margin:10px 0} tr:nth-child(even) td{background:transparent}
+ td{border:0;padding:3px 0;font-size:14px} td::before{content:attr(data-label);display:block;color:#a8905a;font-size:11px} td:empty{display:none}}</style></head><body><main><h1 id="ブランド立ち上げを速くする仕組み--設計書-v1-2026-10-01">ブランド立ち上げを速くする仕組み — 設計書 v1 (2026-10-01)</h1>
+<p>読者: ジョニー。目的: 副業でブランドを増やすたびに、YouTube・TikTok・Instagram・X の登録で詰まらないようにする。各社のロボット判定や回数制限をかいくぐる仕組みは作らない (規約違反で、育てたアカウントごと止まるため)。</p>
+<h2 id="0-結論">0. 結論</h2>
+<ul>
+<li><strong>今日詰まった原因は「ブランドごとに、ゼロから新しい身元を作ろうとした」こと。</strong> 各社とも「1人が複数ブランドを持つ」ための公式の近道を用意している。それを使えば、新規登録そのものが要らない所が多い</li>
+<li><strong>身元は「持ち主1人」に集約し、ブランドは各社の公式機能でその下に生やす:</strong>
+<ul>
+<li>YouTube: 1つの Google アカウントの下に<strong>ブランドチャンネルを最大100まで</strong>。新規の Google アカウントは不要 (個人の Gmail の下にある「絶滅職種図鑑」「街で宅建」と同じ作り)</li>
+<li>Instagram: 既存アカウントから「アカウントを追加 → 新しいアカウントを作成」。<strong>新しい電話番号もメールも不要</strong>。1つのアプリで最大10アカウントまで同時ログイン</li>
+<li>X: <strong>1つの電話番号を最大10アカウントで共用可</strong>。メールだけブランドごとに分ける (zukan.page の転送アドレス)</li>
+<li>TikTok: <strong>いちばん硬い。</strong> 電話番号・メール・Google/Apple 等のログインは、どれも1アカウントにしか使えない。ブランドごとに「まだ TikTok で使っていないメール」で登録する。電話番号を求められたら、ブランド用の正規の2回線目が要る</li>
+</ul></li>
+<li><strong>人の手が要るのは、ブランド1つにつき最初の約10分だけ</strong>にする (確認コード・パスワード・電話番号)。名前の空き確認・メールの転送・アイコン・自己紹介・投稿・分析は、私の仕組みで自動にする</li>
+<li><strong>投稿の自動化</strong>: YouTube と Instagram は自作の仕組みで可能。TikTok は自作での公開投稿が規約で閉じている (「自分のアカウントに投稿するためのツール」は不可と明記) ので、審査済みの予約投稿ツール (Buffer か Metricool) を通す</li>
+</ul>
+<h2 id="1-各社の公式ルール-2026-10-01-取得一次公式ヘルプ規約--二次それ以外">1. 各社の公式ルール (2026-10-01 取得。[一次]=公式ヘルプ・規約 / [二次]=それ以外)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>YouTube</th>
+<th>TikTok</th>
+<th>Instagram</th>
+<th>X</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1人で持てる数</td>
+<td>1 Google アカウントで最大100チャンネル [一次]</td>
+<td>複数可 (欺く目的は不可)。1端末の上限は未確認 [一次]</td>
+<td>同時ログイン最大10 [一次]</td>
+<td>最大10 (重ならない目的) [一次の写し]</td>
+</tr>
+<tr>
+<td>新ブランドに新しい身元が要るか</td>
+<td>不要 (ブランドチャンネル) [一次]</td>
+<td><strong>要る</strong> (電話・メール・SNS ログインは各1アカウント限り) [一次]</td>
+<td>不要 (既存から作成) [一次]</td>
+<td>メールだけ要る。電話は10アカウントで共用可 [一次の写し]</td>
+</tr>
+<tr>
+<td>電話番号の制約</td>
+<td>電話確認は <strong>1番号につき年2チャンネル</strong> [一次]</td>
+<td>1番号1アカウント [一次]</td>
+<td>不要 (パスワード作成を選ぶ時だけ) [一次]</td>
+<td>1番号10アカウント [一次の写し]</td>
+</tr>
+<tr>
+<td>収益化</td>
+<td>チャンネル単位。AdSense は1人1つに複数チャンネルを紐付け [一次]</td>
+<td>Creator Rewards は日本対象、個人アカウントのみ [一次]</td>
+<td>未確認</td>
+<td>Premium 加入が前提 [二次]</td>
+</tr>
+<tr>
+<td>自作の投稿の仕組み</td>
+<td>可。審査前は非公開のみ、1日100本まで [一次]</td>
+<td><strong>公開投稿は実質不可</strong> (審査前は非公開のみ、自分用ツールは不許可) [一次]</td>
+<td>可。自分のアカウントなら審査なし、24時間100件 [一次]</td>
+<td>可。従量課金 1投稿 $0.015、リンク付き $0.20 [一次]</td>
+</tr>
+<tr>
+<td>禁止されている近道</td>
+<td>チャンネル網のスパム、AI で似た内容を大量生産 [一次]</td>
+<td>自動化スクリプト、偽の身元、停止後の作り直し [一次]</td>
+<td>自動化による作成、停止中の人の新規作成 [一次]</td>
+<td>電話番号の上限を回避しての作成、自分同士の押し上げ、同じ内容の重複投稿 [一次の写し]</td>
+</tr>
+</tbody>
+</table></div>
+<p>主な出典: support.google.com/youtube/answer/3046356 (100チャンネル) / answer/171664 (1番号年2チャンネル) / answer/9914702 (AdSense) / answer/1311392 (量産コンテンツ) / tiktok.com/support/faq_detail?id=7581821549574052364 (1手段1アカウント) / tiktok.com/safety/en/policies-and-engagement/integrity-authenticity / developers.tiktok.com/doc/content-sharing-guidelines (自分用ツール不可) / help.instagram.com/1682672155283228 (既存から作成・10アカウント) / developers.facebook.com/docs/instagram-platform/content-publishing / help.x.com platform-manipulation・電話番号ページ (Wayback の写し、2026-08〜09) / docs.x.com/x-api/getting-started/pricing / developers.google.com/youtube/v3/determine_quota_cost</p>
+<h2 id="2-仕組みの全体像-持ち主1人--ブランドを生やす">2. 仕組みの全体像 (「持ち主1人 → ブランドを生やす」)</h2>
+<h3 id="一度だけ整えるもの">一度だけ整えるもの</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>部品</th>
+<th>中身</th>
+<th>費用 (目安)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>持ち主の Google アカウント</td>
+<td>YouTube のブランドチャンネルをすべてこの下に。AdSense も1つ</td>
+<td>0円</td>
+</tr>
+<tr>
+<td>持ち主の Instagram</td>
+<td>新ブランドはここから「新しいアカウントを作成」</td>
+<td>0円</td>
+</tr>
+<tr>
+<td>持ち主の電話番号 (2本)</td>
+<td>今の番号 + 正規の2回線目 (povo なら基本料0円。180日ごとに少額の課金が要る [一次])。YouTube の「1番号年2チャンネル」と TikTok の「1番号1アカウント」の枠を増やすため</td>
+<td>ほぼ0〜月900円</td>
+</tr>
+<tr>
+<td>ブランド用メール</td>
+<td>zukan.page の転送アドレス (今の Porkbun)。転送の作成を API でできる所に寄せるなら Cloudflare Email Routing (無料、200件まで [一次])</td>
+<td>0円</td>
+</tr>
+<tr>
+<td>パスワード管理</td>
+<td>Bitwarden ($19.80/年) か 1Password。ブランドごとに1つの保管庫 [二次]</td>
+<td>年3,000〜7,000円</td>
+</tr>
+<tr>
+<td>予約投稿ツール</td>
+<td>Metricool Advanced (年払い15ブランドで $53/月、API あり) か Buffer (1チャンネル $5/月、API あり) [一次]</td>
+<td>月8,000〜15,000円</td>
+</tr>
+<tr>
+<td>ブラウザ</td>
+<td>ブランドごとの Chrome の通常プロファイル (指紋偽装のツールは使わない)</td>
+<td>0円</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ブランド1つを立ち上げる流れ">ブランド1つを立ち上げる流れ</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>段</th>
+<th>中身</th>
+<th>誰が</th>
+<th>時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>名前の空き確認 (4社を一括)</td>
+<td>私の仕組み</td>
+<td>1分</td>
+</tr>
+<tr>
+<td>2</td>
+<td>メールの転送アドレス作成 (<code>&lt;brand&gt;@zukan.page</code>)</td>
+<td>私の仕組み (API 化後) / 今はジョニー</td>
+<td>1分</td>
+</tr>
+<tr>
+<td>3</td>
+<td>アイコン・バナー・自己紹介・投稿文の一式</td>
+<td>私の仕組み</td>
+<td>10分</td>
+</tr>
+<tr>
+<td>4</td>
+<td>YouTube: 持ち主の Google で「チャンネルを作成」→ 名前とハンドル</td>
+<td>ジョニー (2クリック) + 私</td>
+<td>2分</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Instagram: 持ち主のアプリで「新しいアカウントを作成」</td>
+<td>ジョニー</td>
+<td>2分</td>
+</tr>
+<tr>
+<td>6</td>
+<td>X: ブランドのメール + 共用の電話番号で登録、コード入力</td>
+<td>ジョニー</td>
+<td>3分</td>
+</tr>
+<tr>
+<td>7</td>
+<td>TikTok: ブランドのメールで登録、コード入力 (電話を求められたら2回線目)</td>
+<td>ジョニー</td>
+<td>3分</td>
+</tr>
+<tr>
+<td>8</td>
+<td>各プロフィールの設定、予約投稿ツールへの接続</td>
+<td>私 + ジョニー (接続の許可ボタン)</td>
+<td>5分</td>
+</tr>
+<tr>
+<td>9</td>
+<td>投稿・分析</td>
+<td>予約投稿ツール + 私</td>
+<td>自動 (投稿はジョニー承認)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-作るもの-開発">3. 作るもの (開発)</h2>
+<ol type="1">
+<li><strong>名前の空き確認の道具</strong> (<code>brand-name-check</code>): 候補を渡すと4社の空きを一覧にする。今日手でやった確認 (公開ページの表示で判定) をまとめるだけ</li>
+<li><strong>ブランド一式の生成</strong> (<code>brand-kit</code>): 名前・世界観の一文から、自己紹介 (各社の字数内)・アイコン・バナー・第1話の投稿文を作る。今回の Wonder Zukan の一式を型にする</li>
+<li><strong>登録の手順書を1画面に</strong> (<code>brand-launch</code> のページ): ブランドごとに、ジョニーが押す所・入れる所だけを順に並べた iPhone で見られるチェックリスト。各社の登録画面へのリンクつき</li>
+<li><strong>投稿の配線</strong>: Metricool か Buffer の API に、動画・投稿文・予約時刻を渡す。YouTube は自作 (審査を申請) でもよい</li>
+<li>(任意) <strong>メール転送の自動化</strong>: 転送アドレスの作成を API でできるようにする (Cloudflare Email Routing への移行か、Porkbun の API で可能か要確認)</li>
+</ol>
+<p>作らないもの: ロボット判定の突破、使い捨て SMS 番号、指紋偽装ブラウザ、アカウントの一括自動作成、自分のアカウント同士の押し上げ。</p>
+<h2 id="4-wonder-zukan-の今からの進め方">4. Wonder Zukan の今からの進め方</h2>
+<ul>
+<li><strong>YouTube</strong>: <code>wonder@zukan.page</code> の Google アカウントは作成済み。このアカウントでブランドチャンネルを作る (Codex 用のコマンドは用意済み)。または個人の Gmail の下にブランドチャンネルとして作ってもよい (こちらは新規登録が要らない)</li>
+<li><strong>Instagram</strong>: 個人の Instagram アプリから「アカウントを追加 → 新しいアカウントを作成」で <code>wonderzukan</code>。電話・メール不要</li>
+<li><strong>X</strong>: <code>wonder@zukan.page</code> + 今の電話番号 (10アカウントまで共用可) で登録</li>
+<li><strong>TikTok</strong>: 回数制限が解けてから、Web で <code>wonder@zukan.page</code> の登録をもう一度。電話番号を求められたら、2回線目 (povo など) を用意する。既存の TikTok を消す必要はない</li>
+</ul>
+<h2 id="5-判断が要ること">5. 判断が要ること</h2>
+<ol type="1">
+<li>2回線目の電話番号を持つか (povo の基本料0円プランが最安。180日ごとに少額の課金)</li>
+<li>予約投稿ツールを Metricool (ブランドが増えるほど割安) と Buffer (チャンネル単位、始めやすい) のどちらにするか。どちらも有料</li>
+<li>開発の順番: 1 (名前確認) → 3 (手順書) → 2 (一式生成) → 4 (投稿の配線) を提案</li>
+</ol>
+<h2 id="6-未確認">6. 未確認</h2>
+<ul>
+<li>TikTok: 1端末で追加できるアカウント数、「やりすぎ」の解除までの時間、削除後に電話番号が空くまでの日数 (いずれも公式の記載なし)</li>
+<li>YouTube: 自分用の投稿ツールが審査に通るか、その期間</li>
+<li>X: 動画のアップロード自体に料金がかかるか、X Pro の利用条件</li>
+<li>Instagram: 1つのアカウントセンターに入れられる Instagram アカウントの上限</li>
+<li>実際に多数のブランドを正規に運用している人の具体的な手順書は見つからなかった。上の流れは、各社の公式機能と制約を組み合わせた構成案</li>
+</ul>
+<p class="s" style="margin-top:40px">このページは 2026-10-04 03:40 JST に自動削除されます</p></main><script>document.querySelectorAll('table').forEach(t=>{const hs=[...t.querySelectorAll('thead th')].map(x=>x.textContent.trim());t.querySelectorAll('tbody tr').forEach(r=>[...r.children].forEach((c,i)=>c.setAttribute('data-label',hs[i]||'')))});</script></body></html>
