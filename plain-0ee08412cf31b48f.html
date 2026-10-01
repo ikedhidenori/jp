@@ -610,6 +610,19 @@ td.cq-ok{background:var(--asurface)}
 #pm-dashboard.coach-on #pm-sync{margin:0 0 8px;font-size:12px}
 #pm-dashboard.coach-on #pm-sync[data-state=ready]{border:0;background:transparent;padding:0 2px;color:var(--amute)}
 
+.cq-sections{padding:14px!important}
+.cq-sections .cq-card-head{margin-bottom:3px}
+.cq-sections-note{font-size:12px;color:var(--amute);line-height:1.45;margin:0 0 10px!important}
+.cq-section-list{display:grid;gap:8px}
+.cq-section{display:block;width:100%;min-height:78px;padding:10px 12px;border:1px solid var(--aline);border-radius:10px;background:var(--abg);color:var(--afg);font:inherit;text-align:left;cursor:pointer}
+.cq-section:focus-visible{outline:3px solid #F5CC1A;outline-offset:2px}
+.cq-section-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:15px}
+.cq-section-top strong{font-size:20px;font-variant-numeric:tabular-nums}
+.cq-section-meta{display:block;margin:2px 0 7px;font-size:11px;line-height:1.4;color:var(--amute)}
+.cq-section-bar{display:block;height:9px;overflow:hidden;border-radius:5px;background:var(--asurface)}
+.cq-section-bar i{display:block;height:100%;border-radius:5px;background:#F5CC1A}
+.cq-section-go{display:block;margin-top:4px;font-size:11px;font-weight:700;text-align:right}
+
 /* 残り日数・メーター（2026-10-01） */
 .cq-hero{padding:4px 2px 14px}
 .cq-hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
@@ -2625,11 +2638,14 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     if(!endpoint)return;
     if(active){queued=true;return;}
     active=true;queued=false;
-    var sent,controller=new AbortController(),timeout=setTimeout(function(){controller.abort();},12000);
+    var sent,controller=new AbortController(),timeout;
     try {
       sent=global.TakkenPM.snapshot();
       paint('syncing','共通の学習記録を確認中…');
-      var response=await fetch(endpoint,{method:'POST',mode:'cors',credentials:'omit',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({schemaVersion:1,records:sent.records}),signal:controller.signal});
+      var response=await Promise.race([
+        fetch(endpoint,{method:'POST',mode:'cors',credentials:'omit',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({schemaVersion:1,records:sent.records}),signal:controller.signal}),
+        new Promise(function(_,reject){timeout=setTimeout(function(){controller.abort();reject(new Error('timeout'));},12000);})
+      ]);
       if(!response.ok)throw new Error(response.status===401||response.status===403?'identity':'network');
       var incoming=await response.json();
       global.TakkenPM.mergeRemote(incoming);
@@ -2641,7 +2657,6 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
       if(JSON.stringify(current.records)!==JSON.stringify(incoming.records)&&current.records.some(function(r){return !incoming.records.some(function(s){return s.id===r.id;});}))queued=true;
     } catch(e) {
       var reason=e.message==='identity'?'記録に接続できません · Tailscaleのアカウントを確認':e.message==='storage'?'端末の保存データを確認してください':'同期待ち · Tailscaleとブラウザの接続許可を確認';
-      try{if(navigator.permissions&&(await navigator.permissions.query({name:'local-network-access'})).state==='denied')reason='同期待ち · このサイトのローカルネットワーク接続を許可してください';}catch(_){}
       paint('offline',reason);
       schedule(30000);
     } finally {
@@ -2735,6 +2750,21 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     var topic = String(r.topic || '').replace(/^本問(不)?正解[、。・]?/, '').replace(/^ユーザー申告：/, '');
     return '<li><div class="cq-weak-top"><b>' + volLabel(r.volume) + ' ' + pad3(r.questionNo) + '</b><span class="' + (r.correct ? 'pm-muted' : 'cq-ng') + '">' + (r.correct ? '要確認' : '誤答') + '</span><span class="pm-muted">' + md(r.date) + '</span></div>' + (topic ? '<p class="cq-weak-topic">' + esc(topic.length > 70 ? topic.slice(0, 70) + '…' : topic) + '</p>' : '') + (btns.length ? '<div class="cq-chips">' + btns.join('') + '</div>' : '') + '</li>';
   }
+  function sectionGauges(latest) {
+    var rows = (catalog.sections || []).map(function (s) {
+      var stat = rangeStat(latest, Number(s.volume), Number(s.start), Number(s.end));
+      return {section: s, stat: stat, rate: stat.done ? stat.correct / stat.done : null};
+    }).sort(function (a, b) {
+      if (a.rate === null) return b.rate === null ? a.section.volume - b.section.volume || a.section.start - b.section.start : 1;
+      if (b.rate === null) return -1;
+      return a.rate - b.rate || b.stat.done - a.stat.done || a.section.volume - b.section.volume || a.section.start - b.section.start;
+    });
+    return '<section class="pm-card cq-sections"><div class="cq-card-head"><h2>分野ごとの正答</h2><span class="pm-muted">正答率の低い順</span></div><p class="cq-sections-note">各問の最新記録で集計。タップでその範囲の誤答だけを解き直せます。</p><div class="cq-section-list">' + rows.map(function (row) {
+      var s = row.section, x = row.stat, rate = row.rate === null ? '—' : Math.round(row.rate * 100) + '%';
+      var wrong = x.done - x.correct;
+      return '<button type="button" class="cq-section" data-kami-open data-kami-range="' + Number(s.volume) + ':' + Number(s.start) + ':' + Number(s.end) + '" aria-label="' + esc(s.label) + '、' + x.done + '/' + x.total + '問、正答率' + rate + '。誤答だけ解き直す"><span class="cq-section-top"><b>' + esc(s.label) + '</b><strong>' + rate + '</strong></span><span class="cq-section-meta">第' + Number(s.volume) + '分冊 問' + pad3(Number(s.start)) + '〜' + pad3(Number(s.end)) + '・解いた数 ' + x.done + '/' + x.total + '問' + (wrong ? '・誤答 ' + wrong + '問' : '') + '</span><span class="cq-section-bar" aria-hidden="true"><i style="width:' + (row.rate === null ? 0 : row.rate * 100).toFixed(1) + '%"></i></span><span class="cq-section-go">誤答を解き直す ›</span></button>';
+    }).join('') + '</div></section>';
+  }
 
   // ---- 残り日数・模試・進みのメーター ----
   function mustRanges() { var seen = {}, out = []; plan.days.forEach(function (x) { x.tasks.forEach(function (t) { if (t.type !== 'range') return; for (var q = t.start; q <= t.end; q++) { var k = t.volume + ':' + q; if (!seen[k]) { seen[k] = x.date; out.push({k: k, date: x.date}); } } }); }); return out; }
@@ -2796,7 +2826,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
       '<details class="pm-card cq-d-report"><summary>Claudeへの報告文</summary><p class="cq-report-text" id="cq-report-text">' + esc(report(d, rs)) + '</p><div class="pm-tools"><button type="button" data-cq-copy>コピー</button></div><p class="pm-muted">本問の記録は同期でClaudeに届きます。模試の点数やチェックは、この文をコピーして送ってください。</p></details>' +
       '<div class="cq-links"><button type="button" class="cq-wide-btn" data-cq-rec="">ほかの範囲を記録する</button><button type="button" class="cq-wide-btn" data-kami-open>神問題集を解き直す</button><button type="button" class="cq-wide-btn" data-pitfalls-open>つまずきノート</button></div></section>';
     var open = {}; box.querySelectorAll('details').forEach(function (el) { if (el.open) open[el.className] = true; });
-    box.innerHTML = head + (lastMsg ? '<p class="pm-status' + (lastMsg.warn ? ' pm-warn' : '') + '" role="status">' + esc(lastMsg.text) + '</p>' : '') + todayCard + weakCard + more;
+    box.innerHTML = head + (lastMsg ? '<p class="pm-status' + (lastMsg.warn ? ' pm-warn' : '') + '" role="status">' + esc(lastMsg.text) + '</p>' : '') + sectionGauges(latest) + todayCard + weakCard + more;
     box.querySelectorAll('details').forEach(function (el) { if (open[el.className]) el.open = true; });
     bind();
     paintMini(); if (heroObs) { heroObs.disconnect(); heroObs.observe(box.querySelector('#cq-hero')); }
@@ -2907,7 +2937,7 @@ function next(){var a=state.active;if(++a.index<a.items.length){save();render();
 function done(){var s=state.sessions[state.sessions.length-1],n=Object.keys(s.answers).length,ok=Object.keys(s.answers).filter(function(k){return s.answers[k].correct}).length,b=el('div','kr-done');b.appendChild(el('b','',n?'正答 '+ok+' / '+n:'採点はありません'));b.appendChild(el('p','kr-muted','元の学習記録には反映していません。'));var x=el('button','kr-button kr-primary','メニューへ');x.type='button';x.onclick=function(){state.showMenu=true;save();render()};b.appendChild(x);return b}
 function render(){if(!content)return;content.replaceChildren();if(!bank||state.showMenu)return content.appendChild(menu());if(state.active&&current())return content.appendChild(question(current()));if(state.active){state.active=null;save()}if(state.sessions.length&&!state.showMenu)return content.appendChild(done());content.appendChild(menu())}
 function read(e){var f=e.target.files&&e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var n=validate(JSON.parse(r.result));put(BK,n);bank=n;msg('問題集を読み込みました: '+n.questions.length+'問。');render()}catch(x){msg('読み込みできませんでした: '+x.message,true)}};r.readAsText(f)}function exportResults(){var b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='takken-kami-replay-'+day()+'.json';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},0)}
-w.TakkenKami={hasQuestion:function(o){return !!bank&&(!o||!o.questionNo||bank.questions.some(function(q){return q.questionNo===Number(o.questionNo)&&(!o.volume||q.volume===Number(o.volume))&&(!o.kind||q.kind===o.kind)&&(!o.item||q.item===String(o.item))}));},init:function(){root=document.getElementById('kami-replay');content=document.getElementById('kr-content');status=document.getElementById('kr-status');if(!root||!content)throw Error('kami-replay.html を先に配置してください。');var old=get(BK,null);try{bank=old&&validate(old)}catch(_){bank=null}state=loadState();document.querySelectorAll('[data-kami-close]').forEach(function(b){b.onclick=function(){root.hidden=true;document.dispatchEvent(new CustomEvent('takken-kami-close'))}});return w.TakkenKami},show:function(o){if(!root)throw Error('先に TakkenKami.init を呼んでください。');root.hidden=false;if(o&&o.questionNo&&bank){var q=bank.questions.find(function(x){return x.questionNo===Number(o.questionNo)&&(!o.volume||x.volume===Number(o.volume))&&(!o.kind||x.kind===o.kind)&&(!o.item||x.item===String(o.item))});if(q)start([q],'指定問題');else{state.showMenu=true;msg('指定された問題は問題集にありません。',true)}}root.scrollIntoView({block:'start'});render()},importBank:function(x){var n=validate(x),same=bank&&bank.id===n.id;put(BK,n);bank=n;if(state.active&&state.active.items.some(function(i){return !n.questions.some(function(q){return q.id===i})}))state.active=null;save();render();return same?0:n.questions.length}}})(window);
+w.TakkenKami={hasQuestion:function(o){return !!bank&&(!o||!o.questionNo||bank.questions.some(function(q){return q.questionNo===Number(o.questionNo)&&(!o.volume||q.volume===Number(o.volume))&&(!o.kind||q.kind===o.kind)&&(!o.item||q.item===String(o.item))}));},init:function(){root=document.getElementById('kami-replay');content=document.getElementById('kr-content');status=document.getElementById('kr-status');if(!root||!content)throw Error('kami-replay.html を先に配置してください。');var old=get(BK,null);try{bank=old&&validate(old)}catch(_){bank=null}state=loadState();document.querySelectorAll('[data-kami-close]').forEach(function(b){b.onclick=function(){root.hidden=true;document.dispatchEvent(new CustomEvent('takken-kami-close'))}});return w.TakkenKami},show:function(o){if(!root)throw Error('先に TakkenKami.init を呼んでください。');root.hidden=false;if(o&&o.range&&bank){var range=o.range,errors=errorSet(),items=bank.questions.filter(function(q){return q.volume===Number(range.volume)&&q.questionNo>=Number(range.start)&&q.questionNo<=Number(range.end)&&!!errors[qkey(q)]});if(items.length)start(items,'第'+range.volume+'分冊 問'+range.start+'〜'+range.end+'の誤答');else{state.showMenu=true;save();msg('この範囲に解き直せる誤答はありません。',true)}}else if(o&&o.questionNo&&bank){var q=bank.questions.find(function(x){return x.questionNo===Number(o.questionNo)&&(!o.volume||x.volume===Number(o.volume))&&(!o.kind||x.kind===o.kind)&&(!o.item||x.item===String(o.item))});if(q)start([q],'指定問題');else{state.showMenu=true;msg('指定された問題は問題集にありません。',true)}}root.scrollIntoView({block:'start'});render()},importBank:function(x){var n=validate(x),same=bank&&bank.id===n.id;put(BK,n);bank=n;if(state.active&&state.active.items.some(function(i){return !n.questions.some(function(q){return q.id===i})}))state.active=null;save();render();return same?0:n.questions.length}}})(window);
 
 /* Question text stays behind the same private identity gate as study records. */
 (function(w){'use strict';
@@ -3092,7 +3122,7 @@ document.addEventListener('click',e=>{const step=e.target.closest('[data-pf-step
 showPitfall('pf-deposit-cap',false);
 document.addEventListener('takken-pm-show',()=>tab('p'));
 document.addEventListener('takken-kami-close',()=>tab('p'));
-document.addEventListener('click',e=>{const b=e.target.closest('[data-kami-open]');if(b)tab('k',b.dataset.kamiQuestion?{volume:Number(b.dataset.kamiVolume||3),questionNo:Number(b.dataset.kamiQuestion),kind:b.dataset.kamiKind||'main',item:b.dataset.kamiItem}:undefined);});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-kami-open]');if(!b)return;const range=b.dataset.kamiRange&&b.dataset.kamiRange.split(':').map(Number);tab('k',range&&range.length===3?{range:{volume:range[0],start:range[1],end:range[2]}}:b.dataset.kamiQuestion?{volume:Number(b.dataset.kamiVolume||3),questionNo:Number(b.dataset.kamiQuestion),kind:b.dataset.kamiKind||'main',item:b.dataset.kamiItem}:undefined);});
 document.addEventListener('takken-pm-open-slide',e=>{const n=Number(e.detail.slide);if(TOC.some(s=>s.no===n)){tab('s');go(n);}});
 document.addEventListener('takken-pm-open-diagram',e=>openDiagram(e.detail.target));
 document.addEventListener('takken-open-quiz',e=>{tab('q');$('#q-ch').value='';const want=e.detail&&e.detail.mode||'due';const mode=[want,'due','ng','new','all'].find(m=>filterDeck('',m).length);$('#q-md').value=mode;$('#q-go').click();});
