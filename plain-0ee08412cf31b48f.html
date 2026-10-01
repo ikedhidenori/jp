@@ -2826,7 +2826,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
       '<details class="pm-card cq-d-report"><summary>Claudeへの報告文</summary><p class="cq-report-text" id="cq-report-text">' + esc(report(d, rs)) + '</p><div class="pm-tools"><button type="button" data-cq-copy>コピー</button></div><p class="pm-muted">本問の記録は同期でClaudeに届きます。模試の点数やチェックは、この文をコピーして送ってください。</p></details>' +
       '<div class="cq-links"><button type="button" class="cq-wide-btn" data-cq-rec="">ほかの範囲を記録する</button><button type="button" class="cq-wide-btn" data-kami-open>神問題集を解き直す</button><button type="button" class="cq-wide-btn" data-pitfalls-open>つまずきノート</button></div></section>';
     var open = {}; box.querySelectorAll('details').forEach(function (el) { if (el.open) open[el.className] = true; });
-    box.innerHTML = head + (lastMsg ? '<p class="pm-status' + (lastMsg.warn ? ' pm-warn' : '') + '" role="status">' + esc(lastMsg.text) + '</p>' : '') + sectionGauges(latest) + todayCard + weakCard + more;
+    box.innerHTML = head + (lastMsg ? '<p class="pm-status' + (lastMsg.warn ? ' pm-warn' : '') + '" role="status">' + esc(lastMsg.text) + '</p>' : '') + todayCard + sectionGauges(latest) + weakCard + more;
     box.querySelectorAll('details').forEach(function (el) { if (open[el.className]) el.open = true; });
     bind();
     paintMini(); if (heroObs) { heroObs.disconnect(); heroObs.observe(box.querySelector('#cq-hero')); }
