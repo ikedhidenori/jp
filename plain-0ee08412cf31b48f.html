@@ -2636,7 +2636,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   }
   async function exchange(method,records) {
     var controller=new AbortController(),timeout;
-    var options={method:method,mode:'cors',credentials:'omit',cache:'no-store',signal:controller.signal};
+    var options={method:method,mode:'cors',credentials:'omit',signal:controller.signal};
     if(method==='POST'){options.headers={'Content-Type':'application/json'};options.body=JSON.stringify({schemaVersion:1,records:records});}
     try {
       return await Promise.race([
@@ -2962,7 +2962,7 @@ var endpoint='',seq=0,last=0,pending;
 function load(){
  if(pending)return pending;
  var controller=new AbortController(),timeout=setTimeout(function(){controller.abort();},10000);
- pending=fetch(endpoint,{method:'GET',mode:'cors',credentials:'omit',cache:'no-store',signal:controller.signal}).then(function(r){if(!r.ok)throw Error('unavailable');return r.json();}).finally(function(){clearTimeout(timeout);pending=null;});
+ pending=fetch(endpoint,{method:'GET',mode:'cors',credentials:'omit',signal:controller.signal}).then(function(r){if(!r.ok)throw Error('unavailable');return r.json();}).finally(function(){clearTimeout(timeout);pending=null;});
  return pending;
 }
 w.TakkenKamiBank={init:function(o){endpoint=o.endpoint;},open:function(o){
