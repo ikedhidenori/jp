@@ -2743,7 +2743,9 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   function pad3(n) { return String(n).padStart(3, '0'); }
   function load() { try { var x = JSON.parse(localStorage.getItem(KEY) || 'null'); if (x && typeof x === 'object') return {checks: x.checks || {}, mocks: x.mocks || {}}; } catch (_) {} return {checks: {}, mocks: {}}; }
   function persist() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (_) {} }
-  function records() { try { return global.TakkenPM.snapshot().records; } catch (_) { return []; } }
+  function allRecords() { try { return global.TakkenPM.snapshot().records || []; } catch (_) { return []; } }
+  // 小問だけの解き直し（topic 'replay-sub'）は本問の○×・記録数に数えない。小問の状態は allRecords から subState で合成する
+  function records() { return allRecords().filter(function (r) { return r.topic !== 'replay-sub'; }); }
   function quizStats() { try { return JSON.parse(localStorage.getItem('tk-stats') || '{}') || {}; } catch (_) { return {}; } }
   function latestBy(rs) { var o = {}; rs.forEach(function (r) { var k = r.volume + ':' + r.questionNo, p = o[k]; if (!p || r.date > p.date || (r.date === p.date && r.attemptNo > p.attemptNo)) o[k] = r; }); return o; }
   function rangeStat(latest, v, a, b) { var n = 0, ok = 0; for (var q = a; q <= b; q++) { var r = latest[v + ':' + q]; if (r) { n++; if (r.correct) ok++; } } return {done: n, total: b - a + 1, correct: ok}; }
@@ -2754,7 +2756,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   function redoStat(t, latest) {
     var since = t.since || '0000', rs = records(), before = {};
     rs.forEach(function (r) { if (r.volume !== t.volume || r.date >= since) return; var p = before[r.questionNo]; if (!p || r.date > p.date || (r.date === p.date && r.attemptNo > p.attemptNo)) before[r.questionNo] = r; });
-    var subsBefore = t.pick === 'holes' ? subState(rs.filter(function (r) { return r.volume === t.volume && r.date < since; })) : null;
+    var subsBefore = t.pick === 'holes' ? subState(allRecords().filter(function (r) { return r.volume === t.volume && r.date < since; })) : null;
     var qs = t.pick === 'holes' ? Object.keys(before).map(Number).filter(function (q) { return before[q].correct && subNgIn(subsBefore[t.volume + ':' + q]) > 0; }).sort(function (a, b) { return a - b; })
       : (t.questions || []).filter(function (q) { return t.pick !== 'wrong' || !(before[q] && before[q].correct); });
     var items = qs.map(function (q) { var r = latest[t.volume + ':' + q]; return {q: q, r: r && r.date >= since ? r : null}; });
@@ -2813,6 +2815,9 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   function subState(rs) { var o = {}; rs.slice().sort(function (a, b) { return a.date.localeCompare(b.date) || a.attemptNo - b.attemptNo; }).forEach(function (r) { var m = o[r.volume + ':' + r.questionNo] = o[r.volume + ':' + r.questionNo] || {}; (r.sub || []).forEach(function (x) { if (x && x.correct != null) m[x.item] = x.correct; }); }); return o; }
   function subNgIn(m) { return m ? Object.keys(m).filter(function (k) { return m[k] === false; }).length : 0; }
   function subNg(r) { return subNgIn(SUBS[r.volume + ':' + r.questionNo]); }
+  var TOPIC = {};
+  function topicMap(rs) { var o = {}; rs.slice().sort(function (a, b) { return a.date.localeCompare(b.date) || a.attemptNo - b.attemptNo; }).forEach(function (r) { var t = String(r.topic || ''); if (t && !/^replay-sub/.test(t)) o[r.volume + ':' + r.questionNo] = t; }); return o; }
+  function topicOf(r) { return TOPIC[r.volume + ':' + r.questionNo] || String(r.topic || '').replace(/^replay-sub.*$/, ''); }
   // 本問×=3点、小問×=1問1点、迷いのメモ=1点。0点（本問○・小問○・迷いなし）は弱点に出さない
   function weakScore(r) { return (r.correct ? 0 : 3) + subNg(r) + (DOUBT.test(String(r.confidence || '')) ? 1 : 0); }
   // ---- 傾向（記録から毎回計算する） ----
@@ -2831,7 +2836,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     var byDate = {}; rs.forEach(function (r) { var x = byDate[r.date] = byDate[r.date] || [0, 0]; x[0]++; if (r.correct) x[1]++; });
     var days = Object.keys(byDate).sort().filter(function (d) { return byDate[d][0] >= 8; }).slice(-3);
     var bad = Object.keys(latest).map(function (k) { return latest[k]; }).filter(function (r) { return !r.correct || subNg(r) || DOUBT.test(String(r.confidence || '')); });
-    var tags = TAGS.map(function (t) { var n = bad.filter(function (r) { return t.re.test(String(r.topic || '') + ' ' + String(r.confidence || '')); }).length; return {k: t.k, n: n}; }).filter(function (t) { return t.n >= 2; }).sort(function (a, b) { return b.n - a.n; }).slice(0, 3);
+    var tags = TAGS.map(function (t) { var n = bad.filter(function (r) { return t.re.test(topicOf(r) + ' ' + String(r.confidence || '')); }).length; return {k: t.k, n: n}; }).filter(function (t) { return t.n >= 2; }).sort(function (a, b) { return b.n - a.n; }).slice(0, 3);
     var rows = '<li><b>業法</b> 本問 ' + pc(g.ok, g.n) + '（' + g.ok + '/' + g.n + '）・小問 ' + pc(g.sok, g.sn) + '<small>本番で18点には約9割が要る</small></li>' +
       (h.n ? '<li><b>第3分冊</b> 本問 ' + pc(h.ok, h.n) + '（' + h.ok + '/' + h.n + '）・小問 ' + pc(h.sok, h.sn) + '</li>' : '') +
       (holes.length ? '<li><b>隠れた穴 ' + holes.length + '問</b>：本問は正解でも小問を落とした問題<small>個数問題では1肢の穴で落とす。弱点の復習の上位に出しています</small></li>' : '') +
@@ -2846,7 +2851,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     if (!link.diagram && sec.diagram) link = {diagram: sec.diagram, slide: link.slide};
     if (link.diagram) btns.push('<button type="button" class="cq-chip" data-cq-diagram="' + esc(link.diagram) + '">図解</button>');
     var slide = link.slide || sec.slide; if (slide) btns.push('<button type="button" class="cq-chip" data-cq-slide="' + esc(slide) + '">スライド</button>');
-    var topic = String(r.topic || '').replace(/^本問(不)?正解[、。・]?/, '').replace(/^ユーザー申告：/, '');
+    var topic = topicOf(r).replace(/^本問(不)?正解[、。・]?/, '').replace(/^ユーザー申告：/, '');
     return '<li><div class="cq-weak-top"><b>' + volLabel(r.volume) + ' ' + pad3(r.questionNo) + '</b><span class="' + (r.correct && !subNg(r) ? 'pm-muted' : 'cq-ng') + '">' + (r.correct ? (subNg(r) ? '小問×' + subNg(r) : '迷い') : '誤答') + '</span><span class="pm-muted">' + md(r.date) + '</span></div>' + (topic ? '<p class="cq-weak-topic">' + esc(topic.length > 70 ? topic.slice(0, 70) + '…' : topic) + '</p>' : '') + (btns.length ? '<div class="cq-chips">' + btns.join('') + '</div>' : '') + '</li>';
   }
   function sectionGauges(latest) {
@@ -2896,7 +2901,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   function render() {
     if (!box) return;
     var d = today(), rs = records(), latest = latestBy(rs), left = diff(d, plan.examDate);
-    SUBS = subState(rs);
+    var all = allRecords(); SUBS = subState(all); TOPIC = topicMap(all);
     var day = plan.days.filter(function (x) { return x.date === d; })[0] || plan.days.filter(function (x) { return x.date > d; })[0];
     var isToday = day && day.date === d;
     var head = heroHTML(d, latest, left);
