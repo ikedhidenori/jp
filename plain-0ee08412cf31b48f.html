@@ -2751,7 +2751,8 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   function redoStat(t, latest) {
     var since = t.since || '0000', rs = records(), before = {};
     rs.forEach(function (r) { if (r.volume !== t.volume || r.date >= since) return; var p = before[r.questionNo]; if (!p || r.date > p.date || (r.date === p.date && r.attemptNo > p.attemptNo)) before[r.questionNo] = r; });
-    var qs = t.pick === 'holes' ? Object.keys(before).map(Number).filter(function (q) { var b = before[q]; return b.correct && (b.sub || []).some(function (x) { return x && x.correct === false; }); }).sort(function (a, b) { return a - b; })
+    var subsBefore = t.pick === 'holes' ? subState(rs.filter(function (r) { return r.volume === t.volume && r.date < since; })) : null;
+    var qs = t.pick === 'holes' ? Object.keys(before).map(Number).filter(function (q) { return before[q].correct && subNgIn(subsBefore[t.volume + ':' + q]) > 0; }).sort(function (a, b) { return a - b; })
       : (t.questions || []).filter(function (q) { return t.pick !== 'wrong' || !(before[q] && before[q].correct); });
     var items = qs.map(function (q) { var r = latest[t.volume + ':' + q]; return {q: q, r: r && r.date >= since ? r : null}; });
     var done = items.filter(function (x) { return x.r; }), ok = done.filter(function (x) { return x.r.correct; }).length;
@@ -2805,7 +2806,10 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     return list.map(function (x) { return x.r; });
   }
   var DOUBT = /迷|混同|混乱|消去法|うっかり|知らな|不安|曖昧|勘|自信がない|要復習/;
-  function subNg(r) { return (r.sub || []).filter(function (x) { return x && x.correct === false; }).length; }
+  var SUBS = {};
+  function subState(rs) { var o = {}; rs.slice().sort(function (a, b) { return a.date.localeCompare(b.date) || a.attemptNo - b.attemptNo; }).forEach(function (r) { var m = o[r.volume + ':' + r.questionNo] = o[r.volume + ':' + r.questionNo] || {}; (r.sub || []).forEach(function (x) { if (x && x.correct != null) m[x.item] = x.correct; }); }); return o; }
+  function subNgIn(m) { return m ? Object.keys(m).filter(function (k) { return m[k] === false; }).length : 0; }
+  function subNg(r) { return subNgIn(SUBS[r.volume + ':' + r.questionNo]); }
   // 本問×=3点、小問×=1問1点、迷いのメモ=1点。0点（本問○・小問○・迷いなし）は弱点に出さない
   function weakScore(r) { return (r.correct ? 0 : 3) + subNg(r) + (DOUBT.test(String(r.confidence || '')) ? 1 : 0); }
   // ---- 傾向（記録から毎回計算する） ----
@@ -2818,7 +2822,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
     {k: '8種制限の適用（買主が業者か）', re: /8種|八種|業者間|買主が業者|買主も業者/}
   ];
   function trendHTML(rs, latest) {
-    var rate = function (v) { var n = 0, ok = 0, sn = 0, sok = 0; Object.keys(latest).forEach(function (k) { var r = latest[k]; if (r.volume !== v) return; n++; if (r.correct) ok++; (r.sub || []).forEach(function (x) { if (!x || x.correct == null) return; sn++; if (x.correct) sok++; }); }); return {n: n, ok: ok, sn: sn, sok: sok}; };
+    var rate = function (v) { var n = 0, ok = 0, sn = 0, sok = 0; Object.keys(latest).forEach(function (k) { var r = latest[k]; if (r.volume !== v) return; n++; if (r.correct) ok++; var m = SUBS[k] || {}; Object.keys(m).forEach(function (i) { sn++; if (m[i]) sok++; }); }); return {n: n, ok: ok, sn: sn, sok: sok}; };
     var g = rate(2), h = rate(3), pc = function (a, b) { return b ? Math.round(a / b * 100) + '%' : '—'; };
     var holes = Object.keys(latest).map(function (k) { return latest[k]; }).filter(function (r) { return r.correct && subNg(r) > 0; });
     var byDate = {}; rs.forEach(function (r) { var x = byDate[r.date] = byDate[r.date] || [0, 0]; x[0]++; if (r.correct) x[1]++; });
@@ -2889,6 +2893,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   function render() {
     if (!box) return;
     var d = today(), rs = records(), latest = latestBy(rs), left = diff(d, plan.examDate);
+    SUBS = subState(rs);
     var day = plan.days.filter(function (x) { return x.date === d; })[0] || plan.days.filter(function (x) { return x.date > d; })[0];
     var isToday = day && day.date === d;
     var head = heroHTML(d, latest, left);
