@@ -801,6 +801,43 @@ body.pm #bt-toc,body.r #bt-toc{visibility:hidden}
 body.z .zd-back{display:block}
 .zd-index,#eight-update,#guarantee-guide,.license-guide{scroll-margin-top:calc(var(--ahd) + env(safe-area-inset-top) + 12px)}
 
+/* Kept after shell.css so six bottom tabs remain evenly spaced. */
+#nav{grid-template-columns:repeat(6,minmax(0,1fr))}
+#nav button{font-size:10px;min-width:0}
+#pm-dashboard.coach-on>.cd-home-entry{display:block}
+#calc-drill{display:none;max-width:560px;margin:0 auto;padding:calc(var(--ahd) + env(safe-area-inset-top) + 16px) 16px calc(var(--abot) + 20px)}
+body.calc #calc-drill{display:block}
+body.calc #slides,body.calc #ft{display:none}
+body.calc #bt-toc{visibility:hidden}
+.cd-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
+.cd-heading h1{font-size:23px;margin:0}.cd-heading div{font-size:13px;white-space:nowrap}.cd-heading b{font-size:24px;font-variant-numeric:tabular-nums;margin-left:5px}
+.cd-topic{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--amute)}
+.cd-topic select{flex:1;min-width:0;min-height:44px;padding:8px;background:var(--abg);color:var(--afg);border:1px solid var(--aline);border-radius:8px;font-size:14px}
+.cd-help{font-size:12px;color:var(--amute);margin:10px 0 18px}
+.cd-current{border-top:1px solid var(--aline);padding-top:12px}
+.cd-type{font-size:13px;font-weight:700;margin:0 0 6px;color:var(--amute)}
+.cd-context{font-size:12px;line-height:1.6;margin:0 0 10px;min-height:39px;overflow-wrap:anywhere}
+.cd-prompt{font-size:15px;font-weight:700;margin:0 0 14px;white-space:nowrap;letter-spacing:-.025em}
+#calc-drill fieldset{border:0;padding:0;margin:0;min-width:0}
+#calc-drill [hidden]{display:none!important}
+.cd-number{display:flex;align-items:center;gap:10px;min-height:56px}
+.cd-number label{font-size:13px;color:var(--amute)}
+#cd-answer{width:0;flex:1;min-width:0;min-height:56px;background:var(--abg);color:var(--afg);border:1px solid var(--aline);border-radius:8px;text-align:right;font-size:28px;font-variant-numeric:tabular-nums;padding:6px 12px;caret-color:transparent}
+#cd-unit{font-size:17px;width:38px;flex:none}.cd-error{font-size:12px;color:var(--awarn);min-height:18px;margin:4px 0}
+.cd-ox{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cd-ox legend{font-size:12px;color:var(--amute);margin-bottom:8px}
+.cd-ox button{height:56px;border:1px solid var(--aline);border-radius:8px;font-size:25px}
+.cd-feedback{border-left:3px solid var(--ahl);padding:7px 10px;margin:8px 0 0;min-width:0}.cd-ng{border-color:var(--awarn)}
+.cd-feedback strong{font-size:15px}.cd-equation{font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap;margin:4px 0 0;line-height:1.6}
+.cd-retry{font-size:12px;color:var(--amute);min-height:18px;margin:7px 0 12px}
+#cd-keypad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.cd-keypad button{min-height:46px;border:1px solid var(--aline);border-radius:8px;background:var(--asurface);font-size:22px;font-variant-numeric:tabular-nums}
+.cd-keypad button:active,.cd-ox button:active{background:var(--afg);color:var(--abg)}
+.cd-keypad .cd-confirm{grid-column:1/-1;background:var(--afg);color:var(--abg);font-size:16px;font-weight:700}
+.cd-keypad:disabled button,.cd-ox:disabled button{opacity:.5}
+.cd-storage{font-size:11px;color:var(--amute);margin:14px 0 10px}.cd-rules{font-size:12px;color:var(--amute);line-height:1.7}.cd-rules summary{min-height:36px;cursor:pointer}.cd-rules p{overflow-wrap:anywhere}.cd-rules a{color:inherit}
+@media(max-height:740px){#calc-drill{padding-top:calc(var(--ahd) + env(safe-area-inset-top) + 8px)}.cd-help{margin:6px 0 10px}.cd-heading{margin-bottom:8px}.cd-keypad button{min-height:44px}.cd-context{min-height:0}.cd-retry{margin-bottom:8px}}
+@media(max-width:380px){.cd-prompt{font-size:13px}.cd-equation{font-size:11px}}
+
 body.pm #slides,body.pm #ft{display:none}
 body:not(.pm) #pm-dashboard{display:none}
 body.k #slides,body.k #ft{display:none}
@@ -849,7 +886,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   <div class="ttl" id="ttl">宅建業法</div>
   <button class="ib" id="bt-th" aria-label="テーマ">☀︎</button>
 </header>
-<nav id="nav" class="tabs" aria-label="画面"><button id="tab-p" class="on"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>今日</span></button><button id="tab-s"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8.5h8M8 12h8M8 15.5h5"/></svg><span>スライド</span></button><button id="tab-z"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M7 15l3.5-4 3 3 2-2 2.5 3"/><circle cx="9" cy="8.5" r="1.2"/></svg><span>図解</span></button><button id="tab-q"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4M12 17h.01"/></svg><span>確認</span></button><button id="tab-r"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3.5" y="13.5" width="4" height="6" rx="1.5"/><rect x="16.5" y="13.5" width="4" height="6" rx="1.5"/></svg><span>ラリー</span></button></nav>
+<nav id="nav" class="tabs" aria-label="画面"><button id="tab-p" class="on"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>今日</span></button><button id="tab-s"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8.5h8M8 12h8M8 15.5h5"/></svg><span>スライド</span></button><button id="tab-z"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M7 15l3.5-4 3 3 2-2 2.5 3"/><circle cx="9" cy="8.5" r="1.2"/></svg><span>図解</span></button><button id="tab-q"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4M12 17h.01"/></svg><span>確認</span></button><button id="tab-r"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3.5" y="13.5" width="4" height="6" rx="1.5"/><rect x="16.5" y="13.5" width="4" height="6" rx="1.5"/></svg><span>ラリー</span></button><button id="tab-c"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 7h8M8 11h1M12 11h1M16 11h.1M8 15h1M12 15h1M16 15h.1M8 18h1M12 18h1M16 18h.1"/></svg><span>計算</span></button></nav>
 <div id="bd"></div>
 <aside id="toc"><div class="th"><span id="toc-count">目次</span><button id="bt-close" aria-label="閉じる">×</button></div><div id="toc-body"></div></aside>
 
@@ -859,6 +896,7 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   <div id="pm-status" class="pm-status" role="status" aria-live="polite"></div>
   <button type="button" class="kami-entry" data-kami-open>神問題集を解き直す<small>取り込んだ写真の問題・一問一答を出題</small></button>
   <button type="button" class="kami-entry" data-pitfalls-open>つまずきノート<small>２割と保全額・35条と37条など、混同を整理</small></button>
+  <button type="button" class="kami-entry cd-home-entry" data-calc-open>計算ドリル<small>報酬・容積率・建蔽率を数字入力で連続練習</small></button>
   <div id="pm-content"></div>
 </section>
 
@@ -898,6 +936,33 @@ body.n #slides,body.n #ft{display:none}body.n #pitfalls{display:block}
   </div>
   <div class="rl-sets" id="rl-sets"></div>
   <p class="rl-note" id="rl-note"></p>
+</section>
+
+<section id="calc-drill" aria-label="計算ドリル">
+  <div class="cd-heading"><h1>計算ドリル</h1><div>連続正解 <b id="cd-streak">0</b></div></div>
+  <label class="cd-topic">テーマ<select id="cd-topic"><option value="all">報酬 ＋ 容積率・建蔽率</option><option value="fee">報酬（11型）</option><option value="building">容積率・建蔽率（11型）</option></select></label>
+  <p class="cd-help">数字を入力 → 確定 → 自動で次へ</p>
+  <div class="cd-current">
+    <p id="cd-type" class="cd-type"></p>
+    <p id="cd-context" class="cd-context"></p>
+    <p id="cd-prompt" class="cd-prompt" aria-live="polite"></p>
+    <form id="cd-form">
+      <fieldset id="cd-number" class="cd-number"><label for="cd-answer">答え</label><input id="cd-answer" type="text" inputmode="none" readonly autocomplete="off" aria-describedby="cd-unit cd-error" aria-label="数字キーで答えを入力"><span id="cd-unit"></span></fieldset>
+    </form>
+    <fieldset id="cd-ox" class="cd-ox" hidden><legend>○×で答える</legend><button type="button" data-cd-ox="true" aria-label="正しい">○</button><button type="button" data-cd-ox="false" aria-label="誤り">×</button></fieldset>
+    <p id="cd-error" class="cd-error" role="status"></p>
+  </div>
+  <div id="cd-feedback" class="cd-feedback" role="status" aria-live="polite" hidden><strong id="cd-mark"></strong><p id="cd-equation" class="cd-equation"></p></div>
+  <p id="cd-retry" class="cd-retry" aria-live="polite"></p>
+  <fieldset id="cd-keypad" class="cd-keypad" aria-label="数字キー">
+    <button type="button" data-cd-key="1">1</button><button type="button" data-cd-key="2">2</button><button type="button" data-cd-key="3">3</button>
+    <button type="button" data-cd-key="4">4</button><button type="button" data-cd-key="5">5</button><button type="button" data-cd-key="6">6</button>
+    <button type="button" data-cd-key="7">7</button><button type="button" data-cd-key="8">8</button><button type="button" data-cd-key="9">9</button>
+    <button type="button" data-cd-key=".">.</button><button type="button" data-cd-key="0">0</button><button type="button" data-cd-key="back" aria-label="1桁消す">⌫</button>
+    <button type="button" data-cd-key="enter" class="cd-confirm">確定</button>
+  </fieldset>
+  <p id="cd-storage" class="cd-storage">連続正解数だけ、この端末に保存</p>
+  <details class="cd-rules"><summary>出題の条件・出典</summary><p>報酬は上限額。売買の「3%＋6万円」は消費税抜代金400万円超。課税宅建業者は×1.1、免税宅建業者は×1.04。土地売買が非課税でも、課税業者の報酬は×1.1。権利金は非居住用・返還なし・消費税抜200万円以下で5%。居住用0.5か月は○×で確認。</p><p>容積率は道路係数の別指定・特別な緩和を除く。角地は特定行政庁の指定あり。建蔽率80%＋防火地域の耐火建築物は建蔽率制限の適用除外（計算では100%）。</p><p>間違えた型は別の数字ですぐ再出題。苦手型の重みは今回開いている間だけ保持。</p><p><a href="https://www.mlit.go.jp/totikensangyo/const/1_6_bf_000013.html" target="_blank" rel="noopener">国交省・報酬と2024年7月の特例</a>／<a href="https://www.mlit.go.jp/totikensangyo/const/content/001881261.pdf" target="_blank" rel="noopener">解釈・運用（2026年4月1日施行）</a>／<a href="https://laws.e-gov.go.jp/law/325AC0000000201" target="_blank" rel="noopener">建築基準法52・53条</a></p></details>
 </section>
 
 
@@ -3209,6 +3274,239 @@ function show(){if(!cur.set&&st.set&&setById(st.set)&&setById(st.set).tm)open(st
 w.TakkenRally={init:init,show:show,fmt:fmt};
 })(window);
 
+/* Random calculation drill. No network, PM records, notifications or scheduled work.
+   Money is calculated in integer yen; the fixed answer unit is 万円.
+   Reference: MLIT fee notice (2024-07-01), guidance (2026-04-01), BSL 52/53. */
+(function (root) {
+  'use strict';
+  const STREAK_KEY = 'tk-calc-streak-v1';
+  const fmt = n => Number(n.toFixed(4)).toLocaleString('ja-JP', {maximumFractionDigits: 4});
+  const yenToMan = yen => yen / 10000;
+  function generate(typeId, rng = Math.random) {
+    const int = (min, max, step = 1) => min + Math.floor(rng() * ((max - min) / step + 1)) * step;
+    const pick = list => list[int(0, list.length - 1)];
+    let p = {}, prompt = '', context = '', unit = '万円', answer, equation = '', mode = 'number';
+    let price, frame, rate, area, width, designated, road, coverage;
+    const sale = () => { price = int(500, 5000, 50); frame = price * 300 + 60000; p.price = price; };
+    const roadInput = factor => {
+      width = pick([4, 4.5, 5, 5.5, 6, 7, 8, 9, 10, 11]);
+      designated = pick(factor === 40 ? [100, 150, 200, 300, 400] : [100, 200, 300, 400, 500, 600]);
+      road = width * factor; p = {width, designated, factor};
+    };
+    const feeEquation = multiplier => `(${fmt(price)}×3%＋6)×${multiplier}＝${fmt(answer)}万円`;
+    switch (typeId) {
+      case 'fee-base':
+        sale(); answer = yenToMan(frame); prompt = `${fmt(price)}万円 → 1枠は？`;
+        context = '売買代金は消費税抜・400万円超／報酬の税加算前';
+        equation = `${fmt(price)}×3%＋6＝${fmt(answer)}万円`; break;
+      case 'fee-tax':
+      case 'fee-exempt':
+        sale(); rate = typeId === 'fee-tax' ? 110 : 104; p.rate = rate;
+        answer = yenToMan(frame * rate / 100); prompt = `${fmt(price)}万円 → 一方の上限は？`;
+        context = `売買代金は消費税抜／${rate === 110 ? '課税' : '免税'}宅建業者の媒介`;
+        equation = feeEquation(rate / 100); break;
+      case 'fee-building': {
+        const land = int(500, 2500, 100), building = int(500, 2500, 100), gross = building * 11 / 10;
+        price = land + building; p = {land, buildingGross: gross}; frame = price * 300 + 60000;
+        answer = yenToMan(frame * 110 / 100);
+        prompt = `土地${fmt(land)}・建物${fmt(gross)}万円 → 上限は？`;
+        context = '土地は非課税・建物のみ消費税10%込／課税業者の売買媒介一方';
+        equation = `(${fmt(land)}＋${fmt(gross)}÷1.1)×3.3%＋6.6＝${fmt(answer)}万円`; break;
+      }
+      case 'fee-both':
+      case 'fee-agency':
+        sale(); answer = yenToMan(frame * 220 / 100);
+        prompt = `${fmt(price)}万円 → ${typeId === 'fee-both' ? '双方合計' : '代理'}の上限は？`;
+        context = `消費税抜の売買代金／課税宅建業者／${typeId === 'fee-both' ? '売主・買主の双方を媒介' : '代理のみ・他の業者なし'}`;
+        equation = `(${fmt(price)}×3%＋6)×1.1×2＝${fmt(answer)}万円`; break;
+      case 'fee-agency-share': {
+        sale(); const otherYen = Math.round(frame * 110 / 100 / 2); p.otherYen = otherYen;
+        answer = yenToMan(frame * 220 / 100 - otherYen);
+        prompt = `${fmt(price)}万円 → 代理業者の残枠は？`;
+        context = `代金消費税抜・全業者課税／相手方の媒介業者は税込${fmt(yenToMan(otherYen))}万円受領`;
+        equation = `(${fmt(price)}×3%＋6)×2.2−${fmt(yenToMan(otherYen))}＝${fmt(answer)}万円`; break;
+      }
+      case 'fee-rent':
+        p = {rent: int(4, 30)}; answer = yenToMan(p.rent * 10000 * 110 / 100);
+        prompt = `月額${p.rent}万円 → 双方合計の上限は？`;
+        context = '居住用貸借の媒介／課税宅建業者／空家等の特例なし';
+        equation = `${p.rent}×1か月×1.1＝${fmt(answer)}万円`; break;
+      case 'fee-keymoney':
+        p = {keymoney: int(20, 200, 10)}; answer = yenToMan(p.keymoney * 10000 * 55 / 1000);
+        prompt = `権利金${p.keymoney}万円 → 一方の上限は？`;
+        context = '非居住用貸借・返還しない権利金（消費税抜）／売買扱いで算定・課税媒介';
+        equation = `${p.keymoney}×5%×1.1＝${fmt(answer)}万円`; break;
+      case 'fee-vacant':
+        p = {price: int(50, 800, 50), received: int(1, 25)}; answer = yenToMan(300000 * 110 / 100 - p.received * 10000);
+        prompt = `受領済${p.received}万円 → 追加の上限は？`;
+        context = `税抜売価${p.price}万円・低廉な空家等／課税媒介・同じ依頼者・費用勘案と事前合意あり`;
+        equation = `30×1.1−${p.received}＝${fmt(answer)}万円`; break;
+      case 'fee-residential': {
+        p = {rent: int(4, 30), half: rng() < 0.5}; mode = 'ox'; unit = '';
+        const months = p.half ? '0.5' : '1'; answer = p.half;
+        prompt = `一方の上限は${months}か月分＋税。○×？`;
+        context = `居住用貸借・月${p.rent}万円／課税媒介・依頼時の承諾なし・特例なし`;
+        equation = `一方は0.5か月＋税／双方合計は1か月＋税`; break;
+      }
+      case 'far-road-home':
+      case 'far-road-other':
+        roadInput(typeId === 'far-road-home' ? 40 : 60); unit = '%'; answer = road;
+        prompt = `前面道路${width}m → 道路の容積率上限は？`;
+        context = `${p.factor === 40 ? '住居系' : '商業地域'}／前面道路12m未満・係数指定や緩和なし`;
+        equation = `${width}×${p.factor / 100}×100＝${fmt(answer)}%`; break;
+      case 'far-limit-home':
+      case 'far-limit-other':
+        roadInput(typeId === 'far-limit-home' ? 40 : 60); unit = '%'; answer = Math.min(designated, road);
+        prompt = `指定${designated}%・道路${width}m → 容積率は？`;
+        context = `${p.factor === 40 ? '住居系' : '商業地域'}／係数指定や緩和なし・前面道路は1本`;
+        equation = `min(${designated}, ${width}×${p.factor / 100}×100)＝${fmt(answer)}%`; break;
+      case 'far-wide':
+        p = {width: pick([12, 13, 14, 15, 16]), designated: pick([200, 300, 400, 500, 600])};
+        unit = '%'; answer = p.designated; prompt = `指定${p.designated}%・道路${p.width}m → 容積率は？`;
+        context = '商業地域／前面道路は1本・その他の緩和や制限なし';
+        equation = `道路12m以上 → 道路制限なし＝${answer}%`; break;
+      case 'far-area':
+        roadInput(pick([40, 60])); area = int(100, 500, 20); p.area = area;
+        unit = '㎡'; answer = area * Math.min(designated, road) / 100;
+        prompt = `敷地${area}㎡ → 最大延べ面積は？`;
+        context = `${p.factor === 40 ? '住居系' : '商業地域'}・指定${designated}%・道路${width}m／係数指定・緩和・不算入なし`;
+        equation = `${area}×min(${designated},${width}×${p.factor / 100}×100)÷100＝${fmt(answer)}㎡`; break;
+      case 'bcr-corner':
+      case 'bcr-fire':
+      case 'bcr-both':
+        p = {base: pick([30, 40, 50, 60, 70]), corner: typeId !== 'bcr-fire', fire: typeId !== 'bcr-corner'};
+        unit = '%'; answer = p.base + (p.corner ? 10 : 0) + (p.fire ? 10 : 0);
+        prompt = `指定${p.base}% → 建蔽率の上限は？`;
+        context = `${p.corner ? '特定行政庁の指定角地' : '角地指定なし'}／${p.fire ? '防火地域の耐火建築物' : '防火の緩和なし'}`;
+        equation = `${p.base}${p.corner ? '＋10' : ''}${p.fire ? '＋10' : ''}＝${answer}%`; break;
+      case 'bcr-unlimited':
+        p = {area: int(100, 500, 20)}; unit = '㎡'; answer = p.area;
+        prompt = `敷地${p.area}㎡ → 最大建築面積は？`;
+        context = '指定建蔽率80%・防火地域の耐火建築物／他の制限は考慮しない';
+        equation = `${p.area}×100%＝${answer}㎡（建蔽率の適用除外）`; break;
+      case 'bcr-area':
+        p = {area: int(100, 500, 20), base: pick([30, 40, 50, 60]), corner: rng() < 0.5, fire: rng() < 0.5};
+        coverage = p.base + (p.corner ? 10 : 0) + (p.fire ? 10 : 0); unit = '㎡'; answer = p.area * coverage / 100;
+        prompt = `敷地${p.area}㎡ → 最大建築面積は？`;
+        context = `指定${p.base}%／${p.corner ? '指定角地' : '角地指定なし'}／${p.fire ? '防火地域・耐火' : '防火の緩和なし'}`;
+        equation = `${p.area}×(${p.base}${p.corner ? '＋10' : ''}${p.fire ? '＋10' : ''})÷100＝${fmt(answer)}㎡`; break;
+      default: throw new Error('Unknown calculation type: ' + typeId);
+    }
+    return {typeId, params: p, prompt, context, unit, mode, answer, equation};
+  }
+  const TYPES = [
+    ['fee-base','fee','税加算前の1枠'],['fee-tax','fee','課税業者の1枠'],['fee-exempt','fee','免税業者の1枠'],
+    ['fee-building','fee','建物の消費税を除く'],['fee-both','fee','媒介1＋1枠'],['fee-agency','fee','代理2枠'],
+    ['fee-agency-share','fee','代理と媒介の合計枠'],['fee-rent','fee','貸借の双方合計'],['fee-keymoney','fee','権利金5%'],
+    ['fee-vacant','fee','低廉な空家等'],['fee-residential','fee','居住用0.5か月'],
+    ['far-road-home','building','道路制限・住居系'],['far-road-other','building','道路制限・その他'],
+    ['far-limit-home','building','許容容積率・住居系'],['far-limit-other','building','許容容積率・その他'],
+    ['far-wide','building','道路12m以上'],['far-area','building','最大延べ面積'],
+    ['bcr-corner','building','建蔽率・指定角地'],['bcr-fire','building','建蔽率・防火耐火'],
+    ['bcr-both','building','建蔽率・両方'],['bcr-unlimited','building','建蔽率80%と防火耐火'],['bcr-area','building','最大建築面積']
+  ].map(([id, topic, title]) => ({id, topic, title}));
+  function normalize(raw) {
+    const s = String(raw).normalize('NFKC').trim().replace(/,/g, '');
+    return /^\d+(?:\.\d+)?$/.test(s) ? Number(s) : null;
+  }
+  function createSession({rng = Math.random, streak = 0} = {}) {
+    const weights = new Map(TYPES.map(t => [t.id, 1]));
+    let current = null, retry = null, filter = 'all', lastId = null, count = 0;
+    function next() {
+      let id = retry;
+      if (!id) {
+        let pool = TYPES.filter(t => filter === 'all' || t.topic === filter);
+        if (pool.length > 1) pool = pool.filter(t => t.id !== lastId);
+        let cursor = rng() * pool.reduce((n, t) => n + weights.get(t.id), 0);
+        id = pool[pool.length - 1].id;
+        for (const t of pool) { cursor -= weights.get(t.id); if (cursor < 0) { id = t.id; break; } }
+      }
+      const previous = current; let q;
+      do { q = generate(id, rng); } while (previous && previous.typeId === id && JSON.stringify(q.params) === JSON.stringify(previous.params));
+      current = q; retry = null; lastId = id; count++;
+      return q;
+    }
+    function submit(raw) {
+      if (!current) return null;
+      const value = current.mode === 'ox' ? (typeof raw === 'boolean' ? raw : null) : normalize(raw);
+      if (value === null || (typeof value === 'number' && !Number.isFinite(value))) return null;
+      const ok = current.mode === 'ox' ? value === current.answer : Math.abs(value - current.answer) < 0.000001;
+      streak = ok ? streak + 1 : 0;
+      weights.set(current.typeId, ok ? Math.max(1, weights.get(current.typeId) - 0.5) : Math.min(8, weights.get(current.typeId) + 2));
+      retry = ok ? null : current.typeId;
+      return {ok, streak, value, question: current};
+    }
+    return {next, submit, get current() {return current;}, get streak() {return streak;}, get count() {return count;},
+      setFilter(value) {filter = ['fee', 'building'].includes(value) ? value : 'all'; retry = null; current = null; lastId = null;},
+      getWeight(id) {return weights.get(id);}};
+  }
+  let session, active = false, graded = false, timer = null;
+  const $ = id => document.getElementById(id);
+  function cancel() {if (timer !== null) {clearTimeout(timer); timer = null;}}
+  function render() {
+    if (graded && !$('cd-feedback').hidden) $('cd-mark').textContent = '前問 ' + $('cd-mark').textContent;
+    const q = session.next(); graded = false;
+    $('cd-type').textContent = TYPES.find(t => t.id === q.typeId).title;
+    $('cd-context').textContent = q.context; $('cd-prompt').textContent = q.prompt;
+    $('cd-unit').textContent = q.unit; $('cd-answer').value = '';
+    $('cd-number').hidden = q.mode !== 'number'; $('cd-keypad').hidden = q.mode !== 'number'; $('cd-ox').hidden = q.mode !== 'ox';
+    $('cd-number').disabled = false; $('cd-keypad').disabled = false; $('cd-ox').disabled = false;
+    $('cd-error').textContent = ''; $('cd-retry').textContent = ''; updateStreak();
+  }
+  function updateStreak() {$('cd-streak').textContent = session.streak;}
+  function advance() {cancel(); if (active && !document.hidden && graded) render();}
+  function grade(raw) {
+    if (!active || graded) return;
+    const result = session.submit(raw);
+    if (!result) {$('cd-error').textContent = '数字を入力してください（小数点も使えます）。'; return;}
+    graded = true; updateStreak();
+    try {localStorage.setItem(STREAK_KEY, String(result.streak)); $('cd-storage').textContent = '連続正解数だけ、この端末に保存';}
+    catch (_) {$('cd-storage').textContent = '保存できないため、連続正解数は今回だけ保持';}
+    $('cd-number').disabled = true; $('cd-keypad').disabled = true; $('cd-ox').disabled = true;
+    const q = result.question, answer = q.mode === 'ox' ? (q.answer ? '○' : '×') : fmt(q.answer) + q.unit;
+    $('cd-mark').textContent = result.ok ? '○ 正解' : '× 正解 ' + answer;
+    $('cd-feedback').className = result.ok ? 'cd-feedback cd-ok' : 'cd-feedback cd-ng';
+    $('cd-equation').textContent = q.equation;
+    $('cd-feedback').hidden = false;
+    $('cd-retry').textContent = result.ok ? 'そのまま次の問題へ' : '同じ型を別の数字でもう一度';
+    timer = setTimeout(advance, result.ok ? 1300 : 2600);
+  }
+  function key(value) {
+    if (!active || graded || session.current.mode !== 'number') return;
+    const input = $('cd-answer'); $('cd-error').textContent = '';
+    if (value === 'enter') {grade(input.value); return;}
+    if (value === 'back') {input.value = input.value.slice(0, -1); return;}
+    if (value === '.') {if (!input.value.includes('.')) input.value = (input.value || '0') + '.'; return;}
+    if (/^\d$/.test(value) && input.value.length < 12) input.value += value;
+  }
+  function init() {
+    if (session) return;
+    let streak = 0;
+    try {const saved = Number(localStorage.getItem(STREAK_KEY)); if (Number.isSafeInteger(saved) && saved > 0) streak = saved;} catch (_) {}
+    session = createSession({streak}); updateStreak();
+    $('cd-topic').addEventListener('change', e => {cancel(); session.setFilter(e.target.value); $('cd-feedback').hidden = true; render();});
+    $('cd-form').addEventListener('submit', e => {e.preventDefault(); grade($('cd-answer').value);});
+    $('cd-keypad').addEventListener('click', e => {const b = e.target.closest('[data-cd-key]'); if (b) key(b.dataset.cdKey);});
+    $('cd-ox').addEventListener('click', e => {const b = e.target.closest('[data-cd-ox]'); if (b) grade(b.dataset.cdOx === 'true');});
+    document.addEventListener('keydown', e => {
+      if (!active || graded || e.ctrlKey || e.metaKey || e.altKey || (e.target.matches('input,textarea,select') && e.target.id !== 'cd-answer')) return;
+      const k = e.key === 'Enter' ? 'enter' : e.key === 'Backspace' ? 'back' : e.key;
+      if (/^\d$/.test(k) || ['enter', 'back', '.'].includes(k)) {e.preventDefault(); key(k);}
+    });
+    document.addEventListener('visibilitychange', () => {if (document.hidden) cancel(); else advance();});
+    window.addEventListener('pagehide', cancel);
+  }
+  function show(topic) {
+    init(); active = true;
+    if (topic) {$('cd-topic').value = topic; session.setFilter(topic); $('cd-feedback').hidden = true;}
+    if (!session.current || graded) {cancel(); render();}
+  }
+  function hide() {active = false; cancel();}
+  const api = {init, show, hide, generate, types: TYPES, createSession, normalize, streakKey: STREAK_KEY, get current() {return session ? session.current : null;}};
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  root.TakkenCalc = api;
+})(typeof window !== 'undefined' ? window : globalThis);
+
 </script>
 <script>
 const PM_CATALOG={"isbn": "9784046075772", "title": "水野健の宅建士 神問題集2026", "total": 332, "examDate": "2026-10-18", "planStart": "2026-09-12", "finishTarget": "2026-10-09", "sourceUrl": "https://www.hanmoto.com/bd/isbn/9784046075772", "examSourceUrl": "https://www.retio.or.jp/exam/schedule/", "planNote": "2026-09-30に直前18日プランへ移行。一巡（9/21）は未達のため、業法と第3分冊は全部、権利関係は頻出論点に絞る。日々の予定は「直前プラン」を参照。", "liveStatus": "9/11 Zoom LIVEはスライドを時刻付きで確認。音声は全編無音のため口頭説明は未確認です。日程の根拠は25:00・28:00・31:00・33:00、分野別9割と再測定は38:00・42:00。", "sections": [{"id": "gyoho", "label": "宅建業法", "volume": 2, "start": 1, "end": 111, "slide": 1}, {"id": "horei", "label": "法令上の制限", "volume": 3, "start": 1, "end": 70, "slide": 20}, {"id": "tax", "label": "価格・税", "volume": 3, "start": 71, "end": 102, "slide": 47}, {"id": "kenri", "label": "権利関係", "volume": 1, "start": 1, "end": 99, "slide": 34}, {"id": "kiko", "label": "住宅金融支援機構", "volume": 3, "start": 103, "end": 107, "slide": 54, "diagram": "zk17"}, {"id": "ad", "label": "広告・景品", "volume": 3, "start": 108, "end": 112, "slide": 55}, {"id": "land", "label": "土地", "volume": 3, "start": 113, "end": 117, "slide": 56, "diagram": "zk25"}, {"id": "building", "label": "建物", "volume": 3, "start": 118, "end": 122, "slide": 56, "diagram": "zk21"}], "phases": [{"start": "2026-09-30", "end": "2026-10-03", "label": "業法を終わらせる", "action": "業法050〜111を解き切る。誤答は全肢の理由まで。"}, {"start": "2026-10-04", "end": "2026-10-09", "label": "法令・税を回す", "action": "第3分冊001〜102。10/7に模試1（令和7年度）。"}, {"start": "2026-10-10", "end": "2026-10-17", "label": "模試と弱点つぶし", "action": "模試4回（13:00〜15:00）＋権利関係の頻出論点＋誤答の解き直し。"}, {"start": "2026-10-18", "end": "2026-10-18", "label": "本試験", "action": "業法→免除5問→法令・税→権利の順に解く。"}], "coachSources": [{"label": "RE.LIFE. 9月：結果を記録して弱点を絞る（4:15）", "url": "https://www.youtube.com/watch?v=B840bMJG4Ws&t=255s"}, {"label": "RE.LIFE. 10/11の到達状態から逆算（9:27）", "url": "https://www.youtube.com/watch?v=B840bMJG4Ws&t=567s"}, {"label": "RE.LIFE. 全肢の理由まで確認（2:14）", "url": "https://www.youtube.com/watch?v=ZY9fAcXZf2g&t=134s"}], "questionLinks": {"3:118": {"slide": 56, "diagram": "zk21"}, "3:119": {"slide": 56, "diagram": "zk22"}, "3:120": {"slide": 56, "diagram": "zk22"}, "3:121": {"slide": 56, "diagram": "zk23"}, "3:122": {"slide": 56, "diagram": "zk24"}, "2:13": {"slide": 2, "diagram": "zk26"}, "2:23": {"slide": 1, "diagram": "zk31"}, "2:24": {"slide": 1, "diagram": "zk30"}, "2:30": {"diagram": "zk32"}}, "dailyPlanStart": "2026-09-13", "volumeLabels": {"1": "権利関係", "2": "宅建業法", "3": "法令・税・免除"}, "accuracyTarget": 0.9};
@@ -3217,6 +3515,9 @@ TakkenPM.init({catalog:PM_CATALOG,shared:true});
 // 共通保存（8998）は2026-09-30に再開（本人承認、10/19に停止予定）。
 TakkenSync.init({endpoint:'https://niihama.tail6f51c9.ts.net:8998/api/pm'});
 TakkenCoach.init(window.TAKKEN_COACH_PLAN,PM_CATALOG);
+const calcHome=document.querySelector('[data-calc-open]');
+const calcHomeRoot=document.getElementById('pm-dashboard');
+calcHomeRoot.insertBefore(calcHome,document.getElementById('coach')||calcHomeRoot.firstChild);
 TakkenKami.init();
 TakkenKamiBank.init({endpoint:'https://niihama.tail6f51c9.ts.net:8998/api/kami'});
 TakkenRally.init({"sets": [{"id": "gyo-8shu", "subject": "宅建業法", "title": "8種制限・クーリングオフ", "src": "RE.LIFE「8種制限/クーリングオフ 完全攻略」各章ラリー＋総復習ラリー（字幕）", "vid": "qyeVEUc8vwg", "cards": [{"p": "条件", "q": "8種制限が効く条件は？", "a": "業者が自ら売主、買主は業者でない素人", "t": 499}, {"p": "条件", "q": "業者が媒介・代理なら？", "a": "適用なし", "t": 505}, {"p": "条件", "q": "業者間の取引は？", "a": "適用なし", "t": 507}, {"p": "クーリングオフ", "q": "できるかどうかの判定は？", "a": "申込みをした場所", "t": 1243}, {"p": "クーリングオフ", "q": "「事務所等」に入るのは？", "a": "事務所、媒介・代理業者の事務所、宅建士を置くべき土地に定着した案内所", "sa": "事務所、媒介・代理業者の事務所、宅建士を置くべき、土地に定着した案内所", "t": 1246}, {"p": "クーリングオフ", "q": "買主から申し出てOKな場所は？", "a": "自宅と勤務先だけ", "t": 1253}, {"p": "クーリングオフ", "q": "8日はいつから数える？", "a": "書面で告げられた日から。初日を含む", "t": 1256}, {"p": "クーリングオフ", "q": "できなくなるのは？", "a": "8日経過、または引渡し＋代金全額", "sa": "8日経過。または、引渡しを受けて、代金も全額払ったとき", "t": 1259}, {"p": "クーリングオフ", "q": "解除の効力はいつ？", "a": "書面を発した時", "t": 1262}, {"p": "クーリングオフ", "q": "告げる書面に宅建士の記名は？", "a": "不要", "t": 3020}, {"p": "手付・損害賠償", "q": "手付の上限は？", "a": "代金の2割。超える額は受け取れない", "t": 1673}, {"p": "手付・損害賠償", "q": "どんな名目の手付でも？", "a": "解約手付になる", "t": 1676}, {"p": "手付・損害賠償", "q": "業者から手付解除するには？", "a": "倍額を現実に提供。相手が履行に着手する前まで", "t": 1679}, {"p": "手付・損害賠償", "q": "手付の貸付け・分割・後払いは？", "a": "提案しただけで違反", "t": 1682}, {"p": "手付・損害賠償", "q": "損害賠償の予定＋違約金は？", "a": "合計で代金の2割まで。超えた分だけ無効", "t": 1687}, {"p": "手付・損害賠償", "q": "2割ぴったりは？", "a": "有効", "t": 1689}, {"p": "保全措置", "q": "保全の対象になるお金は？", "a": "引渡し前に受け取る手付金等を全部合算", "t": 2149}, {"p": "保全措置", "q": "未完成物件で保全が要るのは？", "a": "5%か1,000万円を超えたら", "sa": "代金の5パーセント、または1000万円を超えたら", "t": 2152}, {"p": "保全措置", "q": "完成物件は？", "a": "10%か1,000万円を超えたら", "sa": "10パーセント、または1000万円を超えたら", "t": 2155}, {"p": "保全措置", "q": "ぴったり5%・10%なら？", "a": "保全は不要", "sa": "保全は不要", "t": 2156}, {"p": "保全措置", "q": "寄託（指定保管機関）が使えるのは？", "a": "完成物件だけ", "sq": "指定保管機関への寄託が使えるのは？", "t": 2158}, {"p": "保全措置", "q": "保全の書面は？", "a": "買主に交付。電磁的方法は買主の承諾が要る", "t": 2161}, {"p": "保全措置", "q": "保全と受領、順番は？", "a": "保全してから受け取る", "t": 2164}, {"p": "契約不適合", "q": "買主に不利な特約は？", "a": "原則無効", "t": 2340}, {"p": "契約不適合", "q": "有効な例外は？", "a": "通知期間を引渡しから2年以上とする特約", "t": 2343}, {"p": "契約不適合", "q": "特約が無効になったら？", "a": "民法に戻る。知った時から1年以内に通知", "t": 2346}]}, {"id": "gyo-35", "subject": "宅建業法", "title": "35条 重要事項説明", "src": "RE.LIFE「35条書面 完全攻略」6章・7章ラリー＋総復習ラリー（字幕）", "vid": "Qqpu46WYJ6Y", "cards": [{"p": "基本", "q": "重要事項説明は何のセット？", "a": "書面と口頭説明のセット", "t": 2504}, {"p": "基本", "q": "説明するのは？", "a": "宅建士。専任でなくてOK", "t": 2507}, {"p": "基本", "q": "説明する相手は？", "a": "買主・借主になろうとする人", "t": 2509}, {"p": "基本", "q": "いつ？", "a": "契約の前", "t": 2512}, {"p": "基本", "q": "宅建士証の提示は？", "a": "請求がなくても提示", "t": 2513}, {"p": "基本", "q": "35条書面は？", "a": "宅建士の記名だけ。押印なし", "t": 2515}, {"p": "基本", "q": "買う側が業者なら？", "a": "説明は省略OK。書面の交付は必須", "t": 2517}, {"p": "取引の種類", "q": "私道負担が要らないのは？", "a": "建物の貸借だけ", "t": 2251}, {"p": "取引の種類", "q": "設備の整備状況が要るのは？", "a": "建物の貸借だけ", "t": 2254}, {"p": "取引の種類", "q": "契約期間・用途制限・敷金精算・管理委託先は？", "a": "貸借だけ", "sq": "契約期間、用途制限、敷金の精算、管理の委託先は？", "t": 2257}, {"p": "取引の種類", "q": "建物の取壊しに関する事項は？", "a": "宅地の貸借だけ", "t": 2259}, {"p": "取引の種類", "q": "マンション、貸借で要る項目は？", "a": "専有部分の用途制限と管理委託先の2つ", "t": 2262}, {"p": "物件", "q": "石綿（アスベスト）は？", "a": "調査義務なし。記録があれば説明", "sq": "アスベストは？", "t": 2529}, {"p": "物件", "q": "耐震診断は？", "a": "旧耐震の建物だけ（昭和56年5月31日以前に着工）", "sa": "旧耐震の建物だけ", "t": 2531}, {"p": "物件", "q": "手付金等の保全措置は？", "a": "業者が自ら売主のときだけ", "t": 2533}, {"p": "35条と37条", "q": "35条と37条、時期は？", "a": "35条は契約の前、37条は後", "t": 2477}, {"p": "35条と37条", "q": "相手は？", "a": "35条は買う・借りる側だけ、37条は両当事者", "t": 2479}, {"p": "35条と37条", "q": "説明は？", "a": "35条はあり、37条は交付だけ", "t": 2481}, {"p": "35条と37条", "q": "代金の額と引渡し時期は？", "a": "37条だけ", "t": 2484}, {"p": "35条と37条", "q": "解除・損害賠償の予定・ローン不成立は？", "a": "35条は必ず、37条は定めがあれば", "sq": "解除、損害賠償の予定、ローン不成立のときの措置は？", "t": 2487}, {"p": "35条と37条", "q": "宅建士の記名は？", "a": "両方必要", "t": 2492}]}, {"id": "gyo-37", "subject": "宅建業法", "title": "37条書面", "src": "RE.LIFE「37条書面 完全攻略」2章・4章ラリー＋総復習ラリー（字幕）", "vid": "e8CXxh6IFtE", "cards": [{"p": "基本", "q": "37条書面はいつ？", "a": "契約の後、遅滞なく", "t": 2372}, {"p": "基本", "q": "誰に？", "a": "両当事者", "t": 2374}, {"p": "基本", "q": "共同媒介なら？", "a": "両方の業者に交付義務", "t": 2375}, {"p": "基本", "q": "説明は？", "a": "要らない", "t": 2378}, {"p": "基本", "q": "記名するのは？", "a": "宅建士。専任でなくてOK", "t": 2379}, {"p": "基本", "q": "35条で説明した宅建士と同じ人？", "a": "別人でOK", "t": 2381}, {"p": "基本", "q": "業者間なら？", "a": "省略できない", "t": 2382}, {"p": "基本", "q": "自ら貸借は？", "a": "宅建業ではない。対象外", "t": 2384}, {"p": "基本", "q": "違反の罰則は？", "a": "37条は50万円以下の罰金。35条は罰則なし", "t": 2386}, {"p": "記載事項", "q": "必ず書く5つは？", "a": "当事者・物件・代金・引渡し時期・移転登記の申請時期", "sa": "当事者、物件、代金、引渡し時期、移転登記の申請時期", "t": 1241}, {"p": "記載事項", "q": "代金の額は35条に書く？", "a": "書かない。37条だけ", "t": 1253}, {"p": "記載事項", "q": "移転登記の申請時期は？", "a": "売買・交換だけ", "t": 1257}, {"p": "記載事項", "q": "既存建物の売買・交換で必ず書くのは？", "a": "構造上主要な部分等の状況について双方が確認した事項", "t": 1260}, {"p": "記載事項", "q": "代金以外の金銭は？", "a": "37条は額・時期・目的、35条は額と目的（時期なし）", "sa": "37条は、額と時期と目的。35条は、額と目的。時期はなし", "t": 2394}, {"p": "記載事項", "q": "天災などの危険負担と租税公課は？", "a": "37条だけ（定めがあれば）", "t": 2403}, {"p": "記載事項", "q": "手付金等の保全措置は？", "a": "35条だけ", "t": 2405}, {"p": "貸借", "q": "貸借で消える項目は？", "a": "移転登記・ローン・租税公課・既存建物の確認・契約不適合責任", "sa": "移転登記、ローン、租税公課、既存建物の確認、契約不適合責任", "t": 1985}, {"p": "貸借", "q": "なぜ消える？", "a": "借りるだけなら関係ないから", "t": 1990}, {"p": "貸借", "q": "貸借でも必ず書くのは？", "a": "借賃と引渡し時期", "t": 1993}]}, {"id": "horei-toshi", "subject": "法令上の制限", "title": "都市計画法", "src": "RE.LIFE「都市計画法 完全攻略」(2026-09-26公開) 総復習ラリー＋各章の急所（字幕）", "vid": "GHogLXNOLWg", "cards": [{"p": "物差し", "q": "物差しは？", "a": "進める場所か、抑える場所か", "t": 3618}, {"p": "地域地区", "q": "高度地区は？", "a": "高さ", "t": 3618}, {"p": "地域地区", "q": "高度利用地区は？", "a": "容積率など。高さは定めない", "t": 3618}, {"p": "地域地区", "q": "特別用途地区は？", "a": "用途地域の中", "t": 3618}, {"p": "地域地区", "q": "特定用途制限地域は？", "a": "用途地域の外（調整区域を除く）", "sa": "用途地域の外。ただし調整区域は除く", "t": 3618}, {"p": "用途地域", "q": "準住居地域は？", "a": "道路の沿道", "t": 3618}, {"p": "用途地域", "q": "近隣商業地域は？", "a": "近隣の住民への日用品", "t": 3618}, {"p": "用途地域", "q": "工業系3段の言葉は？", "a": "おそれのない・主として・専ら", "sa": "環境悪化のおそれのない、主として、専ら", "t": 3618}, {"p": "用途地域", "q": "農業と調和した低層住宅は？", "a": "田園住居地域", "t": 3618}, {"p": "用途地域", "q": "生産緑地地区は？", "a": "別の法律の地区", "t": 3618}, {"p": "都市施設", "q": "必ず定める3点セットは？", "a": "道路・公園・下水道", "t": 3618}, {"p": "都市施設", "q": "住居系の用途地域に追加で必ず定めるのは？", "a": "義務教育施設", "t": 3618}, {"p": "都市施設", "q": "準都市計画区域に置けないのは？", "a": "高度利用地区・特定街区など、進める道具", "t": 3618}, {"p": "都市施設", "q": "市街地開発事業を定められるのは？", "a": "市街化区域と非線引き区域だけ", "t": 3618}, {"p": "誰が決める", "q": "都市計画区域の指定は？", "a": "都道府県。県をまたげば国土交通大臣", "t": 3618}, {"p": "誰が決める", "q": "市町村が都市計画を定めるときは？", "a": "知事に協議。同意は不要", "t": 3618}, {"p": "開発許可", "q": "調整区域の開発は？", "a": "規模不問で許可", "t": 3618}, {"p": "開発許可", "q": "判定の順番は？", "a": "開発行為か → 場所と規模 → 例外", "sa": "開発行為か。次に場所と規模。最後に例外", "t": 3618}, {"p": "開発許可", "q": "1ha未満の野球場は？", "a": "特定工作物ですらない", "t": 3618}, {"p": "開発許可", "q": "病院と学校は？", "a": "人を集めるから例外に入らない", "t": 3618}, {"p": "開発許可", "q": "事業の施行として行うなら？", "a": "規模不問で不要", "t": 3618}, {"p": "手続き", "q": "今ある公共施設の管理者とは？", "a": "協議＋同意", "t": 3618}, {"p": "手続き", "q": "将来の管理者とは？", "a": "協議だけ", "t": 3618}, {"p": "手続き", "q": "始める・変えるは？", "a": "許可", "t": 3618}, {"p": "手続き", "q": "やめるは？", "a": "届出", "t": 3618}, {"p": "手続き", "q": "完了の公告をするのは？", "a": "知事", "t": 3618}, {"p": "手続き", "q": "開発登録簿は？", "a": "知事が調製・保管", "t": 3618}, {"p": "手続き", "q": "調整区域で建てるだけなら？", "a": "43条。建物にも許可が要る", "t": 3618}, {"p": "災害", "q": "レッドゾーンは？", "a": "原則アウト", "t": 3618}, {"p": "災害", "q": "イエローゾーンは？", "a": "セーフ", "t": 3618}, {"p": "災害", "q": "自己居住用の住宅は？", "a": "レッドの規制も対象外", "t": 3618}, {"p": "地区計画", "q": "地区整備計画は？", "a": "原則定める。特別な事情で省ける", "t": 3618}, {"p": "地区計画", "q": "地区計画の届出は？", "a": "着手の30日前、市町村長へ", "t": 3618}, {"p": "地区計画", "q": "計画に合わないときは？", "a": "勧告まで。命令はできない", "t": 3618}, {"p": "事業地", "q": "事業地内の有償譲渡は？", "a": "施行者に届出", "t": 3618}]}, {"id": "horei-num", "subject": "法令上の制限", "title": "数字ラリー", "src": "RE.LIFE「法令上の制限 完全攻略」総復習・数字ラリー（講師スライド p.235〜253）", "vid": "Jqndj59XAOQ", "cards": [{"p": "都市計画", "q": "地区計画の届出は何日前？", "a": "着手の30日前"}, {"p": "都市計画", "q": "届出先は？", "a": "市町村長"}, {"p": "都市計画", "q": "都市計画の案の縦覧は？", "a": "2週間"}, {"p": "都市計画", "q": "事業予定地での建築は、届出？許可？", "a": "許可"}, {"p": "開発許可", "q": "市街化区域の面積例外は？", "a": "1,000㎡未満は不要"}, {"p": "開発許可", "q": "市街化調整区域は？", "a": "面積例外なし"}, {"p": "開発許可", "q": "非線引きと準都市計画区域は？", "a": "3,000㎡未満は不要"}, {"p": "開発許可", "q": "区域の外は？", "a": "1ha未満は不要"}, {"p": "開発許可", "q": "通しでどうぞ", "a": "1・なし・3・3・10", "sa": "いち、なし、さん、さん、じゅう"}, {"p": "開発許可", "q": "野球場など特定工作物の境目は？", "a": "1ha以上"}, {"p": "開発許可", "q": "ゴルフ場は？", "a": "面積不問"}, {"p": "開発許可", "q": "開発登録簿は、許可を受けた業者が登録？", "a": "違う。調製・保管は知事"}, {"p": "建築基準法", "q": "道路の幅は？", "a": "4m以上"}, {"p": "建築基準法", "q": "接道は？", "a": "2m以上"}, {"p": "建築基準法", "q": "セットバックはどこから？", "a": "道路の中心線から2m"}, {"p": "建築基準法", "q": "建蔽率が無制限になる3つは？", "a": "8割・防火・耐火", "sa": "8割の地域、防火地域、耐火建築物"}, {"p": "建築基準法", "q": "容積率で道路幅を使うのは何m未満？", "a": "前面道路12m未満", "sq": "容積率で道路の幅を使うのは、何メートル未満？"}, {"p": "建築基準法", "q": "法定乗数、住居系は？", "a": "10分の4"}, {"p": "建築基準法", "q": "それ以外は？", "a": "10分の6"}, {"p": "建築基準法", "q": "低層3地域の絶対高さは？", "a": "10mか12m"}, {"p": "建築基準法", "q": "日影規制の対象外は？", "a": "商業・工業・工業専用"}, {"p": "建築基準法", "q": "防火地域で耐火が要るのは？", "a": "3階以上か100㎡超"}, {"p": "建築基準法", "q": "準防火地域なら？", "a": "4階以上か1,500㎡超"}, {"p": "建築基準法", "q": "今年の主役、建築確認は？", "a": "2階以上か200㎡超なら全国で確認", "sa": "2階以上か、200平方メートル超えたら、全国で確認"}, {"p": "建築基準法", "q": "完了検査の申請は？", "a": "工事完了から4日以内"}, {"p": "建築基準法", "q": "検査済証の前に使えるのは？", "a": "仮使用の認定か、申請受理から7日経過"}, {"p": "建築基準法", "q": "第一種住居地域のホテル・旅館は？", "a": "3,000㎡以下ならOK"}, {"p": "建築基準法", "q": "単体規定の4つの数字は？", "a": "採光1/7・換気1/20・避雷20m超・昇降機31m超", "sa": "採光7分の1、換気20分の1、避雷設備20メートル超、昇降機31メートル超"}, {"p": "国土利用計画法", "q": "事後届出、市街化区域は？", "a": "2,000㎡以上"}, {"p": "国土利用計画法", "q": "それ以外の都市計画区域は？", "a": "5,000㎡以上"}, {"p": "国土利用計画法", "q": "区域の外は？", "a": "10,000㎡以上"}, {"p": "国土利用計画法", "q": "合言葉は？", "a": "2・5・10は、事後届出", "sa": "に、ご、じゅうは、事後届出"}, {"p": "国土利用計画法", "q": "期限は？", "a": "契約から2週間以内"}, {"p": "国土利用計画法", "q": "届け出るのは？", "a": "買主だけ"}, {"p": "農地法", "q": "人が変わるだけなら？", "a": "3条。農業委員会の許可"}, {"p": "農地法", "q": "潰す話は？", "a": "4条・5条。知事等の許可"}, {"p": "農地法", "q": "相続は許可が要る？", "a": "要らない。届出は要る"}, {"p": "農地法", "q": "市街化区域の特例がないのは？", "a": "3条"}, {"p": "農地法", "q": "自分の農業用施設、例外は何アール未満？", "a": "2アール未満"}, {"p": "農地法", "q": "4条が守備しない土地は？", "a": "採草放牧地"}, {"p": "区画整理", "q": "組合の設立は何人以上？", "a": "7人以上"}, {"p": "区画整理", "q": "設立の同意は？", "a": "所有者・借地権者それぞれ3分の2以上"}, {"p": "区画整理", "q": "組合ができたら？", "a": "区域内の所有者・借地権者は全員組合員"}, {"p": "区画整理", "q": "公的施行で事前に聴くのは？", "a": "土地区画整理審議会の意見"}, {"p": "区画整理", "q": "仮換地の合言葉は？", "a": "使うのは代替機、売るのは自分の携帯", "sa": "使うのは代替機。売るのは、自分の携帯"}, {"p": "区画整理", "q": "換地処分、権利が消えるのは？", "a": "公告の日の終わり"}, {"p": "区画整理", "q": "新しい換地をもらえるのは？", "a": "公告の翌日"}, {"p": "区画整理", "q": "保留地は誰のもの？", "a": "施行者"}, {"p": "盛土規制法", "q": "街なかの許可、5点セットは？", "a": "盛り1・切り2・切り盛り2・盛り盛り2・広さ500", "sa": "盛り1、切り2、切り盛り2、盛り盛り2、広さ500"}, {"p": "盛土規制法", "q": "山側の届出は？", "a": "着手の30日前"}, {"p": "盛土規制法", "q": "区域指定のとき、もうやってた人は？", "a": "21日以内に届出"}, {"p": "盛土規制法", "q": "擁壁を壊すのは？", "a": "14日「前」に届出", "sa": "14日、前に届出"}, {"p": "盛土規制法", "q": "宅地に転用したら？", "a": "14日「以内」に届出", "sa": "14日、以内に届出"}]}, {"id": "horei-batsu", "subject": "法令上の制限", "title": "バツフレーズ15連", "src": "RE.LIFE「法令上の制限 完全攻略」バツフレーズ（講師スライド p.255〜259）", "vid": "Jqndj59XAOQ", "cards": [{"q": "「登記の時から2週間以内に届出」", "a": "バツ。起算は契約から"}, {"q": "「売主及び買主が届出」", "a": "バツ。買主だけ"}, {"q": "「すべての都市計画区域で区域区分を定める」", "a": "バツ。区域区分は任意"}, {"q": "「高度利用地区は高さの限度を定める」", "a": "バツ。土地の使い方の話"}, {"q": "「病院は公益だから開発許可不要」", "a": "バツ。病院・学校・福祉は例外に入らない"}, {"q": "「調整区域の小規模開発は不要」", "a": "バツ。調整区域は面積例外なし"}, {"q": "「防災区域は規制区域の中に指定」", "a": "バツ。絶対に重ならない"}, {"q": "「工業地域に住宅は建てられない」", "a": "バツ。ダメなのは工業専用だけ"}, {"q": "「防火地域またぎは過半で判断」", "a": "バツ。厳しいほう"}, {"q": "「競売だから農地法の許可不要」", "a": "バツ。競売でも許可が要る"}, {"q": "「相続だから届出も不要」", "a": "バツ。届出は要る"}, {"q": "「換地処分の公告の日から換地」", "a": "バツ。公告の翌日から"}, {"q": "「開発登録簿は許可を受けた業者が登録」", "a": "バツ。調製・保管は知事"}, {"q": "「検査済証までは絶対に使えない」", "a": "バツ。仮使用の認定と、受理から7日"}, {"q": "「採草放牧地の転用に4条許可」", "a": "バツ。4条は農地専用"}]}, {"id": "kenri-1", "subject": "権利関係", "title": "意思表示・時効・代理・相続", "src": "RE.LIFE「権利関係 完全攻略」ミニラリー・仕上げラリー（講師スライド p.29・50・79・98）", "vid": "swYnWoQGJo4", "cards": [{"p": "意思表示", "q": "グルのウソ売買、当事者間では？", "a": "無効"}, {"p": "意思表示", "q": "知らずに買ったCとの勝負は？", "a": "Cの勝ち。善意だけでいい"}, {"p": "意思表示", "q": "錯誤の効果は？", "a": "取消し"}, {"p": "意思表示", "q": "動機の勘違いが守られるのは？", "a": "相手に表示してたときだけ"}, {"p": "制限行為能力", "q": "成年被後見人、同意があれば？", "a": "できない。例外は日常生活だけ"}, {"p": "制限行為能力", "q": "未成年が一人でOKな3つは？", "a": "もらう・小遣い・商売"}, {"p": "制限行為能力", "q": "未成年者本人に催告したら？", "a": "何も起きない"}, {"p": "制限行為能力", "q": "取消し前のCに勝てるのは？", "a": "脅された人と、制限行為能力者"}, {"p": "制限行為能力", "q": "成年は何歳？", "a": "18歳"}, {"p": "時効", "q": "信じてて落ち度なし、取得時効は？", "a": "10年"}, {"p": "時効", "q": "それ以外は？", "a": "20年"}, {"p": "時効", "q": "借りて住んでる人は？", "a": "何年でもゼロ"}, {"p": "時効", "q": "消滅時効の数字は？", "a": "5年と10年"}, {"p": "時効", "q": "時間が経っても消えない権利は？", "a": "所有権"}, {"p": "時効", "q": "催告で止まるのは？", "a": "6ヶ月。連打は効かない"}, {"p": "時効", "q": "「借りてます」の一言で？", "a": "リセット"}, {"p": "時効", "q": "完成後に「払います」と言ったら？", "a": "もう援用できない"}, {"p": "代理", "q": "代理が成立する条件2つは？", "a": "名乗りと、代理権"}, {"p": "代理", "q": "名乗らなかったら？", "a": "代理人自身の契約"}, {"p": "代理", "q": "復代理人は誰の代理人？", "a": "本人の代理人"}, {"p": "代理", "q": "代理権の濫用、相手が気づけたら？", "a": "無権代理あつかい"}, {"p": "代理", "q": "催告を無視したら？", "a": "追認拒絶。制限行為能力者とは逆"}, {"p": "代理", "q": "本人が破産、任意代理は？", "a": "消える。法定代理は消えない"}, {"p": "代理", "q": "無権代理人が単独相続したら？", "a": "拒めない。共同相続なら全員の追認"}, {"p": "代理", "q": "表見代理の共通点は？", "a": "本人が作った「ありそうな見た目」"}, {"p": "相続", "q": "配偶者と子は？", "a": "2分の1ずつ"}, {"p": "相続", "q": "配偶者と親は？", "a": "3分の2と3分の1"}, {"p": "相続", "q": "配偶者と兄弟は？", "a": "4分の3と4分の1"}, {"p": "相続", "q": "兄弟の代襲は？", "a": "甥・姪まで。一代限り"}, {"p": "相続", "q": "放棄した人の子は？", "a": "代襲できない"}, {"p": "相続", "q": "放棄・限定承認の期限は？", "a": "知った時から3ヶ月"}, {"p": "相続", "q": "何もしないで黙っていたら？", "a": "単純承認"}, {"p": "相続", "q": "遺言は何歳から？", "a": "15歳"}, {"p": "相続", "q": "兄弟の遺留分は？", "a": "なし"}]}, {"id": "kenri-2", "subject": "権利関係", "title": "抵当権・登記・区分所有・賃貸借・借地借家", "src": "RE.LIFE「権利関係 完全攻略」仕上げラリー（講師スライド p.120・143・161・178・198・211）", "vid": "swYnWoQGJo4", "cards": [{"p": "抵当権", "q": "住みながら担保にできる？", "a": "できる"}, {"p": "抵当権", "q": "抵当権の順位は？", "a": "登記の順"}, {"p": "抵当権", "q": "利息が優先されるのは？", "a": "最後の2年分"}, {"p": "抵当権", "q": "保険金に化けたら？", "a": "物上代位。払渡し前に差押え"}, {"p": "抵当権", "q": "抵当権消滅請求できない人は？", "a": "債務者と保証人"}, {"p": "抵当権", "q": "登記の前にカギをもらってた借主は？", "a": "住み続けられる"}, {"p": "抵当権", "q": "後から借りた人は？", "a": "出る。ただし6ヶ月の猶予"}, {"p": "抵当権", "q": "更地に後から建物、法定地上権は？", "a": "成立しない"}, {"p": "抵当権", "q": "その建物は？", "a": "土地と一括競売。優先は土地の代金だけ"}, {"p": "登記", "q": "二重譲渡、勝つのは？", "a": "先に登記した人"}, {"p": "登記", "q": "知ってて買った人は？", "a": "勝てる。狙った奴だけ負ける"}, {"p": "登記", "q": "取消し後・解除後・時効完成後は？", "a": "登記のヨーイドン"}, {"p": "登記", "q": "時効完成「前」からいた相手には？", "a": "登記なしで勝てる"}, {"p": "登記", "q": "甲区は？", "a": "所有権"}, {"p": "登記", "q": "乙区は？", "a": "それ以外"}, {"p": "登記", "q": "表示の登記は？", "a": "義務。1ヶ月"}, {"p": "登記", "q": "相続登記は？", "a": "3年。10万円以下の過料"}, {"p": "登記", "q": "住所の変更登記は？", "a": "2年。5万円以下の過料"}, {"p": "登記", "q": "仮登記は？", "a": "席取り。本登記で順位がさかのぼる"}, {"p": "区分所有", "q": "持分のバラ売りは？", "a": "できない。ワンセット"}, {"p": "区分所有", "q": "管理組合、入らない自由は？", "a": "ない"}, {"p": "区分所有", "q": "改正のフックは？", "a": "来ない人で、マンションを止めない"}, {"p": "区分所有", "q": "規約変更は？", "a": "出席ベースで各4分の3"}, {"p": "区分所有", "q": "危険是正とバリアフリーは？", "a": "3分の2に緩和"}, {"p": "区分所有", "q": "建替えは？", "a": "全員ベースで原則5分の4"}, {"p": "区分所有", "q": "招集通知は？", "a": "1週間前まで。伸ばすのだけOK"}, {"p": "区分所有", "q": "借りて住んでる人は？", "a": "意見は言えるけど、決められない"}, {"p": "賃貸借", "q": "賃貸借の上限は？", "a": "50年"}, {"p": "賃貸借", "q": "又貸しに必要なのは？", "a": "大家の承諾"}, {"p": "賃貸借", "q": "雨漏りを直すのは？", "a": "大家"}, {"p": "賃貸借", "q": "必要費は？", "a": "直ちに請求できる"}, {"p": "賃貸借", "q": "敷金が返るのは？", "a": "明渡しが先"}, {"p": "賃貸借", "q": "大家が変わったら敷金は？", "a": "新しい大家に引き継がれる"}, {"p": "賃貸借", "q": "日焼けや家具の跡は？", "a": "直さなくていい"}, {"p": "賃貸借", "q": "タダ借り、借主が死んだら？", "a": "終了。相続されない"}, {"p": "借家", "q": "1年未満の借家契約は？", "a": "期間の定めなし"}, {"p": "借家", "q": "借家の期間の上限は？", "a": "なし"}, {"p": "借家", "q": "更新拒絶の通知は？", "a": "1年前から6ヶ月前まで＋正当事由"}, {"p": "借家", "q": "解約の申入れは？", "a": "大家から6ヶ月、借主から3ヶ月"}, {"p": "借家", "q": "定期借家の命綱は？", "a": "事前の説明書面"}, {"p": "借家", "q": "借家の買取請求は？", "a": "造作。特約で外せる"}, {"p": "借家", "q": "借家の対抗要件は？", "a": "建物の引渡し。カギ"}, {"p": "借地", "q": "借地の数字3つは？", "a": "30・20・10", "sa": "さんじゅう、にじゅう、じゅう"}, {"p": "借地", "q": "更新請求の条件は？", "a": "建物があること"}, {"p": "借地", "q": "借地の買取請求は？", "a": "建物。特約で外せない"}, {"p": "借地", "q": "借地の対抗要件は？", "a": "自分名義の建物の登記"}, {"p": "借地", "q": "建物が焼けたら？", "a": "掲示で2年"}, {"p": "借地", "q": "一般定期借地権は？", "a": "50年以上"}, {"p": "借地", "q": "事業用定期借地権は？", "a": "10年以上50年未満。公正証書"}, {"p": "借地", "q": "建物譲渡特約付は？", "a": "30年以上。書面すら不要"}]}, {"id": "zei", "subject": "税・その他", "title": "総復習ラリー", "src": "RE.LIFE「税・その他 完全攻略」総復習ラリー（講師スライド p.171）", "vid": "sAQtgyua-RA", "cards": [{"q": "取得税と固定資産税、一言で？", "a": "入会金と、年会費"}, {"q": "相続に不動産取得税は？", "a": "かからない"}, {"q": "固定資産税は誰に？", "a": "1月1日の持ち主"}, {"q": "小規模住宅用地は？", "a": "200㎡以下、6分の1"}, {"q": "3,000万円控除と一緒に使えるのは？", "a": "軽減税率。買換えとは組めない"}, {"q": "住宅金融支援機構の役割分担は？", "a": "貸すのは銀行、買い取るのが機構"}, {"q": "徒歩1分は？", "a": "80m。端数は切り上げ", "sa": "80メートル。はすうは、切り上げ"}, {"q": "危ない土地は？", "a": "水に近い、低い場所"}]}], "timing": {"gyo-8shu": {"file": "rally-audio/gyo-8shu.m4a", "dur": 111.95, "cues": [[2.49, 4.54], [7.26, 9.17], [10.15, 11.79], [12.77, 14.93], [16.45, 18.33], [22.91, 25.47], [26.98, 29.01], [31.6, 33.34], [37.0, 38.77], [40.17, 42.59], [43.31, 44.81], [47.46, 49.49], [50.87, 53.16], [56.42, 58.73], [60.37, 62.94], [65.8, 67.42], [68.21, 70.36], [73.22, 75.63], [79.14, 80.51], [83.75, 86.46], [87.59, 90.41], [91.66, 93.15], [96.14, 97.9], [99.67, 101.58], [102.57, 104.08], [107.08, 109.09]], "v": "ecc97dc0", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "gyo-35": {"file": "rally-audio/gyo-35.m4a", "dur": 82.18, "cues": [[2.24, 4.54], [6.47, 7.97], [9.89, 11.53], [13.59, 14.56], [15.55, 17.31], [18.96, 20.47], [22.52, 24.3], [26.76, 28.81], [30.2, 32.49], [33.88, 37.24], [38.23, 40.65], [42.03, 44.47], [47.34, 48.83], [51.15, 52.52], [54.05, 56.08], [58.15, 60.17], [62.36, 63.47], [66.6, 67.7], [70.02, 72.19], [73.32, 76.97], [79.54, 81.18]], "v": "3385d766", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "gyo-37": {"file": "rally-audio/gyo-37.m4a", "dur": 74.13, "cues": [[1.71, 3.49], [5.01, 6.11], [7.1, 8.61], [10.4, 11.5], [12.49, 13.98], [15.9, 18.61], [19.74, 21.1], [22.36, 23.74], [25.54, 27.03], [30.29, 31.94], [35.19, 37.36], [39.02, 41.04], [42.29, 45.1], [48.9, 50.66], [54.31, 57.02], [58.15, 60.18], [61.31, 63.21], [67.01, 68.39], [70.56, 72.6]], "v": "795ba8b0", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "horei-num": {"file": "rally-audio/horei-num.m4a", "dur": 202.32, "cues": [[1.97, 4.14], [5.53, 6.77], [7.76, 9.8], [10.65, 13.22], [13.94, 16.11], [18.55, 20.33], [21.58, 24.03], [26.47, 27.85], [29.75, 31.24], [33.16, 35.73], [37.23, 38.59], [39.6, 42.56], [44.22, 45.6], [46.98, 48.09], [49.47, 51.61], [53.8, 56.25], [58.58, 61.95], [64.0, 65.78], [66.88, 68.26], [69.39, 71.57], [73.73, 75.64], [77.25, 79.55], [81.99, 83.63], [86.2, 88.23], [91.76, 93.53], [95.33, 97.61], [100.33, 102.9], [105.47, 107.67], [112.66, 114.7], [116.52, 118.81], [120.7, 122.08], [124.15, 125.38], [127.17, 128.28], [129.93, 131.43], [132.41, 134.3], [136.09, 137.33], [139.12, 140.9], [142.56, 144.98], [145.7, 148.68], [149.92, 152.07], [153.2, 155.23], [156.23, 157.73], [160.45, 162.07], [164.8, 167.11], [169.14, 170.92], [173.52, 175.82], [177.34, 179.63], [180.75, 182.53], [183.38, 185.67], [188.93, 190.44], [191.82, 194.48], [196.0, 197.64], [199.02, 200.8]], "v": "71ec2140", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "horei-batsu": {"file": "rally-audio/horei-batsu.m4a", "dur": 67.79, "cues": [[2.5, 5.08], [6.73, 8.64], [9.89, 13.12], [14.78, 17.62], [19.42, 21.98], [24.58, 27.02], [29.22, 31.8], [33.58, 36.14], [38.33, 40.73], [42.13, 44.57], [46.49, 48.53], [49.91, 52.33], [53.99, 56.95], [58.61, 61.16], [63.63, 66.07]], "v": "627ec150", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "kenri-1": {"file": "rally-audio/kenri-1.m4a", "dur": 120.38, "cues": [[2.36, 4.81], [5.53, 8.08], [10.14, 11.65], [12.5, 14.94], [16.99, 19.31], [21.49, 23.94], [25.46, 27.77], [29.01, 31.45], [33.64, 35.02], [35.88, 38.45], [39.3, 40.68], [41.53, 43.4], [44.66, 46.44], [47.7, 50.26], [51.12, 52.89], [54.67, 56.57], [57.55, 60.03], [61.54, 63.85], [65.23, 66.99], [68.51, 70.55], [71.8, 74.37], [75.89, 77.67], [80.0, 82.03], [84.09, 86.54], [88.99, 90.9], [93.26, 94.76], [96.02, 97.52], [99.18, 100.81], [102.47, 103.97], [105.5, 107.27], [108.53, 110.57], [112.22, 114.54], [115.52, 117.16], [118.02, 119.66]], "v": "90a1fc6d", "engine": "say", "model": "macOS say"}, "kenri-2": {"file": "rally-audio/kenri-2.m4a", "dur": 173.09, "cues": [[3.32, 5.49], [6.33, 7.97], [8.96, 11.0], [12.25, 14.03], [16.09, 18.53], [19.92, 22.76], [24.14, 25.92], [27.84, 30.41], [31.53, 32.91], [35.63, 37.41], [38.8, 40.7], [42.75, 45.2], [46.71, 49.15], [50.67, 51.77], [52.63, 53.73], [54.71, 56.21], [57.34, 58.72], [60.64, 62.42], [64.2, 65.45], [67.9, 69.68], [71.36, 73.53], [74.19, 75.83], [78.28, 79.65], [81.57, 83.87], [85.26, 86.51], [88.56, 89.93], [92.26, 94.13], [96.42, 98.06], [98.91, 100.82], [101.94, 103.71], [104.44, 105.68], [107.21, 108.84], [109.97, 112.12], [114.17, 116.08], [117.46, 119.63], [121.16, 123.2], [124.58, 126.49], [127.2, 128.97], [131.83, 133.47], [135.79, 137.57], [138.96, 140.74], [142.27, 144.04], [145.56, 147.34], [149.31, 151.09], [152.47, 154.25], [155.91, 157.69], [159.48, 161.12], [162.24, 164.02], [165.14, 167.06], [169.39, 171.16]], "v": "78609dd1", "engine": "say", "model": "macOS say"}, "zei": {"file": "rally-audio/zei.m4a", "dur": 32.96, "cues": [[1.84, 4.15], [5.54, 7.59], [8.69, 10.47], [11.99, 13.77], [16.21, 19.17], [21.36, 23.93], [26.25, 27.63], [29.95, 31.44]], "v": "ca606829", "engine": "gemini", "model": "gemini-3.8-flash-tts"}, "horei-toshi": {"file": "rally-audio/horei-toshi.m4a", "dur": 127.22, "cues": [[1.98, 3.22], [5.25, 6.62], [7.35, 8.96], [11.02, 12.66], [13.92, 15.83], [18.41, 19.93], [21.05, 22.7], [24.48, 26.39], [29.11, 31.42], [32.68, 34.31], [35.7, 37.87], [39.25, 42.49], [43.75, 46.31], [49.04, 51.75], [54.08, 56.13], [58.72, 61.43], [63.22, 65.0], [66.4, 67.91], [70.63, 73.06], [74.85, 76.36], [78.68, 80.97], [82.35, 84.77], [86.15, 87.93], [88.92, 90.56], [91.28, 92.52], [93.26, 95.33], [96.05, 97.56], [98.96, 101.26], [103.31, 104.8], [105.93, 107.68], [108.54, 110.45], [112.21, 113.85], [116.16, 117.94], [120.0, 122.01], [123.94, 125.97]], "v": "5b74e9a2", "engine": "gemini", "model": "gemini-3.8-flash-tts"}}});
@@ -3247,19 +3548,20 @@ $('#toc-body').addEventListener('click',e=>{const b=e.target.closest('button.jt'
 let tx=null;$('#toc').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});$('#toc').addEventListener('touchend',e=>{if(tx!==null&&tx-e.changedTouches[0].clientX>70)toc(false);tx=null;});
 /* ---- 現在地 ---- */
 let cur=1;
-function setCur(n){cur=n;const e=TOC.find(x=>x.no===n);$('#cur-no').textContent=`${pad(n)} / ${pad(TOC.length)}`;$('#cur-ttl').textContent=e?e.title:'';$$('#toc .row').forEach(a=>a.classList.toggle('on',+a.dataset.no===n));if(!document.body.matches('.q,.z,.pm,.k,.n,.r'))$('#ttl').innerHTML=`${e?e.title:''}<small>${e?e.subject:''} ${pad(n)}/${TOC.length}</small>`;history.replaceState(null,'','#w'+n);localStorage.setItem('tk-pos',n);}
+function setCur(n){cur=n;const e=TOC.find(x=>x.no===n);$('#cur-no').textContent=`${pad(n)} / ${pad(TOC.length)}`;$('#cur-ttl').textContent=e?e.title:'';$$('#toc .row').forEach(a=>a.classList.toggle('on',+a.dataset.no===n));if(!document.body.matches('.q,.z,.pm,.k,.n,.r,.calc'))$('#ttl').innerHTML=`${e?e.title:''}<small>${e?e.subject:''} ${pad(n)}/${TOC.length}</small>`;history.replaceState(null,'','#w'+n);localStorage.setItem('tk-pos',n);}
 function go(n){const w=$('#w'+n);if(!w)return;w.scrollIntoView({behavior:'smooth',block:'start'});setCur(n);}
 $('#bt-prev').onclick=()=>go(Math.max(1,cur-1));$('#bt-next').onclick=()=>go(Math.min(TOC.length,cur+1));
-const io=new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting&&!document.body.matches('.q,.z,.pm,.k,.n,.r'))setCur(+x.target.dataset.no);});},{rootMargin:'-40% 0px -40% 0px',threshold:0});
+const io=new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting&&!document.body.matches('.q,.z,.pm,.k,.n,.r,.calc'))setCur(+x.target.dataset.no);});},{rootMargin:'-40% 0px -40% 0px',threshold:0});
 $$('.wrap').forEach(w=>io.observe(w));
 /* ---- タブ ---- */
-const scrollPos={s:0,q:0,z:0,p:0,k:0,n:0,r:0};
+const scrollPos={s:0,q:0,z:0,p:0,k:0,n:0,r:0,c:0};
 function tab(t,options){
- const was=document.body.classList.contains('r')?'r':document.body.classList.contains('n')?'n':document.body.classList.contains('k')?'k':document.body.classList.contains('pm')?'p':document.body.classList.contains('q')?'q':document.body.classList.contains('z')?'z':'s';
+ const was=document.body.classList.contains('calc')?'c':document.body.classList.contains('r')?'r':document.body.classList.contains('n')?'n':document.body.classList.contains('k')?'k':document.body.classList.contains('pm')?'p':document.body.classList.contains('q')?'q':document.body.classList.contains('z')?'z':'s';
  scrollPos[was]=window.scrollY;
- document.body.classList.toggle('r',t==='r');document.body.classList.toggle('n',t==='n');document.body.classList.toggle('k',t==='k');document.body.classList.toggle('pm',t==='p');document.body.classList.toggle('q',t==='q');document.body.classList.toggle('z',t==='z');
- ['p','s','q','z','r'].forEach(k=>$('#tab-'+k).classList.toggle('on',t===k||(t==='k'&&k==='q')||(t==='n'&&k==='p')));
- if(t==='r'){$('#ttl').textContent='ラリー';history.replaceState(null,'','#rally');TakkenRally.show();}
+ document.body.classList.toggle('calc',t==='c');if(t!=='c')TakkenCalc.hide();document.body.classList.toggle('r',t==='r');document.body.classList.toggle('n',t==='n');document.body.classList.toggle('k',t==='k');document.body.classList.toggle('pm',t==='p');document.body.classList.toggle('q',t==='q');document.body.classList.toggle('z',t==='z');
+ ['p','s','q','z','r','c'].forEach(k=>$('#tab-'+k).classList.toggle('on',t===k||(t==='k'&&k==='q')||(t==='n'&&k==='p')));
+ if(t==='c'){$('#ttl').textContent='計算ドリル';history.replaceState(null,'','#calc');TakkenCalc.show(options&&options.topic);}
+ else if(t==='r'){$('#ttl').textContent='ラリー';history.replaceState(null,'','#rally');TakkenRally.show();}
  else if(t==='n'){$('#ttl').textContent='つまずきノート';history.replaceState(null,'','#pitfalls');}
  else if(t==='p'){$('#ttl').innerHTML='宅建2026';history.replaceState(null,'','#pm');TakkenPM.show();}
  else if(t==='k'){$('#ttl').textContent='神問題集';history.replaceState(null,'','#kami');TakkenKamiBank.open(options);}
@@ -3268,6 +3570,8 @@ function tab(t,options){
  else {fit();setCur(cur);}
  window.scrollTo(0,scrollPos[t]||0);
 }
+$('#tab-c').onclick=()=>tab('c');
+document.addEventListener('click',e=>{if(e.target.closest('[data-calc-open]')){toc(false);tab('c');}});
 $('#tab-p').onclick=()=>tab('p');$('#tab-r').onclick=()=>tab('r');
 function showPitfall(id,updateHash=true){const cards=$$('#pitfalls .pf-card');let i=cards.findIndex(c=>c.id===id);if(i<0)i=0;cards.forEach((c,j)=>{c.hidden=i!==j;c.querySelectorAll('details').forEach(d=>d.open=false);});$('#pf-select').value=cards[i].id;$$('[data-pf-step]').forEach(b=>b.disabled=+b.dataset.pfStep<0?i===0:i===cards.length-1);if(updateHash)history.replaceState(null,'','#'+cards[i].id);}
 $('#pf-select').onchange=e=>{showPitfall(e.target.value);window.scrollTo(0,0);};
@@ -3355,7 +3659,7 @@ async function importKamiLink(fragment){
  }catch(e){out.textContent='取り込めませんでした。取り込み用リンクを開き直すか、問題集JSONを読み込んでください。';out.classList.add('kr-warn');}
 }
 window.addEventListener('hashchange',()=>{const h=location.hash;if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}});
-(function(){const h=initialHash;if(h==='#rally'){tab('r');}else if(h==='#pitfalls'||h.startsWith('#pf-')){tab('n');showPitfall(h.startsWith('#pf-')?h.slice(1):'pf-deposit-cap',false);}else if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}else if(h==='#kami'){tab('k');}else if(h==='#toc'){tab('s');toc(true);}else if(h==='#guarantee-guide'||/^#zk(?:\d+|-tax|-law|-rights|-focus|-index)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){tab('s');setTimeout(()=>go(+h.slice(2)),50);}else{cur=Math.min(TOC.length,Math.max(1,+localStorage.getItem('tk-pos')||1));tab('p');}})();
+(function(){const h=initialHash;if(h==='#calc'||h==='#calc-fee'||h==='#calc-building'){tab('c',h==='#calc'?undefined:{topic:h.slice(6)});}else if(h==='#rally'){tab('r');}else if(h==='#pitfalls'||h.startsWith('#pf-')){tab('n');showPitfall(h.startsWith('#pf-')?h.slice(1):'pf-deposit-cap',false);}else if(h.startsWith('#kami-import=')){tab('k');importKamiLink(h);}else if(h==='#kami'){tab('k');}else if(h==='#toc'){tab('s');toc(true);}else if(h==='#guarantee-guide'||/^#zk(?:\d+|-tax|-law|-rights|-focus|-index)$/.test(h)){openDiagram(h.slice(1));}else if(h==='#zukai'){tab('z');}else if(h==='#quiz'){tab('q');$('#q-go').click();}else if(/^#w\d+$/.test(h)){tab('s');setTimeout(()=>go(+h.slice(2)),50);}else{cur=Math.min(TOC.length,Math.max(1,+localStorage.getItem('tk-pos')||1));tab('p');}})();
 </script>
 <script>/* 見つけやすさの整理（2026-09-30）。スライド・図解の中身は変えない。
    1) 図解タブの先頭に、本試験の解く順で並べた目次
