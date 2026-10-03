@@ -19,7 +19,7 @@ h2{font-size:16px;margin:26px 0 8px;padding-top:14px;border-top:2px solid var(--
 .box b{color:var(--yes)}.box.w b{color:var(--warn)}
 ul{margin:6px 0;padding-left:20px}li{margin:3px 0}
 .q{font-size:13px;color:var(--mute);margin-top:22px}
-</style></head><body><main>
+.flow{border:1px solid var(--line);border-radius:10px;overflow:hidden}.st{display:grid;grid-template-columns:34px 1fr;gap:0;border-bottom:1px solid var(--line)}.st:last-child{border-bottom:0}.st .n{background:var(--surf);font-weight:800;display:flex;align-items:center;justify-content:center}.st .b{padding:9px 12px;font-size:14px;line-height:1.6}.st .b>b:first-child{display:block}.to{display:inline-block;background:var(--yesbg);color:var(--yes);border-radius:6px;padding:0 7px;font-weight:700;font-size:13px}.who{width:100%;border-collapse:collapse;font-size:13.5px}.who td{border:1px solid var(--line);padding:7px 9px;vertical-align:top}.who td:first-child{white-space:nowrap;font-weight:700;background:var(--surf)}</style></head><body><main>
 <div class="no">宅建の図解 · 建築基準法 · 建築確認</div>
 <h1>建築確認が要るのは？</h1>
 <p class="lead">神問題集 第3分冊 問019・020 の整理表を、1枚にしたもの。「要」が確認が必要、「不要」は不要。</p>
@@ -37,16 +37,26 @@ ul{margin:6px 0;padding-left:20px}li{margin:3px 0}
 <h2>② 例外：防火地域・準防火地域</h2>
 <div class="box"><b>増改築・移転が10㎡以内でも、確認が必要。</b><br>「どんなに小さな増改築も必要」と覚える。完了検査も必要（問020 小問③）。</div>
 
-<h2>③ 3行で覚える</h2>
+<h2>③ 確認から入居までの流れ（誰に出す？）</h2>
+<div class="flow">
+<div class="st"><div class="n">1</div><div class="b"><b>着工前：確認の申請</b>→ <span class="to">建築主事等</span>（建築主事・建築副主事、または指定確認検査機関）<br>確認する側は、<b>消防長・消防署長の同意</b>を得る。確認が済むと確認済証が出る。<br>あわせて<b>建築工事届</b>は、建築主事等を経由して<span class="to">都道府県知事</span>へ。</div></div>
+<div class="st"><div class="n">2</div><div class="b"><b>工事中：表示</b><br>施工者が現場の見やすい所に、建築主・設計者・施工者・現場管理者の氏名と「確認があった旨」を出す。</div></div>
+<div class="st"><div class="n">3</div><div class="b"><b>完了後：完了検査の申請</b>→ <span class="to">建築主事等</span><br>工事完了の日から<b>4日以内</b>に到達するように。検査に通ると検査済証が出る。</div></div>
+<div class="st"><div class="n">4</div><div class="b"><b>使えるのは検査済証のあと</b>（特殊建築物・大規模建築物）<br>ただし<b>仮使用</b>ができる2つの場合：<br>① <span class="to">特定行政庁</span>が承認したとき　② 完了検査の申請が<b>受理された日から7日</b>経過したとき</div></div>
+</div>
+<p class="note">建築確認と完了検査は<b>同じ仕組みの前半と後半</b>。確認を出す先は、知事でも市町村長でもなく<b>建築主事等</b>です。</p>
+<table class="who"><tr><td>建築主事</td><td>建築確認をする役人。都道府県や、一定の市町村に置かれる。</td></tr><tr><td>指定確認検査機関</td><td>民間の機関。建築主事に代わって確認・検査ができる。</td></tr><tr><td>特定行政庁</td><td>建築主事を置く市町村では<b>その市町村長</b>、それ以外の区域では<b>都道府県知事</b>。仮使用の承認などをする。</td></tr></table>
+<p class="note">※ 建築主事を置く自治体と特定行政庁の説明は一般知識で、神問題集の解説にはありません。試験で押さえるのは「確認・検査は建築主事等」「届出は知事」「仮使用の承認は特定行政庁」の3つ。</p>
+<h2>④ 3行で覚える</h2>
 <div class="one">① 大きい建物（2階以上 or 200㎡超）は、全国で新築・増改築・大規模修繕に必要。<br>② 区域の中では、小さくても新築と10㎡超の増改築は必要。<br>③ 用途変更は、特殊建築物（200㎡超）だけ。</div>
 
-<h2>④ ひっかけ（今日まちがえた所）</h2>
+<h2>⑤ ひっかけ（今日まちがえた所）</h2>
 <div class="box w"><b>× 大規模建築物の用途変更</b>：2階以上や200㎡超の“普通の建物”は、用途変更に確認は不要。必要なのは<b>特殊建築物</b>。</div>
 <div class="box w"><b>× 区域内の小さな建物の大規模修繕</b>：新築と増改築は必要でも、修繕・模様替には不要。</div>
 <div class="box w"><b>× 防火地域内の10㎡以内の増築</b>：不要ではない。必要。</div>
 <div class="box w"><b>× 消防の同意</b>：確認の際、消防長・消防署長へ<b>通知</b>するだけでは足りない。<b>同意</b>が必要（問019 小問③）。</div>
 
-<h2>⑤ 問題で試す</h2>
+<h2>⑥ 問題で試す</h2>
 <ul>
 <li>200㎡超の映画館を改築 → <b>要</b>（特殊建築物）</li>
 <li>事務所を、500㎡のホテルに用途変更 → <b>要</b>（特殊建築物になる）</li>
