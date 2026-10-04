@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#f4f1ea">
+<title>安いのに豊か — 理想・現実・勝ち筋</title>
+<style>
+:root{
+  --paper:#f4f1ea; --sheet:#fbfaf6; --ink:#1d1b18; --ink2:#4f4b44; --mute:#6f6a60; --rule:#e2ddd2; --rule2:#cfc8b9;
+  --dem:#1f3a68; --ng:#b3261e; --ng-bg:#f8e9e6; --ok-bg:#e9e6de; --gold:#8a6a1f;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;
+  --sans:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.8;letter-spacing:.02em}
+a{color:inherit;text-decoration-color:var(--rule2);text-underline-offset:3px}
+.nw{white-space:nowrap}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px calc(48px + env(safe-area-inset-bottom))}
+.eyebrow{font-family:var(--serif);font-size:12px;letter-spacing:.3em;color:var(--mute);margin:40px 0 10px}
+h1{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.4;letter-spacing:.05em;margin:0;font-feature-settings:"palt"}
+.q{font-family:var(--serif);font-size:16px;line-height:1.9;color:var(--ink2);margin:12px 0 0}
+.verdict{margin:24px 0 0;border-top:1px solid var(--ink);padding-top:14px}
+.verdict li{margin:0 0 10px;font-size:15px;line-height:1.8}
+.verdict b{font-weight:700}
+ol.verdict{padding-left:1.3em}
+section{margin:44px 0 0}
+h2{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.1em;margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--rule2);display:flex;align-items:baseline;gap:10px}
+h2{flex-wrap:wrap} h2 small{flex-basis:100%;font-family:var(--sans);font-size:11.5px;font-weight:400;letter-spacing:0;color:var(--mute);margin-top:2px}
+h3{font-family:var(--serif);font-size:16px;font-weight:600;margin:22px 0 6px}
+p{margin:8px 0 0}
+.note{font-size:12px;color:var(--mute);line-height:1.7}
+ul.plain{margin:8px 0 0;padding-left:1.2em}
+ul.plain li{margin:4px 0}
+
+/* 2x2 地図 */
+.map{display:grid;grid-template-columns:2.4em 1fr 1fr;gap:4px;margin-top:10px;font-size:12.5px}
+.map .h{font-size:11.5px;color:var(--ink2);font-weight:600;display:flex;align-items:flex-end;justify-content:center;text-align:center;line-height:1.4;padding-bottom:4px}
+.map .v{writing-mode:vertical-rl;font-size:11.5px;color:var(--ink2);font-weight:600;display:flex;align-items:center;justify-content:center}
+.map .c{background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:10px 9px;min-height:118px}
+.map .c.best{border:2px solid var(--ink)}
+.map .c.bad{background:var(--ng-bg);border-color:#e3b7b1}
+.map .c b.t{display:block;font-size:11px;letter-spacing:.06em;color:var(--mute);margin-bottom:4px}
+.map .c.best b.t{color:var(--ink)}
+.map .c.bad b.t{color:var(--ng)}
+.map .p{display:block;font-family:var(--serif);font-size:14px;font-weight:600;line-height:1.5}
+.map .p small{font-family:var(--sans);font-size:11px;font-weight:400;color:var(--mute);margin-left:4px}
+.unk{margin-top:6px;font-size:12px;color:var(--mute)}
+
+/* 表 */
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+th,td{padding:8px 6px;border-top:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6}
+thead th{border-top:0;font-size:11.5px;color:var(--mute);font-weight:600}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.hl td{background:var(--sheet);font-weight:600}
+
+/* 豊かさの順位 */
+.rank{list-style:none;margin:10px 0 0;padding:0;counter-reset:r}
+.rank li{counter-increment:r;position:relative;padding:10px 0 10px 40px;border-top:1px solid var(--rule)}
+.rank li::before{content:counter(r);position:absolute;left:4px;top:6px;font-family:var(--serif);font-size:22px;color:var(--mute)}
+.rank li b{font-family:var(--serif);font-size:15.5px}
+.rank li .tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:2px}
+.tag.pay{background:var(--ink);color:var(--paper)}
+.tag.floor{box-shadow:inset 0 0 0 1px var(--rule2);color:var(--ink2)}
+.rank li p{font-size:13px;color:var(--ink2);margin:2px 0 0;line-height:1.7}
+.callout{margin-top:14px;padding:12px 14px;background:var(--sheet);border-left:3px solid var(--ink);font-family:var(--serif);font-size:15.5px;line-height:1.9}
+
+/* 甘いところ */
+.risk{list-style:none;margin:8px 0 0;padding:0}
+.risk li{padding:10px 0;border-top:1px solid var(--rule)}
+.risk li b{font-size:14px}
+.sev{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:6px;vertical-align:1px}
+.sev.x{background:var(--ng);color:#fff}
+.sev.h{background:var(--ng-bg);color:var(--ng)}
+.sev.m{box-shadow:inset 0 0 0 1px var(--rule2);color:var(--ink2)}
+.risk li p{font-size:13px;color:var(--ink2);margin:3px 0 0;line-height:1.7}
+.risk li p.fix{color:var(--ink)}
+.risk li p.fix::before{content:"手当て　";font-weight:700;color:var(--dem)}
+
+/* 勝ち筋 */
+.fork{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
+.fork div{background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:12px 10px}
+.fork b{display:block;font-family:var(--serif);font-size:15px;line-height:1.5}
+.fork .pr{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;margin:4px 0}
+.fork p{font-size:12.5px;color:var(--ink2);line-height:1.7;margin:4px 0 0}
+.card{margin-top:14px;background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:14px 14px 10px}
+.card h3{margin:0 0 4px;display:flex;align-items:baseline;gap:8px}
+.card h3 .k{display:inline-grid;place-items:center;width:22px;height:22px;border:1px solid var(--ink);font-size:12px}
+.card dl{margin:6px 0 0;display:grid;grid-template-columns:5.2em 1fr;gap:4px 10px;font-size:13px;line-height:1.7}
+.card dt{color:var(--mute);font-size:11.5px;padding-top:2px}
+.card dd{margin:0}
+.steps{counter-reset:s;list-style:none;margin:10px 0 0;padding:0}
+.steps li{counter-increment:s;position:relative;padding:8px 0 8px 34px;border-top:1px solid var(--rule);font-size:14px}
+.steps li::before{content:counter(s);position:absolute;left:4px;top:5px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;display:grid;place-items:center}
+.steps li small{display:block;font-size:12px;color:var(--mute)}
+.who{display:inline-block;font-size:10.5px;font-weight:700;padding:0 6px;border-radius:3px;margin-left:6px;vertical-align:1px;box-shadow:inset 0 0 0 1px var(--ink)}
+.srcs{font-size:11.5px;color:var(--mute);line-height:1.8;word-break:break-all}
+.srcs li{margin:3px 0}
+.foot{font-size:11.5px;color:var(--mute);margin:28px 0 0}
+@media (min-width:700px){ body{font-size:16px} h1{font-size:38px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="eyebrow">小屋プロ　二〇二六年十月五日</p>
+<h1>安いのに豊か<br>理想・現実・勝ち筋</h1>
+<p class="q">問い ── ジョニーの豊かさの基準 (景色・湯・ベッド・コーヒー・音・台所) は、他人がお金を払う価値として届くか。それは、人手や大きな建物といった回し続ける費用なしで成り立つか。</p>
+
+<ol class="verdict">
+  <li><b>回す費用が安いのに豊か、は成り立つ。</b>北杜の<span class="nw">5万段</span>・人なしで SEKKI (楽天 5.00)・SANU (一休 4.66) がすでに売れている。人なしで点が落ちる原因は人の不在ではなく、入室・連絡・説明の穴</li>
+  <li><b>建てるのが安い (300万円の家) のに豊か、は一棟の宿としては成り立たない。</b>上下水・電気と消防設備だけで300万円を超え、プロの感覚は<span class="nw">2,000万円台</span>。安さを作れるのは「高い豊かさを共有する」形だけ</li>
+  <li><b>お金を払ってもらえる豊かさは2つ (眺めの土地と湯) に集まる。</b>ベッド・コーヒー・台所・音は安く揃う床。勝ち筋は、この2つに集中し、長く泊まってもらって入れ替え (清掃) を減らすこと</li>
+</ol>
+
+<section>
+  <h2>10軒の地図<small>観察ページの10軒を、この問いで並べ直した</small></h2>
+  <div class="map">
+    <span></span><span class="h">費用ゼロの柱で<br>届いている</span><span class="h">人と食で<br>届いている</span>
+    <span class="v">床 通る</span>
+    <div class="c best"><b class="t">安いのに豊か</b>
+      <span class="p">SEKKI<small>5万段・楽天5.00</small></span>
+      <span class="p">ReTune<small>5万段・Airbnb5.0 推定</small></span>
+      <span class="p">Refwind<small>10万段・4.70 ※</small></span></div>
+    <div class="c"><b class="t">豊かだが回す費用がかかる</b>
+      <span class="p">幸<small>10万段・4.96</small></span>
+      <p class="note">床は15万段まで通るのに10万段の値付け。物語 (醤油名家・畑・鶏) も全件届いている</p></div>
+    <span class="v">床 割れ</span>
+    <div class="c bad"><b class="t">安いが床で落とす</b>
+      <span class="p">SANU<small>5万段・説明と備品</small></span>
+      <span class="p">tou<small>15万段・遮光洗面鍵</small></span></div>
+    <div class="c bad"><b class="t">高いのに床で落とす</b>
+      <span class="p">蒼望楼<small>15万段・入室と連絡</small></span></div>
+  </div>
+  <p class="unk">口コミがなく未計測: BLANC NIKKO (開業前)・NOT A HOTEL (所有型)・小屋プロ (設計中)。※ Refwind の床割れはペット1件のみ。<a href="https://ikedhidenori.github.io/jp/plain-2c1e2f78483d9735.html">10軒の観察ページ</a></p>
+</section>
+
+<section>
+  <h2>豊かさの基準6つ、お金として届く順<small>口コミの「届いた柱」から</small></h2>
+  <ol class="rank">
+    <li><b>飽きない景色 (山の独占)</b><span class="tag pay">単価を上げる</span><p>写真で選ばれる柱。SANU 独占6/13、ReTune「景色」23/150、ビーチテラス房総18/26。ただし点数の差にはならない。決まるのは土地</p></li>
+    <li><b>贅沢な湯</b><span class="tag pay">単価を上げる</span><p>届けば強い (Refwind 身体11/12、蒼望楼10/10)。置くだけでは届かない (SEKKI のサウナ0/10)。回すたびに費用がかかり、動かないと苦情が直撃する</p></li>
+    <li><b>料理できる台所</b><span class="tag floor">床</span><p>北杜ではあって当然。単価を上げるのは台所より、置く地元の食材やBBQセット (SEKKI はBBQ付きで約+1万円)</p></li>
+    <li><b>スピーカー</b><span class="tag floor">床</span><p>褒められたのは2件。独占とセットでだけ届く</p></li>
+    <li><b>いいベッド</b><span class="tag floor">床</span><p>褒め1件 (「同じ寝具を自宅に買いたい」)、苦情0件。点を守るが単価は上げにくい</p></li>
+    <li><b>コーヒー</b><span class="tag floor">床</span><p>褒め0件。無いと苦情になる (1件)</p></li>
+  </ol>
+  <div class="callout">安いのに豊か、の作り方は「高い2つ (眺めの土地と湯) に集中して投資し、残り4つは安く確実に揃える」。そして湯を事故なく回せるかが、理想が現実で負けるかどうかの分かれ目。</div>
+</section>
+
+<section>
+  <h2>数字の現実<small>北杜・4名素泊・46㎡・人なし。推定</small></h2>
+  <ul class="plain">
+    <li>山梨の簡易宿所の稼働率は年<b>17.4%</b> (2025年、全国29.6%)。古い宿を含む平均で、評価の高い新しい一棟貸しは上に出る</li>
+    <li>実際の平均単価は<b>4.8〜5.5万円</b>。46㎡は2名客が多い (SANU は13件中10件が2名)</li>
+    <li>1回の入れ替えに清掃<b>1.2〜1.8万円</b> (北杜の相場)。経費の最大は清掃</li>
+    <li>OTA の手数料は<b>12〜15%</b> (Airbnb は2025年12月からホスト一律15.5%)</li>
+    <li>固定費は年<b>120〜170万円</b> (湯の保温・浄化槽・保険・税・通信・点検・除雪・修繕)</li>
+  </ul>
+  <table>
+    <thead><tr><th>場合</th><th>泊数×単価</th><th class="n">売上</th><th class="n">営業の手残り</th></tr></thead>
+    <tbody>
+      <tr><td>弱気 (1年目)</td><td>70泊×4.5万</td><td class="n">315万</td><td class="n">±0</td></tr>
+      <tr class="hl"><td>基準・清掃は外注</td><td>120泊×5.2万</td><td class="n">624万</td><td class="n">約190万</td></tr>
+      <tr><td>基準・清掃は自分</td><td>120泊×5.2万</td><td class="n">624万</td><td class="n">約330万</td></tr>
+      <tr><td>強気</td><td>200泊×5.3万</td><td class="n">1,060万</td><td class="n">約420万</td></tr>
+    </tbody>
+  </table>
+  <p class="note">手残りは税と借入の返済の前。消費税 (課税事業者を選ぶと年20〜40万円) は別。季節は、夏65〜85%・秋55〜70%・冬35〜60%・春35〜55% の稼働を想定 (2年目以降。1年目はその6〜7割で2〜3割引き)。</p>
+</section>
+
+<section>
+  <h2>理想の甘いところ<small>プロの目、重要度順</small></h2>
+  <ul class="risk">
+    <li><span class="sev x">致命的</span><b>300万円の家</b><p>インフラと消防設備だけで超える。27㎡の実例で全初期費用 約2,400万円</p><p class="fix">300万円の数字は宿の一棟には使わない。見積を3社取ってから土地を買う</p></li>
+    <li><span class="sev h">大</span><b>人なし ≠ 人ゼロ</b><p>苦情は1回の失敗に集中する (Refwind は1泊の失敗に苦情6件)。帳場のない簡易宿所には、おおむね10分で駆けつけられる体制が求められる</p><p class="fix">地元の管理会社か清掃の人と駆けつけ契約 (月1〜3万円)、入室案内の自動送信、夜も届く連絡、写真入りの説明</p></li>
+    <li><span class="sev h">大</span><b>「清掃は自分たち」と「客の日は外泊」の矛盾</b><p>入れ替えのたびに立ち会えない</p><p class="fix">外注を前提にし、予備の清掃者も確保。OUT 10時・IN 16時</p></li>
+    <li><span class="sev h">大</span><b>屋外の常時適温の湯</b><p>連日使う湯は、年2回以上の水質検査・週1回以上の逆洗・塩素の頻繁な記録が要る (山梨県の指針)。客ごとに全部換える家庭風呂の規模なら対象外</p><p class="fix">客ごとに換える小さめの湯船を、図面の段階で保健所に確認。給湯器で約1.5時間で張れる設計に</p></li>
+    <li><span class="sev m">中〜大</span><b>冬・雪・凍結</b><p>停電と凍結が重なると湯と給水が壊れる</p><p class="fix">凍結防止ヒーター・停電の通知・遠隔の温度計、冬道の事前告知、除雪の委託</p></li>
+    <li><span class="sev m">中〜大</span><b>住みながら貸す衝突</b><p>自分が週末・連休に住むと、売れる日が弱い日だけになる。私物は「前客の痕跡」型の苦情になる</p><p class="fix">売る日を先に決め、残りに住む。施錠できる収納</p></li>
+    <li><span class="sev m">中</span><b>口コミ0件からの立ち上がり</b><p>SEKKI は約14か月で楽天12件</p><p class="fix">1年目は予約サイト中心・割引で口コミ10件を早く集める</p></li>
+    <li><span class="sev m">中</span><b>眺めは土地で決まる</b><p>林は木が視界を塞ぐ。伐採届、隣地の将来の建物</p><p class="fix">契約前に建てる高さから眺めを確かめる (ドローン)、隣地の所有と地目</p></li>
+  </ul>
+</section>
+
+<section>
+  <h2>理想が正しいかもしれないところ<small>業界の常識が古い点</small></h2>
+  <ul class="plain">
+    <li><b>小さくていい。</b>27〜50㎡・4人で6〜9万円台が売れ、27㎡で広さの苦情ゼロ</li>
+    <li><b>人なしで高評価は取れる。</b>SEKKI 5.00、Refwind 4.70。ReTune はスタッフ不在なのに頻出語1位が「おもてなし」(63/150)</li>
+    <li><b>サウナより湯。</b>北杜はサウナが横並び (2名最安値でサウナありの差は+740円)。露天風呂は+3.0万円 (件数が少なく粗い)</li>
+    <li><b>冬は武器になりうる。</b>実例では冬の単価が年平均を上回る。高断熱は「寒い」苦情を断つ</li>
+    <li><b>利益を追わないことは強み。</b>稼働を抑えて単価と状態を守れる。入れ替えが減れば清掃と傷みも減る</li>
+  </ul>
+</section>
+
+<section>
+  <h2>勝ち筋<small>1泊の宿の勝負では勝てない</small></h2>
+  <p>市場の空白は2つ。<b>1〜3か月、一棟まるごと、湯と眺めと台所がある、人なし</b>の住まい (SANU の平日サブスク 月5.5万円は満枠で新規停止、北杜の家具付き月極の一棟は月40〜50万円で、その間が空いている)。そして<b>個人が小さな高性能の家を持ち、使わない日を貸す</b>形 (既存は運営会社の持ち物か、投資の商品)。</p>
+  <h3>本当の分かれ道 ── 誰に、いくらで住んでもらうか</h3>
+  <div class="fork">
+    <div><b>一棟を月極で貸す</b><span class="pr">月20万円台</span><p>46㎡の一棟でトントンになる価格 (損益分岐 月約16万円の推定)。払えるのは夫婦やゆとりのある在宅勤務者。何人いるかは未確認</p></div>
+    <div><b>寝床は私有、湯と台所は共有の村</b><span class="pr">月5.5万円</span><p>ジョニー自身が「めっちゃいい」と言った価格。この価格が成り立つのはこの分け方だけ (寝床約400万円＋共有の場約2,000万円を8人で割る推定)。弱点は村長役</p></div>
+  </div>
+  <p class="note">ジョニーはインタビューで「月30万払えるかっていうと払えない」とも言っている。ジョニーと同じ層を客にするなら、一棟の月極ではなく村の形になる。構想の1枚の「住まいを3つに分ける」は、この計算と合っている。</p>
+
+  <div class="card"><h3><span class="k">A</span>高原に住む月極 (入口)</h3>
+    <dl><dt>客</dt><dd>SANU の4泊では足りない在宅勤務者・夫婦</dd>
+    <dt>売り物</dt><dd>30日以上を定期借家で。光熱費込み、冬は割引</dd>
+    <dt>効く理由</dt><dd>入れ替えが年10回前後になり、清掃と手間は1泊販売の約1/8。稼ぎは約1/3でも、手間あたりでは同等以上 (推定)。「トントンでよい・人なし」に最も合う</dd>
+    <dt>検証</dt><dd>建てる前に、発信で「北杜の高原の家に1か月住む」の希望者を募り、価格を3案 (15・22・30万円) 出して意思を取る</dd>
+    <dt>撤退</dt><dd>月20万円以上で前向きな意思が5件未満なら、月極は副次に</dd></dl></div>
+  <div class="card"><h3><span class="k">B</span>小屋の製造 × 人なしで貸す仕組み (本線に育つ)</h3>
+    <dl><dt>客</dt><dd>土地を持つ個人、二地域居住の希望者</dd>
+    <dt>売り物</dt><dd>小屋かキットの所有に、貸す仕組み (入室・説明・夜間連絡・清掃の手配) の月額を付ける</dd>
+    <dt>効く理由</dt><dd>人なしの宿の失敗は入室・連絡・説明に出ると分かった。そこを埋める型がそのまま売り物になる</dd>
+    <dt>検証</dt><dd>1棟目の設計と製造を発信し、キット・設計図・相談の問い合わせを数える</dd>
+    <dt>撤退</dt><dd>3か月で具体的な見積依頼が3件未満</dd></dl></div>
+  <div class="card"><h3><span class="k">C</span>寝床は私有、贅沢は共有の村</h3>
+    <dl><dt>客</dt><dd>月5.5〜8万円で「家」がほしい人 (ジョニーと同じ層)</dd>
+    <dt>売り物</dt><dd>10〜15㎡の寝床と、湯・台所・居間の共有</dd>
+    <dt>弱点</dt><dd>誰かが村長役を担う。住む人を客でなく共同の持ち主にし、当番制にする案</dd>
+    <dt>検証</dt><dd>4〜6人で1か月の試験居住をし、ジョニーの介入時間を測る</dd>
+    <dt>撤退</dt><dd>介入が週3時間超、または続ける人が半分未満</dd></dl></div>
+  <h3>致命的になりうる点</h3>
+  <ul class="plain">
+    <li><b>湯の差別化は真似される。</b>BLANC YATSUGATAKE が北杜に19室すべて温泉露天付き・2名朝食付き1人8,400円〜で2026年4月に開業。真似されにくいのは眺めの土地と、ジョニー本人の発信</li>
+    <li><b>住まいの市場は単価が低い。</b>一棟の月極は損益分岐がやっと。高原の家に月20万円台を払う層の大きさは未確認</li>
+    <li><b>規制。</b>民泊は年180日まで、家主不在は管理業者への委託が要る。30日以上の月極も実態次第で旅館業とみなされる。北杜市の条例は未確認</li>
+  </ul>
+</section>
+
+<section>
+  <h2>1棟目の作り方と測り方<small>理想を守り、現実で負けない</small></h2>
+  <p><b>宿ではなく「貸せる住まい」として作る。</b>収納・仕事机・洗濯・冬の暖房・光回線を入れ、停電でも最低限暮らせるようにする。眺めと湯と台所は守る。住まいとして作れば、月極・1泊・自分の暮らしのどれにも転用でき、撤退時に売りやすい。</p>
+  <table>
+    <thead><tr><th>時期</th><th>売り方</th><th>ねらい</th></tr></thead>
+    <tbody>
+      <tr><td>夏秋の週末・連休</td><td>1泊販売</td><td>値段を知る、収益の柱</td></tr>
+      <tr><td>冬と梅雨の平日</td><td>1〜3か月の月極</td><td>勝ち筋Aの検証</td></tr>
+      <tr><td>それ以外</td><td>自分が住む</td><td>暮らしの実験</td></tr>
+    </tbody>
+  </table>
+  <h3>測る5つ (12か月後に判定)</h3>
+  <ol class="steps">
+    <li>月極の申込数と、受け入れられた値段</li>
+    <li>延長・再訪の割合</li>
+    <li>1稼働日あたりのジョニーの作業時間 (人なしの度合い)</li>
+    <li>床のトラブル件数 (入室・連絡・清掃)。目標ゼロ</li>
+    <li>「この家がほしい」という問い合わせの数 (勝ち筋Bの先行指標)</li>
+  </ol>
+  <p class="note">判定: 月極が年4か月以上埋まり作業が少なければ住まいの路線を伸ばす。問い合わせが多ければ製造へ。どちらも弱ければ普通の一棟貸しとして収益を最大化し、2棟目は作らない。</p>
+</section>
+
+<section>
+  <h2>次の一手<small>建てる前、お金をかけずに</small></h2>
+  <ol class="steps">
+    <li>分かれ道を決める<span class="who">ジョニー</span><small>一棟の月極 (月20万円台) か、村 (月5.5万円) か、両方を試すか</small></li>
+    <li>希望者を募る発信<span class="who">ジョニー</span><small>「北杜の高原の家に1か月住む」。価格3案で意思を取る。下書きは私が作る</small></li>
+    <li>保健所への確認<span class="who">ジョニー</span><small>客ごとに換える湯船なら水質管理の対象外か、帳場なしの駆けつけ体制。質問は私が作る</small></li>
+    <li>北杜市の民泊・旅館業の条例と、清掃・駆けつけの業者の料金<small>私が調べる</small></li>
+    <li>観察を続ける<small>「安いのに豊か」に入る宿を増やす (北杜の5万段の人なしの宿、月極の宿)。評価が割れた宿の床を集める</small></li>
+  </ol>
+</section>
+
+<section>
+  <h2>未確認と根拠</h2>
+  <ul class="plain">
+    <li>未確認: 保健所の帳場と浴槽の扱い、北杜の一棟貸しの実際の稼働率 (有料データが要る)、消防の詳細、北杜市の条例、高原の家に月20万円台を払う層の大きさ</li>
+    <li>数字の多くは推定 (各所に明記)。観察データは10軒・口コミ本文は一休16軒241件ほか</li>
+  </ul>
+  <ul class="srcs">
+    <li>観光庁 宿泊旅行統計 (山梨の簡易宿所の稼働率): https://www.mlit.go.jp/kankocho/content/002010560.pdf</li>
+    <li>帳場を置かない簡易宿所の駆けつけ体制: https://www8.cao.go.jp/kisei-kaikaku/kisei/meeting/wg/2310_05local/240419/local01_02.pdf</li>
+    <li>北杜の民泊清掃の相場: https://www.osoujikakumei.jp/business-cleaning/bnb-cleaning/yamanashi/hokuto-shi/ ／ https://www.minpaku-resort.com/hokuto/</li>
+    <li>Airbnb のホスト手数料 15.5%: https://archcorp.jp/columns/airbnb-host-fee-15-5-percent-2025/ ／ 予約サイトの手数料: https://www.489ban.net/column/postid_1940/</li>
+    <li>山梨県レジオネラ症発生防止対策指針: http://www.npo-spa.jp/files/user_img/2/全国条例集/山梨県/山梨県レジオネラ症発生防止対策指針.pdf</li>
+    <li>大泉の平年値 (気象庁): https://www.data.jma.go.jp/stats/etrn/view/nml_amd_ym.php?prec_no=49&amp;block_no=1023</li>
+    <li>SANU 平日サブスク (満枠で募集停止): https://www.sa-nu.com/public/weekday-subscription/start ／ 制限: https://www.sa-nu.com/weekday</li>
+    <li>北杜の家具付き月極の一棟: https://bukkenfan.jp/e/8964999688646156840</li>
+    <li>BLANC YATSUGATAKE: https://www.porta-y.jp/porta-press/blanc-yatsugatake</li>
+    <li>民泊の制度 (観光庁 FAQ): https://www.mlit.go.jp/kankocho/minpaku/faq.html</li>
+    <li>二地域居住の実施者 (国交省): https://www.mlit.go.jp/report/press/kokudo03_hh_000003.html</li>
+  </ul>
+  <p class="foot">2026-10-05。宿泊事業の運営のプロと、新規事業の戦略家の2つの目で検討し、本人の記録 (構想の1枚・インタビュー) と照らした。土地と資金の個別の数字は載せていない。</p>
+</section>
+</div>
+</body>
+</html>
