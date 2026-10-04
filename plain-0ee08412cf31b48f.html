@@ -208,7 +208,7 @@ body.q #qbar.on{display:block}
   background:var(--paper);color:var(--ink);
   font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",sans-serif;
   font-weight:400;-webkit-font-smoothing:antialiased;
-  line-height:1.25;letter-spacing:.01em;padding:200px 84px 0;
+  line-height:1.25;letter-spacing:.01em;padding:72px 84px 0;
   line-break:strict;overflow-wrap:break-word;
 }
 b,strong{font-weight:700}
@@ -829,6 +829,11 @@ body.pm #bt-toc,body.r #bt-toc{visibility:hidden}
 .zd-back{display:none;position:fixed;right:14px;bottom:calc(var(--abot) + 14px);z-index:24;min-height:44px;padding:0 16px;border-radius:22px;background:var(--afg);color:var(--abg);font-weight:700;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 body.z .zd-back{display:block}
 .zd-index,#eight-update,#guarantee-guide,.license-guide{scroll-margin-top:calc(var(--ahd) + env(safe-area-inset-top) + 12px)}
+
+/* スライドを読むあいだは上下のバーを隠す（10/5） */
+#hd,#nav{transition:transform .22s ease}
+body.bars-off #hd{transform:translateY(-100%)}
+body.bars-off #nav{transform:translateY(100%)}
 
 /* Kept after shell.css so six bottom tabs remain evenly spaced. */
 #nav{grid-template-columns:repeat(6,minmax(0,1fr))}
@@ -3717,6 +3722,11 @@ window.addEventListener('hashchange',()=>{const h=location.hash;if(h.startsWith(
     wrap.parentNode.insertBefore(row, wrap.nextSibling);
   });
 })();
+
+// スライド画面で下へ読み進めたらヘッダーと下のタブを隠し、上へ戻すかタップで出す（10/5）
+(function(){var last=0,cls=document.body.classList;function onSlides(){return !/\b(kf|calc|r|n|k|pm|q|z)\b/.test(document.body.className)}
+addEventListener('scroll',function(){var y=scrollY;if(!onSlides()||y<40){cls.remove('bars-off')}else if(y>last+6){cls.add('bars-off')}else if(y<last-6){cls.remove('bars-off')}last=y},{passive:true});
+document.addEventListener('click',function(e){if(cls.contains('bars-off')&&!e.target.closest('a,button,details,summary,input,select'))cls.remove('bars-off')});})();
 </script>
 </body>
 </html>
