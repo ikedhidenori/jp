@@ -2,614 +2,767 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>宿の観察カード v1</title>
+<meta name="theme-color" content="#f4f1ea">
+<title>宿の観察 — 柱・床・差で見る10軒</title>
 <style>
 :root{
-  --bg:#f6f4ef; --card:#fffdf9; --ink:#23211d; --ink2:#5a564e; --muted:#8a857b; --line:#e4dfd4;
-  --made:#c9d9ee; --reached:#2a6fc4;
-  --zero:#1f6b3a; --run:#b8530f; --ng:#b3261e; --ok:#1f6b3a;
+  --paper:#f4f1ea; --sheet:#fbfaf6; --ink:#1d1b18; --ink2:#4f4b44; --mute:#6f6a60; --rule:#e2ddd2; --rule2:#cfc8b9;
+  --made:#d3dceb; --reach:#284a7e; --reach-weak:#7f97bf;
+  --zero:#1d5c3c; --run:#b0521a; --ng:#b3261e; --ng-bg:#f8e9e6; --ok:#1d1b18; --ok-bg:#e9e6de;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;
+  --sans:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;font-size:15px;line-height:1.6;-webkit-text-size-adjust:100%}
-.wrap{max-width:560px;margin:0 auto;padding:16px 14px 48px}
-h1{font-size:20px;margin:8px 0 4px;letter-spacing:.02em}
-.intro{color:var(--ink2);font-size:14px}
-.intro ul{padding-left:1.2em;margin:6px 0}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:2;border-bottom:1px solid var(--line)}
-.toc a{font-size:13px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--card)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 14px 12px;margin:18px 0;scroll-margin-top:56px}
-.card header{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.card h2{font-size:18px;margin:0;line-height:1.35}
-.area{font-size:13px;color:var(--muted)}
-.role{display:inline-block;font-size:11px;color:var(--ink2);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-bottom:3px}
-.shape{font-size:11px;color:var(--muted);text-align:right;min-width:92px;line-height:1.35}
-.shape b{font-size:12.5px;color:var(--ink)}
-.price{margin:8px 0 6px;font-size:14px}
-.muted{color:var(--muted)}
-.sec{font-size:12px;font-weight:700;color:var(--ink2);letter-spacing:.08em;margin:12px 0 4px;display:flex;justify-content:space-between;align-items:center}
-.legend{font-weight:400;letter-spacing:0;font-size:11.5px;color:var(--muted)}
-.legend i{display:inline-block;width:14px;height:8px;border-radius:2px;margin:0 3px 0 8px;vertical-align:middle}
-.lg-made{background:var(--made)} .lg-reached{background:var(--reached)}
-.prow{display:grid;grid-template-columns:3.4em 1fr 7.6em;gap:4px 8px;align-items:center;padding:3px 0}
-.pname{font-weight:700;font-size:14px}
-.ax-zero{color:var(--zero)} .ax-run{color:var(--run)}
-.runmark{font-size:10px;margin-left:2px;border:1px solid var(--run);border-radius:3px;padding:0 2px;vertical-align:2px}
-.pbar{position:relative;height:14px;background:#f0ece4;border-radius:4px;overflow:hidden}
-.bar-made{position:absolute;left:0;top:0;bottom:0;background:var(--made);border-radius:0 4px 4px 0}
-.bar-reached{position:absolute;left:0;top:4px;bottom:4px;background:var(--reached);border-radius:0 3px 3px 0}
-.bar-reached.weak{background:repeating-linear-gradient(135deg,var(--reached) 0 3px,#8fb3e3 3px 5px)}
-.pval{font-size:11.5px;line-height:1.3;color:var(--ink2)}
-.pnote{grid-column:2 / 4;font-size:11.5px;color:var(--muted);margin-top:-2px}
-.people{font-size:13px;background:#f3efe6;border-radius:8px;padding:6px 9px;margin:8px 0 0}
-table.floor{width:100%;border-collapse:collapse;font-size:13.5px}
-.floor th{text-align:left;font-weight:600;width:7.2em;padding:5px 4px;vertical-align:top;color:var(--ink2);white-space:nowrap}
-.floor td{padding:5px 4px}
-.floor tr{border-top:1px solid var(--line)}
-.floor tr.cur th{color:var(--ink)}
-.here{display:block;font-size:10px;font-weight:400;color:var(--muted)}
-.ok{color:var(--ok);font-weight:700}
-.ng{display:inline-block;color:var(--ng);font-weight:700;margin-right:8px}
-.plan{color:var(--ink2);font-size:12.5px}
-.low{font-size:13px;margin:10px 0 0}
-.chip{display:inline-block;border-radius:999px;padding:0 8px;margin:2px 3px 2px 0;font-size:12px;border:1px solid var(--line)}
-.c-floor{border-color:#e7b9b4;color:var(--ng)} .c-genre{color:var(--ink2)} .c-peak{color:var(--ink2)}
-.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.m{border:1px solid var(--line);border-radius:8px;padding:5px 7px}
-.mk{font-size:11px;color:var(--muted)}
-.mv{font-size:13px;font-weight:600;line-height:1.35}
-.ms{font-size:10.5px;color:var(--muted)}
-.takeaway{margin-top:12px;font-size:14px;border-left:3px solid var(--ink);padding:2px 0 2px 10px}
-.srcs{margin-top:10px;font-size:11.5px;color:var(--muted);word-break:break-all}
-.srcs a{color:var(--ink2)}
-.photos{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin:10px -14px 4px;padding:0 14px 4px;-webkit-overflow-scrolling:touch}
-.photos figure{flex:0 0 78%;margin:0;scroll-snap-align:start}
-.photos img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:10px;display:block;background:#ece7dd}
-.photos figcaption{font-size:12px;color:var(--ink2);margin-top:4px;line-height:1.4}
-.ptag{display:inline-block;font-size:10.5px;font-weight:700;color:var(--zero);border:1px solid #b9d3c1;border-radius:4px;padding:0 4px;margin-right:5px}
-.credit{display:block;font-size:10.5px;color:var(--muted)}
-.links{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
-.links a{font-size:12.5px;padding:3px 10px;border-radius:999px;background:#efeae0;color:var(--ink);text-decoration:none}
-.nophoto{font-size:12px;margin:8px 0}
-.foot{font-size:12px;color:var(--muted);margin-top:24px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;letter-spacing:.02em;font-feature-settings:"palt" 0}
+a{color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px calc(56px + env(safe-area-inset-bottom))}
+
+/* ---------- 表紙 ---------- */
+.cover{padding:48px 0 12px}
+.nw{white-space:nowrap}
+.lead,.take,.find li,.read span,.fact dd,.basis{text-wrap:pretty}
+.eyebrow{font-family:var(--serif);font-size:12px;letter-spacing:.3em;color:var(--mute);margin:0 0 14px}
+.cover h1{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.3;letter-spacing:.06em;margin:0;font-feature-settings:"palt"}
+.cover .lead{font-family:var(--serif);font-size:16px;line-height:1.9;color:var(--ink2);margin:16px 0 0}
+.read{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:32px 0 0;border-top:1px solid var(--ink)}
+.read div{padding:14px 10px 0 0}
+.read b{display:block;font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.08em}
+.read div > span{display:block;font-size:12px;line-height:1.6;color:var(--ink2);margin-top:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink2);margin:18px 0 0}
+.find + .card{margin-top:32px}
+.legend i{display:inline-block;width:14px;height:8px;border-radius:2px;vertical-align:1px;margin-right:6px}
+.k-m{background:transparent;border:1.5px solid #a9bad6} .k-r{background:var(--reach)}
+.legend .z{color:var(--zero);font-weight:700} .legend .r{color:var(--run);font-weight:700}
+
+.find{margin:24px 0 0;padding:22px 0 0;border-top:1px solid var(--rule2)}
+.find h2,.ov h2{font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--ink2);margin:0 0 12px}
+.find ol{margin:0;padding:0;list-style:none;counter-reset:f}
+.find li{counter-increment:f;position:relative;padding:0 0 14px 32px;font-size:15px;line-height:1.8}
+.find li::before{content:counter(f);position:absolute;left:0;top:-2px;font-family:var(--serif);font-size:20px;color:var(--mute)}
+
+/* ---------- 一覧 ---------- */
+.ov{margin:20px 0 0;padding:22px 0 0;border-top:1px solid var(--rule2)}
+.ov-note{font-size:12px;color:var(--mute);margin:-6px 0 8px}
+.ov-key{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-size:11.5px;color:var(--ink2);margin:0 0 6px}
+.ov-key .fd{width:auto;display:inline-flex;margin-left:6px}
+.ov-key .fd b{width:18px;height:18px;font-size:10.5px}
+.kv{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;margin-right:8px}
+.ov-key .fd{margin-left:0}
+.ov-g{flex-wrap:wrap}
+.ov-g small{flex-basis:100%;font-weight:400;color:var(--mute);letter-spacing:0;margin:2px 0 0 28px;font-size:11.5px}
+.ov-g{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--ink2);margin:18px 0 4px;letter-spacing:.06em}
+.gk{display:inline-grid;place-items:center;width:20px;height:20px;border:1px solid var(--ink);color:var(--ink);font-family:var(--serif);font-size:12px;font-weight:600;letter-spacing:0;flex:none}
+.ov-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:"name floor" "glyph glyph";gap:10px 12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--rule);text-decoration:none}
+.ov-row .ov-name{grid-area:name}.ov-row .fdots{grid-area:floor}.ov-row .glyph{grid-area:glyph}
+.ov-row.self{background:#ece7dc;margin:0 -20px;padding:14px 20px;border-left:3px solid var(--ink)}
+.mine{font-style:normal;font-family:var(--sans);font-size:11px;font-weight:600;color:var(--ink);background:none;border:1px solid var(--ink);padding:1px 6px;margin-left:8px;vertical-align:2px;letter-spacing:.04em}
+.ov-row:active{background:#efebe2}
+.ov-name b{display:block;font-family:var(--serif);font-size:16px;font-weight:600;line-height:1.35}
+.ov-name small{display:block;font-size:11.5px;color:var(--mute);line-height:1.5;margin-top:2px}
+.glyph{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.g-col{display:flex;align-items:center;gap:4px}
+.g-bar{position:relative;flex:1;height:9px;background:transparent;box-shadow:inset 0 -1px var(--rule2)}
+.g-m{position:absolute;left:0;top:0;bottom:0;border:1.5px solid #a9bad6;border-radius:2px}
+.g-r{position:absolute;left:0;top:2.5px;bottom:2.5px;background:var(--reach);border-radius:0 1px 1px 0}
+.g-r.weak{background:repeating-linear-gradient(135deg,var(--reach) 0 2px,var(--reach-weak) 2px 4px)}
+.g-ax{font-size:11px;font-weight:700;color:var(--zero);line-height:1}
+.g-ax.run{color:var(--run)}
+.fdots{display:flex;gap:3px}
+.fd{display:flex;flex-direction:column;align-items:center;width:26px}
+.fd b{display:grid;place-items:center;width:24px;height:24px;border-radius:4px;font-size:12.5px;line-height:1}
+.fd small{font-size:11px;color:var(--mute);line-height:1.3;margin-top:3px;font-variant-numeric:tabular-nums}
+.fd-ok b{background:var(--ok-bg);color:var(--ok)}
+.fd-okb b{background:#eeeae2;color:var(--mute)}
+.fd-ng b{background:var(--ng-bg);color:var(--ng)}
+.fd-unk b{border:1px dashed var(--rule2);color:var(--mute)}
+.fd-plan b{border:1px solid var(--rule2);color:var(--ink2);font-size:10px}
+.fd.cur small{color:var(--ink);font-weight:700}
+.fd.cur b{box-shadow:0 0 0 1.5px var(--ink)}
+.fd-ng.above b{background:none;border:1px solid #e0b0a9;color:#c06b62}
+.fd-okb.above b,.fd-ok.above b{opacity:.75}
+
+/* ---------- カード ---------- */
+.card{margin:56px -20px 0;background:var(--sheet);padding:0 20px 8px;border-top:1px solid var(--rule2);border-bottom:1px solid var(--rule2);scroll-margin-top:8px}
+.c-top{display:flex;align-items:center;gap:8px;padding:2px 0 2px;font-size:12px;font-weight:600;color:var(--ink2);letter-spacing:.06em}
+.back{margin-left:auto;font-weight:400;font-size:12px;color:var(--ink2);text-decoration:none;min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:flex-end}
+.role{font-size:11.5px;color:var(--mute);margin:0 0 6px;letter-spacing:.06em}
+.hero{margin:0 -20px}
+.hero img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#e7e2d7}
+.hero figcaption,.thumbs figcaption{font-size:11.5px;color:var(--ink2);line-height:1.5;padding:6px 20px 0}
+.thumbs figcaption{padding:5px 0 0}
+.cr{color:var(--mute);margin-left:6px}
+.ptag.run{color:var(--run);border-color:#e3bfa6}
+.ptag{display:inline-block;font-size:11px;font-weight:700;color:var(--zero);border:1px solid #b7cdbf;border-radius:3px;padding:0 4px;margin-right:6px;vertical-align:1px;letter-spacing:.04em}
+.hero-empty{margin:0 -20px;aspect-ratio:16/7;display:grid;place-items:center;background:repeating-linear-gradient(135deg,#efebe3 0 10px,#f5f2ec 10px 20px)}
+.hero-empty span{font-family:var(--serif);color:var(--mute);letter-spacing:.3em}
+.c-head{padding:20px 0 0}
+.c-head h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.45;letter-spacing:.04em;margin:0;font-feature-settings:"palt"}
+.area{font-size:12.5px;color:var(--mute);line-height:1.6;margin:6px 0 0}
+.shape{font-size:12.5px;color:var(--ink2);margin:8px 0 0}
+.shape b{font-weight:600;color:var(--ink)}
+.take{font-family:var(--serif);font-size:17px;line-height:1.95;margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--ink)}
+.thumbs::after{content:"";flex:0 0 10px}
+.thumbs{scroll-padding-inline:20px;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:32px -20px 0;padding:0 20px 2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.thumbs::-webkit-scrollbar{display:none}
+.thumbs figure{flex:0 0 46%;margin:0;scroll-snap-align:start}
+.thumbs img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;background:#e7e2d7}
+
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin:22px 0 0}
+.fact{padding:10px 0;border-top:1px solid var(--rule)}
+.fact.wide{grid-column:1 / -1}
+.fact dt{font-size:11px;color:var(--mute);letter-spacing:.1em}
+.fact dd{margin:2px 0 0;font-size:13.5px;line-height:1.65}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.links{gap:4px 20px !important}
+.links a{font-size:14px;text-decoration:none;padding:11px 0;border-bottom:1px solid var(--rule2)}
+.links a::after{content:" ↗";color:var(--mute)}
+
+.blk{margin:32px 0 0}
+.blk h3{display:flex;align-items:baseline;gap:12px;font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.12em;margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.h3s{font-family:var(--sans);font-size:11.5px;font-weight:400;letter-spacing:0;color:var(--mute);margin-left:auto}
+.h3s i{display:inline-block;width:12px;height:7px;border-radius:2px;margin:0 2px;vertical-align:1px}
+.pr{display:grid;grid-template-columns:4.6em 1fr 3.8em;gap:12px;align-items:center;padding:7px 0}
+.pr-ax{font-size:15px;font-weight:700;line-height:1.2}
+.pr-ax small{display:block;font-size:11px;font-weight:400;color:var(--mute);margin-top:3px}
+.pr-ax.zero{color:var(--zero)} .pr-ax.run{color:var(--run)}
+.yen{font-size:10.5px;border:1px solid var(--run);border-radius:3px;padding:0 2px;margin-left:3px;vertical-align:2px}
+.pr-bar{position:relative;height:16px;background:transparent;box-shadow:inset 0 -1px var(--rule2)}
+.b-m{position:absolute;inset:0 auto 0 0;background:transparent;border:1.5px solid #a9bad6;border-radius:3px}
+.b-r{position:absolute;left:0;top:3.5px;bottom:3.5px;background:var(--reach);border-radius:0 2px 2px 0}
+.b-r.weak{background:repeating-linear-gradient(135deg,var(--reach) 0 3px,var(--reach-weak) 3px 6px)}
+.pr-val{text-align:right;line-height:1.1}
+.pr-val .v{font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+.pr-val em{font-style:normal;font-size:11px;margin-left:1px}
+.pr-val small{display:block;font-size:11px;color:var(--mute);margin-top:2px;font-variant-numeric:tabular-nums}
+.v-na{font-size:16px;color:var(--mute)}
+details summary{cursor:pointer;list-style:none;font-size:12.5px;color:var(--ink2)}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"＋";display:inline-block;width:1.4em;color:var(--mute)}
+details[open] summary::before{content:"−"}
+.why{margin:8px 0 0}
+.why ul{margin:8px 0 0;padding:0;list-style:none}
+.why li{font-size:12.5px;line-height:1.7;color:var(--ink2);padding:6px 0;border-top:1px dotted var(--rule2)}
+.why li b{margin-right:8px}
+.why b.zero{color:var(--zero)} .why b.run{color:var(--run)}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;align-items:stretch}
+.step{background:var(--paper);border-radius:4px;padding:10px 8px 12px;border-top:3px solid var(--rule2)}
+.step.cur{border-top-color:var(--ink)}
+.step-h{font-size:12px;font-weight:700;color:var(--ink2);line-height:1.3}
+.here{display:block;font-size:11px;font-weight:400;color:var(--mute);margin-top:2px}
+.step-b{margin-top:8px;display:flex;flex-direction:column;gap:4px}
+.st-ok{font-size:22px;line-height:1;color:var(--ok)}
+.s-ok{background:var(--ok-bg)}
+.st-ng{font-size:13px;font-weight:700;color:var(--ng);line-height:1.35}
+.st-plan{font-size:11.5px;color:var(--ink2);line-height:1.6}
+.st-muted{font-size:11.5px;color:var(--mute);line-height:1.5}
+.s-ng{background:var(--ng-bg)}
+.step.above{background:var(--paper) !important;border-top-color:var(--rule) !important}
+.step.above .st-ng{color:#a14a42;font-weight:500}
+.step.above .step-h::after{content:"上の段";display:block;font-size:11px;font-weight:400;color:var(--mute);margin-top:2px}
+.st-note{font-size:12.5px;color:var(--ink2);line-height:1.75;margin:8px 0 0;padding:8px 10px;background:var(--paper);border-radius:4px}
+.st-note b{margin-right:8px;color:var(--ink)}
+.find a{text-decoration:underline;text-decoration-color:var(--rule2);text-underline-offset:3px}
+
+.cbar{display:flex;gap:2px;height:10px;border-radius:3px;overflow:hidden}
+.cs{display:block}
+.c-f{background:var(--ng)} .c-g{background:#c9a35c} .c-p{background:#8b867c}
+.clegend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;margin-top:8px;color:var(--ink2)}
+.clegend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+.clegend b{color:var(--ink);font-variant-numeric:tabular-nums}
+.basis{font-size:12px;color:var(--mute);line-height:1.7;margin:8px 0 0}
+.na{font-size:13px;color:var(--mute);margin:0}
+
+.more{margin:28px 0 12px;padding:12px 0 0;border-top:1px solid var(--rule)}
+.mg{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+.mg th{text-align:left;font-weight:400;color:var(--mute);font-size:11.5px;padding:7px 8px 7px 0;white-space:nowrap;vertical-align:top;width:6em}
+.mg td{padding:7px 0;border-bottom:1px solid var(--rule);line-height:1.6}
+.mg td.src{color:var(--mute);font-size:11px;white-space:nowrap;padding-left:8px;text-align:right}
+.srcs{font-size:11.5px;color:var(--mute);line-height:1.8;word-break:break-all}
+
+.method{margin:56px 0 0;padding:20px 0 0;border-top:1px solid var(--rule2)}
+.method ul{padding-left:1.2em;margin:10px 0 0;font-size:12.5px;color:var(--ink2);line-height:1.8}
+.foot{font-size:11.5px;color:var(--mute);margin:28px 0 0}
+.totop{display:block;text-align:center;font-size:12px;color:var(--mute);text-decoration:none;margin:24px 0 0}
+
+@media (min-width:700px){
+  body{font-size:16px}
+  .cover{padding-top:88px}
+  .cover h1{font-size:44px}
+  .card{margin:72px 0 0;border:1px solid var(--rule2);border-radius:6px;overflow:hidden}
+  .hero{margin:0 -20px}
+  .thumbs figure{flex-basis:31%}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-<h1>宿の観察カード v1</h1>
-<div class="intro"><p>対象は宿・ヴィラ・一棟貸し・別荘 (会員制・区分所有を含む)。一つの総合点で比べない。カードが示すのは <b>形</b> (どの柱を尖らせたか)・<b>床</b> (合否)・<b>作った柱と届いた柱の差</b> の3つ。比べるのは同じ形・同じ価格段の中だけ。</p>
-<ul>
-<li><b>柱の棒</b>: 薄い棒＝作った (掲載情報から 無/有/売り/主役)、濃い棒＝届いた (口コミ本文で触れて褒めた割合、件数つき)。斜線は5件未満で参考</li>
-<li><b>軸名の色</b>: <span style="color:#1f6b3a;font-weight:700">濃緑＝回す費用ゼロ</span>、<span style="color:#b8530f;font-weight:700">橙¥＝回すたびに費用</span></li>
-<li><b>床</b>: 5万/10万/15万段。割れた項目を赤字。段は積み上げ (一休の16軒・口コミ241件から)。迎えなどの人の接点は床に入れない (人なしで5.00の宿がある)。15万段は推測を含む</li>
-<li><b>比べられる組</b>: ① 北杜・人なし・5万段 = SANU・SEKKI・ReTune・小屋プロ ② 人なし・身体+独占の成功と失敗 = Refwind と蒼望楼 ③ tou と幸は同じ島で別の形 ④ 販売の形が違う = BLANC (オーナー制度併用)・NOT A HOTEL (区分所有)・SANU (会員)</li><li><b>写真</b>: 掲載元から直接表示 (タップで掲載ページ)。緑の札はその写真が示す柱</li>
-</ul></div>
-<nav class="toc"><a href="#tou">tou</a><a href="#sachi">幸</a><a href="#refwind">Refwind</a><a href="#soubou">蒼望楼</a><a href="#blanc">BLANC NIKKO</a><a href="#nah">NOT A HOTEL</a><a href="#sanu">SANU 八ヶ岳</a><a href="#sekki">SEKKI</a><a href="#retune">ReTune</a><a href="#koya">小屋プロ基準案</a></nav>
+<header class="cover">
+  <p class="eyebrow">観察ノート　二〇二六年十月五日</p>
+  <h1>宿の観察</h1>
+  <p class="lead">宿・ヴィラ・別荘を、一つの点数で比べない。どの柱を立て、どの床を守り、何が客に届いたかを見る。比べるのは同じ形・同じ値段の<span class="nw">中だけ。</span></p>
+  <div class="read">
+    <div><b>形</b><span>尖らせた柱。独占・身体・物語・食・自由</span></div>
+    <div><b>床</b><span>値段ごとの合否。三つの段で見る。割れは赤</span></div>
+    <div><b>差</b><span>作った柱と、口コミで届いた柱の差</span></div>
+  </div>
+  <div class="legend">
+    <span><i class="k-m"></i>作った (枠・掲載から)</span>
+    <span><i class="k-r"></i>届いた (塗り・口コミで褒めた割合)</span>
+    <span><span class="z">緑の軸</span> 回す費用ゼロ ／ <span class="r">橙の軸</span> 回すたびに費用</span>
+  </div>
+</header>
 
-  <article class="card" id="tou">
-    <header>
-      <div class="ttl"><span class="role">試作1</span><h2>小豆島メディテーションサウナヴィラ tou</h2><div class="area">香川・小豆島 / 32.76㎡+デッキ189㎡ / 定員3</div></div>
-      <div class="shape">形<br><b>独占+身体+物語 / 人うすい / 自炊+弁当</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html"><img src="https://prcdn.freetls.fastly.net/release_image/5189/204/5189-204-41960ddf8dec121aaa42254c09dd31d3-2000x1333.jpg?width=900" alt="海へ伸びるデッキと讃岐富士" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占</span>海へ伸びるデッキと讃岐富士<span class="credit">PR TIMES</span></figcaption></figure><figure><a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html"><img src="https://prcdn.freetls.fastly.net/release_image/5189/204/5189-204-8926aa6a876e66c9711ec91ed953e3c5-2000x1333.jpg?width=900" alt="醤油蔵の木桶を改装したサウナ" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体・物語</span>醤油蔵の木桶を改装したサウナ<span class="credit">PR TIMES</span></figcaption></figure><figure><a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html"><img src="https://prcdn.freetls.fastly.net/release_image/5189/204/5189-204-23481d34785a68f5912a3a70bdf86b04-2000x1333.jpg?width=900" alt="江戸時代の釜風呂・土風呂" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体・物語</span>江戸時代の釜風呂・土風呂<span class="credit">PR TIMES</span></figcaption></figure><figure><a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html"><img src="https://prcdn.freetls.fastly.net/release_image/5189/204/5189-204-5599922275884923bef4c13e7d8fa758-2000x1333.jpg?width=900" alt="譲り受けた醤油蔵の木桶" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">物語</span>譲り受けた醤油蔵の木桶<span class="credit">PR TIMES</span></figcaption></figure></div>
-    <div class="links"><a href="https://1000olive-terrace.com/">公式</a><a href="https://hotel.travel.rakuten.co.jp/hotelinfo/plan/191598">楽天</a><a href="https://www.ikyu.com/00051703/">一休</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%B0%8F%E8%B1%86%E5%B3%B6%20%E5%8D%83%E5%B9%B4%E3%82%AA%E3%83%AA%E3%83%BC%E3%83%96%E3%83%86%E3%83%A9%E3%82%B9%20The%20STAY">地図</a></div>
-    <div class="price">2名 16.2〜18.6万 (朝食付) / 17.5〜19.8万 (夕朝食付)。3名 17.0〜21.3万。楽天掲載・税込<br><span class="muted">販売の形: <b>1泊販売</b> ・ 食の型: <b>自炊の素材 (朝) + 届ける弁当 (夕 ¥6,050)</b> ・ 評価 一休/Yahoo 2.83 (2件) ・ Google 5.0 (8件・本文未読)</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached weak" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br>届いた 100% <span class="muted">(2/2・参考)</span></div>
-        <div class="pnote">瀬戸内と讃岐富士、朝日の向き、プライベートビーチ</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached weak" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br>届いた 100% <span class="muted">(2/2・参考)</span></div>
-        <div class="pnote">木桶サウナ + 温冷4槽、焚火</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached weak" style="width:0%"></div></div>
-        <div class="pval">作った 主役<br>届いた 0% <span class="muted">(0/2・参考)</span></div>
-        <div class="pnote">醤油蔵の木桶・江戸の釜風呂・問い1つ。口コミ2件とも触れず</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-run">食<span class="runmark" title="回すたびに費用">¥</span></div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached weak" style="width:50%"></div></div>
-        <div class="pval">作った 売り<br>届いた 50% <span class="muted">(1/2・参考)</span></div>
-        <div class="pnote">鉄釜の炊飯は褒められ、米+佃煮のみは苦情</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached weak" style="width:0%"></div></div>
-        <div class="pval">作った 有<br>届いた 0% <span class="muted">(0/2・参考)</span></div>
-        
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): 迎えなし・夜間は無人 (LINEのみ)・スタッフの温かさは2件とも褒める</div>
-    <section><div class="sec">床</div><table class="floor"><tr><th>5万段 </th><td><span class="ng">洗面</span><span class="ng">施錠</span><span class="ng">坂の告知</span></td></tr><tr><th>10万段 </th><td><span class="ng">夜間連絡</span><span class="ng">遮光</span><span class="ng">食の量</span></td></tr><tr class="cur"><th>15万段 <span class="here">この宿の段</span></th><td><span class="ng">作り手の食</span></td></tr></table></section>
-    <div class="low"><b>苦情の内訳</b> <span class="chip c-floor">床割れ 9</span><span class="chip c-genre">ジャンル違い 2</span><span class="chip c-peak">柱不足 2</span><span class="muted"> 2件 (3.50・2.17) の苦情13件。2件のため参考</span></div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">非公開</div><div class="ms">不明</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">軽い (食は置く・届ける)</div><div class="ms">推定</div></div><div class="m"><div class="mk">単価</div><div class="mv">16〜21万</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">不明</div><div class="ms">不明</div></div><div class="m"><div class="mk">リピート</div><div class="mv">不明 (2件)</div><div class="ms">公開</div></div><div class="m"><div class="mk">再現性</div><div class="mv">低い (景色と母体ブランドに依存)</div><div class="ms">推定</div></div></div></section>
-    <div class="takeaway">柱は独占・身体が届き、物語は作ったのに2件とも触れていない。床は5万段で割れ、苦情13件のうち9件が床割れ。遮光・洗面・鍵のように安く直せるものが多い。</div>
-    <div class="srcs">出典: <a href="https://hotel.travel.rakuten.co.jp/hotelinfo/plan/191598">楽天</a> / <a href="https://www.ikyu.com/00051703/review/">一休 口コミ</a> / <a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html">PR TIMES</a></div>
-  </article>
-  <article class="card" id="sachi">
-    <header>
-      <div class="ttl"><span class="role">試作2</span><h2>お屋敷ステイ 幸</h2><div class="area">香川・小豆島 / 築95年の醤油名家・249㎡・敷地3,000㎡ / 定員9</div></div>
-      <div class="shape">形<br><b>物語+独占 / 人あり / シェフ (選択)</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://www.ikyu.com/00052367/"><img src="https://www.img-ikyu.com/contents/common/dg/image/sd/acc7/00052367/00052367a.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="醤油名家のお屋敷" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">物語・独占</span>醤油名家のお屋敷<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052367/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc7/00052367/img/a_ss_04_260220.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="蔵を改装したバー" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">物語</span>蔵を改装したバー<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052367/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc7/00052367/img/e_ss_01_260220.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="プライベートシェフ" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">食</span>プライベートシェフ<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052367/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc7/00052367/img/c_ss_01_260220.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="天然水の半露天風呂" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体</span>天然水の半露天風呂<span class="credit">一休.com</span></figcaption></figure></div>
-    <div class="links"><a href="https://www.ikyu.com/00052367/">一休</a><a href="https://www.ikyu.com/00052367/review/">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%81%8A%E5%B1%8B%E6%95%B7%E3%82%B9%E3%83%86%E3%82%A4%20%E5%B9%B8%20%E5%B0%8F%E8%B1%86%E5%B3%B6">地図</a></div>
-    <div class="price">2名 4.8万 (素泊まり) / 5.1万 (朝食付) / 8.6万〜 (夕朝食付)。一休掲載・税込・日付指定なし。口コミ12件中8件が夕朝食付<br><span class="muted">販売の形: <b>1泊販売</b> ・ 食の型: <b>シェフ (出張・選択) / 自炊の素材 (しゃぶしゃぶ) / 素泊まり</b> ・ 評価 一休 4.96 (16件)</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached" style="width:64%"></div></div>
-        <div class="pval">作った 主役<br>届いた 64% <span class="muted">(9/14)</span></div>
-        <div class="pnote">3,000㎡を1組で貸切。寝室4つで家族ごとのプライバシー</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:36%"></div></div>
-        <div class="pval">作った 売り<br>届いた 36% <span class="muted">(5/14)</span></div>
-        <div class="pnote">100℃近いサウナ付きの石風呂</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br>届いた 100% <span class="muted">(14/14)</span></div>
-        <div class="pnote">醤油名家の屋敷・旧家の古道具・蔵バー・畑と鶏の卵取り</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-run">食<span class="runmark" title="回すたびに費用">¥</span></div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:93%"></div></div>
-        <div class="pval">作った 売り<br>届いた 93% <span class="muted">(13/14)</span></div>
-        <div class="pnote">出張シェフ (和・伊・寿司)、オリーブ牛のしゃぶしゃぶ、畑の野菜</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached" style="width:7%"></div></div>
-        <div class="pval">作った 有<br>届いた 7% <span class="muted">(1/14)</span></div>
-        
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): 港への送迎・対面の設備説明・LINEの即答・観光の提案。褒めた口コミ 11/14 (79%)</div>
-    <section><div class="sec">床</div><table class="floor"><tr><th>5万段 </th><td><span class="ok">✓</span></td></tr><tr class="cur"><th>10万段 <span class="here">この宿の段</span></th><td><span class="ok">✓</span></td></tr><tr><th>15万段 </th><td><span class="ok">✓</span></td></tr></table></section>
-    <div class="low"><b>苦情の内訳</b> <span class="chip c-floor">床割れ 0</span><span class="chip c-genre">ジャンル違い 3</span><span class="chip c-peak">柱不足 0</span><span class="muted"> 段差・進入路・虫。いずれも5点・4.5点の口コミ内で、虫は事前に告知済み</span></div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">非公開</div><div class="ms">不明</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">重い (送迎・説明・シェフの手配)</div><div class="ms">推定</div></div><div class="m"><div class="mk">単価</div><div class="mv">4.8万〜 (夕朝食 8.6万〜)</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">不明</div><div class="ms">不明</div></div><div class="m"><div class="mk">リピート</div><div class="mv">再訪したい 9/14 (意向)</div><div class="ms">公開</div></div><div class="m"><div class="mk">再現性</div><div class="mv">低い (屋敷とオーナー夫妻に依存)</div><div class="ms">推定</div></div></div></section>
-    <div class="takeaway">床は15万段まで通るのに、値付けは10万段以下。届いているのは人と食 (回すたびに費用) だけでなく、回す費用ゼロの物語 (醤油名家・畑・鶏) も14件全部。小屋プロが真似られるのは物語の方。</div>
-    <div class="srcs">出典: <a href="https://www.ikyu.com/00052367/review/">一休 口コミ</a> / <a href="https://www.ikyu.com/00052367/">一休 宿</a></div>
-  </article>
-  <article class="card" id="refwind">
-    <header>
-      <div class="ttl"><span class="role">対照・成功 (小屋プロと同じ人なし)</span><h2>Refwind</h2><div class="area">千葉・鋸南 / 元小学校の改装 / 最大6名</div></div>
-      <div class="shape">形<br><b>身体+独占 / 人なし / BBQ</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://www.ikyu.com/00052014/"><img src="https://www.img-ikyu.com/contents/common/image/acc4/00052014/1/org/13346759.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="A棟のプライベートプール" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体</span>A棟のプライベートプール<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052014/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc4/00052014/img/c_ss_01.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="サウナ" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体</span>サウナ<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052014/"><img src="https://www.img-ikyu.com/contents/common/image/acc4/00052014/1/org/13346758.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="焚き火" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体</span>焚き火<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052014/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc4/00052014/img/e_ss_02.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="セルフBBQ" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">食</span>セルフBBQ<span class="credit">一休.com</span></figcaption></figure></div>
-    <div class="links"><a href="https://www.ikyu.com/00052014/">一休</a><a href="https://www.ikyu.com/00052014/review/">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Refwind%20%E9%8B%B8%E5%8D%97">地図</a></div>
-    <div class="price">2名 10.8万 (素泊まり)。一休掲載・税込。4名は未取得<br><span class="muted">販売の形: <b>1泊販売</b> ・ 食の型: <b>BBQ (セット ¥5,000) / 自炊</b> ・ 評価 一休 4.70 (12件)</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:42%"></div></div>
-        <div class="pval">作った 売り<br>届いた 42% <span class="muted">(5/12)</span></div>
-        <div class="pnote">一棟貸切・完全非対面で誰にも会わない</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached" style="width:92%"></div></div>
-        <div class="pval">作った 主役<br>届いた 92% <span class="muted">(11/12)</span></div>
-        <div class="pnote">プライベートプール・サウナ・ジャグジー・焚火</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached" style="width:8%"></div></div>
-        <div class="pval">作った 有<br>届いた 8% <span class="muted">(1/12)</span></div>
-        <div class="pnote">元小学校 (口コミ1件のみ)</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-run">食<span class="runmark" title="回すたびに費用">¥</span></div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:75%"></div></div>
-        <div class="pval">作った 売り<br>届いた 75% <span class="muted">(9/12)</span></div>
-        <div class="pnote">セルフBBQ</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached" style="width:25%"></div></div>
-        <div class="pval">作った 有<br>届いた 25% <span class="muted">(3/12)</span></div>
-        <div class="pnote">好きな時間に使える、犬をリードなしで</div>
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): なし (完全非対面のセルフチェックイン)。非対面を褒めた口コミ 2/12、「事前の案内が丁寧」</div>
-    <section><div class="sec">床</div><table class="floor"><tr><th>5万段 </th><td><span class="ng">ペットの床</span></td></tr><tr class="cur"><th>10万段 <span class="here">この宿の段</span></th><td><span class="muted">増えた項目は✓ (下の段が割れ)</span></td></tr><tr><th>15万段 </th><td><span class="ng">作り手の食</span></td></tr></table></section>
-    <div class="low"><b>苦情の内訳</b> <span class="chip c-floor">床割れ 6</span><span class="chip c-genre">ジャンル違い 0</span><span class="chip c-peak">柱不足 0</span><span class="muted"> 6件すべて1件の1.40 (調味料・消耗品・食器・入室40分遅れ・電話対応・犬の怪我)</span></div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">非公開</div><div class="ms">不明</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">軽い (非対面・清掃は業者)</div><div class="ms">推定</div></div><div class="m"><div class="mk">単価</div><div class="mv">10.8万</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">不明</div><div class="ms">不明</div></div><div class="m"><div class="mk">リピート</div><div class="mv">同じ人の再訪 1件</div><div class="ms">公開</div></div><div class="m"><div class="mk">再現性</div><div class="mv">高い (プール・サウナ・BBQは作れる)</div><div class="ms">推定</div></div></div></section>
-    <div class="takeaway">人なしでも4.70。身体11/12・食9/12が届き、床は案内で埋めている。崩れたのは清掃と連絡に穴が出た1泊だけで、その1件に苦情6件が集中した。</div>
-    <div class="srcs">出典: <a href="https://www.ikyu.com/00052014/review/">一休 口コミ</a> / <a href="https://www.ikyu.com/00052014/">一休 宿</a></div>
-  </article>
-  <article class="card" id="soubou">
-    <header>
-      <div class="ttl"><span class="role">対照・失敗 (小屋プロと同じ人なし)</span><h2>蒼望楼</h2><div class="area">千葉・鴨川 / 海一望の貸別荘</div></div>
-      <div class="shape">形<br><b>身体+独占 / 人なし / 素泊まり</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://www.ikyu.com/00052053/"><img src="https://www.img-ikyu.com/contents/common/image/acc3/00052053/1/org/13394143.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="温水プールと水深190cmの水風呂" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体</span>温水プールと水深190cmの水風呂<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052053/"><img src="https://www.img-ikyu.com/contents/common/image/acc3/00052053/1/org/13394126.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="海が見えるサウナ" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体・独占</span>海が見えるサウナ<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052053/"><img src="https://www.img-ikyu.com/contents/common/image/acc3/00052053/1/org/13391561.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="オーシャンビューのテラス" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占</span>オーシャンビューのテラス<span class="credit">一休.com</span></figcaption></figure></div>
-    <div class="links"><a href="https://www.ikyu.com/00052053/">一休</a><a href="https://www.ikyu.com/00052053/review/">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%92%BC%E6%9C%9B%E6%A5%BC%20%E9%B4%A8%E5%B7%9D">地図</a></div>
-    <div class="price">2名 16.7万 (食事なし)。一休掲載・税込。4名は未取得<br><span class="muted">販売の形: <b>1泊販売</b> ・ 食の型: <b>素泊まり (BBQは持ち込み)</b> ・ 評価 一休 4.40 (12件・接客3.75)</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached" style="width:30%"></div></div>
-        <div class="pval">作った 主役<br>届いた 30% <span class="muted">(3/10)</span></div>
-        <div class="pnote">部屋とテラスから海が一望</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br>届いた 100% <span class="muted">(10/10)</span></div>
-        <div class="pnote">水深190cmの水風呂・サウナ・源泉・温水プール</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:0%"></div><div class="bar-reached" style="width:0%"></div></div>
-        <div class="pval">作った 無<br>届いた 0% <span class="muted">(0/10)</span></div>
-        
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">食</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached" style="width:10%"></div></div>
-        <div class="pval">作った 有<br>届いた 10% <span class="muted">(1/10)</span></div>
-        <div class="pnote">BBQ設備のみ。調味料・アルミ箔は持参</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached" style="width:0%"></div></div>
-        <div class="pval">作った 有<br>届いた 0% <span class="muted">(0/10)</span></div>
-        <div class="pnote">カラオケ</div>
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): なし (暗証番号で入室、連絡は電話050とLINE)</div>
-    <section><div class="sec">床</div><table class="floor"><tr><th>5万段 </th><td><span class="ng">入室・連絡</span><span class="ng">備品</span><span class="ng">説明</span></td></tr><tr><th>10万段 </th><td><span class="ng">夜間連絡</span></td></tr><tr class="cur"><th>15万段 <span class="here">この宿の段</span></th><td><span class="ng">作り手の食</span></td></tr></table></section>
-    <div class="low"><b>苦情の内訳</b> <span class="chip c-floor">床割れ 8</span><span class="chip c-genre">ジャンル違い 2</span><span class="chip c-peak">柱不足 1</span><span class="muted"> 本文10件の苦情11件 (入室番号が届かない・電話不通・虫・使い回しのスポンジ・説明書なし・源泉が沸かない ほか)</span></div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">非公開</div><div class="ms">不明</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">軽い (無人)。ただし穴が出ている</div><div class="ms">推定</div></div><div class="m"><div class="mk">単価</div><div class="mv">16.7万</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">不明</div><div class="ms">不明</div></div><div class="m"><div class="mk">リピート</div><div class="mv">不明</div><div class="ms">不明</div></div><div class="m"><div class="mk">再現性</div><div class="mv">中 (設備は作れる、海は土地次第)</div><div class="ms">推定</div></div></div></section>
-    <div class="takeaway">身体は10件全部に届いているのに4.40。Refwind と柱は同じ形で、差は入室・連絡・説明・備品の床に出た。価格が1.5倍なので床割れの痛みも大きい。</div>
-    <div class="srcs">出典: <a href="https://www.ikyu.com/00052053/review/">一休 口コミ</a> / <a href="https://www.ikyu.com/00052053/">一休 宿</a></div>
-  </article>
-  <article class="card" id="blanc">
-    <header>
-      <div class="ttl"><span class="role">試作3 ・ 泊まる前</span><h2>BLANC NIKKO (Suite Villa)</h2><div class="area">栃木・日光 / 63.29㎡+縁側 / 定員4 / 2026-11-01開業</div></div>
-      <div class="shape">形<br><b>独占+身体 / 人は未確認 / 部屋食</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html"><img src="https://prcdn.freetls.fastly.net/release_image/84114/52/84114-52-fe2cfbd02ee9cc8938e1afbfd6054ba4-2500x1875.jpg?width=900" alt="苔の森のトレーラーハウス (開業前の画像)" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占</span>苔の森のトレーラーハウス (開業前の画像)<span class="credit">PR TIMES</span></figcaption></figure><figure><a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html"><img src="https://prcdn.freetls.fastly.net/release_image/84114/52/84114-52-5d745b4b3e7721e10f1b4f5e9002f0cf-2500x1875.jpg?width=900" alt="全室の檜風呂の温泉 (開業前の画像)" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体</span>全室の檜風呂の温泉 (開業前の画像)<span class="credit">PR TIMES</span></figcaption></figure><figure><a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html"><img src="https://prcdn.freetls.fastly.net/release_image/84114/52/84114-52-45e0784e403d787b5950a5bf385e7552-1792x2390.png?width=900" alt="上流の寂光の滝" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占・物語</span>上流の寂光の滝<span class="credit">PR TIMES</span></figcaption></figure></div>
-    <div class="links"><a href="https://blan-c.com/nikko/">公式</a><a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html">プレスリリース</a><a href="https://www.google.com/maps/search/?api=1&amp;query=BLANC%20NIKKO%20%E6%97%A5%E5%85%89">地図</a></div>
-    <div class="price">2名 5.8万 (朝食付) / 7.5万 (2食付)。開業記念30%OFF後の会員価格。4名は未取得<br><span class="muted">販売の形: <b>1泊販売 + オーナー制度 (併用)</b> ・ 食の型: <b>届ける (部屋食。日光ゆば・霧降高原牛。作り手は未記載)</b> ・ 評価 開業前</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br><span class="muted">届いた —</span></div>
-        <div class="pnote">神域の原生林・田母沢川。他の客と顔を合わせない独立ヴィラ</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br><span class="muted">届いた —</span></div>
-        <div class="pnote">全室に檜風呂の温泉、24時間</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div></div>
-        <div class="pval">作った 有<br><span class="muted">届いた —</span></div>
-        <div class="pnote">トレーラーハウス・東濃ヒノキ・古材</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-run">食<span class="runmark" title="回すたびに費用">¥</span></div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div></div>
-        <div class="pval">作った 売り<br><span class="muted">届いた —</span></div>
-        <div class="pnote">栃木の食材の部屋食</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div></div>
-        <div class="pval">作った 有<br><span class="muted">届いた —</span></div>
-        
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): 未確認 (現地スタッフを採用中の記載あり)。泊まって記録する</div>
-    <section><div class="sec">床</div><table class="floor"><tr><th>5万段 </th><td><span class="muted">未判定</span></td></tr><tr class="cur"><th>10万段 <span class="here">この宿の段</span></th><td><span class="muted">未判定</span></td></tr><tr><th>15万段 </th><td><span class="muted">未判定</span></td></tr></table></section>
-    <div class="low muted">苦情の内訳: 口コミなし (開業前・泊まる前)</div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">オーナー販売 2,850万〜/口 ×8口</div><div class="ms">公開</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">泊まって測る</div><div class="ms">泊まって</div></div><div class="m"><div class="mk">単価</div><div class="mv">5.8〜7.5万 (記念価格)</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">不明</div><div class="ms">不明</div></div><div class="m"><div class="mk">リピート</div><div class="mv">開業前</div><div class="ms">不明</div></div><div class="m"><div class="mk">再現性</div><div class="mv">高い (トレーラー・同じ形を5拠点)</div><div class="ms">公開</div></div></div></section>
-    <div class="takeaway">作った柱は独占と身体の2本で、小屋プロに一番近い形。泊まって、床3段 (特に入室・夜間連絡・説明) と、どの柱が自分に届いたかを採点する。</div>
-    <div class="srcs">出典: <a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html">PR TIMES</a> / <a href="https://blan-c.com/nikko/">公式</a> / <a href="https://yurunago.or.jp/33404/">ゆるなご</a></div>
-  </article>
-  <article class="card" id="nah">
-    <header>
-      <div class="ttl"><span class="role">追加 ・ 区分所有の別荘</span><h2>NOT A HOTEL NASU (MASTERPIECE ほか)</h2><div class="area">栃木・那須 / 16万坪の牧場が借景 / 3棟 (例 MASTERPIECE 屋内286㎡+テラス215㎡・最大10名)</div></div>
-      <div class="shape">形<br><b>独占+身体 / 人うすい / 部屋に届く朝食</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://notahotel.com/shop/nasu"><img src="https://notahotel.com/assets/images/ogp/shop/nasu_ogp.jpg" alt="MASTERPIECE とプール" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体・物語</span>MASTERPIECE とプール<span class="credit">公式</span></figcaption></figure><figure><a href="https://notahotel.com/shop/nasu"><img src="https://imagedelivery.net/jZ4zarr81i7OIuT1JQY5_A/lp/place/nasu/654x654/cut2-0028.jpg/public" alt="借景の牧場の馬" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占</span>借景の牧場の馬<span class="credit">公式</span></figcaption></figure><figure><a href="https://notahotel.com/shop/nasu"><img src="https://imagedelivery.net/jZ4zarr81i7OIuT1JQY5_A/lp/place/nasu/video-thumbnail-1.jpg/public" alt="アウトドアリビング" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占・自由</span>アウトドアリビング<span class="credit">公式</span></figcaption></figure></div>
-    <div class="links"><a href="https://notahotel.com/shop/nasu">公式</a><a href="https://notahotel.com/about-notahotel">仕組み</a><a href="https://www.google.com/maps/search/?api=1&amp;query=NOT%20A%20HOTEL%20NASU">地図</a></div>
-    <div class="price">MASTERPIECE 約50万 (2名・2023年の滞在記)。現行の1泊価格は公式アプリで、取れていない<br><span class="muted">販売の形: <b>区分所有 (年10泊〜、NASU は完売) + 空き期間を一般に1泊販売</b> ・ 食の型: <b>届ける (朝食が部屋に届く) / シェフ (公式の記載)</b> ・ 評価 口コミサイトの掲載なし。滞在記3件</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br><span class="muted">届いた —</span></div>
-        <div class="pnote">牧場と20頭の馬を借景、ファームビューの独占</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br><span class="muted">届いた —</span></div>
-        <div class="pnote">全棟にプライベートプールとサウナ、2棟は天然温泉</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div></div>
-        <div class="pval">作った 売り<br><span class="muted">届いた —</span></div>
-        <div class="pnote">SUPPOSE DESIGN OFFICE の建築 (「浮遊の家」「洞窟」)</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-run">食<span class="runmark" title="回すたびに費用">¥</span></div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div></div>
-        <div class="pval">作った 売り<br><span class="muted">届いた —</span></div>
-        <div class="pnote">朝食が部屋に届く。シェフの食事の記載あり</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div></div>
-        <div class="pval">作った 有<br><span class="muted">届いた —</span></div>
-        <div class="pnote">アプリで予約から退室まで完結</div>
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): アプリでセルフ入室。2023年の滞在記に「旅館業法の関係でスタッフが現地にいる」(要約経由・原文未確認)</div>
-    <section><div class="sec">床</div><table class="floor"><tr><th>5万段 </th><td><span class="muted">未判定</span></td></tr><tr><th>10万段 </th><td><span class="muted">未判定</span></td></tr><tr class="cur"><th>15万段 <span class="here">この宿の段</span></th><td><span class="muted">未判定</span></td></tr></table></section>
-    <div class="low muted">苦情の内訳: 口コミ本文が取れず未判定</div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">区分所有 (NASU は価格非掲載・完売。北軽井沢の例 2,981万〜)</div><div class="ms">公開</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">アプリ + 現地スタッフ</div><div class="ms">推定</div></div><div class="m"><div class="mk">単価</div><div class="mv">約50万 (2023年)</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">オーナー優先、一般は3か月先まで</div><div class="ms">公開</div></div><div class="m"><div class="mk">リピート</div><div class="mv">不明</div><div class="ms">不明</div></div><div class="m"><div class="mk">再現性</div><div class="mv">中 (建築家ごとの一点物をブランドで増やす)</div><div class="ms">推定</div></div></div></section>
-    <div class="takeaway">所有型は口コミが表に出ず、届いた柱を測れない。測るには泊まるか滞在記を集めるしかない。お金は所有の販売で先に回収し、1泊販売は空き期間の穴埋め。自分が使わない期間を売る点は、小屋プロの「住みながら貸す」と同じ構造。</div>
-    <div class="srcs">出典: <a href="https://notahotel.com/shop/nasu">公式 NASU</a> / <a href="https://note.com/zallagoo/n/n1f85fc3b142d">滞在記 (note)</a> / <a href="https://www.fashionsnap.com/article/not-a-hotel-nasu/">FashionSnap</a></div>
-  </article>
-  <article class="card" id="sanu">
-    <header>
-      <div class="ttl"><span class="role">追加 ・ 会員制の別荘</span><h2>SANU 2nd Home 八ヶ岳2nd</h2><div class="area">山梨・北杜 大泉 / 1棟 室内50㎡+テラス13㎡・定員4 / 森の中に13棟 / 2022年開業</div></div>
-      <div class="shape">形<br><b>独占+自由 / 人なし / 素泊まり</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://www.ikyu.com/00052019/"><img src="https://www.img-ikyu.com/contents/common/dg/image/sd/acc9/00052019/00052019a.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="森の中のA形キャビン" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">物語・独占</span>森の中のA形キャビン<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052019/"><img src="https://www.img-ikyu.com/contents/common/image/acc9/00052019/1/org/13839395.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="森を切り取る大きな窓" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占</span>森を切り取る大きな窓<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052019/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc9/00052019/img/b_ss_04_241108.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="テラス" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">自由</span>テラス<span class="credit">一休.com</span></figcaption></figure></div>
-    <div class="links"><a href="https://www.sa-nu.com/">SANU</a><a href="https://www.ikyu.com/00052019/">一休</a><a href="https://www.ikyu.com/00052019/review/">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=SANU%202nd%20Home%20%E5%85%AB%E3%83%B6%E5%B2%B32nd">地図</a></div>
-    <div class="price">2名 3.4万〜 (日付指定なし・早割) / 平日 4.5万。4名 平日 6.0〜6.7万 / 土曜 8.1〜8.9万。一休・税込・素泊まり<br><span class="muted">販売の形: <b>1泊販売 + 平日サブスク (月5.5万) + 共同所有 Co-Owners (年8泊〜)</b> ・ 食の型: <b>素泊まり (キッチンと調味料は完備)</b> ・ 評価 一休 4.66 (13件)</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:46%"></div></div>
-        <div class="pval">作った 売り<br>届いた 46% <span class="muted">(6/13)</span></div>
-        <div class="pnote">「干渉されず」「周りを気にせず」「外から見えない」。13棟の敷地で1棟の独占</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached" style="width:23%"></div></div>
-        <div class="pval">作った 有<br>届いた 23% <span class="muted">(3/13)</span></div>
-        <div class="pnote">サウナ付きは一部の棟。焚き火は冬季休止</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:8%"></div></div>
-        <div class="pval">作った 売り<br>届いた 8% <span class="muted">(1/13)</span></div>
-        <div class="pnote">ADX 設計・釜石のスギ・環境共生。口コミは「天井が高い」1件</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">食</div>
-        <div class="pbar"><div class="bar-made" style="width:0%"></div><div class="bar-reached" style="width:8%"></div></div>
-        <div class="pval">作った 無<br>届いた 8% <span class="muted">(1/13)</span></div>
-        <div class="pnote">「調味料や食器が充実」</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:31%"></div></div>
-        <div class="pval">作った 売り<br>届いた 31% <span class="muted">(4/13)</span></div>
-        <div class="pnote">自分たちのペース・作業用モニター・音楽・愛犬。IN 24時まで</div>
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): なし (4桁コードで無人入室)。サポートは年中無休のフォーム・メール・電話。「無人のチェックインで少々不安」1件</div>
-    <section><div class="sec">床</div><table class="floor"><tr class="cur"><th>5万段 <span class="here">この宿の段</span></th><td><span class="ng">説明</span><span class="ng">備品</span></td></tr><tr><th>10万段 </th><td><span class="muted">増えた項目は✓ (下の段が割れ)</span></td></tr><tr><th>15万段 </th><td><span class="ng">作り手の食</span></td></tr></table></section>
-    <div class="low"><b>苦情の内訳</b> <span class="chip c-floor">床割れ 8</span><span class="chip c-genre">ジャンル違い 2</span><span class="chip c-peak">柱不足 2</span><span class="muted"> 13件中の苦情12件 (ゴミ置き場・土足の境界が分からない、髪の毛、洗面が狭い、Wi-Fi、特典の置き忘れ、造りが安っぽい、焚き火休止 ほか)</span></div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">共同所有 490万〜/年8泊 (清里の例)</div><div class="ms">公開</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">軽い (無人・本部サポート・清掃は運営)</div><div class="ms">公開</div></div><div class="m"><div class="mk">単価</div><div class="mv">4名 6.0〜8.9万</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">平日でも残り1〜3室の表示</div><div class="ms">公開</div></div><div class="m"><div class="mk">リピート</div><div class="mv">再訪の意向 2/13</div><div class="ms">公開</div></div><div class="m"><div class="mk">再現性</div><div class="mv">高い (38拠点242室)</div><div class="ms">公開</div></div></div></section>
-    <div class="takeaway">小屋プロとほぼ同じ箱 (50㎡・4人・北杜・人なし) で、価格帯も同じ (4名 平日6万台)。届いたのは独占 (干渉されない) と自由。弱いのは説明と造り。小屋プロは同じ5万段で、湯と眺めの独占 (身体と独占) で上回れるかが勝負。</div>
-    <div class="srcs">出典: <a href="https://www.ikyu.com/00052019/review/">一休 口コミ</a> / <a href="https://www.sa-nu.com/">SANU</a> / <a href="https://www.sa-nu.com/magazine/guide-stay/welcome">利用案内</a></div>
-  </article>
-  <article class="card" id="sekki">
-    <header>
-      <div class="ttl"><span class="role">追加 ・ 北杜の一棟貸し</span><h2>kobuchisawa SEKKI</h2><div class="area">山梨・北杜 小淵沢 / ログハウス3棟 (SAWA 40㎡・4名 / MON・YAMA 64㎡・6名) / 2024年プレオープン</div></div>
-      <div class="shape">形<br><b>独占+物語 / 人なし / 自炊+BBQ</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://sekki.co.jp/stay/"><img src="https://sekki.co.jp/wp-content/uploads/2024/01/P1080705%E4%BF%AE%E6%AD%A3%E4%B8%AD%E5%BF%83-scaled.webp" alt="三角の窓から富士山" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占</span>三角の窓から富士山<span class="credit">公式</span></figcaption></figure><figure><a href="https://sekki.co.jp/"><img src="https://sekki.co.jp/wp-content/uploads/2023/12/home_1-scaled.jpg" alt="敷地から見る甲斐駒ヶ岳と鳳凰三山" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占</span>敷地から見る甲斐駒ヶ岳と鳳凰三山<span class="credit">公式</span></figcaption></figure><figure><a href="https://sekki.co.jp/stay/"><img src="https://sekki.co.jp/wp-content/uploads/2024/11/38%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-1-1-scaled.jpg" alt="夜のログハウス" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">物語</span>夜のログハウス<span class="credit">公式</span></figcaption></figure><figure><a href="https://sekki.co.jp/stay/"><img src="https://sekki.co.jp/wp-content/uploads/2024/11/60%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-1-1-scaled.jpg" alt="山を見ながらの外の食卓" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">食</span>山を見ながらの外の食卓<span class="credit">公式</span></figcaption></figure></div>
-    <div class="links"><a href="https://sekki.co.jp/">公式</a><a href="https://hotel.travel.rakuten.co.jp/hotelinfo/plan/192984">楽天</a><a href="https://travel.rakuten.co.jp/HOTEL/192984/review.html">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=kobuchisawa%20SEKKI">地図</a></div>
-    <div class="price">SAWA 2名 4.6〜6.7万 / 4名 6.8〜9.0万。MON・YAMA (サウナ付) 2名 5.5〜8.4万 / 4名 8.8〜11.7万。楽天・税込・素泊まり<br><span class="muted">販売の形: <b>1泊販売</b> ・ 食の型: <b>自炊の素材 (地元の米・味噌玉・地ビールの特典) / BBQ セット (選択)</b> ・ 評価 楽天 5.00 (12件)</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached" style="width:30%"></div></div>
-        <div class="pval">作った 主役<br>届いた 30% <span class="muted">(3/10)</span></div>
-        <div class="pnote">三角の窓から甲斐駒・富士山、里山。「騒いでも隣を気にすることなく」</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:0%"></div></div>
-        <div class="pval">作った 売り<br>届いた 0% <span class="muted">(0/10)</span></div>
-        <div class="pnote">サウナは3棟中2棟。口コミに出てこず、風呂の項目が最低 (4.67)</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached" style="width:40%"></div></div>
-        <div class="pval">作った 主役<br>届いた 40% <span class="muted">(4/10)</span></div>
-        <div class="pnote">古家具・古材、縄文遺跡の出る土地、時計もテレビもない。「オーナーの何一つ妥協しないこだわり」</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-run">食<span class="runmark" title="回すたびに費用">¥</span></div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div><div class="bar-reached" style="width:40%"></div></div>
-        <div class="pval">作った 売り<br>届いた 40% <span class="muted">(4/10)</span></div>
-        <div class="pnote">「ステーキは絶品」「地元でとれた新米」「自炊機能が充実」</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached" style="width:10%"></div></div>
-        <div class="pval">作った 有<br>届いた 10% <span class="muted">(1/10)</span></div>
-        <div class="pnote">「自分の別荘に帰ってきたような」</div>
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): なし (SMSで事前チェックイン、入室コードは前日までにメール)。連絡は平日9〜17時のみ。それでも「オーナー様の心づくし」「宿主が丁寧に対応」など人に触れた口コミ 3/10</div>
-    <section><div class="sec">床</div><table class="floor"><tr class="cur"><th>5万段 <span class="here">この宿の段</span></th><td><span class="ok">✓</span></td></tr><tr><th>10万段 </th><td><span class="ng">夜間連絡</span></td></tr><tr><th>15万段 </th><td><span class="ng">作り手の食</span></td></tr></table></section>
-    <div class="low"><b>苦情の内訳</b> <span class="chip c-floor">床割れ 1</span><span class="chip c-genre">ジャンル違い 0</span><span class="chip c-peak">柱不足 1</span><span class="muted"> 10件で苦情は加湿器・11月の夜のBBQが寒い の2件のみ (雨は対象外)</span></div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">非公開</div><div class="ms">不明</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">軽い (無人・事前の案内)</div><div class="ms">公開</div></div><div class="m"><div class="mk">単価</div><div class="mv">4名 6.8〜11.7万</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">予約を数か月ずつ開放</div><div class="ms">公開</div></div><div class="m"><div class="mk">リピート</div><div class="mv">3回目の利用 1/10</div><div class="ms">公開</div></div><div class="m"><div class="mk">再現性</div><div class="mv">中〜高 (トレーラーを増設中)</div><div class="ms">公開</div></div></div></section>
-    <div class="takeaway">北杜・人なし・5万段で、楽天 5.00。届いたのは食 (地元の米・ステーキ) と物語 (時計もテレビもない、オーナーのこだわり)。人がいなくても、置いてある物と言葉が「心づくし」として届く。身体 (サウナ) は届いていない。</div>
-    <div class="srcs">出典: <a href="https://travel.rakuten.co.jp/HOTEL/192984/review.html">楽天 口コミ</a> / <a href="https://sekki.co.jp/">公式 story</a></div>
-  </article>
-  <article class="card" id="retune">
-    <header>
-      <div class="ttl"><span class="role">追加 ・ 北杜の一棟貸し</span><h2>ReTune | SPA &amp; SAUNA / VILLA</h2><div class="area">山梨・北杜 大泉 / 敷地約2,000坪・建物198㎡ / 最大10名 / 1日1組</div></div>
-      <div class="shape">形<br><b>身体+独占 / 人なし / 自炊+BBQ</b></div>
-    </header>
-    <div class="photos"><figure><a href="https://www.ikyu.com/00052372/"><img src="https://www.img-ikyu.com/contents/common/dg/image/sd/acc2/00052372/00052372a.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="山を背にした母屋と芝生" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">独占</span>山を背にした母屋と芝生<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052372/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc2/00052372/img/a_ss_01_251201.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="テントサウナと水風呂" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体</span>テントサウナと水風呂<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052372/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc2/00052372/img/a_ss_05_251201.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="露天風呂" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">身体</span>露天風呂<span class="credit">一休.com</span></figcaption></figure><figure><a href="https://www.ikyu.com/00052372/"><img src="https://www.img-ikyu.com/contents/common/image/acc2/00052372/1/org/13894942.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="囲炉裏の別棟" loading="lazy" referrerpolicy="no-referrer"></a>
-        <figcaption><span class="ptag">物語</span>囲炉裏の別棟<span class="credit">一休.com</span></figcaption></figure></div>
-    <div class="links"><a href="https://www.airbnb.com/rooms/978766519986293398">Airbnb</a><a href="https://www.ikyu.com/00052372/">一休</a><a href="https://www.aco.co.jp/id/67643.html">ACO</a><a href="https://www.google.com/maps/search/?api=1&amp;query=ReTune%20SPA%20%26%20SAUNA%20VILLA%20%E5%8C%97%E6%9D%9C">地図</a></div>
-    <div class="price">4名まで同額 平日5.4万+清掃1万 / 土曜7.6万+清掃1万 (ACO・税込)。一休の2名 3.6万〜 とは差があり未解消<br><span class="muted">販売の形: <b>1泊販売 (Airbnb・一休・楽天ほか)</b> ・ 食の型: <b>自炊 + BBQ (屋根付き、炭つき)</b> ・ 評価 Airbnb 5.0 (150件・本文未読) ・ 一休 1件</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div><div class="bar-reached" style="width:15%"></div></div>
-        <div class="pval">作った 主役<br>届いた 15% <span class="muted">(23/150)</span></div>
-        <div class="pnote">2,000坪を貸切、窓から富士山。棒は Airbnb の頻出語「景色」23件 (本文は未読)</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br><span class="muted">届いた —</span></div>
-        <div class="pnote">テントサウナ・八ヶ岳の井戸水の水風呂・露天風呂。頻出語に「屋外」39件 (意味が広いので棒にしない)</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:0%"></div></div>
-        <div class="pval">作った 無<br><span class="muted">届いた —</span></div>
-        <div class="pnote">掲載に由来の記載なし</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-run">食<span class="runmark" title="回すたびに費用">¥</span></div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div><div class="bar-reached" style="width:20%"></div></div>
-        <div class="pval">作った 有<br>届いた 20% <span class="muted">(30/150)</span></div>
-        <div class="pnote">屋根付きBBQ。棒は頻出語「グリル」30件</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:67%"></div></div>
-        <div class="pval">作った 売り<br><span class="muted">届いた —</span></div>
-        <div class="pnote">ペット可、カラオケ・トランポリン。大人数・家族向け</div>
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): スタッフ不在。それでも Airbnb の頻出語の1位は「おもてなし」63/150 (42%)。応答は1時間以内・応答率100%、チェックイン5.0・コミュニケーション5.0</div>
-    <section><div class="sec">床</div><table class="floor"><tr class="cur"><th>5万段 <span class="here">この宿の段</span></th><td><span class="plan">苦情の本文は未読。Airbnb の清潔4.9・チェックイン5.0・連絡5.0 からは通っている見込み (推定)</span></td></tr><tr><th>10万段 </th><td><span class="muted">未判定</span></td></tr><tr><th>15万段 </th><td><span class="muted">未判定</span></td></tr></table></section>
-    <div class="low muted">苦情の内訳: 口コミ本文が取れず未判定</div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">非公開</div><div class="ms">不明</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">軽い (スタッフ不在)</div><div class="ms">推定</div></div><div class="m"><div class="mk">単価</div><div class="mv">4名 6.4〜8.6万 (清掃込み)</div><div class="ms">公開</div></div><div class="m"><div class="mk">稼働</div><div class="mv">10月は販売日26日中6日が満室 (週末中心)</div><div class="ms">公開</div></div><div class="m"><div class="mk">リピート</div><div class="mv">「3回目」の記述 1件 (出典が不確か)</div><div class="ms">推定</div></div><div class="m"><div class="mk">再現性</div><div class="mv">高い (テントサウナ・井戸水は北杜で作れる)</div><div class="ms">推定</div></div></div></section>
-    <div class="takeaway">北杜・人なし・身体+独占で、小屋プロと同じ価格帯 (4名 6.4〜8.6万)。ただし198㎡・10名の大人数向け。人がいないのに、頻出語の1位は「おもてなし」(63件)。連絡と準備の質が、人として届いている。</div>
-    <div class="srcs">出典: <a href="https://www.aco.co.jp/id/67643.html">ACO (価格・空室)</a> / <a href="https://www.airbnb.com/rooms/978766519986293398">Airbnb</a> / <a href="https://straightpress.jp/20260204/1530790">STRAIGHT PRESS</a></div>
-  </article>
-  <article class="card" id="koya">
-    <header>
-      <div class="ttl"><span class="role">試作4 ・ 設計</span><h2>小屋プロ 基準案</h2><div class="area">山梨・北杜 / 46㎡ / 定員4</div></div>
-      <div class="shape">形<br><b>独占+身体 / 人なし / 未定</b></div>
-    </header>
-    <div class="nophoto muted">写真なし (設計中)</div>
-    
-    <div class="price">計画 4名 6万 (素泊まり)。tou 型の要素を足して 9〜12万を狙う仮説あり (未検証)。北杜の4名素泊まり 中心4.8万・最大10万<br><span class="muted">販売の形: <b>1泊販売 (住みながら貸す)</b> ・ 食の型: <b>未定</b> ・ 評価 —</span></div>
-    <section class="pillars">
-      <div class="sec">柱 <span class="legend"><i class="lg-made"></i>作った <i class="lg-reached"></i>届いた</span></div>
-      
-      <div class="prow">
-        <div class="pname ax-zero">独占</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br><span class="muted">届いた —</span></div>
-        <div class="pnote">山の眺めの独占 (視界に人工物なし)</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">身体</div>
-        <div class="pbar"><div class="bar-made" style="width:100%"></div></div>
-        <div class="pval">作った 主役<br><span class="muted">届いた —</span></div>
-        <div class="pnote">屋外の常時適温の湯、冬</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">物語</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div></div>
-        <div class="pval">作った 有<br><span class="muted">届いた —</span></div>
-        <div class="pnote">自作の木のパネル。問い・土地の素材は未定</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">食</div>
-        <div class="pbar"><div class="bar-made" style="width:0%"></div></div>
-        <div class="pval">作った 無<br><span class="muted">届いた —</span></div>
-        <div class="pnote">型を決める</div>
-      </div>
-      <div class="prow">
-        <div class="pname ax-zero">自由</div>
-        <div class="pbar"><div class="bar-made" style="width:33%"></div></div>
-        <div class="pval">作った 有<br><span class="muted">届いた —</span></div>
-        
-      </div>
-    </section>
-    <div class="people"><b>人の接点</b> (床・オプション): 人なしで回す。オーナーが住む (客の日は外泊)</div>
-    <section><div class="sec">床</div><table class="floor"><tr class="cur"><th>5万段 <span class="here">この宿の段</span></th><td><span class="plan">設計で埋める: 入室の案内・清潔・設備の説明・洗面・施錠・坂と虫の事前告知</span></td></tr><tr><th>10万段 </th><td><span class="plan">設計で埋める: 夜間に人へ届く連絡 (人なしで満たす方法を決める)・遮光</span></td></tr><tr><th>15万段 </th><td><span class="muted">未判定</span></td></tr></table></section>
-    <div class="low muted">苦情の内訳: 口コミなし (開業前・泊まる前)</div>
-    <section><div class="sec">経営</div><div class="mgrid"><div class="m"><div class="mk">導入コスト</div><div class="mv">このページには載せない</div><div class="ms">不明</div></div><div class="m"><div class="mk">運営の手数</div><div class="mv">清掃は自分たち</div><div class="ms">推定</div></div><div class="m"><div class="mk">単価</div><div class="mv">6万 (計画)</div><div class="ms">推定</div></div><div class="m"><div class="mk">稼働</div><div class="mv">上限 年120泊前後</div><div class="ms">推定</div></div><div class="m"><div class="mk">リピート</div><div class="mv">実測の枠</div><div class="ms">不明</div></div><div class="m"><div class="mk">再現性</div><div class="mv">高い (パネルの製造)</div><div class="ms">推定</div></div></div></section>
-    <div class="takeaway">同じ北杜・人なし・5万段に SANU・SEKKI・ReTune が並ぶ。SANU は同じ箱で独占と自由、SEKKI は食と物語、ReTune は身体と大人数。小屋プロの湯と眺め (身体と独占) がまだ空いている組み合わせか、床 (入室・説明・夜間連絡) を人なしで埋められるかが問い。</div>
-    <div class="srcs">出典: 北杜の相場: 一棟貸し台帳 (4名素泊まり 中心4.8万・最大10万、n=20)</div>
-  </article>
-<div class="foot">2026-10-05 作成。総合点は出さない。比べるのは同じ形・同じ価格段の中だけ。</div>
+
+
+<section class="ov" id="top">
+  <h2>一覧</h2>
+  <p class="ov-note">右上の箱が床 (5・10・15万段、枠つきがその宿の段)。下の5本が柱 (独占・身体・物語・食・自由)。タップで詳細へ</p>
+  <p class="ov-key"><span class="kv"><span class="fd fd-ok"><b>✓</b></span>通る</span><span class="kv"><span class="fd fd-ng"><b>×</b></span>割れ</span><span class="kv"><span class="fd fd-okb"><b>–</b></span>下の段が割れ</span><span class="kv"><span class="fd fd-unk"><b>?</b></span>未判定</span><span class="kv"><span class="fd fd-plan"><b>設</b></span>設計で埋める</span></p>
+  <div class="ov-g"><span class="gk">A</span>北杜・人なし・5万段<small>小屋プロと同じ土地・同じ値段で比べる</small></div><a class="ov-row" href="#sanu">
+  <span class="ov-name"><b>SANU 八ヶ岳</b><small>5万段 ・ 一休 4.66</small></span>
+  <span class="fdots"><span class="fd fd-ng cur"><b>×</b><small>5</small></span><span class="fd fd-okb above"><b>–</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:46%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:23%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:8%"></i></span></span><span class="g-col"><b class="g-ax">食</b><span class="g-bar"><i class="g-r" style="width:8%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:31%"></i></span></span></span></a><a class="ov-row" href="#sekki">
+  <span class="ov-name"><b>SEKKI</b><small>5万段 ・ 楽天 5.00</small></span>
+  <span class="fdots"><span class="fd fd-ok cur"><b>✓</b><small>5</small></span><span class="fd fd-ng above"><b>×</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:30%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:0%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:40%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:40%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:10%"></i></span></span></span></a><a class="ov-row" href="#retune">
+  <span class="ov-name"><b>ReTune</b><small>5万段 ・ Airbnb 5.0</small></span>
+  <span class="fdots"><span class="fd fd-plan cur"><b>設</b><small>5</small></span><span class="fd fd-unk above"><b>?</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:15%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:20%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:67%"></i></span></span></span></a><a class="ov-row self" href="#koya">
+  <span class="ov-name"><b>小屋プロ基準案<em class="mine">自分の案</em></b><small>5万段 ・ 設計中</small></span>
+  <span class="fdots"><span class="fd fd-plan cur"><b>設</b><small>5</small></span><span class="fd fd-plan above"><b>設</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span><span class="g-col"><b class="g-ax">食</b><span class="g-bar"></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span></span></a><div class="ov-g"><span class="gk">B</span>人なし・身体＋独占の成功と失敗<small>柱は同じ。差はどこに出たか</small></div><a class="ov-row" href="#refwind">
+  <span class="ov-name"><b>Refwind</b><small>10万段 ・ 一休 4.70</small></span>
+  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-okb cur"><b>–</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:42%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:92%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:8%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:75%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:25%"></i></span></span></span></a><a class="ov-row" href="#soubou">
+  <span class="ov-name"><b>蒼望楼</b><small>15万段 ・ 一休 4.40</small></span>
+  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-ng"><b>×</b><small>10</small></span><span class="fd fd-ng cur"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:30%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-r" style="width:0%"></i></span></span><span class="g-col"><b class="g-ax">食</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:10%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:0%"></i></span></span></span></a><div class="ov-g"><span class="gk">C</span>同じ小豆島、違う形<small>作り手のエゴと、人のもてなし</small></div><a class="ov-row" href="#tou">
+  <span class="ov-name"><b>tou</b><small>15万段 ・ 一休 2.83 (2件)</small></span>
+  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-ng"><b>×</b><small>10</small></span><span class="fd fd-ng cur"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r weak" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r weak" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r weak" style="width:0%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r weak" style="width:50%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r weak" style="width:0%"></i></span></span></span></a><a class="ov-row" href="#sachi">
+  <span class="ov-name"><b>幸</b><small>10万段 ・ 一休 4.96</small></span>
+  <span class="fdots"><span class="fd fd-ok"><b>✓</b><small>5</small></span><span class="fd fd-ok cur"><b>✓</b><small>10</small></span><span class="fd fd-ok above"><b>✓</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:64%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:36%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:93%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:7%"></i></span></span></span></a><div class="ov-g"><span class="gk">D</span>売り方が違う<small>オーナー制度・区分所有</small></div><a class="ov-row" href="#blanc">
+  <span class="ov-name"><b>BLANC NIKKO</b><small>10万段 ・ 開業前</small></span>
+  <span class="fdots"><span class="fd fd-unk"><b>?</b><small>5</small></span><span class="fd fd-unk cur"><b>?</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span></span></a><a class="ov-row" href="#nah">
+  <span class="ov-name"><b>NOT A HOTEL</b><small>15万段 ・ 口コミなし</small></span>
+  <span class="fdots"><span class="fd fd-unk"><b>?</b><small>5</small></span><span class="fd fd-unk"><b>?</b><small>10</small></span><span class="fd fd-unk cur"><b>?</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:67%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span></span></a>
+</section>
+
+<section class="find" id="find">
+  <h2>わかったこと</h2>
+  <ol><li>人なしで点が落ちる理由は、人がいないことではなく入室・連絡・説明。柱が同じ <a href="#refwind">Refwind</a> 4.70 と<a href="#soubou">蒼望楼</a> 4.40 の差はそこに出た</li><li>北杜の<span class="nw">5万段</span>では、届いた柱が宿ごとに違う。<a href="#sanu">SANU</a> は独占と自由、<a href="#sekki">SEKKI</a> は食と物語、<a href="#retune">ReTune</a> は身体</li><li><a href="#sachi">幸</a>は床が<span class="nw">15万段</span>まで通るのに、値付けは<span class="nw">10万段</span>以下。届いたのは人と食だけでなく、費用ゼロの物語も<span class="nw">14件</span>全部</li></ol>
+</section>
+
+
+<article class="card" id="sanu">
+  <div class="c-top"><span class="gk">A</span>北杜・人なし・5万段<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://www.ikyu.com/00052019/"><img src="https://www.img-ikyu.com/contents/common/dg/image/sd/acc9/00052019/00052019a.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="森の中のA形キャビン" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">物語・独占</span>森の中のA形キャビン<span class="cr">一休.com</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">追加 ・ 会員制の別荘</p>
+    <h2>SANU 2nd Home 八ヶ岳2nd</h2>
+    <p class="area">山梨・北杜 大泉 / 1棟 室内<span class="nw">50㎡</span>+テラス<span class="nw">13㎡</span>・定員4 / 森の中に13棟 / 2022年開業</p>
+    <p class="shape">形 <b>独占+自由 / 人なし / 素泊まり</b></p>
+  </header>
+  <p class="take">小屋プロとほぼ同じ箱 (<span class="nw">50㎡</span>・4人・北杜・人なし) で、価格帯も同じ (<span class="nw">4名</span> 平日<span class="nw">6万</span>台)。届いたのは独占 (干渉されない) と自由。弱いのは説明と造り。小屋プロは同じ<span class="nw">5万段</span>で、湯と眺めの独占 (身体と独占) で上回れるかが勝負。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:46%"></i></div>
+  <div class="pr-val"><span class="v">46<em>%</em></span><small>6/13</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:23%"></i></div>
+  <div class="pr-val"><span class="v">23<em>%</em></span><small>3/13</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:8%"></i></div>
+  <div class="pr-val"><span class="v">8<em>%</em></span><small>1/13</small></div></div><div class="pr">
+  <div class="pr-ax zero">食<small>作った 無</small></div>
+  <div class="pr-bar"><i class="b-r" style="width:8%"></i></div>
+  <div class="pr-val"><span class="v">8<em>%</em></span><small>1/13</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:31%"></i></div>
+  <div class="pr-val"><span class="v">31<em>%</em></span><small>4/13</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>「干渉されず」「周りを気にせず」「外から見えない」。13棟の敷地で1棟の独占</li><li><b class="zero">身体</b>サウナ付きは一部の棟。焚き火は冬季休止</li><li><b class="zero">物語</b>ADX 設計・釜石のスギ・環境共生。口コミは「天井が高い」1件</li><li><b class="zero">食</b>「調味料や食器が充実」</li><li><b class="zero">自由</b>自分たちのペース・作業用モニター・音楽・愛犬。IN 24時まで</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step cur s-ng"><div class="step-h">5万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-ng">説明</span><span class="st-ng">備品</span></div></div><div class="step above s-ok"><div class="step-h">10万段</div><div class="step-b"><span class="st-muted">新たな割れなし</span></div></div><div class="step above s-ng"><div class="step-h">15万段</div><div class="step-b"><span class="st-ng">作り手の食</span></div></div></div>
+  </section>
+  <div class="thumbs"><figure><a href="https://www.ikyu.com/00052019/"><img src="https://www.img-ikyu.com/contents/common/image/acc9/00052019/1/org/13839395.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="森を切り取る大きな窓" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占</span>森を切り取る大きな窓</figcaption></figure><figure><a href="https://www.ikyu.com/00052019/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc9/00052019/img/b_ss_04_241108.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="テラス" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">自由</span>テラス</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd><span class="nw">2名</span> <span class="nw">3.4万</span>〜 (日付指定なし・早割) / 平日 <span class="nw">4.5万</span>。<span class="nw">4名</span> 平日 <span class="nw">6.0〜6.7万</span> / 土曜 <span class="nw">8.1〜8.9万</span>。一休・税込・素泊まり</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>5万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>一休 4.66 (<span class="nw">13件</span>)</dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売 + 平日サブスク (月<span class="nw">5.5万</span>) + 共同所有 Co-Owners (年<span class="nw">8泊</span>〜)</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>素泊まり (キッチンと調味料は完備)</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>なし (4桁コードで無人入室)。サポートは年中無休のフォーム・メール・電話。「無人のチェックインで少々不安」<span class="nw">1件</span></dd></div>
+  </dl>
+  <nav class="links"><a href="https://www.sa-nu.com/">SANU</a><a href="https://www.ikyu.com/00052019/">一休</a><a href="https://www.ikyu.com/00052019/review/">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=SANU%202nd%20Home%20%E5%85%AB%E3%83%B6%E5%B2%B32nd">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <div class="cbar"><i class="cs c-f" style="flex:8"></i><i class="cs c-g" style="flex:2"></i><i class="cs c-p" style="flex:2"></i></div><div class="clegend"><span><i class="c-f"></i>床割れ <b>8</b></span><span><i class="c-g"></i>ジャンル違い <b>2</b></span><span><i class="c-p"></i>柱不足 <b>2</b></span></div><p class="basis"><span class="nw">13件</span>中の苦情<span class="nw">12件</span> (ゴミ置き場・土足の境界が分からない、髪の毛、洗面が狭い、Wi-Fi、特典の置き忘れ、造りが安っぽい、焚き火休止 ほか)</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>共同所有 490万〜/年8泊 (清里の例)</td><td class="src">公開</td></tr><tr><th>運営の手数</th><td>軽い (無人・本部サポート・清掃は運営)</td><td class="src">公開</td></tr><tr><th>単価</th><td>4名 6.0〜8.9万</td><td class="src">公開</td></tr><tr><th>稼働</th><td>平日でも残り1〜3室の表示</td><td class="src">公開</td></tr><tr><th>リピート</th><td>再訪の意向 2/13</td><td class="src">公開</td></tr><tr><th>再現性</th><td>高い (38拠点242室)</td><td class="src">公開</td></tr></table><p class="srcs">出典: <a href="https://www.ikyu.com/00052019/review/">一休 口コミ</a> / <a href="https://www.sa-nu.com/">SANU</a> / <a href="https://www.sa-nu.com/magazine/guide-stay/welcome">利用案内</a></p></details>
+</article>
+<article class="card" id="sekki">
+  <div class="c-top"><span class="gk">A</span>北杜・人なし・5万段<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://sekki.co.jp/stay/"><img src="https://sekki.co.jp/wp-content/uploads/2024/01/P1080705%E4%BF%AE%E6%AD%A3%E4%B8%AD%E5%BF%83-scaled.webp" alt="三角の窓から富士山" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占</span>三角の窓から富士山<span class="cr">公式</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">追加 ・ 北杜の一棟貸し</p>
+    <h2>kobuchisawa SEKKI</h2>
+    <p class="area">山梨・北杜 小淵沢 / ログハウス3棟 (SAWA <span class="nw">40㎡</span>・<span class="nw">4名</span> / MON・YAMA <span class="nw">64㎡</span>・<span class="nw">6名</span>) / 2024年プレオープン</p>
+    <p class="shape">形 <b>独占+物語 / 人なし / 自炊+BBQ</b></p>
+  </header>
+  <p class="take">北杜・人なし・<span class="nw">5万段</span>で、楽天 5.00。届いたのは食 (地元の米・ステーキ) と物語 (時計もテレビもない、オーナーのこだわり)。人がいなくても、置いてある物と言葉が「心づくし」として届く。身体 (サウナ) は届いていない。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:30%"></i></div>
+  <div class="pr-val"><span class="v">30<em>%</em></span><small>3/10</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:0%"></i></div>
+  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/10</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:40%"></i></div>
+  <div class="pr-val"><span class="v">40<em>%</em></span><small>4/10</small></div></div><div class="pr">
+  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:40%"></i></div>
+  <div class="pr-val"><span class="v">40<em>%</em></span><small>4/10</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:10%"></i></div>
+  <div class="pr-val"><span class="v">10<em>%</em></span><small>1/10</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>三角の窓から甲斐駒・富士山、里山。「騒いでも隣を気にすることなく」</li><li><b class="zero">身体</b>サウナは3棟中2棟。口コミに出てこず、風呂の項目が最低 (4.67)</li><li><b class="zero">物語</b>古家具・古材、縄文遺跡の出る土地、時計もテレビもない。「オーナーの何一つ妥協しないこだわり」</li><li><b class="run">食</b>「ステーキは絶品」「地元でとれた新米」「自炊機能が充実」</li><li><b class="zero">自由</b>「自分の別荘に帰ってきたような」</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step cur s-ok"><div class="step-h">5万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-ok">✓</span></div></div><div class="step above s-ng"><div class="step-h">10万段</div><div class="step-b"><span class="st-ng">夜間連絡</span></div></div><div class="step above s-ng"><div class="step-h">15万段</div><div class="step-b"><span class="st-ng">作り手の食</span></div></div></div>
+  </section>
+  <div class="thumbs"><figure><a href="https://sekki.co.jp/"><img src="https://sekki.co.jp/wp-content/uploads/2023/12/home_1-scaled.jpg" alt="敷地から見る甲斐駒ヶ岳と鳳凰三山" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占</span>敷地から見る甲斐駒ヶ岳と鳳凰三山</figcaption></figure><figure><a href="https://sekki.co.jp/stay/"><img src="https://sekki.co.jp/wp-content/uploads/2024/11/38%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-1-1-scaled.jpg" alt="夜のログハウス" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">物語</span>夜のログハウス</figcaption></figure><figure><a href="https://sekki.co.jp/stay/"><img src="https://sekki.co.jp/wp-content/uploads/2024/11/60%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-1-1-scaled.jpg" alt="山を見ながらの外の食卓" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag run">食</span>山を見ながらの外の食卓</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd>SAWA <span class="nw">2名</span> <span class="nw">4.6〜6.7万</span> / <span class="nw">4名</span> <span class="nw">6.8〜9.0万</span>。MON・YAMA (サウナ付) <span class="nw">2名</span> <span class="nw">5.5〜8.4万</span> / <span class="nw">4名</span> <span class="nw">8.8〜11.7万</span>。楽天・税込・素泊まり</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>5万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>楽天 5.00 (<span class="nw">12件</span>)</dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>自炊の素材 (地元の米・味噌玉・地ビールの特典) / BBQ セット (選択)</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>なし (SMSで事前チェックイン、入室コードは前日までにメール)。連絡は平日9〜17時のみ。それでも「オーナー様の心づくし」「宿主が丁寧に対応」など人に触れた口コミ 3/10</dd></div>
+  </dl>
+  <nav class="links"><a href="https://sekki.co.jp/">公式</a><a href="https://hotel.travel.rakuten.co.jp/hotelinfo/plan/192984">楽天</a><a href="https://travel.rakuten.co.jp/HOTEL/192984/review.html">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=kobuchisawa%20SEKKI">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <div class="cbar"><i class="cs c-f" style="flex:1"></i><i class="cs c-p" style="flex:1"></i></div><div class="clegend"><span><i class="c-f"></i>床割れ <b>1</b></span><span><i class="c-g"></i>ジャンル違い <b>0</b></span><span><i class="c-p"></i>柱不足 <b>1</b></span></div><p class="basis"><span class="nw">10件</span>で苦情は加湿器・11月の夜のBBQが寒い の<span class="nw">2件</span>のみ (雨は対象外)</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>非公開</td><td class="src">不明</td></tr><tr><th>運営の手数</th><td>軽い (無人・事前の案内)</td><td class="src">公開</td></tr><tr><th>単価</th><td>4名 6.8〜11.7万</td><td class="src">公開</td></tr><tr><th>稼働</th><td>予約を数か月ずつ開放</td><td class="src">公開</td></tr><tr><th>リピート</th><td>3回目の利用 1/10</td><td class="src">公開</td></tr><tr><th>再現性</th><td>中〜高 (トレーラーを増設中)</td><td class="src">公開</td></tr></table><p class="srcs">出典: <a href="https://travel.rakuten.co.jp/HOTEL/192984/review.html">楽天 口コミ</a> / <a href="https://sekki.co.jp/">公式 story</a></p></details>
+</article>
+<article class="card" id="retune">
+  <div class="c-top"><span class="gk">A</span>北杜・人なし・5万段<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://www.ikyu.com/00052372/"><img src="https://www.img-ikyu.com/contents/common/dg/image/sd/acc2/00052372/00052372a.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="山を背にした母屋と芝生" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占</span>山を背にした母屋と芝生<span class="cr">一休.com</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">追加 ・ 北杜の一棟貸し</p>
+    <h2>ReTune | SPA &amp; SAUNA / VILLA</h2>
+    <p class="area">山梨・北杜 大泉 / 敷地約2,000坪・建物<span class="nw">198㎡</span> / 最大<span class="nw">10名</span> / 1日1組</p>
+    <p class="shape">形 <b>身体+独占 / 人なし / 自炊+BBQ</b></p>
+  </header>
+  <p class="take">北杜・人なし・身体+独占で、小屋プロと同じ価格帯 (<span class="nw">4名</span> <span class="nw">6.4〜8.6万</span>)。ただし<span class="nw">198㎡</span>・<span class="nw">10名</span>の大人数向け。人がいないのに、頻出語の1位は「おもてなし」(<span class="nw">63件</span>)。連絡と準備の質が、人として届いている。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:15%"></i></div>
+  <div class="pr-val"><span class="v">15<em>%</em></span><small>23/150</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 無</small></div>
+  <div class="pr-bar"></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:20%"></i></div>
+  <div class="pr-val"><span class="v">20<em>%</em></span><small>30/150</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>2,000坪を貸切、窓から富士山。棒は Airbnb の頻出語「景色」23件 (本文は未読)</li><li><b class="zero">身体</b>テントサウナ・八ヶ岳の井戸水の水風呂・露天風呂。頻出語に「屋外」39件 (意味が広いので棒にしない)</li><li><b class="zero">物語</b>掲載に由来の記載なし</li><li><b class="run">食</b>屋根付きBBQ。棒は頻出語「グリル」30件</li><li><b class="zero">自由</b>ペット可、カラオケ・トランポリン。大人数・家族向け</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step cur s-plan"><div class="step-h">5万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-plan">推定で ✓ <span class="nw">(下に根拠)</span></span></div></div><div class="step above s-unk"><div class="step-h">10万段</div><div class="step-b"><span class="st-muted">未判定</span></div></div><div class="step above s-unk"><div class="step-h">15万段</div><div class="step-b"><span class="st-muted">未判定</span></div></div></div><p class="st-note"><b>5万段</b>苦情の本文は未読。Airbnb の清潔4.9・チェックイン5.0・連絡5.0 からは通っている見込み (推定)</p>
+  </section>
+  <div class="thumbs"><figure><a href="https://www.ikyu.com/00052372/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc2/00052372/img/a_ss_01_251201.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="テントサウナと水風呂" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体</span>テントサウナと水風呂</figcaption></figure><figure><a href="https://www.ikyu.com/00052372/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc2/00052372/img/a_ss_05_251201.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="露天風呂" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体</span>露天風呂</figcaption></figure><figure><a href="https://www.ikyu.com/00052372/"><img src="https://www.img-ikyu.com/contents/common/image/acc2/00052372/1/org/13894942.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="囲炉裏の別棟" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">物語</span>囲炉裏の別棟</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd><span class="nw">4名</span>まで同額 平日<span class="nw">5.4万</span>+清掃<span class="nw">1万</span> / 土曜<span class="nw">7.6万</span>+清掃<span class="nw">1万</span> (ACO・税込)。一休の<span class="nw">2名</span> <span class="nw">3.6万</span>〜 とは差があり未解消</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>5万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>Airbnb 5.0 (<span class="nw">150件</span>・本文未読) ・ 一休 <span class="nw">1件</span></dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売 (Airbnb・一休・楽天ほか)</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>自炊 + BBQ (屋根付き、炭つき)</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>スタッフ不在。それでも Airbnb の頻出語の1位は「おもてなし」63/150 (<span class="nw">42%</span>)。応答は1時間以内・応答率<span class="nw">100%</span>、チェックイン5.0・コミュニケーション5.0</dd></div>
+  </dl>
+  <nav class="links"><a href="https://www.airbnb.com/rooms/978766519986293398">Airbnb</a><a href="https://www.ikyu.com/00052372/">一休</a><a href="https://www.aco.co.jp/id/67643.html">ACO</a><a href="https://www.google.com/maps/search/?api=1&amp;query=ReTune%20SPA%20%26%20SAUNA%20VILLA%20%E5%8C%97%E6%9D%9C">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <p class="na">口コミ本文が取れず、苦情は未判定</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>非公開</td><td class="src">不明</td></tr><tr><th>運営の手数</th><td>軽い (スタッフ不在)</td><td class="src">推定</td></tr><tr><th>単価</th><td>4名 6.4〜8.6万 (清掃込み)</td><td class="src">公開</td></tr><tr><th>稼働</th><td>10月は販売日26日中6日が満室 (週末中心)</td><td class="src">公開</td></tr><tr><th>リピート</th><td>「3回目」の記述 1件 (出典が不確か)</td><td class="src">推定</td></tr><tr><th>再現性</th><td>高い (テントサウナ・井戸水は北杜で作れる)</td><td class="src">推定</td></tr></table><p class="srcs">出典: <a href="https://www.aco.co.jp/id/67643.html">ACO (価格・空室)</a> / <a href="https://www.airbnb.com/rooms/978766519986293398">Airbnb</a> / <a href="https://straightpress.jp/20260204/1530790">STRAIGHT PRESS</a></p></details>
+</article>
+<article class="card" id="koya">
+  <div class="c-top"><span class="gk">A</span>北杜・人なし・5万段<a class="back" href="#top">一覧 ↑</a></div>
+  <div class="hero-empty"><span>設計中</span></div>
+  <header class="c-head">
+    <p class="role">試作4 ・ 設計</p>
+    <h2>小屋プロ 基準案</h2>
+    <p class="area">山梨・北杜 / <span class="nw">46㎡</span> / 定員4</p>
+    <p class="shape">形 <b>独占+身体 / 人なし / 未定</b></p>
+  </header>
+  <p class="take">同じ北杜・人なし・<span class="nw">5万段</span>に SANU・SEKKI・ReTune が並ぶ。SANU は同じ箱で独占と自由、SEKKI は食と物語、ReTune は身体と大人数。小屋プロの湯と眺め (身体と独占) がまだ空いている組み合わせか、床 (入室・説明・夜間連絡) を人なしで埋められるかが問い。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">食<small>作った 無</small></div>
+  <div class="pr-bar"></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>山の眺めの独占 (視界に人工物なし)</li><li><b class="zero">身体</b>屋外の常時適温の湯、冬</li><li><b class="zero">物語</b>自作の木のパネル。問い・土地の素材は未定</li><li><b class="zero">食</b>型を決める</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step cur s-plan"><div class="step-h">5万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-plan">設計で埋める <span class="nw">(下に記載)</span></span></div></div><div class="step above s-plan"><div class="step-h">10万段</div><div class="step-b"><span class="st-plan">設計で埋める <span class="nw">(下に記載)</span></span></div></div><div class="step above s-unk"><div class="step-h">15万段</div><div class="step-b"><span class="st-muted">未判定</span></div></div></div><p class="st-note"><b>5万段</b>入室の案内・清潔・設備の説明・洗面・施錠・坂と虫の事前告知</p><p class="st-note"><b>10万段</b>夜間に人へ届く連絡 (人なしで満たす方法を決める)・遮光</p>
+  </section>
+  
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd>計画 <span class="nw">4名</span> <span class="nw">6万</span> (素泊まり)。tou 型の要素を足して <span class="nw">9〜12万</span>を狙う仮説あり (未検証)。北杜の<span class="nw">4名</span>素泊まり 中心<span class="nw">4.8万</span>・最大<span class="nw">10万</span></dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>5万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>—</dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売 (住みながら貸す)</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>未定</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>人なしで回す。オーナーが住む (客の日は外泊)</dd></div>
+  </dl>
+  
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <p class="na">口コミなし (開業前・設計中)</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>このページには載せない</td><td class="src">不明</td></tr><tr><th>運営の手数</th><td>清掃は自分たち</td><td class="src">推定</td></tr><tr><th>単価</th><td>6万 (計画)</td><td class="src">推定</td></tr><tr><th>稼働</th><td>上限 年120泊前後</td><td class="src">推定</td></tr><tr><th>リピート</th><td>実測の枠</td><td class="src">不明</td></tr><tr><th>再現性</th><td>高い (パネルの製造)</td><td class="src">推定</td></tr></table><p class="srcs">出典: 北杜の相場: 一棟貸し台帳 (4名素泊まり 中心4.8万・最大10万、n=20)</p></details>
+</article>
+<article class="card" id="refwind">
+  <div class="c-top"><span class="gk">B</span>人なし・身体＋独占の成功と失敗<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://www.ikyu.com/00052014/"><img src="https://www.img-ikyu.com/contents/common/image/acc4/00052014/1/org/13346759.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="A棟のプライベートプール" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体</span>A棟のプライベートプール<span class="cr">一休.com</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">対照・成功 (小屋プロと同じ人なし)</p>
+    <h2>Refwind</h2>
+    <p class="area">千葉・鋸南 / 元小学校の改装 / 最大<span class="nw">6名</span></p>
+    <p class="shape">形 <b>身体+独占 / 人なし / BBQ</b></p>
+  </header>
+  <p class="take">人なしでも4.70。身体11/12・食9/12が届き、床は案内で埋めている。崩れたのは清掃と連絡に穴が出た<span class="nw">1泊</span>だけで、その<span class="nw">1件</span>に苦情<span class="nw">6件</span>が集中した。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:42%"></i></div>
+  <div class="pr-val"><span class="v">42<em>%</em></span><small>5/12</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:92%"></i></div>
+  <div class="pr-val"><span class="v">92<em>%</em></span><small>11/12</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:8%"></i></div>
+  <div class="pr-val"><span class="v">8<em>%</em></span><small>1/12</small></div></div><div class="pr">
+  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:75%"></i></div>
+  <div class="pr-val"><span class="v">75<em>%</em></span><small>9/12</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:25%"></i></div>
+  <div class="pr-val"><span class="v">25<em>%</em></span><small>3/12</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>一棟貸切・完全非対面で誰にも会わない</li><li><b class="zero">身体</b>プライベートプール・サウナ・ジャグジー・焚火</li><li><b class="zero">物語</b>元小学校 (口コミ1件のみ)</li><li><b class="run">食</b>セルフBBQ</li><li><b class="zero">自由</b>好きな時間に使える、犬をリードなしで</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step s-ng"><div class="step-h">5万段</div><div class="step-b"><span class="st-ng">ペットの床</span></div></div><div class="step cur s-ok"><div class="step-h">10万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-muted">新たな割れなし</span></div></div><div class="step above s-ng"><div class="step-h">15万段</div><div class="step-b"><span class="st-ng">作り手の食</span></div></div></div>
+  </section>
+  <div class="thumbs"><figure><a href="https://www.ikyu.com/00052014/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc4/00052014/img/c_ss_01.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="サウナ" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体</span>サウナ</figcaption></figure><figure><a href="https://www.ikyu.com/00052014/"><img src="https://www.img-ikyu.com/contents/common/image/acc4/00052014/1/org/13346758.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="焚き火" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体</span>焚き火</figcaption></figure><figure><a href="https://www.ikyu.com/00052014/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc4/00052014/img/e_ss_02.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="セルフBBQ" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag run">食</span>セルフBBQ</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd><span class="nw">2名</span> <span class="nw">10.8万</span> (素泊まり)。一休掲載・税込。<span class="nw">4名</span>は未取得</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>10万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>一休 4.70 (<span class="nw">12件</span>)</dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>BBQ (セット ¥5,000) / 自炊</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>なし (完全非対面のセルフチェックイン)。非対面を褒めた口コミ 2/12、「事前の案内が丁寧」</dd></div>
+  </dl>
+  <nav class="links"><a href="https://www.ikyu.com/00052014/">一休</a><a href="https://www.ikyu.com/00052014/review/">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Refwind%20%E9%8B%B8%E5%8D%97">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <div class="cbar"><i class="cs c-f" style="flex:6"></i></div><div class="clegend"><span><i class="c-f"></i>床割れ <b>6</b></span><span><i class="c-g"></i>ジャンル違い <b>0</b></span><span><i class="c-p"></i>柱不足 <b>0</b></span></div><p class="basis"><span class="nw">6件</span>すべて<span class="nw">1件</span>の1.40 (調味料・消耗品・食器・入室40分遅れ・電話対応・犬の怪我)</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>非公開</td><td class="src">不明</td></tr><tr><th>運営の手数</th><td>軽い (非対面・清掃は業者)</td><td class="src">推定</td></tr><tr><th>単価</th><td>10.8万</td><td class="src">公開</td></tr><tr><th>稼働</th><td>不明</td><td class="src">不明</td></tr><tr><th>リピート</th><td>同じ人の再訪 1件</td><td class="src">公開</td></tr><tr><th>再現性</th><td>高い (プール・サウナ・BBQは作れる)</td><td class="src">推定</td></tr></table><p class="srcs">出典: <a href="https://www.ikyu.com/00052014/review/">一休 口コミ</a> / <a href="https://www.ikyu.com/00052014/">一休 宿</a></p></details>
+</article>
+<article class="card" id="soubou">
+  <div class="c-top"><span class="gk">B</span>人なし・身体＋独占の成功と失敗<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://www.ikyu.com/00052053/"><img src="https://www.img-ikyu.com/contents/common/image/acc3/00052053/1/org/13394143.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="温水プールと水深190cmの水風呂" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体</span>温水プールと水深190cmの水風呂<span class="cr">一休.com</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">対照・失敗 (小屋プロと同じ人なし)</p>
+    <h2>蒼望楼</h2>
+    <p class="area">千葉・鴨川 / 海一望の貸別荘</p>
+    <p class="shape">形 <b>身体+独占 / 人なし / 素泊まり</b></p>
+  </header>
+  <p class="take">身体は<span class="nw">10件</span>全部に届いているのに4.40。Refwind と柱は同じ形で、差は入室・連絡・説明・備品の床に出た。価格が1.5倍なので床割れの痛みも大きい。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:30%"></i></div>
+  <div class="pr-val"><span class="v">30<em>%</em></span><small>3/10</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v">100<em>%</em></span><small>10/10</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 無</small></div>
+  <div class="pr-bar"><i class="b-r" style="width:0%"></i></div>
+  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/10</small></div></div><div class="pr">
+  <div class="pr-ax zero">食<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:10%"></i></div>
+  <div class="pr-val"><span class="v">10<em>%</em></span><small>1/10</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:0%"></i></div>
+  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/10</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>部屋とテラスから海が一望</li><li><b class="zero">身体</b>水深190cmの水風呂・サウナ・源泉・温水プール</li><li><b class="zero">食</b>BBQ設備のみ。調味料・アルミ箔は持参</li><li><b class="zero">自由</b>カラオケ</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step s-ng"><div class="step-h">5万段</div><div class="step-b"><span class="st-ng">入室・連絡</span><span class="st-ng">備品</span><span class="st-ng">説明</span></div></div><div class="step s-ng"><div class="step-h">10万段</div><div class="step-b"><span class="st-ng">夜間連絡</span></div></div><div class="step cur s-ng"><div class="step-h">15万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-ng">作り手の食</span></div></div></div>
+  </section>
+  <div class="thumbs"><figure><a href="https://www.ikyu.com/00052053/"><img src="https://www.img-ikyu.com/contents/common/image/acc3/00052053/1/org/13394126.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="海が見えるサウナ" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体・独占</span>海が見えるサウナ</figcaption></figure><figure><a href="https://www.ikyu.com/00052053/"><img src="https://www.img-ikyu.com/contents/common/image/acc3/00052053/1/org/13391561.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="オーシャンビューのテラス" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占</span>オーシャンビューのテラス</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd><span class="nw">2名</span> <span class="nw">16.7万</span> (食事なし)。一休掲載・税込。<span class="nw">4名</span>は未取得</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>15万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>一休 4.40 (<span class="nw">12件</span>・接客3.75)</dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>素泊まり (BBQは持ち込み)</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>なし (暗証番号で入室、連絡は電話050とLINE)</dd></div>
+  </dl>
+  <nav class="links"><a href="https://www.ikyu.com/00052053/">一休</a><a href="https://www.ikyu.com/00052053/review/">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%92%BC%E6%9C%9B%E6%A5%BC%20%E9%B4%A8%E5%B7%9D">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <div class="cbar"><i class="cs c-f" style="flex:8"></i><i class="cs c-g" style="flex:2"></i><i class="cs c-p" style="flex:1"></i></div><div class="clegend"><span><i class="c-f"></i>床割れ <b>8</b></span><span><i class="c-g"></i>ジャンル違い <b>2</b></span><span><i class="c-p"></i>柱不足 <b>1</b></span></div><p class="basis">本文<span class="nw">10件</span>の苦情<span class="nw">11件</span> (入室番号が届かない・電話不通・虫・使い回しのスポンジ・説明書なし・源泉が沸かない ほか)</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>非公開</td><td class="src">不明</td></tr><tr><th>運営の手数</th><td>軽い (無人)。ただし穴が出ている</td><td class="src">推定</td></tr><tr><th>単価</th><td>16.7万</td><td class="src">公開</td></tr><tr><th>稼働</th><td>不明</td><td class="src">不明</td></tr><tr><th>リピート</th><td>不明</td><td class="src">不明</td></tr><tr><th>再現性</th><td>中 (設備は作れる、海は土地次第)</td><td class="src">推定</td></tr></table><p class="srcs">出典: <a href="https://www.ikyu.com/00052053/review/">一休 口コミ</a> / <a href="https://www.ikyu.com/00052053/">一休 宿</a></p></details>
+</article>
+<article class="card" id="tou">
+  <div class="c-top"><span class="gk">C</span>同じ小豆島、違う形<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html"><img src="https://prcdn.freetls.fastly.net/release_image/5189/204/5189-204-41960ddf8dec121aaa42254c09dd31d3-2000x1333.jpg?width=900" alt="海へ伸びるデッキと讃岐富士" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占</span>海へ伸びるデッキと讃岐富士<span class="cr">PR TIMES</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">試作1</p>
+    <h2>小豆島メディテーションサウナヴィラ tou</h2>
+    <p class="area">香川・小豆島 / <span class="nw">32.76㎡</span>+デッキ<span class="nw">189㎡</span> / 定員3</p>
+    <p class="shape">形 <b>独占+身体+物語 / 人うすい / 自炊+弁当</b></p>
+  </header>
+  <p class="take">柱は独占・身体が届き、物語は作ったのに<span class="nw">2件</span>とも触れていない。床は<span class="nw">5万段</span>で割れ、苦情<span class="nw">13件</span>のうち<span class="nw">9件</span>が床割れ。遮光・洗面・鍵のように安く直せるものが多い。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r weak" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v">100<em>%</em></span><small>2/2・参考</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r weak" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v">100<em>%</em></span><small>2/2・参考</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r weak" style="width:0%"></i></div>
+  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/2・参考</small></div></div><div class="pr">
+  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r weak" style="width:50%"></i></div>
+  <div class="pr-val"><span class="v">50<em>%</em></span><small>1/2・参考</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r weak" style="width:0%"></i></div>
+  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/2・参考</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>瀬戸内と讃岐富士、朝日の向き、プライベートビーチ</li><li><b class="zero">身体</b>木桶サウナ + 温冷4槽、焚火</li><li><b class="zero">物語</b>醤油蔵の木桶・江戸の釜風呂・問い1つ。口コミ2件とも触れず</li><li><b class="run">食</b>鉄釜の炊飯は褒められ、米+佃煮のみは苦情</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step s-ng"><div class="step-h">5万段</div><div class="step-b"><span class="st-ng">洗面</span><span class="st-ng">施錠</span><span class="st-ng">坂の告知</span></div></div><div class="step s-ng"><div class="step-h">10万段</div><div class="step-b"><span class="st-ng">夜間連絡</span><span class="st-ng">遮光</span><span class="st-ng">食の量</span></div></div><div class="step cur s-ng"><div class="step-h">15万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-ng">作り手の食</span></div></div></div>
+  </section>
+  <div class="thumbs"><figure><a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html"><img src="https://prcdn.freetls.fastly.net/release_image/5189/204/5189-204-8926aa6a876e66c9711ec91ed953e3c5-2000x1333.jpg?width=900" alt="醤油蔵の木桶を改装したサウナ" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体・物語</span>醤油蔵の木桶を改装したサウナ</figcaption></figure><figure><a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html"><img src="https://prcdn.freetls.fastly.net/release_image/5189/204/5189-204-23481d34785a68f5912a3a70bdf86b04-2000x1333.jpg?width=900" alt="江戸時代の釜風呂・土風呂" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体・物語</span>江戸時代の釜風呂・土風呂</figcaption></figure><figure><a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html"><img src="https://prcdn.freetls.fastly.net/release_image/5189/204/5189-204-5599922275884923bef4c13e7d8fa758-2000x1333.jpg?width=900" alt="譲り受けた醤油蔵の木桶" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">物語</span>譲り受けた醤油蔵の木桶</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd><span class="nw">2名</span> <span class="nw">16.2〜18.6万</span> (朝食付) / <span class="nw">17.5〜19.8万</span> (夕朝食付)。<span class="nw">3名</span> <span class="nw">17.0〜21.3万</span>。楽天掲載・税込</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>15万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>一休/Yahoo 2.83 (<span class="nw">2件</span>) ・ Google 5.0 (<span class="nw">8件</span>・本文未読)</dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>自炊の素材 (朝) + 届ける弁当 (夕 ¥6,050)</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>迎えなし・夜間は無人 (LINEのみ)・スタッフの温かさは<span class="nw">2件</span>とも褒める</dd></div>
+  </dl>
+  <nav class="links"><a href="https://1000olive-terrace.com/">公式</a><a href="https://hotel.travel.rakuten.co.jp/hotelinfo/plan/191598">楽天</a><a href="https://www.ikyu.com/00051703/">一休</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%B0%8F%E8%B1%86%E5%B3%B6%20%E5%8D%83%E5%B9%B4%E3%82%AA%E3%83%AA%E3%83%BC%E3%83%96%E3%83%86%E3%83%A9%E3%82%B9%20The%20STAY">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <div class="cbar"><i class="cs c-f" style="flex:9"></i><i class="cs c-g" style="flex:2"></i><i class="cs c-p" style="flex:2"></i></div><div class="clegend"><span><i class="c-f"></i>床割れ <b>9</b></span><span><i class="c-g"></i>ジャンル違い <b>2</b></span><span><i class="c-p"></i>柱不足 <b>2</b></span></div><p class="basis"><span class="nw">2件</span> (3.50・2.17) の苦情<span class="nw">13件</span>。<span class="nw">2件</span>のため参考</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>非公開</td><td class="src">不明</td></tr><tr><th>運営の手数</th><td>軽い (食は置く・届ける)</td><td class="src">推定</td></tr><tr><th>単価</th><td>16〜21万</td><td class="src">公開</td></tr><tr><th>稼働</th><td>不明</td><td class="src">不明</td></tr><tr><th>リピート</th><td>不明 (2件)</td><td class="src">公開</td></tr><tr><th>再現性</th><td>低い (景色と母体ブランドに依存)</td><td class="src">推定</td></tr></table><p class="srcs">出典: <a href="https://hotel.travel.rakuten.co.jp/hotelinfo/plan/191598">楽天</a> / <a href="https://www.ikyu.com/00051703/review/">一休 口コミ</a> / <a href="https://prtimes.jp/main/html/rd/p/000000204.000005189.html">PR TIMES</a></p></details>
+</article>
+<article class="card" id="sachi">
+  <div class="c-top"><span class="gk">C</span>同じ小豆島、違う形<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://www.ikyu.com/00052367/"><img src="https://www.img-ikyu.com/contents/common/dg/image/sd/acc7/00052367/00052367a.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="醤油名家のお屋敷" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">物語・独占</span>醤油名家のお屋敷<span class="cr">一休.com</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">試作2</p>
+    <h2>お屋敷ステイ 幸</h2>
+    <p class="area">香川・小豆島 / 築95年の醤油名家・<span class="nw">249㎡</span>・敷地<span class="nw">3,000㎡</span> / 定員9</p>
+    <p class="shape">形 <b>物語+独占 / 人あり / シェフ (選択)</b></p>
+  </header>
+  <p class="take">床は<span class="nw">15万段</span>まで通るのに、値付けは<span class="nw">10万段</span>以下。届いているのは人と食 (回すたびに費用) だけでなく、回す費用ゼロの物語 (醤油名家・畑・鶏) も<span class="nw">14件</span>全部。小屋プロが真似られるのは物語の方。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:64%"></i></div>
+  <div class="pr-val"><span class="v">64<em>%</em></span><small>9/14</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:36%"></i></div>
+  <div class="pr-val"><span class="v">36<em>%</em></span><small>5/14</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v">100<em>%</em></span><small>14/14</small></div></div><div class="pr">
+  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:93%"></i></div>
+  <div class="pr-val"><span class="v">93<em>%</em></span><small>13/14</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:7%"></i></div>
+  <div class="pr-val"><span class="v">7<em>%</em></span><small>1/14</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>3,000㎡を1組で貸切。寝室4つで家族ごとのプライバシー</li><li><b class="zero">身体</b>100℃近いサウナ付きの石風呂</li><li><b class="zero">物語</b>醤油名家の屋敷・旧家の古道具・蔵バー・畑と鶏の卵取り</li><li><b class="run">食</b>出張シェフ (和・伊・寿司)、オリーブ牛のしゃぶしゃぶ、畑の野菜</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step s-ok"><div class="step-h">5万段</div><div class="step-b"><span class="st-ok">✓</span></div></div><div class="step cur s-ok"><div class="step-h">10万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-ok">✓</span></div></div><div class="step above s-ok"><div class="step-h">15万段</div><div class="step-b"><span class="st-ok">✓</span></div></div></div>
+  </section>
+  <div class="thumbs"><figure><a href="https://www.ikyu.com/00052367/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc7/00052367/img/a_ss_04_260220.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="蔵を改装したバー" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">物語</span>蔵を改装したバー</figcaption></figure><figure><a href="https://www.ikyu.com/00052367/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc7/00052367/img/e_ss_01_260220.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="プライベートシェフ" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag run">食</span>プライベートシェフ</figcaption></figure><figure><a href="https://www.ikyu.com/00052367/"><img src="https://www.img-ikyu.com/contents/vacation/dg/guide/acc7/00052367/img/c_ss_01_260220.jpg?auto=compress,format&amp;fit=crop&amp;h=500&amp;lossless=0&amp;w=750" alt="天然水の半露天風呂" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体</span>天然水の半露天風呂</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd><span class="nw">2名</span> <span class="nw">4.8万</span> (素泊まり) / <span class="nw">5.1万</span> (朝食付) / <span class="nw">8.6万</span>〜 (夕朝食付)。一休掲載・税込・日付指定なし。口コミ<span class="nw">12件</span>中<span class="nw">8件</span>が夕朝食付</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>10万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>一休 4.96 (<span class="nw">16件</span>)</dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>シェフ (出張・選択) / 自炊の素材 (しゃぶしゃぶ) / 素泊まり</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>港への送迎・対面の設備説明・LINEの即答・観光の提案。褒めた口コミ 11/14 (<span class="nw">79%</span>)</dd></div>
+  </dl>
+  <nav class="links"><a href="https://www.ikyu.com/00052367/">一休</a><a href="https://www.ikyu.com/00052367/review/">口コミ</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%81%8A%E5%B1%8B%E6%95%B7%E3%82%B9%E3%83%86%E3%82%A4%20%E5%B9%B8%20%E5%B0%8F%E8%B1%86%E5%B3%B6">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <div class="cbar"><i class="cs c-g" style="flex:3"></i></div><div class="clegend"><span><i class="c-f"></i>床割れ <b>0</b></span><span><i class="c-g"></i>ジャンル違い <b>3</b></span><span><i class="c-p"></i>柱不足 <b>0</b></span></div><p class="basis">段差・進入路・虫。いずれも5点・4.5点の口コミ内で、虫は事前に告知済み</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>非公開</td><td class="src">不明</td></tr><tr><th>運営の手数</th><td>重い (送迎・説明・シェフの手配)</td><td class="src">推定</td></tr><tr><th>単価</th><td>4.8万〜 (夕朝食 8.6万〜)</td><td class="src">公開</td></tr><tr><th>稼働</th><td>不明</td><td class="src">不明</td></tr><tr><th>リピート</th><td>再訪したい 9/14 (意向)</td><td class="src">公開</td></tr><tr><th>再現性</th><td>低い (屋敷とオーナー夫妻に依存)</td><td class="src">推定</td></tr></table><p class="srcs">出典: <a href="https://www.ikyu.com/00052367/review/">一休 口コミ</a> / <a href="https://www.ikyu.com/00052367/">一休 宿</a></p></details>
+</article>
+<article class="card" id="blanc">
+  <div class="c-top"><span class="gk">D</span>売り方が違う<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html"><img src="https://prcdn.freetls.fastly.net/release_image/84114/52/84114-52-fe2cfbd02ee9cc8938e1afbfd6054ba4-2500x1875.jpg?width=900" alt="苔の森のトレーラーハウス (開業前の画像)" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占</span>苔の森のトレーラーハウス (開業前の画像)<span class="cr">PR TIMES</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">試作3 ・ 泊まる前</p>
+    <h2>BLANC NIKKO (Suite Villa)</h2>
+    <p class="area">栃木・日光 / <span class="nw">63.29㎡</span>+縁側 / 定員4 / 2026-11-01開業</p>
+    <p class="shape">形 <b>独占+身体 / 人は未確認 / 部屋食</b></p>
+  </header>
+  <p class="take">作った柱は独占と身体の2本で、小屋プロに一番近い形。泊まって、床<span class="nw">3段</span> (特に入室・夜間連絡・説明) と、どの柱が自分に届いたかを採点する。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>神域の原生林・田母沢川。他の客と顔を合わせない独立ヴィラ</li><li><b class="zero">身体</b>全室に檜風呂の温泉、24時間</li><li><b class="zero">物語</b>トレーラーハウス・東濃ヒノキ・古材</li><li><b class="run">食</b>栃木の食材の部屋食</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step s-unk"><div class="step-h">5万段</div><div class="step-b"><span class="st-muted">未判定</span></div></div><div class="step cur s-unk"><div class="step-h">10万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-muted">未判定</span></div></div><div class="step above s-unk"><div class="step-h">15万段</div><div class="step-b"><span class="st-muted">未判定</span></div></div></div>
+  </section>
+  <div class="thumbs"><figure><a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html"><img src="https://prcdn.freetls.fastly.net/release_image/84114/52/84114-52-5d745b4b3e7721e10f1b4f5e9002f0cf-2500x1875.jpg?width=900" alt="全室の檜風呂の温泉 (開業前の画像)" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体</span>全室の檜風呂の温泉 (開業前の画像)</figcaption></figure><figure><a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html"><img src="https://prcdn.freetls.fastly.net/release_image/84114/52/84114-52-45e0784e403d787b5950a5bf385e7552-1792x2390.png?width=900" alt="上流の寂光の滝" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占・物語</span>上流の寂光の滝</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd><span class="nw">2名</span> <span class="nw">5.8万</span> (朝食付) / <span class="nw">7.5万</span> (2食付)。開業記念<span class="nw">30%</span>OFF後の会員価格。<span class="nw">4名</span>は未取得</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>10万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>開業前</dd></div>
+    <div class="fact"><dt>販売の形</dt><dd><span class="nw">1泊</span>販売 + オーナー制度 (併用)</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>届ける (部屋食。日光ゆば・霧降高原牛。作り手は未記載)</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>未確認 (現地スタッフを採用中の記載あり)。泊まって記録する</dd></div>
+  </dl>
+  <nav class="links"><a href="https://blan-c.com/nikko/">公式</a><a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html">プレスリリース</a><a href="https://www.google.com/maps/search/?api=1&amp;query=BLANC%20NIKKO%20%E6%97%A5%E5%85%89">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <p class="na">口コミなし (開業前・設計中)</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>オーナー販売 2,850万〜/口 ×8口</td><td class="src">公開</td></tr><tr><th>運営の手数</th><td>泊まって測る</td><td class="src">泊まって</td></tr><tr><th>単価</th><td>5.8〜7.5万 (記念価格)</td><td class="src">公開</td></tr><tr><th>稼働</th><td>不明</td><td class="src">不明</td></tr><tr><th>リピート</th><td>開業前</td><td class="src">不明</td></tr><tr><th>再現性</th><td>高い (トレーラー・同じ形を5拠点)</td><td class="src">公開</td></tr></table><p class="srcs">出典: <a href="https://prtimes.jp/main/html/rd/p/000000052.000084114.html">PR TIMES</a> / <a href="https://blan-c.com/nikko/">公式</a> / <a href="https://yurunago.or.jp/33404/">ゆるなご</a></p></details>
+</article>
+<article class="card" id="nah">
+  <div class="c-top"><span class="gk">D</span>売り方が違う<a class="back" href="#top">一覧 ↑</a></div>
+  <figure class="hero"><a href="https://notahotel.com/shop/nasu"><img src="https://notahotel.com/assets/images/ogp/shop/nasu_ogp.jpg" alt="MASTERPIECE とプール" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">身体・物語</span>MASTERPIECE とプール<span class="cr">公式</span></figcaption></figure>
+  <header class="c-head">
+    <p class="role">追加 ・ 区分所有の別荘</p>
+    <h2>NOT A HOTEL NASU (MASTERPIECE ほか)</h2>
+    <p class="area">栃木・那須 / <span class="nw">16万</span>坪の牧場が借景 / 3棟 (例 MASTERPIECE 屋内<span class="nw">286㎡</span>+テラス<span class="nw">215㎡</span>・最大<span class="nw">10名</span>)</p>
+    <p class="shape">形 <b>独占+身体 / 人うすい / 部屋に届く朝食</b></p>
+  </header>
+  <p class="take">所有型は口コミが表に出ず、届いた柱を測れない。測るには泊まるか滞在記を集めるしかない。お金は所有の販売で先に回収し、<span class="nw">1泊</span>販売は空き期間の穴埋め。自分が使わない期間を売る点は、小屋プロの「住みながら貸す」と同じ構造。</p>
+  <section class="blk">
+    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
+    <div class="pr">
+  <div class="pr-ax zero">独占<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">身体<small>作った 主役</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">物語<small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:67%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
+  <div class="pr-ax zero">自由<small>作った 有</small></div>
+  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
+  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div>
+    <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>牧場と20頭の馬を借景、ファームビューの独占</li><li><b class="zero">身体</b>全棟にプライベートプールとサウナ、2棟は天然温泉</li><li><b class="zero">物語</b>SUPPOSE DESIGN OFFICE の建築 (「浮遊の家」「洞窟」)</li><li><b class="run">食</b>朝食が部屋に届く。シェフの食事の記載あり</li><li><b class="zero">自由</b>アプリで予約から退室まで完結</li></ul></details>
+  </section>
+  <section class="blk">
+    <h3>床<span class="h3s">価格段ごとの合否</span></h3>
+    <div class="steps"><div class="step s-unk"><div class="step-h">5万段</div><div class="step-b"><span class="st-muted">未判定</span></div></div><div class="step s-unk"><div class="step-h">10万段</div><div class="step-b"><span class="st-muted">未判定</span></div></div><div class="step cur s-unk"><div class="step-h">15万段<span class="here">この宿の段</span></div><div class="step-b"><span class="st-muted">未判定</span></div></div></div>
+  </section>
+  <div class="thumbs"><figure><a href="https://notahotel.com/shop/nasu"><img src="https://imagedelivery.net/jZ4zarr81i7OIuT1JQY5_A/lp/place/nasu/654x654/cut2-0028.jpg/public" alt="借景の牧場の馬" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占</span>借景の牧場の馬</figcaption></figure><figure><a href="https://notahotel.com/shop/nasu"><img src="https://imagedelivery.net/jZ4zarr81i7OIuT1JQY5_A/lp/place/nasu/video-thumbnail-1.jpg/public" alt="アウトドアリビング" loading="lazy" referrerpolicy="no-referrer"></a><figcaption><span class="ptag">独占・自由</span>アウトドアリビング</figcaption></figure></div>
+  <dl class="facts">
+    <div class="fact wide"><dt>価格</dt><dd>MASTERPIECE 約<span class="nw">50万</span> (<span class="nw">2名</span>・2023年の滞在記)。現行の<span class="nw">1泊</span>価格は公式アプリで、取れていない</dd></div>
+    <div class="fact"><dt>価格段</dt><dd><b>15万段</b></dd></div>
+    <div class="fact"><dt>評価</dt><dd>口コミサイトの掲載なし。滞在記<span class="nw">3件</span></dd></div>
+    <div class="fact"><dt>販売の形</dt><dd>区分所有 (年<span class="nw">10泊</span>〜、NASU は完売) + 空き期間を一般に<span class="nw">1泊</span>販売</dd></div>
+    <div class="fact"><dt>食の型</dt><dd>届ける (朝食が部屋に届く) / シェフ (公式の記載)</dd></div>
+    <div class="fact wide"><dt>人の接点</dt><dd>アプリでセルフ入室。2023年の滞在記に「旅館業法の関係でスタッフが現地にいる」(要約経由・原文未確認)</dd></div>
+  </dl>
+  <nav class="links"><a href="https://notahotel.com/shop/nasu">公式</a><a href="https://notahotel.com/about-notahotel">仕組み</a><a href="https://www.google.com/maps/search/?api=1&amp;query=NOT%20A%20HOTEL%20NASU">地図</a></nav>
+  <section class="blk">
+    <h3>苦情の内訳</h3>
+    <p class="na">口コミ本文が取れず、苦情は未判定</p>
+  </section>
+  <details class="more"><summary>経営と出典</summary><table class="mg"><tr><th>導入コスト</th><td>区分所有 (NASU は価格非掲載・完売。北軽井沢の例 2,981万〜)</td><td class="src">公開</td></tr><tr><th>運営の手数</th><td>アプリ + 現地スタッフ</td><td class="src">推定</td></tr><tr><th>単価</th><td>約50万 (2023年)</td><td class="src">公開</td></tr><tr><th>稼働</th><td>オーナー優先、一般は3か月先まで</td><td class="src">公開</td></tr><tr><th>リピート</th><td>不明</td><td class="src">不明</td></tr><tr><th>再現性</th><td>中 (建築家ごとの一点物をブランドで増やす)</td><td class="src">推定</td></tr></table><p class="srcs">出典: <a href="https://notahotel.com/shop/nasu">公式 NASU</a> / <a href="https://note.com/zallagoo/n/n1f85fc3b142d">滞在記 (note)</a> / <a href="https://www.fashionsnap.com/article/not-a-hotel-nasu/">FashionSnap</a></p></details>
+</article>
+
+<section class="method">
+  <h2 style="font-family:var(--serif);font-size:13px;letter-spacing:.2em;color:var(--ink2);margin:0">判定のしかた</h2>
+  <ul>
+    <li>価格は1棟・1泊・税込・掲載のまま。食事込みは込みのまま。価格段は2名の掲載価格で 5万段 (〜7.5万)・10万段 (〜12.5万)・15万段</li>
+    <li>作った = 掲載情報で 無・有・売り・主役。届いた = 口コミ本文でその柱に触れて褒めた割合 (件数つき、5件未満は斜線で参考)</li>
+    <li>床の割れ = 同じ項目の苦情が2件以上、読んだ件数の15%以上、安全は1件。床の段は一休16軒・口コミ本文241件から。15万段は推測を含む。迎えなど人の接点は床に入れない</li>
+    <li>写真は掲載元から直接表示 (タップで掲載ページ)。緑の札はその写真が示す柱</li>
+  </ul>
+  <a class="totop" href="#top">一覧へ戻る ↑</a>
+  <p class="foot">2026-10-05 作成。総合点は出さない。</p>
+</section>
 </div>
 </body>
 </html>
