@@ -34,7 +34,7 @@ a{color:inherit}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink2);margin:18px 0 0}
 .find + .card{margin-top:32px}
 .legend i{display:inline-block;width:14px;height:8px;border-radius:2px;vertical-align:1px;margin-right:6px}
-.k-m{background:transparent;border:1.5px solid #a9bad6} .k-r{background:var(--reach)}
+.k-m{background:#c9d6ea;border:1px solid #8fa6cc} .k-r{background:var(--reach)}
 .legend .z{color:var(--zero);font-weight:700} .legend .r{color:var(--run);font-weight:700}
 
 .find{margin:24px 0 0;padding:22px 0 0;border-top:1px solid var(--rule2)}
@@ -188,7 +188,55 @@ details[open] summary::before{content:"−"}
 .foot{font-size:11.5px;color:var(--mute);margin:28px 0 0}
 .totop{display:block;text-align:center;font-size:12px;color:var(--mute);text-decoration:none;margin:24px 0 0}
 
+
+/* ---------- v3 レーダーとバブル ---------- */
+.radar .ring{fill:none;stroke:var(--rule);stroke-width:1}
+.radar .spoke{stroke:var(--rule);stroke-width:1}
+.radar .frame{fill:none;stroke-width:1.6}
+.radar .fr-ok{stroke:var(--ink)}
+.radar .fr-ng{stroke:var(--ng);stroke-width:2}
+.radar .fr-unk{stroke:var(--mute);stroke-dasharray:3 3}
+.radar .sup{fill:#c9d6ea;fill-opacity:.75;stroke:#8fa6cc;stroke-width:1}
+.radar .dem{fill:var(--reach);fill-opacity:.82;stroke:var(--reach);stroke-width:1.2;stroke-linejoin:round}
+.radar .dem.weak{fill-opacity:.35;stroke-dasharray:3 2}
+.radar .dot{fill:var(--reach)}
+.radar .axl{font-family:var(--sans);font-size:10px;font-weight:700;fill:var(--zero)}
+.radar .axl.run{fill:var(--run)}
+.radar.big .axl{font-size:13px}
+.radar .axv{font-family:var(--sans);font-size:12px;fill:var(--ink2);font-variant-numeric:tabular-nums}
+.bub{display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px 0;margin:6px 0 18px}
+.bcell{flex:0 0 50%;display:flex;flex-direction:column;align-items:center;text-decoration:none;padding:6px 4px 10px;border-radius:6px}
+.bcell.wide{flex-basis:100%}
+.bcell.self{background:#ece7dc}
+.bcell:active{background:#efebe2}
+.bcell svg{display:block;max-width:100%;height:auto}
+.bname{font-family:var(--serif);font-size:15px;font-weight:600;margin-top:2px;text-align:center;line-height:1.35}
+.bname .mine{display:block;margin:3px auto 0;width:max-content}
+.bmeta{font-size:11.5px;color:var(--ink2);margin:2px 0 6px}
+.bmeta b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.bcell .fdots{transform:scale(.9)}
+.scale{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin:6px 0 4px}
+.sc{display:flex;flex-direction:column;align-items:center}
+.sc circle{fill:none;stroke:var(--rule2);stroke-dasharray:2 2}
+.sc small{font-size:11px;color:var(--ink2)}
+.sc-note{font-size:11.5px;color:var(--mute);margin-left:4px;padding-bottom:16px}
+.bigradar{display:flex;justify-content:center;margin:4px 0 0}
+.bigradar svg{max-width:100%;height:auto}
+.ptab{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;table-layout:fixed}
+.ptab th,.ptab td{text-align:center;padding:6px 2px;border-top:1px solid var(--rule)}
+.ptab tr:first-child th{border-top:0;font-size:12px}
+.ptab th.zero{color:var(--zero)} .ptab th.run{color:var(--run)}
+.ptab tr th:first-child{text-align:left;font-weight:600;font-size:12px;width:3.6em}
+.ptab th small,.ptab td small{display:block;font-size:10.5px;font-weight:400;color:var(--mute)}
+.ptab td b{font-weight:600;font-variant-numeric:tabular-nums}
+.ptab td.na{color:var(--mute)}
+.lg-sup{display:inline-block;width:14px;height:10px;background:#c9d6ea;border:1px solid #8fa6cc;vertical-align:-1px;margin-right:6px}
+.lg-dem{display:inline-block;width:14px;height:10px;background:var(--reach);vertical-align:-1px;margin-right:6px}
+.lg-fr{display:inline-block;width:14px;height:10px;border:1.6px solid var(--ink);vertical-align:-1px;margin-right:4px}
+.lg-fr.ng{border-color:var(--ng)} .lg-fr.unk{border:1.6px dashed var(--mute)}
+
 @media (min-width:700px){
+  .bcell{flex-basis:33.3%}
   body{font-size:16px}
   .cover{padding-top:88px}
   .cover h1{font-size:44px}
@@ -207,11 +255,12 @@ details[open] summary::before{content:"−"}
   <div class="read">
     <div><b>形</b><span>尖らせた柱。独占・身体・物語・食・自由</span></div>
     <div><b>床</b><span>値段ごとの合否。三つの段で見る。割れは赤</span></div>
-    <div><b>差</b><span>作った柱と、口コミで届いた柱の差</span></div>
+    <div><b>差</b><span>供給 (作った柱) と需要 (届いた柱) のずれ</span></div>
   </div>
   <div class="legend">
-    <span><i class="k-m"></i>作った (枠・掲載から)</span>
-    <span><i class="k-r"></i>届いた (塗り・口コミで褒めた割合)</span>
+    <span><i class="lg-sup"></i>供給 = 作った柱 (掲載から)</span>
+    <span><i class="lg-dem"></i>需要 = 届いた柱 (口コミで褒めた割合)</span>
+    <span>大きさ = 価格 ／ 外枠 = 床 <i class="lg-fr"></i>通る <i class="lg-fr ng"></i>割れ <i class="lg-fr unk"></i>未判定</span>
     <span><span class="z">緑の軸</span> 回す費用ゼロ ／ <span class="r">橙の軸</span> 回すたびに費用</span>
   </div>
 </header>
@@ -220,29 +269,49 @@ details[open] summary::before{content:"−"}
 
 <section class="ov" id="top">
   <h2>一覧</h2>
-  <p class="ov-note">右上の箱が床 (5・10・15万段、枠つきがその宿の段)。下の5本が柱 (独占・身体・物語・食・自由)。タップで詳細へ</p>
+  <p class="ov-note">五角形が柱 (独占・身体・物語・食・自由)。薄い面が供給、濃い面が需要。大きいほど高い宿。外枠が赤なら、その値段の床が割れている。タップで詳細へ</p>
   <p class="ov-key"><span class="kv"><span class="fd fd-ok"><b>✓</b></span>通る</span><span class="kv"><span class="fd fd-ng"><b>×</b></span>割れ</span><span class="kv"><span class="fd fd-okb"><b>–</b></span>下の段が割れ</span><span class="kv"><span class="fd fd-unk"><b>?</b></span>未判定</span><span class="kv"><span class="fd fd-plan"><b>設</b></span>設計で埋める</span></p>
-  <div class="ov-g"><span class="gk">A</span>北杜・人なし・5万段<small>小屋プロと同じ土地・同じ値段で比べる</small></div><a class="ov-row" href="#sanu">
-  <span class="ov-name"><b>SANU 八ヶ岳</b><small>5万段 ・ 一休 4.66</small></span>
-  <span class="fdots"><span class="fd fd-ng cur"><b>×</b><small>5</small></span><span class="fd fd-okb above"><b>–</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:46%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:23%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:8%"></i></span></span><span class="g-col"><b class="g-ax">食</b><span class="g-bar"><i class="g-r" style="width:8%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:31%"></i></span></span></span></a><a class="ov-row" href="#sekki">
-  <span class="ov-name"><b>SEKKI</b><small>5万段 ・ 楽天 5.00</small></span>
-  <span class="fdots"><span class="fd fd-ok cur"><b>✓</b><small>5</small></span><span class="fd fd-ng above"><b>×</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:30%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:0%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:40%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:40%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:10%"></i></span></span></span></a><a class="ov-row" href="#retune">
-  <span class="ov-name"><b>ReTune</b><small>5万段 ・ Airbnb 5.0</small></span>
-  <span class="fdots"><span class="fd fd-plan cur"><b>設</b><small>5</small></span><span class="fd fd-unk above"><b>?</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:15%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:20%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:67%"></i></span></span></span></a><a class="ov-row self" href="#koya">
-  <span class="ov-name"><b>小屋プロ基準案<em class="mine">自分の案</em></b><small>5万段 ・ 設計中</small></span>
-  <span class="fdots"><span class="fd fd-plan cur"><b>設</b><small>5</small></span><span class="fd fd-plan above"><b>設</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span><span class="g-col"><b class="g-ax">食</b><span class="g-bar"></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span></span></a><div class="ov-g"><span class="gk">B</span>人なし・身体＋独占の成功と失敗<small>柱は同じ。差はどこに出たか</small></div><a class="ov-row" href="#refwind">
-  <span class="ov-name"><b>Refwind</b><small>10万段 ・ 一休 4.70</small></span>
-  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-okb cur"><b>–</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:42%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:92%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:8%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:75%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:25%"></i></span></span></span></a><a class="ov-row" href="#soubou">
-  <span class="ov-name"><b>蒼望楼</b><small>15万段 ・ 一休 4.40</small></span>
-  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-ng"><b>×</b><small>10</small></span><span class="fd fd-ng cur"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:30%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-r" style="width:0%"></i></span></span><span class="g-col"><b class="g-ax">食</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:10%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:0%"></i></span></span></span></a><div class="ov-g"><span class="gk">C</span>同じ小豆島、違う形<small>作り手のエゴと、人のもてなし</small></div><a class="ov-row" href="#tou">
-  <span class="ov-name"><b>tou</b><small>15万段 ・ 一休 2.83 (2件)</small></span>
-  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-ng"><b>×</b><small>10</small></span><span class="fd fd-ng cur"><b>×</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r weak" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r weak" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r weak" style="width:0%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r weak" style="width:50%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r weak" style="width:0%"></i></span></span></span></a><a class="ov-row" href="#sachi">
-  <span class="ov-name"><b>幸</b><small>10万段 ・ 一休 4.96</small></span>
-  <span class="fdots"><span class="fd fd-ok"><b>✓</b><small>5</small></span><span class="fd fd-ok cur"><b>✓</b><small>10</small></span><span class="fd fd-ok above"><b>✓</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:64%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:36%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:100%"></i><i class="g-r" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i><i class="g-r" style="width:93%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i><i class="g-r" style="width:7%"></i></span></span></span></a><div class="ov-g"><span class="gk">D</span>売り方が違う<small>オーナー制度・区分所有</small></div><a class="ov-row" href="#blanc">
-  <span class="ov-name"><b>BLANC NIKKO</b><small>10万段 ・ 開業前</small></span>
-  <span class="fdots"><span class="fd fd-unk"><b>?</b><small>5</small></span><span class="fd fd-unk cur"><b>?</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span></span></a><a class="ov-row" href="#nah">
-  <span class="ov-name"><b>NOT A HOTEL</b><small>15万段 ・ 口コミなし</small></span>
-  <span class="fdots"><span class="fd fd-unk"><b>?</b><small>5</small></span><span class="fd fd-unk"><b>?</b><small>10</small></span><span class="fd fd-unk cur"><b>?</b><small>15</small></span></span><span class="glyph" aria-hidden="true"><span class="g-col"><b class="g-ax">独</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">身</b><span class="g-bar"><i class="g-m" style="width:100%"></i></span></span><span class="g-col"><b class="g-ax">物</b><span class="g-bar"><i class="g-m" style="width:67%"></i></span></span><span class="g-col"><b class="g-ax run">食</b><span class="g-bar"><i class="g-m" style="width:67%"></i></span></span><span class="g-col"><b class="g-ax">自</b><span class="g-bar"><i class="g-m" style="width:33%"></i></span></span></span></a>
+  <div class="scale"><span class="sc"><svg width="62" height="62"><circle cx="31.0" cy="31.0" r="30.0"/></svg><small>5万</small></span><span class="sc"><svg width="87" height="87"><circle cx="43.4" cy="43.4" r="42.4"/></svg><small>10万</small></span><span class="sc"><svg width="106" height="106"><circle cx="53.0" cy="53.0" r="52.0"/></svg><small>15万</small></span><span class="sc-note">面積が価格に比例 (2名1泊・税込)</span></div><div class="ov-g"><span class="gk">A</span>北杜・人なし・5万段<small>小屋プロと同じ土地・同じ値段で比べる</small></div><div class="bub"><a class="bcell" href="#sanu">
+  <svg class="radar mini" viewBox="0 0 89 89" width="89" height="89" role="img" aria-label="SANU 八ヶ岳の柱"><polygon class="ring" points="44.5,35.0 53.5,41.5 50.0,52.1 38.9,52.1 35.4,41.5"/><polygon class="ring" points="44.5,25.5 62.5,38.6 55.6,59.8 33.3,59.8 26.4,38.6"/><line class="spoke" x1="44.46049894151541" y1="44.46049894151541" x2="44.5" y2="16.0"/><line class="spoke" x1="44.46049894151541" y1="44.46049894151541" x2="71.5" y2="35.7"/><line class="spoke" x1="44.46049894151541" y1="44.46049894151541" x2="61.2" y2="67.5"/><line class="spoke" x1="44.46049894151541" y1="44.46049894151541" x2="27.7" y2="67.5"/><line class="spoke" x1="44.46049894151541" y1="44.46049894151541" x2="17.4" y2="35.7"/><polygon class="frame fr-ng" points="44.5,16.0 71.5,35.7 61.2,67.5 27.7,67.5 17.4,35.7"/><polygon class="sup" points="44.5,25.4 53.4,41.6 55.7,59.9 44.5,44.5 26.3,38.6"/><polygon class="dem" points="44.5,31.4 50.7,42.4 45.8,46.3 43.1,46.3 36.1,41.7"/><circle class="dot" cx="44.5" cy="31.4" r="2.2"/><circle class="dot" cx="50.7" cy="42.4" r="2.2"/><circle class="dot" cx="45.8" cy="46.3" r="2.2"/><circle class="dot" cx="43.1" cy="46.3" r="2.2"/><circle class="dot" cx="36.1" cy="41.7" r="2.2"/><text class="axl" x="44.5" y="10.5" text-anchor="middle">独</text><text class="axl" x="80.1" y="36.4" text-anchor="start">身</text><text class="axl" x="66.5" y="78.3" text-anchor="start">物</text><text class="axl" x="22.4" y="78.3" text-anchor="end">食</text><text class="axl" x="8.8" y="36.4" text-anchor="end">自</text></svg>
+  <span class="bname">SANU 八ヶ岳</span>
+  <span class="bmeta"><b>4.5万</b> ・ 一休 4.66</span>
+  <span class="fdots"><span class="fd fd-ng cur"><b>×</b><small>5</small></span><span class="fd fd-okb above"><b>–</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span></a><a class="bcell" href="#sekki">
+  <svg class="radar mini" viewBox="0 0 99 99" width="99" height="99" role="img" aria-label="SEKKIの柱"><polygon class="ring" points="49.7,38.4 60.4,46.2 56.3,58.8 43.1,58.8 39.0,46.2"/><polygon class="ring" points="49.7,27.2 71.0,42.7 62.9,67.8 36.5,67.8 28.3,42.7"/><line class="spoke" x1="49.67491648096547" y1="49.67491648096547" x2="49.7" y2="16.0"/><line class="spoke" x1="49.67491648096547" y1="49.67491648096547" x2="81.7" y2="39.3"/><line class="spoke" x1="49.67491648096547" y1="49.67491648096547" x2="69.5" y2="76.9"/><line class="spoke" x1="49.67491648096547" y1="49.67491648096547" x2="29.9" y2="76.9"/><line class="spoke" x1="49.67491648096547" y1="49.67491648096547" x2="17.6" y2="39.3"/><polygon class="frame fr-ok" points="49.7,16.0 81.7,39.3 69.5,76.9 29.9,76.9 17.6,39.3"/><polygon class="sup" points="49.7,16.0 71.1,42.7 69.5,76.9 36.4,67.9 39.1,46.2"/><polygon class="dem" points="49.7,39.6 49.7,49.7 57.6,60.6 41.8,60.6 46.5,48.6"/><circle class="dot" cx="49.7" cy="39.6" r="2.2"/><circle class="dot" cx="49.7" cy="49.7" r="2.2"/><circle class="dot" cx="57.6" cy="60.6" r="2.2"/><circle class="dot" cx="41.8" cy="60.6" r="2.2"/><circle class="dot" cx="46.5" cy="48.6" r="2.2"/><text class="axl" x="49.7" y="10.5" text-anchor="middle">独</text><text class="axl" x="90.3" y="40.0" text-anchor="start">身</text><text class="axl" x="74.8" y="87.7" text-anchor="start">物</text><text class="axl run" x="24.6" y="87.7" text-anchor="end">食</text><text class="axl" x="9.1" y="40.0" text-anchor="end">自</text></svg>
+  <span class="bname">SEKKI</span>
+  <span class="bmeta"><b>6.3万</b> ・ 楽天 5.00</span>
+  <span class="fdots"><span class="fd fd-ok cur"><b>✓</b><small>5</small></span><span class="fd fd-ng above"><b>×</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span></a><a class="bcell" href="#retune">
+  <svg class="radar mini" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="ReTuneの柱"><polygon class="ring" points="49.9,38.6 60.7,46.4 56.6,59.1 43.3,59.1 39.2,46.4"/><polygon class="ring" points="49.9,27.3 71.5,42.9 63.2,68.2 36.6,68.2 28.4,42.9"/><line class="spoke" x1="49.94112549695428" y1="49.94112549695428" x2="49.9" y2="16.0"/><line class="spoke" x1="49.94112549695428" y1="49.94112549695428" x2="82.2" y2="39.5"/><line class="spoke" x1="49.94112549695428" y1="49.94112549695428" x2="69.9" y2="77.4"/><line class="spoke" x1="49.94112549695428" y1="49.94112549695428" x2="30.0" y2="77.4"/><line class="spoke" x1="49.94112549695428" y1="49.94112549695428" x2="17.7" y2="39.5"/><polygon class="frame fr-unk" points="49.9,16.0 82.2,39.5 69.9,77.4 30.0,77.4 17.7,39.5"/><polygon class="sup" points="49.9,16.0 82.2,39.5 49.9,49.9 43.4,59.0 28.3,42.9"/><circle class="dot" cx="49.9" cy="44.8" r="2.2"/><circle class="dot" cx="46.0" cy="55.4" r="2.2"/><text class="axl" x="49.9" y="10.5" text-anchor="middle">独</text><text class="axl" x="90.8" y="40.2" text-anchor="start">身</text><text class="axl" x="75.2" y="88.2" text-anchor="start">物</text><text class="axl run" x="24.7" y="88.2" text-anchor="end">食</text><text class="axl" x="9.1" y="40.2" text-anchor="end">自</text></svg>
+  <span class="bname">ReTune</span>
+  <span class="bmeta"><b>6.4万</b> ・ Airbnb 5.0</span>
+  <span class="fdots"><span class="fd fd-plan cur"><b>設</b><small>5</small></span><span class="fd fd-unk above"><b>?</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span></a><a class="bcell self" href="#koya">
+  <svg class="radar mini" viewBox="0 0 98 98" width="98" height="98" role="img" aria-label="小屋プロ基準案の柱"><polygon class="ring" points="48.9,37.9 59.3,45.5 55.3,57.7 42.4,57.7 38.4,45.5"/><polygon class="ring" points="48.9,27.0 69.7,42.1 61.7,66.6 36.0,66.6 28.0,42.1"/><line class="spoke" x1="48.863353450309965" y1="48.863353450309965" x2="48.9" y2="16.0"/><line class="spoke" x1="48.863353450309965" y1="48.863353450309965" x2="80.1" y2="38.7"/><line class="spoke" x1="48.863353450309965" y1="48.863353450309965" x2="68.2" y2="75.5"/><line class="spoke" x1="48.863353450309965" y1="48.863353450309965" x2="29.5" y2="75.5"/><line class="spoke" x1="48.863353450309965" y1="48.863353450309965" x2="17.6" y2="38.7"/><polygon class="frame fr-unk" points="48.9,16.0 80.1,38.7 68.2,75.5 29.5,75.5 17.6,38.7"/><polygon class="sup" points="48.9,16.0 80.1,38.7 55.2,57.6 48.9,48.9 38.5,45.5"/><text class="axl" x="48.9" y="10.5" text-anchor="middle">独</text><text class="axl" x="88.7" y="39.4" text-anchor="start">身</text><text class="axl" x="73.5" y="86.2" text-anchor="start">物</text><text class="axl" x="24.3" y="86.2" text-anchor="end">食</text><text class="axl" x="9.0" y="39.4" text-anchor="end">自</text></svg>
+  <span class="bname">小屋プロ基準案<em class="mine">自分の案</em></span>
+  <span class="bmeta"><b>6万</b> ・ 設計中</span>
+  <span class="fdots"><span class="fd fd-plan cur"><b>設</b><small>5</small></span><span class="fd fd-plan above"><b>設</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span></a></div><div class="ov-g"><span class="gk">B</span>人なし・身体＋独占の成功と失敗<small>柱は同じ。差はどこに出たか</small></div><div class="bub"><a class="bcell" href="#refwind">
+  <svg class="radar mini" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Refwindの柱"><polygon class="ring" points="60.1,45.4 74.1,55.5 68.7,72.0 51.5,72.0 46.1,55.5"/><polygon class="ring" points="60.1,30.7 88.0,51.0 77.4,83.9 42.8,83.9 32.1,51.0"/><line class="spoke" x1="60.090815370097204" y1="60.090815370097204" x2="60.1" y2="16.0"/><line class="spoke" x1="60.090815370097204" y1="60.090815370097204" x2="102.0" y2="46.5"/><line class="spoke" x1="60.090815370097204" y1="60.090815370097204" x2="86.0" y2="95.8"/><line class="spoke" x1="60.090815370097204" y1="60.090815370097204" x2="34.2" y2="95.8"/><line class="spoke" x1="60.090815370097204" y1="60.090815370097204" x2="18.2" y2="46.5"/><polygon class="frame fr-ng" points="60.1,16.0 102.0,46.5 86.0,95.8 34.2,95.8 18.2,46.5"/><polygon class="sup" points="60.1,30.5 102.0,46.5 68.6,71.9 42.7,84.0 46.3,55.6"/><polygon class="dem" points="60.1,41.6 98.7,47.6 62.2,62.9 40.7,86.8 49.6,56.7"/><circle class="dot" cx="60.1" cy="41.6" r="2.2"/><circle class="dot" cx="98.7" cy="47.6" r="2.2"/><circle class="dot" cx="62.2" cy="62.9" r="2.2"/><circle class="dot" cx="40.7" cy="86.8" r="2.2"/><circle class="dot" cx="49.6" cy="56.7" r="2.2"/><text class="axl" x="60.1" y="10.5" text-anchor="middle">独</text><text class="axl" x="110.6" y="47.2" text-anchor="start">身</text><text class="axl" x="91.3" y="106.5" text-anchor="start">物</text><text class="axl run" x="28.9" y="106.5" text-anchor="end">食</text><text class="axl" x="9.6" y="47.2" text-anchor="end">自</text></svg>
+  <span class="bname">Refwind</span>
+  <span class="bmeta"><b>10.8万</b> ・ 一休 4.70</span>
+  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-okb cur"><b>–</b><small>10</small></span><span class="fd fd-ng above"><b>×</b><small>15</small></span></span></a><a class="bcell" href="#soubou">
+  <svg class="radar mini" viewBox="0 0 142 142" width="142" height="142" role="img" aria-label="蒼望楼の柱"><polygon class="ring" points="70.8,52.6 88.2,65.2 81.6,85.6 60.1,85.6 53.4,65.2"/><polygon class="ring" points="70.8,34.3 105.6,59.5 92.3,100.4 49.3,100.4 36.1,59.5"/><line class="spoke" x1="70.82700064749119" y1="70.82700064749119" x2="70.8" y2="16.0"/><line class="spoke" x1="70.82700064749119" y1="70.82700064749119" x2="123.0" y2="53.9"/><line class="spoke" x1="70.82700064749119" y1="70.82700064749119" x2="103.1" y2="115.2"/><line class="spoke" x1="70.82700064749119" y1="70.82700064749119" x2="38.6" y2="115.2"/><line class="spoke" x1="70.82700064749119" y1="70.82700064749119" x2="18.7" y2="53.9"/><polygon class="frame fr-ng" points="70.8,16.0 123.0,53.9 103.1,115.2 38.6,115.2 18.7,53.9"/><polygon class="sup" points="70.8,16.0 123.0,53.9 70.8,70.8 60.2,85.5 53.6,65.2"/><polygon class="dem" points="70.8,54.4 123.0,53.9 70.8,70.8 67.6,75.3 70.8,70.8"/><circle class="dot" cx="70.8" cy="54.4" r="2.2"/><circle class="dot" cx="123.0" cy="53.9" r="2.2"/><circle class="dot" cx="70.8" cy="70.8" r="2.2"/><circle class="dot" cx="67.6" cy="75.3" r="2.2"/><circle class="dot" cx="70.8" cy="70.8" r="2.2"/><text class="axl" x="70.8" y="10.5" text-anchor="middle">独</text><text class="axl" x="131.5" y="54.6" text-anchor="start">身</text><text class="axl" x="108.3" y="126.0" text-anchor="start">物</text><text class="axl" x="33.3" y="126.0" text-anchor="end">食</text><text class="axl" x="10.1" y="54.6" text-anchor="end">自</text></svg>
+  <span class="bname">蒼望楼</span>
+  <span class="bmeta"><b>16.7万</b> ・ 一休 4.40</span>
+  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-ng"><b>×</b><small>10</small></span><span class="fd fd-ng cur"><b>×</b><small>15</small></span></span></a></div><div class="ov-g"><span class="gk">C</span>同じ小豆島、違う形<small>作り手のエゴと、人のもてなし</small></div><div class="bub"><a class="bcell" href="#tou">
+  <svg class="radar mini" viewBox="0 0 144 144" width="144" height="144" role="img" aria-label="touの柱"><polygon class="ring" points="72.0,53.3 89.7,66.2 82.9,87.1 61.0,87.1 54.2,66.2"/><polygon class="ring" points="72.0,34.7 107.4,60.4 93.9,102.1 50.0,102.1 36.5,60.4"/><line class="spoke" x1="71.96427431853289" y1="71.96427431853289" x2="72.0" y2="16.0"/><line class="spoke" x1="71.96427431853289" y1="71.96427431853289" x2="125.2" y2="54.7"/><line class="spoke" x1="71.96427431853289" y1="71.96427431853289" x2="104.9" y2="117.2"/><line class="spoke" x1="71.96427431853289" y1="71.96427431853289" x2="39.1" y2="117.2"/><line class="spoke" x1="71.96427431853289" y1="71.96427431853289" x2="18.7" y2="54.7"/><polygon class="frame fr-ng" points="72.0,16.0 125.2,54.7 104.9,117.2 39.1,117.2 18.7,54.7"/><polygon class="sup" points="72.0,16.0 125.2,54.7 104.9,117.2 49.9,102.3 54.4,66.3"/><polygon class="dem weak" points="72.0,16.0 125.2,54.7 72.0,72.0 55.5,94.6 72.0,72.0"/><circle class="dot" cx="72.0" cy="16.0" r="2.2"/><circle class="dot" cx="125.2" cy="54.7" r="2.2"/><circle class="dot" cx="72.0" cy="72.0" r="2.2"/><circle class="dot" cx="55.5" cy="94.6" r="2.2"/><circle class="dot" cx="72.0" cy="72.0" r="2.2"/><text class="axl" x="72.0" y="10.5" text-anchor="middle">独</text><text class="axl" x="133.7" y="55.4" text-anchor="start">身</text><text class="axl" x="110.1" y="128.0" text-anchor="start">物</text><text class="axl run" x="33.8" y="128.0" text-anchor="end">食</text><text class="axl" x="10.2" y="55.4" text-anchor="end">自</text></svg>
+  <span class="bname">tou</span>
+  <span class="bmeta"><b>17.4万</b> ・ 一休 2.83 (2件)</span>
+  <span class="fdots"><span class="fd fd-ng"><b>×</b><small>5</small></span><span class="fd fd-ng"><b>×</b><small>10</small></span><span class="fd fd-ng cur"><b>×</b><small>15</small></span></span></a><a class="bcell" href="#sachi">
+  <svg class="radar mini" viewBox="0 0 111 111" width="111" height="111" role="img" aria-label="幸の柱"><polygon class="ring" points="55.3,42.2 67.8,51.3 63.1,66.0 47.6,66.0 42.9,51.3"/><polygon class="ring" points="55.3,29.1 80.3,47.2 70.8,76.6 39.9,76.6 30.4,47.2"/><line class="spoke" x1="55.344631145812" y1="55.344631145812" x2="55.3" y2="16.0"/><line class="spoke" x1="55.344631145812" y1="55.344631145812" x2="92.8" y2="43.2"/><line class="spoke" x1="55.344631145812" y1="55.344631145812" x2="78.5" y2="87.2"/><line class="spoke" x1="55.344631145812" y1="55.344631145812" x2="32.2" y2="87.2"/><line class="spoke" x1="55.344631145812" y1="55.344631145812" x2="17.9" y2="43.2"/><polygon class="frame fr-ok" points="55.3,16.0 92.8,43.2 78.5,87.2 32.2,87.2 17.9,43.2"/><polygon class="sup" points="55.3,16.0 80.4,47.2 78.5,87.2 39.9,76.7 43.0,51.3"/><polygon class="dem" points="55.3,30.2 68.8,51.0 78.5,87.2 33.8,84.9 52.7,54.5"/><circle class="dot" cx="55.3" cy="30.2" r="2.2"/><circle class="dot" cx="68.8" cy="51.0" r="2.2"/><circle class="dot" cx="78.5" cy="87.2" r="2.2"/><circle class="dot" cx="33.8" cy="84.9" r="2.2"/><circle class="dot" cx="52.7" cy="54.5" r="2.2"/><text class="axl" x="55.3" y="10.5" text-anchor="middle">独</text><text class="axl" x="101.3" y="43.9" text-anchor="start">身</text><text class="axl" x="83.8" y="98.0" text-anchor="start">物</text><text class="axl run" x="26.9" y="98.0" text-anchor="end">食</text><text class="axl" x="9.4" y="43.9" text-anchor="end">自</text></svg>
+  <span class="bname">幸</span>
+  <span class="bmeta"><b>8.6万</b> ・ 一休 4.96</span>
+  <span class="fdots"><span class="fd fd-ok"><b>✓</b><small>5</small></span><span class="fd fd-ok cur"><b>✓</b><small>10</small></span><span class="fd fd-ok above"><b>✓</b><small>15</small></span></span></a></div><div class="ov-g"><span class="gk">D</span>売り方が違う<small>オーナー制度・区分所有</small></div><div class="bub"><a class="bcell" href="#blanc">
+  <svg class="radar mini" viewBox="0 0 105 105" width="105" height="105" role="img" aria-label="BLANC NIKKOの柱"><polygon class="ring" points="52.7,40.5 64.4,49.0 59.9,62.7 45.5,62.7 41.1,49.0"/><polygon class="ring" points="52.7,28.2 76.0,45.2 67.1,72.6 38.3,72.6 29.4,45.2"/><line class="spoke" x1="52.74234614174767" y1="52.74234614174767" x2="52.7" y2="16.0"/><line class="spoke" x1="52.74234614174767" y1="52.74234614174767" x2="87.7" y2="41.4"/><line class="spoke" x1="52.74234614174767" y1="52.74234614174767" x2="74.3" y2="82.5"/><line class="spoke" x1="52.74234614174767" y1="52.74234614174767" x2="31.1" y2="82.5"/><line class="spoke" x1="52.74234614174767" y1="52.74234614174767" x2="17.8" y2="41.4"/><polygon class="frame fr-unk" points="52.7,16.0 87.7,41.4 74.3,82.5 31.1,82.5 17.8,41.4"/><polygon class="sup" points="52.7,16.0 87.7,41.4 59.9,62.6 38.3,72.7 41.2,49.0"/><text class="axl" x="52.7" y="10.5" text-anchor="middle">独</text><text class="axl" x="96.2" y="42.1" text-anchor="start">身</text><text class="axl" x="79.6" y="93.2" text-anchor="start">物</text><text class="axl run" x="25.9" y="93.2" text-anchor="end">食</text><text class="axl" x="9.2" y="42.1" text-anchor="end">自</text></svg>
+  <span class="bname">BLANC NIKKO</span>
+  <span class="bmeta"><b>7.5万</b> ・ 開業前</span>
+  <span class="fdots"><span class="fd fd-unk"><b>?</b><small>5</small></span><span class="fd fd-unk cur"><b>?</b><small>10</small></span><span class="fd fd-unk above"><b>?</b><small>15</small></span></span></a><a class="bcell wide" href="#nah">
+  <svg class="radar mini" viewBox="0 0 222 222" width="222" height="222" role="img" aria-label="NOT A HOTELの柱"><polygon class="ring" points="110.9,79.2 140.9,101.1 129.5,136.5 92.3,136.5 80.8,101.1"/><polygon class="ring" points="110.9,47.6 171.0,91.3 148.0,162.0 73.7,162.0 50.7,91.3"/><line class="spoke" x1="110.86832980505139" y1="110.86832980505139" x2="110.9" y2="16.0"/><line class="spoke" x1="110.86832980505139" y1="110.86832980505139" x2="201.1" y2="81.6"/><line class="spoke" x1="110.86832980505139" y1="110.86832980505139" x2="166.6" y2="187.6"/><line class="spoke" x1="110.86832980505139" y1="110.86832980505139" x2="55.1" y2="187.6"/><line class="spoke" x1="110.86832980505139" y1="110.86832980505139" x2="20.6" y2="81.6"/><polygon class="frame fr-unk" points="110.9,16.0 201.1,81.6 166.6,187.6 55.1,187.6 20.6,81.6"/><polygon class="sup" points="110.9,16.0 201.1,81.6 148.2,162.3 73.5,162.3 81.1,101.2"/><text class="axl" x="110.9" y="10.5" text-anchor="middle">独</text><text class="axl" x="209.7" y="82.3" text-anchor="start">身</text><text class="axl" x="171.9" y="198.4" text-anchor="start">物</text><text class="axl run" x="49.8" y="198.4" text-anchor="end">食</text><text class="axl" x="12.1" y="82.3" text-anchor="end">自</text></svg>
+  <span class="bname">NOT A HOTEL</span>
+  <span class="bmeta"><b>約50万</b><small> (2023年)</small> ・ 口コミなし</span>
+  <span class="fdots"><span class="fd fd-unk"><b>?</b><small>5</small></span><span class="fd fd-unk"><b>?</b><small>10</small></span><span class="fd fd-unk cur"><b>?</b><small>15</small></span></span></a></div>
 </section>
 
 <section class="find" id="find">
@@ -262,23 +331,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">小屋プロとほぼ同じ箱 (<span class="nw">50㎡</span>・4人・北杜・人なし) で、価格帯も同じ (<span class="nw">4名</span> 平日<span class="nw">6万</span>台)。届いたのは独占 (干渉されない) と自由。弱いのは説明と造り。小屋プロは同じ<span class="nw">5万段</span>で、湯と眺めの独占 (身体と独占) で上回れるかが勝負。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:46%"></i></div>
-  <div class="pr-val"><span class="v">46<em>%</em></span><small>6/13</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:23%"></i></div>
-  <div class="pr-val"><span class="v">23<em>%</em></span><small>3/13</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:8%"></i></div>
-  <div class="pr-val"><span class="v">8<em>%</em></span><small>1/13</small></div></div><div class="pr">
-  <div class="pr-ax zero">食<small>作った 無</small></div>
-  <div class="pr-bar"><i class="b-r" style="width:8%"></i></div>
-  <div class="pr-val"><span class="v">8<em>%</em></span><small>1/13</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:31%"></i></div>
-  <div class="pr-val"><span class="v">31<em>%</em></span><small>4/13</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="SANU 八ヶ岳の柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-ng" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,76.4 166.9,128.6 174.2,187.9 138.0,138.0 79.4,119.0"/><polygon class="dem" points="138.0,95.7 158.1,131.5 142.3,144.0 133.7,144.0 110.9,129.2"/><circle class="dot" cx="138.0" cy="95.7" r="3.2"/><circle class="dot" cx="158.1" cy="131.5" r="3.2"/><circle class="dot" cx="142.3" cy="144.0" r="3.2"/><circle class="dot" cx="133.7" cy="144.0" r="3.2"/><circle class="dot" cx="110.9" cy="129.2" r="3.2"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">46%</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">23%</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">8%</text><text class="axl" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">8%</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">31%</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="zero">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>売り</td><td>有</td><td>売り</td><td>無</td><td>売り</td></tr><tr><th>需要<small>届いた</small></th><td><b>46%</b><small>6/13</small></td><td><b>23%</b><small>3/13</small></td><td><b>8%</b><small>1/13</small></td><td><b>8%</b><small>1/13</small></td><td><b>31%</b><small>4/13</small></td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>「干渉されず」「周りを気にせず」「外から見えない」。13棟の敷地で1棟の独占</li><li><b class="zero">身体</b>サウナ付きは一部の棟。焚き火は冬季休止</li><li><b class="zero">物語</b>ADX 設計・釜石のスギ・環境共生。口コミは「天井が高い」1件</li><li><b class="zero">食</b>「調味料や食器が充実」</li><li><b class="zero">自由</b>自分たちのペース・作業用モニター・音楽・愛犬。IN 24時まで</li></ul></details>
   </section>
   <section class="blk">
@@ -312,23 +367,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">北杜・人なし・<span class="nw">5万段</span>で、楽天 5.00。届いたのは食 (地元の米・ステーキ) と物語 (時計もテレビもない、オーナーのこだわり)。人がいなくても、置いてある物と言葉が「心づくし」として届く。身体 (サウナ) は届いていない。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:30%"></i></div>
-  <div class="pr-val"><span class="v">30<em>%</em></span><small>3/10</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:0%"></i></div>
-  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/10</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:40%"></i></div>
-  <div class="pr-val"><span class="v">40<em>%</em></span><small>4/10</small></div></div><div class="pr">
-  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:40%"></i></div>
-  <div class="pr-val"><span class="v">40<em>%</em></span><small>4/10</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:10%"></i></div>
-  <div class="pr-val"><span class="v">10<em>%</em></span><small>1/10</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="SEKKIの柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-ok" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,46.0 196.6,119.0 192.1,212.4 101.8,187.9 109.1,128.6"/><polygon class="dem" points="138.0,110.4 138.0,138.0 159.6,167.8 116.4,167.8 129.3,135.2"/><circle class="dot" cx="138.0" cy="110.4" r="3.2"/><circle class="dot" cx="138.0" cy="138.0" r="3.2"/><circle class="dot" cx="159.6" cy="167.8" r="3.2"/><circle class="dot" cx="116.4" cy="167.8" r="3.2"/><circle class="dot" cx="129.3" cy="135.2" r="3.2"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">30%</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">0%</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">40%</text><text class="axl run" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">40%</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">10%</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="run">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>主役</td><td>売り</td><td>主役</td><td>売り</td><td>有</td></tr><tr><th>需要<small>届いた</small></th><td><b>30%</b><small>3/10</small></td><td><b>0%</b><small>0/10</small></td><td><b>40%</b><small>4/10</small></td><td><b>40%</b><small>4/10</small></td><td><b>10%</b><small>1/10</small></td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>三角の窓から甲斐駒・富士山、里山。「騒いでも隣を気にすることなく」</li><li><b class="zero">身体</b>サウナは3棟中2棟。口コミに出てこず、風呂の項目が最低 (4.67)</li><li><b class="zero">物語</b>古家具・古材、縄文遺跡の出る土地、時計もテレビもない。「オーナーの何一つ妥協しないこだわり」</li><li><b class="run">食</b>「ステーキは絶品」「地元でとれた新米」「自炊機能が充実」</li><li><b class="zero">自由</b>「自分の別荘に帰ってきたような」</li></ul></details>
   </section>
   <section class="blk">
@@ -362,23 +403,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">北杜・人なし・身体+独占で、小屋プロと同じ価格帯 (<span class="nw">4名</span> <span class="nw">6.4〜8.6万</span>)。ただし<span class="nw">198㎡</span>・<span class="nw">10名</span>の大人数向け。人がいないのに、頻出語の1位は「おもてなし」(<span class="nw">63件</span>)。連絡と準備の質が、人として届いている。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:15%"></i></div>
-  <div class="pr-val"><span class="v">15<em>%</em></span><small>23/150</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 無</small></div>
-  <div class="pr-bar"></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:20%"></i></div>
-  <div class="pr-val"><span class="v">20<em>%</em></span><small>30/150</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="ReTuneの柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-unk" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,46.0 225.5,109.6 138.0,138.0 120.2,162.6 79.4,119.0"/><circle class="dot" cx="138.0" cy="124.2" r="3.2"/><circle class="dot" cx="127.2" cy="152.9" r="3.2"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">15%</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">—</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">—</text><text class="axl run" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">20%</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">—</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="run">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>主役</td><td>主役</td><td>無</td><td>有</td><td>売り</td></tr><tr><th>需要<small>届いた</small></th><td><b>15%</b><small>23/150</small></td><td class="na">—</td><td class="na">—</td><td><b>20%</b><small>30/150</small></td><td class="na">—</td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>2,000坪を貸切、窓から富士山。棒は Airbnb の頻出語「景色」23件 (本文は未読)</li><li><b class="zero">身体</b>テントサウナ・八ヶ岳の井戸水の水風呂・露天風呂。頻出語に「屋外」39件 (意味が広いので棒にしない)</li><li><b class="zero">物語</b>掲載に由来の記載なし</li><li><b class="run">食</b>屋根付きBBQ。棒は頻出語「グリル」30件</li><li><b class="zero">自由</b>ペット可、カラオケ・トランポリン。大人数・家族向け</li></ul></details>
   </section>
   <section class="blk">
@@ -412,23 +439,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">同じ北杜・人なし・<span class="nw">5万段</span>に SANU・SEKKI・ReTune が並ぶ。SANU は同じ箱で独占と自由、SEKKI は食と物語、ReTune は身体と大人数。小屋プロの湯と眺め (身体と独占) がまだ空いている組み合わせか、床 (入室・説明・夜間連絡) を人なしで埋められるかが問い。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">食<small>作った 無</small></div>
-  <div class="pr-bar"></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="小屋プロ基準案の柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-unk" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,46.0 225.5,109.6 155.8,162.6 138.0,138.0 109.1,128.6"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">—</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">—</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">—</text><text class="axl" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">—</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">—</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="zero">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>主役</td><td>主役</td><td>有</td><td>無</td><td>有</td></tr><tr><th>需要<small>届いた</small></th><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>山の眺めの独占 (視界に人工物なし)</li><li><b class="zero">身体</b>屋外の常時適温の湯、冬</li><li><b class="zero">物語</b>自作の木のパネル。問い・土地の素材は未定</li><li><b class="zero">食</b>型を決める</li></ul></details>
   </section>
   <section class="blk">
@@ -462,23 +475,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">人なしでも4.70。身体11/12・食9/12が届き、床は案内で埋めている。崩れたのは清掃と連絡に穴が出た<span class="nw">1泊</span>だけで、その<span class="nw">1件</span>に苦情<span class="nw">6件</span>が集中した。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:42%"></i></div>
-  <div class="pr-val"><span class="v">42<em>%</em></span><small>5/12</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:92%"></i></div>
-  <div class="pr-val"><span class="v">92<em>%</em></span><small>11/12</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:8%"></i></div>
-  <div class="pr-val"><span class="v">8<em>%</em></span><small>1/12</small></div></div><div class="pr">
-  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:75%"></i></div>
-  <div class="pr-val"><span class="v">75<em>%</em></span><small>9/12</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:25%"></i></div>
-  <div class="pr-val"><span class="v">25<em>%</em></span><small>3/12</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="Refwindの柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-ng" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,76.4 225.5,109.6 155.8,162.6 101.8,187.9 109.1,128.6"/><polygon class="dem" points="138.0,99.4 218.5,111.8 142.3,144.0 97.4,193.8 116.1,130.9"/><circle class="dot" cx="138.0" cy="99.4" r="3.2"/><circle class="dot" cx="218.5" cy="111.8" r="3.2"/><circle class="dot" cx="142.3" cy="144.0" r="3.2"/><circle class="dot" cx="97.4" cy="193.8" r="3.2"/><circle class="dot" cx="116.1" cy="130.9" r="3.2"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">42%</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">92%</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">8%</text><text class="axl run" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">75%</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">25%</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="run">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>売り</td><td>主役</td><td>有</td><td>売り</td><td>有</td></tr><tr><th>需要<small>届いた</small></th><td><b>42%</b><small>5/12</small></td><td><b>92%</b><small>11/12</small></td><td><b>8%</b><small>1/12</small></td><td><b>75%</b><small>9/12</small></td><td><b>25%</b><small>3/12</small></td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>一棟貸切・完全非対面で誰にも会わない</li><li><b class="zero">身体</b>プライベートプール・サウナ・ジャグジー・焚火</li><li><b class="zero">物語</b>元小学校 (口コミ1件のみ)</li><li><b class="run">食</b>セルフBBQ</li><li><b class="zero">自由</b>好きな時間に使える、犬をリードなしで</li></ul></details>
   </section>
   <section class="blk">
@@ -512,23 +511,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">身体は<span class="nw">10件</span>全部に届いているのに4.40。Refwind と柱は同じ形で、差は入室・連絡・説明・備品の床に出た。価格が1.5倍なので床割れの痛みも大きい。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:30%"></i></div>
-  <div class="pr-val"><span class="v">30<em>%</em></span><small>3/10</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v">100<em>%</em></span><small>10/10</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 無</small></div>
-  <div class="pr-bar"><i class="b-r" style="width:0%"></i></div>
-  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/10</small></div></div><div class="pr">
-  <div class="pr-ax zero">食<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:10%"></i></div>
-  <div class="pr-val"><span class="v">10<em>%</em></span><small>1/10</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:0%"></i></div>
-  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/10</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="蒼望楼の柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-ng" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,46.0 225.5,109.6 138.0,138.0 120.2,162.6 109.1,128.6"/><polygon class="dem" points="138.0,110.4 225.5,109.6 138.0,138.0 132.6,145.4 138.0,138.0"/><circle class="dot" cx="138.0" cy="110.4" r="3.2"/><circle class="dot" cx="225.5" cy="109.6" r="3.2"/><circle class="dot" cx="138.0" cy="138.0" r="3.2"/><circle class="dot" cx="132.6" cy="145.4" r="3.2"/><circle class="dot" cx="138.0" cy="138.0" r="3.2"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">30%</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">100%</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">0%</text><text class="axl" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">10%</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">0%</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="zero">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>主役</td><td>主役</td><td>無</td><td>有</td><td>有</td></tr><tr><th>需要<small>届いた</small></th><td><b>30%</b><small>3/10</small></td><td><b>100%</b><small>10/10</small></td><td><b>0%</b><small>0/10</small></td><td><b>10%</b><small>1/10</small></td><td><b>0%</b><small>0/10</small></td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>部屋とテラスから海が一望</li><li><b class="zero">身体</b>水深190cmの水風呂・サウナ・源泉・温水プール</li><li><b class="zero">食</b>BBQ設備のみ。調味料・アルミ箔は持参</li><li><b class="zero">自由</b>カラオケ</li></ul></details>
   </section>
   <section class="blk">
@@ -562,23 +547,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">柱は独占・身体が届き、物語は作ったのに<span class="nw">2件</span>とも触れていない。床は<span class="nw">5万段</span>で割れ、苦情<span class="nw">13件</span>のうち<span class="nw">9件</span>が床割れ。遮光・洗面・鍵のように安く直せるものが多い。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r weak" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v">100<em>%</em></span><small>2/2・参考</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r weak" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v">100<em>%</em></span><small>2/2・参考</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r weak" style="width:0%"></i></div>
-  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/2・参考</small></div></div><div class="pr">
-  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r weak" style="width:50%"></i></div>
-  <div class="pr-val"><span class="v">50<em>%</em></span><small>1/2・参考</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r weak" style="width:0%"></i></div>
-  <div class="pr-val"><span class="v">0<em>%</em></span><small>0/2・参考</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="touの柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-ng" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,46.0 225.5,109.6 192.1,212.4 101.8,187.9 109.1,128.6"/><polygon class="dem weak" points="138.0,46.0 225.5,109.6 138.0,138.0 111.0,175.2 138.0,138.0"/><circle class="dot" cx="138.0" cy="46.0" r="3.2"/><circle class="dot" cx="225.5" cy="109.6" r="3.2"/><circle class="dot" cx="138.0" cy="138.0" r="3.2"/><circle class="dot" cx="111.0" cy="175.2" r="3.2"/><circle class="dot" cx="138.0" cy="138.0" r="3.2"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">100%</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">100%</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">0%</text><text class="axl run" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">50%</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">0%</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="run">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>主役</td><td>主役</td><td>主役</td><td>売り</td><td>有</td></tr><tr><th>需要<small>届いた</small></th><td><b>100%</b><small>2/2</small></td><td><b>100%</b><small>2/2</small></td><td><b>0%</b><small>0/2</small></td><td><b>50%</b><small>1/2</small></td><td><b>0%</b><small>0/2</small></td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>瀬戸内と讃岐富士、朝日の向き、プライベートビーチ</li><li><b class="zero">身体</b>木桶サウナ + 温冷4槽、焚火</li><li><b class="zero">物語</b>醤油蔵の木桶・江戸の釜風呂・問い1つ。口コミ2件とも触れず</li><li><b class="run">食</b>鉄釜の炊飯は褒められ、米+佃煮のみは苦情</li></ul></details>
   </section>
   <section class="blk">
@@ -612,23 +583,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">床は<span class="nw">15万段</span>まで通るのに、値付けは<span class="nw">10万段</span>以下。届いているのは人と食 (回すたびに費用) だけでなく、回す費用ゼロの物語 (醤油名家・畑・鶏) も<span class="nw">14件</span>全部。小屋プロが真似られるのは物語の方。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:64%"></i></div>
-  <div class="pr-val"><span class="v">64<em>%</em></span><small>9/14</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:36%"></i></div>
-  <div class="pr-val"><span class="v">36<em>%</em></span><small>5/14</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i><i class="b-r" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v">100<em>%</em></span><small>14/14</small></div></div><div class="pr">
-  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i><i class="b-r" style="width:93%"></i></div>
-  <div class="pr-val"><span class="v">93<em>%</em></span><small>13/14</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i><i class="b-r" style="width:7%"></i></div>
-  <div class="pr-val"><span class="v">7<em>%</em></span><small>1/14</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="幸の柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-ok" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,46.0 196.6,119.0 192.1,212.4 101.8,187.9 109.1,128.6"/><polygon class="dem" points="138.0,79.1 169.5,127.8 192.1,212.4 87.7,207.2 131.9,136.0"/><circle class="dot" cx="138.0" cy="79.1" r="3.2"/><circle class="dot" cx="169.5" cy="127.8" r="3.2"/><circle class="dot" cx="192.1" cy="212.4" r="3.2"/><circle class="dot" cx="87.7" cy="207.2" r="3.2"/><circle class="dot" cx="131.9" cy="136.0" r="3.2"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">64%</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">36%</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">100%</text><text class="axl run" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">93%</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">7%</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="run">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>主役</td><td>売り</td><td>主役</td><td>売り</td><td>有</td></tr><tr><th>需要<small>届いた</small></th><td><b>64%</b><small>9/14</small></td><td><b>36%</b><small>5/14</small></td><td><b>100%</b><small>14/14</small></td><td><b>93%</b><small>13/14</small></td><td><b>7%</b><small>1/14</small></td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>3,000㎡を1組で貸切。寝室4つで家族ごとのプライバシー</li><li><b class="zero">身体</b>100℃近いサウナ付きの石風呂</li><li><b class="zero">物語</b>醤油名家の屋敷・旧家の古道具・蔵バー・畑と鶏の卵取り</li><li><b class="run">食</b>出張シェフ (和・伊・寿司)、オリーブ牛のしゃぶしゃぶ、畑の野菜</li></ul></details>
   </section>
   <section class="blk">
@@ -662,23 +619,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">作った柱は独占と身体の2本で、小屋プロに一番近い形。泊まって、床<span class="nw">3段</span> (特に入室・夜間連絡・説明) と、どの柱が自分に届いたかを採点する。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="BLANC NIKKOの柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-unk" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,46.0 225.5,109.6 155.8,162.6 101.8,187.9 109.1,128.6"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">—</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">—</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">—</text><text class="axl run" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">—</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">—</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="run">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>主役</td><td>主役</td><td>有</td><td>売り</td><td>有</td></tr><tr><th>需要<small>届いた</small></th><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>神域の原生林・田母沢川。他の客と顔を合わせない独立ヴィラ</li><li><b class="zero">身体</b>全室に檜風呂の温泉、24時間</li><li><b class="zero">物語</b>トレーラーハウス・東濃ヒノキ・古材</li><li><b class="run">食</b>栃木の食材の部屋食</li></ul></details>
   </section>
   <section class="blk">
@@ -712,23 +655,9 @@ details[open] summary::before{content:"−"}
   </header>
   <p class="take">所有型は口コミが表に出ず、届いた柱を測れない。測るには泊まるか滞在記を集めるしかない。お金は所有の販売で先に回収し、<span class="nw">1泊</span>販売は空き期間の穴埋め。自分が使わない期間を売る点は、小屋プロの「住みながら貸す」と同じ構造。</p>
   <section class="blk">
-    <h3>柱<span class="h3s"><i class="k-m"></i>作った <i class="k-r"></i>届いた</span></h3>
-    <div class="pr">
-  <div class="pr-ax zero">独占<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">身体<small>作った 主役</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:100%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">物語<small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax run">食<span class="yen" title="回すたびに費用">¥</span><small>作った 売り</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:67%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div><div class="pr">
-  <div class="pr-ax zero">自由<small>作った 有</small></div>
-  <div class="pr-bar"><i class="b-m" style="width:33%"></i></div>
-  <div class="pr-val"><span class="v-na">—</span><small>未計測</small></div></div>
+    <h3>柱<span class="h3s"><i class="k-m"></i>供給 (作った) <i class="k-r"></i>需要 (届いた)</span></h3>
+    <div class="bigradar"><svg class="radar big" viewBox="0 0 276 276" width="276" height="276" role="img" aria-label="NOT A HOTELの柱"><polygon class="ring" points="138.0,107.3 167.2,128.5 156.0,162.8 120.0,162.8 108.8,128.5"/><polygon class="ring" points="138.0,76.7 196.3,119.0 174.1,187.6 101.9,187.6 79.7,119.0"/><line class="spoke" x1="138" y1="138" x2="138.0" y2="46.0"/><line class="spoke" x1="138" y1="138" x2="225.5" y2="109.6"/><line class="spoke" x1="138" y1="138" x2="192.1" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="83.9" y2="212.4"/><line class="spoke" x1="138" y1="138" x2="50.5" y2="109.6"/><polygon class="frame fr-unk" points="138.0,46.0 225.5,109.6 192.1,212.4 83.9,212.4 50.5,109.6"/><polygon class="sup" points="138.0,46.0 225.5,109.6 174.2,187.9 101.8,187.9 109.1,128.6"/><text class="axl" x="138.0" y="30.0" text-anchor="middle">独占</text><text class="axv" x="138.0" y="45.0" text-anchor="middle">—</text><text class="axl" x="238.8" y="103.2" text-anchor="start">身体</text><text class="axv" x="238.8" y="118.2" text-anchor="start">—</text><text class="axl" x="200.3" y="221.8" text-anchor="start">物語</text><text class="axv" x="200.3" y="236.8" text-anchor="start">—</text><text class="axl run" x="75.7" y="221.8" text-anchor="end">食</text><text class="axv" x="75.7" y="236.8" text-anchor="end">—</text><text class="axl" x="37.2" y="103.2" text-anchor="end">自由</text><text class="axv" x="37.2" y="118.2" text-anchor="end">—</text></svg></div>
+    <table class="ptab"><tr><th></th><th class="zero">独占</th><th class="zero">身体</th><th class="zero">物語</th><th class="run">食</th><th class="zero">自由</th></tr><tr><th>供給<small>作った</small></th><td>主役</td><td>主役</td><td>売り</td><td>売り</td><td>有</td></tr><tr><th>需要<small>届いた</small></th><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr></table>
     <details class="why"><summary>柱の根拠</summary><ul><li><b class="zero">独占</b>牧場と20頭の馬を借景、ファームビューの独占</li><li><b class="zero">身体</b>全棟にプライベートプールとサウナ、2棟は天然温泉</li><li><b class="zero">物語</b>SUPPOSE DESIGN OFFICE の建築 (「浮遊の家」「洞窟」)</li><li><b class="run">食</b>朝食が部屋に届く。シェフの食事の記載あり</li><li><b class="zero">自由</b>アプリで予約から退室まで完結</li></ul></details>
   </section>
   <section class="blk">
