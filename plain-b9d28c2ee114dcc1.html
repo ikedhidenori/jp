@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>副業アカウントと遠隔ログインの決め方 (2026-10-07)</title>
+<style>
+:root{--bg:#FAF8F4;--fg:#2A2825;--mute:#6B665E;--line:#E2DDD3;--acc:#3F6E8C;--card:#FFFFFF}
+@media (prefers-color-scheme:dark){:root{--bg:#1F1E1B;--fg:#E8E3D8;--mute:#A39D90;--line:#3A3833;--acc:#8DB3CC;--card:#282723}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.75;font-size:16px}
+main{max-width:760px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:1.45rem;line-height:1.4;margin:.4em 0 1em}
+h2{font-size:1.12rem;margin:2em 0 .6em;padding-left:.6em;border-left:4px solid var(--acc)}
+li{margin:.3em 0} ul ul{margin:.2em 0}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.8em 0;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:.55em .7em;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:600;white-space:nowrap} tr:last-child td{border-bottom:none}
+code{font-size:.85em;background:var(--line);padding:.1em .35em;border-radius:4px;word-break:break-all}
+strong{color:var(--acc)} footer{color:var(--mute);font-size:.8rem;margin-top:3em}
+</style></head><body><main><h1>副業アカウントと遠隔ログインの決め方 (2026-10-07)</h1>
+<h2>結論</h2>
+<ul><li><strong>Googleアカウントはブランドごとに1つ</strong>にする。図鑑とWonderの2つで止める。シリーズごとには作らない。</li><li>遠隔で通らないのは、<strong>iPhoneでQRを読むパスキー</strong>と<strong>Touch IDの指</strong>の2つだけ。Googleの「はい、私です」通知、6桁コード、Macのパスワードなら、離れた場所からでも通る。</li><li>AIの仕事は<strong>ログイン済みの画面を使うところまで</strong>。アカウント作成・ログイン・認証の入力は本人が行う（iPhoneから、または画面共有で）。</li></ul>
+<h2>1. 副業アカウントの一覧</h2>
+<div class="tw"><table><thead><tr><th>まとまり</th><th>アカウント</th><th>状態</th><th>登録メール</th></tr></thead><tbody><tr><td>図鑑 (旧hub)</td><td>zukan.jp@gmail.com</td><td>6/10に凍結。2027/05/06以降に削除。<strong>損切り済み・再審査しない</strong></td><td>—</td></tr><tr><td>図鑑</td><td>ドメイン zukan.page (Porkbun)</td><td>稼働。メール転送あり</td><td>—</td></tr><tr><td>図鑑</td><td>note <code>zukan_jp</code></td><td>稼働</td><td>個人Gmailの別名 (+zukan)</td></tr><tr><td>図鑑</td><td>X <code>@zetsumetsuzukan</code> / <code>@ramen_zukan_jp</code> / <code>@zukan_jp</code></td><td>稼働・所有確認待ちが混在</td><td>x-○○@zukan.page</td></tr><tr><td>図鑑</td><td>X <code>@1tsubo_zukan</code> / <code>@factful_zukan</code> / <code>@yado_zukan</code></td><td>候補・未作成</td><td>同上</td></tr><tr><td>図鑑</td><td>Kit (メール配信)</td><td>稼働</td><td>hello@zukan.page</td></tr><tr><td>図鑑</td><td>YouTube / TikTok / Instagram</td><td>投稿29本 (IG11・YT9・TikTok9)。どのGoogleアカウントの下にあるかは未確認</td><td>未確認</td></tr><tr><td>Wonder</td><td>Google (YouTube) / X / Instagram <code>@wonderzukan</code></td><td>稼働。第1話を10/1に公開</td><td>wonder@zukan.page</td></tr><tr><td>Wonder</td><td>TikTok</td><td>「試行回数が多すぎ」で未作成</td><td>wonder@zukan.page</td></tr></tbody></table></div>
+<ul><li>届いたメールは、すべて<strong>個人Gmailの別名 (+zukan)</strong> で受け取る（zukan.page の転送経由）。登録メールがドメイン側にあるので、Googleアカウントが止まってもログイン手段は残る。</li><li>図鑑の詳しい台帳は <code>data/zukan-engine/zukan-account-funnel-registry.md</code>。</li></ul>
+<h2>2. 遠隔で使える認証、使えない認証</h2>
+<div class="tw"><table><thead><tr><th>方式</th><th>実家のMacを遠隔で操作中に</th><th>理由</th></tr></thead><tbody><tr><td>iPhoneでQRを読むパスキー</td><td>✕</td><td>iPhoneとMacがBluetoothで近くにあるかを確かめる仕組み</td></tr><tr><td>MacのTouch ID</td><td>✕</td><td>指が届かない</td></tr><tr><td>Macに保存したパスキー (パスワードApp・iCloudキーチェーン)</td><td>△→○</td><td>Touch IDの代わりにMacのログインパスワードを入れられる場面が多い。<strong>1回試して確かめる</strong></td></tr><tr><td>Googleの「ログインしようとしていますか？」通知</td><td>○</td><td>ネット経由なので距離は関係ない</td></tr><tr><td>認証アプリの6桁コード</td><td>○</td><td>iPhoneで見て、画面共有で入力する</td></tr><tr><td>SMSのコード</td><td>○</td><td>ただし同じ番号をたくさんのアカウントに使うのは控える（結び付けの材料になりうる。推測）</td></tr><tr><td>バックアップコード</td><td>○</td><td>最後の手段</td></tr><tr><td>物理セキュリティキー</td><td>✕</td><td>遠隔では使えない</td></tr></tbody></table></div>
+<h2>3. アカウントごとに一度だけする設定</h2>
+<ol><li>二段階認証の第1手段を <strong>Googleの通知 (iPhone)</strong> にする。</li><li>第2手段に <strong>6桁コード</strong> を足す。iPhone標準のパスワードAppで作れる。</li><li><strong>バックアップコード</strong> 10個を、iPhoneのパスワードAppのメモに保存する。AIが読める場所（Mac上のファイル・チャット・リポジトリ）には置かない。</li><li><strong>予備のメール</strong>（個人Gmailの別名）と<strong>予備の電話</strong>（本人の番号）を入れる。</li><li>パスキーは「iPhoneで直接ログインするとき用」と割り切る。Macで使うなら、上の表の△が○になるかを1回確かめる。</li></ol>
+<h2>4. 自動操作の置き場所</h2>
+<ul><li>自動操作用のChrome (9222) は<strong>Wonder専用の作業場</strong>。ここでやるのは、ログイン済みのYouTube Studio・X・Instagramで、下書きと投稿の準備をすることだけ。</li><li><strong>やらないこと</strong><ul><li>アカウントを作る</li><li>ログインし直す</li><li>別のアカウントへ切り替える</li><li>短い時間に何度もやり直す（TikTokの「試行回数が多すぎ」はこれが原因）</li></ul></li><li>図鑑の作業は、Wonderとは別のChromeプロフィールで行う。<strong>1つのChromeに1つのブランド</strong>。</li><li>ログインが切れたら、AIは止まって知らせる。本人が画面共有で入れ直す（数分）。</li><li>新しいアカウントは<strong>本人がiPhoneで作り</strong>、最初の数週間はふつうに手で使う。</li></ul>
+<h2>5. 増やすかどうかの基準 (提案)</h2>
+<ul><li>新しいGoogleアカウントは、新しいブランドでYouTubeチャンネルが要るときだけ作る。</li><li>Xの専用アカウントは、<strong>週1本以上の投稿が回る見込みが立ってから</strong>作る。今の台帳では図鑑だけで6つ（未作成の3つを含む）、Wonderを入れると7つになる。</li><li>この表は3か月に1回見直す。</li></ul>
+<h2>6. ジョニーのやること</h2>
+<ol><li>iPhoneの「設定 → Google → セキュリティ」で、Wonderのアカウントに二段階認証・予備メール・予備電話・バックアップコードが入っているか確かめる（約5分）。</li><li>次に遠隔でパスキーを求められたら、「別の方法」「パスワードを使う」が出るかを見る（その場で1回）。</li><li>Wonder の TikTok は、制限が解けてからiPhoneのTikTokアプリで本人が作る。</li></ol>
+<h2>まだ確かめていないこと</h2>
+<ul><li>Wonderの二段階認証の状態（AIは見ていない）</li><li>Macのパスキーの確認を、Macのパスワードで代わりにできるか（実地で未テスト）</li><li>図鑑のYouTube・TikTok・Instagramがどのアカウントの下にあるか</li></ul><footer>このページは 2026-10-14 に自動削除されます</footer></main></body></html>
