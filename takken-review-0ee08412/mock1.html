@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>模試1の復習</title>
+<style>
+:root{--bg:#1F1E1B;--card:#2A2925;--ink:#D3CEC1;--mute:#9C968A;--line:#3B3934;--hl:#F5CC1A;--ok:#7FB77E;--ng:#E07A6F}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#F4EFE3;--card:#FFFFFF;--ink:#1F1E1B;--mute:#6B665C;--line:#D9D2C2;--hl:#C99A00;--ok:#2E7D32;--ng:#B3261E}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;line-height:1.6;font-size:15px;padding:0 16px 48px;max-width:640px;margin:0 auto}
+h1{font-size:20px;margin:20px 0 4px}
+h2{font-size:17px;margin:28px 0 8px;padding-top:8px;border-top:1px solid var(--line)}
+.sub{color:var(--mute);font-size:13px;margin:0 0 12px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 6px;text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:600}
+.big{font-size:15px;font-weight:700}
+.hl{color:var(--hl);font-weight:700}
+.ok{color:var(--ok);font-weight:700}
+.ng{color:var(--ng);font-weight:700}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0}
+.box p{margin:4px 0}
+ol.steps{padding-left:1.3em;margin:6px 0}
+ol.steps li{margin:4px 0}
+details.q{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:0}
+details.q>summary{padding:10px 12px;cursor:pointer;list-style:none}
+details.q>summary::-webkit-details-marker{display:none}
+details.q>summary b{font-size:15.5px}
+details.q>summary .meta{display:block;font-size:12.5px;color:var(--mute);margin-top:2px}
+details.q .body{padding:0 12px 12px}
+.ch{display:grid;grid-template-columns:34px 1fr;gap:6px;padding:7px 0;border-top:1px solid var(--line)}
+.ch .m{font-weight:800;font-size:15px}
+.ch .t{font-size:14px}
+.ch .t small{display:block;color:var(--mute);font-size:12.5px}
+.miss{border-left:4px solid var(--ng);padding-left:8px}
+.one{margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(245,204,26,.12);font-size:14px}
+.one b{color:var(--hl)}
+.tag{display:inline-block;font-size:11.5px;border:1px solid var(--line);border-radius:10px;padding:0 7px;margin-right:4px;color:var(--mute)}
+a{color:var(--hl)}
+</style></head><body>
+<h1>模試1の復習（令和7年度）</h1>
+<p class="sub">10/7 実施。25点（合格点33）。正解は試験実施団体（RETIO）の正解番号表。肢ごとの理由は宅建業法・施行規則・民法の条文で確認（一部は国交省の解釈、と明記）。</p>
+
+<h2>1. 何が起きたか</h2>
+<table>
+<tr><th>分野</th><th>点数</th><th>目標</th><th>落とした問題</th></tr>
+<tr><td>宅建業法</td><td class="ng big">9/20</td><td>18</td><td>26・27・28・30・31・33・34・41・42・43・44</td></tr>
+<tr><td>権利関係</td><td>6/14</td><td>8</td><td>2・3・4・6・7・8・9・14</td></tr>
+<tr><td>法令上の制限</td><td>4/8</td><td>6</td><td>18・19・20・21</td></tr>
+<tr><td>税・価格</td><td>2/3</td><td>2</td><td>23</td></tr>
+<tr><td>免除5問</td><td>4/5</td><td>4</td><td>48（統計）</td></tr>
+</table>
+
+<div class="box">
+<p class="big">業法の負け方は「個数問題」</p>
+<table>
+<tr><th>業法の形式</th><th>正解</th><th>正答率</th></tr>
+<tr><td>普通の4択（1つ選ぶ）</td><td>6/9</td><td>67%</td></tr>
+<tr><td>個数問題（いくつあるか）</td><td class="ng">3/10</td><td class="ng">30%</td></tr>
+<tr><td>組合せ（全て掲げたもの）</td><td>0/1</td><td>0%</td></tr>
+</table>
+<p>普通の4択の67%は、アプリの業法の本問正答率（68%）とほぼ同じ。<b>神問題集で見えていた実力どおり</b>。点を失ったのは個数問題。</p>
+<p>個数問題は、4つの肢を<b>全部</b>当てないと1点にならない。肢1つ当たりの正答率がpなら、1問取れる確率はおよそpの4乗。</p>
+<table>
+<tr><th>肢の正答率</th><th>個数問題が取れる確率</th></tr>
+<tr><td>65%（アプリの業法の小問）</td><td>約18%</td></tr>
+<tr><td>80%</td><td>約41%</td></tr>
+<tr><td class="hl">90%</td><td class="hl">約66%</td></tr>
+<tr><td>95%</td><td>約81%</td></tr>
+</table>
+<p>だから業法は「解く量」より、<span class="hl">肢1つ1つを○×と理由まで言い切れるか</span>で決まる。令和7年度は業法の個数問題が10問と特に多かった（令和6年度は組合せ含め5問、令和5年度は7問）。</p>
+</div>
+
+<div class="box">
+<p class="big">業法の誤答11問を論点で分けると</p>
+<table>
+<tr><th>論点</th><th>問</th><th>本試験での重さ</th></tr>
+<tr><td>35条と37条の区別・35条の項目</td><td>27・33・43</td><td class="hl">毎年3〜4問の主戦場</td></tr>
+<tr><td>免許・宅建士（欠格、免許の種類、登録）</td><td>34・41・42</td><td class="hl">毎年2〜3問</td></tr>
+<tr><td>業務の規制・禁止行為・クーリングオフの告知</td><td>28・30・31</td><td>毎年2〜3問</td></tr>
+<tr><td>報酬（2024年の空家の特例）</td><td>26</td><td>毎年1問</td></tr>
+<tr><td>犯罪収益移転防止法</td><td>44</td><td>まれ</td></tr>
+</table>
+<p>免許・宅建士は、アプリでも小問の正答率が一番低かった範囲（業法001〜050）。<b>「隠れた穴」がそのまま本試験で出た</b>。</p>
+</div>
+
+<div class="box">
+<p class="big">時間</p>
+<p>業法に約60分（目安35分）。原因は速さではなく、肢ごとに迷って読み返したこと。知識が固まれば時間も縮む。本番の手順：肢を読んだらすぐ横に○×△を書く。△が2つ残った個数問題は、3分で見切って次へ。</p>
+</div>
+
+<div class="box">
+<p class="big">36点への道筋（現在25点）</p>
+<table>
+<tr><th>分野</th><th>今</th><th>狙い</th><th>どうやって</th></tr>
+<tr><td>業法</td><td>9</td><td class="hl">15</td><td>35・37条と免許・宅建士の穴をふさぐ＋個数問題の手順</td></tr>
+<tr><td>法令</td><td>4</td><td>6</td><td>落とした盛土規制法・区画整理法・農地法は、まだ解いていない範囲。第3分冊を終えれば取れる</td></tr>
+<tr><td>権利</td><td>6</td><td>8</td><td>落とした保証・共有・連帯債務（問2・8・9）は、まだ扱っていない論点。10/10に扱う</td></tr>
+<tr><td>税・価格</td><td>2</td><td>2〜3</td><td>登録免許税（問23）は未着手の範囲</td></tr>
+<tr><td>免除</td><td>4</td><td>5</td><td>統計は直前に覚える</td></tr>
+<tr><td><b>合計</b></td><td><b>25</b></td><td class="hl"><b>35〜36</b></td><td>業法以外の伸びしろは「まだやっていない範囲を終える」だけ</td></tr>
+</table>
+</div>
+
+<h2>2. 復習の順番</h2>
+<ol class="steps">
+<li><b>今日〜10/8：業法の誤答11問</b>（下の解説）。35・37条（27・33・43）→ 免許・宅建士（34・41・42）→ 業務の規制（28・30・31）→ 報酬（26）→ 犯収法（44）の順。</li>
+<li><b>やり方</b>：解説を開く前に、冊子で各肢に自分の○×と理由を書く → 開いて照らす → 間違えた肢を「知らなかった／混同した／読み違えた」に分ける → 1行で誤答カードへ。</li>
+<li><b>権利・法令・税の誤答</b>は、ほとんどが未着手の範囲。今は深追いせず、計画の日（法令は10/8〜9、権利は10/10〜12）にその範囲を解く。</li>
+<li>統計（問48）は今はやらない。</li>
+</ol>
+
+<h2>3. 業法の誤答の解説（タップで開く）</h2>
+<p class="sub"><span class="ng">赤い線</span>の肢が、あなたの答えから見て間違えた可能性が高い肢（個数問題は数のずれからの推定）。</p>
+
+<details class="q"><summary><b>問27 35条（正しいもの1つ）</b><span class="meta">正解 1 ／ あなた 4 ／ 35条と37条の混同</span></summary><div class="body">
+<div class="ch"><div class="m ok">○1</div><div class="t">区分所有建物の売買で管理を委託しているときは、委託先の名称と主たる事務所の所在地を説明する。<small>35条（規則16条の2）の区分所有建物の追加項目。</small></div></div>
+<div class="ch"><div class="m ng">×2</div><div class="t">重要事項説明書に記名するのは宅建士（専任でなくてよい）。買主の記名は不要。</div></div>
+<div class="ch"><div class="m ng">×3</div><div class="t">説明の場所の決まりはない。事務所でなくてよい。</div></div>
+<div class="ch miss"><div class="m ng">×4</div><div class="t">「天災その他不可抗力による損害の負担」は<b>37条書面</b>の任意的記載事項。35条の説明項目ではない。<small>あなたはこれを選んだ。危険負担は契約の中身＝37条。</small></div></div>
+<div class="one"><b>覚える1行</b>：35条は「買う前に知っておくべき物件と取引の条件」、37条は「契約で決めた中身」。天災の負担・解除・損害賠償の予定は37条。</div>
+</div></details>
+
+<details class="q"><summary><b>問33 35条と37条（誤っているものはいくつ）</b><span class="meta">正解 三つ ／ あなた 二つ ／ 35条と37条の混同</span></summary><div class="body">
+<div class="ch"><div class="m ok">○ア</div><div class="t">貸借の媒介：引渡しの時期は35条の説明項目ではないが、37条書面には必ず書く。</div></div>
+<div class="ch"><div class="m ng">×イ</div><div class="t">契約の解除は37条の<b>任意的</b>記載事項。定めがあるときだけ書く。「定めがなくても全て記載」は誤り。</div></div>
+<div class="ch miss"><div class="m ng">×ウ</div><div class="t">抵当権など<b>登記された権利</b>は35条の説明項目。37条書面の記載事項ではない。<small>数が一つ少ないので、ここを正しいと判断した可能性が高い。</small></div></div>
+<div class="ch"><div class="m ng">×エ</div><div class="t">37条書面は、宅建士の<b>記名</b>は必要だが、<b>説明</b>は不要。</div></div>
+<div class="one"><b>覚える1行</b>：登記された権利（抵当権）は35条。37条は「記名だけ、説明なし」。</div>
+</div></details>
+
+<details class="q"><summary><b>問43 35条の項目（正しいものはいくつ）</b><span class="meta">正解 四つ ／ あなた 二つ ／ 35条の細かい項目</span></summary><div class="body">
+<div class="ch miss"><div class="m ok">○ア</div><div class="t">自分が委託者の信託受益権を売るとき、金融商品取引法の目論見書を渡し、35条の説明事項がすべて書かれていれば、重要事項説明書の交付と説明を省略できる。<small>まれな論点。知らなくても仕方がない。</small></div></div>
+<div class="ch"><div class="m ok">○イ</div><div class="t">未完成の建物は、<b>貸借でも</b>完了時の構造・内装・設備を説明する。</div></div>
+<div class="ch"><div class="m ok">○ウ</div><div class="t">貸借では、敷金など契約終了時に精算する金銭の精算に関する事項を説明する。</div></div>
+<div class="ch miss"><div class="m ok">○エ</div><div class="t">津波防護施設区域内の宅地なら、その制限の概要を説明する（法令上の制限の一つ）。</div></div>
+<div class="one"><b>覚える1行</b>：「未完成物件の説明」と「敷金の精算」は貸借でも必要。法令上の制限は、聞き慣れない法律名でも説明対象のことが多い。</div>
+</div></details>
+
+<details class="q"><summary><b>問34 免許の欠格（正しいものはいくつ）</b><span class="meta">正解 三つ ／ あなた 四つ ／ 欠格の罪名</span></summary><div class="body">
+<div class="ch"><div class="m ok">○ア</div><div class="t">政令で定める使用人が執行猶予中（懲役刑）なら、その人を使用人にする会社は免許を受けられない。懲役刑は罪名を問わず欠格。猶予期間が満了すれば、すぐ欠格でなくなる。</div></div>
+<div class="ch"><div class="m ok">○イ</div><div class="t">不正手段による免許取消の聴聞の公示後に、相当の理由なく廃業を届け出た会社は、届出から5年は欠格。公示日前60日以内に役員だった人も同じ。40日前に退任したEも5年欠格。</div></div>
+<div class="ch miss"><div class="m ng">×ウ</div><div class="t">現場助勢罪（刑法206条）は、<b>罰金でも欠格</b>になる罪（傷害・現場助勢・暴行・凶器準備集合・脅迫・背任など）。法定代理人が欠格なら、営業の許可を受けていない未成年者も免許を受けられない。<small>あなたは四つ＝これも正しいと判断。</small></div></div>
+<div class="ch"><div class="m ok">○エ</div><div class="t">破産者は、復権を得れば<b>すぐ</b>欠格でなくなる（5年待たない）。</div></div>
+<div class="one"><b>覚える1行</b>：罰金で欠格になるのは「暴力系（傷害・暴行・脅迫・現場助勢・凶器準備集合）＋背任＋宅建業法違反」。破産は復権ですぐOK。</div>
+</div></details>
+
+<details class="q"><summary><b>問41 免許（正しいもの1つ）</b><span class="meta">正解 1 ／ あなた 3 ／ 免許の種類</span></summary><div class="body">
+<div class="ch"><div class="m ok">○1</div><div class="t">免許を受けてから1年以内に事業を始めないときは、免許権者は免許を<b>取り消さなければならない</b>。</div></div>
+<div class="ch"><div class="m ng">×2</div><div class="t">解散の届出は<b>清算人</b>が<b>30日以内</b>に。代表役員でも60日でもない。</div></div>
+<div class="ch miss"><div class="m ng">×3</div><div class="t">支店で宅建業を営むなら、本店は宅建業をしていなくても「事務所」になる。甲県（本店）と乙県（支店）に事務所がある → <b>国土交通大臣免許</b>。<small>あなたはこれを選んだ。</small></div></div>
+<div class="ch"><div class="m ng">×4</div><div class="t">甲県の事務所を廃止して乙県だけになるなら、乙県知事への<b>免許換え</b>。廃業の届出は要らない。</div></div>
+<div class="one"><b>覚える1行</b>：支店で営業すれば本店も事務所。県をまたげば大臣免許。</div>
+</div></details>
+
+<details class="q"><summary><b>問42 宅建士（正しいものはいくつ）</b><span class="meta">正解 二つ ／ あなた 三つ ／ 登録と宅建士証</span></summary><div class="body">
+<div class="ch"><div class="m ng">×ア</div><div class="t">2つ以上の都道府県で合格した人は、どちらか1つの知事の登録を受ける。「試験日が遅い方だけ」という決まりはない。</div></div>
+<div class="ch miss"><div class="m ng">×イ</div><div class="t">勤務先の名称が変わったら<b>変更の登録</b>は必要。ただし勤務先は宅建士証に載っていないので、<b>書換え交付は不要</b>（書換えは氏名・住所の変更のとき）。<small>数が一つ多いので、アかイを正しいと判断した可能性。</small></div></div>
+<div class="ch"><div class="m ok">○ウ</div><div class="t">宅建士証が効力を失ったら、速やかに交付を受けた知事に返納する。</div></div>
+<div class="ch"><div class="m ok">○エ</div><div class="t">他の都道府県の事務所で業務に従事しているときは、登録の移転を申請<b>できる</b>（任意）。</div></div>
+<div class="one"><b>覚える1行</b>：宅建士証に載るのは氏名・住所など。勤務先は載らないので、勤務先の変更は「変更の登録」だけ。</div>
+</div></details>
+
+<details class="q"><summary><b>問28 業務の規制（正しいものはいくつ）</b><span class="meta">正解 二つ ／ あなた 一つ ／ 罰則・建築確認前・業者間</span></summary><div class="body">
+<div class="ch miss"><div class="m ok">○ア</div><div class="t">取引態様を明示しなかった → 罰則はないが監督処分の対象。誇大広告 → 罰則（6月以下の懲役か100万円以下の罰金）と監督処分の両方。<small>数が一つ少ないので、アかエを誤りと判断した可能性。</small></div></div>
+<div class="ch"><div class="m ng">×イ</div><div class="t">建築確認の前は<b>広告もできない</b>（契約もできない）。</div></div>
+<div class="ch"><div class="m ng">×ウ</div><div class="t"><b>買主が業者</b>なので、自己の所有でない物件の契約制限（8種制限）はかからない。保全も取得契約も要らない。</div></div>
+<div class="ch"><div class="m ok">○エ</div><div class="t">専属専任媒介は、契約の日から5日以内（休業日を除く）に指定流通機構に登録。</div></div>
+<div class="one"><b>覚える1行</b>：ここでも「買主が業者なら8種制限は外れる」。建築確認前は広告も契約（売買）もダメ。</div>
+</div></details>
+
+<details class="q"><summary><b>問30 共同売主の売却（違反するものはいくつ）</b><span class="meta">正解 三つ ／ あなた 四つ ／ クーリングオフの告知</span></summary><div class="body">
+<div class="ch"><div class="m ng">違ア</div><div class="t">売主が複数の業者なら、各社に説明義務がある。代表1社が説明してもよいが、1社の宅建士だけの記名では足りない（国交省の考え方）。</div></div>
+<div class="ch miss"><div class="m ok">適イ</div><div class="t">クーリングオフができることを<b>書面で告げるのは義務ではない</b>。告げないと8日が始まらないだけ。だから交付しなくても違反ではない。<small>あなたは四つ＝これも違反と判断。</small></div></div>
+<div class="ch"><div class="m ng">違ウ</div><div class="t">区分所有建物では、共用部分に関する規約の定めは<b>案の段階でも</b>説明が必要。省略は違反。</div></div>
+<div class="ch"><div class="m ng">違エ</div><div class="t">未完成で代金5,000万円 → 5%＝250万円。手付500万円は超えるので保全が必要。保全措置の概要も35条の説明項目。省略は違反。</div></div>
+<div class="one"><b>覚える1行</b>：クーリングオフの告知は義務ではない（告げないと期間が始まらないだけ）。</div>
+</div></details>
+
+<details class="q"><summary><b>問31 禁止行為（含まれているものはいくつ）</b><span class="meta">正解 四つ ／ あなた 三つ ／ 禁止行為の範囲</span></summary><div class="body">
+<div class="ch"><div class="m ng">禁ア</div><div class="t">電話勧誘の前に、業者名・<b>勧誘する人の氏名</b>・勧誘目的を告げなければならない。名乗らないのは禁止。</div></div>
+<div class="ch miss"><div class="m ng">禁イ</div><div class="t">申込みの撤回を妨げるために声を荒げて来店を迫るのは<b>威迫</b>で禁止。最後に撤回が認められても、威迫した時点で違反。</div></div>
+<div class="ch miss"><div class="m ng">禁ウ</div><div class="t">従業者証明書は、<b>アルバイトでもチラシ配りでも</b>携帯させないと業務をさせてはいけない。</div></div>
+<div class="ch"><div class="m ng">禁エ</div><div class="t">「将来高い建物が建つ予定は全くない」は、将来の環境について<b>断定的判断</b>を示す行為で禁止。</div></div>
+<div class="one"><b>覚える1行</b>：結果オーライでも、やった時点で違反（威迫）。従業者証明書は全員・全業務。<small>あなたはイかウを「禁止ではない」と判断した可能性。</small></div>
+</div></details>
+
+<details class="q"><summary><b>問26 報酬（誤っているものを全て）</b><span class="meta">正解 ア・イ・ウ ／ あなた ア・ウ ／ 2024年の空家の特例</span></summary><div class="body">
+<div class="ch"><div class="m ng">誤ア</div><div class="t">店舗など居住用以外の貸借で権利金があるときは、権利金を売買代金とみなして計算できる。1,400万円×3%＋6万円＝48万円、税込52万8,000円を双方からそれぞれ受け取れる。「違反する」は誤り。</div></div>
+<div class="ch miss"><div class="m ng">誤イ</div><div class="t">長期の空家等の特例で上乗せできるのは<b>貸主から</b>受ける報酬だけ。借主からは、承諾があっても借賃の1.1か月分（代理）が上限。借主から7万円は違反。「違反しない」は誤り。<small>あなたはここを正しいと判断。</small></div></div>
+<div class="ch"><div class="m ng">誤ウ</div><div class="t">報酬の決まりは<b>上限</b>。「少なくとも〇円を払わなければならない」という最低額の決まりはない。</div></div>
+<div class="one"><b>覚える1行</b>：空家の特例は「売るなら売主から、貸すなら貸主から」だけ上乗せ。報酬の規定は上限だけで、最低額はない。</div>
+</div></details>
+
+<details class="q"><summary><b>問44 犯罪収益移転防止法（違反するもの1つ）</b><span class="meta">正解 2 ／ あなた 1 ／ まれな論点</span></summary><div class="body">
+<div class="ch miss"><div class="m ok">適1</div><div class="t">個人の買主について、氏名・住居・生年月日と、取引の目的・職業を確認した → 必要な確認そのもの。違反ではない。</div></div>
+<div class="ch"><div class="m ng">違2</div><div class="t">取引記録の保存期間は<b>7年</b>。5年で廃棄は違反。</div></div>
+<div class="ch"><div class="m ok">適3</div><div class="t">疑わしい取引の届出 → 正しい対応。</div></div>
+<div class="ch"><div class="m ok">適4</div><div class="t">担当者の教育訓練 → 努力義務に沿った対応。</div></div>
+<div class="one"><b>覚える1行</b>：犯収法の記録は7年保存。深追いはしない。</div>
+</div></details>
+
+<h2>4. 業法以外の誤答（今は一覧だけ）</h2>
+<table>
+<tr><th>問</th><th>論点</th><th>正解</th><th>あなた</th><th>扱い</th></tr>
+<tr><td>2</td><td>保証（賃貸の連帯保証・極度額）</td><td>3</td><td>2</td><td>10/10（未着手）</td></tr>
+<tr><td>3</td><td>意思表示（個数）</td><td>3</td><td>1</td><td>10/12に解き直し</td></tr>
+<tr><td>4</td><td>金銭消費貸借</td><td>4</td><td>2</td><td>深追いしない</td></tr>
+<tr><td>6</td><td>物権変動</td><td>1</td><td>3</td><td>10/12に解き直し</td></tr>
+<tr><td>7</td><td>賃貸借の修繕</td><td>1</td><td>4</td><td>10/11（賃貸借の細部）</td></tr>
+<tr><td>8</td><td>共有</td><td>2</td><td>4</td><td>10/10（未着手）</td></tr>
+<tr><td>9</td><td>連帯債務</td><td>1</td><td>4</td><td>10/10（未着手）</td></tr>
+<tr><td>14</td><td>不動産登記法</td><td>1</td><td>4</td><td>10/11</td></tr>
+<tr><td>18</td><td>建築基準法</td><td>2</td><td>3</td><td>10/8〜9の法令で</td></tr>
+<tr><td>19</td><td>盛土規制法</td><td>2</td><td>1</td><td>第3分冊（未着手の範囲）</td></tr>
+<tr><td>20</td><td>土地区画整理法</td><td>4</td><td>未記入</td><td>第3分冊（未着手の範囲）</td></tr>
+<tr><td>21</td><td>農地法</td><td>4</td><td>2</td><td>第3分冊（未着手の範囲）</td></tr>
+<tr><td>23</td><td>登録免許税</td><td>1</td><td>3</td><td>税・価格（未着手の範囲）</td></tr>
+<tr><td>48</td><td>統計</td><td>2</td><td>3</td><td>直前に覚える</td></tr>
+</table>
+<p class="sub">問2・問20は解答用紙のマークが薄く、読み取りに自信がない（どちらでも誤答）。</p>
+</body></html>
