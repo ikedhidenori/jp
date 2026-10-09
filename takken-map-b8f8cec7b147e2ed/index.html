@@ -51,6 +51,7 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hir
 .ok{color:#2f6b4f}.ng{color:var(--warn)}
 .tip{font-size:12.5px;line-height:1.6;background:#fff8dc;border-radius:8px;padding:6px 8px;margin-top:6px}
 .lnk{display:inline-block;margin:6px 8px 0 0;font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid #cfe0d6;border-radius:14px;padding:4px 10px;background:#f3f8f5}
+.pk{display:block;padding:5px 0;font-size:14px}
 .muted{font-size:11.5px;color:var(--sub);line-height:1.5}
 .gbtns{display:flex;gap:8px;margin:10px 0 4px}
 .gbtns a{flex:1;text-align:center;text-decoration:none;font-size:13px;font-weight:600;padding:9px 6px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink)}
@@ -112,9 +113,10 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hir
 <script src="munistats.js"></script>
 <script>
 'use strict';
-const VERSION='202610092327';
+const VERSION='202610100014';
 const TAKKEN='https://zukan.page/takken/';
 const Z=window.ZONING, $=s=>document.querySelector(s);
+const TILEBASE='https://ikedhidenori.github.io/takken-map-tiles/';
 const BASEURL=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,''), abs=p=>BASEURL+p;
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const slide=(key,label)=>`<a class="lnk" href="${TAKKEN}#${key}" target="_blank" rel="noopener">📖 出題論点：${label}</a>`;
@@ -153,7 +155,7 @@ const map=new maplibregl.Map({
   style:{version:8,glyphs:abs('fonts/{fontstack}/{range}.pbf'),
     sources:{
       base:{type:'raster',tiles:BASES[base].tiles,tileSize:256,maxzoom:BASES[base].maxzoom,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">地理院タイル</a>'},
-      tk:{type:'vector',tiles:[abs('tiles/{z}/{x}/{y}.pbf')],minzoom:8,maxzoom:14,attribution:'<a href="https://www.opendata.metro.tokyo.lg.jp/" target="_blank">東京都都市整備局 都市計画決定情報GISデータ</a>(CC BY 4.0)・<a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報</a>(A55/L01/L02)を加工／参考情報'},
+      tk:{type:'vector',tiles:[TILEBASE+'tiles/{z}/{x}/{y}.pbf'],minzoom:8,maxzoom:14,attribution:'<a href="https://www.opendata.metro.tokyo.lg.jp/" target="_blank">東京都都市整備局 都市計画決定情報GISデータ</a>(CC BY 4.0)・<a href="https://nlftp.mlit.go.jp/ksj/" target="_blank">国土数値情報</a>(A55/L01/L02)を加工／参考情報'},
       flood:hazard('01_flood_l2_shinsuishin_data'),
       dosha1:hazard('05_dosekiryukeikaikuiki'),dosha2:hazard('05_kyukeishakeikaikuiki'),dosha3:hazard('05_jisuberikeikaikuiki')
     },
@@ -371,7 +373,7 @@ async function whereName(ll){
     if(OUT_AREA.includes(cd)){const h=document.querySelector('#sheet .card h3, .card h3');document.querySelectorAll('.card h3').forEach(e=>{if(e.textContent.startsWith('都市計画区域外（または未収録）'))e.textContent=nm+'は全域が都市計画区域外';});}
     const ms=(window.MSTAT||{})[cd];
     if(ms){const kc=[...document.querySelectorAll('.card')].find(e=>e.querySelector('.k')&&e.querySelector('.k').textContent.startsWith('区域区分'));
-      if(kc&&!kc.querySelector('.mstat'))kc.insertAdjacentHTML('beforeend',`<div class="row muted mstat">${esc(nm)}（${ms[0].toLocaleString()}km²）の都市計画区域外：<b>${ms[1]}%</b>（全国は約${window.MSTAT_JP}%）</div>`);}
+      if(kc&&!kc.querySelector('.mstat'))kc.insertAdjacentHTML('beforeend',`<div class="row muted mstat">${esc(ms[2]||nm)}（${ms[0].toLocaleString()}km²）の都市計画区域外：<b>${ms[1]}%</b>（全国は約${window.MSTAT_JP}%）</div>`);}
     if(j.results)$('#where').textContent=`${nm}${j.results.lv01Nm&&j.results.lv01Nm!=='－'?j.results.lv01Nm:''}`||$('#where').textContent;
   }catch(e){}
 }
@@ -423,34 +425,39 @@ if(!fromHash())map.once('load',()=>locate(true));
 
 /* ---------- オフライン ---------- */
 const upd=()=>{$('#c-off').hidden=navigator.onLine;};addEventListener('online',upd);addEventListener('offline',upd);upd();
-const TILEVER='e0644e04e6', TILE_CACHE='tm-tiles-'+TILEVER;
-async function dlStatus(){
-  const list=await (await fetch('tiles.json')).json();const cache=await caches.open(TILE_CACHE);
-  const have=new Set((await cache.keys()).map(r=>new URL(r.url).pathname.split('/tiles/')[1]));
-  return{list,cache,have};
-}
+const TILEVER='1dcf31a5ec', TILE_CACHE='tm-tiles-'+TILEVER;
+let PACKS=null;
+async function loadPacks(){if(!PACKS)PACKS=await (await fetch(TILEBASE+'packs.json')).json();return PACKS;}
+const selPrefs=()=>{try{return JSON.parse(localStorage.getItem('tm-prefs'))||['11','13','19'];}catch(e){return['11','13','19'];}};
+async function haveSet(){const cache=await caches.open(TILE_CACHE);const have=new Set((await cache.keys()).map(r=>new URL(r.url).pathname.split('/tiles/')[1].replace(/\.pbf$/,'')));return{cache,have};}
 let dlRunning=false;
-async function prefetchAll(){
+async function prefetchPrefs(ids){
   if(dlRunning||!('caches'in window))return;dlRunning=true;
   try{
     if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
-    const{list,cache,have}=await dlStatus();const todo=list.filter(p=>!have.has(p+'.pbf'));
-    let done=list.length-todo.length;const total=list.length;const chip=$('#c-dl');
-    const show=()=>{const pct=Math.floor(done/total*100);chip.hidden=pct>=100;chip.innerHTML=`保存中 <b>${pct}%</b>`;renderDl(done,total);};
-    show();let i=0;
-    const worker=async()=>{while(i<todo.length){const p=todo[i++];try{const r=await fetch(abs('tiles/'+p+'.pbf'),{cache:'no-store'});if(r.ok)await cache.put(abs('tiles/'+p+'.pbf'),r);}catch(e){if(!navigator.onLine)return;}done++;if(done%40===0)show();}};
-    await Promise.all(Array.from({length:6},worker));show();
-    if(done>=total){localStorage.setItem('tm-dl',TILEVER);hint('都市計画データを全域保存しました（オフラインでも表示できます）',3500);}
+    const P=await loadPacks();const{cache,have}=await haveSet();
+    const want=new Set();P.prefs.filter(p=>ids.includes(p.id)).forEach(p=>p.idx.forEach(i=>want.add(i)));
+    const todo=[...want].filter(i=>!have.has(P.tiles[i]));const total=want.size;let done=total-todo.length,k=0;const chip=$('#c-dl');
+    const show=()=>{const pct=total?Math.floor(done/total*100):100;chip.hidden=pct>=100;chip.innerHTML=`保存中 <b>${pct}%</b>`;renderDl();};
+    show();
+    const worker=async()=>{while(k<todo.length){const p=P.tiles[todo[k++]];const u=TILEBASE+'tiles/'+p+'.pbf';try{const r=await fetch(u,{cache:'no-store'});if(r.ok)await cache.put(u,r);}catch(e){if(!navigator.onLine)return;}done++;if(done%40===0)show();}};
+    await Promise.all(Array.from({length:6},worker));chip.hidden=true;await renderDl();
+    if(done>=total)hint('選んだ県の都市計画データを保存しました（オフラインでも表示できます）',3500);
   }finally{dlRunning=false;}
 }
-function renderDl(done,total){
-  const pct=Math.floor(done/total*100);
-  $('#dl').innerHTML=`東京・埼玉・山梨の都市計画データ：<b>${pct>=100?'保存済み ✓':pct+'%'}</b>（${done}/${total}タイル・約36MB）<br>下地の地図・住所・ハザードは端末に保存しない（表示にはネットが必要）${pct<100?'<br><button id="dl-go">続きを保存</button>':''}<br><a href="https://ikedhidenori.github.io/jp/plain-6054c0bc323a86be.html" target="_blank" rel="noopener">全国の都市計画区域外 集計を見る</a>`;
-  const b=document.getElementById('dl-go');if(b)b.onclick=prefetchAll;
+async function renderDl(){
+  const el=$('#dl');let P,h;
+  try{P=await loadPacks();h=await haveSet();}catch(e){el.innerHTML='<span class="muted">保存データの一覧を取得できませんでした（要ネット）</span>';return;}
+  const sel=selPrefs();
+  const rows=P.prefs.map(p=>{const n=p.idx.filter(i=>h.have.has(P.tiles[i])).length,pc=Math.floor(n/p.n*100);
+    return `<label class="pk"><input type="checkbox" value="${p.id}" ${sel.includes(p.id)?'checked':''}> ${esc(p.name)} <span class="muted">${p.mb}MB ${pc>=100?'・保存済み ✓':pc>0?'・'+pc+'%':''}</span></label>`;}).join('');
+  el.innerHTML=`<div class="muted">見たい県を選んで保存すると、オフラインでも都市計画を表示できます（保存しなくても、ネットがあれば全国どこでも表示）。</div><div id="pklist" style="max-height:34vh;overflow:auto;margin:6px 0">${rows}</div><button id="dl-go">選んだ県を保存</button><br><span class="muted">下地の地図・住所・ハザードは端末に保存しない（表示にはネットが必要）</span><br><a href="https://ikedhidenori.github.io/jp/plain-6054c0bc323a86be.html" target="_blank" rel="noopener">全国の都市計画区域外 集計を見る</a>`;
+  el.querySelectorAll('input[type=checkbox]').forEach(c=>c.onchange=()=>{localStorage.setItem('tm-prefs',JSON.stringify([...el.querySelectorAll('input:checked')].map(x=>x.value)));});
+  document.getElementById('dl-go').onclick=()=>prefetchPrefs(selPrefs());
 }
 if('serviceWorker'in navigator){
   navigator.serviceWorker.register('sw.js').then(()=>{navigator.serviceWorker.ready.then(()=>{
-    dlStatus().then(s=>renderDl(s.list.filter(p=>s.have.has(p+'.pbf')).length,s.list.length)).catch(()=>{});
+    renderDl();
   });});
 }
 </script>
