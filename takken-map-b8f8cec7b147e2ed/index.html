@@ -111,7 +111,7 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hir
 <script src="munis.js"></script>
 <script>
 'use strict';
-const VERSION='202609291455';
+const VERSION='202610091834';
 const TAKKEN='https://zukan.page/takken/';
 const Z=window.ZONING, $=s=>document.querySelector(s);
 const BASEURL=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,''), abs=p=>BASEURL+p;
@@ -361,10 +361,13 @@ function hereUpdate(){const c=$('#c-here'),m=$('#c-me');
 map.on('idle',hereUpdate);map.on('moveend',hereUpdate);
 
 /* 住所 (オンライン時のみ・地理院の逆ジオコーダ) */
+/* 山梨の都市計画区域外の市町村 (県資料: 北杜市・早川町・南部町は全域区域外。道志・鳴沢・小菅・丹波山も区域指定なし) */
+const OUT_AREA=['19209','19364','19366','19422','19429','19442','19443'];
 async function whereName(ll){
   if(!navigator.onLine)return;
   try{const r=await fetch(`https://mreversegeocoder.gsi.go.jp/reverse-geocoder/LonLatToAddress?lat=${ll[1]}&lon=${ll[0]}`);const j=await r.json();
     const cd=j.results&&String(j.results.muniCd).padStart(5,'0');const nm=(window.MUNIS||{})[cd]||'';
+    if(OUT_AREA.includes(cd)){const h=document.querySelector('#sheet .card h3, .card h3');document.querySelectorAll('.card h3').forEach(e=>{if(e.textContent.startsWith('都市計画区域外（または未収録）'))e.textContent=nm+'は全域が都市計画区域外';});}
     if(j.results)$('#where').textContent=`${nm}${j.results.lv01Nm&&j.results.lv01Nm!=='－'?j.results.lv01Nm:''}`||$('#where').textContent;
   }catch(e){}
 }
