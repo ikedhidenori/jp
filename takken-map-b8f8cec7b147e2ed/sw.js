@@ -1,8 +1,8 @@
 /* 街で宅建 — オフライン用 Service Worker
  * shell: インストール時に保存 / tiles: 全域を先読み保存 (ページ側が進める) / 下地・ハザード: 見た範囲を保存 */
-const VERSION = '202610091834';
+const VERSION = '202610092327';
 const SHELL = 'tm-shell-' + VERSION, TILES = 'tm-tiles-e0644e04e6', EXT = 'tm-ext-v1';
-const SHELL_FILES = ['./', 'index.html', 'zoning.js', 'munis.js', 'tiles.json', 'manifest.webmanifest',
+const SHELL_FILES = ['./', 'index.html', 'zoning.js', 'munis.js', 'munistats.js', 'tiles.json', 'manifest.webmanifest',
   'vendor/maplibre-gl.js', 'vendor/maplibre-gl.css', 'fonts/OpenSans/0-255.pbf', 'icon-180.png', 'icon-512.png'];
 const EXT_MAX = 4000;
 

@@ -109,9 +109,10 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hir
 <script src="vendor/maplibre-gl.js"></script>
 <script src="zoning.js"></script>
 <script src="munis.js"></script>
+<script src="munistats.js"></script>
 <script>
 'use strict';
-const VERSION='202610091834';
+const VERSION='202610092327';
 const TAKKEN='https://zukan.page/takken/';
 const Z=window.ZONING, $=s=>document.querySelector(s);
 const BASEURL=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,''), abs=p=>BASEURL+p;
@@ -368,6 +369,9 @@ async function whereName(ll){
   try{const r=await fetch(`https://mreversegeocoder.gsi.go.jp/reverse-geocoder/LonLatToAddress?lat=${ll[1]}&lon=${ll[0]}`);const j=await r.json();
     const cd=j.results&&String(j.results.muniCd).padStart(5,'0');const nm=(window.MUNIS||{})[cd]||'';
     if(OUT_AREA.includes(cd)){const h=document.querySelector('#sheet .card h3, .card h3');document.querySelectorAll('.card h3').forEach(e=>{if(e.textContent.startsWith('都市計画区域外（または未収録）'))e.textContent=nm+'は全域が都市計画区域外';});}
+    const ms=(window.MSTAT||{})[cd];
+    if(ms){const kc=[...document.querySelectorAll('.card')].find(e=>e.querySelector('.k')&&e.querySelector('.k').textContent.startsWith('区域区分'));
+      if(kc&&!kc.querySelector('.mstat'))kc.insertAdjacentHTML('beforeend',`<div class="row muted mstat">${esc(nm)}（${ms[0].toLocaleString()}km²）の都市計画区域外：<b>${ms[1]}%</b>（全国は約${window.MSTAT_JP}%）</div>`);}
     if(j.results)$('#where').textContent=`${nm}${j.results.lv01Nm&&j.results.lv01Nm!=='－'?j.results.lv01Nm:''}`||$('#where').textContent;
   }catch(e){}
 }
@@ -441,7 +445,7 @@ async function prefetchAll(){
 }
 function renderDl(done,total){
   const pct=Math.floor(done/total*100);
-  $('#dl').innerHTML=`東京・埼玉・山梨の都市計画データ：<b>${pct>=100?'保存済み ✓':pct+'%'}</b>（${done}/${total}タイル・約36MB）<br>下地の地図・住所・ハザードは端末に保存しない（表示にはネットが必要）${pct<100?'<br><button id="dl-go">続きを保存</button>':''}`;
+  $('#dl').innerHTML=`東京・埼玉・山梨の都市計画データ：<b>${pct>=100?'保存済み ✓':pct+'%'}</b>（${done}/${total}タイル・約36MB）<br>下地の地図・住所・ハザードは端末に保存しない（表示にはネットが必要）${pct<100?'<br><button id="dl-go">続きを保存</button>':''}<br><a href="https://ikedhidenori.github.io/jp/plain-6054c0bc323a86be.html" target="_blank" rel="noopener">全国の都市計画区域外 集計を見る</a>`;
   const b=document.getElementById('dl-go');if(b)b.onclick=prefetchAll;
 }
 if('serviceWorker'in navigator){
