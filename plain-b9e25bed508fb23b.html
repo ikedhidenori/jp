@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>副業コクピット (試作)</title>
+<style>
+:root{--bg:#F6F3EE;--sf:#FFFFFF;--sf2:#EFEAE2;--line:#E2DCD2;--t1:#1F2328;--t2:#4A4F57;--t3:#80858D;
+ --ok:#2F8F6A;--warn:#C08A1E;--err:#C2492F;--ac:#13877F;--plan:#C9871F;--f:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--t1);font:400 15px/1.6 var(--f);letter-spacing:.01em;overflow-wrap:anywhere;line-break:strict}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{max-width:1180px;margin:0 auto;padding:14px 16px 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.bar h1{font-size:20px;font-weight:700}
+.tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--sf2);color:var(--t2)}
+.tag.proto{background:#FFF1D6;color:#8A5A00}
+.fresh{margin-left:auto;font-size:12px;color:var(--t3)}
+.tabs{max-width:1180px;margin:0 auto;padding:8px 8px 0;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs button{padding:10px 12px;font-size:14px;font-weight:600;color:var(--t3);border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button[aria-selected=true]{color:var(--t1);border-color:var(--ac)}
+.tabs .n{display:inline-block;min-width:20px;margin-left:4px;padding:0 6px;border-radius:10px;background:var(--err);color:#fff;font-size:12px}
+main{max-width:1180px;margin:0 auto;padding:14px 16px 120px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.chip{padding:6px 12px;border-radius:16px;background:var(--sf);border:1px solid var(--line);font-size:13px;color:var(--t2);min-height:32px}
+.chip[aria-pressed=true]{background:var(--t1);color:#fff;border-color:var(--t1)}
+.search{flex:1;min-width:140px;height:34px;border-radius:17px;border:1px solid var(--line);background:var(--sf);padding:0 14px;font:inherit;font-size:14px}
+.layout{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:900px){.layout.split{grid-template-columns:minmax(0,1fr) 420px}}
+.list{display:flex;flex-direction:column;gap:8px}
+.row{background:var(--sf);border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;display:grid;grid-template-columns:12px 1fr auto;gap:4px 10px;align-items:start;width:100%}
+.row:hover{border-color:#cfc6b8}.row[aria-current=true]{border-color:var(--ac);box-shadow:0 0 0 2px rgba(19,135,127,.15)}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:7px}
+.s-run{background:var(--ok)}.s-slow{background:var(--warn)}.s-stop{background:var(--err)}.s-none{background:#B9B3A8}
+.row b{font-size:15px;font-weight:600}.row .st{font-size:12px;color:var(--t3);white-space:nowrap;text-align:right}
+.row .sub{grid-column:2/4;font-size:13px;color:var(--t2)}
+.row .ask{grid-column:2/4;font-size:12px;color:#8A5A00;background:#FFF6E3;border-radius:8px;padding:2px 8px;justify-self:start}
+.empty{color:var(--t3);padding:30px 0;text-align:center}
+.panel{background:var(--sf);border:1px solid var(--line);border-radius:16px;padding:16px;align-self:start}
+@media(min-width:900px){.panel{position:sticky;top:110px;max-height:calc(100vh - 130px);overflow:auto}}
+@media(max-width:899px){.panel.sheet{position:fixed;left:0;right:0;bottom:0;max-height:82vh;overflow:auto;border-radius:18px 18px 0 0;z-index:20;box-shadow:0 -8px 30px rgba(0,0,0,.18);padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+ .scrim{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:15}}
+.panel h2{font-size:18px;line-height:1.4;margin-bottom:4px}
+.close{float:right;font-size:22px;line-height:1;color:var(--t3);padding:4px 8px}
+dl.kv{display:grid;grid-template-columns:6.5em 1fr;gap:6px 10px;font-size:14px;margin:12px 0}
+dl.kv dt{color:var(--t3)}dl.kv dd{color:var(--t1)}
+.h3{font-size:12px;font-weight:700;color:var(--t3);letter-spacing:.06em;margin:16px 0 6px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;text-align:left}
+.opt[aria-checked=true]{border-color:var(--ac);background:#EAF6F4}
+.acts{display:flex;flex-direction:column;gap:8px}
+.act{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-radius:12px;font-size:14px;font-weight:600;text-align:left;min-height:46px}
+.act.real{background:var(--ac);color:#fff}
+.act.proto{background:var(--sf);border:1.5px dashed #BDB5A8;color:var(--t2)}
+.act small{font-size:11px;font-weight:600;padding:1px 7px;border-radius:6px;white-space:nowrap}
+.act.real small{background:rgba(255,255,255,.22)}.act.proto small{background:var(--sf2)}
+.act[disabled]{opacity:.45;cursor:not-allowed}
+.files{font-size:12.5px;color:var(--t2);display:flex;flex-direction:column;gap:3px}
+.files span{color:var(--t3);font-feature-settings:"tnum";margin-right:6px}
+.spark{display:flex;gap:3px;align-items:flex-end;height:36px}
+.spark i{flex:1;background:var(--sf2);border-radius:3px 3px 0 0;position:relative}
+.spark i.on{background:var(--ac)}
+.spark-l{display:flex;gap:3px;font-size:10px;color:var(--t3)}.spark-l span{flex:1;text-align:center}
+.tlwrap{background:var(--sf);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.tlhead{display:flex;gap:8px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tlscroll{overflow-x:auto}
+svg text{font-family:var(--f)}
+.mark{cursor:pointer}
+.info{padding:10px 14px;font-size:13.5px;color:var(--t2);border-top:1px solid var(--line);min-height:44px}
+.legend{font-size:12px;color:var(--t3);padding:8px 14px 12px;display:flex;gap:14px;flex-wrap:wrap}
+.card{background:var(--sf);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.card h3{font-size:15px;margin-bottom:4px}.card p,.card li{font-size:14px;color:var(--t2)}.card ul{padding-left:1.2em}
+.ok{color:var(--ok);font-weight:700}.ng{color:var(--err);font-weight:700}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--sf);border-radius:12px;overflow:hidden}
+table.t th,table.t td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.t th{background:var(--sf2);font-size:12px;color:var(--t2)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--t1);color:#fff;padding:10px 16px;border-radius:12px;font-size:13.5px;max-width:92vw;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.mine{display:flex;flex-direction:column;gap:10px}
+.q{background:var(--sf);border:1px solid var(--line);border-radius:16px;padding:16px}
+.q .why{font-size:13px;color:var(--t3);margin:2px 0 10px}
+.q h3{font-size:16px;line-height:1.45}
+.q .due{font-size:12px;color:var(--err);font-weight:700}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="bar"><h1>副業コクピット</h1><span class="tag proto">試作</span><span class="fresh" id="fresh"></span></div>
+ <nav class="tabs" role="tablist" id="tabs"></nav>
+</header>
+<main id="main"></main>
+<div id="toast" class="toast" hidden></div>
+<script>
+const D = {"generated_at": 1791797445.78965, "cases": [{"id": "fuku-zukan", "title": "絶滅職種図鑑 (ショート→zukan.page→A8)", "owner": "制作スレ session_01219J3oXgdegm2v9J3xmQ1e (在庫を v2.7 で作り直し・計測) + チャッピー (画面の投稿)", "state": "動いている", "age": "10/12 10:51 今日", "last_output": "v2.7 作り直し3本 (out/zk-022・023・025-v27-*) を4回採点。最高 022=89/89、023=88/87、025保留。90点到達0本=投稿可なし (post-plan.json stock_v27 に ready:false)。食い違い表 reviews/stock-v27-diff-1012.md、まとめ reviews/v27-summary-1012.md。計測は tools/zk_measure.py を用意", "last_output_at": "2026-10-12 10:52", "next": "022 の残り1点 (0秒の空白か1位の強調) を直して採り直し → 90点なら投稿可。計測 10/13 09:05 (send_later 済)", "next_at": "2026-10-13 09:05", "stop_reason": "90点に届いた物が0本。025 は旧 zk-008 (公開済み・旧指標) と数字が食い違うため保留。投稿方法の決定も未了 (従来どおり)", "ask": "図鑑の投稿をどう再開する？", "options": ["Meta Business Suite と YouTube Studio の予約投稿を一度許可 (週1回まとめて予約)", "前のやり方に戻す (チャッピーが画面で毎日投稿)", "新しい指標の動画ができるまで止めたまま"], "approval": "投稿・返信・記録は聞かずに可 (10/2 決定、OPERATING-PLAN.md 138行)。ただし投稿方法は 10/2 夜の決定で保留", "due": "2026-10-19", "waiting": "ジョニー: 投稿方法の選択", "evidence": ["~/Sites/side-content-lab/.local/zukan-shorts/post-log.json", "~/Sites/side-content-lab/.local/zukan-shorts/execution-notes.md", "~/Sites/side-content-lab/video-lab/monetization/experiment-entries.csv"], "artifacts": [{"t": 1791769916.0047383, "path": "~/Sites/side-content-lab/.local/zukan-shorts/post-plan.json"}, {"t": 1791769834.9964147, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/ig-zk-023-v27-creative12.mp4"}, {"t": 1791769834.7029278, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/ig-zk-025-v27-drive12.mp4"}, {"t": 1791769834.42426, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/ig-zk-022-v27-pro12.mp4"}, {"t": 1791769834.0613875, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/zk-023-v27-creative12.meta.json"}, {"t": 1791769834.0347116, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/zk-023-v27-creative12.mp4"}, {"t": 1791769828.272745, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/zk-023-v27-creative12.png"}, {"t": 1791769819.4377623, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/zk-023-v27-creative12.html"}, {"t": 1791769819.4370883, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/zk-025-v27-drive12.meta.json"}, {"t": 1791769819.4156563, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/zk-025-v27-drive12.mp4"}, {"t": 1791769813.0975254, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/zk-025-v27-drive12.png"}, {"t": 1791769804.2016346, "path": "~/Sites/side-content-lab/.local/zukan-shorts/out/zk-025-v27-drive12.html"}], "history": [{"t": 1791766800, "n": 17, "sample": ["post-plan.json", "ig-zk-023-v27-creative12.mp4", "ig-zk-025-v27-drive12.mp4"]}]}, {"id": "fuku-ai-advisory", "title": "AI導入の伴走 (診断 初回5万円)", "owner": "AI導入の伴走スレ (未開始)", "state": "止まり", "age": "10/01 13:52 11日前", "last_output": "提案文の下書き v1 (9/26)、宛先候補20件 (10/1)。送信0・返信0", "last_output_at": "2026-10-01 13:52", "next": "宅建の翌日 10/19 に1通目 (3通)。その前に提案文の直し3点と宛先の○×", "next_at": "2026-10-19 09:00", "stop_reason": "宛先20件の○× (期限10/11) が本人から出ていない。送信は本人。宅建まで止めるのは決定どおり", "ask": "宛先20件の○×をいつ付ける？", "options": ["10/19 朝に一覧を出して (5分)", "宅建の後の押す会 10/25 で", "AIが○×案を付けて、本人は直すだけ"], "approval": "Gmail 下書き10通は承認済み (hq-v2 問9、○× の後)。送信は本人", "due": "2026-10-19", "waiting": "ジョニー: 宛先の○×", "evidence": ["data/products/b2b-ai-spot/gb-0042-proposal-draft-v1.md", "data/side-business-hq/hq-v2.md"], "artifacts": [], "history": []}, {"id": "fuku-wonder-zukan", "title": "Wonder Zukan (科学映像)", "owner": "Wonder Zukan スレ (クロード)", "state": "鈍い", "age": "10/09 00:33 3日前", "last_output": "第1話を YT・X・IG に投稿 (10/1 13:13〜13:25)。第2話の台本 (10/9)", "last_output_at": "2026-10-09 00:33", "next": "第2話の制作 (公開は 10/19 以降、隔週)。12/31 に続けるか判定", "next_at": "2026-10-19 12:00", "stop_reason": "10/18 までは新作を出さない決定 (想定内)。10/8 の7日目の計測は予約が再起動で消えて取り逃し", "ask": null, "options": [], "approval": "投稿ごとに本人の承認 (TikTok は作らない)", "due": "2026-10-19", "waiting": null, "evidence": ["data/madori-3d/sciviz/script_ep02.md", "data/madori-3d/sciviz/metrics.csv", "data/madori-3d/handoff/incident-2026-10-09-ask-johnny-loop.md"], "artifacts": [{"t": 1791473593.7524033, "path": "~/gits-system/data/madori-3d/sciviz/metrics.csv"}, {"t": 1791472807.03364, "path": "~/gits-system/data/madori-3d/sciviz/script_ep02.md"}, {"t": 1791472730.383337, "path": "~/gits-system/data/madori-3d/sciviz/ref/linss2_10e_1.csv"}, {"t": 1791335837.3092208, "path": "~/gits-system/data/madori-3d/sciviz/execution-notes.md"}], "history": [{"t": 1791334800, "n": 1, "sample": ["execution-notes.md"]}, {"t": 1791471600, "n": 3, "sample": ["metrics.csv", "script_ep02.md", "linss2_10e_1.csv"]}]}, {"id": "fuku-madori-3d", "title": "間取り3D (極小空間の縦動画)", "owner": "制作スレ (クロード・session 6a629893 / G-A の1本目)", "state": "動いている", "age": "10/12 18:11 今日", "last_output": "1本目 t12 (見た目70・寸法78) で停止。2本目 ga-02-murphy-7m2 (7㎡・壁際に畳めるベッド) t1 = 見た目72・寸法62、t2 試し中。公開品質は0本", "last_output_at": "2026-10-12 18:11", "next": "2本目の試しを80/85まで詰める (脚・窓・扉・壁面収納を反映済み)。1本目は止め (72点の壁は notes)。高解像度の静止画で採点表との相性を確かめる案", "next_at": "2026-10-13 21:00", "stop_reason": "1本目: 小修正3周で見た目 75→73→70 (80未達) のため停止。見た目の頭打ちは72前後 (壁の白・単調な俯瞰・ラベル・締め・注記)。採点表が低解像度の試し動画と合っていない可能性あり", "ask": "関門 G-A (10/25 に公開品質3本、90点) が厳しい。どうする？", "options": ["期限を 11/8 (G-B と同じ日) に延ばす", "いちばん良い1本を本人が見て、公開してよいか決める", "このまま 10/25 を目指す"], "approval": "制作は承認不要。提案の送信は本人", "due": "2026-10-19", "waiting": "ジョニー: G-A の期限か基準 (10/19 以降に聞く)", "evidence": ["data/madori-3d/out", "wiki/30-wiki/side-business/madori-3d-video-plan-2026-09-20.md"], "artifacts": [{"t": 1791796269.3231494, "path": "~/gits-system/data/madori-3d/plans/ga-02-murphy-7m2.json"}, {"t": 1791796269.285794, "path": "~/gits-system/data/madori-3d/plans/ga-02-murphy-7m2-t2.json"}, {"t": 1791795978.390316, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/still_hi/s3_20s.png"}, {"t": 1791795978.1080248, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/still_hi/s2_17s.png"}, {"t": 1791795977.8266656, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/still_hi/s1_12s.png"}, {"t": 1791795968.6387894, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/still_hi/scene.blend"}, {"t": 1791795968.6162758, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/still_hi/test_0476.png"}, {"t": 1791795948.5405166, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/still_hi/test_0416.png"}, {"t": 1791795924.9018202, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/still_hi/test_0289.png"}, {"t": 1791795883.6185296, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/still_hi/anchors.json"}, {"t": 1791794953.0915654, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/chk/t12.png"}, {"t": 1791794952.4936762, "path": "~/gits-system/data/madori-3d/out/ga-01-atelier-12m2/ga-01-atelier-12m2_t12.mp4"}], "history": [{"t": 1791766800, "n": 15, "sample": ["scene.blend", "test_0400.png", "scene.blend1"]}, {"t": 1791770400, "n": 9, "sample": ["sheet.png", "s19.png", "s14.png"]}, {"t": 1791774000, "n": 19, "sample": ["c3.png", "scene.blend", "test_0470.png"]}, {"t": 1791777600, "n": 32, "sample": ["sheet4.png", "v4_20.png", "v4_17.png"]}, {"t": 1791781200, "n": 36, "sample": ["ga-01-atelier-12m2-v6.json", "sheet6.png", "t6_20.5.png"]}, {"t": 1791784800, "n": 58, "sample": ["c2.png", "scene.blend", "test_0470.png"]}, {"t": 1791788400, "n": 27, "sample": ["render_t11.log", "ga-01-atelier-12m2-v10.json", "ga-01-atelier-12m2_t10.mp4"]}, {"t": 1791792000, "n": 25, "sample": ["t12.png", "ga-01-atelier-12m2_t12.mp4", "ov_end.png"]}, {"t": 1791795600, "n": 10, "sample": ["ga-02-murphy-7m2.json", "ga-02-murphy-7m2-t2.json", "s3_20s.png"]}]}, {"id": "fuku-kdp", "title": "Kindle 図鑑 vol.1", "owner": "図鑑スレ (KDP の画面はチャッピー)", "state": "止まり", "age": "10/02 16:59 10日前", "last_output": "EPUB v2 と KDP 下書き登録 (¥500)", "last_output_at": "2026-09-30 21:09", "next": "指標 v2.7 で原稿を直す → 12月中に出版 (目標: 出版から90日で20冊)", "next_at": "2026-11-01 20:30", "stop_reason": "出版は指標 v2 の後と決定。KDP の税務・口座 (gb-0061) が本人入力待ちで約3か月", "ask": "KDP の税務と口座の入力 (20分、本人だけ) をいつやる？", "options": ["11/1 の押す会で (決定どおり)", "宅建の後すぐ 10/19〜", "出版の直前でよい"], "approval": "出版・価格・本の更新は聞かずに可 (10/2)。税務入力は本人", "due": "2026-11-01", "waiting": "ジョニー: 税務・口座 (gb-0061)", "evidence": ["data/products/kindle-extinct-vol1/HANDOFF-2026-09-30.md"], "artifacts": [], "history": []}, {"id": "fuku-note", "title": "note (図鑑の試し読み)", "owner": "図鑑スレ", "state": "止まり", "age": "09/30 03:32 12日前", "last_output": "第1章を試し読み版に差し替え", "last_output_at": "2026-09-30 21:10", "next": "第1章の「2027年3月」の断定を直す (ログイン済み Chrome で2分)", "next_at": "2026-10-13 12:00", "stop_reason": "最小で維持の決定。直しはログインが要る", "ask": null, "options": [], "approval": "無料 note の更新は聞かずに可 (10/2)", "due": null, "waiting": null, "evidence": ["~/Sites/side-content-lab/.local/zukan-shorts/note"], "artifacts": [], "history": []}, {"id": "fuku-ramen", "title": "ラーメン開業キット (note ¥2,980)", "owner": "制作スレ session_01219J3oXgdegm2v9J3xmQ1e (点検、読むだけ)", "state": "動いている", "age": "10/12 10:36 今日", "last_output": "公開記事を点検 (data/side-business-hq/ramen-check/2026-10-12.md)。公開部分: 英語メタ発言なし・Excel の語なし・返金返品の記述なし・「捏造はゼロ」「全5検算PASS」が残る。有料部分は未確認", "last_output_at": "2026-10-12 10:36", "next": "ログインが要る確認 (有料本文・特商法表記) と直しは 10/25 の押す会。非公開にするかは本人", "next_at": "2026-10-25 20:00", "stop_reason": "点検は済み (公開部分のみ)。有料本文の確認・直し・非公開の判断はログインと本人承認が要るため止める", "ask": "点検の結果を見て、非公開にするか？", "options": ["10/25 の押す会で決める"], "approval": "点検は承認不要。非公開化は本人", "due": "2026-10-25", "waiting": null, "evidence": ["data/side-business-hq/hq-v2.md"], "artifacts": [{"t": 1791769009.8627167, "path": "~/gits-system/data/side-business-hq/ramen-check/2026-10-12.md"}], "history": [{"t": 1791766800, "n": 1, "sample": ["2026-10-12.md"]}]}, {"id": "fuku-stock", "title": "ストック素材", "owner": "なし", "state": "記録なし", "age": "—", "last_output": "なし (未着手)", "last_output_at": null, "next": "11月以降。2027年1月末に60本以上で月1,000円未満なら止める", "next_at": "2026-11-01 00:00", "stop_reason": "未着手。止めない決定 (10/2 問6)。AI生成物の販売規約の制約あり", "ask": null, "options": [], "approval": "—", "due": null, "waiting": null, "evidence": ["data/side-business-hq/inventory-2026-10-02.md"], "artifacts": [], "history": []}], "systems": [{"id": "patrol", "name": "毎時の見回り", "sub": "副業の自走 (13) を 10:31 に追加", "owner": "クロード #5", "events": [{"t": "10:08", "kind": "done", "label": "実行", "basis": "記録"}, {"t": "11:07", "kind": "done", "label": "実行 (13 入り)", "basis": "記録"}, {"every": "60", "from": "12:07", "to": "23:07", "kind": "plan", "label": "", "basis": "予約"}], "status": "予約は実在 (7〜23時の毎時7分)。10:08 より前の実行は未確認", "next": "次 12:07 (予約)", "deadline": "—", "late": ""}, {"id": "duty", "name": "当番 (朝晩)", "sub": "止まったスレの拾い役", "owner": "当番 (Sonnet)", "events": [{"t": "07:41", "t2": "07:45", "kind": "run", "label": "朝の回→報告", "basis": "記録"}, {"t": "19:41", "kind": "plan", "label": "夜の回", "basis": "予約"}], "status": "朝の回は完了。スレへの指示配送は失敗中 (下の段)", "next": "夜の回 19:41 (予約)", "deadline": "—", "late": ""}, {"id": "delivery", "name": "報告の配送経路", "sub": "AI→チャッピー / 当番→スレ", "owner": "—", "events": [{"t": "10:24", "kind": "done", "label": "チャッピーへ受付 (頃)", "basis": "記録"}, {"t": "10:33", "kind": "done", "label": "完了報告 (頃)", "basis": "記録"}, {"t": "07:00", "t2": "NOW", "kind": "broken", "label": "当番→スレの指示配送 10/9 19:45 から失敗 (未解決)", "basis": "記録"}], "status": "チャッピーへの直接送信は動いている。当番→スレの配送は 10/9 から止まったまま", "next": "直す手順は未着手 (hook の変更が要る)", "deadline": "—", "late": "障害"}], "timeline_date": "2026-10-12", "delivery": {"relay_fail_count": 24, "relay_fail_last": 1791542704.2756789}};
+const JST = {timeZone:'Asia/Tokyo'};
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = (t, o={month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) => new Date(t*1000).toLocaleString('ja-JP',{...JST,...o});
+const parseJ = s => { if(!s || !/^\d{4}-\d{2}-\d{2}( \d{2}:\d{2})?$/.test(s)) return null; return Date.parse(s.replace(' ','T') + (s.length>10?':00':'T00:00:00') + '+09:00')/1000; };
+const ST = {'動いている':'run','鈍い':'slow','止まり':'stop','記録なし':'none'};
+const ORDER = {stop:0, slow:1, run:2, none:3};
+const short = t => t.split(/ \(|（/)[0].slice(0,innerWidth<600?7:9);
+const [H0,H1] = location.hash.slice(1).split(':');
+const S = {tab:(['mine','list','tl','sys','design'].includes(H0)?H0:'mine'), state:'all', onlyAsk:false, q:'', sel:H1||null, range:1, pick:{}, info:''};
+const NOW = D.generated_at;
+
+function toast(m){ const t=$('#toast'); t.textContent=m; t.hidden=false; clearTimeout(toast.h); toast.h=setTimeout(()=>t.hidden=true, 3800); }
+function cases(){
+  return D.cases.filter(c => (S.state==='all' || ST[c.state]===S.state) && (!S.onlyAsk || c.ask)
+    && (!S.q || (c.title+c.owner+(c.next||'')+(c.stop_reason||'')).includes(S.q)))
+    .sort((a,b)=>ORDER[ST[a.state]]-ORDER[ST[b.state]]);
+}
+function tabs(){
+  const n = D.cases.filter(c=>c.ask).length;
+  const T = [['mine',`あなたの番<span class="n">${n}</span>`],['list','案件'],['tl','時間軸'],['sys','仕組み'],['design','設計']];
+  $('#tabs').innerHTML = T.map(([k,l])=>`<button role="tab" aria-selected="${S.tab===k}" data-tab="${k}">${l}</button>`).join('');
+}
+function filters(){
+  const F = [['all','すべて'],['stop','止まり'],['slow','鈍い'],['run','動いている']];
+  return `<div class="filters">${F.map(([k,l])=>`<button class="chip" data-state="${k}" aria-pressed="${S.state===k}">${l}</button>`).join('')}
+   <button class="chip" data-ask aria-pressed="${S.onlyAsk}">本人の判断がある物</button>
+   <input class="search" id="q" placeholder="案件・担当・理由で探す" value="${esc(S.q)}" aria-label="探す"></div>`;
+}
+function row(c){
+  const s = ST[c.state];
+  return `<button class="row" data-id="${c.id}" aria-current="${S.sel===c.id}">
+   <i class="dot s-${s}"></i><b>${esc(c.title)}</b><span class="st">${esc(c.state)}<br>${esc(c.age)}</span>
+   <span class="sub">次: ${esc(c.next||'—')}${c.next_at?` <span style="color:var(--t3)">(${esc(c.next_at)})</span>`:''}</span>
+   <span class="sub" style="color:var(--t3)">担当 ${esc(c.owner||'—')}</span>
+   ${c.ask?`<span class="ask">あなたの判断: ${esc(c.ask)}</span>`:''}</button>`;
+}
+function spark(c){
+  const days=[]; for(let i=6;i>=0;i--){ const d=new Date((NOW-i*86400)*1000); days.push(d.toLocaleDateString('ja-JP',{...JST,month:'numeric',day:'numeric'})); }
+  const cnt = Object.fromEntries(days.map(d=>[d,0]));
+  c.history.forEach(h=>{ const d=new Date(h.t*1000).toLocaleDateString('ja-JP',{...JST,month:'numeric',day:'numeric'}); if(d in cnt) cnt[d]+=h.n; });
+  const mx = Math.max(1,...Object.values(cnt));
+  return `<div class="spark">${days.map(d=>`<i class="${cnt[d]?'on':''}" style="height:${cnt[d]?8+28*cnt[d]/mx:4}px" title="${d}: ${cnt[d]}件"></i>`).join('')}</div>
+   <div class="spark-l">${days.map(d=>`<span>${d.split('/')[1]}</span>`).join('')}</div>`;
+}
+function detail(c){
+  if(!c) return `<div class="panel"><p class="empty">左の案件を選ぶと、ここに詳細が出ます</p></div>`;
+  const pick = S.pick[c.id];
+  const opts = (c.options||[]).map((o,i)=>`<button class="opt" role="radio" aria-checked="${pick===i}" data-pick="${i}"><b>${'①②③④'[i]}</b><span>${esc(o)}</span></button>`).join('');
+  return `<div class="panel ${innerWidth<900?'sheet':''}" role="dialog" aria-label="${esc(c.title)}">
+   <button class="close" data-close aria-label="閉じる">×</button>
+   <h2>${esc(c.title)}</h2><span class="tag"><i class="dot s-${ST[c.state]}" style="display:inline-block;margin:0 4px 0 0;width:8px;height:8px"></i>${esc(c.state)} · 実測 ${esc(c.age)}</span>
+   <dl class="kv">
+    <dt>最後の成果</dt><dd>${esc(c.last_output||'—')}<br><span style="color:var(--t3)">${esc(c.last_output_at||'')}</span></dd>
+    <dt>次</dt><dd>${esc(c.next||'—')}<br><span style="color:var(--t3)">${esc(c.next_at||'時刻 未定')}</span></dd>
+    <dt>担当</dt><dd>${esc(c.owner||'—')}</dd>
+    <dt>止まり</dt><dd>${esc(c.stop_reason||'—')}</dd>
+    <dt>期限</dt><dd>${esc(c.due||'—')}</dd>
+   </dl>
+   ${c.ask?`<div class="h3">あなたの判断</div><p style="font-size:14.5px;font-weight:600;margin-bottom:8px">${esc(c.ask)}</p><div class="opts" role="radiogroup">${opts}</div>`:''}
+   <div class="h3">操作</div><div class="acts">
+    ${c.ask?`<button class="act real" data-copy ${pick===undefined?'disabled':''}>チャッピーに貼る答えをコピー<small>本物: この端末のコピーだけ</small></button>`:''}
+    <button class="act proto" data-proto="担当スレへ『続きを進めて』を送る (本番では毎時の見回りが send_message で届ける)">担当スレに続きを頼む<small>試作のみ</small></button>
+    <button class="act proto" data-proto="案件を止める印を台帳に付ける (本番では cases.json の status を書き換え、見回りが拾わなくなる)">この案件を止める<small>試作のみ</small></button>
+   </div>
+   <div class="h3">この7日の動き (ファイル更新の件数)</div>${spark(c)}
+   <div class="h3">最近の成果物</div><div class="files">${c.artifacts.length?c.artifacts.slice(0,8).map(a=>`<div><span>${fmt(a.t)}</span>${esc(a.path)}</div>`).join(''):'<div>この7日は無し</div>'}</div>
+   <div class="h3">承認の範囲</div><p style="font-size:13px;color:var(--t2)">${esc(c.approval||'—')}</p>
+  </div>${innerWidth<900?'<div class="scrim" data-close></div>':''}`;
+}
+function viewMine(){
+  const qs = D.cases.filter(c=>c.ask).sort((a,b)=>(a.due||'9')<(b.due||'9')?-1:1);
+  if(!qs.length) return '<p class="empty">いま決めることはありません</p>';
+  return `<p style="font-size:13px;color:var(--t3);margin-bottom:10px">選ぶと「チャッピーに貼る答え」を作ります。この画面からは何も送りません。</p><div class="mine">` + qs.map(c=>{
+    const pick=S.pick[c.id];
+    return `<section class="q"><span class="due">期限 ${esc(c.due||'未定')}</span><h3>${esc(c.title)}: ${esc(c.ask)}</h3>
+     <p class="why">止まっている理由: ${esc(c.stop_reason||'—')}</p>
+     <div class="opts" role="radiogroup">${(c.options||[]).map((o,i)=>`<button class="opt" role="radio" aria-checked="${pick===i}" data-pick="${i}" data-for="${c.id}"><b>${'①②③④'[i]}</b><span>${esc(o)}</span></button>`).join('')}</div>
+     <div class="acts" style="margin-top:10px"><button class="act real" data-copy data-for="${c.id}" ${pick===undefined?'disabled':''}>チャッピーに貼る答えをコピー<small>本物: この端末のコピーだけ</small></button>
+     <button class="act proto" data-open="${c.id}" style="justify-content:center">詳しく見る</button></div></section>`;}).join('') + '</div>';
+}
+function viewList(){
+  const cs = cases(); const sel = D.cases.find(c=>c.id===S.sel);
+  return filters() + `<div class="layout split"><div class="list">${cs.length?cs.map(row).join(''):'<p class="empty">条件に合う案件はありません</p>'}</div>
+   ${innerWidth>=900||sel?detail(sel):''}</div>`;
+}
+function viewTL(){
+  const R = {1:['24時間',1],3:['3日',3],7:['7日',7]};
+  const cs = cases(); const end = NOW + 6*3600, start = NOW - S.range*86400;
+  const LBW = innerWidth<600?112:150, LW = 8, W = Math.max(($('#main')?.clientWidth||innerWidth)-34-LBW, innerWidth<600?560:640), RW = 96, ROW = 46, TOP = 40;
+  const lanes = cs.map(c=>({k:'c',c})).concat(D.systems.map(s=>({k:'s',s})));
+  const H = TOP + ROW*lanes.length + 10;
+  const X = t => LW + (Math.min(Math.max(t,start),end)-start)/(end-start)*(W-LW-RW);
+  let lb = `<svg width="${LBW}" height="${H}" viewBox="0 0 ${LBW} ${H}" aria-hidden="false">`;
+  let g = `<svg data-now="${X(NOW)}" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="時間軸">`;
+  g += `<rect x="${X(NOW)}" y="${TOP-4}" width="${X(end)-X(NOW)}" height="${H-TOP}" fill="#FBF3E4"/>`;
+  const step = S.range===1?3600*2:(S.range===3?3600*12:86400);
+  for(let t=Math.ceil(start/step)*step; t<=end; t+=step){
+    const lab = S.range===1? fmt(t,{hour:'2-digit'}) : fmt(t,{month:'numeric',day:'numeric',hour:S.range===3?'2-digit':undefined});
+    g += `<line x1="${X(t)}" y1="${TOP-4}" x2="${X(t)}" y2="${H}" stroke="#ECE6DC"/><text x="${X(t)}" y="${TOP-10}" font-size="11" fill="#80858D" text-anchor="middle">${lab}</text>`;
+  }
+  g += `<line x1="${X(NOW)}" y1="${TOP-6}" x2="${X(NOW)}" y2="${H}" stroke="#13877F" stroke-width="2"/><rect x="${X(NOW)-34}" y="2" width="68" height="16" rx="4" fill="#13877F"/><text x="${X(NOW)}" y="14" font-size="11" fill="#fff" text-anchor="middle">今 ${fmt(NOW,{hour:'2-digit',minute:'2-digit'})}</text>`;
+  lanes.forEach((L,i)=>{
+    const y = TOP + i*ROW, cy = y + ROW/2;
+    g += `<line x1="0" y1="${y+ROW}" x2="${W}" y2="${y+ROW}" stroke="#ECE6DC"/>`;
+    if(L.k==='c'){
+      const c=L.c, s=ST[c.state];
+      lb += `<line x1="0" y1="${y+ROW}" x2="${LBW}" y2="${y+ROW}" stroke="#ECE6DC"/><g class="mark" data-open="${c.id}"><rect x="0" y="${y}" width="${LBW}" height="${ROW}" fill="transparent"/><circle cx="12" cy="${cy}" r="4.5" class="s-${s}" fill="${{run:'#2F8F6A',slow:'#C08A1E',stop:'#C2492F',none:'#B9B3A8'}[s]}"/><text x="22" y="${cy+4}" font-size="12.5" font-weight="600" fill="#1F2328">${esc(short(c.title))}</text></g>`;
+      c.history.forEach(h=>{ if(h.t+3600<start) return; const r=Math.min(3+Math.sqrt(h.n)*1.6,11);
+        g += `<circle class="mark" cx="${X(h.t+1800)}" cy="${cy}" r="${r}" fill="#1F2328" fill-opacity=".78" data-info="${esc(c.title)} · ${fmt(h.t)}台 · ファイル更新 ${h.n}件 (${esc(h.sample.join('、'))})"/>`; });
+      const na = parseJ(c.next_at);
+      if(na && na<=end) g += `<line x1="${X(NOW)}" y1="${cy}" x2="${X(na)}" y2="${cy}" stroke="#C9871F" stroke-dasharray="4 4"/><circle class="mark" cx="${X(na)}" cy="${cy}" r="6" fill="#fff" stroke="#C9871F" stroke-width="2" data-info="${esc(c.title)} · 次の予定 ${esc(c.next_at)}: ${esc(c.next)} (予約の有無は担当の記録次第)"/>`;
+      else if(na) g += `<text class="mark" x="${W-4}" y="${cy+4}" font-size="11" fill="#C9871F" text-anchor="end" data-info="${esc(c.title)} · 次の予定 ${esc(c.next_at)}: ${esc(c.next)}">次 ${esc(c.next_at.slice(5,10).replace("-","/"))} →</text>`;
+      else g += `<text x="${W-4}" y="${cy+4}" font-size="11" fill="#80858D" text-anchor="end">次 未定</text>`;
+    } else {
+      const s=L.s;
+      lb += `<line x1="0" y1="${y+ROW}" x2="${LBW}" y2="${y+ROW}" stroke="#ECE6DC"/><text x="10" y="${cy+4}" font-size="12.5" font-weight="600" fill="#4A4F57">${esc(s.name.slice(0,innerWidth<600?7:12))}</text>`;
+      s.events.forEach(ev=>{
+        const dd = D.timeline_date;
+        if(ev.every){ for(let m=+ev.from.split(':')[0]*60+ +ev.from.split(':')[1]; m<=+ev.to.split(':')[0]*60+ +ev.to.split(':')[1]; m+=+ev.every){
+          const t=parseJ(`${dd} ${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`); if(t>NOW&&t<=end) g+=`<circle class="mark" cx="${X(t)}" cy="${cy}" r="4" fill="#fff" stroke="#C9871F" stroke-width="1.6" data-info="${esc(s.name)} · 予約 ${fmt(t,{hour:'2-digit',minute:'2-digit'})} (予約が実在)"/>`; } return; }
+        const t1 = ev.t==='NOW'?NOW:parseJ(`${dd} ${ev.t}`);
+        if(ev.t2){ const t2 = ev.t2==='NOW'?NOW:parseJ(`${dd} ${ev.t2}`);
+          const brk = ev.kind==='broken';
+          g += `<line class="mark" x1="${X(brk?start:t1)}" y1="${cy}" x2="${X(t2)}" y2="${cy}" stroke="${brk?'#C2492F':'#13877F'}" stroke-width="${brk?4:7}" ${brk?'stroke-dasharray="2 5"':''} data-info="${esc(s.name)} · ${esc(ev.label)}"/>`; return; }
+        const plan = ev.kind==='plan';
+        g += `<circle class="mark" cx="${X(t1)}" cy="${cy}" r="${plan?6:5}" fill="${plan?'#fff':'#1F2328'}" stroke="${plan?'#C9871F':'none'}" stroke-width="2" data-info="${esc(s.name)} · ${esc(ev.t)} ${esc(ev.label)} (${esc(ev.basis)})"/>`;
+      });
+    }
+  });
+  g += '</svg>'; lb += '</svg>';
+  return filters() + `<div class="tlwrap"><div class="tlhead">${Object.entries(R).map(([k,[l]])=>`<button class="chip" data-range="${k}" aria-pressed="${S.range==k}">${l}</button>`).join('')}
+    <span style="font-size:12px;color:var(--t3);margin-left:auto">点をタップで中身・案件名で詳細</span></div>
+   <div style="display:flex"><div style="flex:none;border-right:1px solid var(--line)">${lb}</div><div class="tlscroll" style="flex:1">${g}</div></div><div class="info" id="info">${esc(S.info||'点をタップすると、ここに中身が出ます')}</div>
+   <div class="legend"><span>● ファイル更新 (大きいほど多い)</span><span style="color:#C9871F">○ 次の予定</span><span style="color:#13877F">━ 開始と終わりを確認した区間</span><span style="color:#C2492F">┅ 障害</span><span>記録の無い区間は塗らない</span></div></div>
+   ${S.sel?`<div style="margin-top:14px">${detail(D.cases.find(c=>c.id===S.sel))}</div>`:''}`;
+}
+function viewSys(){
+  const d=D.delivery;
+  const sch = D.systems.map(s=>`<div class="card"><h3>${esc(s.name)}</h3><p>${esc(s.status)}</p><p style="color:#8A5A00">${esc(s.next)}</p></div>`).join('');
+  return `<div class="card"><h3>報告の届き方</h3><ul>
+   <li>AI → チャッピーへの直接送信: <span class="ok">動いている</span> (今日も送信成功を確認。会話が実行中の時は送らず待つ)</li>
+   <li>当番 → 作業スレへの指示配送: <span class="ng">止まっている</span> 失敗 ${d.relay_fail_count}件、最後 ${d.relay_fail_last?fmt(d.relay_fail_last):'—'}。原因は送信前の確認処理のタイムアウト。未修理</li>
+   <li>Mac から本番のコクピットを開く: 18:28 に許可済み (クロード #7)</li></ul></div>${sch}`;
+}
+function viewDesign(){
+  return `<div class="card"><h3>何を直すか</h3><ul>
+   <li>今の本番 (http://100.98.184.95:8790/) は「スレのカード一覧」で、副業は文字のカードだけ。時間軸は11:48の写しの画像で、触れない</li>
+   <li>このアプリは、案件を中心に「状態で絞る → 選ぶ → 詳細・成果物・7日の動き → 判断・操作」までを1画面で回す</li></ul></div>
+  <div class="card"><h3>画面</h3><table class="t"><tr><th>画面</th><th>中身</th><th>元のデータ</th></tr>
+   <tr><td>あなたの番</td><td>本人が決める問いだけ。期限順、選択肢つき</td><td>cases.json の ask・options・due</td></tr>
+   <tr><td>案件</td><td>状態 (止まり/鈍い/動いている) で並ぶ一覧＋詳細</td><td>cases.json ＋ 成果物ファイルの更新時刻 (実測)</td></tr>
+   <tr><td>時間軸</td><td>今日・3日・7日。ファイル更新の点、次の予定、予約、障害。点をタップで中身</td><td>同上 ＋ timeline.json ＋ 予約の実行記録</td></tr>
+   <tr><td>仕組み</td><td>報告の届き方と、見回り・当番の予約</td><td>ops-done.jsonl・Routine の記録</td></tr></table></div>
+  <div class="card"><h3>ボタンが実際に動かす物</h3><table class="t"><tr><th>ボタン</th><th>この試作</th><th>本番にした時</th><th>要る承認</th></tr>
+   <tr><td>チャッピーに貼る答えをコピー</td><td><b>本物</b>: 端末のコピーだけ</td><td>答えを to-claude.jsonl に書き、見回りが実行</td><td>本人の答えそのものが承認 (台帳に残す)</td></tr>
+   <tr><td>担当スレに続きを頼む</td><td>試作のみ (何も送らない)</td><td>見回りが担当スレへ send_message</td><td>不要 (AI どうし)</td></tr>
+   <tr><td>この案件を止める</td><td>試作のみ</td><td>cases.json の状態を書き換え</td><td>本人が押す時は不要</td></tr>
+   <tr><td>絞込み・時間軸の拡大・詳細</td><td>本物 (画面の中だけ)</td><td>同じ</td><td>—</td></tr></table></div>
+  <div class="card"><h3>データの流れ</h3><p>制作スレ・見回り → cases.json と成果物ファイル → (毎時) 集計 → アプリ。ボタン → 本番では受け口 (POST) → to-claude.jsonl → 見回り → 担当スレ。画面が直接スレを動かすことはしない。</p></div>
+  <div class="card"><h3>本番にする道 (どちらも本人の承認が要る)</h3><ul>
+   <li>A. 本番のコクピットに「副業」画面を足す: コクピットの中身は書き換え禁止の鍵がかかっているので、鍵を外す承認が要る。Tailscale の中だけで、全案件を出せる</li>
+   <li>B. 読むだけの小さな画面を別の入口 (例 8791 番) で常駐させる: 新しい常駐なので承認が要る。ボタンは当面コピーだけ</li>
+   <li>この試作は公開ページの写し (副業と仕組みだけ、取引先・INNFRA・個人の資料は入れていない)。7日で自動削除</li></ul></div>`;
+}
+function render(){
+  tabs();
+  $('#fresh').textContent = `データ ${fmt(NOW)} 時点の写し`;
+  const V = {mine:viewMine, list:viewList, tl:viewTL, sys:viewSys, design:viewDesign};
+  $('#main').innerHTML = V[S.tab]();
+  const sc=$('.tlscroll'); if(sc){ const svg=sc.querySelector('svg'); const nx=+svg.dataset.now; if(nx>sc.clientWidth) sc.scrollLeft = nx - sc.clientWidth*0.7; }
+  const q=$('#q'); if(q){ q.oninput = e=>{ S.q=e.target.value; const p=q.selectionStart; render(); const n=$('#q'); n.focus(); n.setSelectionRange(p,p); }; }
+}
+document.addEventListener('click', e=>{
+  const b = e.target.closest('button,[data-open],[data-info],[data-close]'); if(!b) return;
+  if(b.dataset.tab){ S.tab=b.dataset.tab; history.replaceState(null,'','#'+S.tab); S.sel=null; S.info=''; return render(); }
+  if(b.dataset.state){ S.state=b.dataset.state; return render(); }
+  if('ask' in b.dataset){ S.onlyAsk=!S.onlyAsk; return render(); }
+  if(b.dataset.range){ S.range=+b.dataset.range; return render(); }
+  if('close' in b.dataset){ S.sel=null; return render(); }
+  if(b.dataset.id){ S.sel=b.dataset.id; return render(); }
+  if(b.dataset.open){ S.sel=b.dataset.open; if(S.tab==='mine') S.tab='list'; return render(); }
+  if(b.dataset.info){ S.info=b.dataset.info; const i=$('#info'); if(i) i.textContent=S.info; return; }
+  if(b.dataset.pick!==undefined){ const id=b.dataset.for||S.sel; S.pick[id]=+b.dataset.pick; return render(); }
+  if('copy' in b.dataset){ const c=D.cases.find(x=>x.id===(b.dataset.for||S.sel)); const i=S.pick[c.id];
+    const txt=`【副業: ${c.title}】${c.ask}\n→ ${'①②③④'[i]} ${c.options[i]}\n(副業コクピットから。本人の答え)`;
+    (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast('コピーしました。チャッピーの会話に貼ると、それが答えになります'),()=>{prompt('この文をコピーしてチャッピーへ',txt);}); return; }
+  if(b.dataset.proto){ toast('試作なので何も送っていません。本番では: '+b.dataset.proto); return; }
+});
+let lastW=innerWidth; addEventListener('resize', ()=>{ if(Math.abs(innerWidth-lastW)<40) return; lastW=innerWidth; clearTimeout(render.h); render.h=setTimeout(render,150); });
+render();
+</script>
+</body>
+</html>
