@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>公式 dot と今の受け渡しの比較 (10/13)</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      color: light-dark(#1a1a1a, #fdfdfd);
+      background-color: #fdfdfd;
+      background-color: light-dark(#fdfdfd, #1a1a1a);
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a, a:visited {
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid;
+      border-color: #e6e6e6;
+      border-color: light-dark(#e6e6e6, #4c4c4c);
+      color: #606060;
+      color: light-dark(#606060, #b6b6b6);
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid currentColor;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+    }
+    th {
+      border-top: 1px solid currentColor;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><style>body{font-family:-apple-system,"Hiragino Sans",sans-serif;max-width:880px;margin:0 auto;padding:16px;line-height:1.7;color:#222}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid #ccc;padding:6px 8px;vertical-align:top}th{background:#f2f2f2}h1{font-size:1.4em}</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">公式 dot と今の受け渡しの比較 (10/13)</h1>
+</header>
+<h1 id="公式-dot-と今の受け渡しの仕組みを並べた表-2026-10-13">公式 dot
+と今の受け渡しの仕組みを並べた表 (2026-10-13)</h1>
+<ul>
+<li>結論: 公式 dot に任せられそうな所は14行中3つ
+(声と文字の窓口、決まった時刻の見回り、Slack
+の見張り)。一部だけ任せるのが3つ (記憶、ウェブの調べもの、Mac
+のファイル)。残すのが8つ。</li>
+<li>確認できたのは公式の説明ページ6枚の文面だけ。実際に動かしての確認は1つもない。「できる」は説明に書いてあるという意味。</li>
+<li>残す所は、受付の2ファイル、承認の台帳、足あと、モデルの振り分け、URL
+の取り込み、印刷、手元の画面操作、Claude Code
+との連携。公式の説明に同じ物が見つからないか、未確認。</li>
+</ul>
+<p>読んだ公式ページ (確認済み):
+dots、getting-started、channels、tasks-and-memory、computers-and-apps、controls
+(いずれも developers.openai.com/codex/ の .md 版)。管理者向けの案内
+(enterprise/dots-admin-guide) は未取得。 対象は「公式 dot
+を使うこと」であり、今の設定の変更や移行はしていない。</p>
+<h2 id="表">表</h2>
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>今の仕組み (誰が・何で)</th>
+<th>公式 dot でできるか</th>
+<th>任せる案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>声の窓口</td>
+<td>iPhone の Codex (チャッピー) に話す。声の聞き取りは音声側</td>
+<td>確認済み: ChatGPT アプリで通話・文字。通話中も文字を打てる</td>
+<td>任せる (試す)</td>
+</tr>
+<tr>
+<td>受け渡しの受付</td>
+<td>to-claude / to-dots の2つのファイル。クロードが数秒〜毎時で拾う</td>
+<td>未確認:
+公式は会話や作業の枠で動く。外のファイルを読む説明は無い</td>
+<td>残す</td>
+</tr>
+<tr>
+<td>常駐・見回り</td>
+<td>クロードの毎時の見回り (7〜23時) と見張り</td>
+<td>確認済み: 自分で起きて続ける、決まった時刻の定期作業もできる
+(時刻と時間帯を伝える)</td>
+<td>任せる (一部から)</td>
+</tr>
+<tr>
+<td>記憶の共有</td>
+<td>記憶ファイルを毎時そろえる (クロードとチャッピー)</td>
+<td>確認済み: 公式側のメモと ChatGPT
+の記憶を引き継ぐ。ただしクロードの記憶とは別</td>
+<td>一部 (公式内だけ)</td>
+</tr>
+<tr>
+<td>Slack・Teams</td>
+<td>タチコマが Gmail・Slack を見張る</td>
+<td>確認済み: 話しかけも、指定した場所の見張りもできる</td>
+<td>任せる</td>
+</tr>
+<tr>
+<td>画面操作 (LINE・普段の Chrome)</td>
+<td>チャッピーの画面操作。niihama の Mac で動く</td>
+<td>一部確認: 自分のクラウドの PC とブラウザは持つ。手元の Mac
+は1台だけつなげ、アプリを開いた状態が必要。手元の LINE
+を操作できるかは未確認</td>
+<td>残す</td>
+</tr>
+<tr>
+<td>ウェブの調べもの・ログインが要る作業</td>
+<td>クロードの Chrome (CDP)</td>
+<td>確認済み:
+クラウドのブラウザで調べる。ログインは非公開の入力欄で本人が入れる。引き継ぎ操作もある</td>
+<td>一部</td>
+</tr>
+<tr>
+<td>承認の台帳</td>
+<td>approvals.jsonl に本人の言葉をそのまま記録。期限24時間</td>
+<td>確認済み:
+人に影響する操作の前に、確認か本人への引き渡しが入る。ただし本人の言葉を台帳に残す機能は未確認</td>
+<td>残す</td>
+</tr>
+<tr>
+<td>モデルの振り分け</td>
+<td>model-router (種類と枠で選ぶ)</td>
+<td>確認済み: GPT-6 Astra
+で動く。使い分けの設定は見当たらない。公式側の使用枠も別</td>
+<td>残す</td>
+</tr>
+<tr>
+<td>足あと</td>
+<td>trace.py (誰が・何トークン・何秒)</td>
+<td>確認済み:
+画面の「作業の記録」で進み具合は見える。トークンや経路の細かい記録は未確認</td>
+<td>残す</td>
+</tr>
+<tr>
+<td>URL の取り込み (外部脳)</td>
+<td>貼った URL を1票にして蒸留</td>
+<td>未確認:
+同じ機能の説明は無い。調べて下書きを作ること自体はできそう</td>
+<td>残す</td>
+</tr>
+<tr>
+<td>印刷</td>
+<td>チャッピーが Mac から印刷</td>
+<td>未確認: 説明に印刷の記載なし。手元の Mac
+経由なら可能性はあるが未確認</td>
+<td>残す</td>
+</tr>
+<tr>
+<td>Mac のファイル操作</td>
+<td>クロード・チャッピーが直接読み書き</td>
+<td>一部確認: 手元の Mac を1台つなげばファイルとコードを使える。ただし
+Mac の電源とアプリが開いている必要</td>
+<td>一部</td>
+</tr>
+<tr>
+<td>Claude Code との連携</td>
+<td>クロードのスレと Routine。ファイル経由</td>
+<td>未確認: 公式は Codex への依頼が中心。Claude は対象外と思われる
+(推測)</td>
+<td>残す</td>
+</tr>
+</tbody>
+</table>
+<h2 id="任せる候補の上位3つ">任せる候補の上位3つ</h2>
+<ol type="1">
+<li><p>声と文字の窓口 (ChatGPT アプリの通話)</p>
+<ul>
+<li>試し方: 公式 dot
+を作り、数分の通話で「今日の予定の確認」を頼んで、チャッピーと答えの質を比べる。</li>
+<li>気をつける点: 公式 dot は手元の Mac
+と案件台帳を持たない。今の窓口は残したまま並べて試す。</li>
+</ul></li>
+<li><p>常駐・見回り (決まった時刻の定期作業)</p>
+<ul>
+<li>試し方: 「平日朝9時 (日本時間) に、決めた Slack
+の場所を見て、期限が危ない時だけ通知して。保存した予定を確認して」と1件だけ頼み、一覧
+(Scheduled) に出るか見る。</li>
+<li>気をつける点:
+「見張る」と頼まない限り見張らない。予定が保存されたか、画面の一覧で必ず確かめる。</li>
+</ul></li>
+<li><p>Slack の見張り</p>
+<ul>
+<li>試し方:
+使っていない練習用の場所を1つだけ指定し、新しい投稿があったら要点を
+ChatGPT に送るよう頼む。</li>
+<li>気をつける点: 仕事の Slack
+に入れる前に、どこまで返事や共有をするか指示で絞る。公式側の安全の決まりが優先される。</li>
+</ul></li>
+</ol>
+<h2 id="確認済みと未確認の線引き">確認済みと未確認の線引き</h2>
+<ul>
+<li>確認済み (文面のみ):
+通話と文字、Slack・Teams、定期作業と自分で起きて続ける動き、記憶の引き継ぎ、クラウドの
+PC とブラウザ、手元の Mac
+を1台つなぐこと、ログインの非公開入力、作業の一覧と停止、承認前の確認。</li>
+<li>未確認: 外のファイルの読み書き、印刷、手元の LINE の操作、Claude
+Code
+との連携、トークン単位の記録、承認の本人の言葉の保存、管理者向けの条件、実際の使い心地と費用。</li>
+<li>今の仕組みのうち、公式に説明が無い物
+(承認の台帳、足あと、振り分け、URL 取り込み) は残す。仮説
+H-20261011-03・H-20261013-04
+は「一部は任せられる」の方向で材料が出たが、動かす比較はまだ。</li>
+</ul>
+<p>出典の票:
+summaries/2026-10-11_x-trend-dots-codex-delegation、2026-10-13_ai_300-2109474888817778919、2026-10-13_furoku-2109407996610822394</p>
+</body>
+</html>
