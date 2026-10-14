@@ -44,7 +44,7 @@ a{color:var(--ink);text-underline-offset:3px}
 <h1>快適な夏は、北へ。<br>ただし地価は、気温どおりには動いていない。</h1>
 <p class="lead">8月の平均が20〜24℃の「快適な夏」は、中間のシナリオでも2030〜60年代に山梨・長野の一部と札幌・函館から外れ、道東の海沿いへ移ります。一方で地価は、軽井沢・白馬・倶知安・富良野がすでに5年で5〜7割上がり、北杜・那須・道東は下がっています。</p>
 <a class="cta" href="https://ikedhidenori.github.io/jp/plain-11c6b07c3dd24ece.html">動く地図を開く →</a>
-<p class="note">10/15 版3：三拠点の割り振り（4章）を追加。版2：快適帯18〜24℃の切替、地域×月の表、三拠点の暦を追加。シナリオ・年・快適帯の幅を変えると地図が動きます。地点を押すと「今の東京の4・5・9・10月に当たる時期」と、調べた範囲の地価・人口・観光が出ます。</p>
+<p class="note">10/15 版4：快適の基準を日中の最高気温に決め、4章の3案を見直し。版3：三拠点の割り振り（4章）を追加。版2：快適帯18〜24℃の切替、地域×月の表、三拠点の暦を追加。シナリオ・年・快適帯の幅を変えると地図が動きます。地点を押すと「今の東京の4・5・9・10月に当たる時期」と、調べた範囲の地価・人口・観光が出ます。</p>
 
 <h2>1. 何が分かるか</h2>
 <h3>夏の快適帯（8月の月平均 20〜24℃）から外れる年・入る年</h3>
@@ -154,7 +154,7 @@ a{color:var(--ink);text-underline-offset:3px}
 <h2>4. 三拠点をどこに割り振るか</h2>
 <p>前提は、各拠点に120日ずつ住み（冬の拠点は11/20〜3/19、夏の拠点は6/8〜10/5、本州は残りの春と秋）、残りの約245日は簡易宿所として一棟貸しすることです。貸す間、自分は別の拠点にいるので、清掃と鍵の受け渡しは運営代行に任せる計算にしました。</p>
 <ul>
-<li><b>北の拠点は「快適」の測り方で答えが変わります。</b>日中の最高気温で18〜24℃を快適とすると、知床ウトロ（120日のうち112日）と釧路（93日）が向いています。1日の平均気温で測ると、八幡平（97日）・富良野（76日）・東川（71日）が向いています。昼が暑くないことを取るか、朝晩が寒くないことを取るかの違いです。</li>
+<li><b>快適の基準は「日中の最高気温が18〜24℃」にしました</b>（10/15、昼が暑くないことを取る、という判断）。この基準だと、北の拠点は知床ウトロ（120日のうち112日）と釧路（93日）が向いています。八幡平・富良野・美瑛・東川は、夏の昼が暑い日が多めです（29〜51日）。</li>
 <li><b>北の候補で、手残りの幅の下側でも黒字なのは倶知安だけです。</b>冬のスキー需要（1月の1泊の中央値 56,100円）で、雪国の維持費（年20万〜82万円）を上回ります。ほかの北の候補は、幅の下側が赤字です。ただし倶知安は地価が5年で+50%と、すでに高くなっています。</li>
 <li><b>冬の拠点は、どこを選んでも快適です</b>（日中の最高気温で120日のうち97〜120日）。手残りが最も大きいのは宮古島で、貸す5〜8月の単価が高いのが理由です（8月の中央値 50,820円）。ただし地価は5年で+79%です。</li>
 <li><b>本州は、手残りと取得費の釣り合いが南房総で良くなります。</b>最も快適なのは下田・南伊豆です。北杜と那須は春と秋だと寒く、春秋の拠点には向きません。</li>
@@ -162,53 +162,53 @@ a{color:var(--ink);text-underline-offset:3px}
 
 <h3>冬の拠点（120日）</h3>
 <div class="tbl"><table>
-<thead><tr><th>地点</th><th class="n">快適な日<br>最高／平均</th><th class="n">手残り<br>/年</th><th class="n">取得費</th></tr></thead>
+<thead><tr><th>地点</th><th class="n">快適な日</th><th class="n">手残り<br>/年</th><th class="n">取得費</th></tr></thead>
 <tbody>
-<tr><td class="k">宮古島<span class="sub">地価5年+79%。津波は最大27m</span></td><td class="n">108／120</td><td class="n">98〜245万</td><td class="n">3,040万</td></tr>
-<tr><td class="k">本部・恩納<span class="sub">海沿いは国定公園の建築制限。恩納は宿泊税</span></td><td class="n">114／53</td><td class="n">47〜170万</td><td class="n">2,940万</td></tr>
-<tr><td class="k">石垣島<span class="sub">津波は最大34.7m（県内最大）</span></td><td class="n">97／120</td><td class="n">40〜158万</td><td class="n">3,740万</td></tr>
-<tr><td class="k">南城<span class="sub">地価5年+28%。津波の値は未取得</span></td><td class="n">120／23</td><td class="n">14〜120万</td><td class="n">3,790万</td></tr>
-<tr><td class="k">奄美大島<span class="sub">台風・土砂。11月の価格は未取得</span></td><td class="n">120／20</td><td class="n">−4〜72万</td><td class="n">3,080万</td></tr>
+<tr><td class="k">宮古島<span class="sub">地価5年+79%。津波は最大27m</span></td><td class="n">108日</td><td class="n">98〜245万</td><td class="n">3,040万</td></tr>
+<tr><td class="k">本部・恩納<span class="sub">海沿いは国定公園の建築制限。恩納は宿泊税</span></td><td class="n">114日</td><td class="n">47〜170万</td><td class="n">2,940万</td></tr>
+<tr><td class="k">石垣島<span class="sub">津波は最大34.7m（県内最大）</span></td><td class="n">97日</td><td class="n">40〜158万</td><td class="n">3,740万</td></tr>
+<tr><td class="k">南城<span class="sub">地価5年+28%。津波の値は未取得</span></td><td class="n">120日</td><td class="n">14〜120万</td><td class="n">3,790万</td></tr>
+<tr><td class="k">奄美大島<span class="sub">台風・土砂。11月の価格は未取得</span></td><td class="n">120日</td><td class="n">−4〜72万</td><td class="n">3,080万</td></tr>
 </tbody></table></div>
 
 <h3>春秋の拠点（125日）</h3>
 <div class="tbl"><table>
-<thead><tr><th>地点</th><th class="n">快適な日<br>最高／平均</th><th class="n">手残り<br>/年</th><th class="n">取得費</th></tr></thead>
+<thead><tr><th>地点</th><th class="n">快適な日</th><th class="n">手残り<br>/年</th><th class="n">取得費</th></tr></thead>
 <tbody>
-<tr><td class="k">南房総<span class="sub">地価の調査地点は都市計画区域外が中心。東京から約2.5時間</span></td><td class="n">88／46</td><td class="n">73〜172万</td><td class="n">2,590万</td></tr>
-<tr><td class="k">那須<span class="sub">春と秋は寒い。那須岳の火山</span></td><td class="n">28／0</td><td class="n">67〜154万</td><td class="n">2,320万</td></tr>
-<tr><td class="k">伊東<span class="sub">相模トラフの津波</span></td><td class="n">95／44</td><td class="n">65〜161万</td><td class="n">3,340万</td></tr>
-<tr><td class="k">三浦<span class="sub">地価が高い（1m²あたり68,088円）。東京から約1.75時間</span></td><td class="n">89／44</td><td class="n">35〜107万</td><td class="n">4,780万</td></tr>
-<tr><td class="k">北杜<span class="sub">春と秋は寒い。夏の避暑は2036年ごろに外れる</span></td><td class="n">57／0</td><td class="n">33〜106万</td><td class="n">2,500万</td></tr>
-<tr><td class="k">下田・南伊豆<span class="sub">南海トラフの津波（南伊豆で最大24m）。単価は下田で代用</span></td><td class="n">98／54</td><td class="n">8〜76万</td><td class="n">2,610万</td></tr>
+<tr><td class="k">南房総<span class="sub">地価の調査地点は都市計画区域外が中心。東京から約2.5時間</span></td><td class="n">88日</td><td class="n">73〜172万</td><td class="n">2,590万</td></tr>
+<tr><td class="k">那須<span class="sub">春と秋は寒い。那須岳の火山</span></td><td class="n">28日</td><td class="n">67〜154万</td><td class="n">2,320万</td></tr>
+<tr><td class="k">伊東<span class="sub">相模トラフの津波</span></td><td class="n">95日</td><td class="n">65〜161万</td><td class="n">3,340万</td></tr>
+<tr><td class="k">三浦<span class="sub">地価が高い（1m²あたり68,088円）。東京から約1.75時間</span></td><td class="n">89日</td><td class="n">35〜107万</td><td class="n">4,780万</td></tr>
+<tr><td class="k">北杜<span class="sub">春と秋は寒い。夏の避暑は2036年ごろに外れる</span></td><td class="n">57日</td><td class="n">33〜106万</td><td class="n">2,500万</td></tr>
+<tr><td class="k">下田・南伊豆<span class="sub">南海トラフの津波（南伊豆で最大24m）。単価は下田で代用</span></td><td class="n">98日</td><td class="n">8〜76万</td><td class="n">2,610万</td></tr>
 </tbody></table></div>
 
 <h3>夏の拠点（120日）</h3>
 <div class="tbl"><table>
-<thead><tr><th>地点</th><th class="n">快適な日<br>最高／平均</th><th class="n">手残り<br>/年</th><th class="n">取得費</th></tr></thead>
+<thead><tr><th>地点</th><th class="n">快適な日</th><th class="n">手残り<br>/年</th><th class="n">取得費</th></tr></thead>
 <tbody>
-<tr><td class="k">倶知安・ニセコ<span class="sub">地価5年+50%、宿泊税3%。羊蹄山、豪雪</span></td><td class="n">66／68</td><td class="n">77〜235万</td><td class="n">5,100万</td></tr>
-<tr><td class="k">東川<span class="sub">地価は1年で+14%。景観条例</span></td><td class="n">49／71</td><td class="n">−12〜137万</td><td class="n">2,660万</td></tr>
-<tr><td class="k">富良野<span class="sub">十勝岳が噴火警戒レベル3（入山規制）</span></td><td class="n">46／76</td><td class="n">−36〜102万</td><td class="n">3,430万</td></tr>
-<tr><td class="k">知床ウトロ<span class="sub">国立公園の中は建築に許可が要る</span></td><td class="n">112／37</td><td class="n">−61〜52万</td><td class="n">2,380万</td></tr>
-<tr><td class="k">美瑛<span class="sub">十勝岳。景観条例</span></td><td class="n">51／64</td><td class="n">−90〜20万</td><td class="n">2,480万</td></tr>
-<tr><td class="k">釧路<span class="sub">千島海溝の津波想定</span></td><td class="n">93／21</td><td class="n">−84〜26万</td><td class="n">2,650万</td></tr>
-<tr><td class="k">八幡平<span class="sub">岩手山、豪雪</span></td><td class="n">29／97</td><td class="n">−81〜18万</td><td class="n">2,390万</td></tr>
+<tr><td class="k">倶知安・ニセコ<span class="sub">地価5年+50%、宿泊税3%。羊蹄山、豪雪</span></td><td class="n">66日</td><td class="n">77〜235万</td><td class="n">5,100万</td></tr>
+<tr><td class="k">東川<span class="sub">地価は1年で+14%。景観条例</span></td><td class="n">49日</td><td class="n">−12〜137万</td><td class="n">2,660万</td></tr>
+<tr><td class="k">富良野<span class="sub">十勝岳が噴火警戒レベル3（入山規制）</span></td><td class="n">46日</td><td class="n">−36〜102万</td><td class="n">3,430万</td></tr>
+<tr><td class="k">知床ウトロ<span class="sub">国立公園の中は建築に許可が要る</span></td><td class="n">112日</td><td class="n">−61〜52万</td><td class="n">2,380万</td></tr>
+<tr><td class="k">美瑛<span class="sub">十勝岳。景観条例</span></td><td class="n">51日</td><td class="n">−90〜20万</td><td class="n">2,480万</td></tr>
+<tr><td class="k">釧路<span class="sub">千島海溝の津波想定</span></td><td class="n">93日</td><td class="n">−84〜26万</td><td class="n">2,650万</td></tr>
+<tr><td class="k">八幡平<span class="sub">岩手山、豪雪</span></td><td class="n">29日</td><td class="n">−81〜18万</td><td class="n">2,390万</td></tr>
 </tbody></table></div>
-<p class="note">快適な日は、住む期間のうち18〜24℃に入る日数（2020年、中間のシナリオ）。「最高」は日中の最高気温、「平均」は1日の平均気温で測った値。手残りは1棟・1年あたりで、借入の返済と金利、減価償却、自分が住む間の生活費は含みません。</p>
+<p class="note">快適な日は、住む期間のうち18〜24℃に入る日数（2020年、中間のシナリオ）。日中の最高気温で測った値（1日の平均気温で測った値は地図の地点カードに）。手残りは1棟・1年あたりで、借入の返済と金利、減価償却、自分が住む間の生活費は含みません。</p>
 
 <h3>組み合わせ3案</h3>
 <div class="tbl"><table>
-<thead><tr><th>案</th><th>拠点</th><th class="n">快適な日<br>最高／平均</th><th class="n">手残り<br>/年</th><th class="n">取得費</th></tr></thead>
+<thead><tr><th>案</th><th>拠点</th><th class="n">快適な日</th><th class="n">手残り<br>/年</th><th class="n">取得費</th></tr></thead>
 <tbody>
-<tr><td class="k">稼ぐ重視</td><td>宮古島・南房総・倶知安</td><td class="n">262／234</td><td class="n">248〜652万</td><td class="n">1億730万</td></tr>
-<tr><td class="k">快適重視</td><td>南城・南伊豆・知床ウトロ</td><td class="n">330／114</td><td class="n">−39〜248万</td><td class="n">8,780万</td></tr>
-<tr><td class="k">初期費用を抑える</td><td>本部・南房総・東川</td><td class="n">251／170</td><td class="n">108〜479万</td><td class="n">8,190万</td></tr>
+<tr><td class="k">稼ぐ重視</td><td>宮古島・南房総・倶知安</td><td class="n">262日</td><td class="n">248〜652万</td><td class="n">1億730万</td></tr>
+<tr><td class="k">快適重視</td><td>南城・南伊豆・知床ウトロ</td><td class="n">330日</td><td class="n">−39〜248万</td><td class="n">8,780万</td></tr>
+<tr><td class="k">初期費用を抑える</td><td>本部・南房総・知床ウトロ</td><td class="n">314日</td><td class="n">59〜394万</td><td class="n">7,910万</td></tr>
 </tbody></table></div>
-<p class="note">東京だけで暮らした場合の快適な日は、最高で76日、平均で87日。年間売上の幅は、稼ぐ重視が961万〜1,346万円、快適重視が465万〜698万円、初期費用を抑える案が714万〜1,071万円。2050年の快適な日（最高／平均）は、稼ぐ重視が226／261、快適重視が309／166、初期費用を抑える案が221／222です。</p>
+<p class="note">東京だけで暮らした場合の快適な日は76日。年間売上の幅は、稼ぐ重視が961万〜1,346万円、快適重視が465万〜698万円、初期費用を抑える案が613万〜920万円。2050年の快適な日は、稼ぐ重視が226日、快適重視が309日、初期費用を抑える案が279日です。初期費用を抑える案の北は、10/15版の東川（快適な日49日）から知床ウトロに替えました。</p>
 <ul>
 <li><b>どの案でも、手残りは取得費の年数%にとどまります。</b>稼ぐ重視で約2〜6%です。三拠点の価値は、利回りよりも「1年の大半を快適に過ごせる」ことのほうにあります。</li>
-<li><b>北をどこにするかが、快適と稼ぎを分けます。</b>倶知安は稼げますが、夏の昼は暑い日が多めです。知床ウトロは夏が一番快適ですが、貸す冬は客が少なく赤字側に振れます。</li>
+<li><b>北をどこにするかが、快適と稼ぎを分けます。</b>倶知安は稼げますが、夏の昼は暑い日が多めです（120日のうち快適は66日）。知床ウトロは夏が一番快適ですが、貸す冬は客が少なく、手残りの幅の下側が赤字です。</li>
 <li><b>提案（推測を含みます）</b>：一度に3棟を建てず、単独でも回る本州の1棟（南房総）から始めます。次に冬の拠点を足し、維持費が重い北の拠点は最後に、借りて試してから決めます。</li>
 </ul>
 <p class="note">計算のしかた：売上は「1泊の価格 × 稼働率」を貸す日の分だけ足したものです。1泊の価格は、Airbnb の公開の検索結果（一棟貸し・広さ混在）1ページ目の中央値で、1月・5月・8月・11月の4時点を2026-10-15に取得しました。1か所1時点の標本は6〜18件です。稼働率は観光庁「宿泊旅行統計調査」2025年の、県・月別の簡易宿所の客室稼働率です。上限はその1.5倍（最大70%）とし、これは「よく運営できた場合」の仮定です。北海道の町は、町の宿泊の季節の形に合わせました。手残りは、売上の65%（予約サイトの手数料15%と運営代行20%を引いたもの）から、清掃（2.5泊に1回、1.5万〜3万円）と年間の維持費（雪国20万〜82万円、高原14万〜22万円、沖縄7万〜16万円、海沿い4万〜9万円。未取得の項目があり、実際は上に振れます）を引いたものです。取得費は、土地400m² × 住宅地の平均（基準地価2026年、tochidai.info 経由の二次データ）に、建物2,060万円（小屋プロの見立てで、見積はとっていません）を足したものです。値上がりは見込んでいません。</p>

@@ -250,7 +250,7 @@ const MONTHS=["1月","2月","3月","4月","5月","6月","7月","8月","9月","10
 const SCN=[
   ["SSP1-1.9","排出が最も少ない"],["SSP1-2.6","少ない（2℃目標）"],["SSP2-4.5","中間"],["SSP3-7.0","多い"],["SSP5-8.5","最も多い"]];
 const FAV=["大泉(北杜)","原村(八ヶ岳)","軽井沢","白馬","那須高原","岩手松尾(八幡平)","十和田","倶知安","富良野","帯広","釧路","斜里","宇登呂","函館","札幌","東京"];
-const st={scn:"SSP2-4.5",rng:"mid",ind:"mean",lo:18,hi:24,mon:7,year:2050,sel:null,playing:false,bmode:"pick",bS:null,bM:null,bN:null};
+const st={scn:"SSP2-4.5",rng:"mid",ind:"max",lo:18,hi:24,mon:7,year:2050,sel:null,playing:false,bmode:"pick",bS:null,bM:null,bN:null};
 const $=id=>document.getElementById(id);
 const NS="http://www.w3.org/2000/svg";
 function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
