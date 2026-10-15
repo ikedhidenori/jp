@@ -714,6 +714,34 @@ body.pm.cq-compact #ttl{display:none}
 
 a.cq-wide-btn{color:inherit;text-decoration:none}
 
+/* 残り3日の集中モード（10/16〜）。前の画面は消さずに隠す */
+#tab-s,#tab-q,#tab-r,#tab-c{display:none!important}
+#pm-dashboard:not(.fx-show-old)>:not(#focus){display:none!important}
+#pm-dashboard.fx-show-old #focus .fx-sec{display:none}
+.fx{max-width:640px;margin:0 auto;padding:4px 2px 40px;line-height:1.6}
+.fx-k{font-size:12px;letter-spacing:.1em;color:var(--amute);margin:0}
+.fx-upd{font-size:11px;color:var(--amute);margin:2px 0 14px}
+.fx-sec{border-top:2px solid currentColor;padding:12px 0 18px}
+.fx-sec h2{font-size:12px;letter-spacing:.14em;font-weight:600;color:var(--amute);margin:0 0 8px}
+.fx-one{font-size:20px;font-weight:700;line-height:1.45;margin:0 0 12px}
+.fx-t{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.fx-t th{font-size:12px;font-weight:500;color:var(--amute);text-align:right;padding:5px 4px;border-bottom:1px solid var(--aline)}
+.fx-t td{padding:8px 4px;border-bottom:1px solid var(--aline);text-align:right}
+.fx-t th:first-child,.fx-t td:first-child{text-align:left}
+.fx-x{color:#b0432c;font-weight:700}
+@media (prefers-color-scheme:dark){.fx-x{color:#e07a5f}}
+.fx-l{list-style:none;padding:0;margin:12px 0 0}
+.fx-l li{padding:7px 0;border-bottom:1px solid var(--aline);font-size:14px}
+.fx-l b{display:block;font-size:15px}
+.fx-more{display:block;margin-top:12px;font-size:14px;color:inherit;text-decoration:none;border-bottom:1px solid var(--aline);padding:8px 0}
+.fx-now .fx-what{font-size:19px;font-weight:700;margin:0 0 10px;line-height:1.45}
+.fx-dl{display:grid;grid-template-columns:5.5em 1fr;gap:6px 10px;margin:0;font-size:15px}
+.fx-dl dt{color:var(--amute);font-size:13px;padding-top:2px}
+.fx-dl dd{margin:0}
+.fx-say{background:#f3e27a;color:#1c1c1a;padding:1px 6px;border-radius:3px;font-weight:700}
+.fx-next{font-size:15px;margin:12px 0 0}
+.fx-old{margin-top:18px;width:100%;min-height:44px;font:inherit;font-size:14px;background:none;color:var(--amute);border:1px solid var(--aline);border-radius:8px}
+
 #kami-replay{max-width:560px;margin:0 auto;padding:calc(var(--ahd,52px) + env(safe-area-inset-top) + 14px) 16px calc(32px + env(safe-area-inset-bottom));font-variant-numeric:tabular-nums}
 .kr-choice.kr-choice.kr-wrong{border-color:var(--afg);border-style:dashed;text-decoration:line-through}.kr-result .ng.ng{color:var(--afg)}.kr-status.kr-status.kr-warn{border-color:var(--afg)}
 #kami-replay[hidden]{display:none}.kr-head{display:flex;align-items:start;justify-content:space-between;border-bottom:2px solid var(--aline);padding-bottom:12px;margin-bottom:14px}.kr-head h1{font-size:22px;margin:0}.kr-kicker,.kr-muted{font-size:12px;color:var(--amute)}.kr-kicker{margin:0 0 2px}.kr-close,.kr-button,.kr-choice{font:inherit;color:var(--afg);border:1px solid var(--aline);background:var(--abg);border-radius:8px;min-height:44px}.kr-close{min-width:44px;font-size:24px}.kr-card{border:1px solid var(--aline);border-radius:10px;padding:14px;margin:0 0 12px}.kr-card h2{font-size:16px;margin:0 0 10px}.kr-card p{margin:7px 0}.kr-modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kr-button{padding:10px;text-align:left;font-weight:700}.kr-button small{display:block;font-weight:400;color:var(--amute);margin-top:2px}.kr-tools{display:flex;flex-wrap:wrap;gap:8px}.kr-tools label,.kr-tools button{min-height:42px;padding:8px 10px;border:1px solid var(--aline);border-radius:7px;background:transparent;color:var(--afg);font:inherit}.kr-tools input{display:none}.kr-meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--amute);margin-bottom:10px}.kr-prompt{font-size:17px;white-space:pre-wrap;line-height:1.7}.kr-choices{display:grid;gap:9px;margin-top:16px}.kr-choice{display:flex;align-items:center;width:100%;padding:10px;text-align:left;line-height:1.55}.kr-choice b{display:inline-grid;place-items:center;min-width:28px;height:28px;border:1px solid var(--aline);border-radius:50%;margin-right:9px}.kr-choice[disabled]{opacity:.72}.kr-choice.kr-right{border-color:var(--ahl);box-shadow:inset 0 0 0 1px var(--ahl)}.kr-choice.kr-wrong{border-color:var(--awarn)}.kr-result{margin-top:14px;padding-top:12px;border-top:1px solid var(--aline)}.kr-result strong{display:block}.kr-result .ok{color:var(--ahl)}.kr-result .ng{color:var(--awarn)}.kr-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.kr-actions .kr-button{padding:10px 14px;font-weight:700}.kr-actions .kr-primary{background:var(--ahl);color:#1F1E1B;border-color:var(--ahl)}.kr-status:not(:empty){padding:8px 10px;margin-bottom:10px;border-left:3px solid var(--ahl);background:var(--asurface);font-size:13px}.kr-status.kr-warn{border-color:var(--awarn)}.kr-done{text-align:center;padding:32px 8px}.kr-done b{font-size:32px;display:block}.kr-section{width:100%;min-height:44px;padding:8px;border:1px solid var(--aline);background:var(--abg);color:var(--afg);font:inherit}@media(max-width:390px){#kami-replay{padding-left:12px;padding-right:12px}.kr-card{padding:12px}.kr-modes{gap:8px}}
@@ -936,6 +964,54 @@ body.kf #slides,body.kf #ft{display:none}body.kf #kenri-fig{display:block}
 
 <!-- 神問題集2026 progress module: inserted by build.py into the app shell. -->
 <section id="pm-dashboard" aria-label="神問題集2026 学習進捗" hidden>
+  <div id="focus" class="fx">
+<p class="fx-k">残り3日の集中モード　本試験 10/18（日）13:00</p>
+<p class="fx-upd">10/16 01:40 更新</p>
+
+<section class="fx-sec">
+<h2>攻める所</h2>
+<p class="fx-one">業法で3点取り返す。言い過ぎの文を「正しい」と信じない。</p>
+<table class="fx-t">
+<tr><th>科目</th><th>目標</th><th>模試4</th><th>差</th></tr>
+<tr><td>業法</td><td>18</td><td>15</td><td class="fx-x">−3</td></tr>
+<tr><td>税・価格</td><td>2</td><td>0</td><td class="fx-x">−2</td></tr>
+<tr><td>免除</td><td>4</td><td>3</td><td class="fx-x">−1</td></tr>
+<tr><td>法令・権利</td><td>14</td><td>14</td><td>0</td></tr>
+</table>
+<ul class="fx-l">
+<li><b>誤りの文を○にする</b>　模試4で印が逆の25肢のうち20肢</li>
+<li><b>業法の7問がまぐれ</b>　問30・35・38・39・40・43・44</li>
+<li><b>解説後も再発</b>　売主に重説は不要／正誤の言い違い／耐震診断は内容／業者が買主なら8種制限なし</li>
+</ul>
+<a class="fx-more" href="takken-review-0ee08412/chokuzen.html" target="_blank" rel="noopener">くわしい傾向と、当日の動き →</a>
+</section>
+
+<section class="fx-sec fx-now">
+<h2>今回の1回分</h2>
+<p class="fx-what">再発の4つ → 模試4 全肢復習の続き（権利 問3〜14）</p>
+<dl class="fx-dl">
+<dt>どこで</dt><dd>宅建プロジェクトで新しい会話</dd>
+<dt>言う</dt><dd><span class="fx-say">模試4 全肢復習</span></dd>
+<dt>量</dt><dd>再発4つ×2肢 ＋ 権利 約45肢</dd>
+<dt>時間</dt><dd>45分</dd>
+<dt>終わったら</dt><dd>クロードかチャッピーに「終わった」</dd>
+</dl>
+</section>
+
+<section class="fx-sec">
+<h2>前回と次</h2>
+<table class="fx-t">
+<tr><th>前回（10/15 夜）</th><th>結果</th></tr>
+<tr><td>模試4 全肢復習（業法・税価）</td><td>84/99肢</td></tr>
+</table>
+<p class="fx-next"><b>次</b>　<span class="fx-say">鬼トレ</span> 35条・37条30肢（30分）→ 13:00 模試5（R3・10月）</p>
+<a class="fx-more" href="https://ikedhidenori.github.io/jp/plain-cf3bd411b7996255.html" target="_blank" rel="noopener">業法のカード（168枚）→</a>
+</section>
+
+<button type="button" class="fx-old" id="fx-old">前の画面（記録・予定）を見る</button>
+</div>
+<script>(function(){var b=document.getElementById('fx-old'),d=document.getElementById('pm-dashboard');if(!b||!d)return;b.onclick=function(){var on=d.classList.toggle('fx-show-old');b.textContent=on?'集中モードだけにする':'前の画面（記録・予定）を見る';};})();</script>
+
   <header class="pm-head"><div><p class="pm-kicker">神問題集 2026</p><h1>学習進捗</h1></div></header>
   <div id="pm-status" class="pm-status" role="status" aria-live="polite"></div>
   <button type="button" class="kami-entry" data-kami-open>神問題集を解き直す<small>取り込んだ写真の問題・一問一答を出題</small></button>
@@ -3185,7 +3261,7 @@ body.kf #slides,body.kf #ft{display:none}body.kf #kenri-fig{display:block}
       (nm ? '<p class="cq-meter-note"><b class="' + (nmLeft <= 2 ? 'cq-ng' : '') + '">' + nm.label + 'まで' + (nmLeft === 0 ? '今日' : 'あと' + nmLeft + '日') + '</b>　' + md(nm.date) + ' ' + esc(nm.source) + '</p>' : '<p class="cq-meter-note">模試はすべて終了</p>') + '</div>';
     var state_ = (pi.behind > 0 ? '<b class="cq-ng">昨日までの予定より ' + pi.behind + '問 遅れ</b>' : pi.done >= pi.total ? '<b>必修範囲は全部記録済み</b>' : '<b>昨日までの予定はクリア</b>') + (pi.todayLeft ? '　今日の残り ' + pi.todayLeft + '問' : '');
     var pg = '<div class="cq-meter"><div class="cq-meter-head"><b>業法・法令・税の必修 ' + pi.total + '問</b><span>' + pi.done + '<small>/' + pi.total + '</small></span></div><div class="cq-bar' + (pi.behind > 0 ? ' is-behind' : '') + '"><div class="cq-bar-due" style="width:' + pct(pi.due, pi.total) + '%"></div><div class="cq-bar-done" style="width:' + pct(pi.done, pi.total) + '%"></div><i class="cq-bar-tick" style="left:' + pct(pi.due, pi.total) + '%"></i></div><p class="cq-meter-note">' + state_ + '</p></div>';
-    compact = (left > 0 ? 'あと' + left + '日' : left === 0 ? '本番' : '終了') + (nm ? '・' + nm.label + 'まで' + nmLeft + '日' : '') + (pi.behind > 0 ? '・遅れ' + pi.behind + '問' : '');
+    compact = (left > 0 ? '本試験まであと' + left + '日' : left === 0 ? '今日が本番' : '終了') + (nm ? '・' + nm.label + (nmLeft === 0 ? 'は今日' : 'まで' + nmLeft + '日') : '');
     compactPct = pct(pi.done, pi.total); compactBehind = pi.behind > 0;
     return '<section class="cq-hero" id="cq-hero"><div class="cq-hero-top"><div class="cq-count">' + (left > 0 ? 'あと<b>' + left + '</b>日' : left === 0 ? '<b>今日</b>が本番' : '試験は終了') + '</div><div class="cq-goal"><b>' + plan.targets.total + '</b><span>目標点</span></div></div>' + tl + pg + '</section>';
   }
