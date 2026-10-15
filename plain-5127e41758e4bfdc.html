@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>小屋プロ 見た目と稼ぎ方 — 2026.10.16</title>
+<style>
+:root{--ink:#161616;--sub:#5f5f5f;--line:#cfcdc6;--bg:#f6f5f1;--paper:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;font-size:16px;line-height:1.75;font-feature-settings:"palt"}
+.wrap{max-width:680px;margin:0 auto;padding:28px 20px 64px}
+header{padding-bottom:28px;border-bottom:1px solid var(--ink)}
+.meta{font-size:15px;letter-spacing:.08em;color:var(--sub)}
+h1{font-size:30px;line-height:1.3;font-weight:700;margin:10px 0 6px;letter-spacing:.01em}
+.lede{font-size:16px;color:var(--sub)}
+section{padding:40px 0 8px}
+h2{font-size:15px;letter-spacing:.14em;font-weight:600;color:var(--sub);margin-bottom:18px}
+h2 b{color:var(--ink);font-weight:700;margin-right:10px}
+h3{font-size:21px;line-height:1.45;font-weight:700;margin-bottom:14px}
+p{margin-bottom:12px}
+.note{font-size:15px;color:var(--sub);line-height:1.7}
+/* 結論 */
+.concl{list-style:none}
+.concl li{display:grid;grid-template-columns:44px 1fr;gap:4px;padding:18px 0;border-bottom:1px solid var(--line)}
+.concl li:last-child{border-bottom:0}
+.concl .n{font-size:28px;font-weight:300;line-height:1.1}
+.concl strong{display:block;font-size:19px;line-height:1.5;margin-bottom:4px}
+.concl span{font-size:16px;color:var(--sub)}
+/* 棒 */
+.bars{margin:6px 0 10px}
+.bar{display:grid;grid-template-columns:1fr 56px;align-items:center;gap:10px;padding:7px 0}
+.bar .l{font-size:15px}
+.bar .v{font-size:15px;text-align:right;font-variant-numeric:tabular-nums}
+.bar .t{grid-column:1/3;height:8px;background:#e6e4de}
+.bar .t i{display:block;height:8px;background:var(--ink)}
+.bar.dim .t i{background:#9a9890}
+figure{margin:22px 0 8px;background:var(--paper);padding:16px 12px 10px}
+figcaption{font-size:15px;color:var(--sub);margin-top:8px;padding:0 4px}
+svg{display:block;width:100%;height:auto}
+/* 値段 */
+.price{margin-top:4px}
+.pr{display:grid;grid-template-columns:1fr;padding:9px 0;border-bottom:1px solid var(--line)}
+.pr .nm{font-size:15px;line-height:1.45}
+.pr .nm small{color:var(--sub);font-size:15px;margin-left:6px}
+.pr .tr{position:relative;height:20px;margin-top:6px}
+.pr .tr:before{content:"";position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line)}
+.pr .d{position:absolute;top:3px;width:12px;height:12px;border-radius:50%;margin-left:-6px;border:1.5px solid var(--ink);background:var(--bg)}
+.pr .d.f{background:var(--ink)}
+.pr .rg{position:absolute;top:7px;height:4px;background:var(--ink)}
+.pr .rg.o{background:var(--bg);border:1.5px solid var(--ink);height:8px;top:5px;min-width:14px}
+.pr .pv{position:absolute;top:-3px;background:var(--bg);padding:0 4px;line-height:24px;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pr.me .pv{font-weight:700}
+.pr.me{border-bottom:1px solid var(--ink);border-top:1px solid var(--ink)}
+.pr.me .nm{font-weight:700}
+.pr.me .d{border-radius:0;width:14px;height:14px;margin-left:-7px;top:2px;background:var(--ink)}
+.axis{position:relative;height:24px;font-size:15px;color:var(--sub);font-variant-numeric:tabular-nums}
+.axis span{position:absolute;transform:translateX(-50%)}
+.legend{font-size:15px;color:var(--sub);margin:10px 0 0}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink);vertical-align:-1px;margin:0 4px 0 0}
+.legend i.f{background:var(--ink)}
+/* 地図 */
+.map{border-top:1px solid var(--ink)}
+.row{padding:16px 0;border-bottom:1px solid var(--line)}
+.row .k{font-size:15px;letter-spacing:.06em;color:var(--sub)}
+.row .who{font-size:16px;line-height:1.6;margin-top:2px}
+.row .how{font-size:15px;color:var(--sub)}
+.row.me{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.row.me .who{font-weight:700;font-size:18px}
+/* 示唆 */
+.sg{margin-bottom:26px}
+.sg h4{font-size:15px;letter-spacing:.1em;font-weight:700;padding-bottom:6px;border-bottom:1px solid var(--ink);margin-bottom:4px}
+.sg ol{list-style:none;counter-reset:s}
+.sg li{counter-increment:s;display:grid;grid-template-columns:28px 1fr;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.6}
+.sg li:before{content:counter(s);font-variant-numeric:tabular-nums;color:var(--sub)}
+.sg li small{display:block;color:var(--sub);font-size:15px;margin-top:2px}
+/* 判断 */
+.cards{position:relative}
+.cards{display:grid}
+.card{grid-area:1/1;visibility:hidden;background:var(--paper);padding:22px 18px 18px}
+.card.on{visibility:visible}
+.card{align-self:start}
+.nav{grid-area:2/1}
+.card .q{font-size:20px;line-height:1.5;font-weight:700;margin:6px 0 16px}
+.card .c{font-size:15px;letter-spacing:.1em;color:var(--sub)}
+.opt{display:grid;grid-template-columns:30px 1fr;padding:12px 0;border-top:1px solid var(--line);font-size:16px;line-height:1.55}
+.opt b{font-size:17px}
+.opt.rec{font-weight:700}
+.opt.rec em{font-style:normal;font-size:15px;letter-spacing:.04em;border:1px solid var(--ink);padding:1px 6px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.why{border-top:1px solid var(--ink);margin-top:4px;padding-top:12px;font-size:15px;color:var(--sub)}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.nav button{font:inherit;font-size:15px;min-width:96px;min-height:46px;background:none;border:1px solid var(--ink);color:var(--ink);padding:0 14px;cursor:pointer}
+.nav button:disabled{opacity:.3}
+.nav .pg{font-size:15px;font-variant-numeric:tabular-nums}
+.how2{font-size:15px;color:var(--sub);margin-top:12px}
+details{border-top:1px solid var(--line);padding:12px 0}
+summary{font-size:15px;cursor:pointer;min-height:44px;padding:10px 0;text-decoration:underline;text-underline-offset:3px}
+details ul{list-style:none;font-size:15px;line-height:1.6}
+details li{padding:6px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+a{color:var(--ink)}
+footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--ink);font-size:15px;color:var(--sub)}
+.ph{display:inline-block}
+.jump{display:inline-block;margin-top:14px;font-size:16px;min-height:44px;line-height:44px;text-underline-offset:4px}
+.lg-b,.lg-o{display:inline-block;width:18px;height:4px;background:var(--ink);vertical-align:3px;margin-right:4px}
+.lg-o{height:8px;background:none;border:1.5px solid var(--ink);vertical-align:1px}
+.li{white-space:nowrap;margin-right:14px;display:inline-block}
+.pr .nm a{display:inline-block;min-height:44px;line-height:44px;margin:-10px 0 -10px;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+details li{padding:0}
+details li a{display:block;min-height:44px;padding:10px 0}
+details a{text-underline-offset:3px}
+.key{list-style:none;margin:10px 4px 0;font-size:15px;line-height:1.6}
+.key li{display:grid;grid-template-columns:24px 1fr;padding:4px 0}
+.key b{font-variant-numeric:tabular-nums}
+@media (min-width:700px){h1{font-size:38px}.wrap{padding-top:48px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<div class="meta">小屋プロ / 夜の調査 / 2026.10.16</div>
+<h1><span class="ph">見た目は</span><span class="ph">「景色の中の小さな箱」。</span><br><span class="ph">値段は</span><span class="ph">「湯と景色」で決まる。</span></h1>
+<p class="lede">参考画像の分類と、小屋の宿の稼ぎ方の調査から、<a href="#decide">朝に決めること4つ</a>まで。</p>
+</header>
+
+<section>
+<h2><b>01</b>結論</h2>
+<ol class="concl">
+<li><div class="n">1</div><div><strong>写真の主役は、景色の中の小さな箱。</strong><span>関係の強い画像102件のうち90件が「箱の外観」か「室内から景色」。湯は少ないが、写れば決め手になる。</span></div></li>
+<li><div class="n">2</div><div><strong>湯は、景色側の縁を消す。</strong><span>湯が写る47件の半分が、縁なしかデッキに埋めた湯。向きが分かる43件の3分の2が景色に向く。</span></div></li>
+<li><div class="n">3</div><div><strong>目標の2名7万円は、湯と景色がある宿だけの棚。</strong><span>湯のない小屋は2〜3万円台。極小で7万円の国内例はまだ無い。建てる前に宿泊券で試す。</span></div></li>
+</ol>
+<a class="jump" href="#decide">朝に決めること 4件へ</a>
+</section>
+
+<section>
+<h2><b>02</b>見た目</h2>
+<h3>何が写っているか</h3>
+<p class="note">参考画像から等間隔に抜いた241件の1枚目。</p>
+<div class="bars">
+<div class="bar"><span class="l">小さな建物の外観</span><span class="v">33%</span><span class="t"><i style="width:33%"></i></span></div>
+<div class="bar"><span class="l">室内・内装</span><span class="v">19%</span><span class="t"><i style="width:19%"></i></span></div>
+<div class="bar"><span class="l">景色だけ</span><span class="v">16%</span><span class="t"><i style="width:16%"></i></span></div>
+<div class="bar"><span class="l">光のアート・工事や運搬</span><span class="v">10%</span><span class="t"><i style="width:10%"></i></span></div>
+<div class="bar"><span class="l">湯が主役</span><span class="v">2%</span><span class="t"><i style="width:2%"></i></span></div>
+<div class="bar dim"><span class="l">関係の薄い物</span><span class="v">20%</span><span class="t"><i style="width:20%"></i></span></div>
+</div>
+
+<h3 style="margin-top:30px">湯が写る47件の形</h3>
+<p class="note">上の241件では湯は2%と少ないので、湯の語 (120件)・工場生産の語・日本語・光と建築で抜いた分を足した全475件から数えた。</p>
+<div class="bars">
+<div class="bar"><span class="l">縁なし</span><span class="v">12</span><span class="t"><i style="width:25.5%"></i></span></div>
+<div class="bar"><span class="l">デッキに埋めた湯</span><span class="v">11</span><span class="t"><i style="width:23.4%"></i></span></div>
+<div class="bar"><span class="l">丸い湯船</span><span class="v">9</span><span class="t"><i style="width:19.1%"></i></span></div>
+<div class="bar"><span class="l">樹脂のスパ</span><span class="v">8</span><span class="t"><i style="width:17%"></i></span></div>
+<div class="bar"><span class="l">窓際の浴槽</span><span class="v">5</span><span class="t"><i style="width:10.6%"></i></span></div>
+<div class="bar dim"><span class="l">岩・猫足</span><span class="v">2</span><span class="t"><i style="width:4.3%"></i></span></div>
+</div>
+
+<figure>
+<svg viewBox="0 0 340 290" role="img" aria-label="客室を上から見た図。デッキに埋めた湯と寝床が、同じ景色に向いている">
+<g fill="none" stroke="#161616">
+<path d="M16 40 Q 90 18 170 34 T 324 30" stroke-width="1"/>
+<path d="M16 54 Q 100 36 180 48 T 324 44" stroke-width="1" stroke="#9a9890"/>
+<path d="M116 104 L116 66 M110 74 L116 66 L122 74" stroke-width="1"/>
+<path d="M236 226 L236 66 M230 74 L236 66 L242 74" stroke-width="1"/>
+<rect x="60" y="92" width="220" height="66" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M200 158 L60 158 L60 278 L280 278 L280 158 L272 158" stroke-width="5"/>
+<path d="M200 158 L272 158" stroke-width="1"/>
+<rect x="200" y="182" width="72" height="88" stroke-width="1.2"/>
+<rect x="206" y="249" width="60" height="16" stroke-width="1"/>
+</g>
+<rect x="76" y="104" width="80" height="32" rx="3" fill="#161616"/>
+<g font-family="Helvetica Neue,Hiragino Sans,sans-serif" font-size="17" fill="#161616">
+<text x="170" y="20" text-anchor="middle" letter-spacing="3">景色</text>
+<text x="166" y="128" font-weight="700">1</text>
+<text x="244" y="150" font-weight="700">2</text>
+<text x="214" y="214" font-weight="700" text-anchor="middle">3</text>
+<text x="76" y="226" font-weight="700">4</text>
+</g>
+</svg>
+<ol class="key">
+<li><b>1</b><span>デッキに埋めた湯。景色側の縁を低く</span></li>
+<li><b>2</b><span>大きな開口1か所</span></li>
+<li><b>3</b><span>寝床。枕は奥、足元の先に景色。湯と同じ景色を見る</span></li>
+<li><b>4</b><span>客室 約18㎡。外は木か黒の板張り、中は木と低い灯り</span></li>
+</ol>
+<figcaption>画像の読みを1枚にした案。上から見た図、縮尺なし。</figcaption>
+</figure>
+<p class="note">夕方〜夜の画像が3割。箱は木が最多、黒が次。全面ガラスと「大きな開口1か所」は同数だが、極小では熱と費用が軽い後者を取る。</p>
+</section>
+
+<section>
+<h2><b>03</b>値段の棚</h2>
+<h3>1泊で7万円を超えるのは、湯のある宿だけ</h3>
+<p class="note">原則2名の値段。merivas だけ6名1棟。YADOKARI は2泊66,000円 (1〜4名) の1泊分。</p>
+<div class="price">
+<div class="axis"><span style="left:0%">0</span><span style="left:27.8%">5万</span><span style="left:55.6%">10万</span><span style="left:83.3%">15万円</span></div>
+<div class="pr"><div class="nm"><a href="https://skift.com/2024/12/12/marriott-buys-startup-postcard-cabins-to-help-create-outdoor-lodging-brand/" rel="noopener">Postcard Cabins</a><small>米・小屋の村</small></div><div class="tr"><span class="d" style="left:11.7%"></span><span class="pv" style="left:calc(11.7% + 12px)">2.1万</span></div></div>
+<div class="pr"><div class="nm"><a href="https://newzealand.com/uk/plan/business/unyoked-off-grid-nature-experience-kawakawa-bay" rel="noopener">Unyoked</a><small>NZ・湯は一部</small></div><div class="tr"><span class="rg o" style="left:13.3%;width:3%"></span><span class="pv" style="left:calc(16.3% + 10px)">2.4〜2.7万</span></div></div>
+<div class="pr"><div class="nm"><a href="https://village.yadokari.net/" rel="noopener">YADOKARI 北軽井沢</a><small>トレーラー・1〜4名</small></div><div class="tr"><span class="d" style="left:18.3%"></span><span class="pv" style="left:calc(18.3% + 12px)">3.3万</span></div></div>
+<div class="pr"><div class="nm"><a href="https://www.ikyu.com/00051180/" rel="noopener">森の離れ 軽井沢</a><small>露天なし</small></div><div class="tr"><span class="d" style="left:29.4%"></span><span class="pv" style="left:calc(29.4% + 12px)">5.3万</span></div></div>
+<div class="pr"><div class="nm"><a href="https://coolstays.com/property/woodnest/26797" rel="noopener">Woodnest</a><small>ノルウェー・上位棟に湯</small></div><div class="tr"><span class="rg o" style="left:25.6%;width:23.3%"></span><span class="pv" style="left:calc(48.9% + 8px)">4.6〜8.8万</span></div></div>
+<div class="pr me"><div class="nm">小屋プロの目標<small>約18〜25㎡・景色に向いた湯</small></div><div class="tr"><span class="d" style="left:38.9%"></span><span class="pv" style="left:calc(38.9% + 12px)">7.0万</span></div></div>
+<div class="pr"><div class="nm"><a href="https://panoramaglasslodge.com/accommodations/" rel="noopener">Panorama Glass Lodge</a><small>アイスランド・20㎡</small></div><div class="tr"><span class="d f" style="left:40.6%"></span><span class="pv" style="left:calc(40.6% + 12px)">7.3万</span></div></div>
+<div class="pr"><div class="nm"><a href="https://travel.yahoo.co.jp/00052411/" rel="noopener">wanderlust,AOSHIMA</a><small>宮崎・一棟</small></div><div class="tr"><span class="d f" style="left:46.7%"></span><span class="pv" style="left:calc(46.7% + 12px)">8.4万〜</span></div></div>
+<div class="pr"><div class="nm"><a href="https://www.makuake.com/project/merivas_motobu/" rel="noopener">merivas motobu</a><small>沖縄・1棟6名・開業前の想定</small></div><div class="tr"><span class="rg" style="left:61.1%;width:33.3%"></span><span class="pv" style="left:calc(61.1% - 4px);transform:translateX(-100%)">11〜17万</span></div></div>
+</div>
+<p class="legend"><span class="li"><i class="f"></i>屋外の湯あり</span><span class="li"><i></i>なし</span><span class="li"><span class="lg-b"></span>幅 (湯あり)</span><span class="li"><span class="lg-o"></span>幅 (湯は一部)</span></p>
+<p class="note" style="margin-top:10px">円は概算。予約サイトの最安や開業前の想定を含み、merivas は6名で1棟の値段。湯の有無だけで値段が決まる証明ではなく、棚の並び (推測)。20㎡で7.3万円の例があるので、小ささは天井ではない。</p>
+</section>
+
+<section>
+<h2><b>04</b>稼ぎ方の地図</h2>
+<h3>泊める仕事を誰がするか</h3>
+<div class="map">
+<div class="row"><div class="k">運営会社が泊める</div><div class="who">Postcard Cabins・Unyoked・Woodnest／YADOKARI・SOLM・NOT A HOTEL</div><div class="how">棟の数で伸ばす。1,200棟超の Postcard は 2024年12月に Marriott が買った</div></div>
+<div class="row"><div class="k">土地の持ち主が泊める</div><div class="who">ÖÖD・Raus・SAGA・allbeans／Hipcamp・Canopy &amp; Stars</div><div class="how">会社が箱を置き売上を分ける (手数料 約33%は会社の想定)。場の手数料は15%の例</div></div>
+<div class="row me"><div class="k">持ち主が住んで泊める</div><div class="who">小屋プロ</div><div class="how">空いている角。強みは人の手と1日1組。伸びるのは1人の手が届く範囲まで</div></div>
+</div>
+</section>
+
+<section>
+<h2><b>05</b>示唆</h2>
+<div class="sg"><h4>取り入れる</h4><ol>
+<li><div>建てる前に宿泊券を売り、値段と需要を確かめる<small>一棟貸しの宿が目標300万円に716万円・394人 (2024)。確認</small></div></li>
+<li><div>湯はデッキに埋め、寝床と同じ景色に向ける<small>湯が写る画像の半分が縁なしか埋め込み。確認 (画像の判定)</small></div></li>
+<li><div>予約は直販と厳選の掲載から。1枚目は夕方の箱と景色<small>厳選の掲載は応募の約2割しか通らない例も。確認 (公式)</small></div></li>
+</ol></div>
+<div class="sg"><h4>避ける</h4><ol>
+<li><div>棟を増やして伸ばす形・投資家への分譲<small>1日1組では棟の数で売上が増えない。推測 (1日1組の理屈)</small></div></li>
+<li><div>工場を先に持つ・資金をかけて急ぐ<small>Katerra・Veev は工場と資金で倒れた。二次</small></div></li>
+<li><div>湯のない安い小屋と同じ値段で競う<small>その棚は2〜3万円台。推測 (棚の並びから)</small></div></li>
+</ol></div>
+<div class="sg"><h4>確かめる</h4><ol>
+<li><div>極小・景色に向いた湯・サウナなしで、2名7万円が付くか<small>国内の実例は見つかっていない。未確認</small></div></li>
+<li><div>20㎡で7.3万円の海外例の稼働と、国内の類例<small>未確認</small></div></li>
+<li><div>動画と2枚目以降に、湯がどれだけ写っているか<small>今回は1枚目だけを見た。未確認</small></div></li>
+</ol></div>
+</section>
+
+<section id="decide">
+<h2><b>06</b>朝に決めること</h2>
+<div class="cards">
+
+<div class="card on"><div class="c">1 / 4　いちばん大事</div>
+<div class="q">建てる前に、宿泊券で値段を試す準備を始める？</div>
+<div class="opt rec"><b>A</b><span>始める。券の形と法の確認まで。売り出すかは後で決める — 推奨</span></div>
+<div class="opt"><b>B</b><span>開業してから予約サイトで試す</span></div>
+<div class="why">根拠: 一棟貸しの宿が建てる前に716万円・394人を集めた。値段と人数が建てる前に分かる。</div></div>
+
+<div class="card"><div class="c">2 / 4</div>
+<div class="q">1号の湯の形は？</div>
+<div class="opt rec"><b>A</b><span>デッキに埋め、景色側の縁を低く — 推奨</span></div>
+<div class="opt"><b>B</b><span>縁なしで景色に流す</span></div>
+<div class="opt"><b>C</b><span>丸い木の湯船を置く</span></div>
+<div class="why">根拠: 写る湯は縁なし12・埋め込み11・丸9。埋め込みは縁なしより配管が単純で、見え方は近い (推測)。</div></div>
+
+<div class="card"><div class="c">3 / 4</div>
+<div class="q">2号からの伸ばし方に「土地の持ち主と売上を分ける形」を試算で足す？</div>
+<div class="opt rec"><b>A</b><span>試算に足すだけ。今の進め方は変えない — 推奨</span></div>
+<div class="opt"><b>B</b><span>自分で持って足す形だけで進める</span></div>
+<div class="why">根拠: 海外の小屋の宿は、土地の持ち主の敷地に箱を置いて売上を分ける形に寄っている (ÖÖD・SAGA・allbeans)。</div></div>
+
+<div class="card"><div class="c">4 / 4</div>
+<div class="q">次の調べものは？</div>
+<div class="opt rec"><b>A</b><span>20㎡で7.3万円の海外例の稼働と、国内の類例 — 推奨</span></div>
+<div class="opt"><b>B</b><span>国内の一棟貸しの実売価格を毎週追う</span></div>
+<div class="why">根拠: 「極小で2名7万円」が最大の未確認で、答えで計画の値段が決まる。B は値動きは分かるが、極小で売れるかには答えない。</div></div>
+
+<div class="nav"><button type="button" id="prev">前へ</button><span class="pg" id="pg">1 / 4</span><button type="button" id="next">次へ</button></div>
+</div>
+<p class="how2">答えは「1A 2A 3A 4A」のように返すだけ。</p>
+</section>
+
+<section>
+<h2><b>07</b>確かめた範囲</h2>
+<p class="note">参考画像 約1.1万件の一覧を語で分類し、521件を抜いて475件の1枚目を目で見た (動画と2枚目以降は未確認)。事業者29件と国内の宿10件は公開情報で調べた。稼働率と売上の実数は1件も取れていない。</p>
+<details><summary>出典 15件を開く</summary><ul>
+<li><a href="https://panoramaglasslodge.com/accommodations/" rel="noopener">Panorama Glass Lodge</a></li>
+<li><a href="https://oodhouse.com/partnership" rel="noopener">ÖÖD (売上を分ける形)</a></li>
+<li><a href="https://skift.com/2024/12/12/marriott-buys-startup-postcard-cabins-to-help-create-outdoor-lodging-brand/" rel="noopener">Postcard Cabins の買収</a></li>
+<li><a href="https://coolstays.com/property/woodnest/26797" rel="noopener">Woodnest</a></li>
+<li><a href="https://newzealand.com/uk/plan/business/unyoked-off-grid-nature-experience-kawakawa-bay" rel="noopener">Unyoked</a></li>
+<li><a href="https://allbeans.jp/looking-for-partners/" rel="noopener">allbeans</a></li>
+<li><a href="https://village.yadokari.net/" rel="noopener">YADOKARI VILLAGE 北軽井沢</a></li>
+<li><a href="https://travel.yahoo.co.jp/00052411/" rel="noopener">wanderlust,AOSHIMA</a></li>
+<li><a href="https://www.makuake.com/project/merivas_motobu/" rel="noopener">merivas motobu</a></li>
+<li><a href="https://www.ikyu.com/00051180/" rel="noopener">森の離れ 軽井沢</a></li>
+<li><a href="https://camp-fire.jp/projects/775357/view" rel="noopener">log&amp;sauna 和 (宿泊券の先行販売)</a></li>
+<li><a href="https://support.hipcamp.com/hc/en-us/articles/360024823412-How-much-does-it-cost-to-list" rel="noopener">Hipcamp の手数料</a></li>
+<li><a href="https://www.canopyandstars.co.uk/owner-hub/our-community/" rel="noopener">Canopy &amp; Stars</a></li>
+<li><a href="https://www.constructiondive.com/news/katerra-files-for-chapter-11/601439/" rel="noopener">Katerra</a></li>
+<li><a href="https://builderonline.com/money/capital/explainer-why-did-veev-fail-and-what-happens-next_o" rel="noopener">Veev</a></li>
+</ul></details>
+</section>
+
+<footer>2026.10.16 作成。このページは 2026-10-23 02:43 JST に自動削除されます。</footer>
+</div>
+<script>
+(function(){var c=[].slice.call(document.querySelectorAll('.card')),i=0,p=document.getElementById('prev'),n=document.getElementById('next'),g=document.getElementById('pg');
+function s(k){c[i].classList.remove('on');i=k;c[i].classList.add('on');g.textContent=(i+1)+' / '+c.length;p.disabled=i===0;n.disabled=i===c.length-1;}
+p.onclick=function(){if(i>0)s(i-1)};n.onclick=function(){if(i<c.length-1)s(i+1)};s(0);})();
+</script>
+</body>
+</html>
