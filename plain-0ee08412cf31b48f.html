@@ -741,6 +741,13 @@ a.cq-wide-btn{color:inherit;text-decoration:none}
 .fx-say{background:#f3e27a;color:#1c1c1a;padding:1px 6px;border-radius:3px;font-weight:700}
 .fx-next{font-size:15px;margin:12px 0 0}
 .fx-old{margin-top:18px;width:100%;min-height:44px;font:inherit;font-size:14px;background:none;color:var(--amute);border:1px solid var(--aline);border-radius:8px}
+.fx-figs{margin-top:14px}
+.fx-figk{font-size:12px;color:var(--amute);margin:0 0 6px}
+.fx-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+.fx-row button{flex:0 0 112px;scroll-snap-align:start;background:none;border:1px solid var(--aline);border-radius:8px;padding:4px;color:inherit;font:inherit;text-align:left}
+.fx-row img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:5px}
+.fx-row span{display:block;font-size:11px;line-height:1.35;margin:4px 2px 2px}
+.fx-nofig{font-size:12px;color:var(--amute);margin:6px 0 0}
 
 #kami-replay{max-width:560px;margin:0 auto;padding:calc(var(--ahd,52px) + env(safe-area-inset-top) + 14px) 16px calc(32px + env(safe-area-inset-bottom));font-variant-numeric:tabular-nums}
 .kr-choice.kr-choice.kr-wrong{border-color:var(--afg);border-style:dashed;text-decoration:line-through}.kr-result .ng.ng{color:var(--afg)}.kr-status.kr-status.kr-warn{border-color:var(--afg)}
@@ -983,6 +990,15 @@ body.kf #slides,body.kf #ft{display:none}body.kf #kenri-fig{display:block}
 <li><b>業法の7問がまぐれ</b>　問30・35・38・39・40・43・44</li>
 <li><b>解説後も再発</b>　売主に重説は不要／正誤の言い違い／耐震診断は内容／業者が買主なら8種制限なし</li>
 </ul>
+<div class="fx-figs"><p class="fx-figk">この論点の図（タップで開く）</p><div class="fx-row">
+<button type="button" data-zk="zk45"><img src="takken-zukai-0ee08412/zk45.webp?v=w1" alt="図45 取戻しの公告" loading="lazy"><span>図45 取戻しの公告</span></button>
+<button type="button" data-zk="zk34"><img src="takken-zukai-0ee08412/zk34-video.webp?v=scope1" alt="図34 供託所と協会" loading="lazy"><span>図34 供託所と協会</span></button>
+<button type="button" data-zk="zk32"><img src="takken-zukai-0ee08412/zk32-video.webp?v=scope1" alt="図32 登録と宅建士証" loading="lazy"><span>図32 登録と士証</span></button>
+<button type="button" data-zk="zk26"><img src="takken-zukai-0ee08412/zk26-video-v2.webp?v=scope1" alt="図26 欠格の5年" loading="lazy"><span>図26 欠格の5年</span></button>
+<button type="button" data-zk="zk27"><img src="takken-zukai-0ee08412/zk27-lease-v1.webp?v=w1" alt="図27 37条書面" loading="lazy"><span>図27 37条書面</span></button>
+<button type="button" data-zk="zk44"><img src="takken-zukai-0ee08412/zk44.webp?v=w1" alt="図44 住宅の税" loading="lazy"><span>図44 住宅の税</span></button>
+<button type="button" data-zk="zk40"><img src="takken-zukai-0ee08412/zk40.webp?v=w1" alt="図40 借地と借家" loading="lazy"><span>図40 借地と借家</span></button>
+</div><p class="fx-nofig">図がまだない再発：売主に重説は不要／耐震診断は内容／業者が買主なら8種制限なし</p></div>
 <a class="fx-more" href="takken-review-0ee08412/chokuzen.html" target="_blank" rel="noopener">くわしい傾向と、当日の動き →</a>
 </section>
 
@@ -1010,7 +1026,7 @@ body.kf #slides,body.kf #ft{display:none}body.kf #kenri-fig{display:block}
 
 <button type="button" class="fx-old" id="fx-old">前の画面（記録・予定）を見る</button>
 </div>
-<script>(function(){var b=document.getElementById('fx-old'),d=document.getElementById('pm-dashboard');if(!b||!d)return;b.onclick=function(){var on=d.classList.toggle('fx-show-old');b.textContent=on?'集中モードだけにする':'前の画面（記録・予定）を見る';};})();</script>
+<script>(function(){var b=document.getElementById('fx-old'),d=document.getElementById('pm-dashboard');if(!b||!d)return;document.querySelectorAll('#focus [data-zk]').forEach(function(x){x.onclick=function(){if(window.openDiagram)openDiagram(x.dataset.zk);};});b.onclick=function(){var on=d.classList.toggle('fx-show-old');b.textContent=on?'集中モードだけにする':'前の画面（記録・予定）を見る';};})();</script>
 
   <header class="pm-head"><div><p class="pm-kicker">神問題集 2026</p><h1>学習進捗</h1></div></header>
   <div id="pm-status" class="pm-status" role="status" aria-live="polite"></div>
