@@ -1,0 +1,272 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><title>小屋プロ 滞在の試算 — 人の型 × 月 × 拠点</title>
+<style>
+:root{color-scheme:dark;--page:#1c1b19;--surface:#23221f;--ink:#ece6d8;--ink2:#bdb7a9;--muted:#8c877c;--hair:#36342f}
+*{box-sizing:border-box}html,body{margin:0;background:var(--page);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+body{line-height:1.6;font-size:15px}.wrap{max-width:980px;margin:0 auto;padding:26px 16px 64px}
+h1{font-size:clamp(26px,5.6vw,38px);line-height:1.2;margin:0 0 12px}h2{font-size:19px;margin:30px 0 8px}h3{font-size:15px;margin:18px 0 6px}
+p,li{color:var(--ink2)}b{color:var(--ink)}.note{font-size:12.5px;color:var(--muted)}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 18px;background:var(--surface);padding:14px;border-radius:10px}
+.ctl label{font-size:13px;color:var(--ink2);display:block}.ctl input[type=range]{width:100%}.ctl select{width:100%;font-size:14px;padding:6px;background:#2c2b27;color:var(--ink);border:1px solid var(--hair);border-radius:6px}
+.v{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{border-top:1px solid var(--ink);padding-top:6px}.kpi .n{font-size:24px;font-weight:300;font-variant-numeric:tabular-nums}.kpi .n b{font-weight:700}.kpi .l{font-size:12px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums}
+th,td{padding:5px 3px;text-align:center;border-top:1px solid var(--hair)}th{color:var(--muted);font-weight:500}td.l,th.l{text-align:left;white-space:nowrap;color:var(--ink2)}
+.tbl{overflow-x:auto}
+.leg span{display:inline-block;width:14px;height:10px;margin:0 4px 0 10px;vertical-align:middle}
+</style></head><body><main class="wrap">
+<p class="note">小屋プロ ／ 滞在の試算 ／ 2026-10-15 ／ v05</p>
+<h1>人の型 × 月 × 拠点で、<br>誰がいつどこにいるかを試す。</h1>
+<p>3拠点 (南=本部・中=南房総・北=ニセコ)。<b>客</b> (予約サイトから来る人)、<b>泊まる会員・オーナー</b> (客室を使う)、<b>住む人</b> (離れに住み、毎日の清掃と湯を担う) を別々に数える。担い手がいない月の作業は時給で雇う。条件を動かすと、下の数字と表がその場で変わる。</p>
+<p class="note">根拠: 客の月ごとの需要は観光庁 宿泊旅行統計2025 (簡易宿所) と北海道 観光入込 令和7年度 (倶知安町)。快適は気象庁の平年値の日最高気温 (18〜24℃)。会員の「沖縄は夏派と冬派に分かれる」「ニセコは冬派が多い」は<b>本人の仮説で、実測ではない</b>。基準の値段 1泊6.0万円 (税込、4人)、客は1棟に年165泊まで来うると置いた (仮定)。</p>
+
+<div class="ctl">
+<div><label>ひな形</label><select id="preset"></select></div>
+<div><label>棟数 (各拠点) <span class="v" id="vcab"></span></label><input id="cab" type="range" min="1" max="3" step="1" value="3"></div>
+<div><label>離れのベッド (各拠点) <span class="v" id="vbed"></span></label><input id="bed" type="range" min="1" max="3" step="1" value="1"></div>
+<div><label>住む人: 快適を追う人 <span class="v" id="vsame"></span></label><input id="same" type="range" min="0" max="3" step="1" value="0"></div>
+<div><label>住む人: 希望の違う2人 (暑さ・海と雪 / どこでも) <span class="v" id="vsplit"></span></label><input id="split" type="range" min="0" max="1" step="1" value="0"></div>
+<div><label>泊まる会員の人数 <span class="v" id="vmem"></span></label><input id="mem" type="range" min="0" max="150" step="5" value="0"></div>
+<div><label>1人の年間泊数 <span class="v" id="vnights"></span></label><input id="nights" type="range" min="7" max="60" step="7" value="14"></div>
+<div><label>沖縄の会員のうち夏派 <span class="v" id="vokis"></span></label><input id="okis" type="range" min="0" max="100" step="10" value="50"></div>
+<div><label>ニセコの会員のうち冬派 <span class="v" id="vnisw"></span></label><input id="nisw" type="range" min="0" max="100" step="10" value="80"></div>
+<div><label>会員の行き先 (南:中:北) <span class="v" id="vmix"></span></label><input id="mix" type="range" min="0" max="4" step="1" value="2"></div>
+<div><label>先に入れるのは <span class="v" id="vpri"></span></label><input id="pri" type="range" min="0" max="1" step="1" value="0"></div>
+<div><label>1泊の値段 (税込、万円) <span class="v" id="vadr"></span></label><input id="adr" type="range" min="4" max="9" step="0.5" value="6"></div>
+<div><label>雇う人の時給 (円) <span class="v" id="vwage"></span></label><input id="wage" type="range" min="1131" max="2400" step="50" value="1131"></div>
+</div>
+<div class="kpis" id="kpis"></div>
+<p class="leg note">表の塗り: <span style="background:#ece6d8"></span>客室がほぼ満室 <span style="background:#8c877c"></span>半分以上 <span style="background:#3a3833"></span>半分未満。数字は、上段=客の売り逃し (泊)、中段=会員の希望/叶った (泊)、下段=住む人 (叶った/希望の人数)・雇う時間。●=その拠点が快適な月。</p>
+<div id="heat"></div>
+<h2>読み方</h2>
+<ul>
+<li><b>「常に1人いる」と「全員が快適」は別のこと。</b>住む人が同じ感覚だと、快適な拠点に希望が集まり、叶うのは3人のうち1人 (離れが1人分の時)。離れを3人分にすると全員が叶うが、他の2拠点は雇う人が要る。</li>
+<li><b>希望が分かれると、雇う時間がほぼ消える。</b>暑さ・海が好きな人、雪が好きな人、どこでもよい人が組むと、どの月もどの拠点にも誰かが住む。</li>
+<li><b>会員の夏派・冬派は、客の繁忙期とぶつかる。</b>沖縄の夏派とニセコの冬派は、客が一番多い月に客室を取り合う。会員を先に入れると客の売り逃しが増え、客を先に入れると会員の希望が叶わない。冬派の沖縄・夏派のニセコは、空いている月を埋める。</li>
+</ul>
+<p class="note">この試算は簡単な形: 月ごとの合計で数え、日ごとの予約の重なり・値段の上げ下げ・キャンセルは入れていない。費用は税抜で、物件の利益 = 売上 − 予約手数料・リネン・光熱 − 拠点の固定費・湯・修繕 − 雇う人の費用 (休みの代わり・募集・点検を含む)。住む人の労働は払っていない (隣に、住む人の労働も最低賃金で払ったとみなした値を出す。住む人がいる時はこちらで比べる)。住む人の行き先のひな形は、毎月どの拠点にも1人になるよう組んだ例で、実在の人の希望ではない。需要は棟数に比例させた (地域の需要の上限は見ていない)。<a href="plain-9e9f655dbd0ba200.html">事業計画の付録へ</a></p>
+<p class="note">このページは 2026-10-29 07:00 JST に自動削除されます</p>
+</main>
+<script>
+// 小屋プロ 滞在の試算 (v05)。人の型 × 月 × 拠点で、客・オーナー・会員・担い手を別々に数える。
+// ブラウザでも node でも同じ関数を使う。単位: 泊、時間、万円 (税抜)。
+(function (root) {
+  const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  // 需要の指数 (12か月平均=1.00): 観光庁 宿泊旅行統計2025 (簡易宿所)・北海道 観光入込 R7 (倶知安町)
+  // 快適: 気象庁 平年値の日最高気温 18〜24℃ を 2、15〜18・24〜27℃ を 1
+  const SITES = {
+    南: { name: "南 本部 (沖縄)", demand: [0.73, 0.66, 0.88, 0.97, 1.03, 0.94, 1.18, 1.38, 0.99, 1.29, 1.13, 0.81], comfort: [2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 1, 2] },
+    中: { name: "中 南房総", demand: [0.77, 0.84, 1.05, 0.87, 1.01, 0.86, 1.15, 1.69, 1.01, 0.92, 0.97, 0.86], comfort: [0, 0, 0, 2, 2, 1, 0, 0, 0, 2, 2, 0] },
+    北: { name: "北 ニセコ", demand: [2.75, 2.43, 1.71, 0.29, 0.28, 0.36, 0.55, 0.72, 0.45, 0.40, 0.34, 1.72], comfort: [0, 0, 0, 0, 1, 2, 1, 1, 2, 1, 0, 0] },
+  };
+
+  const BASE = {
+    adr: 6.0,            // 1泊 (4人、税込、万円)
+    vat: 0.10,
+    memberPrice: 0.8,    // 会員の1泊は客の値段の何倍か
+    marketNights: 165,   // 基準の値段で1棟に来うる客の泊数 (年、需要の指数で月に配る)。売れるのは上限まで
+    maxOcc: 0.92,        // 入れ替えの日を見込んだ1棟の月の上限 (泊/日)
+    avgStay: 1.5,        // 1回の滞在の泊数
+    hoursPerTurn: 2.5,   // 1回の入れ替えの清掃と湯の換水
+    dailyHours: 1.3,     // 毎日の対応と見回り (時間/日、拠点)
+    residentHours: 160,  // 住む人が月に担える時間 (これを超えた分は雇う)
+    wage: 1131,          // 雇う人の時給 (円、北海道の最低賃金 2026-10〜)
+    insurance: 0.03,     // 労災・雇用保険
+    ota: 0.14,           // 予約サイトの手数料 (客の分だけ。会員は直販)
+    linen: 0.8, util: 0.25, // 1泊あたり
+    fixedSite: 180, fixedAddCabin: 40, tubPerCabin: 25, repairRate: 0.02,
+    hireFixed: 42,       // 雇う時の募集と研修30+点検表12 (万円/年/拠点、少しでも雇えば全額)
+    hireRelief: 100,     // 雇う人の休みの代わり・同日の手伝い (雇う時間の割合で按分)
+    residentOverhead: 80, // 住む人の休みの代わり60+病気の予備20 (住む人の時間の割合で按分)
+    residentMove: 15,    // 住む人1人の移動費 (万円/年)
+    sameDayHelp: 0.15,   // 2棟以上の同日の入れ替えの手伝い (万円/泊)
+    capexShared: 732, capexCabin: 908, capexAdd: 1072, landCapex: 165, // 低位 (予備費込み)
+    priority: "member",  // 会員と客のどちらを先に入れるか
+  };
+
+  // 人の型: role = 住む (離れに住み、担い手になる) / 泊まる (客室を使う会員・オーナー)
+  // wish: { 拠点: [月(1-12)...] }。泊まる人は nights を希望の月に均等に配る
+  function simulate(cfgIn) {
+    const cfg = Object.assign({}, BASE, cfgIn.params || {});
+    const cabins = Object.assign({ 南: 3, 中: 3, 北: 3 }, cfgIn.cabins || {});
+    const beds = Object.assign({ 南: 1, 中: 1, 北: 1 }, cfgIn.beds || {});
+    const people = cfgIn.people || [];
+    const keys = Object.keys(SITES);
+    const cell = {};
+    keys.forEach(k => { cell[k] = DAYS.map(() => ({ memberWish: 0, residentWish: 0, residentNames: [] })); });
+    // 希望を積む
+    people.forEach(p => {
+      const n = p.count || 1;
+      const nSites = Object.values(p.wish).filter(ms => ms.length).length || 1;
+      Object.entries(p.wish).forEach(([k, ms]) => {
+        if (!ms.length) return;
+        ms.forEach(m => {
+          const c = cell[k][m - 1];
+          if (p.role === "住む") { c.residentWish += n; c.residentNames.push(p.name); }
+          else c.memberWish += n * (p.nights || 0) * (p.siteShare ? p.siteShare[k] || 0 : 1 / nSites) / ms.length;
+        });
+      });
+    });
+    const out = { sites: {}, total: {} };
+    let T = { residentLaborValue: 0, rev: 0, guestDemand: 0, guestSold: 0, lost: 0, memberWish: 0, memberGot: 0, resWish: 0, resGot: 0,
+      hired: 0, residentWork: 0, laborCost: 0, residentLaborValue: 0, varCost: 0, fixed: 0, noi: 0, capex: 0 };
+    keys.forEach(k => {
+      const S = SITES[k];
+      const nc = cabins[k];
+      const months = [];
+      let s = { rev: 0, guestDemand: 0, guestSold: 0, lost: 0, memberWish: 0, memberGot: 0, resWish: 0, resGot: 0, hired: 0, residentWork: 0, laborCost: 0, varCost: 0 };
+      for (let m = 0; m < 12; m++) {
+        const c = cell[k][m];
+        const cap = nc * DAYS[m] * cfg.maxOcc;
+        const gD = nc * cfg.marketNights * S.demand[m] / 12;
+        let memGot, gSold;
+        if (cfg.priority === "member") { memGot = Math.min(c.memberWish, cap); gSold = Math.min(gD, cap - memGot); }
+        else { gSold = Math.min(gD, cap); memGot = Math.min(c.memberWish, cap - gSold); }
+        const resGot = Math.min(c.residentWish, beds[k]);
+        const nights = gSold + memGot;
+        const hours = nights / cfg.avgStay * cfg.hoursPerTurn + DAYS[m] * cfg.dailyHours;
+        const resCapH = resGot * cfg.residentHours;
+        const resWork = Math.min(hours, resCapH);
+        const hired = hours - resWork;
+        const labor = hired * cfg.wage * (1 + cfg.insurance) / 10000;
+        const rev = gSold * cfg.adr / (1 + cfg.vat) + memGot * cfg.adr * cfg.memberPrice / (1 + cfg.vat);
+        const varc = gSold * cfg.adr / (1 + cfg.vat) * cfg.ota + nights * (cfg.linen + cfg.util);
+        months.push({ month: m + 1, guestDemand: gD, guestSold: gSold, lost: gD - gSold, memberWish: c.memberWish, memberGot: memGot,
+          resWish: c.residentWish, resGot, resNames: c.residentNames, occ: nights / (nc * DAYS[m]), hired, residentWork: resWork, labor, rev, comfort: S.comfort[m] });
+        s.rev += rev; s.guestDemand += gD; s.guestSold += gSold; s.lost += gD - gSold; s.memberWish += c.memberWish; s.memberGot += memGot;
+        s.resWish += c.residentWish; s.resGot += resGot; s.hired += hired; s.residentWork += resWork; s.laborCost += labor; s.varCost += varc;
+      }
+      const capex = cfg.capexShared + (nc >= 1 ? cfg.capexCabin : 0) + Math.max(0, nc - 1) * cfg.capexAdd + Math.max(0, beds[k] - 1) * 230;
+      const fixed = cfg.fixedSite + Math.max(0, nc - 1) * cfg.fixedAddCabin + nc * cfg.tubPerCabin + (capex - cfg.landCapex) * cfg.repairRate;
+      const tot = s.hired + s.residentWork;
+      const over = (s.hired > 0.5 ? cfg.hireFixed : 0) + (tot ? cfg.hireRelief * s.hired / tot + cfg.residentOverhead * s.residentWork / tot : 0)
+        + (nc > 1 ? (s.guestSold + s.memberGot) * cfg.sameDayHelp : 0);
+      s.laborCost += over;
+      s.fixed = fixed; s.capex = capex;
+      s.noi = s.rev - s.varCost - fixed - s.laborCost;  // 物件の利益 (雇う人に払った後、住む人の労働は払っていない)
+      s.residentLaborValue = s.residentWork * cfg.wage * (1 + cfg.insurance) / 10000; // 住む人の労働を時給で数えた額 (参考)
+      s.months = months; s.name = S.name; s.cabins = nc;
+      out.sites[k] = s;
+      Object.keys(T).forEach(x => { if (s[x] !== undefined) T[x] += s[x]; });
+    });
+    const residents = people.filter(p => p.role === "住む").reduce((a, p) => a + (p.count || 1), 0);
+    T.residentMove = residents * cfg.residentMove;
+    T.noi -= T.residentMove;
+    T.noiAfterResidentLabor = T.noi - T.residentLaborValue; // 住む人の労働も時給で払ったとみなした物件の利益
+    T.memberFill = T.memberWish ? T.memberGot / T.memberWish : null;
+    T.resFill = T.resWish ? T.resGot / T.resWish : null;
+    T.guestFill = T.guestDemand ? T.guestSold / T.guestDemand : null;
+    out.total = T;
+    out.cfg = cfg;
+    return out;
+  }
+
+  // よく使う人の型
+  const M = (a, b) => { const r = []; for (let i = a; i !== b + 1; i = i % 12 + 1) r.push(i); return r; };
+  const TYPES = {
+    快適を追う住み手: { role: "住む", wish: { 南: [12, 1, 2, 3], 中: [4, 5, 10, 11], 北: [6, 7, 8, 9] } },
+    暑さ海と雪の住み手: { role: "住む", wish: { 北: [12, 1, 2, 3], 南: [4, 5, 10, 11], 中: [6, 7, 8, 9] } },
+    どこでもよい住み手: { role: "住む", wish: { 中: [12, 1, 2, 3], 北: [4, 5, 10, 11], 南: [6, 7, 8, 9] } },
+  };
+  function presets() {
+    const comfort = (name) => Object.assign({ name }, TYPES.快適を追う住み手);
+    const stay = (name, nights, wish, count) => ({ name, role: "泊まる", nights, wish, count });
+    return {
+      "0 住む人なし (全部雇う)": { people: [] },
+      "1 住む人3人・同じ感覚": { people: [comfort("住み手1"), comfort("住み手2"), comfort("住み手3")] },
+      "1b 同じ感覚・離れを3人分": { people: [comfort("住み手1"), comfort("住み手2"), comfort("住み手3")], beds: { 南: 3, 中: 3, 北: 3 } },
+      "2 住む人3人・希望が分かれる": { people: [comfort("快適を追う"), Object.assign({ name: "暑さ・海と雪" }, TYPES.暑さ海と雪の住み手), Object.assign({ name: "どこでもよい" }, TYPES.どこでもよい住み手)] },
+      "3 泊まる会員60人 (本人の仮説)": { people: [
+        stay("沖縄 夏派", 14, { 南: M(7, 9) }, 15), stay("沖縄 冬派", 14, { 南: M(12, 3) }, 15),
+        stay("ニセコ 冬派", 14, { 北: M(12, 3) }, 16), stay("ニセコ 夏派", 14, { 北: M(7, 9) }, 4),
+        stay("房総 春秋派", 14, { 中: [4, 5, 10, 11] }, 10)] },
+      "4 希望が分かれる住み手 + 会員60人": { people: [comfort("快適を追う"), Object.assign({ name: "暑さ・海と雪" }, TYPES.暑さ海と雪の住み手), Object.assign({ name: "どこでもよい" }, TYPES.どこでもよい住み手),
+        stay("沖縄 夏派", 14, { 南: M(7, 9) }, 15), stay("沖縄 冬派", 14, { 南: M(12, 3) }, 15),
+        stay("ニセコ 冬派", 14, { 北: M(12, 3) }, 16), stay("ニセコ 夏派", 14, { 北: M(7, 9) }, 4),
+        stay("房総 春秋派", 14, { 中: [4, 5, 10, 11] }, 10)] },
+      "5 会員60人・客を先に入れる": { params: { priority: "guest" }, people: [
+        stay("沖縄 夏派", 14, { 南: M(7, 9) }, 15), stay("沖縄 冬派", 14, { 南: M(12, 3) }, 15),
+        stay("ニセコ 冬派", 14, { 北: M(12, 3) }, 16), stay("ニセコ 夏派", 14, { 北: M(7, 9) }, 4),
+        stay("房総 春秋派", 14, { 中: [4, 5, 10, 11] }, 10)] },
+    };
+  }
+  const api = { simulate, presets, SITES, BASE, TYPES, DAYS };
+  if (typeof module !== "undefined") module.exports = api; else root.KoyaSim = api;
+})(this);
+
+</script>
+<script>
+const S = KoyaSim, P = S.presets();
+const $ = id => document.getElementById(id);
+const sel = $("preset");
+Object.keys(P).forEach(k => { const o = document.createElement("option"); o.textContent = k; sel.appendChild(o); });
+const M = (a, b) => { const r = []; for (let i = a; i !== b + 1; i = i % 12 + 1) r.push(i); return r; };
+const MIX = [[1,0,0],[1,1,1],[1.5,1,1.5],[1,0,1],[0,0,1]];
+const MIXL = ["南だけ","均等","南と北が多い","南と北","北だけ"];
+function fromControls() {
+  const people = [];
+  const same = +$("same").value, split = +$("split").value;
+  for (let i = 0; i < same; i++) people.push(Object.assign({ name: "快適を追う" + (i + 1) }, S.TYPES.快適を追う住み手));
+  if (split) { people.push(Object.assign({ name: "暑さ・海と雪" }, S.TYPES.暑さ海と雪の住み手)); people.push(Object.assign({ name: "どこでもよい" }, S.TYPES.どこでもよい住み手)); }
+  const n = +$("mem").value, nights = +$("nights").value, okis = +$("okis").value / 100, nisw = +$("nisw").value / 100;
+  const mx = MIX[+$("mix").value], sm = mx[0] + mx[1] + mx[2];
+  const nS = n * mx[0] / sm, nC = n * mx[1] / sm, nN = n * mx[2] / sm;
+  if (n > 0) {
+    people.push({ name: "沖縄 夏派", role: "泊まる", nights, wish: { 南: M(7, 9) }, count: nS * okis });
+    people.push({ name: "沖縄 冬派", role: "泊まる", nights, wish: { 南: M(12, 3) }, count: nS * (1 - okis) });
+    people.push({ name: "房総 春秋派", role: "泊まる", nights, wish: { 中: [4, 5, 10, 11] }, count: nC });
+    people.push({ name: "ニセコ 冬派", role: "泊まる", nights, wish: { 北: M(12, 3) }, count: nN * nisw });
+    people.push({ name: "ニセコ 夏派", role: "泊まる", nights, wish: { 北: M(7, 9) }, count: nN * (1 - nisw) });
+  }
+  const c = +$("cab").value, b = +$("bed").value;
+  return { people, cabins: { 南: c, 中: c, 北: c }, beds: { 南: b, 中: b, 北: b },
+    params: { priority: +$("pri").value ? "guest" : "member", adr: +$("adr").value, wage: +$("wage").value } };
+}
+function setFromPreset(name) {
+  const p = P[name];
+  const same = p.people.filter(x => x.name.startsWith("住み手") || x.name === "快適を追う").length;
+  const split = p.people.some(x => x.name === "どこでもよい") ? 1 : 0;
+  const mem = p.people.filter(x => x.role === "泊まる").reduce((a, x) => a + (x.count || 1), 0);
+  $("same").value = same; $("split").value = split; $("mem").value = mem; $("nights").value = 14;
+  $("okis").value = 50; $("nisw").value = 80; $("mix").value = 2;
+  $("bed").value = p.beds ? p.beds.南 : 1; $("cab").value = 3;
+  $("pri").value = p.params && p.params.priority === "guest" ? 1 : 0;
+  run();
+}
+const f0 = x => Math.round(x).toLocaleString("ja-JP");
+const pc = x => x == null ? "—" : Math.round(x * 100) + "%";
+function run() {
+  $("vcab").textContent = $("cab").value + "棟"; $("vbed").textContent = $("bed").value + "人分";
+  $("vsame").textContent = $("same").value + "人"; $("vsplit").textContent = +$("split").value ? "いる" : "いない";
+  $("vmem").textContent = $("mem").value + "人"; $("vnights").textContent = $("nights").value + "泊";
+  $("vokis").textContent = $("okis").value + "%"; $("vnisw").textContent = $("nisw").value + "%";
+  $("vmix").textContent = MIXL[+$("mix").value]; $("vpri").textContent = +$("pri").value ? "客" : "会員";
+  $("vadr").textContent = (+$("adr").value).toFixed(1); $("vwage").textContent = f0(+$("wage").value);
+  const r = S.simulate(fromControls()), t = r.total;
+  $("kpis").innerHTML = [
+    ["売上 (3拠点、税抜)", f0(t.rev) + "<small>万円</small>"],
+    ["物件の利益 (雇う人に払った後)", f0(t.noi) + "<small>万円</small>"],
+    ["住む人の労働も払った後", f0(t.noiAfterResidentLabor) + "<small>万円</small>"],
+    ["雇う人の費用", f0(t.laborCost) + "<small>万円</small>"],
+    ["住む人の労働 (時給で数えた額)", f0(t.residentLaborValue) + "<small>万円</small>"],
+    ["客の売り逃し", f0(t.lost) + "<small>泊</small>"],
+    ["会員の希望が叶った割合", pc(t.memberFill)],
+    ["住む人の希望が叶った割合", pc(t.resFill)],
+  ].map(([l, n]) => `<div class="kpi"><div class="n"><b>${n}</b></div><div class="l">${l}</div></div>`).join("");
+  let h = "";
+  Object.values(r.sites).forEach(s => {
+    h += `<h3>${s.name} — 物件の利益 ${f0(s.noi)}万円、売り逃し ${f0(s.lost)}泊、雇う ${f0(s.hired)}時間</h3><div class="tbl"><table><tr><th class="l"></th>${s.months.map(m => `<th>${m.month}${m.comfort === 2 ? "●" : ""}</th>`).join("")}</tr>`;
+    const bg = o => o >= 0.85 ? "background:#ece6d8;color:#1c1b19" : (o >= 0.5 ? "background:#8c877c;color:#1c1b19" : "background:#3a3833");
+    h += `<tr><td class="l">客の売り逃し</td>${s.months.map(m => `<td style="${bg(m.occ)}">${m.lost > 0.5 ? f0(m.lost) : ""}</td>`).join("")}</tr>`;
+    h += `<tr><td class="l">会員 希望/叶った</td>${s.months.map(m => `<td>${m.memberWish > 0.5 ? f0(m.memberWish) + "/" + f0(m.memberGot) : ""}</td>`).join("")}</tr>`;
+    h += `<tr><td class="l">住む人 叶った/希望</td>${s.months.map(m => `<td>${m.resWish ? m.resGot + "/" + m.resWish : ""}</td>`).join("")}</tr>`;
+    h += `<tr><td class="l">雇う時間</td>${s.months.map(m => `<td>${m.hired > 0.5 ? f0(m.hired) : ""}</td>`).join("")}</tr></table></div>`;
+  });
+  $("heat").innerHTML = h;
+}
+["cab","bed","same","split","mem","nights","okis","nisw","mix","pri","adr","wage"].forEach(id => $(id).addEventListener("input", run));
+sel.addEventListener("change", () => setFromPreset(sel.value));
+setFromPreset(Object.keys(P)[0]);
+</script></body></html>
