@@ -1,89 +1,132 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><title>1号の家で、住まいの費用を客室の稼ぎで払えるか — 小屋プロの試算</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;background:#fafaf8;color:#111;font-family:"Helvetica Neue","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;-webkit-text-size-adjust:100%;font-feature-settings:"palt" 1}
-body{font-size:16px;line-height:1.7}.wrap{max-width:860px;margin:0 auto;padding:22px 18px 72px}
-.kicker{font-size:13px;letter-spacing:.06em;border-top:1px solid #111;padding-top:6px;display:flex;justify-content:space-between}
-h1{font-size:clamp(27px,6.4vw,40px);line-height:1.22;margin:18px 0 14px;font-weight:700;letter-spacing:-.01em}
-h2{font-size:20px;margin:40px 0 8px;border-top:1px solid #111;padding-top:8px}
-h3{font-size:15px;margin:0 0 2px}
-p{margin:6px 0}.mut{color:#555}.sm{font-size:14px;line-height:1.6;color:#444}
-a{color:#111;text-underline-offset:3px}
-.scene{font-size:17px}
-.inp{border-top:1px solid #c9c9c4;padding:12px 0}
-.inp .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-.inp .val{font-size:26px;font-weight:300;font-variant-numeric:tabular-nums;white-space:nowrap}.inp .val b{font-weight:700}
-input[type=range]{width:100%;margin:8px 0 2px;accent-color:#111}
-.months{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:10px 0 4px}
-.months button{font:inherit;font-size:14px;min-height:44px;padding:9px 0;border:1px solid #111;background:#fafaf8;color:#111;border-radius:0}
-.months button.on{background:#111;color:#fafaf8}
-.seg{display:flex;gap:0;margin-top:8px}.seg button{flex:1;font:inherit;font-size:14px;padding:8px 0;border:1px solid #111;background:#fafaf8;color:#111}.seg button+button{border-left:0}.seg button.on{background:#111;color:#fafaf8}
-details{border-top:1px solid #c9c9c4;padding:10px 0}summary{cursor:pointer;font-size:15px}
-.btns{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.btns button{font:inherit;font-size:14px;padding:9px 14px;border:1px solid #111;background:#fafaf8;color:#111}
-.verdict{font-size:22px;line-height:1.4;font-weight:700;margin:16px 0 4px}
-.why{font-size:16px;margin:6px 0 0;padding:10px 0;border-top:1px solid #111;border-bottom:1px solid #111}
-table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
-th{font-size:13px;font-weight:600;white-space:nowrap;text-align:right;border-bottom:1px solid #111;padding:6px 0 6px 8px}th:first-child{text-align:left;padding-left:0}
-td{border-bottom:1px solid #d6d6d1;padding:7px 0 7px 10px;text-align:right;vertical-align:top;white-space:nowrap}td:first-child{white-space:normal;width:50%}td:first-child{text-align:left;padding-left:0}
-td .s{display:block;font-size:13.5px;color:#555;line-height:1.4}
-tr.tot td{font-weight:700;border-top:1px solid #111;border-bottom:1px solid #111}
-.d{color:#111}
-.bar{position:fixed;left:0;right:0;bottom:0;background:#111;color:#fafaf8;padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:9;font-size:14px;line-height:1.45}
-.bar b{font-size:18px;font-variant-numeric:tabular-nums}.bar .w{display:block;font-size:13.5px;color:#d9d6ce;margin-top:2px}
-.bar a{color:#fafaf8}body{padding-bottom:120px}
-button.try{font:inherit;font-size:14px;padding:9px 14px;border:1px solid #111;background:#fafaf8;color:#111}.ex{border-top:1px solid #c9c9c4;padding:12px 0}.ex b{font-size:16px}
-ul{padding-left:1.1em}li{margin:4px 0}
-@media(min-width:760px){.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}}
-</style></head><body><main class="wrap">
-<div class="kicker"><span>小屋プロ ／ 試算</span><span>2026-10-15</span></div>
-<h1>1号の家で、住まいの費用を、客室の稼ぎで払えるか。</h1>
-<p class="scene">本人は1号 (東京から2〜3時間の「中」の拠点) の<b>離れに住み</b>、すぐそばの<b>客室を貸す</b>。本人がいる月は本人が掃除と湯の入れ替えをする。留守の月 (冬は南へ、夏は北へ、など) は<b>近くの人に時給で頼む</b>。</p>
-<p class="sm">この画面で分かるのは、1年間で <b>客室の稼ぎ − 費用 − 借入の返済</b> がプラスか (=住まいの費用を客室が払ってくれるか)。お金は<b>本人の財布だけ</b>で、会社の数字は入れていない。</p>
+:root{color-scheme:dark;--bg:#1f1e1b;--panel:#262521;--ink:#e9e4d8;--ink2:#c3bdb0;--mut:#948e82;--hair:#3a3833;--up:#2f9d86;--dn:#cc6f3c;--tot:#a9a397}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;-webkit-text-size-adjust:100%;font-feature-settings:"palt" 1}
+body{font-size:15px;line-height:1.6}
+.app{display:grid;grid-template-columns:350px 1fr;min-height:100vh}
+.left{position:sticky;top:0;height:100vh;overflow:auto;background:var(--panel);padding:12px 18px 40px;border-right:1px solid var(--hair)}
+.right{padding:16px 26px 60px;min-width:0}
+@media(max-width:860px){.app{display:block}.left{position:static;height:auto;border-right:0;border-bottom:1px solid var(--hair)}.right{padding:14px 16px 140px}}
+.kicker{font-size:12.5px;color:var(--mut);letter-spacing:.04em}
+h1{font-size:19px;line-height:1.3;margin:4px 0 2px}
+h2{font-size:16px;margin:26px 0 6px;padding-top:8px;border-top:1px solid var(--hair)}
+h3{font-size:14px;margin:0}
+p{margin:4px 0}.mut{color:var(--mut)}.sm{font-size:13.5px;line-height:1.55;color:var(--ink2)}
+.inp{padding:7px 0;border-top:1px solid var(--hair)}
+.inp .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.inp .val{font-size:20px;font-variant-numeric:tabular-nums;white-space:nowrap}.inp .val b{font-weight:700}
+.inp .hint{font-size:12.5px;color:var(--ink2);line-height:1.5;margin-top:2px}
+input[type=range]{width:100%;accent-color:var(--ink);margin:2px 0 0;height:26px}
+.months{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:6px}
+.months button{font-size:14px;padding:0}
+@media(max-width:860px){.months{grid-template-columns:repeat(6,1fr)}}
+.months button,.seg button,.btn{font:inherit;font-size:13.5px;min-height:44px;border:1px solid var(--ink2);background:transparent;color:var(--ink);border-radius:2px}
+.months button.on{background:var(--ink);color:var(--bg)}
+.seg{display:flex;margin-top:6px}.seg button{flex:1}.seg button+button{border-left:0}.seg button.on{background:var(--ink);color:var(--bg)}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.btn{padding:0 12px}
+details summary{cursor:pointer;padding:10px 0;border-top:1px solid var(--hair);font-size:14px}
+.verdict{font-size:22px;font-weight:700;line-height:1.35;margin:4px 0}
+.take{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.take .big{font-size:40px;font-weight:300;line-height:1}.take .big b{font-weight:700}
+.why{font-size:15px;line-height:1.55;margin:6px 0 0}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 10px;margin-top:8px}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{border-top:1px solid var(--ink2);padding-top:6px}
+.card .v{font-size:20px;font-variant-numeric:tabular-nums;line-height:1.15}.card .v b{font-weight:700}
+.card .l{font-size:13px;color:var(--ink2);line-height:1.45}
+.top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:22px;align-items:start}
+@media(max-width:1100px){.top{grid-template-columns:1fr}}
+svg text{fill:var(--ink2);font-size:12.5px;font-family:inherit}
+svg .lab{fill:var(--ink);font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th{font-size:12.5px;font-weight:600;color:var(--ink2);text-align:right;border-bottom:1px solid var(--ink2);padding:5px 0 5px 8px;white-space:nowrap}th:first-child{text-align:left;padding-left:0}
+td{border-bottom:1px solid var(--hair);padding:6px 0 6px 8px;text-align:right;vertical-align:top;white-space:nowrap}td:first-child{text-align:left;padding-left:0;white-space:normal}
+td .s{display:block;font-size:12.5px;color:var(--mut);line-height:1.4;white-space:normal}
+.lv{display:inline-block;min-width:4.5em;text-align:center;border:1px solid var(--ink2);padding:0 6px;font-size:13px}
+.lv.good{border-color:var(--up);color:#7fd0bd}.lv.bad{border-color:var(--dn);color:#e9a07a}.lv.na{border-style:dashed;color:var(--mut)}
+.bar{display:none}
+@media(max-width:860px){.bar{display:block;position:fixed;left:0;right:0;bottom:0;background:#141311;border-top:1px solid var(--hair);padding:8px 14px calc(8px + env(safe-area-inset-bottom));z-index:9;font-size:14px}
+.bar b{font-size:18px}.bar a{color:var(--ink)}}
+a{color:var(--ink);text-underline-offset:3px}
+#scen td:first-child{width:38%}#scen td,#scen th{white-space:normal}
+@media(max-width:600px){#eval tr{display:block;border-bottom:1px solid var(--hair);padding:8px 0}#eval th{display:none}#eval td{display:block;border:0;padding:2px 0;text-align:left;white-space:normal}}
+</style></head><body>
+<div class="app">
+<aside class="left">
+<div class="kicker">小屋プロ ／ 試算 ／ 2026-10-15</div>
+<h1>1号の家で、住まいの費用を客室の稼ぎで払えるか</h1>
+<p class="sm">本人は1号の離れに住み、客室を貸す。留守の月は時給の人に掃除を頼む。お金は<b>本人の財布だけ</b>。</p>
 
-<h2>変えられる条件</h2>
-<div class="inp"><div class="row"><h3>客室の棟数</h3><span class="val"><b id="v-cab"></b> 棟</span></div>
-<input id="cab" type="range" min="1" max="3" step="1">
-<p><b>上げると:</b> 売上と泊まる客が棟の数だけ増える (来る客も同じ割合で増えると置いた)。建てる費用・借入・掃除の時間も増える。</p><p class="sm">1号に建てる客室 (4人用・27㎡) の数。初期は1棟: 自己資金1,500万円と借入 約300万円 (安い見立て) で建てられるのは1棟。</p></div>
-<div class="inp"><div class="row"><h3>1泊の値段</h3><span class="val"><b id="v-adr"></b> 万円</span></div>
-<input id="adr" type="range" min="4" max="8" step="0.5">
-<p><b>上げると:</b> 売上と手残りが増える。来る客の数は変えていない (値段を上げても客が減らないとして数える)。</p><p class="sm">客が客室1棟を1泊借りる値段 (4人まで、消費税込み)。初期6.0万円: 近くの一棟貸しの中央値 4.2〜5.6万円に、景色に向いた屋外の湯の分を少し上乗せした (仮定)。</p></div>
-<div class="inp"><div class="row"><h3>本人が1号に住む月</h3><span class="val"><b id="v-mon"></b> か月</span></div>
-<div class="months" id="months"></div>
-<p><b>減らすと (白にすると):</b> その月の掃除と湯は時給の人に頼むので、手残りが減る。売上は変わらない。<b>1か月でも留守にすると、人を頼む準備の費用 (時給の人を探して教え、仕事を点検する42万円と、その人が休む日の代わり) がかかる。</b></p><p class="sm">黒が本人が住む月、白が留守の月。初期は12か月 (1号だけの時期は通年で住む)。冬に南、夏に北へ行くなら、その月を白にする。</p></div>
-<div class="inp"><div class="row"><h3>留守中に頼む人の時給</h3><span class="val"><b id="v-wage"></b> 円</span></div>
-<input id="wage" type="range" min="1100" max="2400" step="50">
-<p><b>上げると:</b> 留守の月がある時だけ、時給の人への支払いが増え、手残りが減る。全部の月に住んでいれば変わらない。</p><p class="sm">本人がいない月に掃除・湯の入れ替え・迎えを頼む人の1時間の賃金。初期1,131円 (最低賃金の水準。千葉・静岡の額は未確認)。</p></div>
-<div class="inp"><div class="row"><h3>自己資金</h3><span class="val"><b id="v-own"></b> 万円</span></div>
-<input id="own" type="range" min="0" max="3000" step="100">
-<p><b>上げると:</b> 借りる額と返済が減り、手残りが増える。最初に要る資金を超えた分は使わない (増やしても変わらない)。</p><p class="sm">本人が出すお金。足りない分を4.5%・15年で借りると置いた (公庫の基準の金利帯)。</p></div>
-<details><summary>詳しい条件 (ふつうは触らない)</summary>
-<div class="inp"><div class="row"><h3>建てる費用の見立て</h3><span class="val"><b id="v-cap"></b></span></div>
-<div class="seg" id="capseg"><button data-v="low">安い見立て</button><button data-v="mid">ふつうの見立て</button></div>
-<p><b>ふつうにすると:</b> 建てる費用と借入が増え、返済と修繕が増えて手残りが減る。</p><p class="sm">安い=全部が最安 (土地150万円・系統の電気・引込みが近い)。ふつう=現実の期待値。見積りはまだ取っていない。</p></div>
-<div class="inp"><div class="row"><h3>客が来うる泊数 (1棟・1年)</h3><span class="val"><b id="v-mkt"></b> 泊</span></div>
-<input id="mkt" type="range" min="90" max="220" step="5">
-<p><b>上げると:</b> 泊まる客と売上が増える (満室の月は上限で止まる)。</p><p class="sm">この値段で1棟に来うる客の泊数。月ごとの多い少ないは観光庁の実測 (千葉県の簡易宿所) で配る。初期165泊 (仮定)。</p></div>
+<div class="inp"><div class="row"><h3>客室の棟数</h3><span class="val"><b id="v-cab"></b> 棟</span></div><input id="cab" type="range" min="1" max="3" step="1">
+<p class="hint">4人用27㎡。上げると売上・建設費・返済・掃除が棟の数だけ増える (客も同じ割合と仮定)。初期1棟。</p></div>
+<div class="inp"><div class="row"><h3>1泊の値段 (税込)</h3><span class="val"><b id="v-adr"></b> 万円</span></div><input id="adr" type="range" min="4" max="8" step="0.5">
+<p class="hint">客室1棟・4人まで。上げると売上と手残りが増える (客の数は変えない)。初期6.0万円は近くの中央値+湯の上乗せ (仮定)。</p></div>
+<div class="inp"><div class="row"><h3>本人が1号に住む月 (1〜12月)</h3><span class="val"><b id="v-mon"></b> か月</span></div><div class="months" id="months"></div>
+<p class="hint">明るい=住む、枠だけ=留守 (時給の人に頼む)。増やすと人に頼む費用が減り手残りが増える。1か月でも留守なら、時給の人を探す・教える・点検する42万円がかかる。</p></div>
+<div class="inp"><div class="row"><h3>留守中の時給</h3><span class="val"><b id="v-wage"></b> 円</span></div><input id="wage" type="range" min="1100" max="2400" step="50">
+<p class="hint">上げると、留守の月がある時だけ費用が増える。初期1,131円 (最低賃金の水準)。</p></div>
+<div class="inp"><div class="row"><h3>自己資金</h3><span class="val"><b id="v-own"></b> 万円</span></div><input id="own" type="range" min="0" max="3000" step="100">
+<p class="hint">足りない分を4.5%・15年で借りる。上げると借入と返済が減る (要る資金を超えた分は使わない)。</p></div>
+
+<details><summary>建設費・運営費・客の数 (感度の軸)</summary>
+<div class="inp"><div class="row"><h3>建設費の見立て</h3><span class="val"><b id="v-cap"></b></span></div><div class="seg" id="capseg"><button data-v="low">安い</button><button data-v="mid">ふつう</button></div>
+<p class="hint">安い=全部が最安 (土地150万円・系統の電気)。ふつう=現実の期待値。見積りは未取得。</p></div>
+<div class="inp"><div class="row"><h3>建設費の上下</h3><span class="val"><b id="v-cs"></b> %</span></div><input id="cs" type="range" min="-30" max="50" step="5"><p class="hint">見立てからの増減。上げると借入・返済・修繕が増える。</p></div>
+<div class="inp"><div class="row"><h3>運営費の上下</h3><span class="val"><b id="v-os"></b> %</span></div><input id="os" type="range" min="-30" max="50" step="5"><p class="hint">拠点の固定費 (保険・点検・宣伝など180万円/年) と湯の維持の増減。</p></div>
+<div class="inp"><div class="row"><h3>来うる客 (1棟・1年)</h3><span class="val"><b id="v-mkt"></b> 泊</span></div><input id="mkt" type="range" min="60" max="240" step="5"><p class="hint">この値段で来うる客の泊数。月の多い少ないは観光庁の実測 (千葉県)。満室の月は上限で止まる。初期165泊 (仮定)。</p></div>
 </details>
-<div class="btns"><button id="reset">初期に戻す</button><button id="base">いまの条件を「変える前」にする</button></div>
-<p class="sm">「変える前」にすると、そこから次に1つ変えた時の差が出る (例: 冬に留守にした形を基準にして、時給だけ変えてみる)。</p>
+<div class="btns"><button class="btn" id="reset">初期に戻す</button><button class="btn" id="base">今の条件を「前」にする</button></div>
+<p class="sm">「前」にすると、そこから1つ変えた時の差が右に出る。</p>
+</aside>
 
-<h2>操作の例 (押すと下の結果がその条件になる)</h2>
-<div id="examples"></div>
-
-<h2 id="res">結果 ─ 変える前と後</h2>
-<p class="verdict" id="verdict"></p><p id="verdict2" style="margin:0 0 6px"></p><p class="sm" id="cabnote"></p>
-<p class="sm"><b>手残り</b> = 客室の売上 − 費用 (予約手数料・リネン・光熱・固定費・修繕・人に頼む費用・移動費) − 借入の返済。返済は借りた分だけで、<b>本人が出した自己資金はこの手残りで少しずつ取り戻す</b> (取り戻す年数を表の最後に出す)。プラスなら、住まい (離れ) の費用は客室が払ってくれていて、その分が残る。<b>本人の生活費は含まない。本人がした掃除などの作業はただで数えている。</b>税金の前。</p>
-<p class="why" id="why"></p><p class="sm" id="whyd"></p>
-<div class="cols">
-<div><h3 style="margin-top:14px">暮らし (1年)</h3><table id="t-life"></table></div>
-<div><h3 style="margin-top:14px">お金 (本人の財布、1年、万円。最初の3行は建てる時の1回だけ)</h3><p class="sm">各行は万円未満を四捨五入し、手残りはその和。</p><table id="t-money"></table></div>
+<main class="right">
+<div class="top">
+<section>
+<div class="btns" style="margin:0 0 8px"><span class="sm" style="align-self:center">操作の例:</span><button class="btn ex" data-k="1">冬は南へ (4か月留守)</button><button class="btn ex" data-k="2">1泊を5,000円下げる</button><button class="btn ex" data-k="3">留守+時給1,800円</button></div>
+<p class="kicker">判定 (変える前 → 後)</p>
+<p class="verdict" id="verdict"></p>
+<div class="take"><span class="big" id="takebig"></span><span id="takediff" class="mut"></span></div>
+<p class="sm">手残り = 客室の売上 − 運営の費用 − 借入の返済 (万円/年)。生活費と税は含まない。本人の作業は無償で数える。</p>
+<p class="why" id="why"></p><p class="sm" id="cabnote"></p>
+<div class="cards" id="cards"></div>
+<svg id="be" viewBox="0 0 480 70" style="width:100%;height:auto;display:block;margin-top:10px" role="img" aria-label="損益分岐の図"></svg>
+<p class="sm">損益分岐の物差し (1棟あたりの年の泊数): 点線=営業損益が0、実線=返済後が0、●=今。●が実線より右 (緑の範囲) なら住まいの費用を払える。</p>
+</section>
+<section>
+<p class="kicker" id="wftitle"></p>
+<svg id="wf" viewBox="0 0 480 300" style="width:100%;height:auto;display:block" role="img" aria-label="手残りの内訳の図"></svg>
+<p class="sm" id="wfnote"></p>
+</section>
 </div>
 
+<h2>月ごと: 客室の埋まりと、誰が掃除するか</h2>
+<svg id="mo" viewBox="0 0 640 170" style="width:100%;height:auto;display:block" role="img" aria-label="月ごとの稼働率"></svg>
+<p class="sm">棒=客室の埋まり (泊まった泊数÷泊まれる日数)。下の字: 本=本人が住む月、時=時給の人に頼む月。客の月の多い少ないは観光庁 宿泊旅行統計2025 (千葉県 簡易宿所)。</p>
+
+<h2>感度: どの条件が手残りに一番効くか</h2>
+<svg id="tor" viewBox="0 0 640 220" style="width:100%;height:auto;display:block" role="img" aria-label="感度の図"></svg>
+<p class="sm">今の条件から1つだけ動かした時の手残り (万円/年)。住む月は「冬の4か月を留守にする」と「12か月住む」、自己資金は±500万円。<span style="color:#7fd0bd">緑 (+)</span>=手残りが増える向き、<span style="color:#e9a07a">橙 (−)</span>=減る向き。上ほど効く。</p>
+<table id="scen" style="table-layout:fixed"></table>
+<p class="sm">下振れ=値段−10%・客−20%・建設費+20%・運営費+20%。上振れ=値段+10%・客+20%・建設費−10%・運営費−10%。今の条件を基準に、同時に動かした。</p>
+
+<h2>AIの評価 (目的の順に照らした基準。点数ではなく段階)</h2>
+<p class="verdict" style="font-size:18px" id="evaltop"></p>
+<table id="eval"></table>
+<p class="sm" id="evalsum"></p>
+<p class="sm">重みの理由: 本人の目的の順 (1 自分の住まい ＞ 2 渡り鳥の暮らし ＝ 3 稼ぎ ＞ 4 事業を大きくする) から。大=目的1 (住まいの費用を払えるか) に直接効くもの、中=それ以外。基準値の理由: 返済の余裕1.3倍は銀行が融資でよく見る目安。自己資金の回収8年は、宿の木造の法定耐用年数17年の半分以下で取り戻せる線 (仮置き)。本人の作業600時間は週約12時間で、他の仕事と両立できる線 (仮置き)。どれも本人の考えで変えてよい。</p>
+
+<h2>指標の定義</h2>
+<table id="defs"></table>
+
+<h2>お金の明細 (本人の財布、万円)</h2>
+<table id="money"></table>
+
 <h2>この試算に入っていないもの</h2>
-<ul class="sm"><li>税金 (所得税・消費税の納め方)、建物の減価償却</li><li>日ごとの予約の重なり (月の合計で数えている)、繁忙期に値段を上げ下げすること</li><li>値段を変えると客の数が変わること (値段を下げても、来る客の泊数は同じとして数えている)</li><li>本人の生活費、本人がした作業の対価 (時間だけ出す)</li><li>2・3拠点目 (南・北) のお金。留守の月に本人がどこに住むかの費用</li></ul>
-<p class="sm">売上・費用・人に頼む時間は事業計画の試算 (sim.js) と同じ式。開業前後の運転資金160万円と借入の返済 (4.5%・15年) は、このページで足した。移動費は sim.js では住む人1人につき年15万円、このページでは1年のうちに移る時だけ数える。客の月の需要: 観光庁 宿泊旅行統計 2025 (千葉県 簡易宿所)。費用: 予約サイトの手数料14%、リネンと消耗品0.8万円/泊、光熱0.25万円/泊、拠点の固定費180万円/年 (+2棟目から40万円/棟)、湯の維持25万円/棟、修繕2%/年。人に頼む費用は時給×時間 (1回の入れ替え2.5時間+毎日の対応1.3時間) に保険3%、募集と点検42万円、休みの代わりを足した額。本人の移動費15万円/年 (1年のうちに移る時だけ)。<a href="plain-9e9f655dbd0ba200.html">事業計画の付録へ</a></p>
-<p class="sm">このページは 2026-10-29 07:00 JST に自動削除されます</p>
+<ul class="sm"><li>税金・減価償却、値段を変えると客の数が変わること、日ごとの予約の重なり、繁忙期の値上げ</li><li>本人の生活費、2・3拠点目 (南・北) のお金、留守の月の本人の住まいの費用</li></ul>
+<p class="sm">売上・費用・人に頼む時間は事業計画の試算 (sim.js) と同じ式。運転資金160万円・借入の返済 (4.5%・15年)・移動費 (1年のうちに移る時15万円)・感度と評価はこのページで足した。各行は万円未満を四捨五入し、手残りはその和。<a href="plain-9e9f655dbd0ba200.html">事業計画の付録へ</a>。このページは 2026-10-29 07:00 JST に自動削除されます。</p>
 </main>
+</div>
 <div class="bar" id="bar"></div>
 <script>
 // 小屋プロ 滞在の試算 (v05)。人の型 × 月 × 拠点で、客・オーナー・会員・担い手を別々に数える。
@@ -235,164 +278,247 @@ ul{padding-left:1.1em}li{margin:4px 0}
 
 </script>
 <script>
-const S = KoyaSim;
+const S = KoyaSim, DAYS = S.DAYS;
 const CAP = { low: { capexShared: 732, capexCabin: 908, capexAdd: 1072, landCapex: 165 }, mid: { capexShared: 1375, capexCabin: 1353, capexAdd: 1573, landCapex: 440 } };
-const INIT = { cab: 1, adr: 6.0, months: [1,2,3,4,5,6,7,8,9,10,11,12], wage: 1131, cap: "low", mkt: 165, own: 1500 };
-let cur = JSON.parse(JSON.stringify(INIT)), base = JSON.parse(JSON.stringify(INIT));
+const INIT = { cab: 1, adr: 6.0, months: [1,2,3,4,5,6,7,8,9,10,11,12], wage: 1131, own: 1500, cap: "low", cs: 0, os: 0, mkt: 165 };
+const clone = x => JSON.parse(JSON.stringify(x));
+let cur = clone(INIT), base = clone(INIT);
 const $ = id => document.getElementById(id);
-const DAYS = S.DAYS;
+const R = Math.round;
 function calc(c) {
+  const k = 1 + c.cs / 100, o = 1 + c.os / 100, cp = CAP[c.cap];
   const r = S.simulate({ sites: ["中"], cabins: { 中: c.cab }, beds: { 中: 1 },
     people: c.months.length ? [{ name: "本人", role: "住む", wish: { 中: c.months.slice() } }] : [],
-    params: Object.assign({ adr: c.adr, wage: c.wage, marketNights: c.mkt }, CAP[c.cap]) });
-  const s = r.sites["中"], t = r.total;
-  const start = s.capex + 160;
-  const loan = Math.max(0, start - c.own);
-  const usedOwn = Math.min(c.own, start);  // 実際に使う自己資金 (余りは使わない)
+    params: { adr: c.adr, wage: c.wage, marketNights: c.mkt, capexShared: cp.capexShared * k, capexCabin: cp.capexCabin * k, capexAdd: cp.capexAdd * k, landCapex: cp.landCapex * k,
+      fixedSite: 180 * o, fixedAddCabin: 40 * o, tubPerCabin: 25 * o } });
+  const s = r.sites["中"];
+  const start = s.capex + 160, loan = Math.max(0, start - c.own), usedOwn = Math.min(c.own, start);
   const pay = loan > 0 ? loan * 0.045 / (1 - Math.pow(1.045, -15)) : 0;
   const ota = s.months.reduce((a, m) => a + m.guestSold * c.adr / 1.1 * 0.14, 0);
-  const other = s.varCost - ota;
-  const move = (c.months.length > 0 && c.months.length < 12) ? 15 : 0; // 1年のうちに移る時だけ
-  const wagePay = s.hired * c.wage * 1.03 / 10000; // 時給×時間+保険
   const tot = s.hired + s.residentWork;
-  const hireCost = (s.hired > 0.5 ? 42 : 0) + (tot ? 100 * s.hired / tot : 0);   // 時給の人を頼むための費用 (募集と点検42、その人の休みの代わり)
-  const selfRest = tot ? 80 * s.residentWork / tot : 0;                          // 本人が休む間の代わり60・病気の予備20 (住む月の割合)
-  const sameDay = c.cab > 1 ? (s.guestSold + s.memberGot) * 0.15 : 0;            // 2棟以上の同じ日の入れ替えの手伝い
-  const overhead = hireCost + selfRest + sameDay;
-  const take = s.rev - s.varCost - s.fixed - s.laborCost - move - pay;
-  const liveDays = c.months.reduce((a, m) => a + DAYS[m - 1], 0);
-  const R = Math.round;
-  const o = { usedOwn: R(usedOwn), rev: R(s.rev), ota: R(ota), other: R(other), fixed: R(s.fixed), wagePay: R(wagePay), hireCost: R(hireCost), selfRest: R(selfRest), sameDay: R(sameDay),
-    build: R(s.capex), move, pay: R(pay), start: R(start), loan: R(loan),
-    liveDays, awayMonths: 12 - c.months.length, hired: R(s.hired), self: R(s.residentWork), sold: R(s.guestSold), lost: R(s.lost) };
-  o.take = o.rev - o.ota - o.other - o.fixed - o.wagePay - o.hireCost - o.selfRest - o.sameDay - o.move - o.pay; // 表の数字の和と必ず一致
-  return o;
+  const wagePay = s.hired * c.wage * 1.03 / 10000;
+  const hirePrep = s.hired > 0.5 ? 42 : 0;                       // 時給の人を探す・教える・点検
+  const hireRest = tot ? 100 * s.hired / tot : 0;                  // 時給の人が休む日の代わり (頼む時間の割合)
+  const selfRest = tot ? 80 * s.residentWork / tot : 0;
+  const sameDay = c.cab > 1 ? s.guestSold * 0.15 : 0;
+  const move = (c.months.length > 0 && c.months.length < 12) ? 15 : 0;
+  const x = { rev: R(s.rev), ota: R(ota), other: R(s.varCost - ota), fixed: R(s.fixed), wagePay: R(wagePay), hirePrep: R(hirePrep), hireRest: R(hireRest), selfRest: R(selfRest), sameDay: R(sameDay), move, pay: R(pay),
+    start: R(start), loan: R(loan), usedOwn: R(usedOwn), build: R(s.capex), sold: R(s.guestSold), lost: R(s.lost), hired: R(s.hired), self: R(s.residentWork),
+    months: s.months.map(m => ({ occ: m.occ, res: m.resGot > 0 })) };
+  x.op = x.rev - x.ota - x.other - x.fixed - x.wagePay - x.hirePrep - x.hireRest - x.selfRest - x.sameDay - x.move; // 営業損益 (返済の前)
+  x.take = x.op - x.pay;                                                                             // 返済後の手残り
+  x.dscr = x.pay > 0 ? x.op / x.pay : null;
+  x.payback = x.take > 0 && x.usedOwn > 0 ? x.usedOwn / x.take : null;
+  x.occ = x.sold / (c.cab * 365);
+  x.selfValue = R(x.self * c.wage * 1.03 / 10000);
+  return x;
 }
-const f = (x, d = 0) => { const v = Math.round(x * Math.pow(10, d)) / Math.pow(10, d); return (v < 0 ? "−" : "") + Math.abs(v).toLocaleString("ja-JP", { minimumFractionDigits: d, maximumFractionDigits: d }); };
-const sg = (x, d = 0) => (Math.abs(x) < 0.5 * Math.pow(10, -d) ? "±0" : (x > 0 ? "+" : "−") + Math.abs(Math.round(x * Math.pow(10, d)) / Math.pow(10, d)).toLocaleString("ja-JP"));
-function why(b, a, cb, ca) {
-  const one = oneLine(b, a, cb, ca);
-  if (!one) return { one: "まだ何も変えていない。条件を1つ動かすと、ここに「何が・なぜ変わったか」が1文で出る。", detail: "" };
-  const parts = [
-    ["客室の売上", a.rev - b.rev], ["予約手数料・リネン・光熱", -(a.ota + a.other - b.ota - b.other)], ["拠点の固定費・湯・修繕", -(a.fixed - b.fixed)],
-    ["時給の人への支払い", -(a.wagePay - b.wagePay)], ["人を頼む準備の費用", -(a.hireCost - b.hireCost)], ["本人の休みの日の代わり", -(a.selfRest - b.selfRest)], ["同じ日の入れ替えの手伝い", -(a.sameDay - b.sameDay)],
-    ["借入の返済", -(a.pay - b.pay)], ["移動費", -(a.move - b.move)]].filter(p => Math.abs(p[1]) >= 0.5).sort((x, y) => Math.abs(y[1]) - Math.abs(x[1]));
-  const note = (n, v) => n === "本人の休みの日の代わり" && v > 0 ? " (住む月が減った分、この費用が減って手残りが増える)" : (n === "本人の休みの日の代わり" && v < 0 ? " (住む月が増えた分、この費用が増える)" : "");
-  return { one, detail: parts.length ? "内訳 (万円/年): " + parts.map(p => `${p[0]} ${sg(p[1])}${note(p[0], p[1])}`).join("、") + ` ＝ ${sg(a.take - b.take)}` : "" };
+// 損益分岐: 来うる客を動かして、営業損益=0 と 手残り=0 になる泊数 (1棟あたり)
+function breakEven(c, key) {
+  const f = m => { const y = clone(c); y.mkt = m; return calc(y); };
+  if (f(0)[key] >= 0) return { nights: 0 };
+  const hi = f(600); if (hi[key] < 0) return null;
+  let lo = 0, up = 600;
+  for (let i = 0; i < 30; i++) { const mid = (lo + up) / 2; if (f(mid)[key] >= 0) up = mid; else lo = mid; }
+  const r = f(up); return { nights: r.sold / c.cab, occ: r.sold / (c.cab * 365) };
 }
-function why1(cb, ca) {
-  if (ca.months.length < cb.months.length) return ca.months.length === 0 ? "掃除と湯を全部時給の人に頼み、人を頼む準備の費用もかかるため" : "留守の月を時給の人に頼み、人を頼む準備の費用と時給がかかるため";
-  if (ca.months.length > cb.months.length) return "住む月は本人が掃除と湯をして、頼む時間が減るため";
-  if (ca.cab !== cb.cab) return "客も建てる費用も棟の数だけ増えるため";
-  if (ca.adr !== cb.adr) return "客の数は同じで、値段の分だけ売上が動くため";
-  if (ca.wage !== cb.wage) return ca.months.length === 12 ? "全部の月に住んでいて、人に頼む時間がないため" : "頼む時間は同じで、1時間の値段が変わるため";
-  if (ca.own !== cb.own) return ca.own > cb.own ? "借りる額と返済が減るため" : "借りる額と返済が増えるため";
-  if (ca.cap !== cb.cap) return "建てる費用と、返済・修繕が変わるため";
-  if (ca.mkt !== cb.mkt) return "泊まる客の数が変わるため";
-  return "";
-}
+const fd = x => x == null ? "借入なし" : (x < 0 ? "赤字" : (x > 10 ? "10倍超" : f(x, 1) + "倍"));
+const fp = x => x == null ? "—" : (x > 50 ? "50年超" : f(x, 1));
+const f = (x, d = 0) => { if (x == null) return "—"; const v = R(x * Math.pow(10, d)) / Math.pow(10, d); return (v < 0 ? "−" : "") + Math.abs(v).toLocaleString("ja-JP", { minimumFractionDigits: d, maximumFractionDigits: d }); };
+const sg = x => (Math.abs(x) < 0.5 ? "±0" : (x > 0 ? "+" : "−") + Math.abs(R(x)).toLocaleString("ja-JP"));
+const ITEMS = [["客室の売上", "rev", 1], ["予約サイトの手数料", "ota", -1], ["リネン・消耗品・光熱", "other", -1], ["固定費・湯・修繕", "fixed", -1], ["時給の人への支払い", "wagePay", -1],
+  ["時給の人を探す・教える・点検", "hirePrep", -1], ["時給の人が休む日の代わり", "hireRest", -1], ["本人の休みの日の代わり", "selfRest", -1], ["同じ日の入れ替えの手伝い", "sameDay", -1], ["本人の移動費", "move", -1], ["借入の返済", "pay", -1]];
 function changeText(cb, ca) {
   const ch = [];
-  if (cb.months.join() !== ca.months.join()) ch.push(`住む月を${cb.months.length}→${ca.months.length}か月`);
-  if (cb.cab !== ca.cab) ch.push(`客室を${cb.cab}→${ca.cab}棟`);
-  if (cb.adr !== ca.adr) ch.push(`1泊を${cb.adr.toFixed(1)}→${ca.adr.toFixed(1)}万円`);
-  if (cb.wage !== ca.wage) ch.push(`時給を${cb.wage.toLocaleString()}→${ca.wage.toLocaleString()}円`);
-  if (cb.own !== ca.own) ch.push(`自己資金を${cb.own.toLocaleString()}→${ca.own.toLocaleString()}万円`);
-  if (cb.cap !== ca.cap) ch.push(`建てる費用を${cb.cap === "low" ? "安い" : "ふつう"}→${ca.cap === "low" ? "安い" : "ふつう"}見立て`);
-  if (cb.mkt !== ca.mkt) ch.push(`来うる客を${cb.mkt}→${ca.mkt}泊`);
+  if (cb.months.join() !== ca.months.join()) ch.push(`住む月 ${cb.months.length}→${ca.months.length}か月`);
+  if (cb.cab !== ca.cab) ch.push(`客室 ${cb.cab}→${ca.cab}棟`);
+  if (cb.adr !== ca.adr) ch.push(`1泊 ${cb.adr.toFixed(1)}→${ca.adr.toFixed(1)}万円`);
+  if (cb.wage !== ca.wage) ch.push(`時給 ${cb.wage.toLocaleString()}→${ca.wage.toLocaleString()}円`);
+  if (cb.own !== ca.own) ch.push(`自己資金 ${cb.own.toLocaleString()}→${ca.own.toLocaleString()}万円`);
+  if (cb.cap !== ca.cap) ch.push(`建設費の見立て ${cb.cap === "low" ? "安い" : "ふつう"}→${ca.cap === "low" ? "安い" : "ふつう"}`);
+  if (cb.cs !== ca.cs) ch.push(`建設費 ${cb.cs}→${ca.cs}%`);
+  if (cb.os !== ca.os) ch.push(`運営費 ${cb.os}→${ca.os}%`);
+  if (cb.mkt !== ca.mkt) ch.push(`来うる客 ${cb.mkt}→${ca.mkt}泊`);
   return ch.join("、");
 }
-function oneLine(b, a, cb, ca) {
+function why(b, a, cb, ca) {
   const ct = changeText(cb, ca);
-  if (!ct) return "";
+  if (!ct) return "左の条件を1つ動かすと、ここに「何を変えて、何が一番効いて、手残りがどう変わったか」が1文で出る。図 (PCでは右、スマホでは下) は手残りの内訳。";
+  const parts = ITEMS.map(([n, k, sgn]) => [n, sgn * (a[k] - b[k])]).filter(p => Math.abs(p[1]) >= 0.5).sort((x, y) => Math.abs(y[1]) - Math.abs(x[1]));
+  const top = parts[0];
   const d = a.take - b.take;
-  const eff = Math.abs(d) < 0.5 ? "本人の手残りは変わらない" : `本人の手残りは年${f(Math.abs(d))}万円${d > 0 ? "増える" : "減る"}`;
-  const rs = [];
-  const one = (x, y) => { const r = why1(x, y); if (r) rs.push(r.replace(/ため$/, "")); };
-  const pick = (k) => { const x = JSON.parse(JSON.stringify(cb)); x[k] = ca[k]; return x; };
-  if (cb.months.join() !== ca.months.join()) one(cb, pick("months"));
-  ["cab", "adr", "wage", "own", "cap", "mkt"].forEach(k => { if (cb[k] !== ca[k]) { const x = JSON.parse(JSON.stringify(cb)); x.months = ca.months.slice(); const y = JSON.parse(JSON.stringify(x)); y[k] = ca[k]; one(x, y); } });
-  const onlyMonths = cb.months.join() !== ca.months.join() && ["cab","adr","wage","own","cap","mkt"].every(k => cb[k] === ca[k]);
-  if (onlyMonths && ca.months.length < cb.months.length && ca.months.length > 0) {
-    const hc = a.hireCost - b.hireCost, wp = a.wagePay - b.wagePay;
-    return `${ct}にすると、留守の月を時給の人に頼むので、人を頼む準備の費用が年${f(hc)}万円・時給が年${f(wp)}万円かかり、${eff}。`;
-  }
-  return `${ct}にすると、${rs.length ? rs.join("うえ、") + "ため" : "費用が変わるため"}、${eff}。`;
+  const sec = parts[1];
+  return `${ct}にすると、一番効いたのは「${top ? top[0] : "なし"}」(${top ? sg(top[1]) : "±0"}万円)${sec ? `、次に「${sec[0]}」(${sg(sec[1])}万円)` : ""} で、本人の手残りは年${f(Math.abs(d))}万円${Math.abs(d) < 0.5 ? "変わらない" : (d > 0 ? "増える" : "減る")}。`;
 }
-function row(lab, sub, bv, av, unit, d = 0, good = 1) {
-  return `<tr><td>${lab}${sub ? `<span class="s">${sub}</span>` : ""}</td><td>${f(bv, d)}</td><td>${f(av, d)}</td><td class="d">${sg(av - bv, d)}</td></tr>`;
+// 図: 変えていない時は内訳 (売上→費用→手残り)、変えた時は前→原因→後
+function waterfall(b, a, changed) {
+  const W = Math.max(320, $("wf").clientWidth || 480), H = 300, L = Math.min(170, W * 0.36), Rr = 18, top = 14, rowH = 24;
+  let rows, title, note;
+  if (!changed) {
+    rows = [["客室の売上", a.rev, "tot"]].concat(ITEMS.slice(1).filter(([n, k]) => a[k] > 0).map(([n, k]) => [n, -a[k], "dn"])).concat([["手残り (返済後)", a.take, "tot"]]);
+    title = "手残りの内訳 (万円/年): 売上から費用と返済を引いた残り"; note = "灰=売上と手残り、橙 (−)=費用と返済。棒の長さが額。";
+  } else {
+    const parts = ITEMS.map(([n, k, s]) => [n, s * (a[k] - b[k])]).filter(p => Math.abs(p[1]) >= 0.5).sort((x, y) => Math.abs(y[1]) - Math.abs(x[1]));
+    rows = [["変える前の手残り", b.take, "tot"]].concat(parts.map(p => [p[0], p[1], p[1] > 0 ? "up" : "dn"])).concat([["変えた後の手残り", a.take, "tot"]]);
+    title = "何が手残りを動かしたか (万円/年): 前 → 原因 → 後"; note = "緑 (+)=手残りを増やした、橙 (−)=減らした。灰=前と後の手残り。";
+  }
+  const narrow = W < 560;
+  const vals = []; let run = 0;
+  rows.forEach((r, i) => { if (r[2] === "tot") { vals.push([0, r[1]]); run = r[1]; } else { vals.push([run, run + r[1]]); run += r[1]; } });
+  const mn = Math.min(0, ...vals.flat()), mx = Math.max(0, ...vals.flat());
+  const L2 = narrow ? 4 : L, RH = narrow ? 40 : rowH;
+  const sx = v => L2 + (v - mn) / ((mx - mn) || 1) * (W - L2 - Rr - 50);
+  const hh = top + rows.length * RH + 10;
+  let g = `<line x1="${sx(0)}" x2="${sx(0)}" y1="${top - 4}" y2="${hh - 6}" stroke="#5a5750" stroke-width="1"/>`;
+  rows.forEach((r, i) => {
+    const y = top + i * RH + (narrow ? 16 : 0), [v0, v1] = vals[i], x0 = Math.min(sx(v0), sx(v1)), w = Math.max(2, Math.abs(sx(v1) - sx(v0)));
+    const col = r[2] === "tot" ? "var(--tot)" : (r[2] === "up" ? "var(--up)" : "var(--dn)");
+    const lab = r[2] === "tot" ? f(r[1]) : sg(r[1]);
+    g += (narrow ? `<text x="${L2}" y="${y - 2}" class="lab">${r[0]}</text>` : `<text x="${L - 8}" y="${y + 14}" text-anchor="end" class="lab">${r[0]}</text>`) + `<rect x="${x0}" y="${y + 3}" width="${w}" height="${rowH - 7}" rx="2" fill="${col}"><title>${r[0]} ${lab}万円</title></rect><text x="${x0 + w + 5}" y="${y + 14}">${lab}</text>`;
+  });
+  $("wf").setAttribute("viewBox", `0 0 ${W} ${hh}`); $("wf").innerHTML = g; $("wftitle").textContent = title; $("wfnote").textContent = note;
+}
+function beChart(c, a) {
+  const W = Math.max(300, $("be").clientWidth || 480), L = 10, Rr = 24, max = 365, Y = 44;
+  const sx = n => L + Math.min(max, Math.max(0, n)) / max * (W - L - Rr);
+  const b1 = breakEven(c, "op"), b2 = breakEven(c, "take"), now = a.sold / c.cab;
+  let g = "";
+  if (b2) g += `<rect x="${L}" y="${Y - 6}" width="${Math.max(0, sx(b2.nights) - L)}" height="12" fill="var(--dn)" opacity=".6"><title>返済後で赤字の範囲</title></rect><rect x="${sx(b2.nights)}" y="${Y - 6}" width="${Math.max(0, (W - Rr) - sx(b2.nights))}" height="12" fill="var(--up)" opacity=".6"><title>返済後で黒字の範囲</title></rect>`;
+  else g += `<rect x="${L}" y="${Y - 6}" width="${W - Rr - L}" height="12" fill="var(--dn)" opacity=".6"/>`;
+  [0, 100, 200, 300, 365].forEach(n => g += `<text x="${sx(n)}" y="${Y + 40}" text-anchor="middle">${n}</text>`);
+  if (b1) g += `<line x1="${sx(b1.nights)}" x2="${sx(b1.nights)}" y1="${Y - 26}" y2="${Y + 8}" stroke="var(--ink)" stroke-dasharray="3 3"/><text x="${sx(b1.nights)}" y="${Y - 30}" text-anchor="${sx(b1.nights) > W - 90 ? "end" : "start"}">営業0: ${f(b1.nights)}泊</text>`;
+  if (b2) g += `<line x1="${sx(b2.nights)}" x2="${sx(b2.nights)}" y1="${Y - 8}" y2="${Y + 22}" stroke="var(--ink)" stroke-width="2"/><text x="${sx(b2.nights)}" y="${Y + 26}" text-anchor="${sx(b2.nights) > W - 110 ? "end" : "start"}" class="lab">返済後0: ${f(b2.nights)}泊</text>`;
+  g += `<circle cx="${sx(now)}" cy="${Y}" r="6" fill="var(--ink)" stroke="var(--bg)" stroke-width="2"><title>今 ${f(now)}泊</title></circle><text x="${sx(now)}" y="${Y - 12}" text-anchor="middle" class="lab">今 ${f(now)}</text>`;
+  if (!b2) g += `<text x="${W - Rr}" y="${Y + 26}" text-anchor="end" class="lab">満室でも返済後は0に届かない</text>`;
+  $("be").setAttribute("viewBox", `0 0 ${W} ${Y + 46}`); $("be").innerHTML = g;
+}
+function monthly(a) {
+  const W = Math.max(320, $("mo").clientWidth || 640), H = 170, L = 34, bw = (W - L - 10) / 12;
+  $("mo").setAttribute("viewBox", `0 0 ${W} ${H}`);
+  let g = `<text x="0" y="14">100%</text><text x="0" y="122">0%</text><line x1="${L}" x2="${W}" y1="120" y2="120" stroke="#5a5750"/>`;
+  a.months.forEach((m, i) => {
+    const h = Math.min(1, m.occ) * 104, x = L + i * bw + 4;
+    g += `<rect x="${x}" y="${120 - h}" width="${bw - 8}" height="${h}" rx="2" fill="var(--tot)"><title>${i + 1}月 埋まり${R(m.occ * 100)}%・${m.res ? "本人" : "時給の人"}</title></rect>`;
+    g += `<text x="${x + (bw - 8) / 2}" y="136" text-anchor="middle">${i + 1}</text><text x="${x + (bw - 8) / 2}" y="156" text-anchor="middle" class="lab">${m.res ? "本" : "時"}</text>`;
+    if (m.occ > 0.04) g += `<text x="${x + (bw - 8) / 2}" y="${116 - h}" text-anchor="middle">${R(m.occ * 100)}</text>`;
+  });
+  $("mo").innerHTML = g;
+}
+function sens(c) {
+  const b0 = calc(c).take;
+  const axes = [["1泊の値段 ±10%", y => y.adr = c.adr * 0.9, y => y.adr = c.adr * 1.1],
+    ["来うる客 ±20%", y => y.mkt = c.mkt * 0.8, y => y.mkt = c.mkt * 1.2],
+    ["建設費 ±20%", y => y.cs = c.cs + 20, y => y.cs = c.cs - 20],
+    ["運営費 ±20%", y => y.os = c.os + 20, y => y.os = c.os - 20]];
+  if (c.months.length < 12) axes.push(["時給 ±30%", y => y.wage = c.wage * 1.3, y => y.wage = c.wage * 0.7]);
+  axes.push(["住む月 (冬留守⇔通年)", y => y.months = c.months.filter(m => ![12, 1, 2, 3].includes(m)).length === c.months.length ? c.months.slice(0, Math.max(0, c.months.length - 4)) : c.months.filter(m => ![12, 1, 2, 3].includes(m)), y => y.months = [1,2,3,4,5,6,7,8,9,10,11,12]]);
+  axes.push(["自己資金 ±500", y => y.own = Math.max(0, c.own - 500), y => y.own = c.own + 500]);
+  const rows = axes.map(([n, lo, hi]) => { const a = clone(c), b = clone(c); lo(a); hi(b); const va = calc(a).take, vb = calc(b).take; return [n, Math.min(va, vb), Math.max(va, vb)]; }).sort((x, y) => (y[2] - y[1]) - (x[2] - x[1]));
+  const W = Math.max(320, $("tor").clientWidth || 640), narrow = W < 560, L = narrow ? 0 : Math.min(170, W * 0.3), top = narrow ? 18 : 10, rh = narrow ? 44 : 34, hh = top + rows.length * rh + 24;
+  const mn = Math.min(b0, ...rows.map(r => r[1])), mx = Math.max(b0, ...rows.map(r => r[2]));
+  const sx = v => L + 44 + (v - mn) / ((mx - mn) || 1) * (W - L - 44 - 48);
+  let g = `<line x1="${sx(b0)}" x2="${sx(b0)}" y1="${top - 4}" y2="${hh - 18}" stroke="var(--ink)" stroke-dasharray="3 3"/><text x="${sx(b0)}" y="${hh - 4}" text-anchor="middle" class="lab">今 ${f(b0)}</text>`;
+  rows.forEach((r, i) => {
+    const y = top + i * rh;
+    g += narrow ? `<text x="0" y="${y + 2}" class="lab">${r[0]}</text>` : `<text x="${L - 6}" y="${y + 18}" text-anchor="end" class="lab">${r[0]}</text>`;
+    g += `<rect x="${sx(r[1])}" y="${y + 6}" width="${Math.max(1, sx(b0) - sx(r[1]))}" height="18" rx="2" fill="var(--dn)"><title>悪い向き ${f(r[1])}</title></rect>`;
+    g += `<rect x="${sx(b0)}" y="${y + 6}" width="${Math.max(1, sx(r[2]) - sx(b0))}" height="18" rx="2" fill="var(--up)"><title>良い向き ${f(r[2])}</title></rect>`;
+    g += `<text x="${sx(r[1]) - 4}" y="${y + 19}" text-anchor="end">${f(r[1])}</text><text x="${sx(r[2]) + 4}" y="${y + 19}">${f(r[2])}</text>`;
+  });
+  $("tor").setAttribute("viewBox", `0 0 ${W} ${hh}`); $("tor").innerHTML = g;
+}
+function scenarios(c) {
+  const dn = clone(c); dn.adr = c.adr * 0.9; dn.mkt = c.mkt * 0.8; dn.cs = c.cs + 20; dn.os = c.os + 20;
+  const up = clone(c); up.adr = c.adr * 1.1; up.mkt = c.mkt * 1.2; up.cs = c.cs - 10; up.os = c.os - 10;
+  const S3 = [["下振れ", calc(dn)], ["今の条件", calc(c)], ["上振れ", calc(up)]];
+  $("scen").innerHTML = `<tr><th></th>${S3.map(s => `<th>${s[0]}</th>`).join("")}</tr>` +
+    [["返済後の手残り (万円/年)", s => f(s.take)], ["営業損益 (返済の前)", s => f(s.op)], ["返済の余裕", s => fd(s.dscr)], ["自己資金の回収 (年)", s => fp(s.payback)], ["客室の埋まり", s => R(s.occ * 100) + "%"]]
+      .map(([l, fn]) => `<tr><td>${l}</td>${S3.map(s => `<td>${fn(s[1])}</td>`).join("")}</tr>`).join("");
+  return S3;
+}
+function evaluate(c, a, S3) {
+  const dn = S3[0][1];
+  const lv = (k) => ({ good: ["良い", "good"], ok: ["まあ良い", ""], bad: ["要注意", "bad"], na: ["未評価", "na"] }[k]);
+  const rows = [];
+  // 1 住まいの費用 (目的1)
+  const P = x => ["暫定: " + x[0], x[1]];
+  const capNote = `建設費は「${c.cap === "low" ? "安い" : "ふつう"}」見立て${c.cs ? (c.cs > 0 ? "+" : "") + c.cs + "%" : ""}・見積り前`;
+  const demNote = `需要 (1泊${(+c.adr).toFixed(1)}万円・来うる客 年${c.mkt}泊) は未確認の仮定`;
+  let e1 = a.take < 0 ? "bad" : (dn.take >= 0 ? "good" : "ok");
+  const L1 = c.months.length === 0 ? ["該当しない", "na"] : [ "暫定: " + lv(e1)[0], lv(e1)[1] ];
+  rows.push(["住まいの費用を客室で払えるか", "目的1・重み 大", L1, c.months.length === 0 ? "本人が1号に住まない条件なので、住まいの費用の評価はしない" : `今 ${f(a.take)} / 下振れ ${f(dn.take)} 万円/年。${demNote}、${capNote}${c.cab > 1 ? `、客が棟の数 (${c.cab}倍) に比例して来るという仮定` : ""}。需要が確かめられるまで暫定`, "良い=下振れでも返済後の手残りが0以上。まあ良い=今は0以上で下振れは赤字。要注意=今が赤字", e1 === "good" ? "—" : "値段か泊数を上げる、留守の月を減らす、借入を減らす (感度の図で一番効く軸から)"]);
+  // 2 返済の余裕
+  let e2 = a.dscr == null ? "good" : (a.dscr >= 1.3 ? "good" : (a.dscr >= 1.0 ? "ok" : "bad"));
+  rows.push(["返済の余裕", "目的1・重み 中", P(lv(e2)), (a.dscr == null ? "借入なし" : `営業損益÷返済 = ${fd(a.dscr)}`) + `。${capNote}、${demNote}`, "良い=1.3倍以上 (銀行がよく見る目安)。まあ良い=1.0〜1.3。要注意=1.0未満", e2 === "good" ? "—" : "自己資金を増やす、建設費を下げる"]);
+  // 3 自己資金の回収
+  let e3 = a.usedOwn <= 0 ? "na" : (a.payback == null ? "bad" : (a.payback <= 8 ? "good" : (a.payback <= 15 ? "ok" : "bad")));
+  rows.push(["自己資金の回収", "目的3・重み 中", e3 === "na" ? ["該当しない", "na"] : P(lv(e3)), (a.payback == null ? (a.usedOwn <= 0 ? "自己資金なし" : "手残りがなく戻らない") : `${f(a.payback, 1)}年`) + `。${capNote}、${demNote}`, "良い=8年以内。まあ良い=8〜15年。要注意=15年超か戻らない", e3 === "good" ? "—" : "手残りを増やす (上と同じ)"]);
+  // 4 本人の負担 (渡り鳥と両立)
+  let e4 = a.self <= 600 ? "good" : (a.self <= 1000 ? "ok" : "bad");
+  rows.push(["本人の作業の重さ", "目的2・重み 中", c.months.length === 0 ? ["該当しない", "na"] : P(lv(e4)), `年${f(a.self)}時間 (時給で数えると${f(a.selfValue)}万円)。作業時間は1回の入れ替え2.5時間・毎日1.3時間の仮定`, "良い=年600時間以内。まあ良い=〜1,000。要注意=1,000超 (渡り鳥の暮らしと両立しにくい)", e4 === "good" ? "—" : "留守の月を時給の人に頼む (手残りは減る)、棟を増やす時は手伝いを入れる"]);
+  // 5 需要の確かさ
+  rows.push(["客が来るか (需要の確かさ)", "目的1・重み 大", lv("na"), `1号の予約の実績がない。今の値段${(+c.adr).toFixed(1)}万円と来うる客 年${c.mkt}泊は、近くの宿の公開の値段と県の統計からの仮定`, "実績 (12か月の値段と泊数) で評価する", "1号を開いて12か月の数字を取る。近くの宿の実際の予約の埋まりを調べる"]);
+  $("eval").innerHTML = `<tr><th>何を見るか</th><th>目的と重み</th><th>段階</th><th>根拠</th></tr>` + rows.map(r => `<tr><td>${r[0]}<span class="s">基準: ${r[4]}</span><span class="s">良くなる条件: ${r[5]}</span></td><td>${r[1]}</td><td><span class="lv ${r[2][1]}">${r[2][0]}</span></td><td style="white-space:normal">${r[3]}</td></tr>`).join("");
+  const bad = rows.filter(r => r[2][0].includes("要注意")).length, na = rows.filter(r => r[2][0] === "未評価").length;
+  const r1 = rows[0][2][0];
+  $("evaltop").textContent = bad ? `総合: 要注意 (暫定)。「${rows.find(r => r[2][0].includes("要注意"))[0]}」が基準に届かない。客が来るかは未評価。` :
+    (r1.includes("良い") ? `総合: ${r1.replace("暫定: ", "")} (暫定)。お金の行は基準を満たすが、客が来るか (需要) が未評価なので、1号の実績で確かめるまで暫定。` : `総合: 判定できる行が少ない (暫定)。客が来るかは未評価。`);
+  $("evalsum").textContent = `まとめ: 要注意 ${bad}つ、未評価 ${na}つ。` + (bad ? "要注意の行から直す。" : "") + "「客が来るか」は実績がないので評価しない。お金の行はどれも、その需要と見積り前の建設費の上に乗った暫定の段階。点数や成功の確率にはしていない (根拠になるデータがまだない)。";
+}
+function defs(a, c) {
+  const be1 = breakEven(c, "op"), be2 = breakEven(c, "take");
+  const bt = be => be == null ? "届かない (満室でも足りない)" : `1棟あたり年${f(be.nights)}泊 (埋まり${R((be.occ || 0) * 100)}%)`;
+  $("defs").innerHTML = `<tr><th>指標</th><th>今の値</th></tr>` + [
+    ["営業損益 (返済の前)", "売上 − 運営の費用。借入がなくても残る稼ぎ", f(a.op) + " 万円/年"],
+    ["返済後の手残り", "営業損益 − 借入の返済。本人の財布に残る額", f(a.take) + " 万円/年"],
+    ["損益分岐 (営業)", "営業損益が0になる泊数。これより少ないと運営だけで赤字", bt(be1)],
+    ["損益分岐 (返済後)", "返済後の手残りが0になる泊数。住まいの費用を払える最低の線", bt(be2)],
+    ["今の泊数と埋まり", "泊まった泊数 ÷ (棟数×365日)", `1棟あたり年${f(a.sold / c.cab)}泊 (埋まり${R(a.occ * 100)}%)`],
+    ["初期資金と借入", "建設費 + 運転資金160。自己資金を超える分を借りる", `${f(a.start)} 万円 (借入 ${f(a.loan)})`],
+    ["返済の余裕", "営業損益 ÷ 年の返済。1.3倍以上が目安", fd(a.dscr)],
+    ["自己資金の回収", "使う自己資金 ÷ 返済後の手残り", a.payback == null ? "—" : fp(a.payback) + (a.payback > 50 ? "" : " 年")],
+    ["本人の労働", "本人がした掃除などの時間と、留守中の時給で数えた額 (手残りには入れていない)", `年${f(a.self)}時間・${f(a.selfValue)}万円相当`]].map(r => `<tr><td>${r[0]}<span class="s">${r[1]}</span></td><td>${r[2]}</td></tr>`).join("");
+}
+function money(b, a) {
+  const hd = `<tr><th></th><th>前</th><th>後</th><th>差</th></tr>`;
+  const row = (l, s, bv, av) => `<tr><td>${l}${s ? `<span class="s">${s}</span>` : ""}</td><td>${f(bv)}</td><td>${f(av)}</td><td>${sg(av - bv)}</td></tr>`;
+  $("money").innerHTML = hd + row("建設費", "1回だけ", b.build, a.build) + row("初期資金", "建設費+運転資金160", b.start, a.start) + row("借入", "4.5%・15年", b.loan, a.loan) +
+    ITEMS.map(([n, k, s]) => row(n, "", s * b[k], s * a[k])).join("") +
+    `<tr><td><b>返済後の手残り</b></td><td><b>${f(b.take)}</b></td><td><b>${f(a.take)}</b></td><td><b>${sg(a.take - b.take)}</b></td></tr>`;
 }
 function render() {
-  $("v-cab").textContent = cur.cab; $("cab").value = cur.cab;
-  $("v-adr").textContent = cur.adr.toFixed(1); $("adr").value = cur.adr;
-  $("v-mon").textContent = cur.months.length;
-  $("v-wage").textContent = cur.wage.toLocaleString(); $("wage").value = cur.wage;
-  $("v-cap").textContent = cur.cap === "low" ? "安い" : "ふつう";
-  $("v-mkt").textContent = cur.mkt; $("mkt").value = cur.mkt;
-  $("v-own").textContent = cur.own.toLocaleString(); $("own").value = cur.own;
+  $("v-cab").textContent = cur.cab; $("cab").value = cur.cab; $("v-adr").textContent = (+cur.adr).toFixed(1); $("adr").value = cur.adr;
+  $("v-mon").textContent = cur.months.length; $("v-wage").textContent = cur.wage.toLocaleString(); $("wage").value = cur.wage;
+  $("v-own").textContent = cur.own.toLocaleString(); $("own").value = cur.own; $("v-cap").textContent = cur.cap === "low" ? "安い" : "ふつう";
+  $("v-cs").textContent = (cur.cs > 0 ? "+" : "") + cur.cs; $("cs").value = cur.cs; $("v-os").textContent = (cur.os > 0 ? "+" : "") + cur.os; $("os").value = cur.os; $("v-mkt").textContent = cur.mkt; $("mkt").value = cur.mkt;
   [...$("months").children].forEach((b, i) => b.classList.toggle("on", cur.months.includes(i + 1)));
   [...$("capseg").children].forEach(b => b.classList.toggle("on", b.dataset.v === cur.cap));
-  const b = calc(base), a = calc(cur);
-  const ownTxt = a.usedOwn <= 0 ? "自己資金は使わない (全部借りる)。" : (a.take > 0 ? `使う自己資金${f(a.usedOwn)}万円は、この手残りで約${f(a.usedOwn / a.take, 1)}年かけて取り戻す。` : `使う自己資金${f(a.usedOwn)}万円も戻らない。`) + (cur.own > a.usedOwn ? ` (自己資金の残り${f(cur.own - a.usedOwn)}万円は使わない)` : "");
-  $("verdict").textContent = cur.months.length === 0 ? (a.take >= 0 ? `本人は1号に住まない形。年 ${f(a.take)}万円 残る。` : `本人は1号に住まない形。毎年 ${f(-a.take)}万円 足りない。`) : a.take >= 0 ? `払えている。住まいの費用と返済を払って、年 ${f(a.take)}万円 残る。` : `払えていない。毎年 ${f(-a.take)}万円 を自分で足す。`;
-  $("verdict2").textContent = ownTxt;
-  $("cabnote").textContent = cur.cab > 1 ? "棟を増やすと、来る客も棟の数に比例して増えると置いている (仮定。地域の客の数の上限は見ていない)。" : "";
-  const W = why(b, a, base, cur);
-  $("why").textContent = W.one; $("whyd").textContent = W.detail;
-  const changed = JSON.stringify(base) !== JSON.stringify(cur);
-  const d0 = a.take - b.take;
-  const firstR = (() => { const x = JSON.parse(JSON.stringify(base)); const r = why1(x, cur); return r ? r.replace(/ \(.*?\)/g, "") : ""; })();
-  const changed2 = changeText(base, cur);
-  $("bar").innerHTML = `本人の手残り <b>${f(b.take)} → ${f(a.take)}</b> 万円/年 (${sg(d0)})<span class="w">${changed2 ? (firstR ? "主な理由: " + firstR.replace(/ため$/, "") + "。" : "") + ' <a href="#res">くわしく</a>' : "条件を1つ動かすと、ここに前→後と主な理由が出る。"}</span>`;
-  const hd = `<tr><th></th><th>前</th><th>後</th><th>差</th></tr>`;
-  $("t-life").innerHTML = hd +
-    row("本人が1号に住む日数", "", b.liveDays, a.liveDays) +
-    row("留守の月数", "その月の作業は時給の人", b.awayMonths, a.awayMonths) +
-    row("本人がする作業", "時間/年 (対価は払っていない)", b.self, a.self) +
-    row("人に頼む作業", "時間/年", b.hired, a.hired) +
-    row("客室に泊まった泊数", "泊/年 (全棟の合計)", b.sold, a.sold) +
-    row("来たのに泊まれなかった客", "泊/年 (満室の月)", b.lost, a.lost);
-  $("t-money").innerHTML = hd +
-    row("建てる費用", "土地・離れ・客室・湯・引込みなど", b.build, a.build) +
-    row("最初に要る資金", "建てる費用 + 開業前後の運転資金160", b.start, a.start) +
-    row("そのうち借りる額", `自己資金${cur.own.toLocaleString()}を超える分。4.5%・15年`, b.loan, a.loan) +
-    row("客室の売上", "消費税を除く", b.rev, a.rev) +
-    row("予約手数料・リネン・光熱", "泊まるほど増える", -(b.ota + b.other), -(a.ota + a.other)) +
-    row("拠点の固定費・湯・修繕", `毎月 約${f(a.fixed / 12)}万円`, -b.fixed, -a.fixed) +
-    row("時給の人への支払い", "頼む時間 × 時給 + 保険3%", -b.wagePay, -a.wagePay) +
-    row("人を頼む準備の費用", "時給の人を探して教え、仕事を点検する費用42 (留守の月がある年だけ) と、その人が休む日の代わり", -b.hireCost, -a.hireCost) +
-    row("本人の休みの日の代わり", "本人が休む年30日と病気の日に来てもらう人。住む月の分だけ数えるので、住む月が減ると減る", -b.selfRest, -a.selfRest) +
-    row("同じ日の入れ替えの手伝い", "2棟以上の時だけ", -b.sameDay, -a.sameDay) +
-    row("本人の移動費", "1年のうちに移る時だけ", -b.move, -a.move) +
-    row("借入の返済", "元金と利息", -b.pay, -a.pay) +
-    `<tr class="tot"><td>本人の手残り<span class="s">住まいの費用と借入の返済を払った後</span></td><td>${f(b.take)}</td><td>${f(a.take)}</td><td>${sg(a.take - b.take)}</td></tr>` +
-    row("使う自己資金", "最初に要る資金までの分。余りは使わない", b.usedOwn, a.usedOwn) +
-    `<tr><td>自己資金を取り戻す年数<span class="s">使う自己資金 ÷ 手残り (どちらもプラスの時)</span></td><td>${b.take > 0 && b.usedOwn > 0 ? f(b.usedOwn / b.take, 1) : "—"}</td><td>${a.take > 0 && a.usedOwn > 0 ? f(a.usedOwn / a.take, 1) : "—"}</td><td></td></tr>`;
+  const b = calc(base), a = calc(cur), changed = JSON.stringify(base) !== JSON.stringify(cur);
+  $("verdict").textContent = cur.months.length === 0 ? (a.take >= 0 ? "本人は1号に住まない形。返済後に残る。" : "本人は1号に住まない形。返済後に足りない。") : (a.take < 0 ? "払えていない。返済後に足りない分を自分で足す。" : (a.take < 50 ? "ぎりぎり払える。残りが少なく、条件が少し悪くなると赤字になる。" : "払えている。住まいの費用と返済を客室の稼ぎで払って残る。"));
+  $("takebig").innerHTML = changed ? `${f(b.take)} → <b>${f(a.take)}</b>` : `<b>${f(a.take)}</b>`;
+  $("takediff").textContent = changed ? `万円/年 (${sg(a.take - b.take)})` : "万円/年 (返済後の手残り)";
+  $("why").textContent = why(b, a, base, cur);
+  $("cabnote").textContent = cur.cab > 1 ? `客室${cur.cab}棟では、来る客も${cur.cab}倍になると置いている (仮定。地域の客の数の上限は見ていない)。` : "";
+  const be2 = breakEven(cur, "take");
+  $("cards").innerHTML = [
+    ["営業損益", f(a.op), "万円/年。売上−運営の費用 (返済の前)"],
+    ["損益分岐 (返済後)", be2 == null ? "届かない" : f(be2.nights), be2 == null ? "満室でも足りない" : `泊/棟・年で手残り0 (今 ${f(a.sold / cur.cab)}泊)`],
+    ["返済の余裕", a.dscr == null ? "借入なし" : (a.dscr > 10 ? "10倍超" : (a.dscr < 0 ? "赤字" : f(a.dscr, 1))), a.dscr == null ? "返済がない" : "倍 = 営業損益÷年の返済。1.3倍以上が目安"],
+    ["初期資金と借入", f(a.start), `万円 (うち借入 ${f(a.loan)})。建設費+運転資金160`],
+    ["客室の埋まり", R(a.occ * 100) + "%", `泊まった泊数÷(棟数×365日)。年${f(a.sold / cur.cab)}泊/棟`],
+    ["自己資金の回収", fp(a.payback), a.usedOwn <= 0 ? "自己資金なし (全部借りる)" : (a.payback == null ? "手残りがなく戻らない" : `年。使う自己資金${f(a.usedOwn)}万円÷手残り`)]].map(c => `<div class="card"><div class="v"><b>${c[1]}</b></div><div class="l">${c[0]}<br>${c[2]}</div></div>`).join("");
+  beChart(cur, a);
+  waterfall(b, a, changed); monthly(a); sens(cur); const S3 = scenarios(cur); evaluate(cur, a, S3); defs(a, cur); money(b, a);
+  const vw = cur.months.length === 0 ? "住まない形" : (a.take < 0 ? "払えていない" : (a.take < 50 ? "ぎりぎり" : "払えている"));
+  $("bar").innerHTML = `${vw}　手残り <b>${changed ? f(b.take) + "→" : ""}${f(a.take)}</b> 万円/年 ${changed ? "(" + sg(a.take - b.take) + ")" : ""}　<a href="#wf" onclick="document.getElementById('wf').scrollIntoView({behavior:'smooth'});return false">図を見る</a>`;
 }
-function exampleBlock(title, mod) {
-  const c0 = JSON.parse(JSON.stringify(INIT)), c1 = JSON.parse(JSON.stringify(INIT)); mod(c1);
-  const b = calc(c0), a = calc(c1);
-  const W = why(b, a, c0, c1);
-  return `<div class="ex"><b>${title}</b><p>${W.one}</p><p class="sm">本人の手残り ${f(b.take)} → ${f(a.take)}万円/年。${W.detail}</p><p><button class="try" data-k="${title}">この操作をやってみる</button></p></div>`;
-}
-const EX = {
-  "例1 冬 (12〜3月) は南へ行き、1号を4か月留守にする": c => { c.months = [4,5,6,7,8,9,10,11]; },
-  "例2 1泊の値段を5,000円下げる (6.0→5.5万円)": c => { c.adr = 5.5; },
-  "例3 留守中に頼む人の時給を上げる (1,131→1,800円)、冬の4か月は留守": c => { c.months = [4,5,6,7,8,9,10,11]; c.wage = 1800; },
-};
-function examples() {
-  $("examples").innerHTML = Object.entries(EX).map(([k, m]) => exampleBlock(k, m)).join("");
-  document.querySelectorAll(".try").forEach(btn => btn.addEventListener("click", () => {
-    base = JSON.parse(JSON.stringify(INIT)); cur = JSON.parse(JSON.stringify(INIT)); EX[btn.dataset.k](cur); render();
-    $("verdict").scrollIntoView({ behavior: "smooth" });
-  }));
-}
-// 入力のつなぎ
-["cab","adr","wage","mkt","own"].forEach(id => $(id).addEventListener("input", e => { cur[id] = id === "adr" ? +(+e.target.value).toFixed(1) : +e.target.value; render(); }));
-const mo = $("months");
-for (let i = 1; i <= 12; i++) { const b = document.createElement("button"); b.textContent = i + "月"; b.addEventListener("click", () => { cur.months = cur.months.includes(i) ? cur.months.filter(x => x !== i) : cur.months.concat([i]).sort((a, b) => a - b); render(); }); mo.appendChild(b); }
+const EX = { "1": c => { c.months = [4,5,6,7,8,9,10,11]; }, "2": c => { c.adr = 5.5; }, "3": c => { c.months = [4,5,6,7,8,9,10,11]; c.wage = 1800; } };
+document.querySelectorAll(".ex").forEach(b => b.addEventListener("click", () => { base = clone(INIT); cur = clone(INIT); EX[b.dataset.k](cur); render(); if (innerWidth <= 860) $("wf").scrollIntoView({ behavior: "smooth" }); }));
+["cab","adr","wage","own","cs","os","mkt"].forEach(id => $(id).addEventListener("input", e => { cur[id] = +e.target.value; render(); }));
+for (let i = 1; i <= 12; i++) { const b = document.createElement("button"); b.textContent = i; b.setAttribute("aria-label", i + "月"); b.addEventListener("click", () => { cur.months = cur.months.includes(i) ? cur.months.filter(x => x !== i) : cur.months.concat([i]).sort((a, b) => a - b); render(); }); $("months").appendChild(b); }
 [...$("capseg").children].forEach(b => b.addEventListener("click", () => { cur.cap = b.dataset.v; render(); }));
-$("reset").addEventListener("click", () => { cur = JSON.parse(JSON.stringify(INIT)); base = JSON.parse(JSON.stringify(INIT)); render(); });
-$("base").addEventListener("click", () => { base = JSON.parse(JSON.stringify(cur)); render(); });
-examples(); render();
+$("reset").addEventListener("click", () => { cur = clone(INIT); base = clone(INIT); render(); });
+$("base").addEventListener("click", () => { base = clone(cur); render(); });
+render();
+addEventListener("resize", () => render());
 </script></body></html>
