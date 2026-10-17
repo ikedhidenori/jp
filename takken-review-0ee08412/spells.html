@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>呪文カード（宅建 10/18）</title>
+<style>
+  :root{
+    --bg:#F6F0E1; --ink:#1F1B15; --mute:#6E6657; --line:#D9D0BC;
+    --mark:#FFE45C; --ok:#2E7D32; --ng:#C62828; --blue:#1F5FA8;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+    -webkit-text-size-adjust:100%}
+  #deck{height:100svh;overflow-y:auto;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch}
+  .card{scroll-snap-align:start;scroll-snap-stop:always;min-height:100svh;height:100svh;
+    display:flex;flex-direction:column;padding:max(14px,env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));
+    position:relative}
+  .head{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--mute);letter-spacing:.04em}
+  .head b{color:var(--ink);font-weight:700}
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;padding-bottom:28px}
+  .cue{font-size:20px;color:var(--mute);font-weight:700;letter-spacing:.02em}
+  .spell{font-size:31px;line-height:1.38;font-weight:800;letter-spacing:.01em;word-break:keep-all;overflow-wrap:anywhere}
+  .sub{font-size:19px;line-height:1.5;color:var(--mute);font-weight:600}
+  .sub .ink{color:var(--ink)}
+  mark{background:var(--mark);color:var(--ink);padding:0 .14em;border-radius:3px;font-weight:900}
+  .ok{color:var(--ok);font-weight:900}
+  .ng{color:var(--ng);font-weight:900}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+  .pair>div{border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:18px;line-height:1.4;font-weight:700}
+  .pair .k{font-size:14px;color:var(--mute);font-weight:700;margin-bottom:4px}
+  .rows{display:flex;flex-direction:column;gap:8px}
+  .rows>div{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--line);padding:8px 2px;font-size:21px;font-weight:800}
+  .rows>div span:last-child{font-size:24px}
+  .fig{margin-top:6px;display:block;border-radius:12px;overflow:hidden;border:2px solid var(--line);background:#fff;max-height:36svh}
+  .fig img{display:block;width:100%;height:100%;max-height:36svh;object-fit:contain;background:#fff}
+  .figcap{font-size:13px;color:var(--mute);margin-top:4px}
+  .divider .body{justify-content:center;align-items:flex-start}
+  .divider .spell{font-size:44px}
+  .divider .sub{font-size:20px}
+  .foot{display:flex;justify-content:space-between;font-size:13px;color:var(--mute)}
+  .bar{position:absolute;left:0;top:0;height:4px;background:var(--ink);opacity:.85}
+  .hint{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));transform:translateX(-50%);
+    font-size:12px;color:var(--mute);background:rgba(246,240,225,.9);padding:4px 10px;border-radius:999px;border:1px solid var(--line);pointer-events:none;transition:opacity .6s}
+  .big{font-size:40px;line-height:1.25}
+  .clock{display:grid;grid-template-columns:1fr;gap:10px}
+  .clock>div{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--line);padding:8px 0}
+  .clock .t{font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;min-width:4.2em}
+  .clock .w{font-size:20px;font-weight:700}
+  @media (min-width:700px){.card{max-width:560px;margin:0 auto}.spell{font-size:36px}}
+</style>
+</head>
+<body>
+<div id="deck"></div>
+<div class="hint" id="hint">下半分をタップで次 ・ 左上で戻る ・ スワイプも可</div>
+<script>
+const APP='https://ikedhidenori.github.io/jp/plain-0ee08412cf31b48f.html';
+const IMG='https://ikedhidenori.github.io/jp/takken-zukai-0ee08412/';
+// 1枚=1つの決まり。文字は最小。数字と条件だけ強調。
+const CARDS=[
+ {div:'読む前の手続き',sub:'転記ミスと言い違いを消す。4つ'},
+ {cue:'文末を先に印',spell:'「<mark>正しい</mark>／<mark>誤り</mark>／<mark>個数</mark>」を先に印。<br>答える直前に読み上げる。'},
+ {cue:'条件の語に丸',spell:'<mark>区域内</mark>／区域外<br><mark>以上</mark>／超<br><mark>又は</mark>／かつ',sub:'丸を付けてから読む'},
+ {cue:'○を付ける前に',spell:'「<mark>すり替えの語</mark>」が無いか、もう一度。',sub:'誤りの肢を自信を持って○にするのが一番の癖'},
+ {cue:'答える前に一言',spell:'「肢は○○・自分は○○・<mark>一致／不一致</mark>」',sub:'理由が合っているのに逆を言うのを消す'},
+ {cue:'時計の関所',clock:[['13:54','業法 終わり'],['14:08','法令 終わり'],['14:48','権利 終わり'],['残り12分','転記の照合だけ']]},
+
+ {div:'業法',sub:'21枚'},
+ {cue:'クーリングオフができなくなるのは',spell:'引渡し <mark>かつ</mark> 代金全部',sub:'片方だけなら <span class="ok">まだできる</span>'},
+ {cue:'「超」はちょうどを含まない',spell:'未完成の保全は<br><mark>5%超</mark> か <mark>1,000万超</mark>',sub:'ちょうど5% は <span class="ng">保全不要</span>'},
+ {cue:'損害賠償の予定額',spell:'定めなければ<br><mark>2割の制限は働かない</mark>'},
+ {cue:'申込みの撤回',spell:'預り金は <mark>返す</mark>',sub:'返還の拒否は <span class="ng">禁止</span>'},
+ {cue:'報酬の順番',spell:'建物の消費税を抜く<br>→ 速算<br>→ 最後に <mark>×1.1</mark>',fig:'zk37',cap:'図37 報酬'},
+ {cue:'速算表',rows:[['200万以下','<mark>5%</mark>'],['200万超〜400万以下','<mark>4% ＋ 2万</mark>'],['400万超','<mark>3% ＋ 6万</mark>']]},
+ {cue:'低廉な空家等（800万以下）',spell:'売主・買主 それぞれ<br><mark>30万＋税 ＝ 33万</mark> まで',sub:'代理は <span class="ink">66万</span> まで'},
+ {cue:'報酬の上限',spell:'依頼者が承諾しても<br><mark>超えられない</mark>',sub:'広告料・特別な調査費は、報酬とは別の実費'},
+ {cue:'登録の移転',spell:'移転 ＝ <mark>働く場所</mark><br>住所 ＝ <mark>変更の登録</mark>',sub:'登録している知事へ。他県に引っ越しても同じ',fig:'zk32',cap:'図32 合格→登録→証'},
+ {cue:'業者が複数',spell:'<mark>各社</mark>に 35条・37条の義務',sub:'説明は代表の宅建士1人でよい。書面は各社の宅建士が記名'},
+ {cue:'抵当権など登記された権利',spell:'<mark>35条</mark><br><span class="ng">37条ではない</span>',fig:'zk27',cap:'図27 37条書面'},
+ {cue:'37条の電磁的方法',spell:'<mark>業者</mark>が相手の承諾を得る'},
+ {cue:'37条書面の交付',spell:'士証の提示は <span class="ng">要らない</span>',sub:'要るのは、重要事項の説明と、請求があった時'},
+ {cue:'37条の金銭',spell:'損害賠償の予定 → 「定めがあればその内容」<br>「<mark>額・時期・目的</mark>」→ 代金以外の金銭'},
+ {cue:'分担金の期限',pair:[['新しい事務所','設置から <mark>2週間</mark>以内'],['協会の供託','<mark>1週間</mark>以内']],fig:'zk34',cap:'図34 本店・支店・協会'},
+ {cue:'公告がいらないのは3つだけ',spell:'<mark>協会・移転・10年</mark>',sub:'一部廃止・有効期間満了は <span class="ink">要る</span>',fig:'zk45',cap:'図45 公告なしは3つだけ'},
+ {cue:'士証の更新',spell:'「90日前〜30日前」は <span class="ng">ない</span>',sub:'それは <span class="ink">免許</span> の更新'},
+ {cue:'心身の故障の届出',spell:'<mark>同居の親族</mark>もできる',sub:'法定代理人も'},
+ {cue:'人の死の告知',spell:'3年は <mark>賃貸だけ</mark>'},
+ {cue:'媒介契約書面',spell:'専任でも<br>「<mark>他の業者で成約した時の措置</mark>」を書く',sub:'専属専任だけの話ではない'},
+ {cue:'建物状況調査',pair:[['マンション（RC等の共同住宅）','<mark>2年</mark>'],['ほか','<mark>1年</mark>']]},
+
+ {div:'法令',sub:'5枚'},
+ {cue:'以上 と 超',pair:[['計画の法律（国土法・開発許可）','面積は <mark>以上</mark>'],['工事の法律（建築確認・盛土）','面積は <mark>超</mark>']],sub:'階数は「以上」（2階以上）',fig:'zk2',cap:'図2 開発許可と国土法の面積'},
+ {cue:'建築確認（全国）',spell:'<mark>2階以上</mark> か <mark>200㎡超</mark>',sub:'用途変更は、特殊建築物へ 200㎡超',fig:'zk38',cap:'図38 建築確認'},
+ {cue:'農地の賃貸借',spell:'合意解約も <mark>知事の許可</mark>',sub:'除く：期限前6か月以内の書面の合意・農事調停',fig:'zk6',cap:'図6 農地法'},
+ {cue:'市街化区域内の転用',spell:'<mark>農業委員会</mark>へ <mark>事前に</mark>届出'},
+ {cue:'借地借家の数字',rows:[['一般定期借地','<mark>50年</mark>以上'],['建物譲渡特約','<mark>30年</mark>以上'],['転借人への通知から','<mark>6か月</mark>で終了'],['借家の3か月','借主からの解約だけ']],fig:'zk40',cap:'図40 借地と借家'},
+
+ {div:'税価',sub:'10枚'},
+ {cue:'取得税・新築住宅',spell:'<mark>1,200万</mark> 控除',sub:'床 40〜240㎡ は <span class="ink">建物</span> の条件',fig:'zk44',cap:'図44 買う・持つ・売る'},
+ {cue:'取得税・宅地',spell:'課税標準 <mark>1/2</mark>',sub:'床面積の条件は <span class="ink">なし</span>'},
+ {cue:'取得税の免税点',rows:[['土地','<mark>16万</mark>'],['建築','<mark>66万</mark>'],['その他','<mark>34万</mark>']],sub:'2026年度の改正後'},
+ {cue:'固定資産税・新築住宅',spell:'税額 <mark>1/2</mark>・<mark>120㎡</mark>分まで・<mark>3年度</mark>',sub:'耐火3階以上は 5年度'},
+ {cue:'住宅用地',pair:[['200㎡まで','<mark>1/6</mark>'],['超える部分','<mark>1/3</mark>']]},
+ {cue:'固定資産税の免税点',rows:[['土地','<mark>30万</mark>'],['家屋','<mark>20万</mark>'],['償却資産','<mark>150万</mark>']]},
+ {cue:'いつの状態で決まる',spell:'<mark>1月1日</mark> の写真',sub:'更地なら、予定があっても特例 <span class="ng">なし</span>',fig:'zk14',cap:'図14 払う人と1月1日'},
+ {cue:'取得税がかからない',spell:'相続・合併・共有物の分割<br><span class="sub">（持分を超えない部分）</span>',sub:'贈与・交換は <span class="ng">課税</span>'},
+ {cue:'3,000万控除',spell:'軽減税率と <mark>併用できる</mark>',sub:'配偶者・親子・孫には <span class="ng">使えない</span>',fig:'zk16',cap:'図16 譲渡の特例'},
+ {cue:'公示価格',pair:[['鑑定士・収用・公共事業','<mark>規準</mark>（義務）'],['一般の取引','<mark>指標</mark>']],fig:'zk46',cap:'図46 地価公示'},
+
+ {div:'権利',sub:'8枚'},
+ {cue:'登記の委任の代理権',spell:'本人が死んでも <mark>消えない</mark>'},
+ {cue:'単独申請の例外',spell:'相続・合併／相続人への遺贈／保存／住所氏名／収用／判決／<mark>信託</mark>（受託者）',sub:'それ以外は原則 <span class="ink">共同申請</span>'},
+ {cue:'登記の義務',pair:[['相続登記','知って <mark>3年</mark>・10万円'],['住所氏名の変更','<mark>2年</mark>・5万円']]},
+ {cue:'区分所有・全体の 4/5',spell:'建替え・建物更新・敷地売却・取壊し',sub:'建替えで耐震不足などは 3/4。<span class="ink">ほかの決議は出席者で数える</span>（共用部分の変更3/4・規約3/4・復旧2/3・使用禁止3/4）'},
+ {cue:'配偶者居住権',spell:'相続 <span class="ng">されない</span>'},
+ {cue:'人身の損害の時効',spell:'知った時から <mark>5年</mark>'},
+ {cue:'保証人',spell:'主たる債務者の不利は<br>保証人に <span class="ng">及ばない</span>',sub:'後からの加重・時効利益の放棄'},
+ {cue:'相続人',spell:'子は <mark>どこまでも</mark><br>兄弟は <mark>甥姪まで</mark><br>放棄は <mark>止まる</mark>'},
+
+ {div:'免除',sub:'3枚'},
+ {cue:'機構の買取型',spell:'賃貸住宅は <span class="ng">入らない</span>',fig:'zk17',cap:'図17 住宅金融支援機構'},
+ {cue:'着工統計（暦年）',spell:'<mark>3年連続減</mark>',sub:'令和7年 約74.1万戸',fig:'zk48',cap:'図48 統計'},
+ {cue:'年度で出る統計',spell:'法人企業統計（売上・利益）<br>施行状況調査',sub:'地価公示は <span class="ink">5年連続上昇</span>'},
+
+ {div:'おわり',sub:'新しい物はやらない。寝る。'}
+];
+const deck=document.getElementById('deck');
+const total=CARDS.length;
+let subj='';
+CARDS.forEach((c,i)=>{
+  const sec=document.createElement('section');
+  sec.className='card'+(c.div?' divider':'');
+  if(c.div) subj=c.div;
+  const pct=Math.round((i+1)/total*100);
+  let body='';
+  if(c.div){
+    body=`<div class="spell">${c.div}</div><div class="sub">${c.sub||''}</div>`;
+  }else{
+    body+=`<div class="cue">${c.cue||''}</div>`;
+    if(c.spell) body+=`<div class="spell">${c.spell}</div>`;
+    if(c.rows) body+=`<div class="rows">${c.rows.map(r=>`<div><span>${r[0]}</span><span>${r[1]}</span></div>`).join('')}</div>`;
+    if(c.pair) body+=`<div class="pair">${c.pair.map(p=>`<div><div class="k">${p[0]}</div>${p[1]}</div>`).join('')}</div>`;
+    if(c.clock) body+=`<div class="clock">${c.clock.map(p=>`<div><span class="t">${p[0]}</span><span class="w">${p[1]}</span></div>`).join('')}</div>`;
+    if(c.sub) body+=`<div class="sub">${c.sub}</div>`;
+    if(c.fig) body+=`<a class="fig" href="${APP}#${c.fig}" target="_blank" rel="noopener"><img loading="lazy" src="${IMG}${c.fig}.webp" alt="${c.cap||c.fig}"></a><div class="figcap">${c.cap||''}（タップで大きく）</div>`;
+  }
+  sec.innerHTML=`<div class="bar" style="width:${pct}%"></div>
+    <div class="head"><b>${subj}</b><span>${i+1} / ${total}</span></div>
+    <div class="body">${body}</div>
+    <div class="foot"><span>呪文カード 10/18</span><span>${c.div?'':'タップで次へ'}</span></div>`;
+  deck.appendChild(sec);
+});
+// 片手: 下半分タップで次、左上タップで戻る。リンク上は除く。
+let cur=0;
+function go(n){cur=Math.max(0,Math.min(total-1,n));deck.children[cur].scrollIntoView({behavior:'smooth',block:'start'});}
+deck.addEventListener('click',e=>{
+  if(e.target.closest('a')) return;
+  const y=e.clientY, x=e.clientX, h=window.innerHeight, w=window.innerWidth;
+  if(y>h*0.45) go(cur+1); else if(x<w*0.5) go(cur-1); else go(cur+1);
+});
+const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){cur=[...deck.children].indexOf(en.target);}})},{root:deck,threshold:0.6});
+[...deck.children].forEach(s=>io.observe(s));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key===' '||e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowUp'||e.key==='ArrowLeft')go(cur-1);});
+setTimeout(()=>{document.getElementById('hint').style.opacity='0'},5000);
+</script>
+</body>
+</html>
