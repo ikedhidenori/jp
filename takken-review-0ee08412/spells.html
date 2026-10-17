@@ -160,7 +160,7 @@ CARDS.forEach((c,i)=>{
   sec.innerHTML=`<div class="bar" style="width:${pct}%"></div>
     <div class="head"><b>${subj}</b><span>${i+1} / ${total}</span></div>
     <div class="body">${body}</div>
-    <div class="foot"><span>呪文カード 10/18</span><span>${c.div?'':'タップで次へ'}</span></div>`;
+    <div class="foot"><a href="${APP}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">宅建アプリ ↗</a><span>${c.div?'':'タップで次へ'}</span></div>`;
   deck.appendChild(sec);
 });
 // 片手: 下半分タップで次、左上タップで戻る。リンク上は除く。
