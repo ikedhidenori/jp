@@ -121,8 +121,8 @@ const CARDS=[
  {cue:'単独申請の例外',spell:'相続・合併／相続人への遺贈／保存／住所氏名／収用／判決／<mark>信託</mark>（受託者）',sub:'それ以外は原則 <span class="ink">共同申請</span>'},
  {cue:'単独申請の例外',img:'spell-03',cap:'図 単独申請の例外'},
  {cue:'登記の義務',pair:[['相続登記','知って <mark>3年</mark>・10万円'],['住所氏名の変更','<mark>2年</mark>・5万円']]},
- {cue:'区分所有・全体の 4/5',spell:'建替え・建物更新・敷地売却・取壊し',sub:'建替えで耐震不足などは 3/4。<span class="ink">ほかの決議は出席者で数える</span>（共用部分の変更3/4・規約3/4・復旧2/3・使用禁止3/4）'},
- {cue:'区分所有・全体の 4/5',img:'spell-04',cap:'図 区分所有の4/5'},
+ {cue:'区分所有・全体の 4/5',spell:'建替え・建物更新・敷地売却・取壊し',sub:'全体＝<span class="ink">区分所有者と議決権の各 4/5</span>（出席者ではない）。建替えで耐震不足などは 3/4。<span class="ink">ほかの決議は出席者で数える</span>（共用部分の変更3/4・規約3/4・復旧2/3・使用禁止3/4）'},
+ {cue:'区分所有・全体の 4/5',img:'spell-04',v:2,cap:'図 区分所有の4/5（上の4つ＝区分所有者と議決権の各4/5。下の帯はほかの決議）'},
  {cue:'配偶者居住権',spell:'相続 <span class="ng">されない</span>'},
  {cue:'人身の損害の時効',spell:'知った時から <mark>5年</mark>'},
  {cue:'保証人',spell:'主たる債務者の不利は<br>保証人に <span class="ng">及ばない</span>',sub:'後からの加重・時効利益の放棄'},
@@ -154,7 +154,7 @@ CARDS.forEach((c,i)=>{
     if(c.pair) body+=`<div class="pair">${c.pair.map(p=>`<div><div class="k">${p[0]}</div>${p[1]}</div>`).join('')}</div>`;
     if(c.clock) body+=`<div class="clock">${c.clock.map(p=>`<div><span class="t">${p[0]}</span><span class="w">${p[1]}</span></div>`).join('')}</div>`;
     if(c.sub) body+=`<div class="sub">${c.sub}</div>`;
-    if(c.img) body+=`<a class="fig big" href="${IMG}${c.img}.webp" target="_blank" rel="noopener"><img loading="lazy" src="${IMG}${c.img}.webp" alt="${c.cap}"></a>`;
+    if(c.img) body+=`<a class="fig big" href="${IMG}${c.img}.webp${c.v?'?v='+c.v:''}" target="_blank" rel="noopener"><img loading="lazy" src="${IMG}${c.img}.webp${c.v?'?v='+c.v:''}" alt="${c.cap}"></a>`;
     if(c.fig) body+=`<a class="fig" href="${APP}#${c.fig}" target="_blank" rel="noopener"><img loading="lazy" src="${IMG}${FILE[c.fig]||c.fig}.webp" alt="${c.cap||c.fig}"></a><div class="figcap">${c.cap||''}（タップで大きく）</div>`;
   }
   sec.innerHTML=`<div class="bar" style="width:${pct}%"></div>
