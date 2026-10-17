@@ -58,6 +58,8 @@
 <script>
 const APP='https://ikedhidenori.github.io/jp/plain-0ee08412cf31b48f.html';
 const IMG='https://ikedhidenori.github.io/jp/takken-zukai-0ee08412/';
+// 図番号 → 実際のファイル名（アプリと同じ物）。無い番号はそのまま zkNN.webp
+const FILE={zk27:'zk27-lease-v1',zk32:'zk32-license-process-v1',zk34:'zk34-guarantee-route-v1',zk37:'zk37-fee-frames-v1',zk38:'zk38-kakunin-min-v1'};
 // 1枚=1つの決まり。文字は最小。数字と条件だけ強調。
 const CARDS=[
  {div:'読む前の手続き',sub:'転記ミスと言い違いを消す。4つ'},
@@ -144,7 +146,7 @@ CARDS.forEach((c,i)=>{
     if(c.pair) body+=`<div class="pair">${c.pair.map(p=>`<div><div class="k">${p[0]}</div>${p[1]}</div>`).join('')}</div>`;
     if(c.clock) body+=`<div class="clock">${c.clock.map(p=>`<div><span class="t">${p[0]}</span><span class="w">${p[1]}</span></div>`).join('')}</div>`;
     if(c.sub) body+=`<div class="sub">${c.sub}</div>`;
-    if(c.fig) body+=`<a class="fig" href="${APP}#${c.fig}" target="_blank" rel="noopener"><img loading="lazy" src="${IMG}${c.fig}.webp" alt="${c.cap||c.fig}"></a><div class="figcap">${c.cap||''}（タップで大きく）</div>`;
+    if(c.fig) body+=`<a class="fig" href="${APP}#${c.fig}" target="_blank" rel="noopener"><img loading="lazy" src="${IMG}${FILE[c.fig]||c.fig}.webp" alt="${c.cap||c.fig}"></a><div class="figcap">${c.cap||''}（タップで大きく）</div>`;
   }
   sec.innerHTML=`<div class="bar" style="width:${pct}%"></div>
     <div class="head"><b>${subj}</b><span>${i+1} / ${total}</span></div>
