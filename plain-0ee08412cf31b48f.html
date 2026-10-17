@@ -715,7 +715,8 @@ body.pm.cq-compact #ttl{display:none}
 a.cq-wide-btn{color:inherit;text-decoration:none}
 
 /* 残り3日の集中モード（10/16〜）。前の画面は消さずに隠す */
-#tab-s,#tab-q,#tab-c{display:none!important}
+/* 10/18 本人「スライドも確認したい」→ スライドのタブを戻す */
+#tab-q,#tab-c{display:none!important}
 #pm-dashboard:not(.fx-show-old)>:not(#focus){display:none!important}
 #pm-dashboard.fx-show-old #focus .fx-sec{display:none}
 .fx{max-width:640px;margin:0 auto;padding:4px 2px 40px;line-height:1.6}
@@ -990,50 +991,64 @@ body.kf #slides,body.kf #ft{display:none}body.kf #kenri-fig{display:block}
 <!-- 神問題集2026 progress module: inserted by build.py into the app shell. -->
 <section id="pm-dashboard" aria-label="神問題集2026 学習進捗" hidden>
   <div id="focus" class="fx">
-<p class="fx-k">残り3日の集中モード　本試験 10/18（日）13:00</p>
-<p class="fx-upd">10/17 夜 更新</p>
-<a class="fx-more" href="takken-review-0ee08412/spells.html" target="_blank" rel="noopener" style="display:block;margin:4px 0 10px;padding:12px 14px;border:1px solid currentColor;border-radius:10px;text-decoration:none;color:inherit;font-weight:700">🃏 呪文カード（63枚・片手でサクサク）→<small style="display:block;font-weight:400;opacity:.7">10/18 の朝はこれと対比シートだけ。新しい問題はやらない</small></a>
+<p class="fx-k">当日　本試験 10/18（日）13:00〜15:00</p>
+<p class="fx-upd">10/18 0:50 更新</p>
+<p class="fx-one">今日は新しい物をやらない。落とした所を見るだけ。合格点 36〜37。</p>
 
 <section class="fx-sec">
-<h2>攻める所</h2>
-<p class="fx-one">目的は本番で合格点（36〜37点）。点になる所を落とさない。点にならない細部は捨てる。</p>
-<table class="fx-t">
-<tr><th>科目</th><th>目標</th><th>模試4</th><th>差</th></tr>
-<tr><td>業法</td><td>18</td><td>15</td><td class="fx-x">−3</td></tr>
-<tr><td>税・価格</td><td>2</td><td>0</td><td class="fx-x">−2</td></tr>
-<tr><td>免除</td><td>4</td><td>3</td><td class="fx-x">−1</td></tr>
-<tr><td>法令・権利</td><td>14</td><td>14</td><td>0</td></tr>
+<h2>① 朝・家　7:45〜8:30</h2>
+<ul class="fx-l">
+<li><b>呪文カード 1周</b>　10〜15分。読む前の手続き4枚 → 業法 → 今夜の5枚</li>
+<li><b>持ち物</b>　受験票・腕時計（通信なし、アラーム解除）・鉛筆かシャープ2本・消しゴム・上着</li>
+<li><b>8:30 出発</b>　バス1本、降りてから歩く</li>
+</ul>
+<a class="fx-more" href="takken-review-0ee08412/spells.html" target="_blank" rel="noopener" style="display:block;margin:4px 0 2px;padding:12px 14px;border:1px solid currentColor;border-radius:10px;text-decoration:none;color:inherit;font-weight:700">🃏 呪文カード（63枚・片手でサクサク）→</a>
+</section>
+
+<section class="fx-sec">
+<h2>② 移動中　8:30〜9:20</h2>
+<ul class="fx-l">
+<li><b>イヤホンで音声ラリー</b>　下の「ラリー」→「全セット連続」。1周 約18分。答えられなくても止めない（問いの後 0.7秒で答えが来る）</li>
+<li><b>落とした札</b>　「落とした → 最後にもう一度」を押すだけ。2周目はそれだけ回る</li>
+<li>歩く時は画面を見ない。耳だけ</li>
+</ul>
+<a class="fx-more" href="#rally" data-tab="r" style="display:block;margin:4px 0 2px;padding:12px 14px;border:1px solid currentColor;border-radius:10px;text-decoration:none;color:inherit;font-weight:700">🎧 ラリーを開く →</a>
+</section>
+
+<section class="fx-sec">
+<h2>③ ロイホ　9:20〜11:00</h2>
+<table class="fx-t fx-plan">
+<tr><th>いつ</th><th>やること</th></tr>
+<tr><td>9:20〜10:10</td><td><b>間違えた問題を原文で</b>　Claude アプリの「宅建」プロジェクトで「<b>間違えた問題</b>」と言う（R3・10月 11問 → 模試4 18問）。1問1分半、迷ったら「飛ばす」</td></tr>
+<tr><td>10:10〜10:30</td><td><b>対比シート4枚（紙）</b>　35/37（損賠の予定と代金以外の金銭・建物状況調査）→ 保証金と協会（公告不要の3つ）→ 取得税と固定資産税</td></tr>
+<tr><td>10:30〜10:45</td><td><b>呪文カード</b>　今夜の5枚 → 落とした所だけ</td></tr>
+<tr><td>10:45〜11:00</td><td><b>再発の4つ</b>と下の「本番の解き方」を1回読む</td></tr>
+<tr><td>11:00〜11:30</td><td>昼食（軽め）。11:40 に出る。歩いて約20分</td></tr>
 </table>
 <ul class="fx-l">
-<li><b>誤りの文を○にする</b>　模試4で印が逆の25肢のうち20肢</li>
-<li><b>業法の7問がまぐれ</b>　問30・35・38・39・40・43・44</li>
-<li><b>解説後も再発</b>　売主に重説は不要／正誤の言い違い／耐震診断は内容／業者が買主なら8種制限なし</li>
+<li><b>再発の4つ</b>　売主に重説は不要／理由が合っていても正誤を言い違える → 「一致・不一致」を言う／耐震診断は「内容」／業者が買主なら8種制限なし</li>
 </ul>
-<div class="fx-figs"><p class="fx-figk">この論点の図（タップで開く）</p><div class="fx-row">
-<button type="button" data-zk="zk44"><img src="takken-zukai-0ee08412/zk44.webp?v=w3" alt="図44 住宅の税" loading="lazy"><span>図44 住宅の税</span></button>
-<button type="button" data-zk="zk46"><img src="takken-zukai-0ee08412/zk46.webp?v=w1" alt="図46 地価公示" loading="lazy"><span>図46 地価公示</span></button>
-<button type="button" data-zk="zk48"><img src="takken-zukai-0ee08412/zk48.webp?v=w1" alt="図48 統計" loading="lazy"><span>図48 統計</span></button>
-<button type="button" data-zk="zk45"><img src="takken-zukai-0ee08412/zk45.webp?v=w1" alt="図45 取戻しの公告" loading="lazy"><span>図45 取戻しの公告</span></button>
-<button type="button" data-zk="zk34"><img src="takken-zukai-0ee08412/zk34-video.webp?v=scope1" alt="図34 供託所と協会" loading="lazy"><span>図34 供託所と協会</span></button>
-<button type="button" data-zk="zk32"><img src="takken-zukai-0ee08412/zk32-video.webp?v=scope1" alt="図32 登録と宅建士証" loading="lazy"><span>図32 登録と士証</span></button>
-<button type="button" data-zk="zk27"><img src="takken-zukai-0ee08412/zk27-lease-v1.webp?v=w1" alt="図27 37条書面" loading="lazy"><span>図27 37条書面</span></button>
-</div></div>
-<a class="fx-more" href="takken-review-0ee08412/chokuzen.html" target="_blank" rel="noopener">くわしい傾向 →</a>
-</section>
-
-<section class="fx-sec fx-now">
-<h2>今回の1回分</h2>
-<p class="fx-what">13:00〜15:00 通し R3・10月 全50問</p>
-<dl class="fx-dl">
-<dt>順番</dt><dd>免除→税価→業法→法令→権利→転記・見直し（下の「本番の解き方」どおり）</dd>
-<dt>印</dt><dd>問いの文末に○／×／コ。肢は ○ × ○? ×? ?。×は嘘の一語に下線</dd>
-<dt>気をつける</dt><dd>理由が出たら、肢の文と同じことを言っているか見てから印（正誤の言い違い）</dd>
-<dt>終わったら</dt><dd>新しいスレで「通しが終わった」→ 採点と、印が逆・迷いの肢だけ解き直し</dd>
-</dl>
 </section>
 
 <section class="fx-sec">
-<h2>今日の結果と残った所</h2>
+<h2>④ 会場　12:00〜13:00</h2>
+<ul class="fx-l">
+<li><b>12:00 正門 → 12:15 までに着席</b>　スマホは電源を切って封筒へ。12:30 から説明</li>
+<li><b>見るのは2つだけ</b>　呪文カードの「読む前の手続き」4枚と、下の「本番の解き方」。新しい物は見ない</li>
+<li><b>時計の関所</b>　13:54 業法 終わり／14:08 法令 終わり／14:48 権利 終わり／残り12分は転記の照合だけ</li>
+<li>迷った問いは印を付けて後回し。最後の12分で戻る</li>
+</ul>
+</section>
+
+<section class="fx-sec">
+<h2>本番の解き方</h2>
+<div class="fx-flow fx-flow6"><div><b>免除</b><span>46〜50<br>8分</span></div><div><b>税価</b><span>23〜25<br>6分</span></div><div><b>業法</b><span>26〜45<br>40分</span></div><div><b>法令</b><span>15〜22<br>14分</span></div><div><b>権利</b><span>1〜14<br>40分</span></div><div><b>転記・見直し</b><span><br>12分</span></div></div>
+<ul class="fx-l fx-rules"><li>税価で知らない論点は1分で切る。</li><li>マークは科目のかたまりごとに転記（最後にまとめない）。</li><li>1問3分で印を付けて次へ。業法・免除は全部の肢に印、権利は確信が持てたら次へ。</li><li>漢字は書かない。速記は整っていなくてよい。</li></ul>
+<table class="fx-t fx-marks"><tr><th>どこに</th><th>印・速記</th></tr><tr><td>問いの文末</td><td>問番号の左に 正＝○／誤＝×／個数＝「コ」。選ぶ直前に必ず見る</td></tr><tr><td>肢</td><td>○　×　○?　×?　?（全く分からない）。△は使わない</td></tr><tr><td>×の肢</td><td>嘘の一語にだけ下線</td></tr><tr><td>個数問題</td><td>全部の肢に印を付けてから数え、数を丸で囲む</td></tr><tr><td>人</td><td>宅建業者は四角で囲む。業者でない人はそのまま</td></tr><tr><td>矢印</td><td>売買は物が動く向きの矢印だけ。賃貸は矢印に「チ」、時間の順は①②③</td></tr><tr><td>カナ1字</td><td>媒介「バ」・代理「ダ」・抵当権「テ」・登記あり「レ」（人の横）・善意「ゼ」・悪意「ア」</td></tr></table>
+</section>
+
+<section class="fx-sec">
+<h2>10/17 までの結果と残った所</h2>
 <table class="fx-t">
 <tr><th>10/16〜17</th><th>結果</th></tr>
 <tr><td>まぐれ7問（模試4 業法）</td><td>7/7（迷いの肢は理由まで6/9）</td></tr>
@@ -1052,18 +1067,6 @@ body.kf #slides,body.kf #ft{display:none}body.kf #kenri-fig{display:block}
 <li><b>数字</b>　建物譲渡特約は30年以上／転借人への通知は6か月／事務所新設の分担金は2週間以内／士証の更新は申請前6か月以内の講習</li>
 <li><b>統計</b>　着工は全部減（持家だけ4年連続、ほかは3年連続）。地価公示は5年連続上昇</li>
 </ul>
-</section>
-
-<section class="fx-sec">
-<h2>今日 10/17</h2>
-<table class="fx-t fx-plan">
-<tr><th>いつ</th><th>やること</th></tr>
-<tr><td>8:00</td><td>起床</td></tr>
-<tr><td>午前（軽く）</td><td>（済）35条・37条の後半10肢・まぐれ7問</td></tr>
-<tr><td><b>13:00〜15:00</b></td><td><b>通し R3・10月</b>（本番と同じ順番・時間・印）</td></tr>
-<tr><td>15:30〜</td><td>採点 → 印が逆・迷いの肢だけ解き直し</td></tr>
-<tr><td>夜</td><td>見るだけ。22:00 寝る</td></tr>
-</table>
 </section>
 
 <section class="fx-sec">
@@ -1120,17 +1123,9 @@ body.kf #slides,body.kf #ft{display:none}body.kf #kenri-fig{display:block}
 <ul class="fx-l"><li>特定盛土等は、規制区域と同じ規模なら着手30日前に届出。規制区域に届出の段はない（指定時に工事中は21日以内に届出）</li><li>厳しいのは規制区域（街なか）。特定盛土等はその外</li></ul>
 </section>
 
-<section class="fx-sec">
-<h2>本番の解き方</h2>
-<div class="fx-flow fx-flow6"><div><b>免除</b><span>46〜50<br>8分</span></div><div><b>税価</b><span>23〜25<br>6分</span></div><div><b>業法</b><span>26〜45<br>40分</span></div><div><b>法令</b><span>15〜22<br>14分</span></div><div><b>権利</b><span>1〜14<br>40分</span></div><div><b>転記・見直し</b><span><br>12分</span></div></div>
-<ul class="fx-l fx-rules"><li>税価で知らない論点は1分で切る。</li><li>マークは科目のかたまりごとに転記（最後にまとめない）。</li><li>1問3分で印を付けて次へ。業法・免除は全部の肢に印、権利は確信が持てたら次へ。</li><li>漢字は書かない。速記は整っていなくてよい。</li></ul>
-<table class="fx-t fx-marks"><tr><th>どこに</th><th>印・速記</th></tr><tr><td>問いの文末</td><td>問番号の左に 正＝○／誤＝×／個数＝「コ」。選ぶ直前に必ず見る</td></tr><tr><td>肢</td><td>○　×　○?　×?　?（全く分からない）。△は使わない</td></tr><tr><td>×の肢</td><td>嘘の一語にだけ下線</td></tr><tr><td>個数問題</td><td>全部の肢に印を付けてから数え、数を丸で囲む</td></tr><tr><td>人</td><td>宅建業者は四角で囲む。業者でない人はそのまま</td></tr><tr><td>矢印</td><td>売買は物が動く向きの矢印だけ。賃貸は矢印に「チ」、時間の順は①②③</td></tr><tr><td>カナ1字</td><td>媒介「バ」・代理「ダ」・抵当権「テ」・登記あり「レ」（人の横）・善意「ゼ」・悪意「ア」</td></tr></table>
-</section>
-
 <button type="button" class="fx-old" id="fx-old">前の画面（記録・予定）を見る</button>
+<script>(function(){document.querySelectorAll('#focus [data-tab]').forEach(function(a){a.addEventListener('click',function(e){if(window.tab){e.preventDefault();window.tab(a.dataset.tab);}});});})();</script>
 </div>
-<script>(function(){var b=document.getElementById('fx-old'),d=document.getElementById('pm-dashboard');if(!b||!d)return;document.querySelectorAll('#focus [data-zk]').forEach(function(x){x.onclick=function(){if(window.openDiagram)openDiagram(x.dataset.zk);};});b.onclick=function(){var on=d.classList.toggle('fx-show-old');b.textContent=on?'集中モードだけにする':'前の画面（記録・予定）を見る';};})();</script>
-
   <header class="pm-head"><div><p class="pm-kicker">神問題集 2026</p><h1>学習進捗</h1></div></header>
   <div id="pm-status" class="pm-status" role="status" aria-live="polite"></div>
   <button type="button" class="kami-entry" data-kami-open>神問題集を解き直す<small>取り込んだ写真の問題・一問一答を出題</small></button>
