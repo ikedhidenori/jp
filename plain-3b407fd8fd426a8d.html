@@ -1,0 +1,70 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Switchのキャプチャー 買うもの1つ</title>
+<style>
+:root{--bg:#fff;--fg:#1c1c1c;--mu:#666;--ln:#d6d6d6;--bx:#f4f4f2}
+@media(prefers-color-scheme:dark){:root{--bg:#242220;--fg:#ece7de;--mu:#a8a198;--ln:#4a4743;--bx:#2f2c29}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,"Hiragino Sans",sans-serif;padding:20px;max-width:640px;margin:auto}
+h1{font-size:22px;margin:8px 0 4px}h2{font-size:17px;margin:28px 0 8px;border-bottom:1px solid var(--ln);padding-bottom:4px}
+.mu{color:var(--mu);font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid var(--ln);padding:6px 4px;text-align:left;vertical-align:top}th{font-weight:600;color:var(--mu)}
+.big{font-size:30px;font-weight:700}
+svg{width:100%;height:auto}svg text{fill:var(--fg);font:12px -apple-system,sans-serif}svg .b{fill:var(--bx);stroke:var(--fg);stroke-width:1.2}svg .l{stroke:var(--fg);stroke-width:1.5;fill:none}svg .m{fill:var(--mu)}
+</style></head><body>
+<h1>Switchのキャプチャー、買うのは1つ</h1>
+<p class="mu">2026-11-08 作成。価格は 11/8 に見た値。変わるので注文時に確かめる。</p>
+<p>おすすめ: <b>UGREEN 25173 + 5m USB-C アクティブ延長</b><br><span class="big">約 15,000円</span></p>
+<p>Switch 1 の出力は 1080p60 まで。地図の自動反映も録画も、1080p60 の取り込みで足りる。高い物は要らない。</p>
+
+<h2>つなぎ方</h2>
+<svg viewBox="0 0 400 250" role="img" aria-label="接続図">
+<rect class="b" x="130" y="8" width="140" height="34" rx="6"/><text x="200" y="30" text-anchor="middle">Anker プロジェクター(天井 2100mm)</text>
+<rect class="b" x="20" y="110" width="110" height="40" rx="6"/><text x="75" y="134" text-anchor="middle">Switch ドック</text>
+<rect class="b" x="165" y="110" width="110" height="40" rx="6"/><text x="220" y="134" text-anchor="middle">キャプチャー</text>
+<rect class="b" x="300" y="200" width="90" height="40" rx="6"/><text x="345" y="224" text-anchor="middle">dejima</text>
+<path class="l" d="M130 130H165"/><text x="147" y="104" text-anchor="middle" class="m">短いHDMI</text>
+<path class="l" d="M220 110V42H200"/><text x="226" y="80" class="m">今のHDMIケーブル</text>
+<path class="l" d="M220 150V220H300"/><text x="150" y="215" class="m">USB-C 5m アクティブ</text>
+<text x="20" y="168" class="m">ベッドボード(床600mm)</text>
+</svg>
+<p class="mu">ベッドボードの電源口: <b>増えない</b>。Switch ドックの AC アダプタ(今の1口)だけ。キャプチャーは USB から給電される。</p>
+
+<h2>型番</h2>
+<table>
+<tr><th></th><th>(a) コスパ ★</th><th>(b) 実況まで</th></tr>
+<tr><th>名前</th><td>UGREEN 4K@60Hz キャプチャー 25173</td><td>Elgato Game Capture 4K S</td></tr>
+<tr><th>値段</th><td>9,999円(価格.com 経由 Amazon 11/8。別集計で 12,999円 の記載もあり)</td><td>22,980円(Elgato 公式 11/8)</td></tr>
+<tr><th>パススルー</th><td>4K60 の記載(販売ページ)</td><td>4K60 / 1080p240、遅延なし</td></tr>
+<tr><th>取り込み</th><td>1080p60</td><td>1080p60〜4K60</td></tr>
+<tr><th>遅れ</th><td>公称なし(未確認)</td><td>最小 30ms</td></tr>
+<tr><th>電源</th><td>USB 給電</td><td>記載なし(USB 給電が普通)</td></tr>
+<tr><th>macOS</th><td>UVC 想定でドライバ不要。<b>USB 規格は販売元で 2.0/3.0 が割れている</b></td><td>macOS 14.2 以上。dejima は 26.6 で可</td></tr>
+<tr><th>OBS</th><td>UVC 機器として映る</td><td>OBS 対応。専用ソフトもあり</td></tr>
+<tr><th>大きさ</th><td>手のひら級(寸法は未確認)</td><td>112×72×18mm・90g</td></tr>
+</table>
+<p class="mu">Elgato の前モデル HD60 X は販売終了(公式)。後継が 4K S。</p>
+
+<h2>ケーブル</h2>
+<table>
+<tr><th>推奨</th><td>サンワサプライ KB-USB-RCC305(USB-C 同士・5m・USB3.1 Gen1 アクティブ)</td></tr>
+<tr><th>値段</th><td>4,972円〜(価格.com 11/8)</td></tr>
+<tr><th>なぜこれか</th><td>dejima(MacBook Air M2)の口は USB-C が2つ(Thunderbolt/USB4)。キャプチャー側も USB-C。変換なしで届く。</td></tr>
+<tr><th>HDMI 5m</th><td>不要。映像は Switch の横で分かれ、長く引くのは USB だけ。</td></tr>
+<tr><th>注意</th><td>給電の要否は商品ページに明記なし。認識しない時は、dejima 側にセルフパワーのハブを挟む。</td></tr>
+</table>
+
+<h2>合計</h2>
+<table>
+<tr><th>UGREEN 25173</th><td>9,999円</td></tr>
+<tr><th>5m USB-C アクティブ</th><td>4,972円</td></tr>
+<tr><th><b>合計</b></th><td><b>14,971円</b></td></tr>
+</table>
+<p class="mu">Switch ドック〜キャプチャー間の短い HDMI は付属しなければ約 1,000円(未確認)。実況まで欲しければ (b) に替えて合計約 27,950円。</p>
+
+<h2>何のため・やめる基準</h2>
+<p><b>何のため</b>: ①地図・冒険手帳の画面を dejima で受け、niihama が読んでハイラル地図に反映する ②二人で遊ぶ様子の録画・配信を試す。</p>
+<p><b>確かめ方</b>: 2週間使い、手でスクショを送る回数が減ったかを見る。</p>
+<p><b>やめる基準</b>: 減らなければ録画・配信用に回す。それも使わなければ手放す(約 15,000円)。</p>
+
+<h2>残る不確かさ</h2>
+<p class="mu">UGREEN の USB 規格と遅れは未確認(箱・公式で要確認)。5m ケーブル経由での安定は実機でないと分からない。無線は勧めない(映像の遅れと途切れが出るため。これは一般論で、ここでは測っていない)。</p>
+</body></html>
